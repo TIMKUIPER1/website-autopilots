@@ -72,21 +72,32 @@
       "body{top:0!important}",
       ".goog-te-combo{display:none!important}",
       "#google_translate_element{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}",
-      "#ap-website-translator{position:fixed;bottom:18px;z-index:2147483000;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101010}",
-      "#ap-website-translator.ap-pos-bottom-left{left:18px}",
-      "#ap-website-translator.ap-pos-bottom-right{right:18px}",
+      "#ap-website-translator{position:fixed;left:18px!important;right:auto!important;bottom:18px!important;z-index:2147483000;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101010}",
+      "#ap-website-translator.ap-pos-bottom-left{left:18px!important;right:auto!important}",
+      "#ap-website-translator.ap-pos-bottom-right{left:auto!important;right:18px!important}",
       "#ap-website-translator *{box-sizing:border-box}",
       "#ap-website-translator .ap-shell{display:flex;align-items:center;gap:8px;width:min(360px,calc(100vw - 28px));padding:8px;border:1px solid rgba(16,16,16,.12);border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 18px 52px rgba(16,16,16,.16);backdrop-filter:blur(16px)}",
       "#ap-website-translator .ap-mark{width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;border-radius:999px;background:#101010;color:#fff;font-size:11px;font-weight:900;letter-spacing:1.4px}",
-      "#ap-website-translator .ap-select-wrap{position:relative;flex:1;min-width:0}",
-      "#ap-website-translator select{width:100%;height:42px;border:0;outline:0;appearance:none;background:transparent;color:#101010;font:inherit;font-size:14px;font-weight:900;padding:0 34px 0 8px;cursor:pointer}",
-      "#ap-website-translator .ap-chevron{position:absolute;right:11px;top:50%;width:9px;height:9px;border-right:2px solid #101010;border-bottom:2px solid #101010;transform:translateY(-65%) rotate(45deg);pointer-events:none}",
+      "#ap-website-translator .ap-picker{position:relative;flex:1;min-width:0}",
+      "#ap-website-translator .ap-language-button{width:100%;height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:999px;background:transparent;color:#101010;font:inherit;font-size:14px;font-weight:900;text-align:left;padding:0 12px 0 8px;cursor:pointer}",
+      "#ap-website-translator .ap-language-button:focus-visible,#ap-website-translator .ap-close:focus-visible,#ap-website-translator .ap-open:focus-visible,#ap-website-translator .ap-language-option:focus-visible{outline:2px solid rgba(168,56,38,.34);outline-offset:2px}",
+      "#ap-website-translator .ap-current{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      "#ap-website-translator .ap-chevron{width:9px;height:9px;flex:0 0 auto;border-right:2px solid #101010;border-bottom:2px solid #101010;transform:translateY(-2px) rotate(45deg);transition:transform .18s ease}",
+      "#ap-website-translator.is-open .ap-chevron{transform:translateY(2px) rotate(225deg)}",
+      "#ap-website-translator .ap-language-menu{position:absolute;left:0;bottom:calc(100% + 12px);width:min(270px,calc(100vw - 36px));max-height:min(430px,calc(100vh - 150px));overflow:auto;padding:8px;border:1px solid rgba(16,16,16,.12);border-radius:22px;background:rgba(255,255,255,.98);box-shadow:0 24px 70px rgba(16,16,16,.18);backdrop-filter:blur(18px);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s ease,transform .18s ease,visibility .18s ease}",
+      "#ap-website-translator.ap-pos-bottom-right .ap-language-menu{left:auto;right:0}",
+      "#ap-website-translator.is-open .ap-language-menu{opacity:1;visibility:visible;transform:translateY(0)}",
+      "#ap-website-translator .ap-language-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:14px;background:transparent;color:#101010;font:inherit;font-size:14px;font-weight:850;text-align:left;padding:11px 12px;cursor:pointer}",
+      "#ap-website-translator .ap-language-option:hover{background:#f7ebe7;color:#a63826}",
+      "#ap-website-translator .ap-language-option.is-active{background:#f3dfd9;color:#a63826}",
+      "#ap-website-translator .ap-language-option.is-active:after{content:'✓';font-weight:950}",
       "#ap-website-translator .ap-close{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;border:1px solid rgba(16,16,16,.1);border-radius:999px;background:#fff;color:#101010;font-size:20px;line-height:1;font-weight:700;cursor:pointer}",
       "#ap-website-translator.is-minimized .ap-shell{width:auto;padding:7px}",
-      "#ap-website-translator.is-minimized .ap-select-wrap,#ap-website-translator.is-minimized .ap-close{display:none}",
+      "#ap-website-translator.is-minimized .ap-picker,#ap-website-translator.is-minimized .ap-close{display:none}",
+      "#ap-website-translator.is-minimized .ap-logo-text{display:none}",
       "#ap-website-translator .ap-open{display:none;border:0;background:transparent;color:#fff;font-size:11px;font-weight:900;letter-spacing:1.2px;cursor:pointer}",
       "#ap-website-translator.is-minimized .ap-open{display:block}",
-      "@media(max-width:560px){#ap-website-translator{left:10px!important;right:10px!important;bottom:10px}#ap-website-translator .ap-shell{width:calc(100vw - 20px);border-radius:26px;flex-wrap:wrap}#ap-website-translator .ap-mark{width:42px;height:42px}#ap-website-translator .ap-select-wrap{flex:1 1 calc(100% - 92px)}}"
+      "@media(max-width:560px){#ap-website-translator{left:10px!important;right:auto!important;bottom:10px!important}#ap-website-translator.ap-pos-bottom-right{left:10px!important;right:auto!important}#ap-website-translator .ap-shell{width:calc(100vw - 20px);border-radius:26px;flex-wrap:wrap}#ap-website-translator .ap-mark{width:42px;height:42px}#ap-website-translator .ap-picker{flex:1 1 calc(100% - 92px)}#ap-website-translator .ap-language-menu{left:0!important;right:auto!important;width:calc(100vw - 20px);bottom:calc(100% + 10px)}}"
     ].join("");
     document.head.appendChild(style);
   }
@@ -122,16 +133,21 @@
     var widget = document.createElement("div");
     widget.id = "ap-website-translator";
     widget.className = widgetPosition === "bottom-right" ? "ap-pos-bottom-right" : "ap-pos-bottom-left";
+    var savedLabel = (languages.find(function (item) { return item.code === saved; }) || languages[0]).label;
+
     widget.innerHTML = [
       '<div class="ap-shell">',
-      '<div class="ap-mark" aria-hidden="true"><button class="ap-open" type="button" aria-label="Open translator">AP</button><span class="ap-logo-text">AP</span></div>',
-      '<div class="ap-select-wrap">',
-      '<select aria-label="Choose website language">',
-      languages.map(function (item) {
-        return '<option value="' + item.code + '"' + (item.code === saved ? " selected" : "") + ">" + item.label + "</option>";
-      }).join(""),
-      "</select>",
+      '<div class="ap-mark"><button class="ap-open" type="button" aria-label="Open translator">AP</button><span class="ap-logo-text">AP</span></div>',
+      '<div class="ap-picker">',
+      '<button class="ap-language-button" type="button" aria-label="Choose website language" aria-expanded="false">',
+      '<span class="ap-current">' + savedLabel + '</span>',
       '<span class="ap-chevron" aria-hidden="true"></span>',
+      "</button>",
+      '<div class="ap-language-menu" role="listbox">',
+      languages.map(function (item) {
+        return '<button class="ap-language-option' + (item.code === saved ? " is-active" : "") + '" type="button" role="option" aria-selected="' + (item.code === saved ? "true" : "false") + '" data-lang="' + item.code + '">' + item.label + "</button>";
+      }).join(""),
+      "</div>",
       "</div>",
       '<button class="ap-close" type="button" aria-label="Minimize translator">&times;</button>',
       "</div>"
@@ -139,15 +155,40 @@
 
     document.body.appendChild(widget);
 
-    var select = widget.querySelector("select");
+    var pickerButton = widget.querySelector(".ap-language-button");
+    var languageButtons = widget.querySelectorAll(".ap-language-option");
     var close = widget.querySelector(".ap-close");
     var open = widget.querySelector(".ap-open");
 
-    select.addEventListener("change", function () {
-      applyLanguage(select.value || "nl");
+    pickerButton.addEventListener("click", function () {
+      var isOpen = widget.classList.toggle("is-open");
+      pickerButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    Array.prototype.forEach.call(languageButtons, function (button) {
+      button.addEventListener("click", function () {
+        var lang = button.getAttribute("data-lang") || "nl";
+        applyLanguage(lang);
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!widget.contains(event.target)) {
+        widget.classList.remove("is-open");
+        pickerButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        widget.classList.remove("is-open");
+        pickerButton.setAttribute("aria-expanded", "false");
+      }
     });
 
     close.addEventListener("click", function () {
+      widget.classList.remove("is-open");
+      pickerButton.setAttribute("aria-expanded", "false");
       widget.classList.add("is-minimized");
       try { localStorage.setItem("ap_translator_minimized", "1"); } catch (error) {}
     });

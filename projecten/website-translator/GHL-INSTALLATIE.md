@@ -1,12 +1,17 @@
 # Autopilots Website Translator in GHL
 
-Gebruik bij voorkeur de script-versie. Die kun je eenmalig in de body/footer van je website plaatsen. De widget verschijnt dan rechtsonder op de pagina en vertaalt de hele pagina.
+Gebruik bij voorkeur de script-versie. Die kun je eenmalig in de body/footer van je website plaatsen. De widget verschijnt linksonder op de pagina en vertaalt de hele pagina.
 
 ## Plaats deze script-tag in de body/footer
 
 ```html
-<script src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js"></script>
+<script
+  src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=3"
+  data-position="bottom-left">
+</script>
 ```
+
+Plaats daarnaast niet ook nog de losse GTranslate float-widget. Die maakt een tweede vertaalmenu aan en kan de styling/positie verstoren.
 
 ## Talen
 
