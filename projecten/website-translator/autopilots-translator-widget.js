@@ -28,7 +28,6 @@
   var autoDetect = !currentScript || currentScript.getAttribute("data-auto-detect") !== "false";
   var explicitShowWidget = currentScript && currentScript.getAttribute("data-show-widget");
   var isEmbedded = false;
-  var pendingLanguage = "";
 
   try {
     isEmbedded = window.self !== window.top;
@@ -38,24 +37,6 @@
 
   var showWidget = explicitShowWidget ? explicitShowWidget !== "false" : !isEmbedded;
 
-  function getCookieDomainCandidates() {
-    var host = window.location.hostname;
-    var candidates = [""];
-
-    if (!host || host === "localhost" || /^[0-9.]+$/.test(host)) {
-      return candidates;
-    }
-
-    candidates.push(host);
-
-    var parts = host.split(".");
-    if (parts.length > 2 && host.indexOf("github.io") === -1) {
-      candidates.push("." + parts.slice(-2).join("."));
-    }
-
-    return candidates;
-  }
-
   function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -63,11 +44,7 @@
       date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
       expires = "; expires=" + date.toUTCString();
     }
-
-    getCookieDomainCandidates().forEach(function (domain) {
-      var domainPart = domain ? "; domain=" + domain : "";
-      document.cookie = name + "=" + value + expires + "; path=/" + domainPart;
-    });
+    document.cookie = name + "=" + value + expires + "; path=/";
   }
 
   function getSavedLanguage() {
@@ -143,14 +120,10 @@
     saveLanguage(normalized, source || "manual");
     setGoogleLanguageCookie(normalized);
     broadcastLanguage(normalized);
-    pendingLanguage = normalized;
 
-    if (normalized === "nl" && shouldReload !== false) {
+    if (shouldReload !== false) {
       window.location.reload();
-      return;
     }
-
-    triggerGoogleTranslate(normalized);
   }
 
   function prepareInitialLanguage() {
@@ -171,15 +144,10 @@
     var style = document.createElement("style");
     style.id = "ap-translator-style";
     style.textContent = [
-      ".goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon,.VIpgJd-ZVi9od-ORHb-OEVmcd,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,.VIpgJd-ZVi9od-l4eHX-hSRGPd{display:none!important}",
+      ".goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}",
       "body{top:0!important}",
-      "body>.skiptranslate{display:none!important}",
-      "iframe.skiptranslate{display:none!important}",
-      ".goog-tooltip,.goog-tooltip:hover,.goog-text-highlight{display:none!important;background:transparent!important;box-shadow:none!important}",
-      ".goog-te-gadget{font-size:0!important;color:transparent!important;line-height:0!important}",
-      ".goog-te-gadget span,.goog-te-gadget a{display:none!important}",
-      ".goog-te-combo{position:absolute!important;left:0!important;top:0!important;width:1px!important;height:1px!important;min-width:1px!important;opacity:.01!important;pointer-events:none!important;border:0!important;background:transparent!important;color:transparent!important}",
-      "#google_translate_element{position:fixed!important;left:-20px!important;top:-20px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:.01!important;pointer-events:none!important;z-index:-1!important}",
+      ".goog-te-combo{display:none!important}",
+      "#google_translate_element{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}",
       "#ap-website-translator{position:fixed;left:18px!important;right:auto!important;bottom:18px!important;z-index:2147483000;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101010}",
       "#ap-website-translator.ap-pos-bottom-left{left:18px!important;right:auto!important}",
       "#ap-website-translator.ap-pos-bottom-right{left:auto!important;right:18px!important}",
@@ -210,47 +178,6 @@
     document.head.appendChild(style);
   }
 
-  function triggerGoogleTranslate(lang, attempt) {
-    var normalized = normalizeLanguage(lang) || "nl";
-    var tries = attempt || 0;
-
-    if (normalized === "nl") return true;
-
-    var combo = document.querySelector(".goog-te-combo");
-
-    if (combo) {
-      combo.value = normalized;
-      if (combo.value !== normalized) {
-        if (tries < 50) {
-          window.setTimeout(function () {
-            triggerGoogleTranslate(normalized, tries + 1);
-          }, 200);
-        }
-
-        return false;
-      }
-
-      var event;
-      if (typeof Event === "function") {
-        event = new Event("change", { bubbles: true });
-      } else {
-        event = document.createEvent("HTMLEvents");
-        event.initEvent("change", true, true);
-      }
-
-      combo.dispatchEvent(event);
-      return true;
-    }
-
-    if (tries < 50) {
-      window.setTimeout(function () {
-        triggerGoogleTranslate(normalized, tries + 1);
-      }, 200);
-    }
-
-    return false;
-  }
-
   function injectGoogleTranslate() {
     if (!document.getElementById("google_translate_element")) {
       var holder = document.createElement("div");
@@ -265,10 +192,6 @@
         includedLanguages: includedLanguages,
         autoDisplay: false
       }, "google_translate_element");
-
-      if (pendingLanguage && pendingLanguage !== "nl") {
-        triggerGoogleTranslate(pendingLanguage);
-      }
     };
 
     if (!document.querySelector('script[src*="translate.google.com/translate_a/element.js"]')) {
@@ -276,75 +199,7 @@
       script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
-    } else if (pendingLanguage && pendingLanguage !== "nl") {
-      triggerGoogleTranslate(pendingLanguage);
     }
-  }
-
-  function getDocumentHeight() {
-    var body = document.body || {};
-    var html = document.documentElement || {};
-
-    return Math.max(
-      body.scrollHeight || 0,
-      body.offsetHeight || 0,
-      html.clientHeight || 0,
-      html.scrollHeight || 0,
-      html.offsetHeight || 0
-    );
-  }
-
-  function postIframeHeight() {
-    if (!isEmbedded || !window.parent) return;
-
-    try {
-      window.parent.postMessage({
-        type: "autopilots:iframe-height",
-        height: getDocumentHeight(),
-        href: window.location.href
-      }, "*");
-    } catch (error) {}
-  }
-
-  function setupIframeHeightBridge() {
-    if (isEmbedded) {
-      var postLater = function () {
-        window.requestAnimationFrame(function () {
-          postIframeHeight();
-          window.setTimeout(postIframeHeight, 250);
-          window.setTimeout(postIframeHeight, 1000);
-        });
-      };
-
-      postLater();
-      window.addEventListener("load", postLater);
-      window.addEventListener("resize", postLater);
-
-      if (window.MutationObserver && document.body) {
-        new MutationObserver(postLater).observe(document.body, {
-          childList: true,
-          subtree: true,
-          attributes: true
-        });
-      }
-
-      return;
-    }
-
-    window.addEventListener("message", function (event) {
-      var data = event.data || {};
-      if (data.type !== "autopilots:iframe-height" || !data.height) return;
-
-      var frames = document.querySelectorAll("iframe");
-      Array.prototype.forEach.call(frames, function (frame) {
-        if (frame.contentWindow !== event.source) return;
-
-        var height = Math.max(600, Math.ceil(Number(data.height) || 0) + 24);
-        frame.style.height = height + "px";
-        frame.style.minHeight = height + "px";
-        frame.setAttribute("scrolling", "no");
-      });
-    });
   }
 
   function renderWidget() {
@@ -430,21 +285,16 @@
 
   function init() {
     var initialLanguage = prepareInitialLanguage();
-    pendingLanguage = initialLanguage;
     injectStyles();
-    setupIframeHeightBridge();
     renderWidget();
     injectGoogleTranslate();
-    if (initialLanguage !== "nl") {
-      triggerGoogleTranslate(initialLanguage);
-    }
     broadcastLanguage(initialLanguage);
   }
 
   window.addEventListener("message", function (event) {
     var data = event.data || {};
     if (data.type !== "autopilots:translate") return;
-    applyLanguage(data.language || "nl", "manual", false);
+    applyLanguage(data.language || "nl", "manual", true);
   });
 
   if (document.readyState === "loading") {
