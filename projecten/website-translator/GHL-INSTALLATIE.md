@@ -6,12 +6,16 @@ Gebruik bij voorkeur de script-versie. Die kun je eenmalig in de body/footer van
 
 ```html
 <script
-  src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=3"
+  src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=4"
   data-position="bottom-left">
 </script>
 ```
 
 Plaats daarnaast niet ook nog de losse GTranslate float-widget. Die maakt een tweede vertaalmenu aan en kan de styling/positie verstoren.
+
+De widget kiest automatisch de taal op basis van de browsertaal van de bezoeker. Als iemand handmatig een taal kiest, onthoudt de website die keuze.
+
+Let op bij landingspagina's in een iframe: een script op de hoofdsite kan de inhoud van een iframe niet rechtstreeks aanpassen. Daarom staat er in de GHL-embedpagina's een verborgen translator-laag. Die toont geen tweede knop, maar zorgt wel dat de inhoud van de embedpagina vertaald kan worden.
 
 ## Talen
 

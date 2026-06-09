@@ -21,9 +21,21 @@
   ];
 
   var storageKey = "ap_preferred_language";
+  var sourceKey = "ap_preferred_language_source";
   var includedLanguages = languages.map(function (item) { return item.code; }).join(",");
   var currentScript = document.currentScript;
   var widgetPosition = currentScript && currentScript.getAttribute("data-position") || "bottom-left";
+  var autoDetect = !currentScript || currentScript.getAttribute("data-auto-detect") !== "false";
+  var explicitShowWidget = currentScript && currentScript.getAttribute("data-show-widget");
+  var isEmbedded = false;
+
+  try {
+    isEmbedded = window.self !== window.top;
+  } catch (error) {
+    isEmbedded = true;
+  }
+
+  var showWidget = explicitShowWidget ? explicitShowWidget !== "false" : !isEmbedded;
 
   function setCookie(name, value, days) {
     var expires = "";
@@ -37,29 +49,93 @@
 
   function getSavedLanguage() {
     try {
-      return localStorage.getItem(storageKey) || "nl";
+      return localStorage.getItem(storageKey) || "";
     } catch (error) {
-      return "nl";
+      return "";
     }
   }
 
-  function saveLanguage(lang) {
+  function saveLanguage(lang, source) {
     try {
       localStorage.setItem(storageKey, lang);
+      localStorage.setItem(sourceKey, source || "manual");
     } catch (error) {}
   }
 
-  function applyLanguage(lang) {
-    saveLanguage(lang);
+  function normalizeLanguage(lang) {
+    var value = String(lang || "").toLowerCase();
 
+    if (value.indexOf("zh") === 0) return "zh-CN";
+
+    var shortCode = value.split("-")[0];
+    var match = languages.find(function (item) {
+      return item.code.toLowerCase() === value || item.code.toLowerCase() === shortCode;
+    });
+
+    return match ? match.code : "";
+  }
+
+  function getBrowserLanguage() {
+    var browserLanguages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || navigator.userLanguage || ""];
+
+    for (var index = 0; index < browserLanguages.length; index += 1) {
+      var lang = normalizeLanguage(browserLanguages[index]);
+      if (lang) return lang;
+    }
+
+    return "nl";
+  }
+
+  function getInitialLanguage() {
+    var saved = getSavedLanguage();
+    if (saved) return saved;
+
+    if (!autoDetect) return "nl";
+
+    return getBrowserLanguage() || "nl";
+  }
+
+  function setGoogleLanguageCookie(lang) {
     if (lang === "nl") {
       setCookie("googtrans", "/nl/nl", -1);
       setCookie("googtrans", "", -1);
-    } else {
-      setCookie("googtrans", "/nl/" + lang, 365);
+      return;
     }
 
-    window.location.reload();
+    setCookie("googtrans", "/nl/" + lang, 365);
+  }
+
+  function broadcastLanguage(lang) {
+    var frames = document.querySelectorAll("iframe");
+
+    Array.prototype.forEach.call(frames, function (frame) {
+      try {
+        frame.contentWindow.postMessage({ type: "autopilots:translate", language: lang }, "*");
+      } catch (error) {}
+    });
+  }
+
+  function applyLanguage(lang, source, shouldReload) {
+    var normalized = normalizeLanguage(lang) || "nl";
+    saveLanguage(normalized, source || "manual");
+    setGoogleLanguageCookie(normalized);
+    broadcastLanguage(normalized);
+
+    if (shouldReload !== false) {
+      window.location.reload();
+    }
+  }
+
+  function prepareInitialLanguage() {
+    var saved = getSavedLanguage();
+    var lang = saved || getInitialLanguage();
+
+    if (!saved && lang && lang !== "nl") {
+      saveLanguage(lang, "auto");
+    }
+
+    setGoogleLanguageCookie(lang || "nl");
+    return lang || "nl";
   }
 
   function injectStyles() {
@@ -129,7 +205,9 @@
   function renderWidget() {
     if (document.getElementById("ap-website-translator")) return;
 
-    var saved = getSavedLanguage();
+    if (!showWidget) return;
+
+    var saved = getInitialLanguage();
     var widget = document.createElement("div");
     widget.id = "ap-website-translator";
     widget.className = widgetPosition === "bottom-right" ? "ap-pos-bottom-right" : "ap-pos-bottom-left";
@@ -206,10 +284,18 @@
   }
 
   function init() {
+    var initialLanguage = prepareInitialLanguage();
     injectStyles();
     renderWidget();
     injectGoogleTranslate();
+    broadcastLanguage(initialLanguage);
   }
+
+  window.addEventListener("message", function (event) {
+    var data = event.data || {};
+    if (data.type !== "autopilots:translate") return;
+    applyLanguage(data.language || "nl", "manual", true);
+  });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
