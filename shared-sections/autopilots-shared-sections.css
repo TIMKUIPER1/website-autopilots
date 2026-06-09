@@ -34,11 +34,9 @@
 }
 
 .ap-reusable .ap-section-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
-  gap: 28px;
-  align-items: end;
-  margin-bottom: 30px;
+  display: block;
+  max-width: 900px;
+  margin-bottom: 42px;
 }
 
 .ap-reusable .ap-kicker {
@@ -63,7 +61,8 @@
 }
 
 .ap-reusable .ap-section-text {
-  margin: 0;
+  max-width: 760px;
+  margin: 18px 0 0;
   color: var(--ap-muted);
   font-size: 16px;
   line-height: 1.55;
@@ -129,8 +128,8 @@
 
 .ap-reusable .ap-system-card img {
   display: block;
-  max-width: 100%;
-  max-height: 78px;
+  max-width: 112%;
+  max-height: 92px;
   object-fit: contain;
   filter: grayscale(1) contrast(1.05) opacity(0.78);
   mix-blend-mode: multiply;
