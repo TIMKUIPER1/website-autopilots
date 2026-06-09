@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy | Autopilots</title>
+  <style>
+    :root {
+      --ap-bg: #f7f7f3;
+      --ap-card: #ffffff;
+      --ap-text: #101010;
+      --ap-muted: #676767;
+      --ap-line: rgba(16, 16, 16, 0.11);
+      --ap-brown: #a43a2a;
+      --ap-brown-dark: #7f291f;
+      --ap-soft: #fbf5f2;
+    }
+
+    #ap-privacy-policy {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--ap-bg);
+      color: var(--ap-text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #ap-privacy-policy * { box-sizing: border-box; }
+    #ap-privacy-policy a { color: inherit; }
+
+    #ap-privacy-policy .ap-container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    #ap-privacy-policy .ap-hero {
+      padding: 84px 0 48px;
+    }
+
+    #ap-privacy-policy .ap-eyebrow,
+    #ap-privacy-policy .ap-kicker {
+      margin: 0 0 16px;
+      color: var(--ap-brown);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    #ap-privacy-policy h1,
+    #ap-privacy-policy h2,
+    #ap-privacy-policy h3,
+    #ap-privacy-policy p { margin: 0; }
+
+    #ap-privacy-policy h1 {
+      max-width: 880px;
+      font-size: clamp(46px, 6.2vw, 82px);
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    #ap-privacy-policy .ap-lead {
+      max-width: 760px;
+      margin-top: 22px;
+      color: var(--ap-muted);
+      font-size: 19px;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    #ap-privacy-policy .ap-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    #ap-privacy-policy .ap-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--ap-line);
+      background: rgba(255, 255, 255, .76);
+      padding: 9px 13px;
+      color: var(--ap-text);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    #ap-privacy-policy .ap-grid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 22px;
+      align-items: start;
+      padding: 30px 0 84px;
+    }
+
+    #ap-privacy-policy .ap-aside {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-privacy-policy .ap-card,
+    #ap-privacy-policy .ap-panel {
+      border: 1px solid var(--ap-line);
+      border-radius: 28px;
+      background: var(--ap-card);
+      box-shadow: 0 18px 55px rgba(16, 16, 16, .065);
+    }
+
+    #ap-privacy-policy .ap-card { padding: 26px; }
+
+    #ap-privacy-policy .ap-card h2 {
+      max-width: 420px;
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.04;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    #ap-privacy-policy .ap-card p,
+    #ap-privacy-policy .ap-contact-lines {
+      margin-top: 14px;
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    #ap-privacy-policy .ap-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    #ap-privacy-policy .ap-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 18px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    #ap-privacy-policy .ap-button:hover { transform: translateY(-1px); }
+    #ap-privacy-policy .ap-button-primary { background: var(--ap-brown); color: #fff; }
+    #ap-privacy-policy .ap-button-primary:hover { background: var(--ap-brown-dark); }
+    #ap-privacy-policy .ap-button-secondary { border: 1px solid var(--ap-line); background: #fff; color: var(--ap-text); }
+
+    #ap-privacy-policy .ap-toc {
+      display: grid;
+      gap: 8px;
+      padding: 20px;
+    }
+
+    #ap-privacy-policy .ap-toc a {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: var(--ap-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    #ap-privacy-policy .ap-toc a:hover {
+      background: var(--ap-soft);
+      color: var(--ap-text);
+    }
+
+    #ap-privacy-policy .ap-panel {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-privacy-policy details {
+      overflow: hidden;
+      border: 1px solid var(--ap-line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .78);
+      transition: border-color .18s ease, background .18s ease;
+    }
+
+    #ap-privacy-policy details[open] {
+      border-color: rgba(164, 58, 42, .28);
+      background: #fff;
+    }
+
+    #ap-privacy-policy summary {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      cursor: pointer;
+      list-style: none;
+      color: var(--ap-text);
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    #ap-privacy-policy summary::-webkit-details-marker { display: none; }
+
+    #ap-privacy-policy summary i {
+      width: 30px;
+      height: 30px;
+      margin-left: auto;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--ap-soft);
+      position: relative;
+    }
+
+    #ap-privacy-policy summary i::before,
+    #ap-privacy-policy summary i::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 12px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ap-brown);
+      transform: translate(-50%, -50%);
+    }
+
+    #ap-privacy-policy summary i::after { transform: translate(-50%, -50%) rotate(90deg); }
+    #ap-privacy-policy details[open] summary i::after { display: none; }
+
+    #ap-privacy-policy .ap-policy-content {
+      padding: 0 20px 20px;
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    #ap-privacy-policy .ap-policy-content p + p { margin-top: 12px; }
+    #ap-privacy-policy .ap-policy-content strong { color: var(--ap-text); }
+
+    #ap-privacy-policy .ap-faq-section {
+      padding: 0 0 84px;
+    }
+
+    #ap-privacy-policy .ap-faq-head {
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+
+    #ap-privacy-policy .ap-faq-head h2 {
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.02;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      #ap-privacy-policy .ap-grid { grid-template-columns: 1fr; }
+      #ap-privacy-policy .ap-aside { position: static; }
+      #ap-privacy-policy .ap-toc { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      #ap-privacy-policy .ap-container { width: min(100% - 28px, 1120px); }
+      #ap-privacy-policy .ap-hero { padding: 48px 0 24px; }
+      #ap-privacy-policy h1 { font-size: clamp(36px, 10vw, 48px); line-height: 1.05; }
+      #ap-privacy-policy .ap-lead { font-size: 16px; line-height: 1.55; }
+      #ap-privacy-policy .ap-grid { padding: 20px 0 58px; }
+      #ap-privacy-policy .ap-card { padding: 22px; border-radius: 24px; }
+      #ap-privacy-policy .ap-panel { padding: 12px; border-radius: 24px; }
+      #ap-privacy-policy summary { align-items: flex-start; min-height: auto; padding: 16px; font-size: 16px; }
+      #ap-privacy-policy summary i { width: 28px; height: 28px; }
+      #ap-privacy-policy .ap-policy-content { padding: 0 16px 16px; font-size: 14px; }
+      #ap-privacy-policy .ap-actions { flex-direction: column; }
+      #ap-privacy-policy .ap-button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main id="ap-privacy-policy">
+    <section class="ap-hero">
+      <div class="ap-container">
+        <p class="ap-eyebrow">AUTOPILOTS PRIVACY</p>
+        <h1>Privacy Policy.</h1>
+        <p class="ap-lead">Deze policy legt uit hoe Autopilots AI Agency LLC omgaat met persoonsgegevens bij onze website, klantprojecten, AI medewerkers, automatiseringen en gekoppelde systemen.</p>
+        <div class="ap-meta-row" aria-label="Privacy samenvatting">
+          <span class="ap-pill">Laatst bijgewerkt: 9 juni 2026</span>
+          <span class="ap-pill">Autopilots AI Agency LLC</span>
+          <span class="ap-pill">support@auto-pilots.io</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-container ap-grid">
+      <aside class="ap-aside">
+        <div class="ap-card">
+          <p class="ap-kicker">Kort gezegd</p>
+          <h2>We verwerken data alleen als dat nodig is.</h2>
+          <p>Voor contact, demo's, klantprojecten, support, AI medewerkers, automatiseringen, beveiliging en wettelijke verplichtingen.</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="mailto:support@auto-pilots.io">Mail privacyvraag</a>
+            <a class="ap-button ap-button-secondary" href="#ap-policy-list">Bekijk policy</a>
+          </div>
+        </div>
+        <nav class="ap-card ap-toc" aria-label="Privacy onderdelen">
+          <a href="#ap-policy-list">Volledige policy <span>22 punten</span></a>
+          <a href="#ap-faq">Veelgestelde vragen <span>FAQ</span></a>
+          <a href="mailto:support@auto-pilots.io">Contact <span>Mail</span></a>
+        </nav>
+      </aside>
+
+      <div class="ap-panel" id="ap-policy-list">
+        <details open>
+          <summary><span>1. Wie zijn wij?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Deze privacy policy is van toepassing op Autopilots AI Agency LLC.</p>
+          <p><strong>Autopilots AI Agency LLC</strong><br>131 Continental Dr Suite 305<br>Newark, Delaware 19713<br>United States</p>
+          <p><strong>Website:</strong> www.auto-pilots.io<br><strong>E-mail voor privacyvragen, klachten en verzoeken:</strong> support@auto-pilots.io</p>
+          <p>In deze privacy policy noemen wij onszelf “Autopilots”, “wij”, “ons” of “onze”.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>2. Waarvoor geldt deze privacy policy?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Deze privacy policy geldt voor persoonsgegevens die wij verwerken via onze website, demo-aanvragen, contactformulieren, salesgesprekken, e-mail, WhatsApp, telefonie, SMS, social media, klantcommunicatie, autonome AI medewerkers, automatiseringen, CRM-koppelingen, agenda-koppelingen, projectmanagement, support en onboarding.</p>
+          <p>Deze privacy policy geldt ook wanneer wij namens een klant technische diensten leveren waarbij persoonsgegevens worden verwerkt.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>3. Wanneer is Autopilots verantwoordelijk en wanneer verwerker?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Autopilots is verwerkingsverantwoordelijke wanneer wij zelf bepalen waarom en hoe wij persoonsgegevens verwerken. Dit geldt bijvoorbeeld wanneer u onze website bezoekt, contact met ons opneemt, een demo aanvraagt, klant wordt of met ons communiceert over onze eigen diensten.</p>
+          <p>In veel gevallen verwerken wij persoonsgegevens namens onze klanten. Bijvoorbeeld wanneer een klant onze autonome AI medewerkers gebruikt voor telefonie, e-mail opvolging, WhatsApp communicatie, SMS opvolging, social media berichten, leadopvolging, afspraken, klantenservice, offerte follow-up, CRM updates of support tickets.</p>
+          <p>Wanneer wij als verwerker werken, verwerken wij persoonsgegevens volgens de instructies van onze klant. In dat geval maken wij afspraken in een verwerkersovereenkomst of vergelijkbare data processing agreement.</p>
+          <p>Bent u gebeld, gemaild, geappt of benaderd door een AI medewerker namens een van onze klanten? Dan is die klant meestal het eerste aanspreekpunt voor vragen over uw gegevens.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>4. Welke persoonsgegevens verwerken wij?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p><strong>Contactgegevens:</strong> naam, bedrijfsnaam, functie, e-mailadres, telefoonnummer, WhatsApp nummer, social media profielnaam, adresgegevens en communicatievoorkeuren.</p>
+          <p><strong>Communicatiegegevens:</strong> e-mails, WhatsApp berichten, SMS berichten, social media berichten, chatgeschiedenis, telefoongesprekken, audio-opnames, transcripts, samenvattingen, notities, reden van contact, uitkomst van het gesprek, opvolgacties en afspraakgegevens.</p>
+          <p><strong>Lead- en klantgegevens:</strong> informatie over uw bedrijf, sector, interesse in onze diensten, demo-aanvraag, CRM-status, offerte-informatie, communicatiegeschiedenis, afspraken, feedback, supportvragen, klantstatus, voorkeuren en behoeften.</p>
+          <p><strong>Technische gegevens:</strong> IP-adres, browsergegevens, apparaatgegevens, loggegevens, websitegedrag, cookievoorkeuren, foutmeldingen, systeemgebruik, integratielogs en workflowlogs.</p>
+          <p><strong>Facturatie en administratie:</strong> bedrijfsnaam, factuuradres, betaalstatus, contractgegevens, belastinggegevens wanneer relevant, administratieve gegevens en communicatie over betalingen.</p>
+          <p><strong>Project en implementatie:</strong> scripts, veelgestelde vragen, klantprocessen, integratiegegevens, testgesprekken, testberichten, AI medewerker instellingen, workflow instellingen, kennisbankinformatie, projectdocumentatie en onboardinginformatie.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>5. Verwerken wij bijzondere persoonsgegevens?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij proberen bijzondere persoonsgegevens zoveel mogelijk te vermijden. Dit zijn bijvoorbeeld gegevens over gezondheid, religie, politieke voorkeur, biometrie of strafrechtelijke gegevens.</p>
+          <p>Toch kan het gebeuren dat iemand tijdens een gesprek, e-mail, WhatsApp bericht, SMS bericht of social media bericht vrijwillig gevoelige informatie deelt.</p>
+          <p>Wij vragen klanten om alleen gegevens te laten verwerken die nodig zijn voor het doel van de AI medewerker of workflow. Wanneer gevoelige gegevens kunnen worden verwerkt, maken wij daar aanvullende afspraken over.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>6. Waarom verwerken wij persoonsgegevens?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij verwerken persoonsgegevens om contact op te nemen, demo’s en salesgesprekken te plannen, offertes te maken, diensten te leveren, autonome AI medewerkers te bouwen, testen en verbeteren, communicatie te verwerken, gesprekken samen te vatten, afspraken te plannen, leads op te volgen, klantvragen te beantwoorden, CRM-systemen bij te werken, support te leveren, projecten te managen, facturen te sturen, betalingen te verwerken, onze website te verbeteren, systemen te beveiligen, fouten op te sporen, misbruik of fraude te voorkomen en te voldoen aan wettelijke verplichtingen.</p>
+          <p>Wij verwerken niet meer gegevens dan nodig is voor deze doelen.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>7. Op welke grondslag verwerken wij persoonsgegevens?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p><strong>Uitvoering van een overeenkomst:</strong> wanneer verwerking nodig is om onze diensten te leveren, support te bieden of facturen te sturen.</p>
+          <p><strong>Gerechtvaardigd belang:</strong> voor normale zakelijke communicatie, leadopvolging, beveiliging, kwaliteitscontrole, verbetering van dienstverlening en klantrelatiebeheer. Wij wegen daarbij altijd uw privacybelang mee.</p>
+          <p><strong>Toestemming:</strong> bijvoorbeeld voor bepaalde cookies, marketing of specifieke verwerkingen waarvoor toestemming nodig is. U kunt toestemming altijd intrekken.</p>
+          <p><strong>Wettelijke verplichting:</strong> bijvoorbeeld voor administratie, belastingregels of boekhouding.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>8. Autonome AI medewerkers</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Autopilots levert autonome AI medewerkers. Deze kunnen communiceren via e-mail, WhatsApp, telefonie, SMS, social media en andere digitale omgevingen.</p>
+          <p>AI medewerkers kunnen vragen stellen, antwoorden geven, informatie verzamelen, afspraken plannen, berichten opstellen, gesprekken samenvatten en gegevens doorzetten naar andere systemen.</p>
+          <p>Wij vinden het belangrijk dat mensen kunnen weten wanneer zij met AI communiceren. Daarom richten wij AI medewerkers zo in dat zij, waar nodig of passend, duidelijk maken dat communicatie met een AI systeem plaatsvindt.</p>
+          <p>Onze AI medewerkers ondersteunen bedrijfsprocessen. Zij zijn niet bedoeld om zelfstandig grote juridische, financiële, medische of vergelijkbare beslissingen over personen te nemen.</p>
+          <p>Wanneer een situatie complex, gevoelig of onzeker is, kan menselijke opvolging plaatsvinden.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>9. Gespreksopnames, berichten, transcripts en samenvattingen</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Communicatie met AI medewerkers kan worden opgenomen, opgeslagen, getranscribeerd of samengevat. Dit kan gelden voor telefoongesprekken, e-mails, WhatsApp berichten, SMS berichten, social media berichten, chatberichten, supportgesprekken en leadgesprekken.</p>
+          <p>Dit kan nodig zijn om communicatie correct te verwerken, afspraken vast te leggen, leads op te volgen, klantvragen door te zetten, kwaliteit te controleren, AI medewerkers te testen, support te leveren, fouten te analyseren of dienstverlening te verbeteren.</p>
+          <p>Of communicatie wordt opgenomen, opgeslagen, getranscribeerd of samengevat, hangt af van de inrichting per klant en de afspraken die met die klant zijn gemaakt.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>10. Automatiseringen en gekoppelde systemen</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Onze diensten kunnen gekoppeld zijn aan CRM-systemen, agenda’s, telefoniesystemen, e-mailsystemen, WhatsApp-systemen, SMS-tools, social media inboxen, chattools, projectmanagementtools, databases, dashboards, AI-tools, spraak-naar-tekst systemen, tekst-naar-spraak systemen en workflow automation tools.</p>
+          <p>Gegevens kunnen automatisch worden doorgestuurd wanneer dat nodig is voor de dienstverlening. Bijvoorbeeld wanneer een AI medewerker een gesprek samenvat, een lead toevoegt aan een CRM, een afspraak inplant, een WhatsApp opvolging stuurt, een SMS verstuurt, een e-mail opstelt of een social media bericht beantwoordt.</p>
+          <p>Wij richten workflows zo in dat alleen noodzakelijke gegevens worden verwerkt.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>11. Leveranciers</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij kunnen externe leveranciers gebruiken voor telefonie, AI voice technologie, spraakherkenning, tekst-naar-spraak, AI chat en tekstverwerking, workflow automation, CRM, e-mail, WhatsApp, SMS, social media management, hosting, databaseopslag, betalingen, analytics, projectmanagement en bestandsopslag.</p>
+          <p>Voorbeelden van systemen die wij kunnen gebruiken zijn onder andere ElevenLabs, Telnyx, n8n, Pinecone, Airtable, GoHighLevel, Stripe, ClickUp, Google Drive en vergelijkbare tools.</p>
+          <p>Met leveranciers die persoonsgegevens namens ons verwerken, maken wij afspraken over beveiliging, vertrouwelijkheid en verwerking van persoonsgegevens.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>12. Delen wij gegevens met anderen?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij verkopen geen persoonsgegevens.</p>
+          <p>Wij kunnen persoonsgegevens wel delen met klanten namens wie wij gegevens verwerken, softwareleveranciers, hostingpartijen, telefonieproviders, e-mailproviders, WhatsApp of messaging providers, SMS providers, social media platforms, betaalproviders, CRM-systemen, automatiseringstools, boekhouders, juridische adviseurs, supportpartners en overheidsinstanties wanneer dit wettelijk verplicht is.</p>
+          <p>Wij delen alleen gegevens wanneer dat nodig is.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>13. Internationale verwerking</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Autopilots AI Agency LLC is gevestigd in de Verenigde Staten. Onze klanten, leveranciers en gebruikers kunnen zich in verschillende landen bevinden.</p>
+          <p>Persoonsgegevens kunnen daarom worden verwerkt in de Verenigde Staten, de Europese Economische Ruimte of andere landen.</p>
+          <p>Wanneer persoonsgegevens internationaal worden verwerkt, nemen wij passende maatregelen om gegevens te beschermen. Wanneer wij namens klanten werken, kunnen aanvullende afspraken worden vastgelegd in een verwerkersovereenkomst of data processing agreement.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>14. Bewaartermijnen</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij bewaren persoonsgegevens niet langer dan nodig is voor het doel waarvoor wij ze verwerken.</p>
+          <p>Lead- en contactgegevens bewaren wij zolang nodig is voor opvolging, communicatie en zakelijke relatiebeheer. Klantgegevens bewaren wij zolang de klantrelatie loopt en daarna zolang nodig is voor administratie, support of juridische verplichtingen. Factuur- en administratiegegevens bewaren wij zolang nodig is volgens wettelijke bewaarplichten. Gespreksopnames, berichten, transcripts en samenvattingen bewaren wij zolang nodig is voor dienstverlening, kwaliteit, support of volgens afspraken met de klant. Technische logs bewaren wij zolang nodig is voor beveiliging, foutopsporing en systeembeheer. Projectdocumentatie bewaren wij zolang nodig is voor implementatie, support en doorontwikkeling.</p>
+          <p>Wanneer wij gegevens namens een klant verwerken, bepaalt de klant vaak de bewaartermijn.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>15. Beveiliging</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij nemen passende technische en organisatorische maatregelen om persoonsgegevens te beschermen.</p>
+          <p>Denk aan toegangsbeperking, gebruikersrechten per rol, beveiligde verbindingen, wachtwoordbeveiliging, beperkte toegang tot klantdata, logging, monitoring, interne werkafspraken, afspraken met leveranciers, beperking van gegevens tot wat nodig is, beveiligde opslag waar mogelijk en controle op toegang tot systemen.</p>
+          <p>Geen enkel systeem is honderd procent veilig. Wij doen ons best om persoonsgegevens zorgvuldig te beschermen en risico’s zo veel mogelijk te beperken.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>16. Datalekken</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Als er iets misgaat met persoonsgegevens, beoordelen wij wat er is gebeurd en welke maatregelen nodig zijn.</p>
+          <p>Wanneer sprake is van een datalek, handelen wij volgens de toepasselijke privacyregels. Als wij als verwerker werken namens een klant, informeren wij de klant zodat de klant passende vervolgstappen kan nemen.</p>
+          <p>Als wij zelf verantwoordelijk zijn voor de verwerking, beoordelen wij of betrokken personen of toezichthouders geïnformeerd moeten worden.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>17. Cookies en tracking</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Onze website kan cookies en vergelijkbare technieken gebruiken. Wij kunnen cookies gebruiken voor het goed laten werken van de website, het onthouden van voorkeuren, het analyseren van websitegebruik, het verbeteren van onze website, het meten van campagnes, marketing en retargeting.</p>
+          <p>Voor cookies waarvoor toestemming nodig is, vragen wij toestemming via een cookiebanner. U kunt cookies ook blokkeren of verwijderen via uw browserinstellingen.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>18. Marketingcommunicatie</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij kunnen u benaderen over onze diensten wanneer u contact met ons heeft gehad, een demo heeft aangevraagd, klant bent of op een andere manier zakelijke interesse heeft getoond.</p>
+          <p>U kunt zich altijd afmelden voor marketingcommunicatie via de afmeldlink in onze e-mails, wanneer beschikbaar, of door te mailen naar support@auto-pilots.io.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>19. Uw privacyrechten</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Afhankelijk van de toepasselijke wetgeving heeft u verschillende rechten.</p>
+          <p>U kunt ons vragen om inzage, correctie, verwijdering, beperking van verwerking, overdracht van gegevens, bezwaar tegen verwerking, intrekking van toestemming of informatie over automatische verwerking.</p>
+          <p>U kunt een verzoek sturen naar support@auto-pilots.io.</p>
+          <p>Wij kunnen vragen om aanvullende informatie om uw identiteit te controleren. Dat doen wij om te voorkomen dat wij gegevens aan de verkeerde persoon geven.</p>
+          <p>Wanneer wij gegevens namens een klant verwerken, kunnen wij u doorverwijzen naar die klant. De klant is dan meestal de partij die beslist over uw verzoek.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>20. Klachten</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Heeft u een klacht over hoe wij met persoonsgegevens omgaan? Mail ons via support@auto-pilots.io.</p>
+          <p>Wij nemen klachten serieus en proberen samen tot een oplossing te komen.</p>
+          <p>Afhankelijk van waar u woont, kunt u ook een klacht indienen bij de bevoegde privacytoezichthouder.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>21. Kinderen</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Onze diensten zijn gericht op bedrijven en niet op kinderen.</p>
+          <p>Wij verzamelen niet bewust persoonsgegevens van kinderen zonder toestemming van een ouder of wettelijke vertegenwoordiger.</p>
+          <p>Denkt u dat wij toch gegevens van een kind hebben verwerkt? Mail ons via support@auto-pilots.io.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>22. Wijzigingen in deze privacy policy</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Wij kunnen deze privacy policy aanpassen. Bijvoorbeeld wanneer onze diensten veranderen, wanneer wij nieuwe systemen gebruiken of wanneer wetgeving verandert.</p>
+          <p>De nieuwste versie staat altijd op onze website.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="ap-container ap-faq-section" id="ap-faq">
+      <div class="ap-faq-head">
+        <p class="ap-kicker">Veelgestelde vragen</p>
+        <h2>Snel antwoord over privacy.</h2>
+      </div>
+      <div class="ap-panel">
+        <details open>
+          <summary><span>Verkoopt Autopilots persoonsgegevens?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Nee. Wij verkopen geen persoonsgegevens. Gegevens worden alleen gedeeld wanneer dat nodig is voor dienstverlening, support, beveiliging of wettelijke verplichtingen.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>Kan communicatie met een AI medewerker worden opgeslagen?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Ja. Communicatie kan worden opgeslagen, opgenomen, getranscribeerd of samengevat wanneer dat nodig is voor dienstverlening, kwaliteit, support of verwerking namens een klant.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>Wie moet ik benaderen als ik door een AI medewerker ben gecontacteerd?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Meestal is het bedrijf namens wie de AI medewerker communiceert het eerste aanspreekpunt. Autopilots levert in veel gevallen de technische oplossing namens die klant.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span>Hoe kan ik mijn privacyrechten uitoefenen?</span><i aria-hidden="true"></i></summary>
+          <div class="ap-policy-content">
+          <p>Stuur een verzoek naar support@auto-pilots.io. Wij kunnen vragen om aanvullende informatie om uw identiteit te controleren.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="ap-container ap-faq-section">
+      <div class="ap-card">
+        <p class="ap-kicker">Contact</p>
+        <h2>Privacyvraag, verzoek of klacht?</h2>
+        <p>Mail ons via support@auto-pilots.io. Wij nemen privacyvragen serieus en proberen zo duidelijk mogelijk te helpen.</p>
+        <div class="ap-contact-lines">
+          <strong>Autopilots AI Agency LLC</strong><br>
+          131 Continental Dr Suite 305<br>
+          Newark, Delaware 19713<br>
+          United States<br><br>
+          www.auto-pilots.io
+        </div>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="mailto:support@auto-pilots.io">Mail support</a>
+          <a class="ap-button ap-button-secondary" href="#ap-privacy-policy">Terug naar boven</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
