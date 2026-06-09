@@ -6,7 +6,7 @@ Gebruik bij voorkeur de script-versie. Die kun je eenmalig in de body/footer van
 
 ```html
 <script
-  src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=4"
+  src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=5"
   data-position="bottom-left">
 </script>
 ```
