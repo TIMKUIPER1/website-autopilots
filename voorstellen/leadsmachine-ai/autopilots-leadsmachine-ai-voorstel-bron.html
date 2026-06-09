@@ -1,0 +1,2403 @@
+<div id="leadsmachine-ai-page">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700&display=swap");
+
+    #leadsmachine-ai-page {
+      --bg: #f5f5f2;
+      --text: #111111;
+      --muted: #646464;
+      --soft: #eeeeea;
+      --border: rgba(0, 0, 0, 0.1);
+      --brown: #9f3826;
+      font-family: "Public Sans", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    #leadsmachine-ai-page * {
+      box-sizing: border-box;
+    }
+
+    #leadsmachine-ai-page h1,
+    #leadsmachine-ai-page h2,
+    #leadsmachine-ai-page h3,
+    #leadsmachine-ai-page h4,
+    #leadsmachine-ai-page p {
+      margin: 0;
+    }
+
+    #leadsmachine-ai-page a {
+      color: inherit;
+    }
+
+    #leadsmachine-ai-page .lm-section {
+      width: 100%;
+      padding: 76px 0;
+    }
+
+    #leadsmachine-ai-page .lm-container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    #leadsmachine-ai-page .lm-center {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 42px;
+    }
+
+    #leadsmachine-ai-page .lm-eyebrow {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-hero-title {
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      font-weight: 700;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    #leadsmachine-ai-page .lm-italic {
+      font-style: italic;
+      color: var(--brown);
+      letter-spacing: -0.05em;
+    }
+
+    #leadsmachine-ai-page .lm-hero-text {
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.58;
+      color: var(--muted);
+      max-width: 820px;
+      margin: 24px auto 0;
+    }
+
+    #leadsmachine-ai-page .lm-title {
+      font-size: clamp(34px, 4.8vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+      max-width: 900px;
+      margin: 0 auto 16px;
+    }
+
+    #leadsmachine-ai-page .lm-title-break {
+      display: block;
+      margin-top: 4px;
+    }
+
+    #leadsmachine-ai-page .lm-subtitle {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #leadsmachine-ai-page .lm-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    #leadsmachine-ai-page .lm-button {
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: 0.18s ease;
+      cursor: pointer;
+    }
+
+    #leadsmachine-ai-page .lm-button.primary {
+      background: var(--brown);
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-button.secondary {
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    #leadsmachine-ai-page .lm-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.94;
+    }
+
+    #leadsmachine-ai-page details {
+      width: 100%;
+    }
+
+    #leadsmachine-ai-page summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    #leadsmachine-ai-page summary::-webkit-details-marker {
+      display: none;
+    }
+
+    #leadsmachine-ai-page .lm-click-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-plus,
+    #leadsmachine-ai-page .lm-toggle {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 999px;
+      background: #111111;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 600;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page details[open] .lm-plus,
+    #leadsmachine-ai-page details[open] .lm-toggle {
+      background: var(--brown);
+      transform: rotate(45deg);
+    }
+
+    #leadsmachine-ai-page .lm-more {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-dark-more {
+      border-top-color: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #leadsmachine-ai-page .lm-hero-panel,
+    #leadsmachine-ai-page .lm-funnel-card,
+    #leadsmachine-ai-page .lm-roadmap-card,
+    #leadsmachine-ai-page .lm-calculator-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+    }
+
+    #leadsmachine-ai-page .lm-hero-panel {
+      margin-top: 54px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    #leadsmachine-ai-page .lm-flow-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+    }
+
+    #leadsmachine-ai-page .lm-mini-title {
+      font-size: 23px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    #leadsmachine-ai-page .lm-small-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-flow-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    #leadsmachine-ai-page .lm-flow-step {
+      background: var(--soft);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 138px;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-flow-step:hover {
+      transform: translateY(-2px);
+    }
+
+    #leadsmachine-ai-page .lm-number {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      background: var(--brown);
+      color: #ffffff;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-flow-step strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    #leadsmachine-ai-page .lm-flow-step p {
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-flow-step .lm-plus {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      font-size: 15px;
+    }
+
+    #leadsmachine-ai-page .lm-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    #leadsmachine-ai-page .lm-feature {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+      min-height: 245px;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.045);
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-feature:hover {
+      transform: translateY(-2px);
+    }
+
+    #leadsmachine-ai-page .lm-feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(159, 56, 38, 0.11);
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-feature h3 {
+      font-size: 23px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    #leadsmachine-ai-page .lm-feature p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-funnel {
+      display: grid;
+      gap: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 24px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      background: #f7f7f5;
+      overflow: hidden;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer.mid {
+      width: 94%;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer.bottom {
+      width: 88%;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer h3 {
+      font-size: clamp(25px, 3vw, 36px);
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: inherit;
+      overflow-wrap: break-word;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer p {
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--muted);
+      max-width: 850px;
+      overflow-wrap: break-word;
+    }
+
+    #leadsmachine-ai-page .lm-funnel-layer.bottom p {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    #leadsmachine-ai-page .lm-topic-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-topic-button {
+      min-height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #333333;
+      padding: 0 18px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-topic-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #leadsmachine-ai-page .lm-topic-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .bottom .lm-topic-button {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #leadsmachine-ai-page .bottom .lm-topic-button.is-active {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #111111;
+    }
+
+    #leadsmachine-ai-page .lm-topic-info {
+      margin-top: 16px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-topic-info strong {
+      color: #111111;
+      display: block;
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    #leadsmachine-ai-page .bottom .lm-topic-info {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #leadsmachine-ai-page .bottom .lm-topic-info strong {
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-arrow {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    #leadsmachine-ai-page .lm-roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-roadmap details,
+    #leadsmachine-ai-page .lm-faq details {
+      background: #f7f7f5;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #leadsmachine-ai-page .lm-roadmap details[open],
+    #leadsmachine-ai-page .lm-faq details[open] {
+      background: #ffffff;
+      border-color: rgba(159, 56, 38, 0.28);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
+    }
+
+    #leadsmachine-ai-page .lm-roadmap summary {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #leadsmachine-ai-page .lm-step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: #ffffff;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #leadsmachine-ai-page .lm-road-title {
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 5px;
+    }
+
+    #leadsmachine-ai-page .lm-road-preview {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-road-content {
+      padding: 0 22px 22px 78px;
+    }
+
+    #leadsmachine-ai-page .lm-road-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-road-mini {
+      border-radius: 16px;
+      background: #f7f7f5;
+      border: 1px solid var(--border);
+      padding: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-road-mini span {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    #leadsmachine-ai-page .lm-road-mini p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #leadsmachine-ai-page .lm-implementation-summary {
+      margin-top: 18px;
+      background: #111111;
+      color: #ffffff;
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #leadsmachine-ai-page .lm-implementation-summary h3 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-implementation-summary p {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    #leadsmachine-ai-page .lm-calculator-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    #leadsmachine-ai-page .lm-calc-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-field {
+      background: #f7f7f5;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-field label {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #leadsmachine-ai-page .lm-field small {
+      display: block;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #leadsmachine-ai-page .lm-field input,
+    #leadsmachine-ai-page .lm-field select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--text);
+      padding: 0 12px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-button {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: #ffffff;
+      color: #111111;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-output {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      color: #111111;
+      padding: 14px 12px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    #leadsmachine-ai-page .lm-calc-results {
+      background: #111111;
+      color: #ffffff;
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    #leadsmachine-ai-page .lm-calc-results h3 {
+      font-size: 25px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    #leadsmachine-ai-page .lm-calc-cost-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-cost-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-cost-pill span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.25;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+
+    #leadsmachine-ai-page .lm-cost-pill strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-compare-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-compare-card.is-ai {
+      background: rgba(159, 56, 38, 0.28);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #leadsmachine-ai-page .lm-compare-card h4 {
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-compare-metric {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #leadsmachine-ai-page .lm-compare-metric:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    #leadsmachine-ai-page .lm-compare-metric span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.64);
+      margin-bottom: 6px;
+    }
+
+    #leadsmachine-ai-page .lm-compare-metric strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-compare-metric strong.lm-smaller-result {
+      font-size: 22px;
+      line-height: 1.12;
+    }
+
+    #leadsmachine-ai-page .lm-impact-card {
+      margin-top: 18px;
+      background: #ffffff;
+      color: #111111;
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    #leadsmachine-ai-page .lm-impact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-impact-header h4 {
+      font-size: 24px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 8px;
+      color: #111111;
+    }
+
+    #leadsmachine-ai-page .lm-impact-header p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0;
+    }
+
+    #leadsmachine-ai-page .lm-impact-badge {
+      min-width: fit-content;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    #leadsmachine-ai-page .lm-impact-badge strong {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+    }
+
+    #leadsmachine-ai-page .lm-impact-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-impact-grid.is-four {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #leadsmachine-ai-page .lm-impact-item {
+      background: #f7f7f5;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #leadsmachine-ai-page .lm-impact-item span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-impact-item strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: #111111;
+    }
+
+    #leadsmachine-ai-page .lm-package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    #leadsmachine-ai-page .lm-package {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #leadsmachine-ai-page .lm-package.featured {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
+      color: #ffffff;
+      transform: translateY(-12px);
+    }
+
+    #leadsmachine-ai-page .lm-package-top {
+      display: grid;
+      grid-template-rows: 30px 44px 76px 96px;
+      row-gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    #leadsmachine-ai-page .lm-package-badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #leadsmachine-ai-page .featured .lm-package-badge {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-package h3 {
+      font-size: clamp(18px, 1.42vw, 22px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin: 0;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    #leadsmachine-ai-page .lm-package p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    #leadsmachine-ai-page .featured p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #leadsmachine-ai-page .lm-price {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 6px;
+    }
+
+    #leadsmachine-ai-page .lm-price strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    #leadsmachine-ai-page .lm-price span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    #leadsmachine-ai-page .featured .lm-price span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #leadsmachine-ai-page .lm-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+    }
+
+    #leadsmachine-ai-page .lm-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+    }
+
+    #leadsmachine-ai-page .featured .lm-list li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    #leadsmachine-ai-page .lm-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: #ffffff;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    #leadsmachine-ai-page .featured .lm-check {
+      background: #ffffff;
+      color: var(--brown);
+    }
+
+    #leadsmachine-ai-page .lm-package-details {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    #leadsmachine-ai-page .featured .lm-package-details {
+      border-top-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #leadsmachine-ai-page .lm-package-details summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    #leadsmachine-ai-page .lm-stripe-box {
+      margin-top: 18px;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    #leadsmachine-ai-page .lm-stripe-label {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin: 0 0 10px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    #leadsmachine-ai-page .featured .lm-stripe-label {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    #leadsmachine-ai-page .lm-faq {
+      max-width: 930px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-faq details {
+      background: #ffffff;
+      border-radius: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-faq summary {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #leadsmachine-ai-page .lm-faq .lm-road-content {
+      padding: 0 22px 22px;
+    }
+
+    #leadsmachine-ai-page .lm-faq-category {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin: 34px 0 10px;
+    }
+
+    #leadsmachine-ai-page .lm-final {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(159, 56, 38, 0.2), transparent 34%),
+        #111111;
+      color: #ffffff;
+      border-radius: 34px;
+      padding: 56px 30px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    #leadsmachine-ai-page .lm-final h2 {
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+      max-width: 850px;
+      margin: 0 auto 18px;
+    }
+
+    #leadsmachine-ai-page .lm-final p {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 17px;
+      line-height: 1.65;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 980px) {
+      #leadsmachine-ai-page .lm-feature-grid,
+      #leadsmachine-ai-page .lm-package-grid,
+      #leadsmachine-ai-page .lm-calculator-layout,
+      #leadsmachine-ai-page .lm-flow-row,
+      #leadsmachine-ai-page .lm-road-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #leadsmachine-ai-page .lm-funnel-layer,
+      #leadsmachine-ai-page .lm-funnel-layer.mid,
+      #leadsmachine-ai-page .lm-funnel-layer.bottom {
+        width: 100%;
+      }
+
+      #leadsmachine-ai-page .lm-package.featured {
+        transform: none;
+      }
+
+      #leadsmachine-ai-page .lm-package-top {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+
+      #leadsmachine-ai-page .lm-package h3 {
+        white-space: normal;
+        font-size: 26px;
+      }
+
+      #leadsmachine-ai-page .lm-calc-cost-row,
+      #leadsmachine-ai-page .lm-impact-grid,
+      #leadsmachine-ai-page .lm-impact-grid.is-four {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      #leadsmachine-ai-page .lm-section {
+        padding: 58px 0;
+      }
+
+      #leadsmachine-ai-page .lm-container {
+        padding: 0 14px;
+      }
+
+      #leadsmachine-ai-page .lm-hero-panel,
+      #leadsmachine-ai-page .lm-funnel-card,
+      #leadsmachine-ai-page .lm-roadmap-card,
+      #leadsmachine-ai-page .lm-calculator-card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      #leadsmachine-ai-page .lm-flow-card,
+      #leadsmachine-ai-page .lm-funnel-layer,
+      #leadsmachine-ai-page .lm-package {
+        padding: 20px;
+      }
+
+      #leadsmachine-ai-page .lm-roadmap summary {
+        grid-template-columns: auto 1fr;
+      }
+
+      #leadsmachine-ai-page .lm-roadmap summary .lm-toggle {
+        grid-column: 1 / -1;
+      }
+
+      #leadsmachine-ai-page .lm-road-content {
+        padding: 0 20px 20px;
+      }
+
+      #leadsmachine-ai-page .lm-actions,
+      #leadsmachine-ai-page .lm-button {
+        width: 100%;
+      }
+
+      #leadsmachine-ai-page .lm-topic-button {
+        width: 100%;
+      }
+
+      #leadsmachine-ai-page .lm-calc-cost-row,
+      #leadsmachine-ai-page .lm-compare-grid,
+      #leadsmachine-ai-page .lm-impact-grid,
+      #leadsmachine-ai-page .lm-impact-grid.is-four {
+        grid-template-columns: 1fr;
+      }
+
+      #leadsmachine-ai-page .lm-impact-header {
+        flex-direction: column;
+      }
+
+      #leadsmachine-ai-page .lm-impact-item strong {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <section class="lm-section">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">LEADSMACHINE AI</div>
+
+        <h1 class="lm-hero-title">
+          Stel het abonnement samen en start met <span class="lm-italic">Leadsmachine AI.</span>
+        </h1>
+
+        <p class="lm-hero-text">
+          Een compleet groeisysteem voor leadgeneratie, AI opvolging, retargeting, CRM verwerking en afspraakplanning.
+        </p>
+
+        <div class="lm-actions">
+          <a class="lm-button primary" href="#leadsmachine-pakketten">Kies pakket en start direct</a>
+          <a class="lm-button secondary" href="#leadsmachine-calculator">Bereken prognose</a>
+        </div>
+      </div>
+
+      <div class="lm-hero-panel">
+        <div class="lm-flow-card">
+          <h3 class="lm-mini-title">Zo werkt Leadsmachine AI.</h3>
+
+          <p class="lm-small-text">
+            Leads komen binnen via LinkedIn outreach of online marketing. Daarna neemt de AI medewerker het gesprek over, verwerkt alles in het CRM en stuurt warme leads richting een afspraak.
+          </p>
+
+          <div class="lm-flow-row">
+            <details class="lm-flow-step">
+              <summary>
+                <div class="lm-click-row">
+                  <span class="lm-number">1</span>
+                  <span class="lm-plus">+</span>
+                </div>
+                <strong>Bereik</strong>
+                <p>LinkedIn en advertenties brengen nieuwe prospects binnen.</p>
+              </summary>
+              <div class="lm-more">
+                We gebruiken LinkedIn outreach en online marketing om gericht nieuwe mensen in de funnel te krijgen. Het doel is niet zoveel mogelijk bereik, maar bereik bij de juiste doelgroep.
+              </div>
+            </details>
+
+            <details class="lm-flow-step">
+              <summary>
+                <div class="lm-click-row">
+                  <span class="lm-number">2</span>
+                  <span class="lm-plus">+</span>
+                </div>
+                <strong>Opvolging</strong>
+                <p>De AI reageert direct via het gekozen kanaal.</p>
+              </summary>
+              <div class="lm-more">
+                Zodra iemand reageert of een formulier invult, start de opvolging. Dit kan via WhatsApp, e-mail of website, afhankelijk van de gekozen flow.
+              </div>
+            </details>
+
+            <details class="lm-flow-step">
+              <summary>
+                <div class="lm-click-row">
+                  <span class="lm-number">3</span>
+                  <span class="lm-plus">+</span>
+                </div>
+                <strong>Retargeting</strong>
+                <p>Twijfelaars worden opnieuw warm gemaakt.</p>
+              </summary>
+              <div class="lm-more">
+                Mensen die interesse tonen maar nog geen afspraak boeken, krijgen opnieuw relevante advertenties te zien. Zo blijf je zichtbaar zonder handmatig achter iedereen aan te gaan.
+              </div>
+            </details>
+
+            <details class="lm-flow-step">
+              <summary>
+                <div class="lm-click-row">
+                  <span class="lm-number">4</span>
+                  <span class="lm-plus">+</span>
+                </div>
+                <strong>Afspraak</strong>
+                <p>Gekwalificeerde leads worden geboekt in de agenda.</p>
+              </summary>
+              <div class="lm-more">
+                De AI medewerker stuurt warme leads richting de juiste vervolgstap, bijvoorbeeld een afspraak, strategiegesprek of intake.
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">WAAROM DIT WERKT</div>
+        <h2 class="lm-title">Niet meer betalen voor leads die daarna blijven liggen.</h2>
+        <p class="lm-subtitle">
+          De meeste campagnes stoppen bij een lead. Wij bouwen door tot het moment waarop iemand daadwerkelijk een afspraak boekt.
+        </p>
+      </div>
+
+      <div class="lm-feature-grid">
+        <details class="lm-feature">
+          <summary>
+            <div class="lm-click-row">
+              <div class="lm-feature-icon">01</div>
+              <span class="lm-plus">+</span>
+            </div>
+            <h3>Leadgeneratie</h3>
+            <p>We zetten de kraan open via LinkedIn outreach, Meta Ads, Google Ads of LinkedIn Ads. Gericht op één duidelijke doelgroep en één aanbod.</p>
+          </summary>
+          <div class="lm-more">
+            De campagnes sluiten aan op de opvolging, de CRM structuur en de afspraakflow. Daardoor zie je niet alleen hoeveel leads er binnenkomen, maar ook wat er daarna gebeurt.
+          </div>
+        </details>
+
+        <details class="lm-feature">
+          <summary>
+            <div class="lm-click-row">
+              <div class="lm-feature-icon">02</div>
+              <span class="lm-plus">+</span>
+            </div>
+            <h3>AI opvolging</h3>
+            <p>Nieuwe leads krijgen direct opvolging via WhatsApp, e-mail of website. De AI stelt vragen, kwalificeert en houdt het gesprek gaande.</p>
+          </summary>
+          <div class="lm-more">
+            De AI medewerker reageert direct, stelt de belangrijkste vragen en brengt de lead dichter bij een afspraak. Dit voorkomt dat geïnteresseerde leads koud worden.
+          </div>
+        </details>
+
+        <details class="lm-feature">
+          <summary>
+            <div class="lm-click-row">
+              <div class="lm-feature-icon">03</div>
+              <span class="lm-plus">+</span>
+            </div>
+            <h3>Afspraakmachine</h3>
+            <p>Warme leads worden automatisch richting een afspraak gestuurd en vastgelegd in het CRM met status, notities en vervolgactie.</p>
+          </summary>
+          <div class="lm-more">
+            Het CRM wordt geen digitale rommelbak, maar een overzichtelijk systeem waarin je ziet welke leads nieuw, warm, geboekt of nog niet klaar zijn.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">FULL FUNNEL</div>
+        <h2 class="lm-title">We pakken het hele systeem aan.</h2>
+        <p class="lm-subtitle">
+          Van top funnel tot onder funnel. Klik op een onderdeel om alleen die uitleg te zien.
+        </p>
+      </div>
+
+      <div class="lm-funnel-card">
+        <div class="lm-funnel">
+          <div class="lm-funnel-layer" data-layer="top">
+            <h3>Top funnel, leads genereren</h3>
+            <p>LinkedIn outreach en online marketing via Meta brengen nieuwe prospects binnen via een simpel formulier of duidelijke intake.</p>
+
+            <div class="lm-topic-buttons">
+              <button class="lm-topic-button is-active" type="button" data-topic="linkedin">LinkedIn outreach</button>
+              <button class="lm-topic-button" type="button" data-topic="meta">Meta Ads</button>
+              <button class="lm-topic-button" type="button" data-topic="leadform">Leadformulier</button>
+            </div>
+
+            <div class="lm-topic-info">
+              <strong id="top-title">LinkedIn outreach</strong>
+              <span id="top-text">Gerichte uitnodigingen en berichten naar de juiste doelgroep, binnen veilige accountgrenzen. Zo bouwen we niet alleen bereik op, maar openen we ook gesprekken met potentiële klanten.</span>
+            </div>
+          </div>
+
+          <div class="lm-arrow">↓</div>
+
+          <div class="lm-funnel-layer mid" data-layer="middle">
+            <h3>Midden funnel, opvolging en retargeting</h3>
+            <p>Leads worden direct opgevolgd door de AI medewerker en opnieuw bereikt met advertenties wanneer ze nog geen afspraak boeken.</p>
+
+            <div class="lm-topic-buttons">
+              <button class="lm-topic-button is-active" type="button" data-topic="followup">AI opvolging</button>
+              <button class="lm-topic-button" type="button" data-topic="qualification">Leadkwalificatie</button>
+              <button class="lm-topic-button" type="button" data-topic="retargeting">Retargeting</button>
+            </div>
+
+            <div class="lm-topic-info">
+              <strong id="middle-title">AI opvolging</strong>
+              <span id="middle-text">De lead krijgt direct reactie via het afgesproken kanaal. Daardoor blijft de intentie warm en wordt de kans groter dat iemand doorgaat naar een afspraak.</span>
+            </div>
+          </div>
+
+          <div class="lm-arrow">↓</div>
+
+          <div class="lm-funnel-layer bottom" data-layer="bottom">
+            <h3>Onder funnel, CRM en afspraken boeken</h3>
+            <p>Alle gesprekken, statussen en notities worden verwerkt. Gekwalificeerde leads worden naar een afspraak of duidelijke vervolgstap gestuurd.</p>
+
+            <div class="lm-topic-buttons">
+              <button class="lm-topic-button is-active" type="button" data-topic="crm">CRM systeem</button>
+              <button class="lm-topic-button" type="button" data-topic="booking">Afspraken boeken</button>
+              <button class="lm-topic-button" type="button" data-topic="data">Data optimalisatie</button>
+            </div>
+
+            <div class="lm-topic-info">
+              <strong id="bottom-title">CRM systeem</strong>
+              <span id="bottom-text">Nieuwe leads worden vastgelegd met bron, status, notities en vervolgactie. Zo behoudt het team overzicht en blijft geen lead onduidelijk hangen.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section" id="leadsmachine-implementatie">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">IMPLEMENTATIEPROCES</div>
+
+        <h2 class="lm-title">
+          Van strategie naar live
+          <span class="lm-title-break">Leadsmachine AI.</span>
+        </h2>
+
+        <p class="lm-subtitle">
+          We bouwen niet alleen een AI medewerker. We richten het complete systeem in: online marketing, LinkedIn outreach, funnel, CRM, opvolging, afspraken en optimalisatie.
+        </p>
+      </div>
+
+      <div class="lm-roadmap-card">
+        <div class="lm-roadmap">
+          <details open>
+            <summary>
+              <span class="lm-step-number">1</span>
+              <div>
+                <h3 class="lm-road-title">Ontwerp en inrichting</h3>
+                <p class="lm-road-preview">We bepalen de juiste scope, doelgroep, campagneflow, tone of voice, leadlogica en technische inrichting.</p>
+              </div>
+              <span class="lm-toggle">+</span>
+            </summary>
+
+            <div class="lm-road-content">
+              <div class="lm-road-grid">
+                <div class="lm-road-mini">
+                  <span>Scope</span>
+                  <p>We bepalen welk aanbod, welke doelgroep, welke funnel en welk pakket als basis wordt ingericht.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Campagneflow</span>
+                  <p>We vertalen jullie aanbod naar een duidelijke flow voor Meta, Google, LinkedIn of LinkedIn outreach.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>AI logica</span>
+                  <p>We ontwerpen gesprekslogica, tone of voice, kwalificatievragen, uitzonderingen en overdrachtsmomenten.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="lm-step-number">2</span>
+              <div>
+                <h3 class="lm-road-title">Campagnes, funnel en CRM setup</h3>
+                <p class="lm-road-preview">We richten de leadgeneratie, tracking, CRM verwerking en funnel structuur in.</p>
+              </div>
+              <span class="lm-toggle">+</span>
+            </summary>
+
+            <div class="lm-road-content">
+              <div class="lm-road-grid">
+                <div class="lm-road-mini">
+                  <span>Online marketing</span>
+                  <p>We bouwen de campagnestructuur, targeting, tracking, creatives en retargeting basis.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>LinkedIn outreach</span>
+                  <p>We richten de prospecting flow in met doelgroep, uitnodigingen, berichten en veilige accountgrenzen.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>CRM flow</span>
+                  <p>Nieuwe leads worden vastgelegd met bron, status, notities, pipeline en duidelijke vervolgstap.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="lm-step-number">3</span>
+              <div>
+                <h3 class="lm-road-title">Bouw en testen</h3>
+                <p class="lm-road-preview">We bouwen de AI medewerker, koppelingen en campagnes en testen alle belangrijke scenario’s.</p>
+              </div>
+              <span class="lm-toggle">+</span>
+            </summary>
+
+            <div class="lm-road-content">
+              <div class="lm-road-grid">
+                <div class="lm-road-mini">
+                  <span>AI medewerker</span>
+                  <p>We bouwen de opvolging, kwalificatie, antwoorden, afspraakflow en overdracht naar het team.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Koppelingen</span>
+                  <p>We koppelen waar nodig formulieren, CRM, agenda, e-mail, WhatsApp, sms of website chat.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Testscenario’s</span>
+                  <p>We testen nieuwe leads, warme leads, bezwaren, verkeerde leads, no shows en afspraakaanvragen.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="lm-step-number">4</span>
+              <div>
+                <h3 class="lm-road-title">Review en livegang</h3>
+                <p class="lm-road-preview">We lopen alles samen door, verwerken feedback en zetten de Leadsmachine klaar voor livegang.</p>
+              </div>
+              <span class="lm-toggle">+</span>
+            </summary>
+
+            <div class="lm-road-content">
+              <div class="lm-road-grid">
+                <div class="lm-road-mini">
+                  <span>Review</span>
+                  <p>Jullie controleren de funnel, AI antwoorden, kwalificatie, CRM output en afspraakroute.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Feedback</span>
+                  <p>We verwerken laatste aanpassingen in copy, logica, timing, advertenties en opvolging.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Livegang</span>
+                  <p>We zetten campagnes, AI opvolging, tracking en CRM verwerking live volgens de afgesproken planning.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="lm-step-number">5</span>
+              <div>
+                <h3 class="lm-road-title">Monitoring en optimalisatie</h3>
+                <p class="lm-road-preview">Na livegang monitoren we campagnes, gesprekken, CRM data en conversiepunten actief.</p>
+              </div>
+              <span class="lm-toggle">+</span>
+            </summary>
+
+            <div class="lm-road-content">
+              <div class="lm-road-grid">
+                <div class="lm-road-mini">
+                  <span>Data</span>
+                  <p>We kijken naar spend, leads, kosten per lead, afspraken, opvolging, conversie en bottlenecks.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Optimalisatie</span>
+                  <p>We verbeteren campagnes, targeting, retargeting, AI antwoorden, kwalificatie en afspraakflow.</p>
+                </div>
+                <div class="lm-road-mini">
+                  <span>Groei</span>
+                  <p>Als de basis staat kunnen we uitbreiden met extra kanalen, funnels, AI flows of lead reactivatie.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="lm-implementation-summary">
+          <h3>Een gestructureerde aanpak. Geen losse onderdelen.</h3>
+          <p>Ons support team communiceert actief over planning, resultaten en eventuele blockers. Zo weet je precies wat er wordt gebouwd, wanneer iets live gaat en waar we op optimaliseren.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section" id="leadsmachine-calculator">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">PRIJS EN PROGNOSE</div>
+        <h2 class="lm-title">Bereken snel wat Leadsmachine AI kan opleveren.</h2>
+        <p class="lm-subtitle">
+          De calculator rekent niet plat van lead naar klant. We tonen eerst hoeveel afspraken je uit leads haalt, en daarna hoeveel klanten daaruit komen.
+        </p>
+      </div>
+
+      <div class="lm-calculator-card">
+        <div class="lm-calculator-layout">
+          <div class="lm-calc-inputs">
+            <div class="lm-field">
+              <label for="lmaPackage">Kies pakket</label>
+              <small>Prijs, advertentiebudget en AI uplift passen automatisch aan.</small>
+              <select id="lmaPackage">
+                <option value="start">Leadsmachine Start</option>
+                <option value="scale">Leadsmachine Scale</option>
+                <option value="premium">Leadsmachine Premium</option>
+              </select>
+            </div>
+
+            <div class="lm-field">
+              <label>Type benchmark</label>
+              <small>Kies of je rekent met een B2B of B2C funnel.</small>
+
+              <div class="lm-benchmark-toggle" role="group" aria-label="Benchmark type kiezen">
+                <button class="lm-benchmark-button is-active" type="button" data-benchmark="b2b">B2B</button>
+                <button class="lm-benchmark-button" type="button" data-benchmark="b2c">B2C</button>
+              </div>
+
+              <div id="lmaBenchmarkLabel" class="lm-benchmark-output">
+                B2B, gemiddeld 20% van leads wordt afspraak. Gemiddeld 25% van afspraken wordt klant.
+              </div>
+            </div>
+
+            <div class="lm-field">
+              <label for="lmaCpl">Gemiddelde kosten per lead</label>
+              <small>Gebruik je historische CPL of een realistische schatting.</small>
+              <input id="lmaCpl" type="number" min="1" value="30">
+            </div>
+
+            <div class="lm-field">
+              <label for="lmaMargin">Gemiddelde marge per klant</label>
+              <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
+              <input id="lmaMargin" type="number" min="0" value="2500">
+            </div>
+
+            <details>
+              <summary class="lm-field">
+                <div class="lm-click-row">
+                  <div>
+                    <label>Gebruikskosten bekijken</label>
+                    <small>Inbound chat €0,02 per bericht, outbound chat €0,22 per bericht.</small>
+                  </div>
+                  <span class="lm-plus">+</span>
+                </div>
+              </summary>
+
+              <div class="lm-calc-inputs" style="margin-top:12px;">
+                <div class="lm-field">
+                  <label for="lmaInbound">Inbound chat berichten</label>
+                  <small>€0,02 per bericht.</small>
+                  <input id="lmaInbound" type="number" min="0" value="1000">
+                </div>
+
+                <div class="lm-field">
+                  <label for="lmaOutbound">Outbound chat berichten</label>
+                  <small>€0,22 per bericht.</small>
+                  <input id="lmaOutbound" type="number" min="0" value="500">
+                </div>
+              </div>
+
+              <div class="lm-more">
+                Geschatte gebruikskosten: <strong id="lmaUsageInline">€0</strong>. Deze worden apart afgerekend op basis van werkelijk verbruik.
+              </div>
+            </details>
+          </div>
+
+          <div class="lm-calc-results">
+            <h3>Jouw simpele prognose</h3>
+
+            <div class="lm-calc-cost-row">
+              <div class="lm-cost-pill">
+                <span>Abonnement</span>
+                <strong id="lmaMonthly">€0</strong>
+              </div>
+
+              <div class="lm-cost-pill">
+                <span>Ads budget</span>
+                <strong id="lmaAdBudget">€0</strong>
+              </div>
+
+              <div class="lm-cost-pill">
+                <span>Leads</span>
+                <strong id="lmaEstimatedLeads">0</strong>
+              </div>
+
+              <div class="lm-cost-pill">
+                <span>Implementatie</span>
+                <strong id="lmaSetup">€0</strong>
+              </div>
+            </div>
+
+            <div class="lm-compare-grid">
+              <div class="lm-compare-card">
+                <h4>Zonder AI opvolging</h4>
+
+                <div class="lm-compare-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="lmaAppointmentsNoAi">0</strong>
+                </div>
+
+                <div class="lm-compare-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="lmaCustomersNoAi">0</strong>
+                </div>
+
+                <div class="lm-compare-metric">
+                  <span>Potentiële marge</span>
+                  <strong id="lmaMarginNoAi" class="lm-smaller-result">€0</strong>
+                </div>
+              </div>
+
+              <div class="lm-compare-card is-ai">
+                <h4>Met AI opvolging</h4>
+
+                <div class="lm-compare-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="lmaAppointmentsWithAi">0</strong>
+                </div>
+
+                <div class="lm-compare-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="lmaCustomersWithAi">0</strong>
+                </div>
+
+                <div class="lm-compare-metric">
+                  <span>Potentiële marge</span>
+                  <strong id="lmaMarginWithAi" class="lm-smaller-result">€0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="lm-impact-card">
+              <div class="lm-impact-header">
+                <div>
+                  <h4>Het verschil door AI</h4>
+                  <p>
+                    AI zorgt vooral voor snellere opvolging, meer afspraken en daardoor meer kansen om klanten te sluiten.
+                  </p>
+                </div>
+
+                <div class="lm-impact-badge">
+                  AI uplift: <strong id="lmaAiUplift">0%</strong>
+                </div>
+              </div>
+
+              <div class="lm-impact-grid is-four">
+                <div class="lm-impact-item">
+                  <span>Extra afspraken</span>
+                  <strong id="lmaExtraAppointments">0</strong>
+                </div>
+
+                <div class="lm-impact-item">
+                  <span>Extra klanten</span>
+                  <strong id="lmaExtraCustomers">0</strong>
+                </div>
+
+                <div class="lm-impact-item">
+                  <span>Extra marge</span>
+                  <strong id="lmaExtraMargin">€0</strong>
+                </div>
+
+                <div class="lm-impact-item">
+                  <span>Marge na abonnement + ads</span>
+                  <strong id="lmaNetMonthly">€0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lm-more" style="margin-top:16px;">
+          Deze calculator gebruikt een simpel funnelmodel: leads naar afspraken, daarna afspraken naar klanten. Gebruikskosten per bericht zijn niet meegenomen in de hoofdprognose.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section" id="leadsmachine-pakketten">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">PAKKETTEN</div>
+        <h2 class="lm-title">Kies je Leadsmachine AI pakket en start direct.</h2>
+        <p class="lm-subtitle">Kies Start, Scale of Premium. Na aankoop starten we met de implementatie van jullie AI medewerker en klantenmachine.</p>
+      </div>
+
+      <div class="lm-package-grid">
+        <div class="lm-package">
+          <div class="lm-package-top">
+            <span class="lm-package-badge">Start</span>
+            <h3>Leadsmachine Start</h3>
+            <p>Voor één aanbod, één doelgroep en één duidelijke campagneflow.</p>
+
+            <div class="lm-price">
+              <strong>€1850</strong>
+              <span>per maand, implementatie €3950</span>
+            </div>
+          </div>
+
+          <ul class="lm-list">
+            <li><span class="lm-check">✓</span><span>1 advertentiekanaal, Meta Ads, Google Ads of LinkedIn Ads</span></li>
+            <li><span class="lm-check">✓</span><span>Ad spend tot en met €5000</span></li>
+            <li><span class="lm-check">✓</span><span>1 lead funnel voor één aanbod, doelgroep of dienst</span></li>
+            <li><span class="lm-check">✓</span><span>LinkedIn Prospecting, tot 800 gerichte LinkedIn uitnodigingen per maand</span></li>
+            <li><span class="lm-check">✓</span><span>Campagne setup, targeting, tracking en basisstructuur</span></li>
+            <li><span class="lm-check">✓</span><span>Basis advertentiecreatives en invalshoeken</span></li>
+            <li><span class="lm-check">✓</span><span>Landingpage of leadformulier advies</span></li>
+            <li><span class="lm-check">✓</span><span>AI opvolging via 1 kanaal, WhatsApp, e-mail of website</span></li>
+            <li><span class="lm-check">✓</span><span>Basis leadkwalificatie</span></li>
+            <li><span class="lm-check">✓</span><span>Afspraakplanning</span></li>
+            <li><span class="lm-check">✓</span><span>CRM verwerking met status en notities</span></li>
+            <li><span class="lm-check">✓</span><span>Maandelijkse optimalisatie</span></li>
+          </ul>
+
+          <details class="lm-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="lm-plus">+</span>
+            </summary>
+            <div class="lm-more">
+              Usage based billing: inbound chat €0,02 per bericht en outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+            </div>
+          </details>
+
+          <div class="lm-stripe-box">
+            <span class="lm-stripe-label">Start direct met Leadsmachine Start</span>
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeeYPQbNJoBxwDUIgSIQmvZ"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="lm-package featured">
+          <div class="lm-package-top">
+            <span class="lm-package-badge">Scale</span>
+            <h3>Leadsmachine Scale</h3>
+            <p>Voor meerdere kanalen, meerdere funnels en sterkere opvolging.</p>
+
+            <div class="lm-price">
+              <strong>€2795</strong>
+              <span>per maand, implementatie €5590</span>
+            </div>
+          </div>
+
+          <ul class="lm-list">
+            <li><span class="lm-check">✓</span><span>2 advertentiekanalen, Meta Ads, Google Ads of LinkedIn Ads</span></li>
+            <li><span class="lm-check">✓</span><span>Ad spend tot en met €15.000</span></li>
+            <li><span class="lm-check">✓</span><span>2 lead funnels voor meerdere doelgroepen, diensten of fases</span></li>
+            <li><span class="lm-check">✓</span><span>LinkedIn Prospecting, tot 800 gerichte LinkedIn uitnodigingen per maand</span></li>
+            <li><span class="lm-check">✓</span><span>Volledige campagne setup met tracking, conversies en remarketing</span></li>
+            <li><span class="lm-check">✓</span><span>Uitgebreide advertentiecreatives met meerdere varianten</span></li>
+            <li><span class="lm-check">✓</span><span>Landingpage optimalisatie</span></li>
+            <li><span class="lm-check">✓</span><span>AI opvolging via 2 kanalen, WhatsApp, e-mail, sms of website</span></li>
+            <li><span class="lm-check">✓</span><span>Sterke leadkwalificatie op behoefte, timing, urgentie en fit</span></li>
+            <li><span class="lm-check">✓</span><span>Afspraakplanning met teamlogica</span></li>
+            <li><span class="lm-check">✓</span><span>CRM updates en pipeline verwerking</span></li>
+            <li><span class="lm-check">✓</span><span>Maandelijkse optimalisatie</span></li>
+            <li><span class="lm-check">✓</span><span>Sales antwoorden en bezwaren</span></li>
+          </ul>
+
+          <details class="lm-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="lm-plus">+</span>
+            </summary>
+            <div class="lm-more lm-dark-more">
+              Usage based billing: inbound chat €0,02 per bericht en outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+            </div>
+          </details>
+
+          <div class="lm-stripe-box">
+            <span class="lm-stripe-label">Start direct met Leadsmachine Scale</span>
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeeaAQbNJoBxwDU8SSEcVSX"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="lm-package">
+          <div class="lm-package-top">
+            <span class="lm-package-badge">Premium</span>
+            <h3>Leadsmachine Premium</h3>
+            <p>Voor full funnel groei met alle afgesproken kanalen en diepe saleskwalificatie.</p>
+
+            <div class="lm-price">
+              <strong>€3999</strong>
+              <span>per maand, implementatie €8599</span>
+            </div>
+          </div>
+
+          <ul class="lm-list">
+            <li><span class="lm-check">✓</span><span>Alle afgesproken advertentiekanalen</span></li>
+            <li><span class="lm-check">✓</span><span>Ad spend €15.000 per maand en hoger</span></li>
+            <li><span class="lm-check">✓</span><span>Meerdere lead funnels per doelgroep, dienst, regio, fase of aanbod</span></li>
+            <li><span class="lm-check">✓</span><span>LinkedIn Prospecting, tot 800 gerichte LinkedIn uitnodigingen per maand</span></li>
+            <li><span class="lm-check">✓</span><span>Full funnel campagne setup</span></li>
+            <li><span class="lm-check">✓</span><span>Geavanceerde advertentiecreatives</span></li>
+            <li><span class="lm-check">✓</span><span>Conversie optimalisatie</span></li>
+            <li><span class="lm-check">✓</span><span>AI opvolging via alle afgesproken kanalen</span></li>
+            <li><span class="lm-check">✓</span><span>Diepe saleskwalificatie op behoefte, urgentie, timing, budget, fit en koopintentie</span></li>
+            <li><span class="lm-check">✓</span><span>Slimme routing naar persoon, regio, dienst, pipeline of afdeling</span></li>
+            <li><span class="lm-check">✓</span><span>Volledige CRM flow met taken, triggers, notities, scoring en pipeline updates</span></li>
+            <li><span class="lm-check">✓</span><span>Wekelijkse optimalisatie</span></li>
+            <li><span class="lm-check">✓</span><span>Lead scoring</span></li>
+            <li><span class="lm-check">✓</span><span>Multi step follow up</span></li>
+            <li><span class="lm-check">✓</span><span>Lead reactivatie</span></li>
+            <li><span class="lm-check">✓</span><span>Growth reporting</span></li>
+          </ul>
+
+          <details class="lm-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="lm-plus">+</span>
+            </summary>
+            <div class="lm-more">
+              Usage based billing: inbound chat €0,02 per bericht en outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+            </div>
+          </details>
+
+          <div class="lm-stripe-box">
+            <span class="lm-stripe-label">Start direct met Leadsmachine Premium</span>
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeebDQbNJoBxwDUjZwhJGKN"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section">
+    <div class="lm-container">
+      <div class="lm-center">
+        <div class="lm-eyebrow">FAQ</div>
+        <h2 class="lm-title">Vragen over Leadsmachine AI?</h2>
+        <p class="lm-subtitle">
+          De belangrijkste vragen over leadgeneratie, AI opvolging, CRM, planning, gebruikskosten en de pakketten.
+        </p>
+      </div>
+
+      <div class="lm-faq">
+        <div class="lm-faq-category">Algemeen</div>
+
+        <details open>
+          <summary>
+            <div><h3 class="lm-road-title">Wat doet Leadsmachine AI?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Leadsmachine AI volgt nieuwe en openstaande leads op via WhatsApp, e-mail, sms, website chat en social DM’s. De AI medewerker stelt kwalificatievragen, beantwoordt salesvragen, plant afspraken in en logt de belangrijkste informatie in je CRM.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Voor wie is Leadsmachine AI bedoeld?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Voor bedrijven die meer leads willen, sneller willen reageren, minder handmatig willen opvolgen en meer afspraken willen boeken zonder dat het salesteam continu achter elke aanvraag aan hoeft.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Werkt de AI alleen inbound of ook met opvolging?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Beide. De AI kan inbound leads opvangen via formulieren, chat, WhatsApp of advertenties. Daarnaast kan de AI leads opvolgen op basis van CRM triggers, openstaande aanvragen, offertes, gemiste contactmomenten of oude leads.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Hoe snel reageert de AI medewerker?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              We richten speed to lead in met als doel om binnen circa 60 seconden de eerste reactie te sturen. De exacte timing stemmen we af op je openingstijden, teamcapaciteit en gewenste tone of voice.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Kan de AI ook afspraken boeken?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Ja. Afspraakplanning zit in ieder pakket. Het verschil zit in de complexiteit. Start werkt met eenvoudige planning, Scale met meerdere teams en agenda’s, Premium met grotere teams, routes en complexere scenario’s.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Zijn gebruikskosten inbegrepen?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Nee. Gebruikskosten worden apart afgerekend op basis van werkelijk verbruik. Inbound chat kost €0,02 per bericht en outbound chat kost €0,22 per bericht.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Hoe zit het met contract en betaling?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              We factureren maandelijks. De pakketten zijn maandelijks opzegbaar met een opzegtermijn van 1 kalendermaand.
+            </p>
+          </div>
+        </details>
+
+        <div class="lm-faq-category">Pakketten</div>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Wanneer kies je Leadsmachine Start?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Kies Start als je wilt beginnen met één duidelijke campagneflow, één advertentiekanaal, één lead funnel en AI opvolging via één afgesproken kanaal.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Wanneer kies je Leadsmachine Scale?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Kies Scale als je met twee advertentiekanalen, twee lead funnels, twee opvolgkanalen, meerdere teams of sterkere CRM verwerking wilt werken.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div><h3 class="lm-road-title">Wanneer kies je Leadsmachine Premium?</h3></div>
+            <span class="lm-toggle">+</span>
+          </summary>
+          <div class="lm-road-content">
+            <p class="lm-small-text">
+              Kies Premium als je meerdere kanalen, grotere teams, complexe planning, lead scoring, multi step follow up, lead reactivatie, slimme routing of structurele growth reporting nodig hebt.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-section">
+    <div class="lm-container">
+      <div class="lm-final">
+        <h2>Kies je pakket en start direct met een AI medewerker.</h2>
+        <p>
+          Leadsmachine AI verbindt bereik, opvolging, retargeting, CRM en afspraakplanning tot één systeem dat blijft verbeteren op basis van data.
+        </p>
+
+        <div class="lm-actions">
+          <a class="lm-button primary" href="#leadsmachine-pakketten">Start nu met Leadsmachine AI</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.getElementById("leadsmachine-ai-page");
+      if (!root) return;
+
+      const packages = {
+        start: {
+          monthly: 1850,
+          setup: 3950,
+          adBudget: 2500,
+          aiUplift: 0.25
+        },
+        scale: {
+          monthly: 2795,
+          setup: 5590,
+          adBudget: 7500,
+          aiUplift: 0.35
+        },
+        premium: {
+          monthly: 3999,
+          setup: 8599,
+          adBudget: 15000,
+          aiUplift: 0.50
+        }
+      };
+
+      const benchmarkRates = {
+        b2b: {
+          appointmentRate: 0.20,
+          closeRate: 0.25,
+          label: "B2B, gemiddeld 20% van leads wordt afspraak. Gemiddeld 25% van afspraken wordt klant."
+        },
+        b2c: {
+          appointmentRate: 0.25,
+          closeRate: 0.30,
+          label: "B2C, gemiddeld 25% van leads wordt afspraak. Gemiddeld 30% van afspraken wordt klant."
+        }
+      };
+
+      let selectedBenchmark = "b2b";
+
+      const topicContent = {
+        top: {
+          linkedin: {
+            title: "LinkedIn outreach",
+            text: "Gerichte uitnodigingen en berichten naar de juiste doelgroep, binnen veilige accountgrenzen. Zo bouwen we niet alleen bereik op, maar openen we ook gesprekken met potentiële klanten."
+          },
+          meta: {
+            title: "Meta Ads",
+            text: "Campagnes via Facebook en Instagram om laagdrempelig nieuwe leads te genereren. Denk aan simpele formulieren, duidelijke hooks en retargeting op mensen die interesse tonen."
+          },
+          leadform: {
+            title: "Leadformulier",
+            text: "Een eenvoudige intake waar prospects snel hun gegevens achterlaten. Minder frictie betekent meer kans dat iemand de eerste stap zet."
+          }
+        },
+        middle: {
+          followup: {
+            title: "AI opvolging",
+            text: "De lead krijgt direct reactie via het afgesproken kanaal. Daardoor blijft de intentie warm en wordt de kans groter dat iemand doorgaat naar een afspraak."
+          },
+          qualification: {
+            title: "Leadkwalificatie",
+            text: "De AI stelt vragen over behoefte, timing, urgentie en fit. Zo wordt sneller duidelijk welke leads serieus zijn en welke nog niet klaar zijn."
+          },
+          retargeting: {
+            title: "Retargeting",
+            text: "Leads die nog niet boeken blijven je advertenties zien. Zo bouw je herkenning en vertrouwen op, zonder handmatig achter iedereen aan te gaan."
+          }
+        },
+        bottom: {
+          crm: {
+            title: "CRM systeem",
+            text: "Nieuwe leads worden vastgelegd met bron, status, notities en vervolgactie. Zo behoudt het team overzicht en blijft geen lead onduidelijk hangen."
+          },
+          booking: {
+            title: "Afspraken boeken",
+            text: "Gekwalificeerde leads worden automatisch richting een afspraak gestuurd. Bij complexere pakketten houden we rekening met teams, agenda’s, locaties of routes."
+          },
+          data: {
+            title: "Data optimalisatie",
+            text: "We kijken naar spend, leads, kosten per lead, afspraken, opvolging en conversie. Daarna verbeteren we de campagne en AI flow op basis van echte data."
+          }
+        }
+      };
+
+      const inboundCost = 0.02;
+      const outboundCost = 0.22;
+
+      function el(id) {
+        return root.querySelector("#" + id);
+      }
+
+      function getNumber(id) {
+        const field = el(id);
+        if (!field) return 0;
+
+        const value = parseFloat(field.value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function getPackage() {
+        const field = el("lmaPackage");
+        if (!field) return packages.start;
+
+        return packages[field.value] || packages.start;
+      }
+
+      function formatEuro(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0
+        }).format(safeValue);
+      }
+
+      function formatNumber(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          maximumFractionDigits: 1
+        }).format(safeValue);
+      }
+
+      function formatPercent(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          maximumFractionDigits: 0
+        }).format(safeValue * 100) + "%";
+      }
+
+      function setOutput(id, value) {
+        const output = el(id);
+        if (!output) return;
+
+        if (
+          output.tagName === "INPUT" ||
+          output.tagName === "TEXTAREA" ||
+          output.tagName === "SELECT"
+        ) {
+          output.value = value;
+          return;
+        }
+
+        output.textContent = value;
+      }
+
+      function calculate() {
+        const selectedPackage = getPackage();
+        const benchmark = benchmarkRates[selectedBenchmark] || benchmarkRates.b2b;
+
+        const cpl = Math.max(getNumber("lmaCpl"), 1);
+        const margin = getNumber("lmaMargin");
+
+        const inbound = getNumber("lmaInbound");
+        const outbound = getNumber("lmaOutbound");
+
+        const usage = inbound * inboundCost + outbound * outboundCost;
+
+        const monthly = selectedPackage.monthly;
+        const setup = selectedPackage.setup;
+        const adBudget = selectedPackage.adBudget;
+        const aiUplift = selectedPackage.aiUplift;
+
+        const estimatedLeads = adBudget / cpl;
+
+        const totalMonthly = monthly + adBudget;
+
+        const appointmentsNoAi = estimatedLeads * benchmark.appointmentRate;
+        const appointmentsWithAi = appointmentsNoAi * (1 + aiUplift);
+
+        const customersNoAi = appointmentsNoAi * benchmark.closeRate;
+        const customersWithAi = appointmentsWithAi * benchmark.closeRate;
+
+        const extraAppointments = appointmentsWithAi - appointmentsNoAi;
+        const extraCustomers = customersWithAi - customersNoAi;
+
+        const marginNoAi = customersNoAi * margin;
+        const marginWithAi = customersWithAi * margin;
+
+        const extraMargin = marginWithAi - marginNoAi;
+        const netMonthly = marginWithAi - totalMonthly;
+
+        setOutput("lmaMonthly", formatEuro(monthly));
+        setOutput("lmaAdBudget", formatEuro(adBudget));
+        setOutput("lmaEstimatedLeads", formatNumber(estimatedLeads));
+        setOutput("lmaSetup", formatEuro(setup));
+
+        setOutput("lmaAppointmentsNoAi", formatNumber(appointmentsNoAi));
+        setOutput("lmaCustomersNoAi", formatNumber(customersNoAi));
+        setOutput("lmaMarginNoAi", formatEuro(marginNoAi));
+
+        setOutput("lmaAppointmentsWithAi", formatNumber(appointmentsWithAi));
+        setOutput("lmaCustomersWithAi", formatNumber(customersWithAi));
+        setOutput("lmaMarginWithAi", formatEuro(marginWithAi));
+
+        setOutput("lmaExtraAppointments", formatNumber(extraAppointments));
+        setOutput("lmaExtraCustomers", formatNumber(extraCustomers));
+        setOutput("lmaExtraMargin", formatEuro(extraMargin));
+
+        setOutput("lmaNetMonthly", formatEuro(netMonthly));
+        setOutput("lmaAiUplift", formatPercent(aiUplift));
+        setOutput("lmaUsageInline", formatEuro(usage));
+        setOutput("lmaBenchmarkLabel", benchmark.label);
+      }
+
+      function setupTopicButtons() {
+        const buttons = root.querySelectorAll(".lm-topic-button");
+
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const layer = button.closest("[data-layer]");
+            if (!layer) return;
+
+            const layerName = layer.getAttribute("data-layer");
+            const topic = button.getAttribute("data-topic");
+
+            const content = topicContent[layerName] && topicContent[layerName][topic];
+            if (!content) return;
+
+            const siblings = layer.querySelectorAll(".lm-topic-button");
+            siblings.forEach(function (sibling) {
+              sibling.classList.remove("is-active");
+            });
+
+            button.classList.add("is-active");
+
+            setOutput(layerName + "-title", content.title);
+            setOutput(layerName + "-text", content.text);
+          });
+        });
+      }
+
+      function setupBenchmarkButtons() {
+        const buttons = root.querySelectorAll(".lm-benchmark-button");
+
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const benchmark = button.getAttribute("data-benchmark");
+
+            if (!benchmarkRates[benchmark]) return;
+
+            selectedBenchmark = benchmark;
+
+            buttons.forEach(function (item) {
+              item.classList.remove("is-active");
+            });
+
+            button.classList.add("is-active");
+            calculate();
+          });
+        });
+      }
+
+      [
+        "lmaPackage",
+        "lmaCpl",
+        "lmaMargin",
+        "lmaInbound",
+        "lmaOutbound"
+      ].forEach(function (id) {
+        const input = el(id);
+
+        if (input) {
+          input.addEventListener("input", calculate);
+          input.addEventListener("change", calculate);
+        }
+      });
+
+      setupTopicButtons();
+      setupBenchmarkButtons();
+      calculate();
+    })();
+  </script>
+</div>

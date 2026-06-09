@@ -13,6 +13,7 @@ Deze repository bevat de statische Autopilots landingspagina's en GHL embedpagin
 ## Belangrijkste mappen
 
 - `projecten/` - hoofdlandingspagina's zoals homepage, voice, chat, planning, support en contact.
+- `voorstellen/` - proposal embeds zoals AI Sales Chat, AI Sales Voice, AI Sales Complete en Leadsmachine AI.
 - `niche-landing-pages/` - alle nichepagina's.
 - `agent-service-pages/` - servicepagina's voor losse AI agents.
 - `shared-sections/` - gedeelde secties zoals team, systemen en megamenu's.
@@ -30,4 +31,3 @@ In GHL plaats je daarna:
 ```html
 <iframe src="https://GITHUB_GEBRUIKER.github.io/REPO_NAAM/projecten/homepage/autopilots-homepage-ghl-embed.html" style="width:100%;border:0;min-height:900px;"></iframe>
 ```
-

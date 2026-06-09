@@ -1,0 +1,2051 @@
+<div id="ap-sales-chat-proposal">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    #ap-sales-chat-proposal {
+      --bg: #f5f5f2;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --soft: #eeeeea;
+      --line: rgba(0, 0, 0, 0.1);
+      --brown: #9f3826;
+      --brown-dark: #7d2a1d;
+      --black: #111111;
+      --white: #ffffff;
+
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #ap-sales-chat-proposal * {
+      box-sizing: border-box;
+    }
+
+    #ap-sales-chat-proposal h1,
+    #ap-sales-chat-proposal h2,
+    #ap-sales-chat-proposal h3,
+    #ap-sales-chat-proposal h4,
+    #ap-sales-chat-proposal p {
+      margin: 0;
+    }
+
+    #ap-sales-chat-proposal a {
+      color: inherit;
+    }
+
+    #ap-sales-chat-proposal .ap-section {
+      width: 100%;
+      padding: 80px 0;
+    }
+
+    #ap-sales-chat-proposal .ap-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-center {
+      max-width: 880px;
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    #ap-sales-chat-proposal .ap-eyebrow {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    #ap-sales-chat-proposal .ap-hero-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+    }
+
+    #ap-sales-chat-proposal .ap-hero-title .ap-hero-line {
+      display: block;
+    }
+
+    #ap-sales-chat-proposal .ap-hero-title .ap-hero-ai {
+      display: block;
+      margin-top: 8px;
+    }
+
+    #ap-sales-chat-proposal .ap-title {
+      max-width: 920px;
+      margin: 0 auto 16px;
+      font-size: clamp(34px, 4.8vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    #ap-sales-chat-proposal .ap-title-line,
+    #ap-sales-chat-proposal .ap-title-ai {
+      display: block;
+    }
+
+    #ap-sales-chat-proposal .ap-title-ai {
+      margin-top: 8px;
+    }
+
+    #ap-sales-chat-proposal .ap-italic {
+      font-style: italic;
+      color: var(--brown);
+      letter-spacing: -0.055em;
+    }
+
+    #ap-sales-chat-proposal .ap-subtitle {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-hero-text {
+      max-width: 800px;
+      margin: 24px auto 0;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    #ap-sales-chat-proposal .ap-button {
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-chat-proposal .ap-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #ap-sales-chat-proposal .ap-button.primary {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-button.secondary {
+      background: var(--white);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    #ap-sales-chat-proposal details {
+      width: 100%;
+    }
+
+    #ap-sales-chat-proposal summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    #ap-sales-chat-proposal summary::-webkit-details-marker {
+      display: none;
+    }
+
+    #ap-sales-chat-proposal .ap-plus {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 999px;
+      background: var(--black);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-chat-proposal details[open] .ap-plus {
+      background: var(--brown);
+      transform: rotate(45deg);
+    }
+
+    #ap-sales-chat-proposal .ap-card,
+    #ap-sales-chat-proposal .ap-panel,
+    #ap-sales-chat-proposal .ap-calculator,
+    #ap-sales-chat-proposal .ap-roadmap-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+    }
+
+    #ap-sales-chat-proposal .ap-panel {
+      margin-top: 54px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    #ap-sales-chat-proposal .ap-step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    #ap-sales-chat-proposal .ap-step {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 190px;
+    }
+
+    #ap-sales-chat-proposal .ap-step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-step h3 {
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-chat-proposal .ap-step p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    #ap-sales-chat-proposal .ap-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    #ap-sales-chat-proposal .ap-feature {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      min-height: 250px;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-chat-proposal .ap-feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(159, 56, 38, 0.11);
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-feature h3 {
+      font-size: 23px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-chat-proposal .ap-feature p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-more {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 15px;
+      line-height: 1.62;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-usage-info {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-usage-info strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-chat-proposal .ap-usage-info p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-calculator-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    #ap-sales-chat-proposal .ap-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-field {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-field label {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-chat-proposal .ap-field small {
+      display: block;
+      font-size: 13px;
+      line-height: 1.42;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-chat-proposal .ap-field input,
+    #ap-sales-chat-proposal .ap-field select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 0 12px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    #ap-sales-chat-proposal .ap-toggle {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    #ap-sales-chat-proposal .ap-toggle-button {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: var(--white);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+      padding: 8px 10px;
+    }
+
+    #ap-sales-chat-proposal .ap-toggle-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button {
+      cursor: default;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    #ap-sales-chat-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button:not(.is-active) {
+      background: #ffffff;
+      color: #111111;
+      opacity: 0.72;
+    }
+
+    #ap-sales-chat-proposal .ap-flow-info {
+      margin-top: 10px;
+      min-height: 58px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    #ap-sales-chat-proposal .ap-results {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    #ap-sales-chat-proposal .ap-results h3 {
+      font-size: 30px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-cost-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    #ap-sales-chat-proposal .ap-pill span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.25;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-chat-proposal .ap-pill strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-compare-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-compare-card.ai {
+      background: rgba(159, 56, 38, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #ap-sales-chat-proposal .ap-compare-card h4 {
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-metric {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-sales-chat-proposal .ap-metric:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    #ap-sales-chat-proposal .ap-metric span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.64);
+      margin-bottom: 7px;
+    }
+
+    #ap-sales-chat-proposal .ap-metric strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1.04;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-impact {
+      margin-top: 18px;
+      background: var(--white);
+      color: var(--text);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-head h4 {
+      font-size: 24px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    #ap-sales-chat-proposal .ap-impact-head p {
+      max-width: 560px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-impact-badge {
+      min-width: fit-content;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-item {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-item span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-impact-item strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--text);
+    }
+
+    #ap-sales-chat-proposal .ap-roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-sales-chat-proposal .ap-roadmap details,
+    #ap-sales-chat-proposal .ap-faq details {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #ap-sales-chat-proposal .ap-roadmap details[open],
+    #ap-sales-chat-proposal .ap-faq details[open] {
+      background: var(--white);
+      border-color: rgba(159, 56, 38, 0.28);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-chat-proposal .ap-roadmap summary,
+    #ap-sales-chat-proposal .ap-faq summary {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #ap-sales-chat-proposal .ap-roadmap .ap-step-number {
+      margin-bottom: 0;
+    }
+
+    #ap-sales-chat-proposal .ap-road-title {
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 5px;
+    }
+
+    #ap-sales-chat-proposal .ap-road-preview {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-road-content {
+      padding: 0 22px 22px 78px;
+    }
+
+    #ap-sales-chat-proposal .ap-road-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-road-mini {
+      border-radius: 16px;
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-road-mini span {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-chat-proposal .ap-road-mini p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .ap-black-summary {
+      margin-top: 18px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #ap-sales-chat-proposal .ap-black-summary h3 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-black-summary p {
+      max-width: 780px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    #ap-sales-chat-proposal .ap-package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    #ap-sales-chat-proposal .ap-package {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #ap-sales-chat-proposal .ap-package.featured {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
+      color: var(--white);
+      transform: translateY(-12px);
+    }
+
+    #ap-sales-chat-proposal .ap-package-top {
+      display: grid;
+      grid-template-rows: 30px 48px 88px 92px;
+      row-gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    #ap-sales-chat-proposal .ap-badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #ap-sales-chat-proposal .featured .ap-badge {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    #ap-sales-chat-proposal .ap-package h3 {
+      font-size: clamp(20px, 1.6vw, 24px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    #ap-sales-chat-proposal .ap-package p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-chat-proposal .featured p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #ap-sales-chat-proposal .ap-price {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 6px;
+    }
+
+    #ap-sales-chat-proposal .ap-price strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    #ap-sales-chat-proposal .ap-price span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    #ap-sales-chat-proposal .featured .ap-price span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #ap-sales-chat-proposal .ap-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+    }
+
+    #ap-sales-chat-proposal .ap-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+    }
+
+    #ap-sales-chat-proposal .featured .ap-list li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    #ap-sales-chat-proposal .ap-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    #ap-sales-chat-proposal .featured .ap-check {
+      background: var(--white);
+      color: var(--brown);
+    }
+
+    #ap-sales-chat-proposal .ap-package-details {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    #ap-sales-chat-proposal .featured .ap-package-details {
+      border-top-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #ap-sales-chat-proposal .ap-package-details summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    #ap-sales-chat-proposal .ap-stripe-box {
+      margin-top: 18px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    #ap-sales-chat-proposal .ap-faq {
+      max-width: 940px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-sales-chat-proposal .ap-faq details {
+      background: var(--white);
+      border-radius: 18px;
+    }
+
+    #ap-sales-chat-proposal .ap-faq summary {
+      grid-template-columns: 1fr auto;
+    }
+
+    #ap-sales-chat-proposal .ap-faq .ap-road-content {
+      padding: 0 22px 22px;
+    }
+
+    #ap-sales-chat-proposal .ap-faq-category {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin: 34px 0 10px;
+    }
+
+    #ap-sales-chat-proposal .ap-final {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(159, 56, 38, 0.2), transparent 34%),
+        var(--black);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 56px 30px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    #ap-sales-chat-proposal .ap-final h2 {
+      max-width: 850px;
+      margin: 0 auto 18px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    #ap-sales-chat-proposal .ap-final p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 980px) {
+      #ap-sales-chat-proposal .ap-step-grid,
+      #ap-sales-chat-proposal .ap-feature-grid,
+      #ap-sales-chat-proposal .ap-calculator-grid,
+      #ap-sales-chat-proposal .ap-road-grid,
+      #ap-sales-chat-proposal .ap-package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-chat-proposal .ap-package.featured {
+        transform: none;
+      }
+
+      #ap-sales-chat-proposal .ap-package-top {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+
+      #ap-sales-chat-proposal .ap-package h3 {
+        white-space: normal;
+        font-size: 28px;
+      }
+
+      #ap-sales-chat-proposal .ap-cost-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #ap-sales-chat-proposal .ap-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      #ap-sales-chat-proposal .ap-section {
+        padding: 58px 0;
+      }
+
+      #ap-sales-chat-proposal .ap-container {
+        padding: 0 14px;
+      }
+
+      #ap-sales-chat-proposal .ap-card,
+      #ap-sales-chat-proposal .ap-panel,
+      #ap-sales-chat-proposal .ap-calculator,
+      #ap-sales-chat-proposal .ap-roadmap-card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      #ap-sales-chat-proposal .ap-toggle,
+      #ap-sales-chat-proposal .ap-cost-grid,
+      #ap-sales-chat-proposal .ap-compare,
+      #ap-sales-chat-proposal .ap-impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-chat-proposal .ap-roadmap summary {
+        grid-template-columns: auto 1fr;
+      }
+
+      #ap-sales-chat-proposal .ap-roadmap summary .ap-plus {
+        grid-column: 1 / -1;
+      }
+
+      #ap-sales-chat-proposal .ap-road-content {
+        padding: 0 20px 20px;
+      }
+
+      #ap-sales-chat-proposal .ap-actions,
+      #ap-sales-chat-proposal .ap-button {
+        width: 100%;
+      }
+
+      #ap-sales-chat-proposal .ap-impact-head {
+        flex-direction: column;
+      }
+
+      #ap-sales-chat-proposal .ap-impact-item strong {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AI SALES CHAT</div>
+
+        <h1 class="ap-hero-title">
+          <span class="ap-hero-line">Stel het abonnement samen en start met</span>
+          <span class="ap-italic ap-hero-ai">AI Sales Chat.</span>
+        </h1>
+
+        <p class="ap-hero-text">
+          Laat nieuwe leads direct geholpen worden via website, WhatsApp, e-mail of social DM’s. Ook buiten openingstijden, in de avond en tijdens piekdrukte.
+        </p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-chat-pakketten">Kies pakket en start direct</a>
+          <a class="ap-button secondary" href="#ap-sales-chat-calculator">Bereken extra afspraken</a>
+        </div>
+      </div>
+
+      <div class="ap-panel">
+        <div class="ap-step-grid">
+          <div class="ap-step">
+            <div class="ap-step-number">1</div>
+            <h3>Kies je AI Sales Chat</h3>
+            <p>Kies Start, Scale of Premium op basis van jullie kanalen, agenda’s, opvolging en CRM behoefte.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">2</div>
+            <h3>Bevestig het abonnement</h3>
+            <p>Na bevestiging controleren we de gegevens en plannen we direct de onboarding met support.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">3</div>
+            <h3>Start de implementatie</h3>
+            <p>We richten de agent, kennisbasis, afsprakenflow, overdracht en koppelingen in volgens jullie werkwijze.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">WAAROM DIT WERKT</div>
+        <h2 class="ap-title">Geen warme aanvraag meer die blijft liggen.</h2>
+        <p class="ap-subtitle">
+          De AI Sales Chat reageert direct, stelt de juiste vragen, plant afspraken en draagt complexe gesprekken netjes over aan je team.
+        </p>
+      </div>
+
+      <div class="ap-feature-grid">
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">01</div>
+            <h3>24/7 bereikbaar</h3>
+            <p>Nieuwe leads krijgen direct antwoord, ook buiten openingstijden of tijdens drukke momenten.</p>
+          </summary>
+
+          <div class="ap-more">
+            De agent helpt met eerste vragen, verzamelt contactgegevens en stuurt de lead naar een afspraak of duidelijke vervolgstap.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">02</div>
+            <h3>Slim kwalificeren</h3>
+            <p>De AI stelt intakevragen en bepaalt of iemand klaar is voor een afspraak, opvolging of overdracht.</p>
+          </summary>
+
+          <div class="ap-more">
+            Denk aan behoefte, timing, urgentie, budget, locatie, type aanvraag en koopintentie.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">03</div>
+            <h3>Meer afspraken</h3>
+            <p>Warme leads worden niet losgelaten. De agent stuurt naar afspraak, follow up of overdracht met context.</p>
+          </summary>
+
+          <div class="ap-more">
+            Bij Scale en Premium kan de agent ook opvolgen, herinneren, bezwaren opvangen en CRM statussen bijwerken.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-chat-calculator">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">ROI CALCULATOR</div>
+        <h2 class="ap-title">Bereken wat 24/7 chat opvolging kan opleveren.</h2>
+        <p class="ap-subtitle">
+          De inbegrepen flow wordt automatisch bepaald door het gekozen pakket. Zo zie je direct het verschil tussen Start, Scale en Premium.
+        </p>
+      </div>
+
+      <div class="ap-calculator">
+        <div class="ap-calculator-grid">
+          <div class="ap-inputs">
+            <div class="ap-field">
+              <label for="apPackage">Kies pakket</label>
+              <small>Abonnement, implementatie en opvolgkwaliteit passen automatisch aan.</small>
+              <select id="apPackage">
+                <option value="start">Chat Start</option>
+                <option value="scale">Chat Scale</option>
+                <option value="premium">Chat Premium</option>
+              </select>
+            </div>
+
+            <div class="ap-field">
+              <label>Inbegrepen flow</label>
+              <small>De flow staat automatisch vast op basis van het gekozen pakket.</small>
+
+              <div class="ap-toggle ap-toggle-locked" role="group" aria-label="Inbegrepen flow">
+                <button class="ap-toggle-button is-active" type="button" data-package-flow="start" tabindex="-1">
+                  Inbound
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="scale" tabindex="-1">
+                  Inbound + outbound
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="premium" tabindex="-1">
+                  Inbound + outbound + reactivatie
+                </button>
+              </div>
+
+              <div id="apFlowLabel" class="ap-flow-info">
+                Chat Start bevat inbound. De AI vangt inkomende berichten via website, WhatsApp, e-mail of DM’s direct op.
+              </div>
+            </div>
+
+            <div class="ap-field">
+              <label for="apInboundLeads">Nieuwe aanvragen per maand</label>
+              <small>Website chat, WhatsApp, e-mail of social DM’s.</small>
+              <input id="apInboundLeads" type="number" min="0" value="120">
+            </div>
+
+            <div class="ap-field">
+              <label for="apAfterHours">Buiten openingstijden</label>
+              <small>Welk percentage van je aanvragen komt binnen wanneer niemand direct reageert?</small>
+              <input id="apAfterHours" type="number" min="0" max="100" value="15">
+            </div>
+
+            <div class="ap-field">
+              <label for="apPeakHours">Tijdens piekdrukte</label>
+              <small>Welk percentage krijgt vertraagde opvolging door drukte?</small>
+              <input id="apPeakHours" type="number" min="0" max="100" value="10">
+            </div>
+
+            <div class="ap-field">
+              <label for="apOldLeads">Leads voor opvolging of reactivatie</label>
+              <small>Meta formulieren, Google Ads leads, LinkedIn reacties, oude CRM leads, offertes of gemiste contactmomenten.</small>
+              <input id="apOldLeads" type="number" min="0" value="180">
+            </div>
+
+            <div class="ap-field">
+              <label for="apAppointmentRate">Afspraakratio na goede opvolging</label>
+              <small>Gemiddeld percentage opgevolgde leads dat naar een afspraak gaat.</small>
+              <input id="apAppointmentRate" type="number" min="0" max="100" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apCloseRate">Klant uit afspraak</label>
+              <small>Gemiddeld percentage afspraken dat klant wordt.</small>
+              <input id="apCloseRate" type="number" min="0" max="100" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apMargin">Gemiddelde marge per klant</label>
+              <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
+              <input id="apMargin" type="number" min="0" value="1500">
+            </div>
+
+            <div class="ap-usage-info">
+              <strong>Gebruikerskosten AI Medewerker</strong>
+              <p>Inbound chat €0,02 per bericht. Outbound chat €0,22 per bericht.</p>
+            </div>
+          </div>
+
+          <div class="ap-results">
+            <h3>Jouw simpele prognose</h3>
+
+            <div class="ap-cost-grid">
+              <div class="ap-pill">
+                <span>Abonnement</span>
+                <strong id="apMonthly">€0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span>Implementatie</span>
+                <strong id="apSetup">€0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span id="apOpportunityLabel">Inbound kansen</span>
+                <strong id="apRiskLeads">0</strong>
+              </div>
+            </div>
+
+            <div class="ap-compare">
+              <div class="ap-compare-card">
+                <h4>Zonder AI Sales Chat</h4>
+
+                <div class="ap-metric">
+                  <span>Op tijd opgevolgd</span>
+                  <strong id="apHandledNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="apAppointmentsNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="apCustomersNoAi">0</strong>
+                </div>
+              </div>
+
+              <div class="ap-compare-card ai">
+                <h4>Met AI Sales Chat</h4>
+
+                <div class="ap-metric">
+                  <span>Op tijd opgevolgd</span>
+                  <strong id="apHandledWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="apAppointmentsWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="apCustomersWithAi">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-impact">
+              <div class="ap-impact-head">
+                <div>
+                  <h4>Het verschil door AI</h4>
+                  <p>De meeste winst zit in sneller reageren, leads via het juiste kanaal opvolgen en kansen niet laten liggen.</p>
+                </div>
+
+                <div class="ap-impact-badge">24/7 actief</div>
+              </div>
+
+              <div class="ap-impact-grid">
+                <div class="ap-impact-item">
+                  <span>Extra gesprekken op tijd</span>
+                  <strong id="apExtraHandled">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra afspraken</span>
+                  <strong id="apExtraAppointments">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra klanten</span>
+                  <strong id="apExtraCustomers">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra marge</span>
+                  <strong id="apExtraMargin">€0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Marge met AI</span>
+                  <strong id="apMarginWithAi">€0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Marge na abonnement + gebruikerskosten</span>
+                  <strong id="apNetAfterCost">€0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-more" style="margin-top:16px;">
+          Deze calculator is een indicatie. Resultaten hangen af van leadkwaliteit, aanbod, reactietijd, afspraakproces, teamopvolging en conversie.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-chat-implementatie">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">IMPLEMENTATIEPROCES</div>
+        <h2 class="ap-title">
+          <span class="ap-title-line">Van onboarding naar live</span>
+          <span class="ap-italic ap-title-ai">AI Sales Chat.</span>
+        </h2>
+        <p class="ap-subtitle">
+          We leveren scope, kennisbasis, integraties en testen in duidelijke fases op. Support communiceert actief over planning, voortgang en blockers.
+        </p>
+      </div>
+
+      <div class="ap-roadmap-card">
+        <div class="ap-roadmap">
+          <details open>
+            <summary>
+              <span class="ap-step-number">1</span>
+              <div>
+                <h3 class="ap-road-title">Ontwerp en inrichting</h3>
+                <p class="ap-road-preview">We vertalen jullie werkwijze naar gesprekslogica, tone of voice, uitzonderingen en technische inrichting.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Werkwijze</span>
+                  <p>We brengen in kaart hoe leads binnenkomen, wie opvolgt en wanneer een lead warm genoeg is.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Gesprekslogica</span>
+                  <p>We bepalen vragen, antwoorden, vervolgstappen, uitzonderingen en overdrachtsmomenten.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Kanalen</span>
+                  <p>We bepalen welke kanalen live gaan, zoals website, WhatsApp, e-mail of socials.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">2</span>
+              <div>
+                <h3 class="ap-road-title">Bouw en testen</h3>
+                <p class="ap-road-preview">We bouwen de AI medewerker, richten koppelingen in en testen de belangrijkste scenario’s.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Kennisbasis</span>
+                  <p>We verwerken aanbod, prijzen, werkwijze, veelgestelde vragen, bezwaren en tone of voice.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Koppelingen</span>
+                  <p>We koppelen waar nodig CRM, agenda, e-mail, WhatsApp, website chat of formulieren.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Testcases</span>
+                  <p>We testen nieuwe leads, lastige vragen, afspraken, overdracht, no shows en follow up momenten.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">3</span>
+              <div>
+                <h3 class="ap-road-title">Review en livegang</h3>
+                <p class="ap-road-preview">We lopen de oplossing samen door, verwerken feedback en zetten alles klaar voor livegang.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Review</span>
+                  <p>Jullie controleren antwoorden, kwalificatie, afspraakflow, overdracht en CRM output.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Feedback</span>
+                  <p>We verwerken laatste aanpassingen in copy, timing, logica, uitzonderingen en koppelingen.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Livegang</span>
+                  <p>We zetten de agent live volgens planning, afhankelijk van scope, feedback en input.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">4</span>
+              <div>
+                <h3 class="ap-road-title">Monitoring en optimalisatie</h3>
+                <p class="ap-road-preview">Na livegang monitoren we prestaties en sturen we bij op basis van echte gesprekken.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Gesprekken</span>
+                  <p>We kijken naar responstijd, vragen, bezwaren, overdrachten, afspraken en bottlenecks.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Verbeteringen</span>
+                  <p>We verbeteren antwoorden, kwalificatie, planning, follow up en CRM verwerking.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Groei</span>
+                  <p>Bij Scale en Premium breiden we uit met extra kanalen, reactivatie, scoring en complexere flows.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="ap-black-summary">
+          <h3>Duidelijke fases. Geen losse chaos.</h3>
+          <p>Start maximaal binnen 4 tot 8 weken na onboarding, afhankelijk van pakket, scope, aangeleverde input en feedbackmomenten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-chat-pakketten">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">PAKKETTEN</div>
+        <h2 class="ap-title">Kies een AI Sales Chat pakket.</h2>
+        <p class="ap-subtitle">
+          Start met één kanaal of bouw een volledige chat sales machine met opvolging, CRM, scoring en reactivatie.
+        </p>
+      </div>
+
+      <div class="ap-package-grid">
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Start</span>
+            <h3>Chat Start</h3>
+            <p>Voor bedrijven die willen starten met één kanaal en vooral inbound leads sneller willen opvangen.</p>
+
+            <div class="ap-price">
+              <strong>€369</strong>
+              <span>per maand, implementatie €3790</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>1 kanaal naar keuze, website, WhatsApp, e-mail of socials</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound leads opvangen</span></li>
+            <li><span class="ap-check">✓</span><span>Basis leadkwalificatie</span></li>
+            <li><span class="ap-check">✓</span><span>Contactgegevens verzamelen</span></li>
+            <li><span class="ap-check">✓</span><span>Basis sales antwoorden</span></li>
+            <li><span class="ap-check">✓</span><span>Basis afspraakplanning, 1 locatie en 1 agenda</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar vaste medewerker</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 4 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeIltQbNJoBxwDUsRw6hY7u"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="ap-package featured">
+          <div class="ap-package-top">
+            <span class="ap-badge">Scale</span>
+            <h3>Chat Scale</h3>
+            <p>Voor bedrijven die meerdere kanalen willen inzetten en leads ook automatisch willen opvolgen.</p>
+
+            <div class="ap-price">
+              <strong>€529</strong>
+              <span>per maand, implementatie €5250</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>2 kanalen naar keuze</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound en outbound leads opvangen</span></li>
+            <li><span class="ap-check">✓</span><span>Uitgebreide leadkwalificatie</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig leadprofiel verzamelen</span></li>
+            <li><span class="ap-check">✓</span><span>Uitgebreide sales antwoorden en bezwaren</span></li>
+            <li><span class="ap-check">✓</span><span>Teamplanning voor meerdere teams en agenda’s</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar team met context</span></li>
+            <li><span class="ap-check">✓</span><span>Basis follow up</span></li>
+            <li><span class="ap-check">✓</span><span>CRM update met status, notities en pipeline</span></li>
+            <li><span class="ap-check">✓</span><span>Gespreksoverzicht</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 6 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more" style="color:rgba(255,255,255,0.78);border-top-color:rgba(255,255,255,0.14);">
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeIxsQbNJoBxwDU0XcuDVjg"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Premium</span>
+            <h3>Chat Premium</h3>
+            <p>Voor bedrijven die chat serieus als saleskanaal willen gebruiken met scoring, routing en reactivatie.</p>
+
+            <div class="ap-price">
+              <strong>€699</strong>
+              <span>per maand, implementatie €7599</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Alle kanalen, website, WhatsApp, e-mail en socials</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound, outbound en reactivatie</span></li>
+            <li><span class="ap-check">✓</span><span>Diepe saleskwalificatie</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig leadprofiel met koopintentie</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig sales brein</span></li>
+            <li><span class="ap-check">✓</span><span>Geavanceerde afspraakplanning</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar team met slimme context</span></li>
+            <li><span class="ap-check">✓</span><span>Multi channel follow up</span></li>
+            <li><span class="ap-check">✓</span><span>Volledige CRM flow</span></li>
+            <li><span class="ap-check">✓</span><span>Sterke bezwarenbehandeling</span></li>
+            <li><span class="ap-check">✓</span><span>Lead scoring</span></li>
+            <li><span class="ap-check">✓</span><span>Lead reactivatie</span></li>
+            <li><span class="ap-check">✓</span><span>Maandelijkse optimalisatie</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 8 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeIq4QbNJoBxwDUYWeWv3LZ"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">FAQ</div>
+        <h2 class="ap-title">Vragen over AI Sales Chat?</h2>
+        <p class="ap-subtitle">
+          De belangrijkste vragen over inbound, outbound, reactivatie, afspraakplanning, CRM, usage en pakketten.
+        </p>
+      </div>
+
+      <div class="ap-faq">
+        <div class="ap-faq-category">Algemeen</div>
+
+        <details open>
+          <summary>
+            <h3 class="ap-road-title">Wat doet de Sales Chat Agent?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">De agent volgt nieuwe en openstaande leads op via WhatsApp, e-mail, sms, website chat en social DM’s. De agent stelt kwalificatievragen, beantwoordt salesvragen, plant afspraken in en logt informatie in je CRM.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is inbound?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Inbound betekent dat de AI reageert wanneer iemand zelf een bericht stuurt via bijvoorbeeld website chat, WhatsApp, e-mail of DM. De lead komt naar jou toe en de AI vangt het gesprek direct op.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is outbound?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Outbound betekent dat een lead via een formulier, advertentie, LinkedIn, CRM of offerte binnenkomt en daarna actief wordt opgevolgd via het juiste kanaal, zoals WhatsApp, e-mail, sms of DM.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is reactivatie?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Reactivatie betekent dat oude of openstaande leads opnieuw worden benaderd. Denk aan oude offertes, gemiste contactmomenten, open CRM leads of eerdere aanvragen die nooit goed zijn opgevolgd.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Hoe snel reageert de agent?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">We richten speed to lead in met als doel om binnen circa 60 seconden de eerste reactie te sturen. De exacte timing stemmen we af op je openingstijden, teamcapaciteit en gewenste tone of voice.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Kan de agent afspraken boeken?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. Afspraakplanning zit in ieder pakket. Start werkt met eenvoudige planning, Scale met meerdere teams en agenda’s, Premium met grotere teams, routes en complexere scenario’s.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Met welke systemen kan de agent koppelen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Typisch met CRM’s zoals HubSpot, Salesforce, Pipedrive, GoHighLevel en vergelijkbare systemen. Ook met agenda’s zoals Google Calendar en Outlook. Staat jouw tool er niet tussen, dan kijken we naar API, webhook of een passende tussenoplossing.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Zijn gebruikskosten inbegrepen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Nee. Het pakket bepaalt wat de agent kan doen. Gebruikskosten worden apart afgerekend op basis van werkelijk verbruik. Inbound chat kost €0,02 per bericht en outbound chat kost €0,22 per bericht.</p>
+          </div>
+        </details>
+
+        <div class="ap-faq-category">Start, Scale en Premium</div>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je Chat Start?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies Start als je wilt beginnen met één kanaal en inbound leads sneller wilt opvangen. Start past goed bij een simpele planning, één locatie en één agenda.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je Chat Scale?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies Scale als je inbound en outbound wilt combineren. Dit past bij bedrijven met meerdere kanalen, meerdere agenda’s en behoefte aan actieve leadopvolging.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je Chat Premium?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies Premium als je inbound, outbound en reactivatie wilt combineren met lead scoring, slimme routing, complexere planning, CRM flows en maandelijkse optimalisatie.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-final">
+        <h2>Start met een AI medewerker die leads direct opvolgt.</h2>
+        <p>AI Sales Chat helpt je om sneller te reageren, beter te kwalificeren en meer aanvragen om te zetten naar afspraken.</p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-chat-pakketten">Kies je pakket</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.getElementById("ap-sales-chat-proposal");
+      if (!root) return;
+
+      const packages = {
+        start: {
+          monthly: 369,
+          setup: 3790,
+          flow: "inbound",
+          directAiRate: 0.85,
+          followupAiRate: 0,
+          reactivationAiRate: 0,
+          appointmentMultiplier: 1.00
+        },
+        scale: {
+          monthly: 529,
+          setup: 5250,
+          flow: "inboundOutbound",
+          directAiRate: 0.95,
+          followupAiRate: 0.90,
+          reactivationAiRate: 0,
+          appointmentMultiplier: 1.10
+        },
+        premium: {
+          monthly: 699,
+          setup: 7599,
+          flow: "inboundOutboundReactivation",
+          directAiRate: 1.00,
+          followupAiRate: 0.97,
+          reactivationAiRate: 0.97,
+          appointmentMultiplier: 1.20
+        }
+      };
+
+      const flowLabels = {
+        start: "Chat Start bevat inbound. De AI vangt inkomende berichten via website, WhatsApp, e-mail of DM’s direct op.",
+        scale: "Chat Scale bevat inbound + outbound. De AI vangt inkomende berichten op én volgt leads uit formulieren, advertenties, LinkedIn of CRM actief op.",
+        premium: "Chat Premium bevat inbound + outbound + reactivatie. De AI vangt gesprekken op, volgt nieuwe platformleads actief op en haalt oude of openstaande leads opnieuw terug in de flow."
+      };
+
+      const opportunityLabels = {
+        start: "Inbound kansen",
+        scale: "Inbound + outbound kansen",
+        premium: "Inbound, outbound en reactivatie"
+      };
+
+      const manualDirectRate = 0.35;
+      const manualFollowupRate = 0.35;
+      const manualReactivationRate = 0.08;
+
+      const inboundMessageCost = 0.02;
+      const outboundMessageCost = 0.22;
+      const messagesPerLead = 8;
+
+      function el(id) {
+        return root.querySelector("#" + id);
+      }
+
+      function getNumber(id) {
+        const field = el(id);
+        if (!field) return 0;
+
+        const value = parseFloat(field.value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function setOutput(id, value) {
+        const node = el(id);
+        if (node) node.textContent = value;
+      }
+
+      function formatEuro(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0
+        }).format(safeValue);
+      }
+
+      function formatNumber(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          maximumFractionDigits: 1
+        }).format(safeValue);
+      }
+
+      function clampPercent(value) {
+        return Math.min(Math.max(value, 0), 100) / 100;
+      }
+
+      function getPackageKey() {
+        const select = el("apPackage");
+        if (!select) return "start";
+
+        return packages[select.value] ? select.value : "start";
+      }
+
+      function getPackage() {
+        return packages[getPackageKey()] || packages.start;
+      }
+
+      function updateFlowButtons(packageKey) {
+        const buttons = root.querySelectorAll("[data-package-flow]");
+
+        buttons.forEach(function (button) {
+          const buttonPackage = button.getAttribute("data-package-flow");
+
+          if (buttonPackage === packageKey) {
+            button.classList.add("is-active");
+          } else {
+            button.classList.remove("is-active");
+          }
+        });
+      }
+
+      function hasInbound(selectedPackage) {
+        return (
+          selectedPackage.flow === "inbound" ||
+          selectedPackage.flow === "inboundOutbound" ||
+          selectedPackage.flow === "inboundOutboundReactivation"
+        );
+      }
+
+      function hasOutbound(selectedPackage) {
+        return (
+          selectedPackage.flow === "inboundOutbound" ||
+          selectedPackage.flow === "inboundOutboundReactivation"
+        );
+      }
+
+      function hasReactivation(selectedPackage) {
+        return selectedPackage.flow === "inboundOutboundReactivation";
+      }
+
+      function calculate() {
+        const packageKey = getPackageKey();
+        const selectedPackage = getPackage();
+
+        const inboundLeads = getNumber("apInboundLeads");
+        const afterHours = clampPercent(getNumber("apAfterHours"));
+        const peakHours = clampPercent(getNumber("apPeakHours"));
+        const followupLeads = getNumber("apOldLeads");
+
+        const appointmentRate = clampPercent(getNumber("apAppointmentRate"));
+        const closeRate = clampPercent(getNumber("apCloseRate"));
+        const margin = getNumber("apMargin");
+
+        const riskRate = Math.min(afterHours + peakHours, 1);
+
+        const inboundPool = hasInbound(selectedPackage) ? inboundLeads * riskRate : 0;
+        const outboundPool = hasOutbound(selectedPackage) ? followupLeads * 0.70 : 0;
+        const reactivationPool = hasReactivation(selectedPackage) ? followupLeads * 0.30 : 0;
+
+        const handledNoAiInbound = inboundPool * manualDirectRate;
+        const handledWithAiInbound = inboundPool * selectedPackage.directAiRate;
+
+        const handledNoAiOutbound = outboundPool * manualFollowupRate;
+        const handledWithAiOutbound = outboundPool * selectedPackage.followupAiRate;
+
+        const handledNoAiReactivation = reactivationPool * manualReactivationRate;
+        const handledWithAiReactivation = reactivationPool * selectedPackage.reactivationAiRate;
+
+        const handledNoAi =
+          handledNoAiInbound +
+          handledNoAiOutbound +
+          handledNoAiReactivation;
+
+        const handledWithAi =
+          handledWithAiInbound +
+          handledWithAiOutbound +
+          handledWithAiReactivation;
+
+        const appointmentsNoAi = handledNoAi * appointmentRate;
+
+        const appointmentsWithAi =
+          handledWithAi * appointmentRate * selectedPackage.appointmentMultiplier;
+
+        const customersNoAi = appointmentsNoAi * closeRate;
+        const customersWithAi = appointmentsWithAi * closeRate;
+
+        const marginNoAi = customersNoAi * margin;
+        const marginWithAi = customersWithAi * margin;
+
+        const extraHandled = handledWithAi - handledNoAi;
+        const extraAppointments = appointmentsWithAi - appointmentsNoAi;
+        const extraCustomers = customersWithAi - customersNoAi;
+        const extraMargin = marginWithAi - marginNoAi;
+
+        const inboundUsage =
+          hasInbound(selectedPackage)
+            ? handledWithAiInbound * messagesPerLead * inboundMessageCost
+            : 0;
+
+        const outboundUsage =
+          hasOutbound(selectedPackage)
+            ? handledWithAiOutbound * messagesPerLead * outboundMessageCost
+            : 0;
+
+        const reactivationUsage =
+          hasReactivation(selectedPackage)
+            ? handledWithAiReactivation * messagesPerLead * outboundMessageCost
+            : 0;
+
+        const usage = inboundUsage + outboundUsage + reactivationUsage;
+        const netAfterCost = marginWithAi - selectedPackage.monthly - usage;
+
+        setOutput("apMonthly", formatEuro(selectedPackage.monthly));
+        setOutput("apSetup", formatEuro(selectedPackage.setup));
+        setOutput("apRiskLeads", formatNumber(inboundPool + outboundPool + reactivationPool));
+
+        setOutput("apHandledNoAi", formatNumber(handledNoAi));
+        setOutput("apAppointmentsNoAi", formatNumber(appointmentsNoAi));
+        setOutput("apCustomersNoAi", formatNumber(customersNoAi));
+
+        setOutput("apHandledWithAi", formatNumber(handledWithAi));
+        setOutput("apAppointmentsWithAi", formatNumber(appointmentsWithAi));
+        setOutput("apCustomersWithAi", formatNumber(customersWithAi));
+
+        setOutput("apExtraHandled", formatNumber(extraHandled));
+        setOutput("apExtraAppointments", formatNumber(extraAppointments));
+        setOutput("apExtraCustomers", formatNumber(extraCustomers));
+        setOutput("apExtraMargin", formatEuro(extraMargin));
+        setOutput("apMarginWithAi", formatEuro(marginWithAi));
+        setOutput("apNetAfterCost", formatEuro(netAfterCost));
+
+        setOutput("apFlowLabel", flowLabels[packageKey]);
+        setOutput("apOpportunityLabel", opportunityLabels[packageKey]);
+
+        updateFlowButtons(packageKey);
+      }
+
+      [
+        "apPackage",
+        "apInboundLeads",
+        "apAfterHours",
+        "apPeakHours",
+        "apOldLeads",
+        "apAppointmentRate",
+        "apCloseRate",
+        "apMargin"
+      ].forEach(function (id) {
+        const input = el(id);
+
+        if (input) {
+          input.addEventListener("input", calculate);
+          input.addEventListener("change", calculate);
+        }
+      });
+
+      calculate();
+    })();
+  </script>
+</div>

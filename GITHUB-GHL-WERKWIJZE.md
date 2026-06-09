@@ -33,6 +33,10 @@ Voorbeelden:
 - Chat AI: `projecten/chat/autopilots-chat-ghl-embed.html`
 - Planning AI: `projecten/planning/autopilots-planning-ghl-embed.html`
 - Leadsmachine AI: `projecten/leadsmachine-ai/autopilots-leadsmachine-ai-ghl-embed.html`
+- AI Sales Chat voorstel: `voorstellen/ai-sales-chat/autopilots-ai-sales-chat-voorstel-ghl-embed.html`
+- AI Sales Voice voorstel: `voorstellen/ai-sales-voice/autopilots-ai-sales-voice-voorstel-ghl-embed.html`
+- AI Sales Complete voorstel: `voorstellen/ai-sales-complete/autopilots-ai-sales-complete-voorstel-ghl-embed.html`
+- Leadsmachine AI voorstel: `voorstellen/leadsmachine-ai/autopilots-leadsmachine-ai-voorstel-ghl-embed.html`
 - Kozijnen: `niche-landing-pages/kozijnen/autopilots-kozijnen-landing-ghl-embed.html`
 
 ## Iframe voorbeeld
@@ -58,4 +62,3 @@ Bijvoorbeeld:
 ```html
 <iframe src="https://GITHUB_GEBRUIKER.github.io/REPO_NAAM/projecten/homepage/autopilots-homepage-ghl-embed.html?v=2026-06-09-1"></iframe>
 ```
-

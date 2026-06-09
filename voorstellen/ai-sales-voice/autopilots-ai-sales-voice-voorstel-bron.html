@@ -1,0 +1,2126 @@
+<div id="ap-sales-voice-page">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    #ap-sales-voice-page {
+      --bg: #f5f5f2;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --soft: #eeeeea;
+      --line: rgba(0, 0, 0, 0.1);
+      --brown: #9f3826;
+      --brown-dark: #7d2a1d;
+      --black: #111111;
+      --white: #ffffff;
+
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #ap-sales-voice-page * {
+      box-sizing: border-box;
+    }
+
+    #ap-sales-voice-page h1,
+    #ap-sales-voice-page h2,
+    #ap-sales-voice-page h3,
+    #ap-sales-voice-page h4,
+    #ap-sales-voice-page p {
+      margin: 0;
+    }
+
+    #ap-sales-voice-page a {
+      color: inherit;
+    }
+
+    #ap-sales-voice-page .ap-section {
+      width: 100%;
+      padding: 80px 0;
+    }
+
+    #ap-sales-voice-page .ap-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    #ap-sales-voice-page .ap-center {
+      max-width: 880px;
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    #ap-sales-voice-page .ap-eyebrow {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    #ap-sales-voice-page .ap-hero-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+    }
+
+    #ap-sales-voice-page .ap-hero-title .ap-hero-line {
+      display: block;
+    }
+
+    #ap-sales-voice-page .ap-hero-title .ap-hero-ai {
+      display: block;
+      margin-top: 8px;
+    }
+
+    #ap-sales-voice-page .ap-title {
+      max-width: 920px;
+      margin: 0 auto 16px;
+      font-size: clamp(34px, 4.8vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    #ap-sales-voice-page .ap-title-line,
+    #ap-sales-voice-page .ap-title-ai {
+      display: block;
+    }
+
+    #ap-sales-voice-page .ap-title-ai {
+      margin-top: 8px;
+    }
+
+    #ap-sales-voice-page .ap-italic {
+      font-style: italic;
+      color: var(--brown);
+      letter-spacing: -0.055em;
+    }
+
+    #ap-sales-voice-page .ap-subtitle {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-hero-text {
+      max-width: 800px;
+      margin: 24px auto 0;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    #ap-sales-voice-page .ap-button {
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-voice-page .ap-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #ap-sales-voice-page .ap-button.primary {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-button.secondary {
+      background: var(--white);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    #ap-sales-voice-page details {
+      width: 100%;
+    }
+
+    #ap-sales-voice-page summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    #ap-sales-voice-page summary::-webkit-details-marker {
+      display: none;
+    }
+
+    #ap-sales-voice-page .ap-plus {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 999px;
+      background: var(--black);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-voice-page details[open] .ap-plus {
+      background: var(--brown);
+      transform: rotate(45deg);
+    }
+
+    #ap-sales-voice-page .ap-card,
+    #ap-sales-voice-page .ap-panel,
+    #ap-sales-voice-page .ap-calculator,
+    #ap-sales-voice-page .ap-roadmap-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+    }
+
+    #ap-sales-voice-page .ap-panel {
+      margin-top: 54px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    #ap-sales-voice-page .ap-step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    #ap-sales-voice-page .ap-step {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 190px;
+    }
+
+    #ap-sales-voice-page .ap-step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-voice-page .ap-step h3 {
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-voice-page .ap-step p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    #ap-sales-voice-page .ap-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    #ap-sales-voice-page .ap-feature {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      min-height: 250px;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-voice-page .ap-feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(159, 56, 38, 0.11);
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-voice-page .ap-feature h3 {
+      font-size: 23px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-voice-page .ap-feature p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-more {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 15px;
+      line-height: 1.62;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-usage-info {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-voice-page .ap-usage-info strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-voice-page .ap-usage-info p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-calculator-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    #ap-sales-voice-page .ap-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-voice-page .ap-field {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-voice-page .ap-field label {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-voice-page .ap-field small {
+      display: block;
+      font-size: 13px;
+      line-height: 1.42;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-voice-page .ap-field input,
+    #ap-sales-voice-page .ap-field select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 0 12px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    #ap-sales-voice-page .ap-toggle {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    #ap-sales-voice-page .ap-toggle-button {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: var(--white);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+      padding: 8px 10px;
+    }
+
+    #ap-sales-voice-page .ap-toggle-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-toggle.ap-toggle-locked .ap-toggle-button {
+      cursor: default;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    #ap-sales-voice-page .ap-toggle.ap-toggle-locked .ap-toggle-button:not(.is-active) {
+      background: #ffffff;
+      color: #111111;
+      opacity: 0.72;
+    }
+
+    #ap-sales-voice-page .ap-flow-info {
+      margin-top: 10px;
+      min-height: 58px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    #ap-sales-voice-page .ap-results {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    #ap-sales-voice-page .ap-results h3 {
+      font-size: 30px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-voice-page .ap-cost-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-voice-page .ap-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    #ap-sales-voice-page .ap-pill span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.25;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-voice-page .ap-pill strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-voice-page .ap-compare-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-voice-page .ap-compare-card.ai {
+      background: rgba(159, 56, 38, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #ap-sales-voice-page .ap-compare-card h4 {
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-metric {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-sales-voice-page .ap-metric:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    #ap-sales-voice-page .ap-metric span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.64);
+      margin-bottom: 7px;
+    }
+
+    #ap-sales-voice-page .ap-metric strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1.04;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-impact {
+      margin-top: 18px;
+      background: var(--white);
+      color: var(--text);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    #ap-sales-voice-page .ap-impact-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-voice-page .ap-impact-head h4 {
+      font-size: 24px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    #ap-sales-voice-page .ap-impact-head p {
+      max-width: 560px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-impact-badge {
+      min-width: fit-content;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    #ap-sales-voice-page .ap-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-voice-page .ap-impact-item {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #ap-sales-voice-page .ap-impact-item span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    #ap-sales-voice-page .ap-impact-item strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--text);
+    }
+
+    #ap-sales-voice-page .ap-roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-sales-voice-page .ap-roadmap details,
+    #ap-sales-voice-page .ap-faq details {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #ap-sales-voice-page .ap-roadmap details[open],
+    #ap-sales-voice-page .ap-faq details[open] {
+      background: var(--white);
+      border-color: rgba(159, 56, 38, 0.28);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-voice-page .ap-roadmap summary,
+    #ap-sales-voice-page .ap-faq summary {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #ap-sales-voice-page .ap-roadmap .ap-step-number {
+      margin-bottom: 0;
+    }
+
+    #ap-sales-voice-page .ap-road-title {
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 5px;
+    }
+
+    #ap-sales-voice-page .ap-road-preview {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-road-content {
+      padding: 0 22px 22px 78px;
+    }
+
+    #ap-sales-voice-page .ap-road-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-voice-page .ap-road-mini {
+      border-radius: 16px;
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    #ap-sales-voice-page .ap-road-mini span {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-voice-page .ap-road-mini p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .ap-black-summary {
+      margin-top: 18px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #ap-sales-voice-page .ap-black-summary h3 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-black-summary p {
+      max-width: 780px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    #ap-sales-voice-page .ap-package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    #ap-sales-voice-page .ap-package {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #ap-sales-voice-page .ap-package.featured {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
+      color: var(--white);
+      transform: translateY(-12px);
+    }
+
+    #ap-sales-voice-page .ap-package-top {
+      display: grid;
+      grid-template-rows: 30px 48px 88px 92px;
+      row-gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    #ap-sales-voice-page .ap-badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #ap-sales-voice-page .featured .ap-badge {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    #ap-sales-voice-page .ap-package h3 {
+      font-size: clamp(20px, 1.6vw, 24px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    #ap-sales-voice-page .ap-package p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-voice-page .featured p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #ap-sales-voice-page .ap-price {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 6px;
+    }
+
+    #ap-sales-voice-page .ap-price strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    #ap-sales-voice-page .ap-price span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    #ap-sales-voice-page .featured .ap-price span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #ap-sales-voice-page .ap-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+    }
+
+    #ap-sales-voice-page .ap-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+    }
+
+    #ap-sales-voice-page .featured .ap-list li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    #ap-sales-voice-page .ap-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    #ap-sales-voice-page .featured .ap-check {
+      background: var(--white);
+      color: var(--brown);
+    }
+
+    #ap-sales-voice-page .ap-package-details {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    #ap-sales-voice-page .featured .ap-package-details {
+      border-top-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #ap-sales-voice-page .ap-package-details summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    #ap-sales-voice-page .ap-stripe-box {
+      margin-top: 18px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    #ap-sales-voice-page .ap-faq {
+      max-width: 940px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-sales-voice-page .ap-faq details {
+      background: var(--white);
+      border-radius: 18px;
+    }
+
+    #ap-sales-voice-page .ap-faq summary {
+      grid-template-columns: 1fr auto;
+    }
+
+    #ap-sales-voice-page .ap-faq .ap-road-content {
+      padding: 0 22px 22px;
+    }
+
+    #ap-sales-voice-page .ap-faq-category {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin: 34px 0 10px;
+    }
+
+    #ap-sales-voice-page .ap-final {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(159, 56, 38, 0.2), transparent 34%),
+        var(--black);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 56px 30px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    #ap-sales-voice-page .ap-final h2 {
+      max-width: 850px;
+      margin: 0 auto 18px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    #ap-sales-voice-page .ap-final p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 980px) {
+      #ap-sales-voice-page .ap-step-grid,
+      #ap-sales-voice-page .ap-feature-grid,
+      #ap-sales-voice-page .ap-calculator-grid,
+      #ap-sales-voice-page .ap-road-grid,
+      #ap-sales-voice-page .ap-package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-voice-page .ap-package.featured {
+        transform: none;
+      }
+
+      #ap-sales-voice-page .ap-package-top {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+
+      #ap-sales-voice-page .ap-package h3 {
+        white-space: normal;
+        font-size: 28px;
+      }
+
+      #ap-sales-voice-page .ap-cost-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #ap-sales-voice-page .ap-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      #ap-sales-voice-page .ap-section {
+        padding: 58px 0;
+      }
+
+      #ap-sales-voice-page .ap-container {
+        padding: 0 14px;
+      }
+
+      #ap-sales-voice-page .ap-card,
+      #ap-sales-voice-page .ap-panel,
+      #ap-sales-voice-page .ap-calculator,
+      #ap-sales-voice-page .ap-roadmap-card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      #ap-sales-voice-page .ap-toggle,
+      #ap-sales-voice-page .ap-cost-grid,
+      #ap-sales-voice-page .ap-compare,
+      #ap-sales-voice-page .ap-impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-voice-page .ap-roadmap summary {
+        grid-template-columns: auto 1fr;
+      }
+
+      #ap-sales-voice-page .ap-roadmap summary .ap-plus {
+        grid-column: 1 / -1;
+      }
+
+      #ap-sales-voice-page .ap-road-content {
+        padding: 0 20px 20px;
+      }
+
+      #ap-sales-voice-page .ap-actions,
+      #ap-sales-voice-page .ap-button {
+        width: 100%;
+      }
+
+      #ap-sales-voice-page .ap-impact-head {
+        flex-direction: column;
+      }
+
+      #ap-sales-voice-page .ap-impact-item strong {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AI SALES VOICE</div>
+
+        <h1 class="ap-hero-title">
+          <span class="ap-hero-line">Stel het abonnement samen en start met</span>
+          <span class="ap-italic ap-hero-ai">AI Sales Voice.</span>
+        </h1>
+
+        <p class="ap-hero-text">
+          Kies een AI medewerker, bevestig het gekozen abonnement. Na afronding plannen we direct een onboarding afspraak en starten we de implementatie.
+        </p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-voice-pakketten">Kies pakket en start direct</a>
+          <a class="ap-button secondary" href="#ap-sales-voice-calculator">Bereken gemiste telefoontjes</a>
+        </div>
+      </div>
+
+      <div class="ap-panel">
+        <div class="ap-step-grid">
+          <div class="ap-step">
+            <div class="ap-step-number">1</div>
+            <h3>Kies het type AI Sales Voice</h3>
+            <p>Start, Scale of Premium.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">2</div>
+            <h3>Accepteer het gekozen abonnement</h3>
+            <p>AI Medewerker bevestigen, betalingsgegevens verifiëren en direct starten met een onboarding inplannen.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">3</div>
+            <h3>Plan direct een onboarding met support</h3>
+            <p>Zodra de bevestiging is afgerond, kan er direct een afspraak worden ingepland.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">WAAROM DIT WERKT</div>
+        <h2 class="ap-title">Geen warme oproep meer die blijft liggen.</h2>
+        <p class="ap-subtitle">
+          De AI Sales Voice neemt op, stelt de juiste vragen, plant afspraken en draagt complexe gesprekken netjes over aan je team.
+        </p>
+      </div>
+
+      <div class="ap-feature-grid">
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">01</div>
+            <h3>Altijd bereikbaar</h3>
+            <p>Nieuwe bellers krijgen direct gehoor, ook buiten openingstijden of tijdens drukke momenten.</p>
+          </summary>
+
+          <div class="ap-more">
+            De agent neemt op, helpt met eerste vragen, verzamelt contactgegevens en stuurt naar een afspraak of duidelijke vervolgstap.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">02</div>
+            <h3>Slim kwalificeren</h3>
+            <p>De AI vraagt door op behoefte, timing, urgentie, locatie en koopintentie.</p>
+          </summary>
+
+          <div class="ap-more">
+            Zo weet je team direct wie belt, waarom iemand belt en welke vervolgstap logisch is.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">03</div>
+            <h3>Meer afspraken</h3>
+            <p>Gemiste telefoontjes worden teruggewonnen en warme leads worden niet losgelaten.</p>
+          </summary>
+
+          <div class="ap-more">
+            Bij Scale en Premium kan de agent ook bellen voor offerte opvolging, no shows, oude leads en CRM triggers.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-voice-calculator">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">ROI CALCULATOR</div>
+        <h2 class="ap-title">Bereken wat gemiste telefoontjes kosten.</h2>
+        <p class="ap-subtitle">
+          Vul in hoeveel telefoontjes je mist buiten openingstijden en tijdens piekdrukte. De calculator laat zien hoeveel afspraken en marge AI Sales Voice kan terughalen.
+        </p>
+      </div>
+
+      <div class="ap-calculator">
+        <div class="ap-calculator-grid">
+          <div class="ap-inputs">
+            <div class="ap-field">
+              <label for="apPackage">Kies pakket en start direct</label>
+              <small>Abonnement, implementatie en opvolgkwaliteit passen automatisch aan.</small>
+              <select id="apPackage">
+                <option value="start">Voice Start</option>
+                <option value="scale">Voice Scale</option>
+                <option value="premium">Voice Premium</option>
+              </select>
+            </div>
+
+            <div class="ap-field">
+              <label>Inbegrepen flow</label>
+              <small>De flow staat automatisch vast op basis van het gekozen pakket.</small>
+
+              <div class="ap-toggle ap-toggle-locked" role="group" aria-label="Inbegrepen flow">
+                <button class="ap-toggle-button is-active" type="button" data-package-flow="start" tabindex="-1">
+                  Inbound
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="scale" tabindex="-1">
+                  Inbound + outbound
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="premium" tabindex="-1">
+                  Inbound + outbound + reactivatie
+                </button>
+              </div>
+
+              <div id="apFlowLabel" class="ap-flow-info">
+                Voice Start bevat inbound. De AI neemt gemiste en inkomende telefoontjes op en stuurt naar een afspraak of overdracht.
+              </div>
+            </div>
+
+            <div class="ap-field">
+              <label for="apMissedAfterHours">Gemiste telefoontjes buiten openingstijden</label>
+              <small>Aantal oproepen per maand dat binnenkomt wanneer niemand kan opnemen.</small>
+              <input id="apMissedAfterHours" type="number" min="0" value="35">
+            </div>
+
+            <div class="ap-field">
+              <label for="apMissedPeak">Gemiste telefoontjes tijdens piekdrukte</label>
+              <small>Aantal oproepen per maand dat niet goed wordt opgevolgd door drukte.</small>
+              <input id="apMissedPeak" type="number" min="0" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apFollowupLeads">Leads, offertes of oude aanvragen voor belopvolging</label>
+              <small>Voor Scale en Premium. Denk aan offertes, no shows, oude CRM leads en gemiste contactmomenten.</small>
+              <input id="apFollowupLeads" type="number" min="0" value="120">
+            </div>
+
+            <div class="ap-field">
+              <label for="apCallMinutes">Gemiddelde gespreksduur</label>
+              <small>Gemiddeld aantal minuten per gesprek.</small>
+              <input id="apCallMinutes" type="number" min="1" value="4">
+            </div>
+
+            <div class="ap-field">
+              <label for="apAppointmentRate">Afspraakratio na goed telefoongesprek</label>
+              <small>Gemiddeld percentage opgevolgde bellers dat naar een afspraak gaat.</small>
+              <input id="apAppointmentRate" type="number" min="0" max="100" value="28">
+            </div>
+
+            <div class="ap-field">
+              <label for="apCloseRate">Klant uit afspraak</label>
+              <small>Gemiddeld percentage afspraken dat klant wordt.</small>
+              <input id="apCloseRate" type="number" min="0" max="100" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apMargin">Gemiddelde marge per klant</label>
+              <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
+              <input id="apMargin" type="number" min="0" value="1500">
+            </div>
+
+            <div class="ap-usage-info">
+              <strong>Gebruikerskosten AI Medewerker</strong>
+              <p>Inbound voice €0,19 per minuut. Outbound voice €0,23 per minuut.</p>
+            </div>
+          </div>
+
+          <div class="ap-results">
+            <h3>Jouw simpele prognose</h3>
+
+            <div class="ap-cost-grid">
+              <div class="ap-pill">
+                <span>Abonnement</span>
+                <strong id="apMonthly">€0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span>Implementatie</span>
+                <strong id="apSetup">€0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span id="apOpportunityLabel">Gemiste call kansen</span>
+                <strong id="apRiskCalls">0</strong>
+              </div>
+            </div>
+
+            <div class="ap-compare">
+              <div class="ap-compare-card">
+                <h4>Zonder AI Sales Voice</h4>
+
+                <div class="ap-metric">
+                  <span>Op tijd teruggebeld</span>
+                  <strong id="apHandledNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="apAppointmentsNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="apCustomersNoAi">0</strong>
+                </div>
+              </div>
+
+              <div class="ap-compare-card ai">
+                <h4>Met AI Sales Voice</h4>
+
+                <div class="ap-metric">
+                  <span>Telefonisch geholpen</span>
+                  <strong id="apHandledWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte afspraken</span>
+                  <strong id="apAppointmentsWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span>Verwachte klanten</span>
+                  <strong id="apCustomersWithAi">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-impact">
+              <div class="ap-impact-head">
+                <div>
+                  <h4>Het verschil door AI</h4>
+                  <p>De meeste winst zit in direct opnemen, sneller terugbellen en warme bellers niet verliezen.</p>
+                </div>
+
+                <div class="ap-impact-badge">24/7 bereikbaar</div>
+              </div>
+
+              <div class="ap-impact-grid">
+                <div class="ap-impact-item">
+                  <span>Extra telefoontjes opgepakt</span>
+                  <strong id="apExtraHandled">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra afspraken</span>
+                  <strong id="apExtraAppointments">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra klanten</span>
+                  <strong id="apExtraCustomers">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra marge</span>
+                  <strong id="apExtraMargin">€0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Marge met AI</span>
+                  <strong id="apMarginWithAi">€0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Marge na abonnement + belkosten</span>
+                  <strong id="apNetAfterCost">€0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-more" style="margin-top:16px;">
+          Deze calculator is een indicatie. Resultaten hangen af van leadkwaliteit, bereikbaarheid, aanbod, afspraakproces, teamopvolging en conversie.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-voice-implementatie">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AUTOPILOTS</div>
+        <h2 class="ap-title">Implementatieproces</h2>
+        <p class="ap-subtitle">
+          Een gestructureerde implementatie aanpak waarbij we scope, kennisbasis, integraties en testen in duidelijke fases opleveren. Ons support team communiceert actief over planning, resultaten en eventuele blockers.
+        </p>
+      </div>
+
+      <div class="ap-roadmap-card">
+        <div class="ap-roadmap">
+          <details open>
+            <summary>
+              <span class="ap-step-number">1</span>
+              <div>
+                <h3 class="ap-road-title">Ontwerp en inrichting</h3>
+                <p class="ap-road-preview">We vertalen jullie werkwijze naar de juiste gesprekslogica, tone of voice, uitzonderingen en technische inrichting van de AI medewerker.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Werkwijze</span>
+                  <p>We brengen in kaart wanneer mensen bellen, wie normaal opneemt en wanneer een lead warm genoeg is.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Gesprekslogica</span>
+                  <p>We bepalen vragen, antwoorden, vervolgstappen, uitzonderingen en overdrachtsmomenten.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Telefonie</span>
+                  <p>We bepalen hoe inkomende oproepen, terugbelacties, voicemail situaties en handovers verlopen.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">2</span>
+              <div>
+                <h3 class="ap-road-title">Bouw en testen</h3>
+                <p class="ap-road-preview">We bouwen de AI medewerker, richten de benodigde koppelingen in en testen alle belangrijke scenario’s om zeker te weten dat alles goed werkt.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Kennisbasis</span>
+                  <p>We verwerken aanbod, prijzen, werkwijze, veelgestelde vragen, bezwaren en tone of voice.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Koppelingen</span>
+                  <p>We koppelen waar nodig telefonie, CRM, agenda, e-mail, sms, formulieren of webhooks.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Testcalls</span>
+                  <p>We testen inbound calls, gemiste oproepen, afspraken, overdracht, no shows en follow up momenten.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">3</span>
+              <div>
+                <h3 class="ap-road-title">Review en livegang</h3>
+                <p class="ap-road-preview">We lopen de oplossing samen met jullie door, verwerken de laatste feedback en zorgen dat alles klaarstaat voor livegang.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Review</span>
+                  <p>Jullie controleren antwoorden, kwalificatie, afspraakflow, overdracht en CRM output.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Feedback</span>
+                  <p>We verwerken laatste aanpassingen in copy, timing, logica, uitzonderingen en koppelingen.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Livegang</span>
+                  <p>We zetten de agent live volgens planning, afhankelijk van scope, feedback en input.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">4</span>
+              <div>
+                <h3 class="ap-road-title">Monitoring en optimalisatie</h3>
+                <p class="ap-road-preview">Na livegang monitoren we de prestaties actief en sturen we bij op basis van echte gebruiksdata en praktijkfeedback.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Gesprekken</span>
+                  <p>We kijken naar bereikbaarheid, vragen, bezwaren, overdrachten, afspraken en bottlenecks.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Verbeteringen</span>
+                  <p>We verbeteren antwoorden, kwalificatie, planning, follow up en CRM verwerking.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Groei</span>
+                  <p>Bij Scale en Premium breiden we uit met extra scenario’s, reactivatie, scoring en complexere flows.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="ap-black-summary">
+          <h3>Duidelijke fases. Geen losse chaos.</h3>
+          <p>Start maximaal binnen 6 tot 10 weken na onboarding, afhankelijk van pakket, scope, aangeleverde input en feedbackmomenten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-voice-pakketten">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">PAKKETTEN</div>
+        <h2 class="ap-title">Kies een AI Sales Voice pakket.</h2>
+        <p class="ap-subtitle">
+          Stel nu het abonnement samen.
+        </p>
+      </div>
+
+      <div class="ap-package-grid">
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Start</span>
+            <h3>Voice Start</h3>
+            <p>Voor bedrijven die willen starten met één scenario en vooral inbound of outbound leads willen opvangen.</p>
+
+            <div class="ap-price">
+              <strong>€399</strong>
+              <span>per maand, implementatie €4190</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>1 scenario naar keuze, zoals inbound, outbound, offerte opvolging, no show of gemiste oproepen</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound of outbound leads bellen</span></li>
+            <li><span class="ap-check">✓</span><span>Basis leadkwalificatie</span></li>
+            <li><span class="ap-check">✓</span><span>Contactgegevens verzamelen</span></li>
+            <li><span class="ap-check">✓</span><span>Basis sales antwoorden</span></li>
+            <li><span class="ap-check">✓</span><span>Basis afspraakplanning, 1 locatie en 1 agenda</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar vaste medewerker</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 6 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound voice €0,19 per minuut.
+              <br>
+              Outbound voice €0,23 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeG7qQbNJoBxwDU725otoag"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="ap-package featured">
+          <div class="ap-package-top">
+            <span class="ap-badge">Scale</span>
+            <h3>Voice Scale</h3>
+            <p>Voor bedrijven die meerdere belscenario’s willen inzetten en leads automatisch willen opvolgen.</p>
+
+            <div class="ap-price">
+              <strong>€559</strong>
+              <span>per maand, implementatie €5750</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>2 scenario’s naar keuze, zoals inbound, outbound, offerte opvolging, no show of gemiste oproepen</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound en outbound leads bellen</span></li>
+            <li><span class="ap-check">✓</span><span>Uitgebreide leadkwalificatie</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig leadprofiel verzamelen</span></li>
+            <li><span class="ap-check">✓</span><span>Uitgebreide sales antwoorden en bezwaren</span></li>
+            <li><span class="ap-check">✓</span><span>Teamplanning voor meerdere teams en agenda’s</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar team met context</span></li>
+            <li><span class="ap-check">✓</span><span>Follow up AI voor offertes, no shows of gemiste contactmomenten</span></li>
+            <li><span class="ap-check">✓</span><span>CRM update met status, notities en pipeline</span></li>
+            <li><span class="ap-check">✓</span><span>Gespreksoverzicht</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 8 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more" style="color:rgba(255,255,255,0.78);border-top-color:rgba(255,255,255,0.14);">
+              Inbound voice €0,19 per minuut.
+              <br>
+              Outbound voice €0,23 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeGCMQbNJoBxwDUW2nRRj0b"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Premium</span>
+            <h3>Voice Premium</h3>
+            <p>Voor bedrijven die voice serieus als saleskanaal willen gebruiken met scoring, routing, reactivatie en optimalisatie.</p>
+
+            <div class="ap-price">
+              <strong>€765</strong>
+              <span>per maand, implementatie €7899</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Alle scenario’s inclusief inbound, outbound, offerte opvolging, no show en gemiste oproepen</span></li>
+            <li><span class="ap-check">✓</span><span>Inbound, outbound en reactivatie</span></li>
+            <li><span class="ap-check">✓</span><span>Diepe saleskwalificatie op behoefte, urgentie, timing, budget en fit</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig leadprofiel met koopintentie</span></li>
+            <li><span class="ap-check">✓</span><span>Volledig sales brein met aanbod, prijzen, cases, bezwaren, processen en tone of voice</span></li>
+            <li><span class="ap-check">✓</span><span>Geavanceerde afspraakplanning voor grotere teams, routes en complexe scenario’s</span></li>
+            <li><span class="ap-check">✓</span><span>Overdracht naar team met slimme context</span></li>
+            <li><span class="ap-check">✓</span><span>Volledige CRM flow met taken, scoring, triggers, notities en pipeline updates</span></li>
+            <li><span class="ap-check">✓</span><span>Sterke bezwarenbehandeling</span></li>
+            <li><span class="ap-check">✓</span><span>Lead scoring en lead reactivatie</span></li>
+            <li><span class="ap-check">✓</span><span>Maandelijkse optimalisatie op basis van gesprekken en conversie</span></li>
+            <li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 10 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound voice €0,19 per minuut.
+              <br>
+              Outbound voice €0,23 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeGBBQbNJoBxwDUWxp1e2wz"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-voice-faq">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">FAQ</div>
+        <h2 class="ap-title">Vragen over bovenstaande pakketten?</h2>
+        <p class="ap-subtitle">Hieronder vind je de belangrijkste vragen over AI Sales Voice, implementatie, gebruikskosten en pakketkeuze.</p>
+      </div>
+
+      <div class="ap-faq">
+        <div class="ap-faq-category">Algemeen</div>
+
+        <details open>
+          <summary>
+            <h3 class="ap-road-title">Wat doet de AI Sales Voice?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">De AI Sales Voice neemt telefoontjes op, stelt kwalificatievragen, beantwoordt salesvragen, plant afspraken en logt de belangrijkste informatie in je CRM.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Voor wie is de Sales Voice Agent bedoeld?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Voor bedrijven die sneller willen reageren op bellers, minder handmatig willen opvolgen en meer afspraken willen boeken zonder dat het team continu beschikbaar hoeft te zijn.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Werkt de agent alleen inbound of ook outbound?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Beide. De agent kan inkomende telefoontjes opvangen en leads opvolgen op basis van CRM triggers, openstaande aanvragen, offertes, gemiste contactmomenten of oude leads.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Hoe snel reageert de agent?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">We richten speed to lead in met als doel om direct op te nemen of terug te bellen. De exacte timing stemmen we af op je openingstijden, teamcapaciteit en gewenste tone of voice.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Kan de agent afspraken boeken?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. Afspraakplanning zit in ieder pakket. Het verschil zit in de complexiteit. Start werkt met eenvoudige planning, Scale met meerdere teams en agenda’s, Premium met grotere teams, routes en complexere scenario’s.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Met welke systemen kan de agent koppelen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Typisch met CRM’s zoals HubSpot, Salesforce, Pipedrive en vergelijkbare systemen. Ook met agenda’s zoals Google Calendar en Outlook. Staat jouw tool er niet tussen, dan kijken we naar een koppeling via API, webhook of een passende tussenoplossing.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Hoe bepaalt de agent of iemand geschikt is?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">De agent kwalificeert bellers op basis van afgesproken vragen. Denk aan behoefte, timing, budget, locatie, type aanvraag, urgentie en koopintentie. De uitkomst is een afspraak, opvolging of overdracht naar je team.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat gebeurt er bij complexe gesprekken?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">De agent doet een warme overdracht naar je team. Daarbij wordt de context meegestuurd, zodat je medewerker direct weet wie belt en waar het gesprek over ging.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Is dit AVG proof?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. We werken met duidelijke logging, bewaartermijnen, dataverwerking en waar nodig een DPA. Outbound opvolging gebeurt volgens jouw beleid en de geldende wetgeving, inclusief opt outs.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Zijn gebruikskosten inbegrepen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Nee. Het pakket bepaalt wat de Sales Voice Agent kan doen. Gebruikskosten worden apart afgerekend op basis van werkelijk verbruik. Inbound voice is €0,19 per minuut. Outbound voice is €0,23 per minuut.</p>
+          </div>
+        </details>
+
+        <div class="ap-faq-category">Start</div>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Voor wie is Voice Start bedoeld?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Voor bedrijven die willen starten met één belscenario en vooral sneller inbound leads of gemiste oproepen willen opvangen. Simpel, duidelijk en zonder complexe inrichting.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Welke situatie kan ik kiezen bij Start?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Je kiest 1 scenario. Bijvoorbeeld inbound, outbound, offerte opvolging, no show of gemiste oproepen.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer past Start minder goed?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Start past minder goed als je meerdere teams, meerdere agenda’s, meerdere vestigingen of veel verschillende leadscenario’s hebt. Dan is Scale meestal logischer.</p>
+          </div>
+        </details>
+
+        <div class="ap-faq-category">Scale</div>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Voor wie is Voice Scale bedoeld?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Voor bedrijven die meerdere belscenario’s willen inzetten en leads niet alleen willen opvangen, maar ook automatisch willen opvolgen.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is het grootste verschil met Start?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Start vangt vooral één scenario op. Scale werkt met 2 scenario’s, volgt leads beter op, werkt uitgebreider met CRM, plant over meerdere agenda’s en kan beter omgaan met bezwaren.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Kan Scale meerdere agenda’s aan?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. Scale kan plannen voor meerdere teams en agenda’s. Bijvoorbeeld sales team A, sales team B, verschillende medewerkers of meerdere locaties.</p>
+          </div>
+        </details>
+
+        <div class="ap-faq-category">Premium</div>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Voor wie is Voice Premium bedoeld?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Voor bedrijven die voice serieus als saleskanaal willen gebruiken. Niet alleen opnemen, maar echt opvolgen, scoren, routeren, reactiveren en optimaliseren.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is het grootste verschil met Scale?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Scale automatiseert leadopvang en opvolging. Premium maakt er een complete voice sales machine van met lead scoring, reactivatie, slimme routing, complexere planning en maandelijkse optimalisatie.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Is Premium geschikt voor meerdere vestigingen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. Premium is het meest geschikt voor bedrijven met meerdere vestigingen, regio’s, teams of salesprocessen.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-final">
+        <h2>Stel het abonnement samen en start met AI Sales Voice.</h2>
+        <p>Kies een AI medewerker, bevestig het gekozen abonnement. Na afronding plannen we direct een onboarding afspraak en starten we de implementatie.</p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-voice-pakketten">Kies pakket en start direct</a>
+          <a class="ap-button secondary" href="#ap-sales-voice-calculator">Bereken impact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.getElementById("ap-sales-voice-page");
+      if (!root) return;
+
+      const packages = {
+        start: {
+          monthly: 399,
+          setup: 4190,
+          flow: "inbound",
+          inboundAiRate: 0.85,
+          followupAiRate: 0,
+          reactivationAiRate: 0,
+          appointmentMultiplier: 1.00
+        },
+        scale: {
+          monthly: 559,
+          setup: 5750,
+          flow: "inboundOutbound",
+          inboundAiRate: 0.95,
+          followupAiRate: 0.88,
+          reactivationAiRate: 0,
+          appointmentMultiplier: 1.10
+        },
+        premium: {
+          monthly: 765,
+          setup: 7899,
+          flow: "inboundOutboundReactivation",
+          inboundAiRate: 1.00,
+          followupAiRate: 0.95,
+          reactivationAiRate: 0.95,
+          appointmentMultiplier: 1.20
+        }
+      };
+
+      const flowLabels = {
+        start: "Voice Start bevat inbound. De AI neemt gemiste en inkomende telefoontjes op en stuurt naar een afspraak of overdracht.",
+        scale: "Voice Scale bevat inbound + outbound. De AI neemt inkomende telefoontjes op én belt leads, offertes of gemiste contactmomenten actief na.",
+        premium: "Voice Premium bevat inbound + outbound + reactivatie. De AI neemt op, belt actief na en activeert oude of openstaande leads opnieuw."
+      };
+
+      const opportunityLabels = {
+        start: "Gemiste call kansen",
+        scale: "Gemist + opvolging",
+        premium: "Gemist, opvolging en reactivatie"
+      };
+
+      const manualInboundRecoveryRate = 0.30;
+      const manualFollowupRate = 0.25;
+      const manualReactivationRate = 0.08;
+
+      const inboundMinuteCost = 0.19;
+      const outboundMinuteCost = 0.23;
+
+      function el(id) {
+        return root.querySelector("#" + id);
+      }
+
+      function getNumber(id) {
+        const field = el(id);
+        if (!field) return 0;
+
+        const value = parseFloat(field.value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function setOutput(id, value) {
+        const node = el(id);
+        if (node) node.textContent = value;
+      }
+
+      function formatEuro(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0
+        }).format(safeValue);
+      }
+
+      function formatNumber(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          maximumFractionDigits: 1
+        }).format(safeValue);
+      }
+
+      function clampPercent(value) {
+        return Math.min(Math.max(value, 0), 100) / 100;
+      }
+
+      function getPackageKey() {
+        const select = el("apPackage");
+        if (!select) return "start";
+
+        return packages[select.value] ? select.value : "start";
+      }
+
+      function getPackage() {
+        return packages[getPackageKey()] || packages.start;
+      }
+
+      function updateFlowButtons(packageKey) {
+        const buttons = root.querySelectorAll("[data-package-flow]");
+
+        buttons.forEach(function (button) {
+          const buttonPackage = button.getAttribute("data-package-flow");
+
+          if (buttonPackage === packageKey) {
+            button.classList.add("is-active");
+          } else {
+            button.classList.remove("is-active");
+          }
+        });
+      }
+
+      function hasInbound(selectedPackage) {
+        return (
+          selectedPackage.flow === "inbound" ||
+          selectedPackage.flow === "inboundOutbound" ||
+          selectedPackage.flow === "inboundOutboundReactivation"
+        );
+      }
+
+      function hasOutbound(selectedPackage) {
+        return (
+          selectedPackage.flow === "inboundOutbound" ||
+          selectedPackage.flow === "inboundOutboundReactivation"
+        );
+      }
+
+      function hasReactivation(selectedPackage) {
+        return selectedPackage.flow === "inboundOutboundReactivation";
+      }
+
+      function calculate() {
+        const packageKey = getPackageKey();
+        const selectedPackage = getPackage();
+
+        const missedAfterHours = getNumber("apMissedAfterHours");
+        const missedPeak = getNumber("apMissedPeak");
+        const followupLeads = getNumber("apFollowupLeads");
+        const callMinutes = Math.max(getNumber("apCallMinutes"), 1);
+
+        const appointmentRate = clampPercent(getNumber("apAppointmentRate"));
+        const closeRate = clampPercent(getNumber("apCloseRate"));
+        const margin = getNumber("apMargin");
+
+        const missedCallPool = hasInbound(selectedPackage) ? missedAfterHours + missedPeak : 0;
+        const followupPool = hasOutbound(selectedPackage) ? followupLeads * 0.70 : 0;
+        const reactivationPool = hasReactivation(selectedPackage) ? followupLeads * 0.30 : 0;
+
+        const handledNoAiInbound = missedCallPool * manualInboundRecoveryRate;
+        const handledWithAiInbound = missedCallPool * selectedPackage.inboundAiRate;
+
+        const handledNoAiOutbound = followupPool * manualFollowupRate;
+        const handledWithAiOutbound = followupPool * selectedPackage.followupAiRate;
+
+        const handledNoAiReactivation = reactivationPool * manualReactivationRate;
+        const handledWithAiReactivation = reactivationPool * selectedPackage.reactivationAiRate;
+
+        const handledNoAi =
+          handledNoAiInbound +
+          handledNoAiOutbound +
+          handledNoAiReactivation;
+
+        const handledWithAi =
+          handledWithAiInbound +
+          handledWithAiOutbound +
+          handledWithAiReactivation;
+
+        const appointmentsNoAi = handledNoAi * appointmentRate;
+
+        const appointmentsWithAi =
+          handledWithAi * appointmentRate * selectedPackage.appointmentMultiplier;
+
+        const customersNoAi = appointmentsNoAi * closeRate;
+        const customersWithAi = appointmentsWithAi * closeRate;
+
+        const marginNoAi = customersNoAi * margin;
+        const marginWithAi = customersWithAi * margin;
+
+        const extraHandled = handledWithAi - handledNoAi;
+        const extraAppointments = appointmentsWithAi - appointmentsNoAi;
+        const extraCustomers = customersWithAi - customersNoAi;
+        const extraMargin = marginWithAi - marginNoAi;
+
+        const inboundUsage =
+          hasInbound(selectedPackage)
+            ? handledWithAiInbound * callMinutes * inboundMinuteCost
+            : 0;
+
+        const outboundUsage =
+          hasOutbound(selectedPackage)
+            ? handledWithAiOutbound * callMinutes * outboundMinuteCost
+            : 0;
+
+        const reactivationUsage =
+          hasReactivation(selectedPackage)
+            ? handledWithAiReactivation * callMinutes * outboundMinuteCost
+            : 0;
+
+        const usage = inboundUsage + outboundUsage + reactivationUsage;
+        const netAfterCost = marginWithAi - selectedPackage.monthly - usage;
+
+        setOutput("apMonthly", formatEuro(selectedPackage.monthly));
+        setOutput("apSetup", formatEuro(selectedPackage.setup));
+        setOutput("apRiskCalls", formatNumber(missedCallPool + followupPool + reactivationPool));
+
+        setOutput("apHandledNoAi", formatNumber(handledNoAi));
+        setOutput("apAppointmentsNoAi", formatNumber(appointmentsNoAi));
+        setOutput("apCustomersNoAi", formatNumber(customersNoAi));
+
+        setOutput("apHandledWithAi", formatNumber(handledWithAi));
+        setOutput("apAppointmentsWithAi", formatNumber(appointmentsWithAi));
+        setOutput("apCustomersWithAi", formatNumber(customersWithAi));
+
+        setOutput("apExtraHandled", formatNumber(extraHandled));
+        setOutput("apExtraAppointments", formatNumber(extraAppointments));
+        setOutput("apExtraCustomers", formatNumber(extraCustomers));
+        setOutput("apExtraMargin", formatEuro(extraMargin));
+        setOutput("apMarginWithAi", formatEuro(marginWithAi));
+        setOutput("apNetAfterCost", formatEuro(netAfterCost));
+
+        setOutput("apFlowLabel", flowLabels[packageKey]);
+        setOutput("apOpportunityLabel", opportunityLabels[packageKey]);
+
+        updateFlowButtons(packageKey);
+      }
+
+      [
+        "apPackage",
+        "apMissedAfterHours",
+        "apMissedPeak",
+        "apFollowupLeads",
+        "apCallMinutes",
+        "apAppointmentRate",
+        "apCloseRate",
+        "apMargin"
+      ].forEach(function (id) {
+        const input = el(id);
+
+        if (input) {
+          input.addEventListener("input", calculate);
+          input.addEventListener("change", calculate);
+        }
+      });
+
+      calculate();
+    })();
+  </script>
+</div>
