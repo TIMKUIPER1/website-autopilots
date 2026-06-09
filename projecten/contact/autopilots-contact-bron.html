@@ -27,3 +27,75 @@
 </script>
 
 <script>(function(){var root=document.getElementById('ap-contact');if(!root)return;var routeData={demo:{k:'Meest gekozen',t:'Plan direct een kennismaking.',c:'In een korte afspraak kijken we waar AI medewerkers direct werk kunnen overnemen in je sales, support, receptie of planning.',tags:['Agenda','Demo','Concrete route'],href:'#demo',cta:'Plan een afspraak'},collab:{k:'Samenwerken',t:'Laten we kijken of er een match is.',c:'Voor partnerships, gezamenlijke projecten of bedrijven die Autopilots willen inzetten binnen hun eigen klantproces.',tags:['Partnership','Project','Groei'],href:'#demo',cta:'Stuur aanvraag'},direct:{k:'Persoonlijk',t:'Bel of mail Tim en Larissa.',c:'Soms wil je gewoon direct schakelen. Onderaan deze pagina staan alle telefoonnummers en mailadressen klikbaar klaar.',tags:['Telefoon','E-mail','Persoonlijk'],href:'#contactgegevens',cta:'Bekijk contactgegevens'}};function setRoute(key){var d=routeData[key]||routeData.demo;root.querySelectorAll('[data-contact-route]').forEach(function(b){b.classList.toggle('is-active',b.getAttribute('data-contact-route')===key);});var k=root.querySelector('[data-contact-route-kicker]'),t=root.querySelector('[data-contact-route-title]'),c=root.querySelector('[data-contact-route-copy]'),tags=root.querySelector('[data-contact-route-tags]'),cta=root.querySelector('[data-contact-route-cta]');if(k)k.textContent=d.k;if(t)t.textContent=d.t;if(c)c.textContent=d.c;if(tags)tags.innerHTML=d.tags.map(function(x){return '<span>'+x+'</span>';}).join('');if(cta){cta.href=d.href;cta.textContent=d.cta;}}root.querySelectorAll('[data-contact-route]').forEach(function(btn){btn.addEventListener('click',function(){setRoute(btn.getAttribute('data-contact-route'));});});var topic=root.querySelector('[data-contact-topic]');root.querySelectorAll('[data-contact-topic-choice]').forEach(function(btn){btn.addEventListener('click',function(){root.querySelectorAll('[data-contact-topic-choice]').forEach(function(b){b.classList.remove('is-active');});btn.classList.add('is-active');if(topic)topic.value=btn.getAttribute('data-contact-topic-choice');});});var btn=root.querySelector('[data-contact-mail]'),out=root.querySelector('[data-contact-output]');btn&&btn.addEventListener('click',function(){var name=root.querySelector('[data-contact-name]').value.trim(),company=root.querySelector('[data-contact-company]').value.trim(),email=root.querySelector('[data-contact-email]').value.trim(),topicValue=(topic&&topic.value)||'Contactaanvraag',msg=root.querySelector('[data-contact-message]').value.trim();var body=encodeURIComponent('Naam: '+name+'\\nBedrijf: '+company+'\\nE-mail: '+email+'\\nOnderwerp: '+topicValue+'\\n\\nBericht:\\n'+msg);var subject=encodeURIComponent('Contactaanvraag via website - '+topicValue);window.location.href='mailto:tim@auto-pilots.io?subject='+subject+'&body='+body;if(out)out.textContent='Je mailprogramma wordt geopend met je contactaanvraag aan Autopilots.';});})();</script>
+<script data-ap-soft-scroll>
+(function(){
+  if (window.apSoftScrollReady) return;
+  window.apSoftScrollReady = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+
+  var current = window.scrollY || window.pageYOffset || 0;
+  var target = current;
+  var frame = null;
+  var ease = 0.18;
+
+  function maxScroll() {
+    var doc = document.documentElement;
+    var body = document.body;
+    return Math.max(0, Math.max(doc.scrollHeight, body ? body.scrollHeight : 0) - window.innerHeight);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(value, maxScroll()));
+  }
+
+  function nativeScrollArea(node, deltaY) {
+    while (node && node !== document.body && node !== document.documentElement) {
+      if (node.matches && node.matches('input, textarea, select, [data-native-scroll]')) return true;
+      var style = window.getComputedStyle(node);
+      var canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight;
+      if (canScroll) {
+        if (deltaY > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) return true;
+        if (deltaY < 0 && node.scrollTop > 0) return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function tick() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.45) {
+      current = target;
+      window.scrollTo(0, current);
+      frame = null;
+      return;
+    }
+    window.scrollTo(0, current);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('wheel', function(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (nativeScrollArea(event.target, event.deltaY)) return;
+
+    var delta = event.deltaY;
+    if (event.deltaMode === 1) delta *= 16;
+    if (event.deltaMode === 2) delta *= window.innerHeight;
+
+    event.preventDefault();
+    target = clamp(target + delta * 0.82);
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      frame = window.requestAnimationFrame(tick);
+    }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function() {
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      target = current;
+    }
+  }, { passive: true });
+})();
+</script>

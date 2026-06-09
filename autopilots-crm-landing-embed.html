@@ -1456,3 +1456,75 @@
     });
   })();
 </script>
+<script data-ap-soft-scroll>
+(function(){
+  if (window.apSoftScrollReady) return;
+  window.apSoftScrollReady = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+
+  var current = window.scrollY || window.pageYOffset || 0;
+  var target = current;
+  var frame = null;
+  var ease = 0.18;
+
+  function maxScroll() {
+    var doc = document.documentElement;
+    var body = document.body;
+    return Math.max(0, Math.max(doc.scrollHeight, body ? body.scrollHeight : 0) - window.innerHeight);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(value, maxScroll()));
+  }
+
+  function nativeScrollArea(node, deltaY) {
+    while (node && node !== document.body && node !== document.documentElement) {
+      if (node.matches && node.matches('input, textarea, select, [data-native-scroll]')) return true;
+      var style = window.getComputedStyle(node);
+      var canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight;
+      if (canScroll) {
+        if (deltaY > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) return true;
+        if (deltaY < 0 && node.scrollTop > 0) return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function tick() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.45) {
+      current = target;
+      window.scrollTo(0, current);
+      frame = null;
+      return;
+    }
+    window.scrollTo(0, current);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('wheel', function(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (nativeScrollArea(event.target, event.deltaY)) return;
+
+    var delta = event.deltaY;
+    if (event.deltaMode === 1) delta *= 16;
+    if (event.deltaMode === 2) delta *= window.innerHeight;
+
+    event.preventDefault();
+    target = clamp(target + delta * 0.82);
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      frame = window.requestAnimationFrame(tick);
+    }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function() {
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      target = current;
+    }
+  }, { passive: true });
+})();
+</script>

@@ -51,3 +51,75 @@
 
 <script>(function(){var root=document.getElementById('ap-support');if(!root)return;var serviceCopy={'Voice AI':'Voeg het telefoonnummer, voorbeeldgesprek of gewenste wijziging toe. Hoe concreter, hoe sneller we kunnen helpen.','Chat AI':'Stuur het kanaal mee, de vraag van de klant en wat de AI had moeten antwoorden of doen.','Planning AI':'Geef de afspraak, regio, agenda of route mee waar we naar moeten kijken.','Leadsmachine AI':'Stuur campagne, leadbron, funnelstap of voorbeeldlead mee zodat we gericht kunnen meekijken.','Autopilots CRM':'Noem pipeline, formulier, funnel of automatisering waar de vraag over gaat.'};var serviceInput=root.querySelector('[data-support-service-input]'),serviceOut=root.querySelector('[data-support-service-out]'),title=root.querySelector('[data-support-title]'),copy=root.querySelector('[data-support-copy]');root.querySelectorAll('[data-support-service]').forEach(function(btn){btn.addEventListener('click',function(){var service=btn.getAttribute('data-support-service');root.querySelectorAll('[data-support-service]').forEach(function(b){b.classList.remove('is-active');});btn.classList.add('is-active');if(serviceInput)serviceInput.value=service;if(serviceOut)serviceOut.textContent=service;if(title)title.textContent='Support voor '+service;if(copy)copy.textContent=serviceCopy[service]||'Beschrijf kort wat er speelt, dan kijken we mee.';});});var urgency=root.querySelector('[data-support-urgency]'),urgencyOut=root.querySelector('[data-support-urgency-out]');urgency&&urgency.addEventListener('change',function(){if(urgencyOut)urgencyOut.textContent=urgency.value;});var btn=root.querySelector('[data-support-mail]'),out=root.querySelector('[data-support-output]');btn&&btn.addEventListener('click',function(){var service=(serviceInput&&serviceInput.value)||'Support',u=(urgency&&urgency.value)||'Normaal',name=root.querySelector('[data-support-name]').value.trim(),company=root.querySelector('[data-support-company]').value.trim(),email=root.querySelector('[data-support-email]').value.trim(),msg=root.querySelector('[data-support-message]').value.trim();var body=encodeURIComponent('Dienst: '+service+'\nUrgentie: '+u+'\nNaam: '+name+'\nBedrijf: '+company+'\nE-mail: '+email+'\n\nContext:\n'+msg);var subject=encodeURIComponent('Supportvraag '+service+' - '+u);window.location.href='mailto:tim@auto-pilots.io?subject='+subject+'&body='+body;if(out)out.textContent='Je mailprogramma wordt geopend met een complete supportaanvraag.';});})();</script>
 <script>(function(){var root=document.getElementById('ap-support');if(!root)return;var out=root.querySelector('[data-kb-output]');if(!out)return;var data={voice:[['Wordt elke oproep opgenomen?','De Voice AI neemt op volgens de ingestelde openingstijden of 24/7, afhankelijk van je inrichting.'],['Waar komen gespreksnotities terecht?','Samenvattingen, klantgegevens en acties worden in het gekoppelde CRM vastgelegd.'],['Wanneer neemt een mens het over?','Bij spoed, twijfel of vooraf ingestelde situaties kan de AI direct escaleren.']],chat:[['Kan Chat AI WhatsApp en websitechat aan?','Ja, de agent kan meerdere chatkanalen ondersteunen met dezelfde kennisbank.'],['Kan hij afspraken plannen?','Ja, als de agenda gekoppeld is kan de chat direct beschikbare tijden voorstellen.'],['Wat als de AI het niet zeker weet?','Dan vraagt hij door of zet hij het gesprek door naar je team.']],leadsmachine:[['Wat meet Leadsmachine AI?','Niet alleen leads, maar afspraken, klanten, omzet en opvolging.'],['Werkt dit met bestaande campagnes?','Ja, we kunnen aansluiten op bestaande Meta, Google, LinkedIn of CRM-flows.'],['Hoe snel volgt de AI op?','Nieuwe leads kunnen binnen seconden worden opgevolgd via het juiste kanaal.']],crm:[['Wat zit er in Autopilots CRM?','Pipelines, funnels, formulieren, afspraken, automatiseringen en communicatie.'],['Kunnen bestaande tools gekoppeld worden?','Ja, we koppelen waar logisch met agenda, mail, boekhouding en leadbronnen.'],['Kan ik later aanpassen?','Ja, flows en velden kunnen worden doorontwikkeld op basis van je proces.']]};function render(key){out.innerHTML=data[key].map(function(q,i){return '<details '+(i===0?'open':'')+'><summary>'+q[0]+'</summary><p>'+q[1]+'</p></details>';}).join('');}root.querySelectorAll('[data-kb-tab]').forEach(function(btn){btn.addEventListener('click',function(){render(btn.getAttribute('data-kb-tab'));});});render('voice');})();</script>
+<script data-ap-soft-scroll>
+(function(){
+  if (window.apSoftScrollReady) return;
+  window.apSoftScrollReady = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+
+  var current = window.scrollY || window.pageYOffset || 0;
+  var target = current;
+  var frame = null;
+  var ease = 0.18;
+
+  function maxScroll() {
+    var doc = document.documentElement;
+    var body = document.body;
+    return Math.max(0, Math.max(doc.scrollHeight, body ? body.scrollHeight : 0) - window.innerHeight);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(value, maxScroll()));
+  }
+
+  function nativeScrollArea(node, deltaY) {
+    while (node && node !== document.body && node !== document.documentElement) {
+      if (node.matches && node.matches('input, textarea, select, [data-native-scroll]')) return true;
+      var style = window.getComputedStyle(node);
+      var canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight;
+      if (canScroll) {
+        if (deltaY > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) return true;
+        if (deltaY < 0 && node.scrollTop > 0) return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function tick() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.45) {
+      current = target;
+      window.scrollTo(0, current);
+      frame = null;
+      return;
+    }
+    window.scrollTo(0, current);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('wheel', function(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (nativeScrollArea(event.target, event.deltaY)) return;
+
+    var delta = event.deltaY;
+    if (event.deltaMode === 1) delta *= 16;
+    if (event.deltaMode === 2) delta *= window.innerHeight;
+
+    event.preventDefault();
+    target = clamp(target + delta * 0.82);
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      frame = window.requestAnimationFrame(tick);
+    }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function() {
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      target = current;
+    }
+  }, { passive: true });
+})();
+</script>

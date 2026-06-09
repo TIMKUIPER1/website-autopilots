@@ -26,3 +26,75 @@
 </script>
 
 <script>(function(){var root=document.getElementById('ap-planning');if(!root)return;var out=root.querySelector('[data-route-output]');var startLabel=root.querySelector('[data-route-start-label]');var jobLabel=root.querySelector('[data-route-job-label]');var state={start:'Amsterdam',job:'Afspraak klant A'};function setActive(selector,valueAttr,value){root.querySelectorAll(selector).forEach(function(btn){btn.classList.toggle('is-active',btn.getAttribute(valueAttr)===value);});}function calc(){var map={Amsterdam:38,Utrecht:27,Rotterdam:44,Zwolle:31};var bonus={Spoedafspraak:8,'Afspraak klant B':4,'Adviesgesprek klant C':2};var saving=(map[state.start]||30)+(bonus[state.job]||0);if(startLabel)startLabel.textContent=state.start;if(jobLabel)jobLabel.textContent=state.job;out.textContent='Route: '+state.start+' -> '+state.job+' -> volgende afspraak. Geschatte besparing: '+saving+' minuten.';}root.querySelectorAll('[data-route-start-choice]').forEach(function(btn){btn.addEventListener('click',function(){state.start=btn.getAttribute('data-route-start-choice');setActive('[data-route-start-choice]','data-route-start-choice',state.start);calc();});});root.querySelectorAll('[data-route-job-choice]').forEach(function(btn){btn.addEventListener('click',function(){state.job=btn.getAttribute('data-route-job-choice');setActive('[data-route-job-choice]','data-route-job-choice',state.job);calc();});});var btn=root.querySelector('[data-route-locate]');btn&&btn.addEventListener('click',function(){if(!navigator.geolocation){out.textContent='Locatie niet beschikbaar. Kies handmatig je startpunt.';return;}out.textContent='Locatie ophalen...';navigator.geolocation.getCurrentPosition(function(){state.start='Huidige locatie';if(startLabel)startLabel.textContent=state.start;out.textContent='Locatie gevonden. Planning AI kiest nu de dichtstbijzijnde logische afspraak. Geschatte besparing: 42 minuten.';root.querySelectorAll('[data-route-start-choice]').forEach(function(choice){choice.classList.remove('is-active');});},function(){out.textContent='Geen toestemming voor locatie. Geen probleem: kies hierboven handmatig je startpunt.';});});calc();})();</script>
+<script data-ap-soft-scroll>
+(function(){
+  if (window.apSoftScrollReady) return;
+  window.apSoftScrollReady = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+
+  var current = window.scrollY || window.pageYOffset || 0;
+  var target = current;
+  var frame = null;
+  var ease = 0.18;
+
+  function maxScroll() {
+    var doc = document.documentElement;
+    var body = document.body;
+    return Math.max(0, Math.max(doc.scrollHeight, body ? body.scrollHeight : 0) - window.innerHeight);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(value, maxScroll()));
+  }
+
+  function nativeScrollArea(node, deltaY) {
+    while (node && node !== document.body && node !== document.documentElement) {
+      if (node.matches && node.matches('input, textarea, select, [data-native-scroll]')) return true;
+      var style = window.getComputedStyle(node);
+      var canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight;
+      if (canScroll) {
+        if (deltaY > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) return true;
+        if (deltaY < 0 && node.scrollTop > 0) return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function tick() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.45) {
+      current = target;
+      window.scrollTo(0, current);
+      frame = null;
+      return;
+    }
+    window.scrollTo(0, current);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('wheel', function(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (nativeScrollArea(event.target, event.deltaY)) return;
+
+    var delta = event.deltaY;
+    if (event.deltaMode === 1) delta *= 16;
+    if (event.deltaMode === 2) delta *= window.innerHeight;
+
+    event.preventDefault();
+    target = clamp(target + delta * 0.82);
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      frame = window.requestAnimationFrame(tick);
+    }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function() {
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      target = current;
+    }
+  }, { passive: true });
+})();
+</script>

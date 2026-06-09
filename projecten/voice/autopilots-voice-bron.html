@@ -26,3 +26,75 @@
 </script>
 
 <script>(function(){var root=document.getElementById('ap-voice');if(!root)return;var phone=root.querySelector('.ap-phone'),btn=root.querySelector('[data-phone-answer]'),title=root.querySelector('[data-phone-title]'),copy=root.querySelector('[data-phone-copy]'),log=root.querySelector('[data-phone-log]');var idle='<details open><summary>00:00 Nieuwe oproep</summary><p>De telefoon gaat. Voice AI staat klaar om direct op te nemen.</p></details>';var steps=[['00:00 AI neemt op','Goedemiddag, je spreekt met de digitale receptionist van Autopilots. Waarmee kan ik helpen?'],['00:18 Vraag gesteld','De AI vraagt naar naam, reden van contact en urgentie.'],['00:41 Vervolg bepaald','De klant wil een afspraak. De AI controleert beschikbaarheid.'],['01:05 Vastgelegd','Samenvatting, telefoonnummer en vervolgstap staan in CRM.']];function reset(){title.textContent='Nieuwe klant belt';copy.textContent='De AI staat klaar om direct op te nemen, door te vragen en alles vast te leggen.';btn.textContent='Neem op met AI';if(log)log.innerHTML=idle;if(phone)phone.classList.remove('is-ringing');}function play(){if(phone){phone.classList.remove('is-ringing');void phone.offsetWidth;phone.classList.add('is-ringing');}title.textContent='Oproep beantwoord';copy.textContent='Voice AI voert het gesprek en verwerkt de informatie.';btn.textContent='Opnieuw afspelen';if(log)log.innerHTML=steps.map(function(s,i){return '<details '+(i===0?'open':'')+'><summary>'+s[0]+'</summary><p>'+s[1]+'</p></details>';}).join('');}btn&&btn.addEventListener('click',function(){reset();window.setTimeout(play,80);});})();</script>
+<script data-ap-soft-scroll>
+(function(){
+  if (window.apSoftScrollReady) return;
+  window.apSoftScrollReady = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+
+  var current = window.scrollY || window.pageYOffset || 0;
+  var target = current;
+  var frame = null;
+  var ease = 0.18;
+
+  function maxScroll() {
+    var doc = document.documentElement;
+    var body = document.body;
+    return Math.max(0, Math.max(doc.scrollHeight, body ? body.scrollHeight : 0) - window.innerHeight);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(value, maxScroll()));
+  }
+
+  function nativeScrollArea(node, deltaY) {
+    while (node && node !== document.body && node !== document.documentElement) {
+      if (node.matches && node.matches('input, textarea, select, [data-native-scroll]')) return true;
+      var style = window.getComputedStyle(node);
+      var canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight;
+      if (canScroll) {
+        if (deltaY > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) return true;
+        if (deltaY < 0 && node.scrollTop > 0) return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function tick() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.45) {
+      current = target;
+      window.scrollTo(0, current);
+      frame = null;
+      return;
+    }
+    window.scrollTo(0, current);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('wheel', function(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (nativeScrollArea(event.target, event.deltaY)) return;
+
+    var delta = event.deltaY;
+    if (event.deltaMode === 1) delta *= 16;
+    if (event.deltaMode === 2) delta *= window.innerHeight;
+
+    event.preventDefault();
+    target = clamp(target + delta * 0.82);
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      frame = window.requestAnimationFrame(tick);
+    }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function() {
+    if (!frame) {
+      current = window.scrollY || window.pageYOffset || 0;
+      target = current;
+    }
+  }, { passive: true });
+})();
+</script>
