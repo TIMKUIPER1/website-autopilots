@@ -22,6 +22,8 @@
 
   var storageKey = "ap_preferred_language";
   var includedLanguages = languages.map(function (item) { return item.code; }).join(",");
+  var currentScript = document.currentScript;
+  var widgetPosition = currentScript && currentScript.getAttribute("data-position") || "bottom-left";
 
   function setCookie(name, value, days) {
     var expires = "";
@@ -70,7 +72,9 @@
       "body{top:0!important}",
       ".goog-te-combo{display:none!important}",
       "#google_translate_element{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}",
-      "#ap-website-translator{position:fixed;right:18px;bottom:18px;z-index:2147483000;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101010}",
+      "#ap-website-translator{position:fixed;bottom:18px;z-index:2147483000;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101010}",
+      "#ap-website-translator.ap-pos-bottom-left{left:18px}",
+      "#ap-website-translator.ap-pos-bottom-right{right:18px}",
       "#ap-website-translator *{box-sizing:border-box}",
       "#ap-website-translator .ap-shell{display:flex;align-items:center;gap:8px;width:min(360px,calc(100vw - 28px));padding:8px;border:1px solid rgba(16,16,16,.12);border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 18px 52px rgba(16,16,16,.16);backdrop-filter:blur(16px)}",
       "#ap-website-translator .ap-mark{width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;border-radius:999px;background:#101010;color:#fff;font-size:11px;font-weight:900;letter-spacing:1.4px}",
@@ -82,7 +86,7 @@
       "#ap-website-translator.is-minimized .ap-select-wrap,#ap-website-translator.is-minimized .ap-close{display:none}",
       "#ap-website-translator .ap-open{display:none;border:0;background:transparent;color:#fff;font-size:11px;font-weight:900;letter-spacing:1.2px;cursor:pointer}",
       "#ap-website-translator.is-minimized .ap-open{display:block}",
-      "@media(max-width:560px){#ap-website-translator{right:10px;bottom:10px}#ap-website-translator .ap-shell{width:calc(100vw - 20px);border-radius:26px;flex-wrap:wrap}#ap-website-translator .ap-mark{width:42px;height:42px}#ap-website-translator .ap-select-wrap{flex:1 1 calc(100% - 92px)}}"
+      "@media(max-width:560px){#ap-website-translator{left:10px!important;right:10px!important;bottom:10px}#ap-website-translator .ap-shell{width:calc(100vw - 20px);border-radius:26px;flex-wrap:wrap}#ap-website-translator .ap-mark{width:42px;height:42px}#ap-website-translator .ap-select-wrap{flex:1 1 calc(100% - 92px)}}"
     ].join("");
     document.head.appendChild(style);
   }
@@ -117,6 +121,7 @@
     var saved = getSavedLanguage();
     var widget = document.createElement("div");
     widget.id = "ap-website-translator";
+    widget.className = widgetPosition === "bottom-right" ? "ap-pos-bottom-right" : "ap-pos-bottom-left";
     widget.innerHTML = [
       '<div class="ap-shell">',
       '<div class="ap-mark" aria-hidden="true"><button class="ap-open" type="button" aria-label="Open translator">AP</button><span class="ap-logo-text">AP</span></div>',
