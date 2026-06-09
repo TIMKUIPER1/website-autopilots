@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autopilots Website Translator</title>
+  <style>
+    :root {
+      --ap-bg: #f7f7f3;
+      --ap-card: #ffffff;
+      --ap-text: #101010;
+      --ap-muted: #676767;
+      --ap-line: rgba(16, 16, 16, 0.12);
+      --ap-brown: #a43a2a;
+      --ap-brown-soft: rgba(164, 58, 42, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: transparent;
+      color: var(--ap-text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    .ap-translator {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .ap-shell {
+      width: 100%;
+      border: 1px solid var(--ap-line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 16px 45px rgba(16, 16, 16, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .ap-brand {
+      min-width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--ap-text);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+    }
+
+    .ap-select-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+    }
+
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 0;
+      outline: 0;
+      appearance: none;
+      background: transparent;
+      color: var(--ap-text);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 0 34px 0 8px;
+      cursor: pointer;
+    }
+
+    .ap-chevron {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ap-text);
+      border-bottom: 2px solid var(--ap-text);
+      transform: translateY(-65%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    .ap-apply {
+      min-height: 42px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ap-brown);
+      color: #fff;
+      padding: 0 16px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+      white-space: nowrap;
+    }
+
+    .ap-apply:hover { transform: translateY(-1px); background: #812b20; }
+
+    .ap-note {
+      display: none;
+      margin: 10px 8px 0;
+      color: var(--ap-muted);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .ap-translator.is-open .ap-note { display: block; }
+
+    @media (max-width: 520px) {
+      .ap-shell {
+        border-radius: 28px;
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+
+      .ap-brand { min-width: 42px; height: 42px; }
+      .ap-select-wrap { flex: 1 1 calc(100% - 52px); }
+      .ap-apply { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ap-translator" id="apTranslator">
+    <div class="ap-shell">
+      <div class="ap-brand" aria-hidden="true">AP</div>
+      <div class="ap-select-wrap">
+        <select id="apLanguage" aria-label="Choose website language">
+          <option value="nl">Netherlands</option>
+          <option value="en">English</option>
+          <option value="de">German</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="pl">Polish</option>
+          <option value="tr">Turkish</option>
+          <option value="ar">Arabic</option>
+          <option value="zh-CN">Chinese</option>
+          <option value="hi">Hindi</option>
+          <option value="id">Indonesian</option>
+          <option value="ru">Russian</option>
+          <option value="uk">Ukrainian</option>
+        </select>
+        <span class="ap-chevron" aria-hidden="true"></span>
+      </div>
+      <button class="ap-apply" type="button" id="apApply">Translate</button>
+    </div>
+    <p class="ap-note">Select a language to translate the page.</p>
+  </div>
+
+  <script>
+    (function () {
+      var select = document.getElementById('apLanguage');
+      var button = document.getElementById('apApply');
+      var root = document.getElementById('apTranslator');
+      var storageKey = 'ap_preferred_language';
+
+      function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+          expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + value + expires + '; path=/';
+      }
+
+      function translateCurrentPage(lang) {
+        try { localStorage.setItem(storageKey, lang); } catch (error) {}
+        if (lang === 'nl') {
+          setCookie('googtrans', '/nl/nl', -1);
+          window.location.reload();
+          return;
+        }
+        setCookie('googtrans', '/nl/' + lang, 365);
+        window.location.reload();
+      }
+
+      function sendToParent(lang) {
+        try {
+          window.parent.postMessage({ type: 'ap_translate_website', language: lang, source: 'autopilots-translator' }, '*');
+        } catch (error) {}
+      }
+
+      function applyLanguage() {
+        var lang = select.value || 'nl';
+        root.classList.add('is-open');
+        if (window.parent && window.parent !== window) {
+          sendToParent(lang);
+        } else {
+          translateCurrentPage(lang);
+        }
+      }
+
+      try {
+        var saved = localStorage.getItem(storageKey);
+        if (saved) select.value = saved;
+      } catch (error) {}
+
+      button.addEventListener('click', applyLanguage);
+      select.addEventListener('change', applyLanguage);
+    })();
+  </script>
+</body>
+</html>
