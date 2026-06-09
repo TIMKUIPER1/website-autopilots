@@ -1,0 +1,1847 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-property {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #eeeeea;
+    --ap-soft-2: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-brown-dark: #7d2a1d;
+    --ap-black: #111111;
+    --ap-white: #ffffff;
+    --ap-green-soft: #dce9dd;
+    background: var(--ap-bg);
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #ap-property * {
+    box-sizing: border-box;
+  }
+
+  #ap-property a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-property h1,
+  #ap-property h2,
+  #ap-property h3,
+  #ap-property p {
+    margin: 0;
+  }
+
+  #ap-property .ap-container {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+  }
+
+  #ap-property .ap-section {
+    padding: 80px 0;
+  }
+
+  #ap-property .ap-hero {
+    padding: 46px 0 54px;
+  }
+
+  #ap-property .ap-eyebrow,
+  #ap-property .ap-kicker,
+  #ap-property .ap-stat strong,
+  #ap-property .ap-step-number,
+  #ap-property .ap-product-label {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-property .ap-eyebrow,
+  #ap-property .ap-kicker {
+    color: var(--ap-brown);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #ap-property .ap-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.96fr) minmax(390px, 0.74fr);
+    gap: 34px;
+    align-items: start;
+  }
+
+  #ap-property .ap-hero-copy {
+    padding-top: 38px;
+  }
+
+  #ap-property .ap-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    border: 1px solid var(--ap-line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: 8px 14px;
+    color: var(--ap-text);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  #ap-property .ap-proof span:first-child {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+  }
+
+  #ap-property h1 {
+    max-width: 760px;
+    margin-top: 14px;
+    font-size: clamp(43px, 5.6vw, 72px);
+    line-height: 0.99;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-property h2 {
+    font-size: clamp(34px, 4.5vw, 58px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-property h3 {
+    font-size: 22px;
+    line-height: 1.14;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-accent {
+    color: var(--ap-brown);
+    font-style: italic;
+  }
+
+  #ap-property .ap-lead {
+    max-width: 700px;
+    margin-top: 22px;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-property .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  #ap-property .ap-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 15px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  #ap-property .ap-button:hover {
+    transform: translateY(-1px);
+  }
+
+  #ap-property .ap-button-primary {
+    background: var(--ap-brown);
+    color: var(--ap-white);
+    border: 1px solid var(--ap-brown);
+    box-shadow: 0 14px 28px rgba(159, 56, 38, 0.16);
+  }
+
+  #ap-property .ap-button-primary:hover {
+    background: var(--ap-brown-dark);
+    border-color: var(--ap-brown-dark);
+  }
+
+  #ap-property .ap-button-secondary {
+    background: var(--ap-white);
+    color: var(--ap-text);
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-property .ap-channel-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 24px;
+    max-width: 720px;
+  }
+
+  #ap-property .ap-channel-pill {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--ap-line);
+    color: var(--ap-text);
+    padding: 9px 13px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-language-card,
+  #ap-property .ap-card,
+  #ap-property .ap-form-card,
+  #ap-property .ap-calendar-card,
+  #ap-property .ap-final-box,
+  #ap-property .ap-logo-wrap {
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  #ap-property .ap-language-card {
+    position: sticky;
+    top: 18px;
+    padding: 24px;
+  }
+
+  #ap-property .ap-lang-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  #ap-property .ap-lang-top h3 {
+    max-width: 320px;
+    font-size: 25px;
+    line-height: 1.03;
+  }
+
+  #ap-property .ap-lang-top .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-property .ap-lang-top p {
+    margin-top: 8px;
+    color: var(--ap-muted);
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+
+  #ap-property .ap-country-picker {
+    position: relative;
+    z-index: 4;
+  }
+
+  #ap-property .ap-country-button {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 999px;
+    border: 1px solid var(--ap-line);
+    background: var(--ap-soft-2);
+    color: var(--ap-text);
+    padding: 0 16px 0 18px;
+    font-family: "Public Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  #ap-property .ap-country-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #ap-property .ap-country-flag {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+
+  #ap-property .ap-country-chevron {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 180ms ease;
+  }
+
+  #ap-property .ap-country-picker.is-open .ap-country-chevron {
+    transform: rotate(225deg) translateY(-1px);
+  }
+
+  #ap-property .ap-country-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    max-height: 290px;
+    overflow: auto;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    box-shadow: 0 18px 45px rgba(17, 17, 17, 0.16);
+    padding: 8px;
+    display: none;
+  }
+
+  #ap-property .ap-country-picker.is-open .ap-country-menu {
+    display: grid;
+    gap: 4px;
+  }
+
+  #ap-property .ap-country-option {
+    min-height: 42px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--ap-text);
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Public Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 850;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  #ap-property .ap-country-option:hover,
+  #ap-property .ap-country-option.is-active {
+    background: rgba(159, 56, 38, 0.1);
+    color: var(--ap-brown);
+  }
+
+  #ap-property .ap-chat-window {
+    border-radius: 24px;
+    background: linear-gradient(180deg, #151515 0%, #25201f 100%);
+    color: #fff;
+    padding: 22px;
+    min-height: 456px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-chat-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  #ap-property .ap-live-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  #ap-property .ap-live-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e4a092;
+  }
+
+  #ap-property .ap-bubble {
+    width: fit-content;
+    max-width: 84%;
+    border-radius: 18px;
+    padding: 13px 15px;
+    font-size: 13px;
+    line-height: 1.55;
+    font-weight: 650;
+  }
+
+  #ap-property .ap-bubble.tenant {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  #ap-property .ap-bubble.agent {
+    margin-left: auto;
+    background: #fff;
+    color: var(--ap-text);
+  }
+
+  #ap-property .ap-chat-result {
+    margin-top: auto;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 14px;
+  }
+
+  #ap-property .ap-chat-result strong {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  #ap-property .ap-chat-result span {
+    display: block;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  #ap-property .ap-section-head {
+    display: grid;
+    grid-template-columns: 0.82fr 1fr;
+    gap: 42px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+
+  #ap-property .ap-section-head .ap-kicker {
+    display: inline-flex;
+    margin-bottom: 14px;
+  }
+
+  #ap-property .ap-section-head h2.ap-title-sm {
+    font-size: clamp(30px, 3.5vw, 46px);
+    max-width: 680px;
+  }
+
+  #ap-property h2.ap-title-support,
+  #ap-property .ap-dark-band .ap-split h2.ap-title-support {
+    font-size: 24px;
+    line-height: 1.05;
+    max-width: 500px;
+  }
+
+  #ap-property .ap-section-text {
+    color: var(--ap-muted);
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  #ap-property .ap-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  #ap-property .ap-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  #ap-property .ap-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  #ap-property .ap-card {
+    padding: 28px;
+    min-height: 100%;
+  }
+
+  #ap-property .ap-card h3 {
+    margin-bottom: 12px;
+  }
+
+  #ap-property .ap-card p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-property .ap-list {
+    display: grid;
+    gap: 11px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ap-property .ap-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ap-text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  #ap-property .ap-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+  }
+
+  #ap-property .ap-dark-band {
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 48px;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-dark-band .ap-kicker,
+  #ap-property .ap-dark-band .ap-accent {
+    color: #e4a092;
+  }
+
+  #ap-property .ap-dark-band .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-property .ap-dark-band p,
+  #ap-property .ap-dark-band .ap-section-text,
+  #ap-property .ap-dark-band li {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  #ap-property .ap-dark-band li::before {
+    background: #e4a092;
+  }
+
+  #ap-property .ap-split {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 34px;
+    align-items: center;
+  }
+
+  #ap-property .ap-process {
+    display: grid;
+    gap: 12px;
+  }
+
+  #ap-property .ap-process-item {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 16px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 18px;
+  }
+
+  #ap-property .ap-step-number {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #ap-property .ap-process-item h3 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  #ap-property .ap-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  #ap-property .ap-stat {
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 24px;
+  }
+
+  #ap-property .ap-stat strong {
+    display: block;
+    color: var(--ap-brown);
+    font-size: 35px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  #ap-property .ap-stat span {
+    display: block;
+    color: var(--ap-text);
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-logo-wrap {
+    padding: 28px;
+  }
+
+  #ap-property .ap-logo-wrap p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #ap-property .ap-system-shell,
+  #ap-property .ap-team-shell {
+    position: relative;
+  }
+
+  #ap-property .ap-slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  #ap-property .ap-slider-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--ap-line);
+    background: #fff;
+    color: var(--ap-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 900;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  #ap-property .ap-slider-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(159, 56, 38, 0.28);
+  }
+
+  #ap-property .ap-team-slider {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 4px 2px 14px;
+    scrollbar-width: thin;
+  }
+
+  #ap-property .ap-system-slider {
+    overflow: hidden;
+    padding: 4px 0 14px;
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  #ap-property .ap-system-track {
+    display: flex;
+    gap: 14px;
+    width: max-content;
+    animation: apSystemMarquee 34s linear infinite;
+    will-change: transform;
+  }
+
+  #ap-property .ap-system-slider:hover .ap-system-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes apSystemMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 7px)); }
+  }
+
+  #ap-property .ap-system-card {
+    flex: 0 0 205px;
+    min-height: 132px;
+    border-radius: 22px;
+    background: #f5f6f1;
+    border: 1px solid var(--ap-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    scroll-snap-align: start;
+  }
+
+  #ap-property .ap-system-card img {
+    display: block;
+    max-width: 100%;
+    max-height: 78px;
+    object-fit: contain;
+    filter: grayscale(1) contrast(1.05) opacity(0.78);
+    mix-blend-mode: multiply;
+    transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  #ap-property .ap-system-card:hover img {
+    filter: grayscale(0) contrast(1) opacity(1);
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 761px) {
+    #ap-property .ap-dark-band .ap-split h2.ap-title-support {
+      font-size: 24px !important;
+      line-height: 1.08;
+      max-width: 500px;
+    }
+  }
+
+  #ap-property .ap-product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px;
+    scroll-margin-top: 28px;
+  }
+
+  #ap-property .ap-product-card h3 {
+    min-height: 58px;
+  }
+
+  #ap-property .ap-product-label {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 32px;
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.1);
+    color: var(--ap-brown);
+    padding: 8px 11px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  #ap-property .ap-voice-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 410px;
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  #ap-property .ap-voice-card {
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+    min-height: 470px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 22px;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-phone-visual {
+    border-radius: 28px;
+    background: linear-gradient(180deg, #161616 0%, #26211f 100%);
+    padding: 24px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 410px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-wave {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 170px;
+  }
+
+  #ap-property .ap-wave span {
+    display: block;
+    width: 8px;
+    border-radius: 999px;
+    background: #e4a092;
+    animation: apPropertyWave 1.3s ease-in-out infinite;
+  }
+
+  #ap-property .ap-wave span:nth-child(1) { height: 42px; animation-delay: 0ms; }
+  #ap-property .ap-wave span:nth-child(2) { height: 74px; animation-delay: 80ms; }
+  #ap-property .ap-wave span:nth-child(3) { height: 112px; animation-delay: 160ms; }
+  #ap-property .ap-wave span:nth-child(4) { height: 82px; animation-delay: 240ms; }
+  #ap-property .ap-wave span:nth-child(5) { height: 54px; animation-delay: 320ms; }
+
+  @keyframes apPropertyWave {
+    0%, 100% { transform: scaleY(0.72); opacity: 0.68; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  #ap-property .ap-phone-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  #ap-property .ap-call-status {
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 18px;
+  }
+
+  #ap-property .ap-call-status strong {
+    display: block;
+    color: #fff;
+    font-size: 19px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  #ap-property .ap-call-status p,
+  #ap-property .ap-live-panel p {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  #ap-property .ap-live-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  #ap-property .ap-live-panel h3 {
+    font-size: 30px;
+    line-height: 1;
+    margin-top: 12px;
+  }
+
+  #ap-property .ap-live-panel p {
+    margin-top: 12px;
+    color: var(--ap-muted);
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  #ap-property .ap-form-card {
+    padding: 24px;
+    min-height: 470px;
+  }
+
+  #ap-property .ap-form-card h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  #ap-property .ap-form-card p {
+    color: var(--ap-muted);
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  #ap-property .ap-ghl-frame {
+    width: 100%;
+    min-height: 430px;
+    border-radius: 24px;
+    background: var(--ap-soft-2);
+    overflow: hidden;
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-property .ap-ghl-frame iframe {
+    display: block;
+    width: 100%;
+    min-height: 430px;
+    border: 0;
+  }
+
+  #ap-property .ap-calendar-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #ap-property .ap-calendar-copy {
+    border-radius: 30px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 34px;
+  }
+
+  #ap-property .ap-calendar-copy .ap-kicker {
+    color: #e4a092;
+    margin-bottom: 16px;
+  }
+
+  #ap-property .ap-calendar-copy h2 {
+    margin-bottom: 18px;
+  }
+
+  #ap-property .ap-calendar-copy p,
+  #ap-property .ap-calendar-copy li {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  #ap-property .ap-calendar-copy li::before {
+    background: #e4a092;
+  }
+
+  #ap-property .ap-calendar-card {
+    padding: 18px;
+  }
+
+  #ap-property .ap-calendar-card iframe {
+    display: block;
+    width: 100%;
+    min-height: 650px;
+    border: 0;
+    border-radius: 22px;
+    background: var(--ap-soft-2);
+  }
+
+  #ap-property .ap-team-card {
+    flex: 0 0 218px;
+    scroll-snap-align: start;
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 20px;
+    text-align: center;
+  }
+
+  #ap-property .ap-team-photo {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    margin: 0 auto 16px;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-team-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ap-property .ap-team-photo.is-hasan img {
+    transform: translateY(-10px) scale(1.08);
+    transform-origin: center center;
+  }
+
+  #ap-property .ap-team-card strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-team-card span {
+    display: block;
+    margin-top: 5px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  #ap-property .ap-final {
+    padding-bottom: 92px;
+  }
+
+  #ap-property .ap-final-box {
+    padding: 50px;
+    text-align: center;
+  }
+
+  #ap-property .ap-final-box h2 {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #ap-property .ap-final-box p {
+    max-width: 660px;
+    margin: 18px auto 0;
+  }
+
+  #ap-property .ap-final-box .ap-actions {
+    justify-content: center;
+  }
+
+  @media (max-width: 980px) {
+    #ap-property .ap-hero-grid,
+    #ap-property .ap-section-head,
+    #ap-property .ap-split,
+    #ap-property .ap-voice-grid,
+    #ap-property .ap-voice-card,
+    #ap-property .ap-calendar-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-property .ap-language-card {
+      position: relative;
+      top: auto;
+    }
+
+    #ap-property .ap-grid-4,
+    #ap-property .ap-grid-3,
+    #ap-property .ap-stat-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 720px) {
+    #ap-property .ap-container {
+      width: min(100% - 28px, 1120px);
+    }
+
+    #ap-property .ap-section {
+      padding: 58px 0;
+    }
+
+    #ap-property .ap-hero {
+      padding: 42px 0 36px;
+    }
+
+    #ap-property .ap-hero-copy {
+      padding-top: 0;
+    }
+
+    #ap-property h1 {
+      font-size: clamp(42px, 12vw, 58px);
+      line-height: 1;
+    }
+
+    #ap-property .ap-lead {
+      font-size: 17px;
+    }
+
+    #ap-property .ap-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #ap-property .ap-button {
+      width: 100%;
+    }
+
+    #ap-property .ap-grid-4,
+    #ap-property .ap-grid-3,
+    #ap-property .ap-grid-2,
+    #ap-property .ap-stat-row {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-property .ap-language-card,
+    #ap-property .ap-card,
+    #ap-property .ap-form-card,
+    #ap-property .ap-dark-band,
+    #ap-property .ap-calendar-copy,
+    #ap-property .ap-calendar-card,
+    #ap-property .ap-final-box,
+    #ap-property .ap-logo-wrap,
+    #ap-property .ap-voice-card {
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    #ap-property .ap-phone-visual {
+      min-height: 320px;
+    }
+
+    #ap-property .ap-system-card {
+      flex-basis: 180px;
+    }
+
+    #ap-property .ap-team-card {
+      flex-basis: 196px;
+    }
+
+    #ap-property .ap-process-item {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-property .ap-calendar-card iframe {
+      min-height: 720px;
+    }
+  }
+
+  #ap-property .ap-section-head h2.ap-title-sm {
+    font-size: clamp(34px, 4.5vw, 58px);
+    max-width: 760px;
+  }
+
+  #ap-property .ap-appointment-accordions {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  #ap-property .ap-appointment-detail {
+    border-radius: 18px;
+    border: 1px solid var(--ap-line);
+    background: var(--ap-soft-2);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ap-property .ap-appointment-detail summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 15px 18px;
+    color: var(--ap-text);
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-appointment-detail summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #ap-property .ap-appointment-detail summary::after {
+    content: "+";
+    float: right;
+    color: var(--ap-brown);
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  #ap-property .ap-appointment-detail[open] summary::after {
+    content: "-";
+  }
+
+  #ap-property .ap-appointment-detail p {
+    padding: 0 18px 16px;
+    color: var(--ap-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  /* Niche polish: calmer desktop typography, stacked section intros and clearer system actions. */
+  @media (min-width: 981px) {
+    #ap-property h1 {
+      max-width: 820px;
+      font-size: clamp(38px, 4.55vw, 62px);
+      line-height: 1.04;
+      text-wrap: balance;
+    }
+
+    #ap-property h1 .ap-accent {
+      display: block;
+      margin-top: 10px;
+      color: var(--ap-brown);
+      font-size: 0.72em;
+      line-height: 1.05;
+      font-style: italic;
+    }
+
+    #ap-property .ap-section-head {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+      max-width: 980px;
+      margin-bottom: 34px;
+    }
+
+    #ap-property .ap-section-head h2 {
+      max-width: 900px;
+      font-size: clamp(42px, 4.2vw, 64px);
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    #ap-property .ap-section-head h2.ap-title-sm {
+      max-width: 860px;
+      font-size: clamp(36px, 3.6vw, 52px);
+    }
+
+    #ap-property .ap-section-text {
+      max-width: 900px;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+  }
+
+  #ap-property .ap-niche-signal {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 8px 12px 8px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--ap-line);
+    background: rgba(255, 255, 255, 0.74);
+    color: var(--ap-text);
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 900;
+    box-shadow: 0 10px 30px rgba(17, 17, 17, 0.04);
+  }
+
+  #ap-property .ap-niche-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--ap-text);
+    color: var(--ap-white);
+  }
+
+  #ap-property .ap-niche-icon svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #ap-property .ap-chat-result {
+    background: rgba(159, 56, 38, 0.18) !important;
+    border-color: rgba(226, 166, 154, 0.42) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  #ap-property .ap-chat-result strong {
+    color: #f0b0a4;
+  }
+
+  @media (max-width: 720px) {
+    #ap-property .ap-niche-signal {
+      margin-top: 14px;
+      font-size: 11px;
+    }
+  }
+
+</style>
+
+
+<div id="ap-property">
+  <section class="ap-hero">
+    <div class="ap-container">
+      <div class="ap-hero-grid">
+        <div class="ap-hero-copy">
+          <div class="ap-proof"><span></span><strong>Restaurants</strong></div>
+          <div class="ap-eyebrow">Autopilots</div>
+          <div class="ap-niche-signal" aria-label="Specifiek voor Restaurants"><span class="ap-niche-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 10v44M14 10v16c0 5 12 5 12 0V10"/><path d="M42 10c7 5 9 18 0 25v19"/></svg></span><span>Specifiek voor Restaurants</span></div>
+          <h1>Reserveringen en gastvragen direct geregeld. <span class="ap-accent">Zonder extra bezetting.</span></h1>
+          <p class="ap-lead">Een AI restaurantassistent neemt reserveringen, allergievragen, groepsaanvragen, openingstijden en wijzigingen op.</p>
+          <div class="ap-channel-row" aria-label="Kanalen">
+            <a class="ap-channel-pill" href="#voice-agent">Telefoon</a>
+            <a class="ap-channel-pill" href="#chat-agent">WhatsApp</a>
+            <a class="ap-channel-pill" href="#chat-agent">Websitechat</a>
+            <a class="ap-channel-pill" href="#complete-agent">E-mail</a>
+            <a class="ap-channel-pill" href="#planning-agent">Agenda</a>
+          </div>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="#voice-test">&#9742; Bel direct met een Voice AI</a>
+            <a class="ap-button ap-button-secondary" href="#afspraak">Plan een afspraak</a>
+          </div>
+        </div>
+
+        <div class="ap-language-card" data-ap-property-chat>
+          <div class="ap-lang-top">
+            <div>
+              <div class="ap-kicker">Voorbeeldgesprek</div>
+              <h3>Gast wil reserveren met allergie.</h3>
+              <p>Kies een land en bekijk hoe dezelfde intake in de taal van de klant verloopt.</p>
+            </div>
+            <div class="ap-country-picker" data-ap-country-picker>
+              <button class="ap-country-button" type="button" aria-expanded="false" data-ap-country-button>
+                <span class="ap-country-label"><span class="ap-country-flag" data-ap-country-flag>NL</span><span data-ap-country-name>Netherlands</span></span>
+                <span class="ap-country-chevron" aria-hidden="true"></span>
+              </button>
+              <div class="ap-country-menu" role="listbox" aria-label="Choose country for example conversation">
+                <button class="ap-country-option is-active" type="button" data-lang="nl"><span class="ap-country-flag">NL</span>Netherlands</button>
+                <button class="ap-country-option" type="button" data-lang="en"><span class="ap-country-flag">UK</span>United Kingdom</button>
+                <button class="ap-country-option" type="button" data-lang="de"><span class="ap-country-flag">DE</span>Germany</button>
+                <button class="ap-country-option" type="button" data-lang="fr"><span class="ap-country-flag">FR</span>France</button>
+                <button class="ap-country-option" type="button" data-lang="es"><span class="ap-country-flag">ES</span>Spain</button>
+                <button class="ap-country-option" type="button" data-lang="it"><span class="ap-country-flag">IT</span>Italy</button>
+                <button class="ap-country-option" type="button" data-lang="pl"><span class="ap-country-flag">PL</span>Poland</button>
+                <button class="ap-country-option" type="button" data-lang="tr"><span class="ap-country-flag">TR</span>Turkey</button>
+                <button class="ap-country-option" type="button" data-lang="ar"><span class="ap-country-flag">MA</span>Morocco</button>
+                <button class="ap-country-option" type="button" data-lang="pt"><span class="ap-country-flag">PT</span>Portugal</button>
+                <button class="ap-country-option" type="button" data-lang="ro"><span class="ap-country-flag">RO</span>Romania</button>
+                <button class="ap-country-option" type="button" data-lang="uk"><span class="ap-country-flag">UA</span>Ukraine</button>
+                <button class="ap-country-option" type="button" data-lang="zh"><span class="ap-country-flag">CN</span>China</button>
+                <button class="ap-country-option" type="button" data-lang="hi"><span class="ap-country-flag">IN</span>India</button>
+                <button class="ap-country-option" type="button" data-lang="id"><span class="ap-country-flag">ID</span>Indonesia</button>
+              </div>
+            </div>
+          </div>
+          <div class="ap-chat-window" aria-live="polite">
+            <div class="ap-chat-meta"><span data-ap-lang-label>Nederlands</span><span class="ap-live-dot">Live intake</span></div>
+            <div class="ap-bubble tenant" data-ap-chat-tenant>Ik wil zaterdag reserveren voor zes personen, waarvan een met notenallergie.</div>
+            <div class="ap-bubble agent" data-ap-chat-agent>Ik help graag. Hoe laat wilt u komen en gaat het om diner of lunch?</div>
+            <div class="ap-bubble tenant" data-ap-chat-tenant2>Diner om 19:30. De allergie is serieus.</div>
+            <div class="ap-bubble agent" data-ap-chat-agent2>Dank u. Ik zet de reservering en allergienotitie klaar voor het team.</div>
+            <div class="ap-chat-result">
+              <strong data-ap-chat-result-title>Actie in systeem</strong>
+              <span data-ap-chat-result>Reservering: zaterdag 19:30, 6 personen. Allergie: noten, serieus. Team ontvangt keukenmelding. Agent initieert direct de afspraak of opvolgactie in het systeem.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Het probleem</div>
+          <h2>Het ligt niet aan de inzet van je team.</h2>
+        </div>
+        <p class="ap-section-text">Bij restaurants komen spoedvragen, planning, offertes en herhaalvragen vaak tegelijk binnen. Daardoor gaat commerciële snelheid verloren.</p>
+      </div>
+      <div class="ap-grid-4">
+        <div class="ap-card">
+          <h3>Piekmomenten vullen de lijn</h3>
+          <p>Juist wanneer het team druk is, komen de meeste vragen en wijzigingen binnen.</p>
+        </div>
+        <div class="ap-card">
+          <h3>Aanvragen zijn niet compleet</h3>
+          <p>Zonder goede intake ontbreken foto&#x27;s, planning, budget, locatie of belangrijke details.</p>
+        </div>
+        <div class="ap-card">
+          <h3>Opvolging blijft liggen</h3>
+          <p>Nieuwe kansen koelen snel af als niemand direct reageert of doorvraagt.</p>
+        </div>
+        <div class="ap-card">
+          <h3>Teamfocus verdwijnt</h3>
+          <p>Medewerkers worden uit uitvoering, verkoop of klantcontact gehaald voor dezelfde vragen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-split">
+          <div>
+            <div class="ap-kicker">Veel tijd gaat niet naar de kern</div>
+            <h2 class="ap-title-support" style="font-size:24px!important;line-height:1.08!important;max-width:500px!important;">Telefoontjes halen service uit de zaak.</h2>
+            <p class="ap-section-text">De AI vangt intake, herhaalvragen en planning op, zodat je team tijd houdt voor het werk dat echt waarde maakt.</p>
+            <div class="ap-stat-row"><div class="ap-stat"><strong>24/7</strong><span>bereikbaar voor klanten</span></div><div class="ap-stat"><strong>0</strong><span>gemiste piekmomenten</span></div><div class="ap-stat"><strong>15</strong><span>talen in intake</span></div></div>
+          </div>
+          <div class="ap-process">
+            <div class="ap-process-item">
+              <span class="ap-step-number">01</span>
+              <div>
+                <h3>Aanvragen uitvragen</h3>
+                <p>De AI vraagt de juiste gegevens uit voordat je team hoeft op te volgen.</p>
+              </div>
+            </div>
+            <div class="ap-process-item">
+              <span class="ap-step-number">02</span>
+              <div>
+                <h3>Urgentie bepalen</h3>
+                <p>Spoed, normale aanvragen en herhaalvragen worden direct gescheiden.</p>
+              </div>
+            </div>
+            <div class="ap-process-item">
+              <span class="ap-step-number">03</span>
+              <div>
+                <h3>Afspraken plannen</h3>
+                <p>Beschikbaarheid wordt gekoppeld aan agenda, regio en type aanvraag.</p>
+              </div>
+            </div>
+            <div class="ap-process-item">
+              <span class="ap-step-number">04</span>
+              <div>
+                <h3>Opvolging klaarzetten</h3>
+                <p>Samenvatting, contactgegevens en vervolgstap staan direct klaar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>We integreren met de systemen en kanalen die restaurants al gebruiken.</p>
+        <div class="ap-system-shell">
+          <div class="ap-system-slider" data-ap-slider="systems" aria-label="System integrations">
+            <div class="ap-system-track">
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/1.png" alt="Exact Online"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/2.png" alt="Zendesk"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/3.png" alt="Solvari"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/4.png" alt="HubSpot"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/5.png" alt="Autopilots integration"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/6.png" alt="Monday.com"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/7.png" alt="Google Calendar"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/8.png" alt="Outlook Calendar"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/9.png" alt="Trustoo"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/10.png" alt="Moneybird"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/11.png" alt="Bloxs"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/12.png" alt="Odoo"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/13.png" alt="Robaws"></div>
+              <div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets/systems/14.png" alt="Calendar system"></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/1.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/2.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/3.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/4.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/5.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/6.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/7.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/8.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/9.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/10.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/11.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/12.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/13.png" alt=""></div>
+              <div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets/systems/14.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Voor restaurants met groeiplannen</div>
+          <h2 class="ap-title-sm">Een digitale assistent die precies werkt zoals restaurants nodig hebben.</h2>
+        </div>
+        <p class="ap-section-text">Autopilots richt de flow in op jullie diensten, planning, urgenties, klantvragen en overdracht.</p>
+      </div>
+      <div class="ap-grid-4">
+        <div class="ap-card ap-product-card" id="chat-agent">
+          <div>
+            <div class="ap-product-label">CHAT</div>
+            <h3>De 24/7 klantbalie</h3>
+            <p>WhatsApp en websitevragen worden direct beantwoord en compleet gemaakt.</p>
+          </div>
+          <ul class="ap-list"><li>Aanvragen uitvragen</li><li>Veelgestelde vragen</li><li>Samenvatting naar team</li></ul>
+        </div>
+        <div class="ap-card ap-product-card" id="voice-agent">
+          <div>
+            <div class="ap-product-label">VOICE</div>
+            <h3>Geen gemiste telefoontjes meer</h3>
+            <p>Elke inkomende call wordt opgenomen en de juiste urgentie wordt bepaald.</p>
+          </div>
+          <ul class="ap-list"><li>Telefonische intake</li><li>Spoedfilter</li><li>Menselijke fallback</li></ul>
+        </div>
+        <div class="ap-card ap-product-card" id="planning-agent">
+          <div>
+            <div class="ap-product-label">PLANNING</div>
+            <h3>Afspraken strak geregeld</h3>
+            <p>De AI plant afspraken op basis van echte beschikbaarheid.</p>
+          </div>
+          <ul class="ap-list"><li>Agenda checken</li><li>Bevestigingen sturen</li><li>No-shows beperken</li></ul>
+        </div>
+        <div class="ap-card ap-product-card" id="complete-agent">
+          <div>
+            <div class="ap-product-label">COMPLETE</div>
+            <h3>Je back-office op autopilot</h3>
+            <p>Voor teams die willen groeien zonder extra administratieve druk.</p>
+          </div>
+          <ul class="ap-list"><li>CRM verwerking</li><li>Dossieropbouw</li><li>Opvolging</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="voice-test">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Ervaar de snelheid</div>
+          <h2>Word direct gebeld door een Voice AI.</h2>
+        </div>
+        <p class="ap-section-text">Test zelf hoe snel de AI opneemt, doorvraagt en het gesprek netjes afrondt. Voor restaurants draait dit om snelheid, bereikbaarheid en betere intake.</p>
+      </div>
+      <div class="ap-voice-grid">
+        <div class="ap-voice-card">
+          <div class="ap-phone-visual" aria-label="Voice AI visual">
+            <div class="ap-phone-top"><span>Autopilots Voice AI</span><span>Live</span></div>
+            <div class="ap-wave"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="ap-call-status">
+              <strong>Aanvraag helder, opvolging direct.</strong>
+              <p>De AI vraagt door, bepaalt urgentie en zet de juiste vervolgstap klaar.</p>
+            </div>
+          </div>
+          <div class="ap-live-panel">
+            <div>
+              <div class="ap-kicker">Plan een afspraak via onze AI Voice Agent</div>
+              <h3>Bel met een agent die klanten direct helpt.</h3>
+              <p>Of het nu gaat om spoed, planning of een nieuwe aanvraag: wie direct reageert, wint vertrouwen en marge.</p>
+              <ul class="ap-list">
+                <li>24/7 bereikbaar voor klanten</li>
+                <li>Intake per dienst en urgentie</li>
+                <li>Overdracht met samenvatting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ap-form-card">
+          <h3>Bel direct met een Voice AI</h3>
+          <p>Laat je gegevens achter en ervaar de telefonische flow.</p>
+          <div class="ap-ghl-frame">
+            <iframe src="https://api.leadconnectorhq.com/widget/form/EqeJFQsmD1urhHlceuLu" style="width:100%;height:100%;border:none;border-radius:0px" id="inline-EqeJFQsmD1urhHlceuLu" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Website Test Voice AI" data-height="420" data-layout-iframe-id="inline-EqeJFQsmD1urhHlceuLu" data-form-id="EqeJFQsmD1urhHlceuLu" title="Website Test Voice AI"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="afspraak">
+    <div class="ap-container">
+      <div class="ap-calendar-grid">
+        <div class="ap-calendar-copy">
+          <div class="ap-kicker">Pak je voorsprong in restaurants</div>
+          <h2>Bekijk waar AI direct werk uit handen neemt.</h2>
+          <p class="ap-section-text">Tijdens de afspraak kijken we naar jullie klantvragen, planning, intakecriteria en overdracht.</p>
+          <div class="ap-appointment-accordions">
+            <details class="ap-appointment-detail">
+              <summary>We bekijken je huidige klantcommunicatie</summary>
+              <p>We lopen door waar aanvragen, spoedvragen, wijzigingen en herhaalvragen nu binnenkomen voor restaurants: telefoon, WhatsApp, website, e-mail en agenda.</p>
+            </details>
+            <details class="ap-appointment-detail">
+              <summary>We bepalen intake, uitzonderingen en fallback</summary>
+              <p>We leggen vast welke vragen de AI altijd moet stellen, welke situaties direct naar een mens gaan en welke urgenties voorrang krijgen.</p>
+            </details>
+            <details class="ap-appointment-detail">
+              <summary>Je krijgt een concrete implementatieroute</summary>
+              <p>Je ziet welke stappen nodig zijn om live te gaan: gespreksflow, agenda, formulieren, CRM-overdracht, testgesprekken en optimalisatie na livegang.</p>
+            </details>
+          </div>
+        </div>
+        <div class="ap-calendar-card">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="UaWTV0sdETiXy0refclQ_1780946087456"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Meet the crew</div>
+          <h2>Built by the Autopilots team.</h2>
+        </div>
+        <p class="ap-section-text">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p>
+      </div>
+      <div class="ap-team-shell">
+        <div class="ap-team-slider" data-ap-slider="team" aria-label="Autopilots team">
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/tim-kuiper.png" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales &amp; Partnerships</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/larissa-rosanna-pen.webp" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets/team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo is-hasan"><img src="../vastgoedbeheer-landing-page/assets/team/hasan-shabbir.png" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></div>
+        </div>
+        <div class="ap-slider-controls" aria-label="Team slider controls">
+          <button class="ap-slider-button" type="button" data-ap-slide-prev="team" aria-label="Previous team members">&#8592;</button>
+          <button class="ap-slider-button" type="button" data-ap-slide-next="team" aria-label="Next team members">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-final">
+    <div class="ap-container">
+      <div class="ap-final-box">
+        <div class="ap-kicker">Autopilots</div>
+        <h2>Bel met een Voice Agent die 24/7 klaarstaat en je groei beschermt.</h2>
+        <p class="ap-section-text">Zorg dat je altijd bereikbaar bent voor spoed, aanvragen en planning zonder je team te overbelasten.</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#voice-test">&#9742; Test de Voice AI</a>
+          <a class="ap-button ap-button-secondary" href="#afspraak">Plan een afspraak</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<script>
+  (function () {
+    var root = document.querySelector("#ap-property");
+    if (!root) return;
+    var data = {
+      "nl": {
+            "label": "Nederlands",
+            "tenant": "Ik wil zaterdag reserveren voor zes personen, waarvan een met notenallergie.",
+            "agent": "Ik help graag. Hoe laat wilt u komen en gaat het om diner of lunch?",
+            "tenant2": "Diner om 19:30. De allergie is serieus.",
+            "agent2": "Dank u. Ik zet de reservering en allergienotitie klaar voor het team.",
+            "title": "Actie in systeem",
+            "result": "Reservering: zaterdag 19:30, 6 personen. Allergie: noten, serieus. Team ontvangt keukenmelding. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "en": {
+            "label": "English",
+            "tenant": "I have a request and need quick clarity.",
+            "agent": "I can help right away. I will ask the key details and route it to the right team.",
+            "tenant2": "It is needed this week. I can send photos and extra details.",
+            "agent2": "Thank you. I will prepare the right follow-up and confirmation.",
+            "title": "Actie in systeem",
+            "result": "Request captured with urgency, location, details and follow-up priority. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "de": {
+            "label": "Deutsch",
+            "tenant": "Ich habe eine Anfrage und brauche schnell Klarheit.",
+            "agent": "Ich helfe sofort und frage die wichtigsten Details fur das richtige Team ab.",
+            "tenant2": "Es wird diese Woche benotigt. Fotos und Zusatzinfos kann ich senden.",
+            "agent2": "Danke. Ich bereite die richtige Weitergabe und Bestatigung vor.",
+            "title": "Actie in systeem",
+            "result": "Anfrage mit Dringlichkeit, Ort, Details und Prioritat erfasst. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "fr": {
+            "label": "Francais",
+            "tenant": "J'ai une demande et je souhaite une reponse rapide.",
+            "agent": "Je vous aide tout de suite et collecte les details essentiels.",
+            "tenant2": "C'est necessaire cette semaine. Je peux envoyer des photos.",
+            "agent2": "Merci. Je prepare le bon suivi et la confirmation.",
+            "title": "Actie in systeem",
+            "result": "Demande enregistree avec urgence, lieu, details et priorite. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "es": {
+            "label": "Espanol",
+            "tenant": "Tengo una solicitud y necesito claridad rapidamente.",
+            "agent": "Le ayudo ahora y recojo los datos clave.",
+            "tenant2": "Lo necesito esta semana. Puedo enviar fotos y detalles.",
+            "agent2": "Gracias. Preparare el seguimiento correcto.",
+            "title": "Actie in systeem",
+            "result": "Solicitud registrada con urgencia, ubicacion, detalles y prioridad. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "it": {
+            "label": "Italiano",
+            "tenant": "Ho una richiesta e vorrei chiarezza rapidamente.",
+            "agent": "La aiuto subito e raccolgo i dettagli principali.",
+            "tenant2": "Serve questa settimana. Posso inviare foto e dettagli.",
+            "agent2": "Grazie. Preparo il seguito corretto.",
+            "title": "Actie in systeem",
+            "result": "Richiesta registrata con urgenza, luogo, dettagli e priorita. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "pl": {
+            "label": "Polski",
+            "tenant": "Mam zapytanie i potrzebuje szybkiej odpowiedzi.",
+            "agent": "Pomoge od razu i zbiorę najwazniejsze dane.",
+            "tenant2": "Potrzebne w tym tygodniu. Mogę wyslac zdjecia.",
+            "agent2": "Dziekuje. Przygotuje dalszy krok.",
+            "title": "Actie in systeem",
+            "result": "Zgloszenie zapisane z pilnoscia, lokalizacja i priorytetem. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "tr": {
+            "label": "Turkce",
+            "tenant": "Bir talebim var ve hizli netlik istiyorum.",
+            "agent": "Hemen yardim ederim ve temel bilgileri alirim.",
+            "tenant2": "Bu hafta gerekli. Fotograf ve detay gonderebilirim.",
+            "agent2": "Tesekkurler. Dogru takip adimini hazirliyorum.",
+            "title": "Actie in systeem",
+            "result": "Talep aciliyet, konum, detay ve oncelikle kaydedildi. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "ar": {
+            "label": "Arabic",
+            "tenant": "&#1604;&#1583;&#1610; &#1591;&#1604;&#1576; &#1608;&#1571;&#1581;&#1578;&#1575;&#1580; &#1573;&#1604;&#1609; &#1608;&#1590;&#1608;&#1581; &#1587;&#1585;&#1610;&#1593;.",
+            "agent": "&#1587;&#1571;&#1587;&#1575;&#1593;&#1583;&#1603; &#1601;&#1608;&#1585;&#1575; &#1608;&#1571;&#1580;&#1605;&#1593; &#1575;&#1604;&#1578;&#1601;&#1575;&#1589;&#1610;&#1604; &#1575;&#1604;&#1605;&#1607;&#1605;&#1577;.",
+            "tenant2": "&#1575;&#1604;&#1571;&#1605;&#1585; &#1605;&#1591;&#1604;&#1608;&#1576; &#1607;&#1584;&#1575; &#1575;&#1604;&#1571;&#1587;&#1576;&#1608;&#1593;. &#1610;&#1605;&#1603;&#1606;&#1606;&#1610; &#1573;&#1585;&#1587;&#1575;&#1604; &#1589;&#1608;&#1585;.",
+            "agent2": "&#1588;&#1603;&#1585;&#1575;. &#1587;&#1571;&#1580;&#1607;&#1586; &#1582;&#1591;&#1608;&#1577; &#1575;&#1604;&#1605;&#1578;&#1575;&#1576;&#1593;&#1577;.",
+            "title": "Actie in systeem",
+            "result": "&#1578;&#1605; &#1578;&#1587;&#1580;&#1610;&#1604; &#1575;&#1604;&#1591;&#1604;&#1576; &#1605;&#1593; &#1575;&#1604;&#1571;&#1608;&#1604;&#1608;&#1610;&#1577; &#1608;&#1575;&#1604;&#1578;&#1601;&#1575;&#1589;&#1610;&#1604;. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "pt": {
+            "label": "Portugues",
+            "tenant": "Tenho um pedido e preciso de clareza rapidamente.",
+            "agent": "Ajudo ja e recolho os dados principais.",
+            "tenant2": "E necessario esta semana. Posso enviar fotos.",
+            "agent2": "Obrigado. Vou preparar o seguimento correto.",
+            "title": "Actie in systeem",
+            "result": "Pedido registado com urgencia, local, detalhes e prioridade. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "ro": {
+            "label": "Romana",
+            "tenant": "Am o solicitare si am nevoie de claritate rapid.",
+            "agent": "Va ajut imediat si colectez detaliile esentiale.",
+            "tenant2": "Este necesar saptamana aceasta. Pot trimite fotografii.",
+            "agent2": "Multumesc. Pregatesc pasul urmator.",
+            "title": "Actie in systeem",
+            "result": "Solicitare inregistrata cu urgenta, locatie, detalii si prioritate. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "uk": {
+            "label": "Ukrainian",
+            "tenant": "&#1052;&#1072;&#1102; &#1079;&#1072;&#1087;&#1080;&#1090; &#1110; &#1087;&#1086;&#1090;&#1088;&#1110;&#1073;&#1085;&#1072; &#1096;&#1074;&#1080;&#1076;&#1082;&#1072; &#1103;&#1089;&#1085;&#1110;&#1089;&#1090;&#1100;.",
+            "agent": "&#1071; &#1076;&#1086;&#1087;&#1086;&#1084;&#1086;&#1078;&#1091; &#1074;&#1110;&#1076;&#1088;&#1072;&#1079;&#1091; &#1110; &#1079;&#1073;&#1077;&#1088;&#1091; &#1076;&#1077;&#1090;&#1072;&#1083;&#1110;.",
+            "tenant2": "&#1055;&#1086;&#1090;&#1088;&#1110;&#1073;&#1085;&#1086; &#1094;&#1100;&#1086;&#1075;&#1086; &#1090;&#1080;&#1078;&#1085;&#1103;. &#1052;&#1086;&#1078;&#1091; &#1085;&#1072;&#1076;&#1110;&#1089;&#1083;&#1072;&#1090;&#1080; &#1092;&#1086;&#1090;&#1086;.",
+            "agent2": "&#1044;&#1103;&#1082;&#1091;&#1102;. &#1055;&#1110;&#1076;&#1075;&#1086;&#1090;&#1091;&#1102; &#1085;&#1072;&#1089;&#1090;&#1091;&#1087;&#1085;&#1080;&#1081; &#1082;&#1088;&#1086;&#1082;.",
+            "title": "Actie in systeem",
+            "result": "&#1047;&#1072;&#1087;&#1080;&#1090; &#1079;&#1072;&#1092;&#1110;&#1082;&#1089;&#1086;&#1074;&#1072;&#1085;&#1086; &#1079; &#1087;&#1088;&#1110;&#1086;&#1088;&#1080;&#1090;&#1077;&#1090;&#1086;&#1084; &#1110; &#1076;&#1077;&#1090;&#1072;&#1083;&#1103;&#1084;&#1080;. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "zh": {
+            "label": "Chinese",
+            "tenant": "&#25105;&#26377;&#19968;&#20010;&#35831;&#27714;&#65292;&#38656;&#35201;&#24555;&#36895;&#30830;&#35748;&#12290;",
+            "agent": "&#25105;&#20250;&#31435;&#21363;&#24110;&#24744;&#25910;&#38598;&#20851;&#38190;&#20449;&#24687;&#12290;",
+            "tenant2": "&#26412;&#21608;&#38656;&#35201;&#12290;&#25105;&#21487;&#20197;&#21457;&#36865;&#29031;&#29255;&#21644;&#35814;&#32454;&#20449;&#24687;&#12290;",
+            "agent2": "&#35874;&#35874;&#12290;&#25105;&#20250;&#20934;&#22791;&#19979;&#19968;&#27493;&#12290;",
+            "title": "Actie in systeem",
+            "result": "&#35831;&#27714;&#24050;&#35760;&#24405;&#65292;&#21253;&#21547;&#32039;&#24613;&#31243;&#24230;&#12289;&#20301;&#32622;&#21644;&#35814;&#32454;&#20449;&#24687;&#12290;. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "hi": {
+            "label": "Hindi",
+            "tenant": "&#2350;&#2375;&#2352;&#2366; &#2319;&#2325; &#2309;&#2344;&#2369;&#2352;&#2379;&#2343; &#2361;&#2376; &#2324;&#2352; &#2332;&#2354;&#2381;&#2342;&#2368; &#2360;&#2381;&#2346;&#2359;&#2381;&#2335;&#2340;&#2366; &#2330;&#2366;&#2361;&#2367;&#2319;&#2404;",
+            "agent": "&#2350;&#2376;&#2306; &#2340;&#2369;&#2352;&#2306;&#2340; &#2350;&#2342;&#2342; &#2325;&#2352;&#2340;&#2366; &#2361;&#2370;&#2306; &#2324;&#2352; &#2350;&#2369;&#ख्य &#2357;&#2367;&#2357;&#2352;&#ण &#2354;&#2375;&#2340;&#2366; &#2361;&#2370;&#2306;&#2404;",
+            "tenant2": "&#2351;&#2361; &#2311;&#2360; &#2361;&#2347;&#2381;&#2340;&#2375; &#2330;&#2366;&#2361;&#2367;&#ए;&#2404; &#2350;&#2376;&#2306; &#2347;&#2379;&#2335;&#2379; &#2349;&#2375;&#2332; &#2360;&#2325;&#2340;&#2366; &#2361;&#2370;&#2306;&#2404;",
+            "agent2": "&#2343;&#2344;&#2381;&#2351;&#2357;&#2366;&#2342;&#2404; &#2350;&#2376;&#2306; &#2309;&#2327;&#2354;&#2366; &#2325;&#2342;&#2350; &#2340;&#2376;&#2351;&#2366;&#2352; &#2325;&#2352;&#2340;&#2366; &#2361;&#2370;&#2306;&#2404;",
+            "title": "Actie in systeem",
+            "result": "&#2309;&#2344;&#2369;&#2352;&#2379;&#2343; &#2346;&#2381;&#2352;&#2366;&#थमिकता &#2324;&#2352; &#2357;&#2367;&#2357;&#2352;&#ण &#2325;&#2375; &#2360;&#2366;&#थ &#2342;&#र्ज &#2361;&#2376;&#2404;. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      },
+      "id": {
+            "label": "Indonesia",
+            "tenant": "Saya punya permintaan dan butuh kejelasan cepat.",
+            "agent": "Saya bantu segera dan mengumpulkan detail penting.",
+            "tenant2": "Dibutuhkan minggu ini. Saya bisa mengirim foto.",
+            "agent2": "Terima kasih. Saya siapkan tindak lanjut yang tepat.",
+            "title": "Actie in systeem",
+            "result": "Permintaan dicatat dengan urgensi, lokasi, detail dan prioritas. Agent initieert direct de afspraak of opvolgactie in het systeem."
+      }
+};
+    var wrap = root.querySelector("[data-ap-property-chat]");
+    if (!wrap) return;
+    var fields = {
+      label: wrap.querySelector("[data-ap-lang-label]"),
+      tenant: wrap.querySelector("[data-ap-chat-tenant]"),
+      agent: wrap.querySelector("[data-ap-chat-agent]"),
+      tenant2: wrap.querySelector("[data-ap-chat-tenant2]"),
+      agent2: wrap.querySelector("[data-ap-chat-agent2]"),
+      title: wrap.querySelector("[data-ap-chat-result-title]"),
+      result: wrap.querySelector("[data-ap-chat-result]")
+    };
+    var countryPicker = root.querySelector("[data-ap-country-picker]");
+    var countryButton = root.querySelector("[data-ap-country-button]");
+    var countryName = root.querySelector("[data-ap-country-name]");
+    var countryFlag = root.querySelector("[data-ap-country-flag]");
+    var countryOptions = root.querySelectorAll(".ap-country-option");
+    function setHtml(el, value) { if (el) el.innerHTML = value; }
+    function closeCountryPicker() {
+      if (!countryPicker || !countryButton) return;
+      countryPicker.classList.remove("is-open");
+      countryButton.setAttribute("aria-expanded", "false");
+    }
+    function renderLanguage(key) {
+      var item = data[key] || data.nl;
+      setHtml(fields.label, item.label);
+      setHtml(fields.tenant, item.tenant);
+      setHtml(fields.agent, item.agent);
+      setHtml(fields.tenant2, item.tenant2);
+      setHtml(fields.agent2, item.agent2);
+      setHtml(fields.title, item.title);
+      setHtml(fields.result, item.result);
+      wrap.setAttribute("data-current-language", key);
+      countryOptions.forEach(function (option) {
+        var active = option.getAttribute("data-lang") === key;
+        option.classList.toggle("is-active", active);
+        if (active) {
+          var flagText = option.querySelector(".ap-country-flag").textContent;
+          if (countryName) countryName.textContent = option.textContent.replace(flagText, "").trim();
+          if (countryFlag) countryFlag.textContent = flagText;
+        }
+      });
+    }
+    if (countryButton && countryPicker) {
+      countryButton.addEventListener("click", function () {
+        var isOpen = countryPicker.classList.toggle("is-open");
+        countryButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    }
+    countryOptions.forEach(function (option) {
+      option.addEventListener("click", function () {
+        renderLanguage(option.getAttribute("data-lang"));
+        closeCountryPicker();
+      });
+    });
+    root.querySelectorAll(".ap-channel-row a[href^='#']").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        var target = root.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (window.history && window.history.pushState) window.history.pushState(null, "", link.getAttribute("href"));
+      });
+    });
+    document.addEventListener("click", function (event) { if (countryPicker && !countryPicker.contains(event.target)) closeCountryPicker(); });
+    document.addEventListener("keydown", function (event) { if (event.key === "Escape") closeCountryPicker(); });
+    root.querySelectorAll("[data-ap-slide-prev], [data-ap-slide-next]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var target = button.getAttribute("data-ap-slide-prev") || button.getAttribute("data-ap-slide-next");
+        var slider = root.querySelector('[data-ap-slider="' + target + '"]');
+        if (!slider) return;
+        var direction = button.hasAttribute("data-ap-slide-next") ? 1 : -1;
+        slider.scrollBy({ left: direction * Math.min(560, slider.clientWidth * 0.86), behavior: "smooth" });
+      });
+    });
+    renderLanguage("nl");
+  })();
+</script>
+
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>

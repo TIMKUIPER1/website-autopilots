@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autopilots Voice Agent Test Bedankt</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+    #ap-thankyou {
+      --ap-bg: #f5f5f2;
+      --ap-card: #ffffff;
+      --ap-soft: #eeeeea;
+      --ap-soft-2: #f8f8f5;
+      --ap-text: #111111;
+      --ap-muted: #656565;
+      --ap-line: rgba(0, 0, 0, 0.1);
+      --ap-brown: #9f3826;
+      --ap-brown-dark: #7d2a1d;
+      --ap-black: #111111;
+      --ap-white: #ffffff;
+      --ap-green-soft: #dce9dd;
+      background: var(--ap-bg);
+      color: var(--ap-text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #ap-thankyou, #ap-thankyou * { box-sizing: border-box; }
+    #ap-thankyou a { color: inherit; text-decoration: none; }
+    #ap-thankyou .ap-container { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+    #ap-thankyou .ap-section { padding: 74px 0; }
+    #ap-thankyou .ap-kicker { display: block; margin-bottom: 18px; font-family: "Syne", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ap-brown); }
+    #ap-thankyou h1, #ap-thankyou h2, #ap-thankyou h3, #ap-thankyou p { margin: 0; }
+    #ap-thankyou h1 { margin-top: 14px; max-width: 720px; font-size: clamp(48px, 7vw, 92px); line-height: .88; font-weight: 900; letter-spacing: 0; }
+    #ap-thankyou h2 { font-size: clamp(34px, 4.4vw, 58px); line-height: .95; font-weight: 900; letter-spacing: 0; }
+    #ap-thankyou h3 { font-size: 22px; line-height: 1.05; font-weight: 900; letter-spacing: 0; }
+    #ap-thankyou .ap-lead { margin-top: 22px; max-width: 610px; color: var(--ap-muted); font-size: 19px; line-height: 1.55; font-weight: 600; }
+    #ap-thankyou .ap-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    #ap-thankyou .ap-button { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--ap-line); font-size: 15px; font-weight: 900; transition: transform .2s ease, background .2s ease, color .2s ease; }
+    #ap-thankyou .ap-button:hover { transform: translateY(-2px); }
+    #ap-thankyou .ap-button.primary { background: var(--ap-brown); border-color: var(--ap-brown); color: var(--ap-white); box-shadow: 0 14px 34px rgba(159, 56, 38, .2); }
+    #ap-thankyou .ap-button.secondary { background: var(--ap-card); color: var(--ap-text); }
+    #ap-thankyou .ap-hero { padding: 44px 0 70px; }
+    #ap-thankyou .ap-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 46px; align-items: center; }
+    #ap-thankyou .ap-hero-note { display: inline-flex; align-items: center; gap: 9px; margin-top: 28px; padding: 10px 14px; border: 1px solid var(--ap-line); border-radius: 999px; background: rgba(255,255,255,.66); color: var(--ap-muted); font-size: 13px; font-weight: 800; }
+    #ap-thankyou .ap-live-dot { width: 9px; height: 9px; border-radius: 999px; background: #4a8f57; box-shadow: 0 0 0 7px rgba(74,143,87,.13); }
+    #ap-thankyou .ap-phone-stage { position: relative; display: grid; place-items: center; padding: 22px; border-radius: 34px; background: linear-gradient(145deg, #111, #2a1713); box-shadow: 0 24px 70px rgba(17,17,17,.18); }
+    #ap-thankyou .ap-phone-stage:before { content: "AI Agent belt nu"; position: absolute; top: 18px; left: 22px; z-index: 2; font-family: "Syne", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #e9c0b7; }
+    #ap-thankyou .shortsWrap { width: 100%; max-width: 320px; aspect-ratio: 9 / 16; margin: 24px auto 0; border-radius: 22px; overflow: hidden; background: #000; border: 8px solid rgba(255,255,255,.08); }
+    #ap-thankyou .shortsWrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+    #ap-thankyou .ap-step-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+    #ap-thankyou .ap-step-card { min-height: 168px; padding: 22px; border-radius: 26px; border: 1px solid var(--ap-line); background: var(--ap-card); box-shadow: 0 16px 38px rgba(17,17,17,.06); cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+    #ap-thankyou .ap-step-card:hover, #ap-thankyou .ap-step-card.is-active { transform: translateY(-4px); border-color: rgba(159,56,38,.35); background: #fffaf8; }
+    #ap-thankyou .ap-step-number { font-family: "Syne", sans-serif; color: var(--ap-brown); font-size: 18px; font-weight: 700; }
+    #ap-thankyou .ap-step-card h3 { margin-top: 26px; font-size: 23px; }
+    #ap-thankyou .ap-step-card p { display: none; margin-top: 12px; color: var(--ap-muted); font-size: 14px; line-height: 1.45; font-weight: 600; }
+    #ap-thankyou .ap-step-card.is-active p { display: block; }
+    #ap-thankyou .ap-dark { background: var(--ap-black); color: var(--ap-white); border-radius: 34px; padding: 40px; }
+    #ap-thankyou .ap-dark .ap-kicker { color: #e0aca2; }
+    #ap-thankyou .ap-dark-grid { display: grid; grid-template-columns: .88fr 1.12fr; gap: 34px; align-items: start; }
+    #ap-thankyou .ap-dark p { color: rgba(255,255,255,.68); }
+    #ap-thankyou .ap-chip-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    #ap-thankyou .ap-chip { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); color: var(--ap-white); border-radius: 999px; padding: 11px 14px; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+    #ap-thankyou .ap-chip:hover, #ap-thankyou .ap-chip.is-active { background: var(--ap-brown); transform: translateY(-1px); }
+    #ap-thankyou .ap-agent-panel { display: grid; gap: 12px; }
+    #ap-thankyou .ap-agent-line { display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: start; padding: 18px; border-radius: 22px; background: #242424; border: 1px solid rgba(255,255,255,.12); }
+    #ap-thankyou .ap-agent-line b { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 14px; background: var(--ap-white); color: var(--ap-brown); font-family: "Syne", sans-serif; }
+    #ap-thankyou .ap-agent-line strong { display: block; font-size: 17px; font-weight: 900; }
+    #ap-thankyou .ap-agent-line span { display: block; margin-top: 5px; color: rgba(255,255,255,.62); font-size: 14px; line-height: 1.45; font-weight: 600; }
+    #ap-thankyou .ap-booking-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 26px; align-items: start; }
+    #ap-thankyou .ap-booking-card { border-radius: 32px; border: 1px solid var(--ap-line); background: var(--ap-card); padding: 28px; box-shadow: 0 18px 45px rgba(17,17,17,.07); }
+    #ap-thankyou .ap-booking-frame { min-height: 620px; overflow: hidden; }
+    #ap-thankyou .ap-booking-frame iframe { width: 100%; min-height: 620px; border: 0; display: block; }
+    #ap-thankyou details { border: 1px solid var(--ap-line); border-radius: 20px; padding: 18px 18px; background: var(--ap-soft-2); }
+    #ap-thankyou details + details { margin-top: 12px; }
+    #ap-thankyou summary { cursor: pointer; font-size: 17px; font-weight: 900; }
+    #ap-thankyou details p { margin-top: 10px; color: var(--ap-muted); font-size: 15px; line-height: 1.5; font-weight: 600; }
+    #ap-thankyou .ap-section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 28px; }
+    #ap-thankyou .ap-section-text { max-width: 530px; color: var(--ap-muted); font-size: 17px; line-height: 1.55; font-weight: 600; }
+    #ap-thankyou .ap-logo-wrap { border-radius: 32px; background: var(--ap-card); border: 1px solid var(--ap-line); padding: 26px 0; overflow: hidden; }
+    #ap-thankyou .ap-logo-wrap p { padding: 0 28px; color: var(--ap-muted); font-size: 17px; font-weight: 800; }
+    #ap-thankyou .ap-system-slider { margin-top: 24px; overflow: hidden; }
+    #ap-thankyou .ap-system-track { display: flex; width: max-content; gap: 14px; animation: apSystemMarquee 38s linear infinite; }
+    #ap-thankyou .ap-system-slider:hover .ap-system-track { animation-play-state: paused; }
+    #ap-thankyou .ap-system-card { width: 170px; height: 88px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 22px; border: 1px solid var(--ap-line); background: #f5f6f1; }
+    #ap-thankyou .ap-system-card img { width: 78%; max-height: 52px; object-fit: contain; mix-blend-mode: multiply; filter: grayscale(1); opacity: .76; }
+    #ap-thankyou .ap-team-shell { position: relative; }
+    #ap-thankyou .ap-team-slider { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 18px; scrollbar-width: thin; }
+    #ap-thankyou .ap-team-card { min-width: 190px; scroll-snap-align: start; border-radius: 28px; border: 1px solid var(--ap-line); background: var(--ap-card); padding: 20px; text-align: center; }
+    #ap-thankyou .ap-team-photo { width: 116px; height: 116px; margin: 0 auto 15px; overflow: hidden; border-radius: 999px; background: #651d12; }
+    #ap-thankyou .ap-team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transform: scale(1.03); }
+    #ap-thankyou .ap-team-photo.is-hasan img { object-position: center 12%; }
+    #ap-thankyou .ap-team-card strong { display: block; font-size: 17px; font-weight: 900; }
+    #ap-thankyou .ap-team-card span { display: block; margin-top: 6px; color: var(--ap-muted); font-size: 13px; font-weight: 800; }
+    #ap-thankyou .ap-slider-controls { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+    #ap-thankyou .ap-slider-button { width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--ap-line); background: var(--ap-card); font-size: 18px; font-weight: 900; cursor: pointer; }
+    #ap-thankyou .ap-slider-button:hover { background: var(--ap-black); color: var(--ap-white); }
+    @keyframes apSystemMarquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 7px)); } }
+    @media (max-width: 980px) {
+      #ap-thankyou .ap-hero-grid, #ap-thankyou .ap-dark-grid, #ap-thankyou .ap-booking-grid { grid-template-columns: 1fr; }
+      #ap-thankyou .ap-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #ap-thankyou .ap-section-head { align-items: start; flex-direction: column; }
+      #ap-thankyou .ap-phone-stage { max-width: 420px; margin: 0 auto; }
+    }
+    @media (max-width: 640px) {
+      #ap-thankyou .ap-container { width: min(100% - 28px, 1120px); }
+      #ap-thankyou .ap-section { padding: 54px 0; }
+      #ap-thankyou h1 { font-size: 48px; }
+      #ap-thankyou h2 { font-size: 36px; }
+      #ap-thankyou .ap-lead { font-size: 16px; }
+      #ap-thankyou .ap-step-grid { grid-template-columns: 1fr; }
+      #ap-thankyou .ap-dark { padding: 26px; border-radius: 28px; }
+      #ap-thankyou .ap-booking-card { padding: 20px; }
+      #ap-thankyou .ap-system-card { width: 142px; height: 78px; }
+    }
+  </style>
+</head>
+<body>
+<div id="ap-thankyou">
+  <section class="ap-hero">
+    <div class="ap-container">
+      <div class="ap-hero-grid">
+        <div>
+          <div class="ap-kicker">Test de Autopilots Voice Agent</div>
+          <h1>Let op je telefoon... daar gaat 'ie.</h1>
+          <p class="ap-lead">Je aanvraag is binnen. Onze AI Voice Agent belt je zo. Speel gewoon mee: vertel wat voor bedrijf je hebt, waar communicatie vastloopt en kijk of de agent een afspraak weet te plannen.</p>
+          <div class="ap-actions">
+            <a class="ap-button primary" href="#afspraak">Plan direct een afspraak</a>
+            <a class="ap-button secondary" href="#agent-check">Bekijk wat de agent vraagt</a>
+          </div>
+          <div class="ap-hero-note"><span class="ap-live-dot"></span>De agent vraagt door. Maak het onze sales medewerker dus niet te makkelijk.</div>
+        </div>
+        <div class="ap-phone-stage" aria-label="Video over de Voice Agent test">
+          <div class="shortsWrap">
+            <iframe src="https://www.youtube.com/embed/gt3JqrTToco" title="YouTube Shorts" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Zo werkt de test</div>
+          <h2>Een korte call. Meteen duidelijkheid.</h2>
+        </div>
+        <p class="ap-section-text">Klik op de stappen om te zien wat er gebeurt tijdens de testcall. De agent luistert, stelt vervolgvragen en probeert een echte afspraak te boeken.</p>
+      </div>
+      <div class="ap-step-grid" data-ap-steps>
+        <article class="ap-step-card is-active"><div class="ap-step-number">01</div><h3>Beantwoord de inkomende oproep.</h3><p>De AI opent het gesprek rustig, checkt of het moment uitkomt en legt kort uit waarom hij belt.</p></article>
+        <article class="ap-step-card"><div class="ap-step-number">02</div><h3>Vertel wat je bedrijf doet.</h3><p>Geef branche, teamgrootte, type klantvragen en je grootste druktepunt door. Hoe concreter, hoe beter de intake.</p></article>
+        <article class="ap-step-card"><div class="ap-step-number">03</div><h3>Laat de agent doorvragen.</h3><p>De agent probeert pijnpunten, systemen, urgentie en beslissingsmoment boven water te krijgen.</p></article>
+        <article class="ap-step-card"><div class="ap-step-number">04</div><h3>Laat hem de afspraak verdienen.</h3><p>Alleen als er genoeg context is, stuurt de agent naar een kennismaking met een AI specialist.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="agent-check">
+    <div class="ap-container">
+      <div class="ap-dark">
+        <div class="ap-dark-grid">
+          <div>
+            <div class="ap-kicker">Maak het gesprek scherp</div>
+            <h2>De agent moet eerst begrijpen waar de druk zit.</h2>
+            <p class="ap-lead">Klik aan wat jij tijdens de call wilt testen. De checklist rechts laat zien waar de agent op moet doorvragen voordat hij een afspraak mag voorstellen.</p>
+            <div class="ap-chip-grid" data-ap-chips>
+              <button class="ap-chip is-active" type="button" data-check="branche">Branche en klanttype</button>
+              <button class="ap-chip" type="button" data-check="volume">Gemiste calls of chats</button>
+              <button class="ap-chip" type="button" data-check="route">Agenda, regio en route</button>
+              <button class="ap-chip" type="button" data-check="systemen">CRM en systemen</button>
+              <button class="ap-chip" type="button" data-check="besluit">Wanneer is het interessant?</button>
+            </div>
+          </div>
+          <div class="ap-agent-panel" data-ap-panel>
+            <div class="ap-agent-line"><b>1</b><div><strong>Wat voor bedrijf is dit?</strong><span>De agent vraagt naar branche, aanbod, type klant en waar de meeste aanvragen binnenkomen.</span></div></div>
+            <div class="ap-agent-line"><b>2</b><div><strong>Waar lekt nu tijd of omzet weg?</strong><span>Hij zoekt naar wachttijd, gemiste oproepen, herhaalvragen en handmatig planwerk.</span></div></div>
+            <div class="ap-agent-line"><b>3</b><div><strong>Is een afspraak logisch?</strong><span>Pas na genoeg context probeert de agent een concrete afspraak in de agenda te zetten.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="afspraak">
+    <div class="ap-container">
+      <div class="ap-booking-grid">
+        <div class="ap-booking-card">
+          <div class="ap-kicker">Afspraak plannen</div>
+          <h2>Wordt de call interessant? Plan dan direct door.</h2>
+          <p class="ap-lead">Tijdens de afspraak bekijken we wat er nodig is om jouw intake, opvolging en planning betrouwbaar op autopilot te zetten.</p>
+          <div style="margin-top: 24px;">
+            <details open><summary>We bekijken je huidige klantcommunicatie</summary><p>Welke kanalen gebruik je, welke vragen komen terug en waar mist je team nu snelheid of overzicht?</p></details>
+            <details><summary>We bepalen intake, uitzonderingen en fallback</summary><p>We leggen vast wat de AI zelfstandig mag afhandelen, wanneer je team moet meekijken en hoe urgente situaties worden doorgestuurd.</p></details>
+            <details><summary>Je krijgt een concrete implementatieroute</summary><p>Je ziet welke systemen gekoppeld worden, welke scripts nodig zijn en hoe we livegang en optimalisatie aanpakken.</p></details>
+          </div>
+        </div>
+        <div class="ap-booking-card ap-booking-frame">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ" scrolling="no" id="UaWTV0sdETiXy0refclQ_thankyou"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" data-ap-reusable-section="systems">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>We integreren met de systemen, kanalen en samenwerkingen die je team al gebruikt.</p>
+        <div class="ap-system-slider" aria-label="Systemen en samenwerkingen"><div class="ap-system-track"><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/1.jpg" alt="Exact Online"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/2.jpg" alt="Zendesk"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/3.jpg" alt="Solvari"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/4.jpg" alt="HubSpot"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/5.jpg" alt="Autopilots integratie"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/6.jpg" alt="Monday.com"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/7.jpg" alt="Google Calendar"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/8.jpg" alt="Outlook Calendar"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/9.jpg" alt="Trustoo"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/10.jpg" alt="Moneybird"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/11.jpg" alt="Bloxs"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/12.jpg" alt="Odoo"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/13.jpg" alt="Robaws"></div><div class="ap-system-card"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/14.jpg" alt="Calendar systeem"></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/1.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/2.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/3.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/4.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/5.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/6.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/7.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/8.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/9.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/10.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/11.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/12.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/13.jpg" alt=""></div><div class="ap-system-card" aria-hidden="true"><img src="../vastgoedbeheer-landing-page/assets-ghl/systems/14.jpg" alt=""></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" data-ap-reusable-section="team">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div><div class="ap-kicker">Meet the crew</div><h2>Built by the Autopilots team.</h2></div>
+        <p class="ap-section-text">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p>
+      </div>
+      <div class="ap-team-shell">
+        <div class="ap-team-slider" data-ap-slider="team" aria-label="Autopilots team">
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/tim-kuiper.jpg" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales &amp; Partnerships</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/rohail-zuberi.jpg" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/larissa-rosanna-pen.jpg" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/pratt-olan.jpg" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/mit-dong.jpg" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/luca-van-der-meer.jpg" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></article>
+          <article class="ap-team-card"><div class="ap-team-photo is-hasan"><img src="../vastgoedbeheer-landing-page/assets-ghl/team/hasan-shabbir.jpg" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></article>
+        </div>
+        <div class="ap-slider-controls" aria-label="Team slider controls">
+          <button class="ap-slider-button" type="button" data-ap-slide-prev="team" aria-label="Vorige teamleden">&#8592;</button>
+          <button class="ap-slider-button" type="button" data-ap-slide-next="team" aria-label="Volgende teamleden">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+<script>
+(function () {
+  var root = document.getElementById('ap-thankyou');
+  if (!root) return;
+  root.querySelectorAll('[data-ap-steps] .ap-step-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      root.querySelectorAll('[data-ap-steps] .ap-step-card').forEach(function(item) { item.classList.remove('is-active'); });
+      card.classList.add('is-active');
+    });
+  });
+  var texts = {
+    branche: ['Wat voor bedrijf is dit?', 'De agent vraagt naar branche, aanbod, type klant en waar de meeste aanvragen binnenkomen.'],
+    volume: ['Hoe groot is de communicatiedruk?', 'Hij vraagt naar gemiste oproepen, piekmomenten, chatvolume en hoeveel tijd opvolging nu kost.'],
+    route: ['Moet planning slim meebewegen?', 'Hij checkt beschikbaarheid, regio, route, spoed en welke afspraken automatisch ingepland mogen worden.'],
+    systemen: ['Waar moet alles landen?', 'Hij vraagt naar CRM, agenda, WhatsApp, websitechat en bestaande tools die gekoppeld moeten worden.'],
+    besluit: ['Wanneer is een afspraak logisch?', 'Hij probeert timing, beslisser, urgentie en eerstvolgende stap helder te krijgen voordat hij doorplant.']
+  };
+  var panel = root.querySelector('[data-ap-panel]');
+  root.querySelectorAll('[data-ap-chips] .ap-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      root.querySelectorAll('[data-ap-chips] .ap-chip').forEach(function(item) { item.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      var key = chip.getAttribute('data-check');
+      var text = texts[key] || texts.branche;
+      if (panel) {
+        panel.innerHTML = '<div class="ap-agent-line"><b>1</b><div><strong>' + text[0] + '</strong><span>' + text[1] + '</span></div></div>' +
+          '<div class="ap-agent-line"><b>2</b><div><strong>Kan de AI dit straks zelfstandig afhandelen?</strong><span>De agent checkt regels, uitzonderingen en wanneer een medewerker moet overnemen.</span></div></div>' +
+          '<div class="ap-agent-line"><b>3</b><div><strong>Welke afspraak past hierbij?</strong><span>Pas daarna probeert hij een kennismaking met een AI specialist te boeken.</span></div></div>';
+      }
+    });
+  });
+  root.querySelectorAll('[data-ap-slide-prev], [data-ap-slide-next]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var target = button.getAttribute('data-ap-slide-prev') || button.getAttribute('data-ap-slide-next');
+      var slider = root.querySelector('[data-ap-slider="' + target + '"]');
+      if (!slider) return;
+      var direction = button.hasAttribute('data-ap-slide-next') ? 1 : -1;
+      slider.scrollBy({ left: direction * Math.min(560, slider.clientWidth * 0.86), behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>

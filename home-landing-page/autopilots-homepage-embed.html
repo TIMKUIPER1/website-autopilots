@@ -1,0 +1,1671 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-home {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #eeeeea;
+    --ap-soft-2: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-brown-dark: #7d2a1d;
+    --ap-black: #111111;
+    --ap-white: #ffffff;
+    --ap-green-soft: #dce9dd;
+    background: var(--ap-bg);
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #ap-home * {
+    box-sizing: border-box;
+  }
+
+  #ap-home a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-home h1,
+  #ap-home h2,
+  #ap-home h3,
+  #ap-home p {
+    margin: 0;
+  }
+
+  #ap-home .ap-container {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+  }
+
+  #ap-home .ap-section {
+    padding: 80px 0;
+  }
+
+  #ap-home .ap-hero {
+    padding: 64px 0 52px;
+  }
+
+  #ap-home .ap-eyebrow,
+  #ap-home .ap-kicker,
+  #ap-home .ap-metric strong,
+  #ap-home .ap-step-number {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-home .ap-eyebrow,
+  #ap-home .ap-kicker {
+    color: var(--ap-brown);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  #ap-home .ap-center {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #ap-home h1 {
+    margin: 14px auto 0;
+    max-width: 910px;
+    font-size: clamp(44px, 6.1vw, 72px);
+    line-height: 0.98;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-home h2 {
+    font-size: clamp(34px, 4.6vw, 58px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-home h3 {
+    font-size: 22px;
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-compact-title {
+    font-size: clamp(30px, 3.5vw, 46px);
+    line-height: 1.04;
+  }
+
+  #ap-home .ap-accent {
+    color: var(--ap-brown);
+    font-style: italic;
+  }
+
+  #ap-home .ap-lead {
+    max-width: 720px;
+    margin: 20px auto 0;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.62;
+    font-weight: 500;
+  }
+
+  #ap-home .ap-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    border: 1px solid var(--ap-line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: 8px 14px;
+    color: var(--ap-text);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  #ap-home .ap-stars {
+    color: var(--ap-brown);
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  #ap-home .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  #ap-home .ap-channel-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+    margin: 24px auto 0;
+    max-width: 760px;
+  }
+
+  #ap-home .ap-channel-pill {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--ap-line);
+    color: var(--ap-text);
+    padding: 9px 13px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 15px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  #ap-home .ap-button:hover {
+    transform: translateY(-1px);
+  }
+
+  #ap-home .ap-button-primary {
+    background: var(--ap-brown);
+    color: var(--ap-white);
+    border: 1px solid var(--ap-brown);
+    box-shadow: 0 14px 28px rgba(159, 56, 38, 0.16);
+  }
+
+  #ap-home .ap-button-primary:hover {
+    background: var(--ap-brown-dark);
+    border-color: var(--ap-brown-dark);
+  }
+
+  #ap-home .ap-button-secondary {
+    background: var(--ap-white);
+    color: var(--ap-text);
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-home .ap-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 410px;
+    gap: 22px;
+    align-items: stretch;
+    margin-top: 38px;
+  }
+
+  #ap-home .ap-voice-card,
+  #ap-home .ap-card,
+  #ap-home .ap-form-card {
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  #ap-home .ap-voice-card {
+    min-height: 470px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 22px;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-phone-visual {
+    border-radius: 28px;
+    background: linear-gradient(180deg, #161616 0%, #26211f 100%);
+    padding: 24px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 410px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-phone-visual::before {
+    content: "";
+    position: absolute;
+    inset: 24px auto auto 50%;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background: rgba(159, 56, 38, 0.22);
+    filter: blur(40px);
+  }
+
+  #ap-home .ap-phone-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  #ap-home .ap-wave {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 170px;
+  }
+
+  #ap-home .ap-wave span {
+    display: block;
+    width: 8px;
+    border-radius: 999px;
+    background: #e4a092;
+    animation: apHomeWave 1.3s ease-in-out infinite;
+  }
+
+  #ap-home .ap-wave span:nth-child(1) { height: 42px; animation-delay: 0ms; }
+  #ap-home .ap-wave span:nth-child(2) { height: 74px; animation-delay: 80ms; }
+  #ap-home .ap-wave span:nth-child(3) { height: 112px; animation-delay: 160ms; }
+  #ap-home .ap-wave span:nth-child(4) { height: 82px; animation-delay: 240ms; }
+  #ap-home .ap-wave span:nth-child(5) { height: 54px; animation-delay: 320ms; }
+
+  @keyframes apHomeWave {
+    0%, 100% { transform: scaleY(0.72); opacity: 0.68; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  #ap-home .ap-call-status {
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 18px;
+  }
+
+  #ap-home .ap-call-status strong {
+    display: block;
+    color: #fff;
+    font-size: 19px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  #ap-home .ap-call-status p {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  #ap-home .ap-live-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  #ap-home .ap-live-panel h3 {
+    font-size: 30px;
+    line-height: 1.08;
+  }
+
+  #ap-home .ap-live-panel .ap-kicker {
+    margin-bottom: 14px;
+  }
+
+  #ap-home .ap-live-panel p {
+    margin-top: 16px;
+    color: var(--ap-muted);
+    font-size: 16px;
+    line-height: 1.58;
+    font-weight: 500;
+  }
+
+  #ap-home .ap-live-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  #ap-home .ap-live-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    border-radius: 16px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-live-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+    flex: 0 0 9px;
+  }
+
+  #ap-home .ap-form-card {
+    padding: 24px;
+    min-height: 470px;
+  }
+
+  #ap-home .ap-form-card h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  #ap-home .ap-form-card p {
+    color: var(--ap-muted);
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  #ap-home .ap-ghl-frame {
+    width: 100%;
+    min-height: 430px;
+    border-radius: 24px;
+    background: var(--ap-soft-2);
+    overflow: hidden;
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-home .ap-ghl-frame iframe {
+    display: block;
+    width: 100%;
+    min-height: 430px;
+    border: 0;
+  }
+
+  #ap-home .ap-logo-wrap {
+    border-radius: 30px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 28px;
+  }
+
+  #ap-home .ap-logo-wrap p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #ap-home .ap-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+
+  #ap-home .ap-logo-grid span {
+    min-height: 58px;
+    border-radius: 18px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a8a86;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-logo-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 16px 0;
+  }
+
+  #ap-home .ap-logo-slider::before,
+  #ap-home .ap-logo-slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #ap-home .ap-logo-slider::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--ap-soft-2) 0%, rgba(248, 248, 245, 0) 100%);
+  }
+
+  #ap-home .ap-logo-slider::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--ap-soft-2) 0%, rgba(248, 248, 245, 0) 100%);
+  }
+
+  #ap-home .ap-logo-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 14px;
+    animation: apHomeLogoSlide 34s linear infinite;
+  }
+
+  #ap-home .ap-logo-slider:hover .ap-logo-track {
+    animation-play-state: paused;
+  }
+
+  #ap-home .ap-logo-track-slow {
+    animation-duration: 64s;
+  }
+
+  #ap-home .ap-logo-item {
+    width: 190px;
+    height: 92px;
+    flex: 0 0 190px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  #ap-home .ap-logo-item img {
+    display: block;
+    max-width: 100%;
+    max-height: 62px;
+    object-fit: contain;
+    filter: none;
+    opacity: 0.92;
+  }
+
+  @keyframes apHomeLogoSlide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  #ap-home .ap-section-head {
+    display: grid;
+    grid-template-columns: 0.82fr 1fr;
+    gap: 42px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+
+  #ap-home .ap-section-head .ap-kicker {
+    display: inline-flex;
+    margin-bottom: 14px;
+  }
+
+  #ap-home .ap-section-text {
+    color: var(--ap-muted);
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  #ap-home .ap-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  #ap-home .ap-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  #ap-home .ap-card {
+    padding: 28px;
+    min-height: 100%;
+  }
+
+  #ap-home .ap-product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 348px;
+  }
+
+  #ap-home .ap-product-visual {
+    position: relative;
+    min-height: 122px;
+    border-radius: 22px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    margin-bottom: 22px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-product-visual::before {
+    content: "";
+    position: absolute;
+    inset: auto auto -44px 50%;
+    width: 150px;
+    height: 90px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background: rgba(159, 56, 38, 0.1);
+    filter: blur(22px);
+  }
+
+  #ap-home .ap-more-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 38px;
+    margin-top: 22px;
+    border-radius: 999px;
+    padding: 10px 16px;
+    border: 1px solid var(--ap-line);
+    background: #fff;
+    color: var(--ap-text);
+    font-size: 13px;
+    font-weight: 850;
+    line-height: 1;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  #ap-home .ap-more-link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(159, 56, 38, 0.24);
+    background: #fbf2ef;
+  }
+
+  #ap-home .ap-mini-visual {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #ap-home .ap-mini-voice {
+    gap: 7px;
+  }
+
+  #ap-home .ap-mini-voice span {
+    width: 8px;
+    border-radius: 999px;
+    background: var(--ap-black);
+    animation: apMiniVoice 1.25s ease-in-out infinite;
+  }
+
+  #ap-home .ap-mini-voice span:nth-child(1) { height: 28px; opacity: 0.42; animation-delay: 0ms; }
+  #ap-home .ap-mini-voice span:nth-child(2) { height: 48px; opacity: 0.64; animation-delay: 90ms; }
+  #ap-home .ap-mini-voice span:nth-child(3) { height: 70px; background: var(--ap-brown); animation-delay: 180ms; }
+  #ap-home .ap-mini-voice span:nth-child(4) { height: 48px; opacity: 0.64; animation-delay: 270ms; }
+  #ap-home .ap-mini-voice span:nth-child(5) { height: 28px; opacity: 0.42; animation-delay: 360ms; }
+
+  @keyframes apMiniVoice {
+    0%, 100% { transform: scaleY(0.72); }
+    50% { transform: scaleY(1.08); }
+  }
+
+  #ap-home .ap-mini-follow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    align-content: center;
+    max-width: 150px;
+  }
+
+  #ap-home .ap-mini-message {
+    height: 22px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.06);
+    animation: apMiniFloat 2.4s ease-in-out infinite;
+  }
+
+  #ap-home .ap-mini-message:nth-child(1) { width: 112px; }
+  #ap-home .ap-mini-message:nth-child(2) { width: 142px; margin-left: 22px; background: rgba(159, 56, 38, 0.12); animation-delay: 160ms; }
+  #ap-home .ap-mini-message:nth-child(3) { width: 92px; margin-left: 10px; animation-delay: 320ms; }
+
+  @keyframes apMiniFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  #ap-home .ap-mini-calendar {
+    width: 116px;
+    height: 82px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.06);
+  }
+
+  #ap-home .ap-mini-calendar span {
+    border-radius: 8px;
+    background: var(--ap-soft);
+    animation: apMiniSlot 2.2s ease-in-out infinite;
+  }
+
+  #ap-home .ap-mini-calendar span:nth-child(2),
+  #ap-home .ap-mini-calendar span:nth-child(5) {
+    background: var(--ap-brown);
+  }
+
+  #ap-home .ap-mini-calendar span:nth-child(3) { animation-delay: 140ms; }
+  #ap-home .ap-mini-calendar span:nth-child(5) { animation-delay: 280ms; }
+  #ap-home .ap-mini-calendar span:nth-child(8) { animation-delay: 420ms; }
+
+  @keyframes apMiniSlot {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+
+  #ap-home .ap-mini-chat {
+    display: grid;
+    gap: 9px;
+    width: 150px;
+  }
+
+  #ap-home .ap-mini-bubble {
+    min-height: 24px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    box-shadow: 0 10px 22px rgba(17, 17, 17, 0.06);
+    animation: apMiniBubble 2.1s ease-in-out infinite;
+  }
+
+  #ap-home .ap-mini-bubble:nth-child(1) { width: 118px; }
+  #ap-home .ap-mini-bubble:nth-child(2) { width: 92px; justify-self: end; background: var(--ap-brown); animation-delay: 180ms; }
+  #ap-home .ap-mini-bubble:nth-child(3) { width: 136px; animation-delay: 360ms; }
+
+  @keyframes apMiniBubble {
+    0%, 100% { transform: translateY(0); opacity: 0.78; }
+    50% { transform: translateY(-3px); opacity: 1; }
+  }
+
+  #ap-home .ap-card h3 {
+    margin-bottom: 12px;
+  }
+
+  #ap-home .ap-card p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-home .ap-role-card {
+    min-height: 276px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #ap-home .ap-role-label {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 32px;
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.1);
+    color: var(--ap-brown);
+    padding: 8px 11px;
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  #ap-home .ap-dark-band {
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 48px;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-dark-band .ap-kicker,
+  #ap-home .ap-dark-band .ap-accent {
+    color: #e4a092;
+  }
+
+  #ap-home .ap-dark-band .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-home .ap-dark-band h2 {
+    margin-bottom: 20px;
+  }
+
+  #ap-home .ap-dark-band p,
+  #ap-home .ap-dark-band .ap-section-text {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  #ap-home .ap-split {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 34px;
+    align-items: center;
+  }
+
+  #ap-home .ap-process {
+    display: grid;
+    gap: 12px;
+  }
+
+  #ap-home .ap-process-item {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 16px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 18px;
+  }
+
+  #ap-home .ap-step-number {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #ap-home .ap-process-item h3 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  #ap-home .ap-metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  #ap-home .ap-metric {
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 24px;
+  }
+
+  #ap-home .ap-metric strong {
+    display: block;
+    color: var(--ap-brown);
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  #ap-home .ap-metric span {
+    display: block;
+    color: var(--ap-text);
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-list {
+    display: grid;
+    gap: 11px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ap-home .ap-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ap-text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  #ap-home .ap-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+  }
+
+  #ap-home .ap-accordion-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  #ap-home .ap-accordion-list details {
+    border-radius: 18px;
+    border: 1px solid var(--ap-line);
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-accordion-list details:hover {
+    background: #fbf2ef;
+    border-color: rgba(159, 56, 38, 0.22);
+    transform: translateY(-1px);
+  }
+
+  #ap-home .ap-accordion-list details[open] {
+    background: #fff;
+    border-color: rgba(159, 56, 38, 0.28);
+  }
+
+  #ap-home .ap-accordion-list summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    padding: 14px 16px;
+    color: var(--ap-text);
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 850;
+    list-style: none;
+  }
+
+  #ap-home .ap-accordion-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #ap-home .ap-accordion-list summary::after {
+    content: "+";
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--ap-soft-2);
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-accordion-list details[open] summary::after {
+    content: "-";
+  }
+
+  #ap-home .ap-accordion-list p {
+    padding: 0 16px 16px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  #ap-home .ap-calendar-copy .ap-accordion-list details {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.13);
+  }
+
+  #ap-home .ap-calendar-copy .ap-accordion-list details:hover,
+  #ap-home .ap-calendar-copy .ap-accordion-list details[open] {
+    background: rgba(159, 56, 38, 0.24);
+    border-color: rgba(228, 160, 146, 0.38);
+  }
+
+  #ap-home .ap-calendar-copy .ap-accordion-list summary {
+    color: #fff;
+  }
+
+  #ap-home .ap-calendar-copy .ap-accordion-list summary::after {
+    background: rgba(255, 255, 255, 0.12);
+    color: #e4a092;
+  }
+
+  #ap-home .ap-calendar-copy .ap-accordion-list p {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  #ap-home .ap-calendar-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #ap-home .ap-calendar-copy {
+    border-radius: 30px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 34px;
+  }
+
+  #ap-home .ap-calendar-copy .ap-kicker {
+    color: #e4a092;
+    margin-bottom: 16px;
+  }
+
+  #ap-home .ap-calendar-copy h2 {
+    font-size: clamp(34px, 3vw, 48px);
+    line-height: 1.06;
+    margin-bottom: 18px;
+  }
+
+  #ap-home .ap-calendar-copy p,
+  #ap-home .ap-calendar-copy li {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  #ap-home .ap-calendar-copy li::before {
+    background: #e4a092;
+  }
+
+  #ap-home .ap-calendar-card {
+    border-radius: 30px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 18px;
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  #ap-home .ap-calendar-card iframe {
+    display: block;
+    width: 100%;
+    min-height: 650px;
+    border: 0;
+    border-radius: 22px;
+    background: var(--ap-soft-2);
+  }
+
+  #ap-home .ap-team-shell {
+    position: relative;
+  }
+
+  #ap-home .ap-team-slider {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 4px 2px 14px;
+    scrollbar-width: thin;
+  }
+
+  #ap-home .ap-team-card {
+    flex: 0 0 218px;
+    scroll-snap-align: start;
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 20px;
+    text-align: center;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  #ap-home .ap-team-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(159, 56, 38, 0.2);
+    box-shadow: 0 18px 45px rgba(17, 17, 17, 0.07);
+  }
+
+  #ap-home .ap-team-photo {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    margin: 0 auto 16px;
+    overflow: hidden;
+  }
+
+  #ap-home .ap-team-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ap-home .ap-team-photo.is-hasan img {
+    transform: translateY(-10px) scale(1.08);
+    transform-origin: center center;
+  }
+
+  #ap-home .ap-team-card strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  #ap-home .ap-team-card span {
+    display: block;
+    margin-top: 5px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  #ap-home .ap-slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  #ap-home .ap-slider-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--ap-line);
+    background: #fff;
+    color: var(--ap-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 900;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  #ap-home .ap-slider-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(159, 56, 38, 0.28);
+    background: #fbf2ef;
+  }
+
+  #ap-home .ap-final {
+    padding-bottom: 92px;
+  }
+
+  #ap-home .ap-final-box {
+    border-radius: 34px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 18px 60px rgba(17, 17, 17, 0.07);
+  }
+
+  #ap-home .ap-final-box .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-home .ap-final-box h2 {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #ap-home .ap-final-box p {
+    max-width: 660px;
+    margin: 18px auto 0;
+  }
+
+  @media (max-width: 980px) {
+    #ap-home .ap-hero-grid,
+    #ap-home .ap-voice-card,
+    #ap-home .ap-section-head,
+    #ap-home .ap-split,
+    #ap-home .ap-calendar-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-home .ap-grid-4,
+    #ap-home .ap-grid-3,
+    #ap-home .ap-logo-grid,
+    #ap-home .ap-metric-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 720px) {
+    #ap-home .ap-container {
+      width: min(100% - 28px, 1120px);
+    }
+
+    #ap-home .ap-section {
+      padding: 58px 0;
+    }
+
+    #ap-home .ap-hero {
+      padding: 64px 0 36px;
+    }
+
+    #ap-home h1 {
+      max-width: 340px;
+      font-size: clamp(34px, 9.4vw, 42px);
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+
+    #ap-home .ap-hero h1 .ap-accent {
+      display: inline-block;
+      font-size: 16px !important;
+      line-height: 1;
+      vertical-align: baseline;
+      margin-left: 4px;
+      transform: translateY(-2px);
+    }
+
+    #ap-home .ap-lead {
+      max-width: 340px;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    #ap-home .ap-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #ap-home .ap-button {
+      width: 100%;
+    }
+
+    #ap-home .ap-team-card {
+      flex-basis: 196px;
+    }
+
+    #ap-home .ap-grid-4,
+    #ap-home .ap-grid-3,
+    #ap-home .ap-logo-grid,
+    #ap-home .ap-metric-row {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-home .ap-voice-card,
+    #ap-home .ap-card,
+    #ap-home .ap-form-card,
+    #ap-home .ap-dark-band,
+    #ap-home .ap-calendar-copy,
+    #ap-home .ap-calendar-card,
+    #ap-home .ap-final-box {
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    #ap-home .ap-phone-visual {
+      min-height: 320px;
+    }
+
+    #ap-home .ap-process-item {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-home .ap-calendar-card iframe {
+      min-height: 720px;
+    }
+  }
+</style>
+
+<div id="ap-home">
+  <section class="ap-hero">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-proof"><span class="ap-stars">*****</span><span>20+ implementaties bij MKB-bedrijven</span></div>
+        <div class="ap-eyebrow">Autopilots AI Agency</div>
+        <h1>AI medewerkers voor klantenservice, sales en receptie. <span class="ap-accent">24/7.</span></h1>
+        <p class="ap-lead">Autopilots bouwt AI medewerkers die inbound en outbound klantcontact afhandelen via voice, chat, website, mail, WhatsApp en SMS.</p>
+        <div class="ap-channel-row" aria-label="Kanalen">
+          <span class="ap-channel-pill">Inbound</span>
+          <span class="ap-channel-pill">Outbound</span>
+          <span class="ap-channel-pill">Voice</span>
+          <span class="ap-channel-pill">Chat</span>
+          <span class="ap-channel-pill">Website</span>
+          <span class="ap-channel-pill">Mail</span>
+          <span class="ap-channel-pill">WhatsApp</span>
+          <span class="ap-channel-pill">SMS</span>
+        </div>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#voice-test">&#9742; Bel direct met een Voice AI</a>
+          <a class="ap-button ap-button-secondary" href="#afspraak">Plan een afspraak</a>
+        </div>
+      </div>
+
+      <div class="ap-hero-grid" id="voice-test">
+        <div class="ap-voice-card">
+          <div class="ap-phone-visual" aria-label="Voice AI visual">
+            <div class="ap-phone-top"><span>Autopilots Voice AI</span><span>Live</span></div>
+            <div class="ap-wave"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="ap-call-status">
+              <strong>Direct reactie</strong>
+              <p>De AI neemt op, kwalificeert de vraag en zet de volgende stap klaar in je systeem.</p>
+            </div>
+          </div>
+          <div class="ap-live-panel">
+            <div>
+              <div class="ap-kicker">Ervaar de snelheid</div>
+              <h3>Word direct gebeld door een Voice AI.</h3>
+              <p>Laat zelf ervaren hoe snel een AI medewerker reageert. Vul je gegevens in en test de telefonische flow.</p>
+              <div class="ap-live-list">
+                <div class="ap-live-item"><span class="ap-live-dot"></span>24/7 bereikbaar</div>
+                <div class="ap-live-item"><span class="ap-live-dot"></span>Directe reactie</div>
+                <div class="ap-live-item"><span class="ap-live-dot"></span>Opvolging in je CRM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-form-card">
+          <h3>Bel direct met een Voice AI</h3>
+          <p>Laat je gegevens achter en ervaar hoe snel een AI medewerker reageert.</p>
+          <div class="ap-ghl-frame">
+            <iframe
+              src="https://api.leadconnectorhq.com/widget/form/EqeJFQsmD1urhHlceuLu"
+              style="width:100%;height:100%;border:none;border-radius:0px"
+              id="inline-EqeJFQsmD1urhHlceuLu"
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="Website Test Voice AI"
+              data-height="420"
+              data-layout-iframe-id="inline-EqeJFQsmD1urhHlceuLu"
+              data-form-id="EqeJFQsmD1urhHlceuLu"
+              title="Website Test Voice AI">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>We integreren met de systemen die je team al gebruikt.</p>
+        <div class="ap-logo-slider" aria-label="Systemen waarmee Autopilots kan koppelen">
+          <div class="ap-logo-track">
+            <div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt="Exact Online"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt="Zendesk"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt="Solvari"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt="HubSpot"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt="Zoho"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt="Monday"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt="Google Calendar"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt="Outlook Calendar"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt="Trustoo"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt="Moneybird"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt="Calendly"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt="Blox"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt="Odoo"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt="Robaws"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Wat we leveren</div>
+          <h2>AI medewerkers die een echte rol in je bedrijf overnemen.</h2>
+        </div>
+        <p class="ap-section-text">Niet alleen een tool of chatbot. We richten AI medewerkers in die gesprekken voeren, vragen beantwoorden, afspraken plannen, leads opvolgen en alles netjes verwerken in je systemen.</p>
+      </div>
+
+      <div class="ap-grid-3">
+        <div class="ap-card ap-role-card">
+          <div>
+            <div class="ap-role-label">Klantenservice AI</div>
+            <h3>Voor vragen, service en eerste hulp.</h3>
+            <p>Beantwoord veelgestelde vragen, verwerk klantverzoeken en zet complexe situaties door naar een medewerker met de juiste context.</p>
+          </div>
+          <ul class="ap-list"><li>Websitechat en WhatsApp</li><li>Mail en SMS opvolging</li><li>Menselijke fallback bij uitzonderingen</li></ul>
+        </div>
+        <div class="ap-card ap-role-card">
+          <div>
+            <div class="ap-role-label">Sales AI</div>
+            <h3>Voor leads, opvolging en afspraken.</h3>
+            <p>Reageer direct op nieuwe aanvragen, kwalificeer leads en volg prospects outbound op via het kanaal dat past bij de situatie.</p>
+          </div>
+          <ul class="ap-list"><li>Inbound leads direct oppakken</li><li>Outbound opvolging via voice en WhatsApp</li><li>Afspraken boeken in je agenda</li></ul>
+        </div>
+        <div class="ap-card ap-role-card">
+          <div>
+            <div class="ap-role-label">Receptie AI</div>
+            <h3>Voor telefoon, intake en doorverbinden.</h3>
+            <p>Vang oproepen op, stel de juiste intakevragen en verbind door of plant een afspraak zonder dat je team continu bereikbaar hoeft te zijn.</p>
+          </div>
+          <ul class="ap-list"><li>24/7 telefonische opvang</li><li>Intelligente doorverbinding</li><li>Geen gemiste oproepen door drukte</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Autopilots</div>
+          <h2 class="ap-compact-title">Eindeloos opschalen zonder extra personeel.</h2>
+        </div>
+        <p class="ap-section-text">We bouwen geen losse chatbot, maar AI medewerkers die taken uitvoeren, gesprekken opvolgen en je administratie bijwerken.</p>
+      </div>
+
+      <div class="ap-grid-4">
+        <div class="ap-card ap-product-card">
+          <div>
+            <div class="ap-product-visual"><div class="ap-mini-visual ap-mini-voice"><span></span><span></span><span></span><span></span><span></span></div></div>
+            <h3>Voice Agent AI</h3>
+            <p>24/7 telefonische opvang en intelligente doorverbinding voor klanten en leads.</p>
+          </div>
+          <a class="ap-more-link" href="https://auto-pilots.io/ai-agent-voice">Meer info</a>
+        </div>
+        <div class="ap-card ap-product-card">
+          <div>
+            <div class="ap-product-visual"><div class="ap-mini-visual ap-mini-follow"><span class="ap-mini-message"></span><span class="ap-mini-message"></span><span class="ap-mini-message"></span></div></div>
+            <h3>Follow Up AI</h3>
+            <p>Directe outbound opvolging via WhatsApp, SMS, mail en telefonie.</p>
+          </div>
+          <a class="ap-more-link" href="https://auto-pilots.io//ai-agent-follow-up">Meer info</a>
+        </div>
+        <div class="ap-card ap-product-card">
+          <div>
+            <div class="ap-product-visual"><div class="ap-mini-visual"><div class="ap-mini-calendar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
+            <h3>Planning AI</h3>
+            <p>Autonoom kalenderbeheer inclusief wijzigingen, reminders en bevestigingen.</p>
+          </div>
+          <a class="ap-more-link" href="https://auto-pilots.io/ai-agent-planning">Meer info</a>
+        </div>
+        <div class="ap-card ap-product-card">
+          <div>
+            <div class="ap-product-visual"><div class="ap-mini-visual ap-mini-chat"><span class="ap-mini-bubble"></span><span class="ap-mini-bubble"></span><span class="ap-mini-bubble"></span></div></div>
+            <h3>Chat AI</h3>
+            <p>Directe oplossing van klantvragen, servicevragen en supporttickets.</p>
+          </div>
+          <a class="ap-more-link" href="https://auto-pilots.io/ai-agent-planning">Meer info</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-split">
+          <div>
+            <div class="ap-kicker">Autopilots</div>
+            <h2>Schaalbare implementaties op maat.</h2>
+            <p class="ap-section-text">We kijken eerst hoe je bedrijf nu werkt. Daarna bouwen we de AI medewerker in je bestaande proces, zodat klantcontact, opvolging en planning beter blijven lopen.</p>
+            <div class="ap-metric-row">
+              <div class="ap-metric"><strong>5 sec</strong><span>Reactietijd op nieuwe leads</span></div>
+              <div class="ap-metric"><strong>24/7</strong><span>Bereikbaar zonder extra bezetting</span></div>
+              <div class="ap-metric"><strong>0%</strong><span>Gemiste oproepen door drukte</span></div>
+            </div>
+          </div>
+          <div class="ap-process">
+            <div class="ap-process-item">
+              <span class="ap-step-number">01</span>
+              <div>
+                <h3>Een oneerlijke voorsprong</h3>
+                <p>De AI reageert sneller dan je concurrent en legt meteen de juiste context vast.</p>
+              </div>
+            </div>
+            <div class="ap-process-item">
+              <span class="ap-step-number">02</span>
+              <div>
+                <h3>Onmenselijk slim, menselijk wanneer nodig</h3>
+                <p>Voor complexe situaties zetten we altijd een menselijke fallback klaar.</p>
+              </div>
+            </div>
+            <div class="ap-process-item">
+              <span class="ap-step-number">03</span>
+              <div>
+                <h3>Administratie werkt mee</h3>
+                <p>Gesprekken, afspraken en opvolging worden netjes verwerkt in je systeem.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Altijd operationeel</div>
+          <h2 class="ap-compact-title">Nooit personeelstekort op klantcontact.</h2>
+        </div>
+        <p class="ap-section-text">Klanten verwachten snelheid. Autopilots zorgt dat nieuwe aanvragen niet wachten tot maandagochtend, geen oproep wordt gemist en opvolging niet blijft liggen.</p>
+      </div>
+      <div class="ap-grid-3">
+        <div class="ap-card">
+          <h3>Reageer binnen 5 seconden</h3>
+          <p>Klanten zijn snelheid gewend. Smeed het ijzer als het heet is en laat je concurrent niet eerder reageren.</p>
+          <div class="ap-accordion-list">
+            <details>
+              <summary>Nieuwe leads direct benaderen</summary>
+              <p>De AI medewerker pakt een aanvraag meteen op en start het gesprek zolang de interesse nog warm is.</p>
+            </details>
+            <details>
+              <summary>Minder afhakers door wachttijd</summary>
+              <p>Klanten hoeven niet te wachten op een terugbelmoment en krijgen sneller duidelijkheid.</p>
+            </details>
+            <details>
+              <summary>Meer afspraken uit dezelfde instroom</summary>
+              <p>Door sneller te reageren en beter op te volgen haal je meer uit de leads die al binnenkomen.</p>
+            </details>
+          </div>
+        </div>
+        <div class="ap-card">
+          <h3>24/7 klantcontact op autopilot</h3>
+          <p>Mensen ori&euml;nteren wanneer het hen uitkomt, ook in de avond. Je AI medewerker blijft bereikbaar.</p>
+          <div class="ap-accordion-list">
+            <details>
+              <summary>Avond- en weekendleads opvangen</summary>
+              <p>Nieuwe aanvragen krijgen direct reactie, ook buiten kantoortijden.</p>
+            </details>
+            <details>
+              <summary>Veelgestelde vragen beantwoorden</summary>
+              <p>De AI medewerker helpt klanten meteen met praktische antwoorden en stuurt door wanneer dat nodig is.</p>
+            </details>
+            <details>
+              <summary>Nieuwe aanvragen kwalificeren</summary>
+              <p>De belangrijkste vragen worden alvast gesteld, zodat je team weet wie interessant is en wat de volgende stap is.</p>
+            </details>
+          </div>
+        </div>
+        <div class="ap-card">
+          <h3>0% gemiste oproepen</h3>
+          <p>Elke oproep wordt opgevangen, gekwalificeerd en doorgezet naar de juiste vervolgstap.</p>
+          <div class="ap-accordion-list">
+            <details>
+              <summary>Geen kansen missen door drukte</summary>
+              <p>Ook wanneer je team bezet is, wordt de klant geholpen en blijft de aanvraag in beweging.</p>
+            </details>
+            <details>
+              <summary>Gesprekken netjes vastleggen</summary>
+              <p>Belangrijke informatie uit het gesprek wordt opgeslagen, zodat opvolging overzichtelijk blijft.</p>
+            </details>
+            <details>
+              <summary>Afspraken direct plannen</summary>
+              <p>Als de klant klaar is voor een afspraak, kan die meteen in de juiste agenda worden gezet.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>Aantal trotse samenwerkingen.</p>
+        <div class="ap-logo-slider" aria-label="Samenwerkingen van Autopilots">
+          <div class="ap-logo-track ap-logo-track-slow">
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/zieleman.png" alt="Zieleman Nieuwleusen"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/afa.png" alt="AFA Sustainable Fashion Academy"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/animals-faith.png" alt="Animals Faith"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/den-dekker.png" alt="Den Dekker Dakbedekking"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/h3a.png" alt="Heeren 3 Architecten"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/leadfactor.png" alt="LeadFactor"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/social-impact.png" alt="The Social Impact"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/rlx-consultancy.png" alt="RLX Consultancy"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/dakcentrale-nederland.png" alt="Dakcentrale Nederland"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/zieleman.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/afa.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/animals-faith.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/den-dekker.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/h3a.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/leadfactor.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/social-impact.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/rlx-consultancy.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/dakcentrale-nederland.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="afspraak">
+    <div class="ap-container">
+      <div class="ap-calendar-grid">
+        <div class="ap-calendar-copy">
+          <div class="ap-kicker">Plan een afspraak</div>
+          <h2>Bekijk waar AI direct werk uit handen neemt.</h2>
+          <p class="ap-section-text">Tijdens de afspraak kijken we naar je klantcontact, opvolging, agenda en CRM. Daarna zie je precies waar een AI medewerker het meeste oplevert.</p>
+          <div class="ap-accordion-list">
+            <details>
+              <summary>We bekijken je huidige proces</summary>
+              <p>We lopen door hoe aanvragen, telefoontjes, opvolging en afspraken nu binnenkomen en verwerkt worden.</p>
+            </details>
+            <details>
+              <summary>We bepalen welke AI medewerker logisch is</summary>
+              <p>We kijken waar Voice AI, Follow Up AI, Planning AI of Chat AI het snelst resultaat geeft.</p>
+            </details>
+            <details>
+              <summary>Je krijgt een concrete implementatieroute</summary>
+              <p>Je ziet welke stappen nodig zijn, welke systemen gekoppeld worden en waar we het beste kunnen starten.</p>
+            </details>
+          </div>
+        </div>
+        <div class="ap-calendar-card">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="UaWTV0sdETiXy0refclQ_1780946087456"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Meet the crew</div>
+          <h2>Built by the Autopilots team.</h2>
+        </div>
+        <p class="ap-section-text">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p>
+      </div>
+      <div class="ap-team-shell">
+        <div class="ap-team-slider" data-ap-slider="team" aria-label="Autopilots team">
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/tim-kuiper.png" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales &amp; Partnerships</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/larissa-rosanna-pen.webp" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo is-hasan"><img src="assets/team/hasan-shabbir.png" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></div>
+        </div>
+        <div class="ap-slider-controls" aria-label="Team slider controls">
+          <button class="ap-slider-button" type="button" data-ap-slide-prev="team" aria-label="Vorige teamleden">&#8592;</button>
+          <button class="ap-slider-button" type="button" data-ap-slide-next="team" aria-label="Volgende teamleden">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-final">
+    <div class="ap-container">
+      <div class="ap-final-box">
+        <div class="ap-kicker">Autopilots</div>
+        <h2>Bel met een Voice Agent die sneller reageert en meer afspraken boekt.</h2>
+        <p class="ap-section-text">Het eerste bedrijf dat opneemt, opvolgt en een afspraak plant, heeft vaak de grootste kans om klant te worden.</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#voice-test">&#9742; Test de Voice AI</a>
+          <a class="ap-button ap-button-secondary" href="#afspraak">Plan een afspraak</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("ap-home");
+    if (!root) return;
+
+    root.querySelectorAll("[data-ap-slide-prev], [data-ap-slide-next]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var sliderKey = button.getAttribute("data-ap-slide-prev") || button.getAttribute("data-ap-slide-next");
+        var slider = root.querySelector('[data-ap-slider="' + sliderKey + '"]');
+        if (!slider) return;
+        var direction = button.hasAttribute("data-ap-slide-prev") ? -1 : 1;
+        slider.scrollBy({ left: direction * 460, behavior: "smooth" });
+      });
+    });
+  })();
+</script>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>

@@ -1,0 +1,368 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-services-menu-content {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-brown-dark: #7d2a1d;
+    --ap-black: #111111;
+    --ap-white: #ffffff;
+    width: 100%;
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-services-menu-content,
+  #ap-services-menu-content * {
+    box-sizing: border-box;
+  }
+
+  #ap-services-menu-content a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-services-menu-content .ap-services-menu-inner {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 12px 14px;
+  }
+
+  #ap-services-menu-content .ap-services-layout {
+    display: grid;
+    grid-template-columns: minmax(360px, 0.88fr) minmax(420px, 1.12fr);
+    gap: clamp(20px, 3vw, 36px);
+    align-items: stretch;
+  }
+
+  #ap-services-menu-content .ap-services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    align-content: stretch;
+  }
+
+  #ap-services-menu-content .ap-service-link,
+  #ap-services-menu-content .ap-service-side-link {
+    position: relative;
+    min-height: 72px;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 11px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background: transparent;
+    padding: 10px 12px;
+    overflow: hidden;
+    transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
+  }
+
+  #ap-services-menu-content .ap-service-link::before,
+  #ap-services-menu-content .ap-service-side-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(159, 56, 38, 0.1), rgba(17, 17, 17, 0));
+    opacity: 0;
+    transition: opacity 160ms ease;
+    pointer-events: none;
+  }
+
+  #ap-services-menu-content .ap-service-link:hover,
+  #ap-services-menu-content .ap-service-link:focus-visible,
+  #ap-services-menu-content .ap-service-side-link:hover,
+  #ap-services-menu-content .ap-service-side-link:focus-visible {
+    background: var(--ap-soft);
+    border-color: var(--ap-line);
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.07);
+    color: var(--ap-brown);
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  #ap-services-menu-content .ap-service-link:hover::before,
+  #ap-services-menu-content .ap-service-link:focus-visible::before,
+  #ap-services-menu-content .ap-service-side-link:hover::before,
+  #ap-services-menu-content .ap-service-side-link:focus-visible::before {
+    opacity: 1;
+  }
+
+  #ap-services-menu-content .ap-service-icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  #ap-services-menu-content .ap-service-link:hover .ap-service-icon,
+  #ap-services-menu-content .ap-service-link:focus-visible .ap-service-icon,
+  #ap-services-menu-content .ap-service-side-link:hover .ap-service-icon,
+  #ap-services-menu-content .ap-service-side-link:focus-visible .ap-service-icon {
+    background: var(--ap-brown);
+    transform: scale(1.03);
+  }
+
+  #ap-services-menu-content svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  #ap-services-menu-content .ap-service-copy {
+    position: relative;
+    min-width: 0;
+  }
+
+  #ap-services-menu-content .ap-service-name {
+    display: block;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  #ap-services-menu-content .ap-service-text {
+    display: block;
+    max-width: 360px;
+    margin-top: 5px;
+    color: var(--ap-muted);
+    font-size: 11px;
+    line-height: 1.24;
+    font-weight: 700;
+  }
+
+  #ap-services-menu-content .ap-service-link:hover .ap-service-text,
+  #ap-services-menu-content .ap-service-link:focus-visible .ap-service-text,
+  #ap-services-menu-content .ap-service-side-link:hover .ap-service-text,
+  #ap-services-menu-content .ap-service-side-link:focus-visible .ap-service-text {
+    color: var(--ap-text);
+  }
+
+  #ap-services-menu-content .ap-service-arrow {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    color: var(--ap-brown);
+    transform: translateX(-5px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  #ap-services-menu-content .ap-service-arrow svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 2.4;
+  }
+
+  #ap-services-menu-content .ap-service-link:hover .ap-service-arrow,
+  #ap-services-menu-content .ap-service-link:focus-visible .ap-service-arrow,
+  #ap-services-menu-content .ap-service-side-link:hover .ap-service-arrow,
+  #ap-services-menu-content .ap-service-side-link:focus-visible .ap-service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #ap-services-menu-content .ap-services-feature {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: minmax(214px, auto) 86px 86px;
+    gap: 9px;
+  }
+
+  #ap-services-menu-content .ap-stack-card {
+    position: relative;
+    min-height: 214px;
+    border-radius: 24px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    overflow: hidden;
+    padding: 25px 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  #ap-services-menu-content .ap-stack-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(159, 56, 38, 0.34), transparent 28%),
+      linear-gradient(135deg, rgba(255,255,255,0.08), transparent 42%);
+    opacity: 0.95;
+  }
+
+  #ap-services-menu-content .ap-stack-content {
+    position: relative;
+    display: block;
+    max-width: 430px;
+  }
+
+  #ap-services-menu-content .ap-stack-label {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    color: #d9aaa0;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  #ap-services-menu-content .ap-stack-title {
+    display: block;
+    margin-top: 8px;
+    max-width: 420px;
+    font-size: clamp(22px, 2.1vw, 30px);
+    line-height: 1.04;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-services-menu-content .ap-stack-text {
+    display: block;
+    margin-top: 9px;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 11.5px;
+    line-height: 1.42;
+    font-weight: 700;
+    max-width: 420px;
+  }
+
+  #ap-services-menu-content .ap-side-grid {
+    display: contents;
+  }
+
+  #ap-services-menu-content .ap-service-side-link {
+    min-height: 86px;
+    background: var(--ap-soft);
+  }
+
+  @media (max-width: 980px) {
+    #ap-services-menu-content .ap-services-layout {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #ap-services-menu-content .ap-services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #ap-services-menu-content .ap-services-feature {
+      grid-template-rows: auto;
+    }
+
+    #ap-services-menu-content .ap-side-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #ap-services-menu-content .ap-services-menu-inner {
+      padding: 8px;
+    }
+
+    #ap-services-menu-content .ap-services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-services-menu-content .ap-service-link,
+    #ap-services-menu-content .ap-service-side-link {
+      min-height: 66px;
+      grid-template-columns: 38px minmax(0, 1fr) 18px;
+      padding: 10px;
+    }
+
+    #ap-services-menu-content .ap-service-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+    }
+
+  }
+</style>
+
+<div id="ap-services-menu-content">
+  <div class="ap-services-menu-inner">
+    <div class="ap-services-layout" aria-label="Autopilots diensten">
+      <div class="ap-services-grid">
+        <a class="ap-service-link" href="https://auto-pilots.io/ai-agent-voice">
+          <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M9 8h6"/><path d="M9 12h3"/><path d="M16 15.5c0 1.4-1.2 2.5-2.7 2.5H11"/></svg></span>
+          <span class="ap-service-copy"><span class="ap-service-name">Voice AI</span><span class="ap-service-text">Neemt telefoontjes op, kwalificeert en zet acties direct door.</span></span>
+          <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="ap-service-link" href="https://auto-pilots.io/ai-agent-chat">
+          <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H9l-5 4v-4a3 3 0 0 1 0-10Z"/><path d="M8 8h8"/><path d="M8 12h5"/></svg></span>
+          <span class="ap-service-copy"><span class="ap-service-name">Chat AI</span><span class="ap-service-text">Beantwoordt websitechat en WhatsApp-vragen zonder wachttijd.</span></span>
+          <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="ap-service-link" href="https://auto-pilots.io/ai-agent-follow-up">
+          <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h11a5 5 0 0 1 0 10H8"/><path d="M8 11 4 7l4-4"/><path d="M12 12h5"/><path d="M12 15h3"/></svg></span>
+          <span class="ap-service-copy"><span class="ap-service-name">Follow Up AI</span><span class="ap-service-text">Volgt leads, offertes en gemiste kansen automatisch op.</span></span>
+          <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="ap-service-link" href="https://auto-pilots.io/ai-agent-planning">
+          <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="M4 10h16"/><path d="m8 15 2 2 5-5"/></svg></span>
+          <span class="ap-service-copy"><span class="ap-service-name">Planning AI</span><span class="ap-service-text">Plant afspraken op basis van beschikbaarheid, regio en route.</span></span>
+          <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="ap-service-link" href="https://auto-pilots.io/leadsmachine-ai">
+          <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8"/><path d="M7 20h10"/><path d="M9 16h6"/><path d="M8 9h3"/><path d="M13 9h3"/><path d="M8 12h8"/></svg></span>
+          <span class="ap-service-copy"><span class="ap-service-name">Leadsmachine AI</span><span class="ap-service-text">Full-funnel machine van klik, intake en opvolging naar klant.</span></span>
+          <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+      </div>
+
+      <div class="ap-services-feature">
+        <div class="ap-stack-card">
+          <span class="ap-stack-content">
+            <span class="ap-stack-label">Complete AI stack</span>
+            <span class="ap-stack-title">Van eerste vraag tot afspraak, opvolging en CRM.</span>
+            <span class="ap-stack-text">Combineer Voice, Chat, Follow Up, Planning, Leadsmachine, CRM en Support tot een systeem dat continu blijft doorlopen.</span>
+          </span>
+        </div>
+
+        <div class="ap-side-grid">
+          <a class="ap-service-side-link" href="https://auto-pilots.io/autopilots-crm">
+            <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 10h16"/><path d="M9 14h2"/><path d="M14 14h4"/><path d="M9 17h6"/></svg></span>
+            <span class="ap-service-copy"><span class="ap-service-name">Autopilots CRM</span><span class="ap-service-text">Gesprekken, leads, marketing en opvolging op een plek.</span></span>
+            <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+          </a>
+
+          <a class="ap-service-side-link" href="https://auto-pilots.io/autopilots-support">
+            <span class="ap-service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M5 13h3v6H5z"/><path d="M16 13h3v6h-3z"/><path d="M19 19c0 1.2-1.2 2-3 2h-3"/></svg></span>
+            <span class="ap-service-copy"><span class="ap-service-name">Autopilots Support</span><span class="ap-service-text">Monitoring, optimalisatie en snelle hulp na livegang.</span></span>
+            <span class="ap-service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

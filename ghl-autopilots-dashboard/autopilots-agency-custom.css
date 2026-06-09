@@ -1,0 +1,515 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+body.ap-saas-ui {
+  --ap-bg: #fbfaf7;
+  --ap-card: #ffffff;
+  --ap-soft: #f3e9e4;
+  --ap-soft-2: #fff8f4;
+  --ap-warm: #f8eee8;
+  --ap-warm-2: #fff4ed;
+  --ap-text: #111111;
+  --ap-muted: #656565;
+  --ap-line: rgba(0, 0, 0, 0.1);
+  --ap-brown: #9f3826;
+  --ap-brown-dark: #7d2a1d;
+  --ap-brown-soft: rgba(159, 56, 38, 0.11);
+  --ap-brown-line: rgba(159, 56, 38, 0.22);
+  --ap-black: #111111;
+  --ap-white: #ffffff;
+  --ap-green-soft: #dce9dd;
+  --ap-blue: #2f63ee;
+  background: var(--ap-bg) !important;
+  color: var(--ap-text) !important;
+  font-family: "Public Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+body.ap-saas-ui *,
+body.ap-saas-ui button,
+body.ap-saas-ui input,
+body.ap-saas-ui textarea,
+body.ap-saas-ui select {
+  font-family: "Public Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+body.ap-saas-ui h1,
+body.ap-saas-ui h2,
+body.ap-saas-ui h3,
+body.ap-saas-ui .text-2xl,
+body.ap-saas-ui .text-3xl,
+body.ap-saas-ui .font-bold,
+body.ap-saas-ui .font-semibold {
+  color: var(--ap-text) !important;
+  letter-spacing: 0 !important;
+}
+
+body.ap-saas-ui #sidebar-v2,
+body.ap-saas-ui aside,
+body.ap-saas-ui nav[class*="sidebar"],
+body.ap-saas-ui [class*="sidebar"] {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fff8f4 54%, #f8eee8 100%) !important;
+  border-right: 1px solid rgba(159, 56, 38, 0.14) !important;
+  box-shadow: 14px 0 34px rgba(80, 38, 28, 0.07) !important;
+}
+
+body.ap-saas-ui #sidebar-v2 a,
+body.ap-saas-ui #sidebar-v2 button,
+body.ap-saas-ui aside a,
+body.ap-saas-ui aside button {
+  border-radius: 14px !important;
+  color: #4c4c4c !important;
+  font-weight: 700 !important;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease !important;
+}
+
+body.ap-saas-ui #sidebar-v2 a:hover,
+body.ap-saas-ui #sidebar-v2 button:hover,
+body.ap-saas-ui aside a:hover,
+body.ap-saas-ui aside button:hover {
+  background: linear-gradient(135deg, rgba(159, 56, 38, 0.12), rgba(159, 56, 38, 0.055)) !important;
+  color: var(--ap-brown-dark) !important;
+  box-shadow: inset 3px 0 0 rgba(159, 56, 38, 0.55), 0 8px 18px rgba(159, 56, 38, 0.08) !important;
+  transform: translateX(1px) !important;
+}
+
+body.ap-saas-ui #sidebar-v2 a.active,
+body.ap-saas-ui #sidebar-v2 .active,
+body.ap-saas-ui aside a.active,
+body.ap-saas-ui aside .active,
+body.ap-saas-ui [aria-current="page"] {
+  background: linear-gradient(135deg, rgba(159, 56, 38, 0.17), rgba(159, 56, 38, 0.075)) !important;
+  color: var(--ap-brown-dark) !important;
+  box-shadow: inset 4px 0 0 var(--ap-brown), 0 10px 24px rgba(159, 56, 38, 0.1) !important;
+}
+
+body.ap-saas-ui [class*="location"],
+body.ap-saas-ui [class*="agency"],
+body.ap-saas-ui [class*="account-switcher"] {
+  border-radius: 16px !important;
+}
+
+body.ap-saas-ui #sidebar-v2 [class*="location"],
+body.ap-saas-ui aside [class*="location"],
+body.ap-saas-ui #sidebar-v2 [class*="agency"],
+body.ap-saas-ui aside [class*="agency"] {
+  background: linear-gradient(135deg, var(--ap-brown), var(--ap-brown-dark)) !important;
+  color: var(--ap-white) !important;
+  box-shadow: 0 14px 30px rgba(159, 56, 38, 0.18) !important;
+}
+
+body.ap-saas-ui main,
+body.ap-saas-ui [role="main"],
+body.ap-saas-ui .hl_wrapper,
+body.ap-saas-ui .hl_dashboard,
+body.ap-saas-ui .hl_conversations,
+body.ap-saas-ui .hl_contacts,
+body.ap-saas-ui .hl_opportunities {
+  background: var(--ap-bg) !important;
+}
+
+body.ap-saas-ui header,
+body.ap-saas-ui [class*="topbar"],
+body.ap-saas-ui [class*="top-bar"],
+body.ap-saas-ui [class*="navbar"] {
+  position: relative !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(159, 56, 38, 0.18) 0, rgba(159, 56, 38, 0.08) 28%, transparent 52%),
+    linear-gradient(105deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 246, 240, 0.94) 42%, rgba(159, 56, 38, 0.14) 100%) !important;
+  border-bottom: 1px solid rgba(159, 56, 38, 0.18) !important;
+  box-shadow: 0 14px 34px rgba(80, 38, 28, 0.08) !important;
+  backdrop-filter: blur(18px) !important;
+}
+
+body.ap-saas-ui header::after,
+body.ap-saas-ui [class*="topbar"]::after,
+body.ap-saas-ui [class*="top-bar"]::after,
+body.ap-saas-ui [class*="navbar"]::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 24px !important;
+  bottom: 0 !important;
+  left: 24px !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg, transparent, rgba(159, 56, 38, 0.38), transparent) !important;
+}
+
+body.ap-saas-ui .card,
+body.ap-saas-ui [class*="card"],
+body.ap-saas-ui [class*="widget"],
+body.ap-saas-ui [class*="panel"],
+body.ap-saas-ui [class*="conversation"],
+body.ap-saas-ui [class*="contact-detail"],
+body.ap-saas-ui [class*="opportunity-card"] {
+  border-color: var(--ap-line) !important;
+}
+
+body.ap-saas-ui .card,
+body.ap-saas-ui [class*="dashboard"] [class*="card"],
+body.ap-saas-ui [class*="widget"],
+body.ap-saas-ui [class*="panel"] {
+  background: var(--ap-card) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 16px 42px rgba(80, 38, 28, 0.06) !important;
+}
+
+body.ap-saas-ui [class*="card-header"],
+body.ap-saas-ui [class*="widget-header"],
+body.ap-saas-ui [class*="panel-header"] {
+  background: var(--ap-card) !important;
+  border-bottom: 1px solid var(--ap-line) !important;
+  border-radius: 22px 22px 0 0 !important;
+}
+
+body.ap-saas-ui table,
+body.ap-saas-ui [role="table"] {
+  background: var(--ap-card) !important;
+  border: 1px solid var(--ap-line) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  box-shadow: 0 14px 36px rgba(17, 17, 17, 0.04) !important;
+}
+
+body.ap-saas-ui thead,
+body.ap-saas-ui [role="rowgroup"]:first-child {
+  background: var(--ap-warm-2) !important;
+}
+
+body.ap-saas-ui th,
+body.ap-saas-ui [role="columnheader"] {
+  color: #3d4656 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+body.ap-saas-ui td,
+body.ap-saas-ui th,
+body.ap-saas-ui [role="cell"],
+body.ap-saas-ui [role="columnheader"] {
+  border-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+body.ap-saas-ui tbody tr,
+body.ap-saas-ui [role="row"] {
+  transition: background 160ms ease !important;
+}
+
+body.ap-saas-ui tbody tr:hover,
+body.ap-saas-ui [role="row"]:hover {
+  background: var(--ap-warm-2) !important;
+}
+
+body.ap-saas-ui input,
+body.ap-saas-ui textarea,
+body.ap-saas-ui select,
+body.ap-saas-ui [contenteditable="true"],
+body.ap-saas-ui [class*="search"] input {
+  background: var(--ap-card) !important;
+  border: 1px solid var(--ap-line) !important;
+  border-radius: 14px !important;
+  color: var(--ap-text) !important;
+  box-shadow: 0 8px 22px rgba(17, 17, 17, 0.035) !important;
+}
+
+body.ap-saas-ui input:focus,
+body.ap-saas-ui textarea:focus,
+body.ap-saas-ui select:focus,
+body.ap-saas-ui [contenteditable="true"]:focus {
+  border-color: rgba(159, 56, 38, 0.42) !important;
+  box-shadow: 0 0 0 4px rgba(159, 56, 38, 0.11), 0 10px 24px rgba(17, 17, 17, 0.045) !important;
+  outline: none !important;
+}
+
+body.ap-saas-ui button,
+body.ap-saas-ui .btn,
+body.ap-saas-ui [role="button"] {
+  border-radius: 999px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+}
+
+body.ap-saas-ui button[class*="primary"],
+body.ap-saas-ui .btn-primary,
+body.ap-saas-ui [class*="bg-blue"],
+body.ap-saas-ui [class*="bg-primary"],
+body.ap-saas-ui button:has(svg[class*="plus"]),
+body.ap-saas-ui button:has([class*="plus"]) {
+  background: var(--ap-brown) !important;
+  border-color: var(--ap-brown) !important;
+  color: var(--ap-white) !important;
+  box-shadow: 0 12px 28px rgba(159, 56, 38, 0.22) !important;
+}
+
+body.ap-saas-ui button[class*="primary"]:hover,
+body.ap-saas-ui .btn-primary:hover,
+body.ap-saas-ui [class*="bg-blue"]:hover,
+body.ap-saas-ui [class*="bg-primary"]:hover {
+  background: var(--ap-brown-dark) !important;
+  border-color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui .nav-tabs,
+body.ap-saas-ui [class*="tabs"],
+body.ap-saas-ui [role="tablist"] {
+  border-color: var(--ap-line) !important;
+}
+
+body.ap-saas-ui [role="tab"],
+body.ap-saas-ui .nav-link,
+body.ap-saas-ui [class*="tab"] {
+  color: #596170 !important;
+  font-weight: 800 !important;
+}
+
+body.ap-saas-ui [role="tab"][aria-selected="true"],
+body.ap-saas-ui .nav-link.active,
+body.ap-saas-ui [class*="tab"].active {
+  color: var(--ap-brown) !important;
+  border-color: var(--ap-brown) !important;
+}
+
+body.ap-saas-ui .badge,
+body.ap-saas-ui [class*="badge"],
+body.ap-saas-ui [class*="tag"],
+body.ap-saas-ui [class*="pill"],
+body.ap-saas-ui [class*="count"] {
+  border-radius: 999px !important;
+  font-family: "Syne", "Public Sans", sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+
+body.ap-saas-ui [class*="badge"]:not([class*="danger"]),
+body.ap-saas-ui [class*="tag"]:not([class*="danger"]),
+body.ap-saas-ui [class*="pill"]:not([class*="danger"]) {
+  background: var(--ap-brown-soft) !important;
+  color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui canvas + *,
+body.ap-saas-ui svg + * {
+  font-family: "Public Sans", sans-serif !important;
+}
+
+body.ap-saas-ui .recharts-legend-item-text,
+body.ap-saas-ui .apexcharts-legend-text,
+body.ap-saas-ui .highcharts-axis-labels text,
+body.ap-saas-ui .highcharts-legend text {
+  color: #566174 !important;
+  fill: #566174 !important;
+  font-family: "Public Sans", sans-serif !important;
+}
+
+body.ap-saas-ui .recharts-cartesian-grid-horizontal line,
+body.ap-saas-ui .recharts-cartesian-grid-vertical line,
+body.ap-saas-ui .apexcharts-gridline,
+body.ap-saas-ui .highcharts-grid-line {
+  stroke: rgba(17, 17, 17, 0.09) !important;
+}
+
+body.ap-saas-ui [class*="opportunities"] [class*="stage"],
+body.ap-saas-ui [class*="pipeline"] [class*="stage"],
+body.ap-saas-ui [class*="kanban"] [class*="column"] {
+  background: var(--ap-soft-2) !important;
+  border-radius: 18px !important;
+}
+
+body.ap-saas-ui [class*="opportunities"] [class*="stage"] > div:first-child,
+body.ap-saas-ui [class*="pipeline"] [class*="stage"] > div:first-child,
+body.ap-saas-ui [class*="kanban"] [class*="column"] > div:first-child {
+  background: var(--ap-green-soft) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 16px !important;
+  color: var(--ap-text) !important;
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.04) !important;
+}
+
+body.ap-saas-ui [class*="opportunity"] [class*="card"],
+body.ap-saas-ui [class*="pipeline"] [class*="card"],
+body.ap-saas-ui [class*="kanban"] [class*="card"] {
+  border-radius: 18px !important;
+  border: 1px solid var(--ap-line) !important;
+  box-shadow: 0 10px 26px rgba(17, 17, 17, 0.05) !important;
+}
+
+body.ap-saas-ui [class*="conversation"] [class*="message"],
+body.ap-saas-ui [class*="chat"] [class*="message"] {
+  border-radius: 16px !important;
+}
+
+body.ap-saas-ui [class*="conversation"] [class*="inbox"],
+body.ap-saas-ui [class*="contact-details"],
+body.ap-saas-ui [class*="contact-detail"] {
+  background: var(--ap-card) !important;
+  border-color: var(--ap-line) !important;
+}
+
+body.ap-saas-ui [class*="message-bubble"],
+body.ap-saas-ui [class*="bubble"] {
+  background: var(--ap-warm-2) !important;
+  color: var(--ap-text) !important;
+  box-shadow: 0 8px 18px rgba(17, 17, 17, 0.035) !important;
+}
+
+body.ap-saas-ui a,
+body.ap-saas-ui .text-blue-500,
+body.ap-saas-ui .text-blue-600,
+body.ap-saas-ui .text-primary {
+  color: var(--ap-brown) !important;
+}
+
+body.ap-saas-ui ::selection {
+  background: rgba(159, 56, 38, 0.18) !important;
+  color: var(--ap-text) !important;
+}
+
+@media (max-width: 768px) {
+  body.ap-saas-ui .card,
+  body.ap-saas-ui [class*="dashboard"] [class*="card"],
+  body.ap-saas-ui [class*="widget"],
+  body.ap-saas-ui [class*="panel"] {
+    border-radius: 18px !important;
+  }
+}
+
+/* GoHighLevel exact overrides */
+body.ap-saas-ui #app {
+  background: var(--ap-bg) !important;
+}
+
+body.ap-saas-ui #app div .lg\:justify-between {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.16), transparent 42%),
+    linear-gradient(135deg, var(--ap-brown), var(--ap-brown-dark)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 14px 30px rgba(159, 56, 38, 0.2) !important;
+}
+
+body.ap-saas-ui .lg\:justify-between .items-center .hl_switcher-loc-name,
+body.ap-saas-ui .lg\:justify-between .items-center .hl_switcher-loc-city,
+body.ap-saas-ui .lg\:justify-between .switcher-caret-holder .fa-angle-down,
+body.ap-saas-ui .lg\:justify-between .switcher-caret-holder .fa-angle-up {
+  color: #ffffff !important;
+}
+
+body.ap-saas-ui .lg\:justify-between .items-center .hl_switcher-loc-city {
+  opacity: 0.74 !important;
+}
+
+body.ap-saas-ui #app div .rounded-r-md {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 248, 244, 0.98) 100%) !important;
+  border: 1px solid rgba(159, 56, 38, 0.14) !important;
+  border-left: 0 !important;
+  box-shadow: 10px 0 24px rgba(80, 38, 28, 0.08) !important;
+  transform: translateX(0) translateY(0) !important;
+}
+
+body.ap-saas-ui .transition-slowest .h-screen .flex-grow .rounded-r-md span,
+body.ap-saas-ui .transition-slowest .h-screen .overflow-hidden .rounded-r-md span {
+  color: #5a352c !important;
+}
+
+body.ap-saas-ui .transition-slowest .h-screen .flex-grow .rounded-r-md:hover,
+body.ap-saas-ui .transition-slowest .h-screen .overflow-hidden .rounded-r-md:hover,
+body.ap-saas-ui #app div .rounded-r-md:hover {
+  background:
+    linear-gradient(135deg, rgba(159, 56, 38, 0.16), rgba(159, 56, 38, 0.055)) !important;
+  border-color: rgba(159, 56, 38, 0.28) !important;
+  box-shadow: inset 4px 0 0 var(--ap-brown), 0 12px 24px rgba(159, 56, 38, 0.12) !important;
+}
+
+body.ap-saas-ui .transition-slowest .h-screen .flex-grow .rounded-r-md:hover span,
+body.ap-saas-ui .transition-slowest .h-screen .overflow-hidden .rounded-r-md:hover span,
+body.ap-saas-ui #app div .rounded-r-md:hover span {
+  color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui #app div .router-link-active.rounded-r-md,
+body.ap-saas-ui #app div .router-link-exact-active.rounded-r-md,
+body.ap-saas-ui #app div .rounded-r-md.active {
+  background:
+    linear-gradient(135deg, rgba(159, 56, 38, 0.2), rgba(159, 56, 38, 0.08)) !important;
+  border-color: rgba(159, 56, 38, 0.3) !important;
+  box-shadow: inset 4px 0 0 var(--ap-brown), 0 14px 28px rgba(159, 56, 38, 0.14) !important;
+}
+
+body.ap-saas-ui #app div .router-link-active.rounded-r-md span,
+body.ap-saas-ui #app div .router-link-exact-active.rounded-r-md span,
+body.ap-saas-ui #app div .rounded-r-md.active span {
+  color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui #app div .fa-arrow-left {
+  color: var(--ap-brown) !important;
+}
+
+body.ap-saas-ui #app div .rounded-r-md:hover .fa-arrow-left {
+  color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui #location-dashboard_btn--edit-dashboard,
+body.ap-saas-ui #location-dashboard_btn--add-widget,
+body.ap-saas-ui #location-dashboard_btn--save-dashboard,
+body.ap-saas-ui #location-dashboard_btn--cancel-dashboard {
+  background: var(--ap-brown) !important;
+  border-color: var(--ap-brown) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(159, 56, 38, 0.22) !important;
+}
+
+body.ap-saas-ui #location-dashboard_btn--edit-dashboard:hover,
+body.ap-saas-ui #location-dashboard_btn--add-widget:hover,
+body.ap-saas-ui #location-dashboard_btn--save-dashboard:hover,
+body.ap-saas-ui #location-dashboard_btn--cancel-dashboard:hover {
+  background: var(--ap-brown-dark) !important;
+  border-color: var(--ap-brown-dark) !important;
+}
+
+body.ap-saas-ui .crm-opportunities-status div .w-5,
+body.ap-saas-ui .crm-opportunities-value div .w-5 {
+  color: var(--ap-brown) !important;
+}
+
+body.ap-saas-ui .button-group .items-center svg {
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+}
+
+body.ap-saas-ui #sb_dashboard:hover,
+body.ap-saas-ui #sb_conversations:hover,
+body.ap-saas-ui #sb_calendars:hover,
+body.ap-saas-ui #sb_contacts:hover,
+body.ap-saas-ui #sb_opportunities:hover,
+body.ap-saas-ui #sb_payments:hover,
+body.ap-saas-ui #sb_email-marketing:hover,
+body.ap-saas-ui #sb_automation:hover,
+body.ap-saas-ui #sb_sites:hover,
+body.ap-saas-ui #sb_memberships:hover,
+body.ap-saas-ui #sb_app-marketplace:hover,
+body.ap-saas-ui #sb_reporting:hover,
+body.ap-saas-ui #sb_reputation:hover,
+body.ap-saas-ui #sb_settings:hover {
+  background:
+    linear-gradient(135deg, rgba(159, 56, 38, 0.16), rgba(159, 56, 38, 0.055)) !important;
+  color: var(--ap-brown-dark) !important;
+  box-shadow: inset 4px 0 0 var(--ap-brown), 0 10px 22px rgba(159, 56, 38, 0.1) !important;
+}
+
+body.ap-saas-ui #sb_dashboard:hover *,
+body.ap-saas-ui #sb_conversations:hover *,
+body.ap-saas-ui #sb_calendars:hover *,
+body.ap-saas-ui #sb_contacts:hover *,
+body.ap-saas-ui #sb_opportunities:hover *,
+body.ap-saas-ui #sb_payments:hover *,
+body.ap-saas-ui #sb_email-marketing:hover *,
+body.ap-saas-ui #sb_automation:hover *,
+body.ap-saas-ui #sb_sites:hover *,
+body.ap-saas-ui #sb_memberships:hover *,
+body.ap-saas-ui #sb_app-marketplace:hover *,
+body.ap-saas-ui #sb_reporting:hover *,
+body.ap-saas-ui #sb_reputation:hover *,
+body.ap-saas-ui #sb_settings:hover * {
+  color: var(--ap-brown-dark) !important;
+}

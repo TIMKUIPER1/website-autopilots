@@ -1,0 +1,307 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-niche-menu-content {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-black: #111111;
+    width: 100%;
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-niche-menu-content,
+  #ap-niche-menu-content * {
+    box-sizing: border-box;
+  }
+
+  #ap-niche-menu-content a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-inner {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(14px, 3vw, 30px);
+    row-gap: 8px;
+    align-items: start;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-link {
+    min-height: 62px;
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    padding: 10px 12px;
+    transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-link:hover,
+  #ap-niche-menu-content .ap-niche-menu-link:focus-visible {
+    background: var(--ap-soft);
+    border-color: var(--ap-line);
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.07);
+    color: var(--ap-brown);
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-icon {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ap-black);
+    transition: color 160ms ease;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-link:hover .ap-niche-menu-icon,
+  #ap-niche-menu-content .ap-niche-menu-link:focus-visible .ap-niche-menu-icon {
+    color: var(--ap-brown);
+  }
+
+  #ap-niche-menu-content svg {
+    display: block;
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-icon .ap-fill {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-title {
+    display: block;
+    font-size: clamp(15px, 1.16vw, 17px);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-title::after {
+    content: attr(data-detail);
+    display: block;
+    max-width: 240px;
+    margin-top: 4px;
+    color: var(--ap-muted);
+    font-size: 11px;
+    line-height: 1.16;
+    font-weight: 700;
+    white-space: normal;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-link:hover .ap-niche-menu-title::after,
+  #ap-niche-menu-content .ap-niche-menu-link:focus-visible .ap-niche-menu-title::after {
+    color: var(--ap-text);
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-arrow {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    color: var(--ap-brown);
+    transform: translateX(-5px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-arrow svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 2.4;
+  }
+
+  #ap-niche-menu-content .ap-niche-menu-link:hover .ap-niche-menu-arrow,
+  #ap-niche-menu-content .ap-niche-menu-link:focus-visible .ap-niche-menu-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 900px) {
+    #ap-niche-menu-content .ap-niche-menu-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 24px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    #ap-niche-menu-content .ap-niche-menu-inner {
+      padding: 10px;
+    }
+
+    #ap-niche-menu-content .ap-niche-menu-grid {
+      grid-template-columns: 1fr;
+      row-gap: 4px;
+    }
+
+    #ap-niche-menu-content .ap-niche-menu-link {
+      min-height: 58px;
+      grid-template-columns: 30px minmax(0, 1fr) 18px;
+      gap: 10px;
+      padding: 9px 10px;
+    }
+
+    #ap-niche-menu-content .ap-niche-menu-title {
+      font-size: 15px;
+      white-space: normal;
+    }
+  }
+</style>
+
+<div id="ap-niche-menu-content">
+  <div class="ap-niche-menu-inner">
+    <div class="ap-niche-menu-grid" aria-label="Autopilots branches">
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-dakdekkers">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Spoed, lekkage en offertes">Dakdekkers</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-installatietechniek">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L12 19l-5 1 1-5 7.7-7.7Z"/><path d="m5 5 4 4"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Storingen en werkbonnen">Installatietechniek</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-vastgoedbeheerders">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h8v-6h6v6"/><path d="M14 20h7"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Huurders en reparaties">Vastgoedbeheerders</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-zonnepanelen">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16l-2 10H6L4 6Z"/><path d="M8 6 7 16"/><path d="M13 6v10"/><path d="M18 6l-1 10"/><path d="M7 20h10"/><path d="m12 16-1 4"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Leads, schouw en advies">Zonnepanelen</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-hoveniers">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 6 11h12L12 3Z"/><path d="M12 8 5 17h14l-7-9Z"/><path d="M12 17v4"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Aanvragen en planning">Hoveniers</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-kapperszaken">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M20 4 8 16"/><path d="m8 8 12 12"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Afspraken en no-shows">Kapperszaken</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-kozijnen">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4v16"/><path d="M18 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Offertes en inmeten">Kozijnen</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-vloerenleggers">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14"/><path d="M5 16h14"/><path d="M8 4h8"/><path d="M8 20h8"/><path d="m7 8 4 8"/><path d="m13 8 4 8"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Projectintake en planning">Vloerenleggers</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-woningcorporaties">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Bewoners en meldingen">Woningcorporaties</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-evenementen">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="M4 10h16"/><path d="m8 15 2 2 5-5"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Tickets en leveranciers">Evenementen</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-glaszetters">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M9 5v14"/><path d="m14 5 6 14"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Spoedbreuk en inmeten">Glaszetters</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-verzekeraars">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 7v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4Z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Claims en dossierstatus">Verzekeraars</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-tandartsen">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4c2 0 2 1 4 1s2-1 4-1c3 0 4 3 3 6l-2 8c-.4 1.5-2.2 1.6-2.8.2L12 13l-2.2 5.2c-.6 1.4-2.4 1.3-2.8-.2l-2-8C4 7 5 4 8 4Z"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Pijnklachten en agenda">Tandartsen</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-hotels">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V5h12v15"/><path d="M16 10h4v10"/><path d="M8 8h1"/><path d="M12 8h1"/><path d="M8 12h1"/><path d="M12 12h1"/><path d="M9 20v-4h3v4"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Reserveringen en gasten">Hotels</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-non-profit">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 21 4-7 4 7"/><circle cx="12" cy="8" r="5"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Donateurs en vrijwilligers">Non-profit</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-makelaars">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h13l-2 5 2 5H5"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Bezichtigingen en leads">Makelaars</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-restaurants">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v8"/><path d="M4 3v5a3 3 0 0 0 6 0V3"/><path d="M7 11v10"/><path d="M17 3v18"/><path d="M14 3h3a3 3 0 0 1 0 6h-3"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Reserveringen en vragen">Restaurants</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-dierenverzorging">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 11h12l3 3v4h-4l-2-2H9l-2 2H4v-5a2 2 0 0 1 2-2Z"/><path d="M17 11V7h3"/><path d="M7 18v3"/><path d="M16 18v3"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Afspraken en verzorging">Dierenverzorging</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-cosmetische-klinieken">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M12 14v5"/><path d="M9.5 16.5h5"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Consults en intake">Cosmetische klinieken</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-autobedrijven">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 16h14"/><path d="m6 16 2-6h8l2 6"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/><path d="M7 12h10"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Proefritten en voorraad">Autobedrijven</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ap-niche-menu-link" href="https://www.auto-pilots.io/ai-voor-dierenartsen">
+        <span class="ap-niche-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><circle cx="9" cy="15" r="2.4"/><circle cx="15" cy="15" r="2.4"/><path d="M8 17c1.4 2 6.6 2 8 0"/></svg></span>
+        <span class="ap-niche-menu-title" data-detail="Urgentie en consulten">Dierenarts</span>
+        <span class="ap-niche-menu-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</div>

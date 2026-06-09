@@ -1,0 +1,1145 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-leads {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #eeeeea;
+    --ap-soft-2: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-brown-dark: #7d2a1d;
+    --ap-black: #111111;
+    --ap-white: #ffffff;
+    background: var(--ap-bg);
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #ap-leads * {
+    box-sizing: border-box;
+  }
+
+  #ap-leads a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-leads h1,
+  #ap-leads h2,
+  #ap-leads h3,
+  #ap-leads p {
+    margin: 0;
+  }
+
+  #ap-leads .ap-container {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+  }
+
+  #ap-leads .ap-section {
+    padding: 82px 0;
+  }
+
+  #ap-leads .ap-hero {
+    padding: 66px 0 54px;
+  }
+
+  #ap-leads .ap-eyebrow,
+  #ap-leads .ap-kicker,
+  #ap-leads .ap-metric strong,
+  #ap-leads .ap-step-number {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-leads .ap-eyebrow,
+  #ap-leads .ap-kicker {
+    color: var(--ap-brown);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  #ap-leads .ap-center {
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #ap-leads h1 {
+    margin: 14px auto 0;
+    max-width: 920px;
+    font-size: clamp(46px, 6.2vw, 76px);
+    line-height: 0.96;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-leads h2 {
+    font-size: clamp(34px, 4.5vw, 58px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-leads h3 {
+    font-size: 22px;
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  #ap-leads .ap-accent {
+    color: var(--ap-brown);
+    font-style: italic;
+  }
+
+  #ap-leads .ap-lead {
+    max-width: 760px;
+    margin: 20px auto 0;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.62;
+    font-weight: 500;
+  }
+
+  #ap-leads .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  #ap-leads .ap-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 15px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  #ap-leads .ap-button:hover {
+    transform: translateY(-1px);
+  }
+
+  #ap-leads .ap-button-primary {
+    background: var(--ap-brown);
+    color: var(--ap-white);
+    border: 1px solid var(--ap-brown);
+    box-shadow: 0 14px 28px rgba(159, 56, 38, 0.16);
+  }
+
+  #ap-leads .ap-button-primary:hover {
+    background: var(--ap-brown-dark);
+    border-color: var(--ap-brown-dark);
+  }
+
+  #ap-leads .ap-button-secondary {
+    background: var(--ap-white);
+    color: var(--ap-text);
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-leads .ap-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 22px;
+    align-items: stretch;
+    margin-top: 40px;
+  }
+
+  #ap-leads .ap-card,
+  #ap-leads .ap-hero-panel,
+  #ap-leads .ap-logo-wrap,
+  #ap-leads .ap-calc-card,
+  #ap-leads .ap-final-box {
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  #ap-leads .ap-hero-panel {
+    padding: 34px;
+    min-height: 430px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #ap-leads .ap-hero-panel::before {
+    content: "";
+    position: absolute;
+    inset: auto -50px -90px auto;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(159, 56, 38, 0.12);
+    filter: blur(22px);
+  }
+
+  #ap-leads .ap-pipeline {
+    position: relative;
+    display: grid;
+    gap: 13px;
+    z-index: 1;
+  }
+
+  #ap-leads .ap-pipeline-row {
+    display: grid;
+    grid-template-columns: 42px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    border-radius: 20px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 13px;
+    animation: apLeadPulse 3.8s ease-in-out infinite;
+  }
+
+  #ap-leads .ap-pipeline-row:nth-child(2) { animation-delay: 260ms; }
+  #ap-leads .ap-pipeline-row:nth-child(3) { animation-delay: 520ms; }
+  #ap-leads .ap-pipeline-row:nth-child(4) { animation-delay: 780ms; }
+
+  @keyframes apLeadPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  #ap-leads .ap-node {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+    background: var(--ap-black);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+  }
+
+  #ap-leads .ap-pipeline-row strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  #ap-leads .ap-pipeline-row span {
+    display: block;
+    margin-top: 3px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  #ap-leads .ap-status {
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.11);
+    color: var(--ap-brown);
+    padding: 7px 9px;
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  #ap-leads .ap-logo-wrap {
+    padding: 28px;
+  }
+
+  #ap-leads .ap-logo-wrap p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #ap-leads .ap-logo-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 16px 0;
+  }
+
+  #ap-leads .ap-logo-slider::before,
+  #ap-leads .ap-logo-slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #ap-leads .ap-logo-slider::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--ap-soft-2) 0%, rgba(248, 248, 245, 0) 100%);
+  }
+
+  #ap-leads .ap-logo-slider::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--ap-soft-2) 0%, rgba(248, 248, 245, 0) 100%);
+  }
+
+  #ap-leads .ap-logo-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 14px;
+    animation: apLeadLogoSlide 34s linear infinite;
+  }
+
+  #ap-leads .ap-logo-track-slow {
+    animation-duration: 64s;
+  }
+
+  #ap-leads .ap-logo-slider:hover .ap-logo-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes apLeadLogoSlide {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 7px)); }
+  }
+
+  #ap-leads .ap-logo-item {
+    width: 190px;
+    height: 94px;
+    flex: 0 0 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 20px;
+  }
+
+  #ap-leads .ap-logo-item img {
+    display: block;
+    max-width: 100%;
+    max-height: 58px;
+    object-fit: contain;
+  }
+
+  #ap-leads .ap-section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+
+  #ap-leads .ap-section-text {
+    color: var(--ap-muted);
+    font-size: 16px;
+    line-height: 1.58;
+    font-weight: 600;
+  }
+
+  #ap-leads .ap-grid-4,
+  #ap-leads .ap-grid-3 {
+    display: grid;
+    gap: 16px;
+  }
+
+  #ap-leads .ap-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  #ap-leads .ap-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  #ap-leads .ap-card {
+    padding: 28px;
+    min-height: 100%;
+  }
+
+  #ap-leads .ap-card h3 {
+    margin-bottom: 12px;
+  }
+
+  #ap-leads .ap-card p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-leads .ap-dark-band {
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 48px;
+  }
+
+  #ap-leads .ap-dark-band .ap-kicker,
+  #ap-leads .ap-dark-band .ap-accent {
+    color: #e4a092;
+  }
+
+  #ap-leads .ap-dark-band h2 {
+    max-width: 760px;
+    margin-bottom: 20px;
+  }
+
+  #ap-leads .ap-dark-band p {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  #ap-leads .ap-problem-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 34px;
+    align-items: start;
+  }
+
+  #ap-leads .ap-problem-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  #ap-leads .ap-process-item {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 16px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 18px;
+  }
+
+  #ap-leads .ap-step-number {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #ap-leads .ap-process-item h3 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  #ap-leads .ap-feature-card {
+    min-height: 250px;
+  }
+
+  #ap-leads .ap-feature-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #fbf2ef;
+    color: var(--ap-brown);
+    margin-bottom: 20px;
+    font-weight: 900;
+  }
+
+  #ap-leads .ap-calculator {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  #ap-leads .ap-calc-card {
+    padding: 28px;
+  }
+
+  #ap-leads .ap-calc-fields {
+    display: grid;
+    gap: 14px;
+  }
+
+  #ap-leads .ap-calc-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 130px;
+    gap: 14px;
+    align-items: center;
+    border-radius: 20px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 15px;
+  }
+
+  #ap-leads .ap-calc-field label {
+    display: block;
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 900;
+  }
+
+  #ap-leads .ap-calc-field span {
+    display: block;
+    margin-top: 4px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  #ap-leads .ap-calc-field input {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 14px;
+    border: 1px solid var(--ap-line);
+    background: #fff;
+    color: var(--ap-text);
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 900;
+    outline: none;
+  }
+
+  #ap-leads .ap-calc-field input:focus {
+    border-color: rgba(159, 56, 38, 0.35);
+    box-shadow: 0 0 0 4px rgba(159, 56, 38, 0.08);
+  }
+
+  #ap-leads .ap-result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #ap-leads .ap-result-card {
+    min-width: 0;
+    border-radius: 24px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    padding: 20px;
+  }
+
+  #ap-leads .ap-result-card.is-highlight {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 16px;
+    background: var(--ap-black);
+    color: #fff;
+  }
+
+  #ap-leads .ap-result-card h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  #ap-leads .ap-result-card.is-highlight h3 {
+    grid-column: 1 / -1;
+  }
+
+  #ap-leads .ap-result-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  #ap-leads .ap-result-card.is-highlight .ap-result-row {
+    border-top-color: rgba(255, 255, 255, 0.12);
+  }
+
+  #ap-leads .ap-result-row span {
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.25;
+    font-weight: 800;
+  }
+
+  #ap-leads .ap-result-card.is-highlight .ap-result-row span {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  #ap-leads .ap-result-row strong {
+    font-size: clamp(18px, 1.65vw, 26px);
+    line-height: 1;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  #ap-leads .ap-result-card.is-highlight .ap-result-row {
+    display: grid;
+    align-items: start;
+    gap: 8px;
+  }
+
+  #ap-leads .ap-net {
+    margin-top: 12px;
+    border-radius: 20px;
+    background: #fbf2ef;
+    border: 1px solid rgba(159, 56, 38, 0.14);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  #ap-leads .ap-net span {
+    color: var(--ap-muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  #ap-leads .ap-net strong {
+    color: var(--ap-brown);
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  #ap-leads .ap-calc-note {
+    margin-top: 16px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  #ap-leads .ap-team-shell {
+    position: relative;
+  }
+
+  #ap-leads .ap-team-slider {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 4px 2px 14px;
+    scrollbar-width: thin;
+  }
+
+  #ap-leads .ap-team-card {
+    flex: 0 0 218px;
+    scroll-snap-align: start;
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 20px;
+    text-align: center;
+  }
+
+  #ap-leads .ap-team-photo {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    margin: 0 auto 16px;
+    overflow: hidden;
+  }
+
+  #ap-leads .ap-team-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ap-leads .ap-team-photo.is-hasan img {
+    transform: translateY(-10px) scale(1.08);
+    transform-origin: center center;
+  }
+
+  #ap-leads .ap-team-card strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  #ap-leads .ap-team-card span {
+    display: block;
+    margin-top: 5px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  #ap-leads .ap-slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  #ap-leads .ap-slider-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--ap-line);
+    background: #fff;
+    color: var(--ap-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 900;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  #ap-leads .ap-slider-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(159, 56, 38, 0.28);
+    background: #fbf2ef;
+  }
+
+  #ap-leads .ap-final {
+    padding-bottom: 92px;
+  }
+
+  #ap-leads .ap-final-box {
+    padding: 50px;
+    text-align: center;
+  }
+
+  #ap-leads .ap-final-box .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-leads .ap-final-box h2 {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #ap-leads .ap-final-box p {
+    max-width: 660px;
+    margin: 18px auto 0;
+  }
+
+  @media (max-width: 980px) {
+    #ap-leads .ap-hero-grid,
+    #ap-leads .ap-section-head,
+    #ap-leads .ap-problem-grid,
+    #ap-leads .ap-calculator {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-leads .ap-grid-4,
+    #ap-leads .ap-grid-3,
+    #ap-leads .ap-result-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 720px) {
+    #ap-leads .ap-container {
+      width: min(100% - 28px, 1120px);
+    }
+
+    #ap-leads .ap-section {
+      padding: 58px 0;
+    }
+
+    #ap-leads .ap-hero {
+      padding: 64px 0 36px;
+    }
+
+    #ap-leads h1 {
+      font-size: clamp(42px, 12vw, 58px);
+      line-height: 1;
+    }
+
+    #ap-leads .ap-lead {
+      font-size: 17px;
+    }
+
+    #ap-leads .ap-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #ap-leads .ap-button {
+      width: 100%;
+    }
+
+    #ap-leads .ap-grid-4,
+    #ap-leads .ap-grid-3,
+    #ap-leads .ap-result-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-leads .ap-result-card.is-highlight {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-leads .ap-hero-panel,
+    #ap-leads .ap-card,
+    #ap-leads .ap-logo-wrap,
+    #ap-leads .ap-calc-card,
+    #ap-leads .ap-dark-band,
+    #ap-leads .ap-final-box {
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    #ap-leads .ap-pipeline-row {
+      grid-template-columns: 42px 1fr;
+    }
+
+    #ap-leads .ap-status {
+      grid-column: 2;
+      width: fit-content;
+    }
+
+    #ap-leads .ap-calc-field {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-leads .ap-team-card {
+      flex-basis: 196px;
+    }
+  }
+</style>
+
+<div id="ap-leads">
+  <section class="ap-hero">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">Leadsmachine AI</div>
+        <h1>Leads zijn leuk. <span class="ap-accent">Klanten zijn beter.</span></h1>
+        <p class="ap-lead">Maak kennis met Leadsmachine AI. Adverteren via Meta, Google of LinkedIn is pas stap &eacute;&eacute;n. Maar wie volgt die leads op als ze dinsdagavond om 23:00 uur binnenkomen? Jij? Je dure sales-team?</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#calculator">Bereken resultaat</a>
+          <a class="ap-button ap-button-secondary" href="#meer-info">Meer informatie</a>
+        </div>
+      </div>
+
+      <div class="ap-hero-grid">
+        <div class="ap-hero-panel">
+          <div class="ap-pipeline" aria-label="Leadsmachine AI flow">
+            <div class="ap-pipeline-row"><div class="ap-node">AD</div><div><strong>Nieuwe lead komt binnen</strong><span>Meta, Google, LinkedIn of outreach</span></div><div class="ap-status">0 sec</div></div>
+            <div class="ap-pipeline-row"><div class="ap-node">AI</div><div><strong>Directe opvolging</strong><span>Voice, mail, WhatsApp en retargeting</span></div><div class="ap-status">live</div></div>
+            <div class="ap-pipeline-row"><div class="ap-node">CRM</div><div><strong>Kwalificatie en notities</strong><span>Budget, urgentie, fit en context</span></div><div class="ap-status">netjes</div></div>
+            <div class="ap-pipeline-row"><div class="ap-node">CAL</div><div><strong>Afspraak in de agenda</strong><span>Alleen met passende prospects</span></div><div class="ap-status">geboekt</div></div>
+          </div>
+        </div>
+        <div class="ap-card">
+          <div class="ap-kicker">Waarom dit werkt</div>
+          <h3>De lead wordt niet alleen gegenereerd, maar ook opgevolgd tot er echt beweging komt.</h3>
+          <p>Leadsmachine AI combineert advertenties, retargeting, AI-opvolging, saleskwalificatie, planning en CRM-verwerking in een systeem.</p>
+          <div class="ap-actions" style="justify-content:flex-start;">
+            <a class="ap-button ap-button-primary" href="#calculator">Bekijk verschil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>We integreren naadloos met jullie systemen.</p>
+        <div class="ap-logo-slider" aria-label="Systemen waarmee Autopilots kan koppelen">
+          <div class="ap-logo-track">
+            <div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt="Exact Online"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt="Zendesk"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt="Solvari"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt="HubSpot"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt="Zoho"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt="Monday"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt="Google Calendar"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt="Outlook Calendar"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt="Trustoo"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt="Moneybird"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt="Calendly"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt="Blox"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt="Odoo"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt="Robaws"></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="meer-info">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-problem-grid">
+          <div>
+            <div class="ap-kicker">Autopilots</div>
+            <h2>Verander jij mee, of blijf je achter?</h2>
+            <p>Je betaalt je rekeningen niet met leads, maar met keiharde euro's.</p>
+          </div>
+          <div class="ap-problem-list">
+            <div class="ap-process-item"><span class="ap-step-number">01</span><div><h3>Wel leads, geen klanten</h3><p>Je advertenties draaien en de inbox stroomt vol met aanvragen. Maar onderaan de streep blijft het stil in de verkoopcijfers.</p></div></div>
+            <div class="ap-process-item"><span class="ap-step-number">02</span><div><h3>Sturen op schijn-ROI</h3><p>Clicks en leads zijn fijn voor de statistieken, maar je koopt er niets voor als ze niet converteren.</p></div></div>
+            <div class="ap-process-item"><span class="ap-step-number">03</span><div><h3>De Rule of 17 missen</h3><p>Veel leads hebben meerdere contactmomenten nodig. Zonder automatische retargeting haken ze af voor de finish.</p></div></div>
+            <div class="ap-process-item"><span class="ap-step-number">04</span><div><h3>Handmatige opvolging is te traag</h3><p>Terwijl jouw team nog belt of mailt, is de lead alweer vergeten wie je bent en zit hij bij de concurrent.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Leadsmachine AI</div>
+          <h2>Adverteren, retargeten en converteren.</h2>
+        </div>
+        <p class="ap-section-text">Waar traditionele bureaus stoppen bij het genereren van een lead, optimaliseert Leadsmachine AI de complete funnel.</p>
+      </div>
+      <div class="ap-grid-4">
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">AD</div><h3>Gerichte Ads &amp; Prospecting</h3><p>We zetten de kraan open op Meta, Google en LinkedIn met instroom vanuit jouw exacte doelgroep.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">17</div><h3>Waterdichte Retargeting</h3><p>Mensen kopen vaak pas na meerdere contactmomenten. We bouwen een full-funnel om je leads heen.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">AI</div><h3>24/7 AI-opvolging</h3><p>Instagram, mail, website, Facebook of LinkedIn: je bent overal direct aanwezig.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">FIT</div><h3>Diepe saleskwalificatie</h3><p>De AI filtert op budget, urgentie en fit, zodat koopjesjagers minder tijd kosten.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">CAL</div><h3>Slimme afspraakplanning</h3><p>Is er een match? Dan plant de AI direct in de agenda van het juiste teamlid.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">CRM</div><h3>Volledige CRM flow</h3><p>Statussen, gespreksnotities en pipeline-updates worden realtime verwerkt in je CRM.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">UP</div><h3>De slimste digitale medewerker</h3><p>Twijfelaars en oude leads worden slim opgevolgd tot ze boeken of duidelijk nee zeggen.</p></div>
+        <div class="ap-card ap-feature-card"><div class="ap-feature-icon">ROI</div><h3>Sturen op omzet</h3><p>Niet alleen kijken naar leadprijs, maar naar afspraken, klanten en netto resultaat.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="calculator">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Calculator</div>
+          <h2>Bereken het verschil tussen handmatige opvolging en AI opvolging.</h2>
+        </div>
+        <p class="ap-section-text">Vul je belangrijkste cijfers in en zie direct hoeveel extra afspraken, klanten en omzet je kunt halen uit dezelfde leads.</p>
+      </div>
+      <div class="ap-calculator">
+        <div class="ap-calc-card">
+          <div class="ap-calc-fields">
+            <div class="ap-calc-field"><div><label for="ap-budget">Advertentiebudget per maand</label><span>Meta, Google, LinkedIn en outreach samen.</span></div><input id="ap-budget" data-calc="budget" type="number" value="5000" min="0" step="100"></div>
+            <div class="ap-calc-field"><div><label for="ap-cpc">Gemiddelde klikprijs</label><span>Gemiddelde kosten per bezoeker.</span></div><input id="ap-cpc" data-calc="cpc" type="number" value="2.50" min="0.01" step="0.05"></div>
+            <div class="ap-calc-field"><div><label for="ap-lead-rate">Conversie naar lead</label><span>Percentage bezoekers dat lead wordt.</span></div><input id="ap-lead-rate" data-calc="leadRate" type="number" value="5" min="0" step="0.5"></div>
+            <div class="ap-calc-field"><div><label for="ap-meeting-without">Afspraakratio zonder AI</label><span>Percentage leads dat nu afspraak wordt.</span></div><input id="ap-meeting-without" data-calc="meetingWithout" type="number" value="20" min="0" step="1"></div>
+            <div class="ap-calc-field"><div><label for="ap-meeting-with">Afspraakratio met AI</label><span>Door directe opvolging en kwalificatie.</span></div><input id="ap-meeting-with" data-calc="meetingWith" type="number" value="35" min="0" step="1"></div>
+            <div class="ap-calc-field"><div><label for="ap-close-rate">Afspraak naar klant</label><span>Percentage afspraken dat klant wordt.</span></div><input id="ap-close-rate" data-calc="closeRate" type="number" value="25" min="0" step="1"></div>
+            <div class="ap-calc-field"><div><label for="ap-client-value">Gemiddelde klantwaarde</label><span>Omzet per nieuwe klant.</span></div><input id="ap-client-value" data-calc="clientValue" type="number" value="2500" min="0" step="100"></div>
+            <div class="ap-calc-field"><div><label for="ap-ai-cost">AI kosten per maand</label><span>Leadsmachine AI en automatisering.</span></div><input id="ap-ai-cost" data-calc="aiCost" type="number" value="1500" min="0" step="100"></div>
+          </div>
+        </div>
+        <div class="ap-calc-card">
+          <div class="ap-result-grid">
+            <div class="ap-result-card">
+              <h3>Zonder AI</h3>
+              <div class="ap-result-row"><span>Leads per maand</span><strong data-out="leadsWithout">100</strong></div>
+              <div class="ap-result-row"><span>Afspraken</span><strong data-out="meetingsWithout">20</strong></div>
+              <div class="ap-result-row"><span>Nieuwe klanten</span><strong data-out="clientsWithout">5</strong></div>
+              <div class="ap-result-row"><span>Omzet</span><strong data-out="revenueWithout">&euro; 12.500</strong></div>
+            </div>
+            <div class="ap-result-card">
+              <h3>Met AI</h3>
+              <div class="ap-result-row"><span>Leads per maand</span><strong data-out="leadsWith">100</strong></div>
+              <div class="ap-result-row"><span>Afspraken</span><strong data-out="meetingsWith">35</strong></div>
+              <div class="ap-result-row"><span>Nieuwe klanten</span><strong data-out="clientsWith">8,8</strong></div>
+              <div class="ap-result-row"><span>Omzet</span><strong data-out="revenueWith">&euro; 21.875</strong></div>
+            </div>
+            <div class="ap-result-card is-highlight">
+              <h3>Verschil</h3>
+              <div class="ap-result-row"><span>Extra afspraken</span><strong data-out="extraMeetings">15</strong></div>
+              <div class="ap-result-row"><span>Extra klanten</span><strong data-out="extraClients">3,8</strong></div>
+              <div class="ap-result-row"><span>Extra omzet</span><strong data-out="extraRevenue">&euro; 9.375</strong></div>
+            </div>
+          </div>
+          <div class="ap-net"><span>Netto extra resultaat</span><strong data-out="netResult">&euro; 7.875</strong></div>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="#calculator">Bereken resultaat</a>
+            <a class="ap-button ap-button-secondary" href="#demo">Boek demo</a>
+          </div>
+          <p class="ap-calc-note">Dit is een indicatie. Resultaten hangen af van je aanbod, campagnekwaliteit, opvolging, branche en salesproces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>Aantal trotse samenwerkingen.</p>
+        <div class="ap-logo-slider" aria-label="Samenwerkingen van Autopilots">
+          <div class="ap-logo-track ap-logo-track-slow">
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/zieleman.png" alt="Zieleman Nieuwleusen"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/afa.png" alt="AFA Sustainable Fashion Academy"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/animals-faith.png" alt="Animals Faith"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/den-dekker.png" alt="Den Dekker Dakbedekking"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/h3a.png" alt="Heeren 3 Architecten"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/leadfactor.png" alt="LeadFactor"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/social-impact.png" alt="The Social Impact"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/rlx-consultancy.png" alt="RLX Consultancy"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/dakcentrale-nederland.png" alt="Dakcentrale Nederland"></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/zieleman.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/afa.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/animals-faith.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/den-dekker.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/h3a.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/leadfactor.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/social-impact.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/rlx-consultancy.png" alt=""></div>
+            <div class="ap-logo-item"><img src="assets/samenwerkingen-black/dakcentrale-nederland.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Meet the crew</div>
+          <h2>Built by the Autopilots team.</h2>
+        </div>
+        <p class="ap-section-text">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p>
+      </div>
+      <div class="ap-team-shell">
+        <div class="ap-team-slider" data-ap-slider="team" aria-label="Autopilots team">
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/tim-kuiper.png" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales &amp; Partnerships</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/larissa-rosanna-pen.webp" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo"><img src="assets/team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
+          <div class="ap-team-card"><div class="ap-team-photo is-hasan"><img src="assets/team/hasan-shabbir.png" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></div>
+        </div>
+        <div class="ap-slider-controls" aria-label="Team slider controls">
+          <button class="ap-slider-button" type="button" data-ap-slide-prev="team" aria-label="Vorige teamleden">&#8592;</button>
+          <button class="ap-slider-button" type="button" data-ap-slide-next="team" aria-label="Volgende teamleden">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-final" id="demo">
+    <div class="ap-container">
+      <div class="ap-final-box">
+        <div class="ap-kicker">Leadsmachine AI</div>
+        <h2>Laat dezelfde leads meer afspraken en klanten opleveren.</h2>
+        <p class="ap-section-text">We bekijken je huidige campagnes, opvolging en CRM-flow en laten zien waar Leadsmachine AI direct verschil maakt.</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#calculator">Bereken resultaat</a>
+          <a class="ap-button ap-button-secondary" href="#meer-info">Meer informatie</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("ap-leads");
+    if (!root) return;
+
+    var euroFormatter = new Intl.NumberFormat("nl-NL", {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0
+    });
+    var numberFormatter = new Intl.NumberFormat("nl-NL", {
+      maximumFractionDigits: 1
+    });
+
+    function value(key) {
+      var input = root.querySelector('[data-calc="' + key + '"]');
+      return input ? Number(String(input.value).replace(",", ".")) || 0 : 0;
+    }
+
+    function set(key, valueText) {
+      root.querySelectorAll('[data-out="' + key + '"]').forEach(function (node) {
+        node.textContent = valueText;
+      });
+    }
+
+    function calculate() {
+      var budget = value("budget");
+      var cpc = Math.max(value("cpc"), 0.01);
+      var leadRate = value("leadRate") / 100;
+      var meetingWithout = value("meetingWithout") / 100;
+      var meetingWith = value("meetingWith") / 100;
+      var closeRate = value("closeRate") / 100;
+      var clientValue = value("clientValue");
+      var aiCost = value("aiCost");
+
+      var visitors = budget / cpc;
+      var leads = visitors * leadRate;
+      var meetingsWithout = leads * meetingWithout;
+      var meetingsWith = leads * meetingWith;
+      var clientsWithout = meetingsWithout * closeRate;
+      var clientsWith = meetingsWith * closeRate;
+      var revenueWithout = clientsWithout * clientValue;
+      var revenueWith = clientsWith * clientValue;
+      var extraMeetings = meetingsWith - meetingsWithout;
+      var extraClients = clientsWith - clientsWithout;
+      var extraRevenue = revenueWith - revenueWithout;
+      var netResult = extraRevenue - aiCost;
+
+      set("leadsWithout", numberFormatter.format(leads));
+      set("leadsWith", numberFormatter.format(leads));
+      set("meetingsWithout", numberFormatter.format(meetingsWithout));
+      set("meetingsWith", numberFormatter.format(meetingsWith));
+      set("clientsWithout", numberFormatter.format(clientsWithout));
+      set("clientsWith", numberFormatter.format(clientsWith));
+      set("revenueWithout", euroFormatter.format(revenueWithout));
+      set("revenueWith", euroFormatter.format(revenueWith));
+      set("extraMeetings", numberFormatter.format(extraMeetings));
+      set("extraClients", numberFormatter.format(extraClients));
+      set("extraRevenue", euroFormatter.format(extraRevenue));
+      set("netResult", euroFormatter.format(netResult));
+    }
+
+    root.querySelectorAll("[data-calc]").forEach(function (input) {
+      input.addEventListener("input", calculate);
+    });
+    calculate();
+
+    root.querySelectorAll("[data-ap-slide-prev], [data-ap-slide-next]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var sliderKey = button.getAttribute("data-ap-slide-prev") || button.getAttribute("data-ap-slide-next");
+        var slider = root.querySelector('[data-ap-slider="' + sliderKey + '"]');
+        if (!slider) return;
+        var direction = button.hasAttribute("data-ap-slide-prev") ? -1 : 1;
+        slider.scrollBy({ left: direction * 460, behavior: "smooth" });
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,1458 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+
+  #ap-crm-landing {
+    --ap-bg: #f5f5f2;
+    --ap-card: #ffffff;
+    --ap-soft: #eeeeea;
+    --ap-soft-2: #f8f8f5;
+    --ap-text: #111111;
+    --ap-muted: #656565;
+    --ap-line: rgba(0, 0, 0, 0.1);
+    --ap-brown: #9f3826;
+    --ap-brown-dark: #7d2a1d;
+    --ap-black: #111111;
+    --ap-white: #ffffff;
+    --ap-green-soft: #dce9dd;
+    background: var(--ap-bg);
+    color: var(--ap-text);
+    font-family: "Public Sans", Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #ap-crm-landing * {
+    box-sizing: border-box;
+  }
+
+  #ap-crm-landing a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #ap-crm-landing .ap-container {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+  }
+
+  #ap-crm-landing .ap-section {
+    padding: 80px 0;
+  }
+
+  #ap-crm-landing .ap-hero {
+    padding: 92px 0 48px;
+  }
+
+  #ap-crm-landing .ap-center {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #ap-crm-landing .ap-eyebrow,
+  #ap-crm-landing .ap-pill,
+  #ap-crm-landing .ap-kicker,
+  #ap-crm-landing .ap-number {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+  }
+
+  #ap-crm-landing .ap-eyebrow {
+    color: var(--ap-brown);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  #ap-crm-landing h1,
+  #ap-crm-landing h2,
+  #ap-crm-landing h3,
+  #ap-crm-landing p {
+    margin: 0;
+  }
+
+  #ap-crm-landing h1 {
+    max-width: 880px;
+    margin: 0 auto;
+    font-size: clamp(44px, 6.4vw, 74px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-crm-landing .ap-accent {
+    color: var(--ap-brown);
+    font-style: italic;
+  }
+
+  #ap-crm-landing .ap-lead {
+    max-width: 720px;
+    margin: 24px auto 0;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-crm-landing .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  #ap-crm-landing .ap-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 15px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  #ap-crm-landing .ap-button:hover {
+    transform: translateY(-1px);
+  }
+
+  #ap-crm-landing .ap-button-primary {
+    background: var(--ap-brown);
+    color: var(--ap-white);
+    border: 1px solid var(--ap-brown);
+    box-shadow: 0 14px 28px rgba(159, 56, 38, 0.16);
+  }
+
+  #ap-crm-landing .ap-button-primary:hover {
+    background: var(--ap-brown-dark);
+    border-color: var(--ap-brown-dark);
+  }
+
+  #ap-crm-landing .ap-button-secondary {
+    background: var(--ap-white);
+    color: var(--ap-text);
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-crm-landing .ap-trust-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 34px auto 0;
+    max-width: 780px;
+  }
+
+  #ap-crm-landing .ap-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--ap-line);
+    color: var(--ap-text);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  #ap-crm-landing .ap-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+  }
+
+  #ap-crm-landing .ap-dashboard-card {
+    position: relative;
+    margin: 54px auto 0;
+    max-width: 1010px;
+    border: 1px solid var(--ap-line);
+    border-radius: 34px;
+    background: var(--ap-card);
+    box-shadow: 0 24px 70px rgba(17, 17, 17, 0.1);
+    padding: 18px;
+  }
+
+  #ap-crm-landing .ap-dashboard {
+    min-height: 430px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fbfbf8 0%, #f1f1ee 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 216px 1fr 260px;
+  }
+
+  #ap-crm-landing .ap-dash-side {
+    background: #ffffff;
+    border-right: 1px solid var(--ap-line);
+    padding: 20px;
+  }
+
+  #ap-crm-landing .ap-dash-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 900;
+    margin-bottom: 28px;
+  }
+
+  #ap-crm-landing .ap-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: var(--ap-brown);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  #ap-crm-landing .ap-nav-item {
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    color: var(--ap-muted);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+  }
+
+  #ap-crm-landing .ap-nav-item.is-active {
+    background: var(--ap-soft-2);
+    color: var(--ap-brown);
+  }
+
+  #ap-crm-landing .ap-nav-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 4px;
+    background: currentColor;
+    opacity: 0.75;
+  }
+
+  #ap-crm-landing .ap-dash-main {
+    padding: 22px;
+  }
+
+  #ap-crm-landing .ap-dash-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  #ap-crm-landing .ap-search {
+    width: min(320px, 100%);
+    height: 38px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-crm-landing .ap-status {
+    display: flex;
+    gap: 8px;
+  }
+
+  #ap-crm-landing .ap-status span {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+  }
+
+  #ap-crm-landing .ap-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  #ap-crm-landing .ap-metric {
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 16px;
+  }
+
+  #ap-crm-landing .ap-metric small {
+    display: block;
+    color: var(--ap-muted);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  #ap-crm-landing .ap-metric strong {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  #ap-crm-landing .ap-pipeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  #ap-crm-landing .ap-column {
+    min-height: 240px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--ap-line);
+    padding: 12px;
+  }
+
+  #ap-crm-landing .ap-column-title {
+    color: var(--ap-muted);
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  #ap-crm-landing .ap-lead-card {
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  #ap-crm-landing .ap-lead-line {
+    height: 8px;
+    border-radius: 999px;
+    background: #d9d9d4;
+    margin-bottom: 8px;
+  }
+
+  #ap-crm-landing .ap-lead-line.short {
+    width: 66%;
+  }
+
+  #ap-crm-landing .ap-lead-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  #ap-crm-landing .ap-tag {
+    height: 20px;
+    min-width: 62px;
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.12);
+  }
+
+  #ap-crm-landing .ap-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--ap-green-soft);
+  }
+
+  #ap-crm-landing .ap-dash-panel {
+    background: #fff;
+    border-left: 1px solid var(--ap-line);
+    padding: 22px 18px;
+  }
+
+  #ap-crm-landing .ap-panel-title {
+    font-size: 14px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  #ap-crm-landing .ap-chat {
+    display: grid;
+    gap: 10px;
+  }
+
+  #ap-crm-landing .ap-bubble {
+    border-radius: 16px;
+    padding: 12px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 600;
+    background: var(--ap-soft-2);
+  }
+
+  #ap-crm-landing .ap-bubble.is-brown {
+    background: var(--ap-brown);
+    color: #fff;
+  }
+
+  #ap-crm-landing .ap-section-head {
+    display: grid;
+    grid-template-columns: 0.78fr 1fr;
+    gap: 42px;
+    align-items: end;
+    margin-bottom: 28px;
+  }
+
+  #ap-crm-landing .ap-kicker {
+    display: inline-flex;
+    align-items: center;
+    color: var(--ap-brown);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  #ap-crm-landing h2 {
+    font-size: clamp(34px, 4vw, 56px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  #ap-crm-landing .ap-section-text {
+    color: var(--ap-muted);
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  #ap-crm-landing .ap-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  #ap-crm-landing .ap-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  #ap-crm-landing .ap-card {
+    border-radius: 28px;
+    background: var(--ap-card);
+    border: 1px solid var(--ap-line);
+    box-shadow: 0 14px 40px rgba(17, 17, 17, 0.055);
+    padding: 28px;
+  }
+
+  #ap-crm-landing .ap-card-soft {
+    background: var(--ap-soft-2);
+  }
+
+  #ap-crm-landing .ap-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(159, 56, 38, 0.11);
+    color: var(--ap-brown);
+    margin-bottom: 22px;
+  }
+
+  #ap-crm-landing .ap-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #ap-crm-landing .ap-card h3 {
+    font-size: 22px;
+    line-height: 1.12;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  #ap-crm-landing .ap-card p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  #ap-crm-landing .ap-list {
+    display: grid;
+    gap: 11px;
+    margin-top: 22px;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ap-crm-landing .ap-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ap-text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  #ap-crm-landing .ap-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ap-brown);
+  }
+
+  #ap-crm-landing .ap-band {
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 46px;
+    overflow: hidden;
+  }
+
+  #ap-crm-landing .ap-band .ap-kicker,
+  #ap-crm-landing .ap-band .ap-accent {
+    color: #e4a092;
+  }
+
+  #ap-crm-landing .ap-band p,
+  #ap-crm-landing .ap-band .ap-section-text {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  #ap-crm-landing .ap-system-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 28px;
+    align-items: center;
+  }
+
+  #ap-crm-landing .ap-flow {
+    display: grid;
+    gap: 12px;
+  }
+
+  #ap-crm-landing .ap-flow-step {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 16px;
+    align-items: start;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 18px;
+  }
+
+  #ap-crm-landing .ap-number {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #ap-crm-landing .ap-flow-step h3 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  #ap-crm-landing .ap-logo-section {
+    padding-top: 16px;
+  }
+
+  #ap-crm-landing .ap-logo-wrap {
+    border-radius: 30px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 28px;
+  }
+
+  #ap-crm-landing .ap-logo-wrap p {
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #logo-showcase-AZA-S1Q954r {
+    max-width: 1120px !important;
+    margin: 0 auto !important;
+  }
+
+  #logo-showcase-AZA-S1Q954r img {
+    filter: grayscale(1) contrast(1.02) opacity(0.72);
+    transition: filter 180ms ease, opacity 180ms ease, transform 180ms ease;
+  }
+
+  #logo-showcase-AZA-S1Q954r img:hover {
+    filter: grayscale(0) contrast(1) opacity(1);
+    transform: translateY(-1px);
+  }
+
+  #ap-crm-landing .ap-logo-fallback {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  #ap-crm-landing .ap-logo-fallback span {
+    min-height: 58px;
+    border-radius: 18px;
+    background: var(--ap-soft-2);
+    border: 1px solid var(--ap-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a8a86;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  #ap-crm-landing .ap-niche-shell {
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #ap-crm-landing .ap-niche-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  #ap-crm-landing .ap-niche-button {
+    min-height: 58px;
+    border: 1px solid var(--ap-line);
+    border-radius: 18px;
+    background: var(--ap-card);
+    color: var(--ap-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 12px 14px;
+    font-family: "Public Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: left;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  #ap-crm-landing .ap-niche-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(159, 56, 38, 0.28);
+    box-shadow: 0 12px 30px rgba(17, 17, 17, 0.06);
+  }
+
+  #ap-crm-landing .ap-niche-button.is-active {
+    background: var(--ap-brown);
+    border-color: var(--ap-brown);
+    color: #fff;
+    box-shadow: 0 16px 34px rgba(159, 56, 38, 0.18);
+  }
+
+  #ap-crm-landing .ap-niche-icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 12px;
+    background: var(--ap-soft-2);
+    color: var(--ap-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  #ap-crm-landing .ap-niche-button.is-active .ap-niche-icon {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+
+  #ap-crm-landing .ap-niche-detail {
+    position: sticky;
+    top: 18px;
+    align-self: start;
+    min-height: 100%;
+    border-radius: 30px;
+    background: var(--ap-black);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+  }
+
+  #ap-crm-landing .ap-niche-panel {
+    display: none;
+  }
+
+  #ap-crm-landing .ap-niche-panel.is-active {
+    display: block;
+  }
+
+  #ap-crm-landing .ap-niche-detail .ap-kicker {
+    color: #e4a092;
+    margin-bottom: 16px;
+  }
+
+  #ap-crm-landing .ap-niche-detail h3 {
+    color: #fff;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.05;
+    font-weight: 900;
+    margin-bottom: 18px;
+  }
+
+  #ap-crm-landing .ap-niche-detail p {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  #ap-crm-landing .ap-niche-detail .ap-list li {
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  #ap-crm-landing .ap-niche-detail .ap-list li::before {
+    background: #e4a092;
+  }
+
+  #ap-crm-landing .ap-highlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child {
+    background: var(--ap-brown);
+    color: #fff;
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child .ap-kicker {
+    margin-bottom: 18px;
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child h2 {
+    margin-bottom: 22px;
+    line-height: 1.04;
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child .ap-section-text {
+    line-height: 1.72;
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child p,
+  #ap-crm-landing .ap-highlight .ap-card:first-child li {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  #ap-crm-landing .ap-highlight .ap-card:first-child li::before {
+    background: #fff;
+  }
+
+  #ap-crm-landing details.ap-faq {
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    overflow: hidden;
+  }
+
+  #ap-crm-landing details.ap-faq + details.ap-faq {
+    margin-top: 12px;
+  }
+
+  #ap-crm-landing .ap-faq summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 22px 24px;
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 900;
+  }
+
+  #ap-crm-landing .ap-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #ap-crm-landing .ap-plus {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ap-soft-2);
+    color: var(--ap-brown);
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  #ap-crm-landing details[open] .ap-plus {
+    transform: rotate(45deg);
+  }
+
+  #ap-crm-landing .ap-faq-content {
+    padding: 0 24px 24px;
+    color: var(--ap-muted);
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  #ap-crm-landing .ap-final {
+    padding-bottom: 92px;
+  }
+
+  #ap-crm-landing .ap-final-box {
+    border-radius: 34px;
+    background: #fff;
+    border: 1px solid var(--ap-line);
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 18px 60px rgba(17, 17, 17, 0.07);
+  }
+
+  #ap-crm-landing .ap-final-box h2 {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #ap-crm-landing .ap-final-box p {
+    max-width: 660px;
+    margin: 18px auto 0;
+  }
+
+  @media (max-width: 940px) {
+    #ap-crm-landing .ap-section-head,
+    #ap-crm-landing .ap-system-grid,
+    #ap-crm-landing .ap-niche-shell,
+    #ap-crm-landing .ap-highlight {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-crm-landing .ap-niche-detail {
+      position: relative;
+      top: auto;
+    }
+
+    #ap-crm-landing .ap-dashboard {
+      grid-template-columns: 170px 1fr;
+    }
+
+    #ap-crm-landing .ap-dash-panel {
+      display: none;
+    }
+
+    #ap-crm-landing .ap-grid-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    #ap-crm-landing .ap-container {
+      width: min(100% - 28px, 1120px);
+    }
+
+    #ap-crm-landing .ap-section {
+      padding: 58px 0;
+    }
+
+    #ap-crm-landing .ap-hero {
+      padding: 64px 0 36px;
+    }
+
+    #ap-crm-landing h1 {
+      font-size: clamp(42px, 12vw, 58px);
+      line-height: 1;
+    }
+
+    #ap-crm-landing .ap-lead {
+      font-size: 17px;
+    }
+
+    #ap-crm-landing .ap-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #ap-crm-landing .ap-button {
+      width: 100%;
+    }
+
+    #ap-crm-landing .ap-trust-row,
+    #ap-crm-landing .ap-grid-3,
+    #ap-crm-landing .ap-grid-2,
+    #ap-crm-landing .ap-niche-grid,
+    #ap-crm-landing .ap-logo-fallback {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-crm-landing .ap-dashboard-card {
+      padding: 12px;
+      border-radius: 26px;
+    }
+
+    #ap-crm-landing .ap-dashboard {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      border-radius: 20px;
+    }
+
+    #ap-crm-landing .ap-dash-side {
+      display: none;
+    }
+
+    #ap-crm-landing .ap-dash-main {
+      padding: 16px;
+    }
+
+    #ap-crm-landing .ap-dash-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    #ap-crm-landing .ap-metrics,
+    #ap-crm-landing .ap-pipeline {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-crm-landing .ap-column {
+      min-height: auto;
+    }
+
+    #ap-crm-landing .ap-card,
+    #ap-crm-landing .ap-band,
+    #ap-crm-landing .ap-final-box {
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    #ap-crm-landing .ap-flow-step {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div id="ap-crm-landing">
+  <section class="ap-hero">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">Autopilots CRM</div>
+        <h1>Je volledige funnel en salesdata in <span class="ap-accent">&eacute;&eacute;n CRM.</span></h1>
+        <p class="ap-lead">Wij brengen leads, opvolging, afspraken, funnels en klantdata samen in een AI-gestuurde CRM omgeving. Zo zie je sneller waar kansen liggen en waar conversie blijft hangen.</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#plan-demo">Plan demo gesprek</a>
+          <a class="ap-button ap-button-secondary" href="#crm-systeem">Bekijk het systeem</a>
+        </div>
+        <div class="ap-trust-row">
+          <div class="ap-trust"><span class="ap-dot"></span>Alles op &eacute;&eacute;n plek</div>
+          <div class="ap-trust"><span class="ap-dot"></span>Geen lead meer verloren</div>
+          <div class="ap-trust"><span class="ap-dot"></span>Minder handmatig werk</div>
+        </div>
+      </div>
+
+      <div class="ap-dashboard-card" aria-label="Autopilots CRM dashboard visual">
+        <div class="ap-dashboard">
+          <div class="ap-dash-side">
+            <div class="ap-dash-brand"><span class="ap-mark">AP</span> CRM</div>
+            <div class="ap-nav-item is-active"><span class="ap-nav-icon"></span>Pipeline</div>
+            <div class="ap-nav-item"><span class="ap-nav-icon"></span>Gesprekken</div>
+            <div class="ap-nav-item"><span class="ap-nav-icon"></span>Automations</div>
+            <div class="ap-nav-item"><span class="ap-nav-icon"></span>Afspraken</div>
+            <div class="ap-nav-item"><span class="ap-nav-icon"></span>Reviews</div>
+          </div>
+          <div class="ap-dash-main">
+            <div class="ap-dash-top">
+              <div class="ap-search"></div>
+              <div class="ap-status"><span></span><span></span><span></span></div>
+            </div>
+            <div class="ap-metrics">
+              <div class="ap-metric"><small>Nieuwe leads</small><strong>154</strong></div>
+              <div class="ap-metric"><small>Opvolging nodig</small><strong>28</strong></div>
+              <div class="ap-metric"><small>Deals open</small><strong>41</strong></div>
+            </div>
+            <div class="ap-pipeline">
+              <div class="ap-column">
+                <div class="ap-column-title">Nieuw</div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+              </div>
+              <div class="ap-column">
+                <div class="ap-column-title">Opvolgen</div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+              </div>
+              <div class="ap-column">
+                <div class="ap-column-title">Afspraak</div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+                <div class="ap-lead-card"><div class="ap-lead-line"></div><div class="ap-lead-line short"></div><div class="ap-lead-meta"><span class="ap-tag"></span><span class="ap-avatar"></span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="ap-dash-panel">
+            <div class="ap-panel-title">AI opvolging</div>
+            <div class="ap-chat">
+              <div class="ap-bubble">Nieuwe lead via funnel. Interesse: afspraak plannen.</div>
+              <div class="ap-bubble is-brown">Vraag om voorkeurstijd en kwalificeer budget.</div>
+              <div class="ap-bubble">Pipeline bijgewerkt. Reminder staat klaar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="crm-systeem">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Strakke opvolging</div>
+          <h2>Verlies geen lead meer uit het oog.</h2>
+        </div>
+        <p class="ap-section-text">Zie direct welke leads nieuw zijn, wie opvolging nodig heeft en waar omzet blijft hangen. Je houdt grip op elke fase van je pipeline en stuurt sneller op afspraken, offertes en deals.</p>
+      </div>
+      <div class="ap-grid-3">
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m7 15 4-4 3 3 5-7"></path></svg></div>
+          <h3>Pipeline overzicht</h3>
+          <p>Zie precies waar elke lead staat en welke actie nodig is om het gesprek verder te brengen.</p>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H7l-4 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg></div>
+          <h3>AI opvolging</h3>
+          <p>Laat terugkerende opvolging automatisch lopen, zonder dat leads stilvallen of vergeten worden.</p>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="3"></rect><path d="M3 10h18"></path></svg></div>
+          <h3>Afspraken sneller rond</h3>
+          <p>Beheer beschikbaarheid, boekingen en reminders vanuit dezelfde omgeving als je salesgesprekken.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-band">
+        <div class="ap-system-grid">
+          <div>
+            <div class="ap-kicker">Totaal oplossing</div>
+            <h2>Alle kanalen in &eacute;&eacute;n systeem.</h2>
+            <p class="ap-section-text">Van binnenkomende leads en klantgesprekken tot automatiseringen, afspraken, funnels en landingspagina's: alles komt samen in &eacute;&eacute;n centrale omgeving. Je reageert sneller en stuurt op data in plaats van onderbuikgevoel.</p>
+          </div>
+          <div class="ap-flow">
+            <div class="ap-flow-step">
+              <span class="ap-number">01</span>
+              <div>
+                <h3>Instroom wordt vastgelegd</h3>
+                <p>Leads uit funnels, formulieren en campagnes komen direct op de juiste plek binnen.</p>
+              </div>
+            </div>
+            <div class="ap-flow-step">
+              <span class="ap-number">02</span>
+              <div>
+                <h3>Opvolging loopt door</h3>
+                <p>Automatiseringen zorgen dat nieuwe leads niet wachten op handmatige actie.</p>
+              </div>
+            </div>
+            <div class="ap-flow-step">
+              <span class="ap-number">03</span>
+              <div>
+                <h3>Sales houdt overzicht</h3>
+                <p>Je ziet waar omzet blijft hangen en welke kansen prioriteit verdienen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-logo-section">
+    <div class="ap-container">
+      <div class="ap-logo-wrap">
+        <p>We integreren met de tools die je team al gebruikt. En nog v&eacute;&eacute;l meer.</p>
+        <div class="ap-logo-fallback" aria-label="Voorbeeld integraties">
+          <span>Meta</span><span>Google</span><span>LinkedIn</span><span>WhatsApp</span><span>Stripe</span>
+          <span>Calendly</span><span>Mailchimp</span><span>Zapier</span><span>Slack</span><span>Outlook</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Geschikt voor</div>
+          <h2>Autopilots CRM past zich aan op je branche.</h2>
+        </div>
+        <p class="ap-section-text">Elke niche heeft andere leads, afspraken en opvolging. Klik op een branche en zie direct welk probleem Autopilots CRM daar oplost.</p>
+      </div>
+
+      <div class="ap-niche-shell" data-ap-niches>
+        <div class="ap-niche-grid" role="list" aria-label="Geschikte branches">
+          <button class="ap-niche-button is-active" type="button" data-niche="dakdekkers" aria-pressed="true"><span class="ap-niche-icon">DA</span>Dakdekkers</button>
+          <button class="ap-niche-button" type="button" data-niche="installatie" aria-pressed="false"><span class="ap-niche-icon">IN</span>Installatietechniek</button>
+          <button class="ap-niche-button" type="button" data-niche="vastgoedbeheer" aria-pressed="false"><span class="ap-niche-icon">VB</span>Vastgoedbeheerders</button>
+          <button class="ap-niche-button" type="button" data-niche="zonnepanelen" aria-pressed="false"><span class="ap-niche-icon">ZO</span>Zonnepanelen</button>
+          <button class="ap-niche-button" type="button" data-niche="hoveniers" aria-pressed="false"><span class="ap-niche-icon">HO</span>Hoveniers</button>
+          <button class="ap-niche-button" type="button" data-niche="kappers" aria-pressed="false"><span class="ap-niche-icon">KA</span>Kapperszaken</button>
+          <button class="ap-niche-button" type="button" data-niche="kozijnen" aria-pressed="false"><span class="ap-niche-icon">KO</span>Kozijnen</button>
+          <button class="ap-niche-button" type="button" data-niche="vloeren" aria-pressed="false"><span class="ap-niche-icon">VL</span>Vloerenleggers</button>
+          <button class="ap-niche-button" type="button" data-niche="woningcorporaties" aria-pressed="false"><span class="ap-niche-icon">WC</span>Woningcorporaties</button>
+          <button class="ap-niche-button" type="button" data-niche="evenementen" aria-pressed="false"><span class="ap-niche-icon">EV</span>Evenementen</button>
+          <button class="ap-niche-button" type="button" data-niche="glaszetters" aria-pressed="false"><span class="ap-niche-icon">GL</span>Glaszetters</button>
+          <button class="ap-niche-button" type="button" data-niche="verzekeraars" aria-pressed="false"><span class="ap-niche-icon">VE</span>Verzekeraars</button>
+          <button class="ap-niche-button" type="button" data-niche="tandartsen" aria-pressed="false"><span class="ap-niche-icon">TA</span>Tandartsen</button>
+          <button class="ap-niche-button" type="button" data-niche="hotels" aria-pressed="false"><span class="ap-niche-icon">HT</span>Hotels</button>
+          <button class="ap-niche-button" type="button" data-niche="nonprofit" aria-pressed="false"><span class="ap-niche-icon">NP</span>Non-profit</button>
+          <button class="ap-niche-button" type="button" data-niche="makelaars" aria-pressed="false"><span class="ap-niche-icon">MA</span>Makelaars</button>
+          <button class="ap-niche-button" type="button" data-niche="restaurants" aria-pressed="false"><span class="ap-niche-icon">RE</span>Restaurants</button>
+          <button class="ap-niche-button" type="button" data-niche="dierenverzorging" aria-pressed="false"><span class="ap-niche-icon">DV</span>Dierenverzorging</button>
+          <button class="ap-niche-button" type="button" data-niche="klinieken" aria-pressed="false"><span class="ap-niche-icon">CK</span>Cosmetische klinieken</button>
+          <button class="ap-niche-button" type="button" data-niche="autobedrijven" aria-pressed="false"><span class="ap-niche-icon">AU</span>Autobedrijven</button>
+          <button class="ap-niche-button" type="button" data-niche="dierenarts" aria-pressed="false"><span class="ap-niche-icon">DI</span>Dierenarts</button>
+        </div>
+
+        <div class="ap-niche-detail" aria-live="polite">
+          <div class="ap-niche-panel is-active" data-panel="dakdekkers">
+            <div class="ap-kicker">Dakdekkers</div>
+            <h3>Spoedaanvragen en offertes beter opvolgen.</h3>
+            <p>Nieuwe aanvragen komen direct in je pipeline, inclusief type klus, urgentie en contactmoment. Zo blijft geen lekkage, inspectie of offerteaanvraag liggen.</p>
+            <ul class="ap-list"><li>Sneller reageren op warme aanvragen</li><li>Automatische reminders voor offertes</li><li>Meer grip op seizoensdrukte</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="installatie">
+            <div class="ap-kicker">Installatietechniek</div>
+            <h3>Van aanvraag naar planning zonder ruis.</h3>
+            <p>Autopilots CRM helpt bij intake, opvolging en afspraakplanning voor installaties, onderhoud en serviceverzoeken.</p>
+            <ul class="ap-list"><li>Betere intake per aanvraag</li><li>Minder heen en weer plannen</li><li>Duidelijke overdracht naar uitvoering</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="vastgoedbeheer">
+            <div class="ap-kicker">Vastgoedbeheerders</div>
+            <h3>Meldingen, eigenaren en huurders centraal.</h3>
+            <p>Houd onderhoudsvragen, bezichtigingen en opvolging bij elkaar, zodat je team sneller schakelt en minder informatie kwijtraakt.</p>
+            <ul class="ap-list"><li>Meer overzicht per object</li><li>Snellere opvolging van meldingen</li><li>Minder losse communicatiekanalen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="zonnepanelen">
+            <div class="ap-kicker">Zonnepanelen</div>
+            <h3>Meer controle over adviesaanvragen.</h3>
+            <p>Leg leads, woninginformatie, afspraakstatus en offerteopvolging vast in &eacute;&eacute;n systeem.</p>
+            <ul class="ap-list"><li>Leads direct kwalificeren</li><li>Offertes strak opvolgen</li><li>Campagnes beter meetbaar maken</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="hoveniers">
+            <div class="ap-kicker">Hoveniers</div>
+            <h3>Seizoenswerk en aanvragen beter plannen.</h3>
+            <p>Van tuinontwerp tot onderhoud: elke aanvraag krijgt een duidelijke fase, reminder en vervolgstap.</p>
+            <ul class="ap-list"><li>Geen offerteaanvragen vergeten</li><li>Planning per seizoen overzichtelijk</li><li>Terugkerend onderhoud makkelijker opvolgen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="kappers">
+            <div class="ap-kicker">Kapperszaken</div>
+            <h3>Meer herhaalbezoeken zonder extra handwerk.</h3>
+            <p>Gebruik Autopilots CRM voor afspraken, reminders, reviewaanvragen en lokale acties.</p>
+            <ul class="ap-list"><li>Minder no-shows</li><li>Automatische terugkommomenten</li><li>Meer reviews na afspraken</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="kozijnen">
+            <div class="ap-kicker">Kozijnen</div>
+            <h3>Offertetrajecten overzichtelijk houden.</h3>
+            <p>Volg aanvragen, inmetingen, offertes en beslismomenten op vanuit &eacute;&eacute;n pipeline.</p>
+            <ul class="ap-list"><li>Sneller opvolgen na inmeting</li><li>Duidelijke status per woning</li><li>Minder omzet die stilvalt</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="vloeren">
+            <div class="ap-kicker">Vloerenleggers</div>
+            <h3>Van showroomlead naar geplande klus.</h3>
+            <p>Breng adviesgesprekken, offertes, planning en nazorg samen, zodat elke aanvraag een duidelijke route krijgt.</p>
+            <ul class="ap-list"><li>Betere opvolging na advies</li><li>Planning en offerte in beeld</li><li>Reviews na oplevering aanvragen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="woningcorporaties">
+            <div class="ap-kicker">Woningcorporaties</div>
+            <h3>Meer structuur in meldingen en opvolging.</h3>
+            <p>Centraliseer bewonersvragen, onderhoudsmeldingen en statusupdates zodat teams sneller en consistenter reageren.</p>
+            <ul class="ap-list"><li>Minder losse meldingen</li><li>Heldere status per aanvraag</li><li>Betere interne overdracht</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="evenementen">
+            <div class="ap-kicker">Evenementen</div>
+            <h3>Aanvragen, gasten en follow-up op orde.</h3>
+            <p>Houd eventaanvragen, offertes, capaciteit en opvolging overzichtelijk vanaf eerste contact tot evaluatie.</p>
+            <ul class="ap-list"><li>Snellere offerteopvolging</li><li>Betere planning per event</li><li>Automatische reminders en nazorg</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="glaszetters">
+            <div class="ap-kicker">Glaszetters</div>
+            <h3>Spoed, offerte en planning gescheiden houden.</h3>
+            <p>Maak direct onderscheid tussen spoedreparaties, maatwerkoffertes en reguliere plaatsingen.</p>
+            <ul class="ap-list"><li>Urgente leads sneller oppakken</li><li>Betere planning met monteurs</li><li>Minder gemiste terugbelacties</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="verzekeraars">
+            <div class="ap-kicker">Verzekeraars</div>
+            <h3>Meer grip op aanvragen en klantmomenten.</h3>
+            <p>Volg adviesaanvragen, polisgesprekken, documenten en opvolging op in een duidelijke klantflow.</p>
+            <ul class="ap-list"><li>Sneller opvolgen van adviesleads</li><li>Meer overzicht per klant</li><li>Minder handmatige reminders</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="tandartsen">
+            <div class="ap-kicker">Tandartsen</div>
+            <h3>Afspraken en pati&euml;ntopvolging rustiger regelen.</h3>
+            <p>Gebruik het CRM voor intake, afspraakreminders, reviews en terugkerende controles.</p>
+            <ul class="ap-list"><li>Minder no-shows</li><li>Meer reviews na behandelingen</li><li>Betere opvolging van nieuwe aanvragen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="hotels">
+            <div class="ap-kicker">Hotels</div>
+            <h3>Meer boekingen uit aanvragen en terugkerende gasten.</h3>
+            <p>Volg groepsaanvragen, arrangementen, reviews en gastcommunicatie op vanuit &eacute;&eacute;n omgeving.</p>
+            <ul class="ap-list"><li>Snellere reactie op aanvragen</li><li>Meer grip op arrangementen</li><li>Reviews en herhaalbezoek stimuleren</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="nonprofit">
+            <div class="ap-kicker">Non-profit</div>
+            <h3>Donateurs, vrijwilligers en campagnes bij elkaar.</h3>
+            <p>Maak opvolging persoonlijker en overzichtelijker zonder dat je team extra administratie krijgt.</p>
+            <ul class="ap-list"><li>Campagnes overzichtelijk volgen</li><li>Vrijwilligers beter informeren</li><li>Donateurs persoonlijk opvolgen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="makelaars">
+            <div class="ap-kicker">Makelaars</div>
+            <h3>Bezichtigingen en verkopersleads strak opvolgen.</h3>
+            <p>Van waardebepaling tot bezichtiging: elke lead krijgt een duidelijke fase en automatische opvolging.</p>
+            <ul class="ap-list"><li>Meer snelheid bij nieuwe leads</li><li>Bezichtigingen beter organiseren</li><li>Nazorg en reviews automatiseren</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="restaurants">
+            <div class="ap-kicker">Restaurants</div>
+            <h3>Reserveringen, acties en reviews slimmer beheren.</h3>
+            <p>Gebruik Autopilots CRM voor reserveringsopvolging, lokale campagnes en terugkerende gasten.</p>
+            <ul class="ap-list"><li>Meer herhaalbezoek stimuleren</li><li>Reviews automatisch opvragen</li><li>Acties beter opvolgen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="dierenverzorging">
+            <div class="ap-kicker">Dierenverzorging</div>
+            <h3>Afspraken en terugkerende zorgmomenten helder houden.</h3>
+            <p>Plan verzorgingsmomenten, reminders en klantopvolging vanuit &eacute;&eacute;n systeem.</p>
+            <ul class="ap-list"><li>Minder gemiste afspraken</li><li>Terugkerende klanten beter opvolgen</li><li>Reviews na bezoek aanvragen</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="klinieken">
+            <div class="ap-kicker">Cosmetische klinieken</div>
+            <h3>Consulten, leads en nazorg professioneel opvolgen.</h3>
+            <p>Breng intake, consultplanning, behandelingstrajecten en reviewaanvragen samen in een rustige flow.</p>
+            <ul class="ap-list"><li>Warme leads sneller opvolgen</li><li>Minder no-shows bij consulten</li><li>Professionele nazorg en reviews</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="autobedrijven">
+            <div class="ap-kicker">Autobedrijven</div>
+            <h3>Meer proefritten en offertegesprekken uit leads.</h3>
+            <p>Volg websiteleads, inruilaanvragen, proefritten en offerteopvolging centraal op.</p>
+            <ul class="ap-list"><li>Sneller reageren op voertuiginteresse</li><li>Proefritten strak plannen</li><li>Meer grip op openstaande deals</li></ul>
+          </div>
+          <div class="ap-niche-panel" data-panel="dierenarts">
+            <div class="ap-kicker">Dierenarts</div>
+            <h3>Afspraken, controles en klantvragen rustiger organiseren.</h3>
+            <p>Centraliseer aanvragen, reminders, controles en reviewmomenten zodat je team minder hoeft te schakelen.</p>
+            <ul class="ap-list"><li>Minder no-shows</li><li>Terugkerende controles opvolgen</li><li>Klantvragen sneller verwerken</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">CRM modules</div>
+          <h2>Alles wat normaal los staat, werkt hier samen.</h2>
+        </div>
+          <p class="ap-section-text">Autopilots CRM vervangt losse puzzelstukjes door &eacute;&eacute;n strak systeem voor leads, content, facturen, automatisering, reviews, agenda en pagina's.</p>
+      </div>
+      <div class="ap-grid-3">
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h10"></path></svg></div>
+          <h3>Social media planner</h3>
+          <p>Plan content voor al je kanalen vanuit &eacute;&eacute;n overzicht en blijf zichtbaar zonder last minute stress.</p>
+          <ul class="ap-list">
+            <li>Contentplanning per kanaal</li>
+            <li>Teamoverzicht zonder losse tools</li>
+            <li>Consistent zichtbaar blijven</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l4 4v14H7z"></path><path d="M17 3v5h5"></path><path d="M10 13h7"></path><path d="M10 17h5"></path></svg></div>
+          <h3>Facturen en offertes</h3>
+          <p>Verstuur sneller, houd betalingen overzichtelijk bij en voorkom dat omzet blijft liggen.</p>
+          <ul class="ap-list">
+            <li>Facturen vanuit &eacute;&eacute;n systeem</li>
+            <li>Openstaande betalingen helder</li>
+            <li>Minder administratie</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M12 2v6"></path><path d="M12 16v6"></path><path d="M4.93 4.93 9.17 9.17"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="M2 12h6"></path><path d="M16 12h6"></path><path d="m4.93 19.07 4.24-4.24"></path><path d="m14.83 9.17 4.24-4.24"></path></svg></div>
+          <h3>Automatiseringen</h3>
+          <p>Zet terugkerende taken op autopilot en voorkom handmatig werk dat tijd en fouten kost.</p>
+          <ul class="ap-list">
+            <li>Sneller reageren op leads</li>
+            <li>Minder fouten in opvolging</li>
+            <li>Processen die blijven draaien</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M7 8h10"></path><path d="M7 12h6"></path><path d="M7 16h8"></path></svg></div>
+          <h3>Funnels en pagina's</h3>
+          <p>Bouw pagina's die leads binnenhalen zonder technische rompslomp of losse builders.</p>
+          <ul class="ap-list">
+            <li>Sneller live met campagnes</li>
+            <li>Landingspagina's per aanbod</li>
+            <li>Conversiegericht ingericht</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"></path></svg></div>
+          <h3>Reviews</h3>
+          <p>Vraag reviews automatisch op het juiste moment en bouw sneller online vertrouwen op.</p>
+          <ul class="ap-list">
+            <li>Minder handmatig najagen</li>
+            <li>Meer geloofwaardigheid</li>
+            <li>Sterkere online zichtbaarheid</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="3"></rect><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path></svg></div>
+          <h3>Agenda beheer</h3>
+          <p>Voorkom dubbele boekingen, gemiste afspraken en eindeloos heen en weer plannen.</p>
+          <ul class="ap-list">
+            <li>Afspraken centraal bij elkaar</li>
+            <li>Beschikbaarheid duidelijk</li>
+            <li>Geen afspraak gemist</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-highlight">
+        <div class="ap-card">
+          <div class="ap-kicker">Minder losse tools</div>
+          <h2>&Eacute;&eacute;n platform voor je commerci&euml;le proces.</h2>
+          <p class="ap-section-text">Veel ondernemers betalen voor meerdere systemen die niet goed samenwerken. Autopilots CRM brengt de belangrijkste functies samen, zodat je team minder hoeft te schakelen.</p>
+        </div>
+        <div class="ap-card ap-card-soft">
+          <h3>Wat je samenbrengt</h3>
+          <ul class="ap-list">
+            <li>CRM en pipeline management</li>
+            <li>E-mailmarketing en automatiseringen</li>
+            <li>Funnel en website builder</li>
+            <li>Booking, afspraken en reminders</li>
+            <li>Reviews, facturen en offertes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div>
+          <div class="ap-kicker">Veelgestelde vragen</div>
+          <h2>Heldere antwoorden voordat je een demo plant.</h2>
+        </div>
+        <p class="ap-section-text">We houden het simpel. Je ziet tijdens de demo hoe het systeem werkt, wat relevant is voor jouw bedrijf en welke inrichting logisch is.</p>
+      </div>
+      <div class="ap-grid-2">
+        <div>
+          <details class="ap-faq" open>
+            <summary>Kan ik altijd opzeggen?<span class="ap-plus">+</span></summary>
+            <div class="ap-faq-content">Ja. Je zit niet vast aan lange contracten en houdt controle over je eigen account en service.</div>
+          </details>
+          <details class="ap-faq">
+            <summary>Zijn mijn gegevens veilig?<span class="ap-plus">+</span></summary>
+            <div class="ap-faq-content">Ja. We werken met beveiligde systemen en gaan zorgvuldig om met klantgegevens, gesprekken en projectdata.</div>
+          </details>
+        </div>
+        <div>
+          <details class="ap-faq">
+            <summary>Hoe snel kan ik aan de slag?<span class="ap-plus">+</span></summary>
+            <div class="ap-faq-content">Het aanmeldproces is snel. Zodra je account klaarstaat, kun je beginnen met inrichten. Veel teams lanceren hun eerste funnel of project al kort na de start.</div>
+          </details>
+          <details class="ap-faq">
+            <summary>Heb ik technische kennis nodig?<span class="ap-plus">+</span></summary>
+            <div class="ap-faq-content">Nee. Autopilots CRM is gebouwd voor dagelijks gebruik. Met templates, duidelijke flows en begeleiding kun je zonder technische achtergrond werken.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-final" id="plan-demo">
+    <div class="ap-container">
+      <div class="ap-final-box">
+        <div class="ap-kicker">Autopilots CRM</div>
+        <h2>Klaar om je leads, opvolging en salesproces strakker te organiseren?</h2>
+        <p class="ap-section-text">Plan een demo gesprek. Dan laten we zien hoe Autopilots CRM jouw funnel, pipeline en automatiseringen samenbrengt in &eacute;&eacute;n helder systeem.</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#contact">Plan demo gesprek</a>
+          <a class="ap-button ap-button-secondary" href="#crm-systeem">Bekijk eerst de modules</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector("#ap-crm-landing");
+    if (!root) return;
+
+    var nicheWrap = root.querySelector("[data-ap-niches]");
+    if (!nicheWrap) return;
+
+    var buttons = nicheWrap.querySelectorAll(".ap-niche-button");
+    var panels = nicheWrap.querySelectorAll(".ap-niche-panel");
+
+    function activateNiche(id) {
+      buttons.forEach(function (button) {
+        var active = button.getAttribute("data-niche") === id;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      panels.forEach(function (panel) {
+        panel.classList.toggle("is-active", panel.getAttribute("data-panel") === id);
+      });
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activateNiche(button.getAttribute("data-niche"));
+      });
+    });
+  })();
+</script>

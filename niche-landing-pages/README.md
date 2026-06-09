@@ -1,0 +1,23 @@
+# Niche landingspagina's
+
+- Dakdekkers: `dakdekkers/autopilots-dakdekkers-landing-ghl-embed.html`
+- Installatietechniek: `installatietechniek/autopilots-installatietechniek-landing-ghl-embed.html`
+- Zonnepanelen: `zonnepanelen/autopilots-zonnepanelen-landing-ghl-embed.html`
+- Kozijnen: `kozijnen/autopilots-kozijnen-landing-ghl-embed.html`
+- Evenementen: `evenementen/autopilots-evenementen-landing-ghl-embed.html`
+- Tandartsen: `tandartsen/autopilots-tandartsen-landing-ghl-embed.html`
+- Makelaars: `makelaars/autopilots-makelaars-landing-ghl-embed.html`
+- Cosmetische klinieken: `cosmetische-klinieken/autopilots-cosmetische-klinieken-landing-ghl-embed.html`
+- Hoveniers: `hoveniers/autopilots-hoveniers-landing-ghl-embed.html`
+- Vloerenleggers: `vloerenleggers/autopilots-vloerenleggers-landing-ghl-embed.html`
+- Glaszetters: `glaszetters/autopilots-glaszetters-landing-ghl-embed.html`
+- Hotels: `hotels/autopilots-hotels-landing-ghl-embed.html`
+- Restaurants: `restaurants/autopilots-restaurants-landing-ghl-embed.html`
+- Autobedrijven: `autobedrijven/autopilots-autobedrijven-landing-ghl-embed.html`
+- Kapperszaken: `kapperszaken/autopilots-kapperszaken-landing-ghl-embed.html`
+- Woningcorporaties: `woningcorporaties/autopilots-woningcorporaties-landing-ghl-embed.html`
+- Verzekeraars: `verzekeraars/autopilots-verzekeraars-landing-ghl-embed.html`
+- Non-profit: `non-profit/autopilots-non-profit-landing-ghl-embed.html`
+- Dierenverzorging: `dierenverzorging/autopilots-dierenverzorging-landing-ghl-embed.html`
+- Dierenarts: `dierenarts/autopilots-dierenarts-landing-ghl-embed.html`
+- Vastgoedbeheerders: `vastgoedbeheerders/autopilots-vastgoedbeheerders-landing-ghl-embed.html`
