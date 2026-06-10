@@ -2161,3 +2161,57 @@ body {
     })();
   </script>
 </div>
+
+<script>
+(function () {
+  var marker = "ap-embed-height-sync-2026-06-10";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function getHeight() {
+    var doc = document.documentElement;
+    var body = document.body;
+    var heights = [
+      doc ? doc.scrollHeight : 0,
+      body ? body.scrollHeight : 0,
+      doc ? doc.offsetHeight : 0,
+      body ? body.offsetHeight : 0,
+      doc ? doc.clientHeight : 0
+    ];
+    return Math.max.apply(Math, heights) + 24;
+  }
+
+  function syncHeight() {
+    if (!window.parent || window.parent === window) return;
+    window.parent.postMessage({
+      type: "autopilots:embed-height",
+      height: getHeight(),
+      path: window.location.pathname
+    }, "*");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncHeight);
+  } else {
+    syncHeight();
+  }
+
+  window.addEventListener("load", syncHeight);
+  window.addEventListener("resize", syncHeight);
+  setTimeout(syncHeight, 250);
+  setTimeout(syncHeight, 1000);
+  setTimeout(syncHeight, 2500);
+
+  if ("ResizeObserver" in window && document.body) {
+    new ResizeObserver(syncHeight).observe(document.body);
+  }
+
+  if ("MutationObserver" in window) {
+    new MutationObserver(syncHeight).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
+  }
+})();
+</script>

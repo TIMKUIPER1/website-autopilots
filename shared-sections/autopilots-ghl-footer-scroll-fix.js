@@ -1,5 +1,5 @@
 (function () {
-  var marker = "apGhlIframeHeightFix20260610d";
+  var marker = "apGhlIframeHeightFix20260610e";
   if (window[marker]) return;
   window[marker] = true;
 
@@ -10,6 +10,17 @@
 
   function getAutopilotsFrames() {
     return Array.prototype.slice.call(document.querySelectorAll(autopilotsFrameSelector));
+  }
+
+  function getFallbackHeight(frame) {
+    var src = (frame && frame.getAttribute("src") || "").toLowerCase();
+    if (src.indexOf("autopilots-crm") !== -1 || src.indexOf("crm-landing-page") !== -1) return 5600;
+    if (src.indexOf("homepage") !== -1 || src.indexOf("home-landing-page") !== -1) return 7800;
+    if (src.indexOf("niche-landing-pages") !== -1) return 7600;
+    if (src.indexOf("leadsmachine") !== -1) return 7200;
+    if (src.indexOf("privacy-policy") !== -1) return 3600;
+    if (src.indexOf("voice-agent-bedankt") !== -1) return 4200;
+    return 6200;
   }
 
   function prepareAutopilotsFrame(frame) {
@@ -23,7 +34,7 @@
     frame.style.setProperty("min-height", "0", "important");
 
     if (!frame.style.height || frame.style.height === "auto") {
-      frame.style.setProperty("height", "1400px", "important");
+      frame.style.setProperty("height", getFallbackHeight(frame) + "px", "important");
     }
   }
 
