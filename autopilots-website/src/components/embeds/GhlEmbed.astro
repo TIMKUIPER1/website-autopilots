@@ -1,0 +1,61 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  minHeight?: number;
+  id?: string;
+  note?: string;
+}
+
+const {
+  src,
+  title,
+  minHeight = 640,
+  id = "ap-ghl-embed",
+  note = "De afspraakmodule wordt geladen. Werkt dit niet goed, neem direct contact op met Autopilots."
+} = Astro.props;
+---
+
+<div class="ap-embed-card">
+  <iframe
+    id={id}
+    src={src}
+    title={title}
+    loading="lazy"
+    scrolling="no"
+    style={`min-height:${minHeight}px`}
+  ></iframe>
+  <p>{note}</p>
+</div>
+
+<style>
+  .ap-embed-card {
+    overflow: hidden;
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  .ap-embed-card iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: var(--ap-card);
+  }
+
+  .ap-embed-card p {
+    border-top: 1px solid var(--ap-line);
+    padding: 12px 16px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  @media (max-width: 720px) {
+    .ap-embed-card {
+      border-radius: 24px;
+    }
+  }
+</style>

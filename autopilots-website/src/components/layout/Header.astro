@@ -1,0 +1,95 @@
+---
+const nav = [
+  { label: "Diensten", href: "/#diensten" },
+  { label: "Branches", href: "/#branches" },
+  { label: "Klantenmachine", href: "/#klantenmachine" },
+  { label: "Proces", href: "/#proces" },
+  { label: "Contact", href: "/contact/" }
+];
+---
+
+<header class="ap-header">
+  <div class="ap-container ap-header-inner">
+    <a class="ap-logo" href="/" aria-label="Autopilots home">AUTOPILOTS</a>
+    <nav class="ap-nav" aria-label="Hoofdnavigatie">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a class="ap-button ap-button-primary ap-header-cta" href="/contact/">Plan afspraak</a>
+  </div>
+</header>
+
+<style>
+  .ap-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(245, 245, 242, 0.88);
+    backdrop-filter: blur(16px);
+  }
+
+  .ap-header-inner {
+    display: flex;
+    min-height: 74px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .ap-logo {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .ap-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--ap-line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: 6px;
+  }
+
+  .ap-nav a {
+    border-radius: 999px;
+    padding: 10px 12px;
+    color: var(--ap-muted);
+    font-size: 13px;
+    font-weight: 850;
+    transition: background 180ms ease, color 180ms ease;
+  }
+
+  .ap-nav a:hover {
+    background: var(--ap-soft-2);
+    color: var(--ap-text);
+  }
+
+  .ap-header-cta {
+    min-height: 42px;
+    padding: 12px 18px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 820px) {
+    .ap-header-inner {
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    .ap-nav {
+      order: 3;
+      width: 100%;
+      justify-content: flex-start;
+      overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .ap-header-cta {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,159 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  accent?: string;
+  text: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  chips?: string[];
+}
+
+const {
+  eyebrow,
+  title,
+  accent,
+  text,
+  primaryLabel = "Plan een afspraak",
+  primaryHref = "/contact/",
+  secondaryLabel = "Bekijk hoe het werkt",
+  secondaryHref = "#systeem",
+  chips = []
+} = Astro.props;
+---
+
+<section class="ap-hero">
+  <div class="ap-container">
+    <div class="ap-hero-grid">
+      <div class="ap-hero-copy">
+        <div class="ap-eyebrow">{eyebrow}</div>
+        <h1 class="ap-page-title">
+          {title}
+          {accent && <span class="ap-accent"> {accent}</span>}
+        </h1>
+        <p class="ap-lead">{text}</p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href={primaryHref}>{primaryLabel}</a>
+          <a class="ap-button ap-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+        </div>
+        {chips.length > 0 && (
+          <div class="ap-chip-row">
+            {chips.map((chip) => <span class="ap-chip">{chip}</span>)}
+          </div>
+        )}
+      </div>
+      <div class="ap-hero-panel" aria-label="Autopilots proces">
+        <div class="ap-mini-flow">
+          <div class="ap-flow-row"><span>01</span><strong>Lead komt binnen</strong><em>Website, ads of telefoon</em></div>
+          <div class="ap-flow-row"><span>02</span><strong>AI kwalificeert</strong><em>Context, behoefte en timing</em></div>
+          <div class="ap-flow-row"><span>03</span><strong>Afspraak gepland</strong><em>Direct in agenda en CRM</em></div>
+          <div class="ap-flow-row"><span>04</span><strong>Opvolging loopt</strong><em>Geen kans blijft liggen</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ap-hero {
+    padding: 66px 0 54px;
+  }
+
+  .ap-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .ap-hero-copy {
+    padding-top: 28px;
+  }
+
+  .ap-hero-panel {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    border: 1px solid var(--ap-line);
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    padding: 28px;
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.09);
+  }
+
+  .ap-hero-panel::after {
+    content: "";
+    position: absolute;
+    right: -80px;
+    bottom: -100px;
+    width: 280px;
+    height: 280px;
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.28);
+    filter: blur(26px);
+  }
+
+  .ap-mini-flow {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 12px;
+  }
+
+  .ap-flow-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 16px;
+  }
+
+  .ap-flow-row span {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 17px;
+    background: var(--ap-white);
+    color: var(--ap-brown);
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .ap-flow-row strong,
+  .ap-flow-row em {
+    display: block;
+    font-style: normal;
+  }
+
+  .ap-flow-row strong {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  .ap-flow-row em {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 650;
+  }
+
+  @media (max-width: 920px) {
+    .ap-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ap-hero-panel {
+      min-height: auto;
+    }
+  }
+</style>

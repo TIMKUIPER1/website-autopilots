@@ -1,0 +1,78 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="ap-footer">
+  <div class="ap-container">
+    <div class="ap-footer-box">
+      <div>
+        <div class="ap-kicker">Autopilots</div>
+        <h2 class="ap-section-title">AI medewerkers voor sales, support en opvolging.</h2>
+      </div>
+      <div class="ap-footer-links">
+        <a href="/#diensten">Diensten</a>
+        <a href="/#branches">Branches</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+    <p class="ap-footer-small">© {year} Autopilots. Gebouwd als systeem, niet als losse marketing.</p>
+  </div>
+</footer>
+
+<style>
+  .ap-footer {
+    padding: 42px 0 34px;
+  }
+
+  .ap-footer-box {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: end;
+    border: 1px solid var(--ap-line);
+    border-radius: 34px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    padding: 42px;
+  }
+
+  .ap-footer-box .ap-kicker {
+    color: #e4a092;
+    margin-bottom: 16px;
+  }
+
+  .ap-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .ap-footer-links a {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 11px 13px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 13px;
+    font-weight: 850;
+  }
+
+  .ap-footer-small {
+    margin-top: 18px;
+    color: var(--ap-muted);
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  @media (max-width: 760px) {
+    .ap-footer-box {
+      grid-template-columns: 1fr;
+      padding: 28px;
+    }
+
+    .ap-footer-links {
+      justify-content: flex-start;
+    }
+  }
+</style>
