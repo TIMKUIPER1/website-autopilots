@@ -1276,6 +1276,20 @@ body {
 .ap-section-head > :not(:first-child){margin-top:18px!important;}
 .ap-section-head .ap-section-text{max-width:760px!important;}
 .ap-section-head .ap-kicker{display:inline-flex!important;margin-bottom:16px!important;line-height:1.2!important;}
+
+/* ap-team-slider-control-2026-06 */
+.ap-team-shell{position:relative;overflow:hidden;}
+.ap-team-slider{cursor:grab;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;user-select:none;touch-action:pan-x;}
+.ap-team-slider::-webkit-scrollbar{display:none;}
+.ap-team-slider.is-dragging{cursor:grabbing;scroll-snap-type:none!important;scroll-behavior:auto;}
+.ap-team-slider.is-dragging .ap-team-card{pointer-events:none;}
+.ap-team-card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+.ap-team-card:hover{transform:translateY(-2px);border-color:rgba(159,56,38,.22);box-shadow:0 16px 36px rgba(17,17,17,.08);}
+.ap-slider-controls{display:flex!important;justify-content:center;align-items:center;gap:10px;margin-top:18px;}
+.ap-slider-button{width:44px!important;height:44px!important;border-radius:999px!important;border:1px solid var(--ap-line)!important;background:var(--ap-card,#fff)!important;color:var(--ap-text,#111)!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;font-size:18px!important;font-weight:900!important;line-height:1!important;transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease,opacity .18s ease;}
+.ap-slider-button:hover{transform:translateY(-1px);background:var(--ap-black,#111)!important;color:var(--ap-white,#fff)!important;border-color:var(--ap-black,#111)!important;}
+.ap-slider-button:disabled{opacity:.34!important;cursor:not-allowed!important;transform:none!important;background:var(--ap-card,#fff)!important;color:var(--ap-muted,#656565)!important;border-color:var(--ap-line)!important;}
+
 </style>
 
 <div id="ap-property">
@@ -1925,5 +1939,122 @@ body {
   if ("ResizeObserver" in window) {
     new ResizeObserver(syncHeight).observe(document.body);
   }
+})();
+</script>
+
+
+<script>
+(function () {
+  var marker = "ap-team-slider-control-2026-06";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function getStep(slider) {
+    var card = slider.querySelector(".ap-team-card");
+    if (!card) return Math.max(260, Math.round(slider.clientWidth * 0.75));
+    var style = window.getComputedStyle(slider);
+    var gap = parseFloat(style.columnGap || style.gap || "14") || 14;
+    return Math.round(card.getBoundingClientRect().width + gap);
+  }
+
+  function getControls(slider) {
+    var shell = slider.closest(".ap-team-shell") || slider.parentElement || document;
+    return {
+      prev: shell.querySelector('[data-ap-slide-prev="team"]'),
+      next: shell.querySelector('[data-ap-slide-next="team"]')
+    };
+  }
+
+  function updateControls(slider) {
+    var controls = getControls(slider);
+    var max = Math.max(0, slider.scrollWidth - slider.clientWidth - 2);
+    if (controls.prev) controls.prev.disabled = slider.scrollLeft <= 2;
+    if (controls.next) controls.next.disabled = slider.scrollLeft >= max;
+  }
+
+  function move(slider, direction) {
+    slider.scrollBy({ left: direction * getStep(slider) * 2, behavior: "smooth" });
+    window.setTimeout(function () { updateControls(slider); }, 320);
+  }
+
+  function setupSlider(slider) {
+    if (!slider || slider.dataset.apTeamSliderReady === "true") return;
+    slider.dataset.apTeamSliderReady = "true";
+    if (!slider.hasAttribute("tabindex")) slider.setAttribute("tabindex", "0");
+    if (!slider.hasAttribute("role")) slider.setAttribute("role", "region");
+    if (!slider.hasAttribute("aria-label")) slider.setAttribute("aria-label", "Autopilots team slider");
+
+    var controls = getControls(slider);
+    [controls.prev, controls.next].forEach(function (button) {
+      if (!button || button.dataset.apTeamButtonReady === "true") return;
+      button.dataset.apTeamButtonReady = "true";
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        move(slider, button.hasAttribute("data-ap-slide-prev") ? -1 : 1);
+      }, true);
+    });
+
+    var isDown = false;
+    var startX = 0;
+    var startScroll = 0;
+    var hasMoved = false;
+
+    slider.addEventListener("pointerdown", function (event) {
+      if (event.button !== 0) return;
+      isDown = true;
+      hasMoved = false;
+      startX = event.clientX;
+      startScroll = slider.scrollLeft;
+      slider.classList.add("is-dragging");
+      if (slider.setPointerCapture) slider.setPointerCapture(event.pointerId);
+    });
+
+    slider.addEventListener("pointermove", function (event) {
+      if (!isDown) return;
+      var dx = event.clientX - startX;
+      if (Math.abs(dx) > 4) hasMoved = true;
+      slider.scrollLeft = startScroll - dx;
+      updateControls(slider);
+    });
+
+    function endDrag(event) {
+      if (!isDown) return;
+      isDown = false;
+      slider.classList.remove("is-dragging");
+      if (slider.releasePointerCapture) {
+        try { slider.releasePointerCapture(event.pointerId); } catch (error) {}
+      }
+      if (hasMoved) {
+        var step = getStep(slider);
+        slider.scrollTo({ left: Math.round(slider.scrollLeft / step) * step, behavior: "smooth" });
+      }
+      window.setTimeout(function () { updateControls(slider); }, 260);
+    }
+
+    slider.addEventListener("pointerup", endDrag);
+    slider.addEventListener("pointercancel", endDrag);
+    slider.addEventListener("mouseleave", function (event) { if (isDown) endDrag(event); });
+    slider.addEventListener("scroll", function () { window.requestAnimationFrame(function () { updateControls(slider); }); }, { passive: true });
+    slider.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        move(slider, event.key === "ArrowLeft" ? -1 : 1);
+      }
+    });
+
+    updateControls(slider);
+  }
+
+  function initTeamSliders() {
+    document.querySelectorAll(".ap-team-slider").forEach(setupSlider);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTeamSliders);
+  } else {
+    initTeamSliders();
+  }
+  window.addEventListener("resize", initTeamSliders);
 })();
 </script>

@@ -125,6 +125,20 @@ body {
 .ap-section-head > :not(:first-child){margin-top:18px!important;}
 .ap-section-head .ap-section-text{max-width:760px!important;}
 .ap-section-head .ap-kicker{display:inline-flex!important;margin-bottom:16px!important;line-height:1.2!important;}
+
+/* ap-team-slider-control-2026-06 */
+.ap-team-shell{position:relative;overflow:hidden;}
+.ap-team-slider{cursor:grab;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;user-select:none;touch-action:pan-x;}
+.ap-team-slider::-webkit-scrollbar{display:none;}
+.ap-team-slider.is-dragging{cursor:grabbing;scroll-snap-type:none!important;scroll-behavior:auto;}
+.ap-team-slider.is-dragging .ap-team-card{pointer-events:none;}
+.ap-team-card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+.ap-team-card:hover{transform:translateY(-2px);border-color:rgba(159,56,38,.22);box-shadow:0 16px 36px rgba(17,17,17,.08);}
+.ap-slider-controls{display:flex!important;justify-content:center;align-items:center;gap:10px;margin-top:18px;}
+.ap-slider-button{width:44px!important;height:44px!important;border-radius:999px!important;border:1px solid var(--ap-line)!important;background:var(--ap-card,#fff)!important;color:var(--ap-text,#111)!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;font-size:18px!important;font-weight:900!important;line-height:1!important;transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease,opacity .18s ease;}
+.ap-slider-button:hover{transform:translateY(-1px);background:var(--ap-black,#111)!important;color:var(--ap-white,#fff)!important;border-color:var(--ap-black,#111)!important;}
+.ap-slider-button:disabled{opacity:.34!important;cursor:not-allowed!important;transform:none!important;background:var(--ap-card,#fff)!important;color:var(--ap-muted,#656565)!important;border-color:var(--ap-line)!important;}
+
 </style>
 <div class="ap-agent" id="ap-support"><section class="ap-hero"><div class="ap-container"><div class="ap-center"><div class="ap-eyebrow">Autopilots Support</div><h1>Wij bouwen niet alleen, we ondersteunen.</h1><p class="ap-lead">We zorgen voor een naadloze landing in je bedrijfsvoering en blijven aan boord om de machine scherp te houden.</p><div class="ap-actions"><a class="ap-button ap-button-primary" href="#supportformulier">Support aanvragen</a><a class="ap-button ap-button-secondary" href="#demo">Open kennisbank</a></div></div><div class="ap-hero-grid"><div class="ap-demo"><div class="ap-mini-flow"><div class="ap-flow-row"><div class="ap-node">IMP</div><div><strong>Implementatie</strong><span>Agents, CRM en koppelingen live zetten</span></div><div class="ap-status">start</div></div><div class="ap-flow-row"><div class="ap-node">MON</div><div><strong>Monitoring</strong><span>Prestaties en flows bewaken</span></div><div class="ap-status">24/7</div></div><div class="ap-flow-row"><div class="ap-node">UPD</div><div><strong>Kennis updates</strong><span>Prijzen, diensten en scripts bijwerken</span></div><div class="ap-status">snel</div></div><div class="ap-flow-row"><div class="ap-node">HUM</div><div><strong>Menselijke back-up</strong><span>Vaste experts denken mee</span></div><div class="ap-status">persoonlijk</div></div></div></div><div class="ap-card"><div class="ap-kicker">Autopilots</div><h3>Gebouwd als werkend proces, niet als losse tool.</h3><p>We koppelen de agent aan je kanalen, agenda, CRM en opvolging. Zo werkt de AI mee in je bestaande bedrijf in plaats van ernaast.</p><div class="ap-actions" style="justify-content:flex-start"><a class="ap-button ap-button-primary" href="#supportformulier">Support aanvragen</a></div></div></div></div></section><section class="ap-section"><div class="ap-container"><div class="ap-logo-wrap"><p>We integreren naadloos met jullie systemen.</p><div class="ap-logo-slider" aria-label="Systemen waarmee Autopilots kan koppelen"><div class="ap-logo-track"><div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt="Exact Online"></div><div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt="Zendesk"></div><div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt="Solvari"></div><div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt="HubSpot"></div><div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt="Zoho"></div><div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt="Monday"></div><div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt="Google Calendar"></div><div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt="Outlook Calendar"></div><div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt="Trustoo"></div><div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt="Moneybird"></div><div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt="Calendly"></div><div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt="Blox"></div><div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt="Odoo"></div><div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt="Robaws"></div><div class="ap-logo-item"><img src="assets/connecties-black/1.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/2.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/3.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/4.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/5.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/6.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/7.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/8.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/9.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/10.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/11.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/12.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/13.png" alt=""></div><div class="ap-logo-item"><img src="assets/connecties-black/14.png" alt=""></div></div></div></div></div></section><section class="ap-section"><div class="ap-container"><div class="ap-dark-band"><div class="ap-problem-grid"><div><div class="ap-kicker">Hier begint het te knellen</div><h2>Goede support begint met de juiste context.</h2><p>Daarom maken we direct duidelijk wie je nodig hebt en wat handig is om mee te sturen.</p></div><div class="ap-process-list"><div class="ap-process-item"><span class="ap-step-number">01</span><div><h3>Onduidelijke ingang</h3><p>Niet elke vraag hoort bij dezelfde persoon of hetzelfde proces.</p></div></div><div class="ap-process-item"><span class="ap-step-number">02</span><div><h3>Te weinig context</h3><p>Zonder dienst, urgentie en voorbeeld kost support meer tijd.</p></div></div><div class="ap-process-item"><span class="ap-step-number">03</span><div><h3>Spoed moet sneller</h3><p>Als klantcontact vastloopt, wil je direct schakelen.</p></div></div><div class="ap-process-item"><span class="ap-step-number">04</span><div><h3>De juiste expert moet meekijken</h3><p>Voice, Chat, Planning, Follow Up, Leadsmachine en CRM vragen elk om andere context.</p></div></div></div></div></div></div></section><section class="ap-section"><div class="ap-container"><div class="ap-section-head"><div><div class="ap-kicker">Autopilots Support</div><h2>Wat deze AI medewerker overneemt.</h2></div><p class="ap-section-text">Praktische onderdelen die direct verschil maken in snelheid, consistentie en administratie.</p></div><div class="ap-grid-4"><div class="ap-card"><div class="ap-feature-icon">IMP</div><h3>Implementatie</h3><p>Wij doen de heavy lifting van bouw tot koppelingen.</p></div><div class="ap-card"><div class="ap-feature-icon">SUP</div><h3>Doorlopende support</h3><p>Vragen, aanpassingen en optimalisaties blijven lopen.</p></div><div class="ap-card"><div class="ap-feature-icon">MON</div><h3>Proactieve monitoring</h3><p>We bewaken prestaties en grijpen in bij haperingen.</p></div><div class="ap-card"><div class="ap-feature-icon">KB</div><h3>Kennis updates</h3><p>Nieuwe informatie wordt verwerkt in je agent.</p></div><div class="ap-card"><div class="ap-feature-icon">HUM</div><h3>Menselijke back-up</h3><p>Je hebt contact met een vaste expert.</p></div><div class="ap-card"><div class="ap-feature-icon">FLOW</div><h3>Flow optimalisatie</h3><p>Gesprekken worden beter op basis van praktijkdata.</p></div><div class="ap-card"><div class="ap-feature-icon">CRM</div><h3>CRM hulp</h3><p>Pipelines, velden en automatiseringen blijven netjes.</p></div><div class="ap-card"><div class="ap-feature-icon">REP</div><h3>Rapportage</h3><p>Inzicht in gebruik, kansen en verbeterpunten.</p></div></div></div></section>
 <section class="ap-section" id="supportformulier"><div class="ap-container"><div class="ap-section-head"><div><div class="ap-kicker">Support aanvragen</div><h2>Vertel wat er speelt, dan komt het direct goed binnen.</h2></div><p class="ap-section-text">Kies je dienst, urgentie en voeg context toe. De pagina maakt een complete supportmail klaar, zodat wij sneller kunnen schakelen.</p></div><div class="ap-interactive-routes"><div class="ap-choice-panel"><button class="ap-choice-card is-active" type="button" data-support-service="Voice AI"><strong>Voice AI</strong><span>Telefonie, doorschakeling, scripts of gesprekslogs.</span></button><button class="ap-choice-card" type="button" data-support-service="Chat AI"><strong>Chat AI</strong><span>Websitechat, WhatsApp, DM of AI Brein.</span></button><button class="ap-choice-card" type="button" data-support-service="Planning AI"><strong>Planning AI</strong><span>Agenda, routes, capaciteit of reminders.</span></button><button class="ap-choice-card" type="button" data-support-service="Leadsmachine AI"><strong>Leadsmachine AI</strong><span>Campagnes, opvolging, retargeting of rapportage.</span></button><button class="ap-choice-card" type="button" data-support-service="Autopilots CRM"><strong>Autopilots CRM</strong><span>Pipelines, formulieren, funnels of automatiseringen.</span></button></div><div class="ap-card ap-contact-form-card"><h3 data-support-title>Support voor Voice AI</h3><p data-support-copy>Voeg het telefoonnummer, voorbeeldgesprek of gewenste wijziging toe. Hoe concreter, hoe sneller we kunnen helpen.</p><div class="ap-form-status-row"><div class="ap-status-card"><strong>Dienst</strong><span data-support-service-out>Voice AI</span></div><div class="ap-status-card"><strong>Urgentie</strong><span data-support-urgency-out>Normaal</span></div><div class="ap-status-card"><strong>Route</strong><span>Supportmail</span></div></div><div class="ap-form-grid" style="margin-top:18px"><input type="hidden" data-support-service-input value="Voice AI"><label><span class="ap-field-label">Urgentie</span><select data-support-urgency><option>Normaal</option><option>Hoog</option><option>Spoed</option></select></label><label><span class="ap-field-label">Naam</span><input class="ap-input" data-support-name placeholder="Naam" autocomplete="name"></label><label><span class="ap-field-label">Bedrijf</span><input class="ap-input" data-support-company placeholder="Bedrijf" autocomplete="organization"></label><label><span class="ap-field-label">E-mail</span><input class="ap-input" data-support-email placeholder="E-mail" autocomplete="email"></label><label><span class="ap-field-label">Wat moeten we weten?</span><textarea data-support-message placeholder="Beschrijf kort wat er speelt. Voeg bijvoorbeeld klantnaam, kanaal, screenshot of foutmelding toe."></textarea></label><div class="ap-form-actions"><button class="ap-button ap-button-primary" type="button" data-support-mail>Maak supportmail klaar</button><a class="ap-button ap-button-secondary" href="mailto:tim@auto-pilots.io?subject=Supportvraag%20Autopilots">Mail direct</a></div><div class="ap-live-note" data-support-output>Kies je dienst en urgentie. Daarna maken we een complete supportmail klaar.</div></div></div></div></div></section>
@@ -147,3 +161,120 @@ body {
 
 <script>(function(){var root=document.getElementById('ap-support');if(!root)return;var serviceCopy={'Voice AI':'Voeg het telefoonnummer, voorbeeldgesprek of gewenste wijziging toe. Hoe concreter, hoe sneller we kunnen helpen.','Chat AI':'Stuur het kanaal mee, de vraag van de klant en wat de AI had moeten antwoorden of doen.','Planning AI':'Geef de afspraak, regio, agenda of route mee waar we naar moeten kijken.','Leadsmachine AI':'Stuur campagne, leadbron, funnelstap of voorbeeldlead mee zodat we gericht kunnen meekijken.','Autopilots CRM':'Noem pipeline, formulier, funnel of automatisering waar de vraag over gaat.'};var serviceInput=root.querySelector('[data-support-service-input]'),serviceOut=root.querySelector('[data-support-service-out]'),title=root.querySelector('[data-support-title]'),copy=root.querySelector('[data-support-copy]');root.querySelectorAll('[data-support-service]').forEach(function(btn){btn.addEventListener('click',function(){var service=btn.getAttribute('data-support-service');root.querySelectorAll('[data-support-service]').forEach(function(b){b.classList.remove('is-active');});btn.classList.add('is-active');if(serviceInput)serviceInput.value=service;if(serviceOut)serviceOut.textContent=service;if(title)title.textContent='Support voor '+service;if(copy)copy.textContent=serviceCopy[service]||'Beschrijf kort wat er speelt, dan kijken we mee.';});});var urgency=root.querySelector('[data-support-urgency]'),urgencyOut=root.querySelector('[data-support-urgency-out]');urgency&&urgency.addEventListener('change',function(){if(urgencyOut)urgencyOut.textContent=urgency.value;});var btn=root.querySelector('[data-support-mail]'),out=root.querySelector('[data-support-output]');btn&&btn.addEventListener('click',function(){var service=(serviceInput&&serviceInput.value)||'Support',u=(urgency&&urgency.value)||'Normaal',name=root.querySelector('[data-support-name]').value.trim(),company=root.querySelector('[data-support-company]').value.trim(),email=root.querySelector('[data-support-email]').value.trim(),msg=root.querySelector('[data-support-message]').value.trim();var body=encodeURIComponent('Dienst: '+service+'\nUrgentie: '+u+'\nNaam: '+name+'\nBedrijf: '+company+'\nE-mail: '+email+'\n\nContext:\n'+msg);var subject=encodeURIComponent('Supportvraag '+service+' - '+u);window.location.href='mailto:tim@auto-pilots.io?subject='+subject+'&body='+body;if(out)out.textContent='Je mailprogramma wordt geopend met een complete supportaanvraag.';});})();</script>
 <script>(function(){var root=document.getElementById('ap-support');if(!root)return;var out=root.querySelector('[data-kb-output]');if(!out)return;var data={voice:[['Wordt elke oproep opgenomen?','De Voice AI neemt op volgens de ingestelde openingstijden of 24/7, afhankelijk van je inrichting.'],['Waar komen gespreksnotities terecht?','Samenvattingen, klantgegevens en acties worden in het gekoppelde CRM vastgelegd.'],['Wanneer neemt een mens het over?','Bij spoed, twijfel of vooraf ingestelde situaties kan de AI direct escaleren.']],chat:[['Kan Chat AI WhatsApp en websitechat aan?','Ja, de agent kan meerdere chatkanalen ondersteunen met dezelfde kennisbank.'],['Kan hij afspraken plannen?','Ja, als de agenda gekoppeld is kan de chat direct beschikbare tijden voorstellen.'],['Wat als de AI het niet zeker weet?','Dan vraagt hij door of zet hij het gesprek door naar je team.']],leadsmachine:[['Wat meet Leadsmachine AI?','Niet alleen leads, maar afspraken, klanten, omzet en opvolging.'],['Werkt dit met bestaande campagnes?','Ja, we kunnen aansluiten op bestaande Meta, Google, LinkedIn of CRM-flows.'],['Hoe snel volgt de AI op?','Nieuwe leads kunnen binnen seconden worden opgevolgd via het juiste kanaal.']],crm:[['Wat zit er in Autopilots CRM?','Pipelines, funnels, formulieren, afspraken, automatiseringen en communicatie.'],['Kunnen bestaande tools gekoppeld worden?','Ja, we koppelen waar logisch met agenda, mail, boekhouding en leadbronnen.'],['Kan ik later aanpassen?','Ja, flows en velden kunnen worden doorontwikkeld op basis van je proces.']]};function render(key){out.innerHTML=data[key].map(function(q,i){return '<details '+(i===0?'open':'')+'><summary>'+q[0]+'</summary><p>'+q[1]+'</p></details>';}).join('');}root.querySelectorAll('[data-kb-tab]').forEach(function(btn){btn.addEventListener('click',function(){render(btn.getAttribute('data-kb-tab'));});});render('voice');})();</script>
+
+
+<script>
+(function () {
+  var marker = "ap-team-slider-control-2026-06";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function getStep(slider) {
+    var card = slider.querySelector(".ap-team-card");
+    if (!card) return Math.max(260, Math.round(slider.clientWidth * 0.75));
+    var style = window.getComputedStyle(slider);
+    var gap = parseFloat(style.columnGap || style.gap || "14") || 14;
+    return Math.round(card.getBoundingClientRect().width + gap);
+  }
+
+  function getControls(slider) {
+    var shell = slider.closest(".ap-team-shell") || slider.parentElement || document;
+    return {
+      prev: shell.querySelector('[data-ap-slide-prev="team"]'),
+      next: shell.querySelector('[data-ap-slide-next="team"]')
+    };
+  }
+
+  function updateControls(slider) {
+    var controls = getControls(slider);
+    var max = Math.max(0, slider.scrollWidth - slider.clientWidth - 2);
+    if (controls.prev) controls.prev.disabled = slider.scrollLeft <= 2;
+    if (controls.next) controls.next.disabled = slider.scrollLeft >= max;
+  }
+
+  function move(slider, direction) {
+    slider.scrollBy({ left: direction * getStep(slider) * 2, behavior: "smooth" });
+    window.setTimeout(function () { updateControls(slider); }, 320);
+  }
+
+  function setupSlider(slider) {
+    if (!slider || slider.dataset.apTeamSliderReady === "true") return;
+    slider.dataset.apTeamSliderReady = "true";
+    if (!slider.hasAttribute("tabindex")) slider.setAttribute("tabindex", "0");
+    if (!slider.hasAttribute("role")) slider.setAttribute("role", "region");
+    if (!slider.hasAttribute("aria-label")) slider.setAttribute("aria-label", "Autopilots team slider");
+
+    var controls = getControls(slider);
+    [controls.prev, controls.next].forEach(function (button) {
+      if (!button || button.dataset.apTeamButtonReady === "true") return;
+      button.dataset.apTeamButtonReady = "true";
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        move(slider, button.hasAttribute("data-ap-slide-prev") ? -1 : 1);
+      }, true);
+    });
+
+    var isDown = false;
+    var startX = 0;
+    var startScroll = 0;
+    var hasMoved = false;
+
+    slider.addEventListener("pointerdown", function (event) {
+      if (event.button !== 0) return;
+      isDown = true;
+      hasMoved = false;
+      startX = event.clientX;
+      startScroll = slider.scrollLeft;
+      slider.classList.add("is-dragging");
+      if (slider.setPointerCapture) slider.setPointerCapture(event.pointerId);
+    });
+
+    slider.addEventListener("pointermove", function (event) {
+      if (!isDown) return;
+      var dx = event.clientX - startX;
+      if (Math.abs(dx) > 4) hasMoved = true;
+      slider.scrollLeft = startScroll - dx;
+      updateControls(slider);
+    });
+
+    function endDrag(event) {
+      if (!isDown) return;
+      isDown = false;
+      slider.classList.remove("is-dragging");
+      if (slider.releasePointerCapture) {
+        try { slider.releasePointerCapture(event.pointerId); } catch (error) {}
+      }
+      if (hasMoved) {
+        var step = getStep(slider);
+        slider.scrollTo({ left: Math.round(slider.scrollLeft / step) * step, behavior: "smooth" });
+      }
+      window.setTimeout(function () { updateControls(slider); }, 260);
+    }
+
+    slider.addEventListener("pointerup", endDrag);
+    slider.addEventListener("pointercancel", endDrag);
+    slider.addEventListener("mouseleave", function (event) { if (isDown) endDrag(event); });
+    slider.addEventListener("scroll", function () { window.requestAnimationFrame(function () { updateControls(slider); }); }, { passive: true });
+    slider.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        move(slider, event.key === "ArrowLeft" ? -1 : 1);
+      }
+    });
+
+    updateControls(slider);
+  }
+
+  function initTeamSliders() {
+    document.querySelectorAll(".ap-team-slider").forEach(setupSlider);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTeamSliders);
+  } else {
+    initTeamSliders();
+  }
+  window.addEventListener("resize", initTeamSliders);
+})();
+</script>
