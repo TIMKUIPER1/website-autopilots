@@ -23,7 +23,7 @@ Als de live website na helemaal naar beneden scrollen de voettekst vast laat sta
 
 ```html
 <script
-  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610">
+  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610b">
 </script>
 ```
 

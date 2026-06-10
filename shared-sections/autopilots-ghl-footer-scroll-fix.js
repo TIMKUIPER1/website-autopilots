@@ -1,5 +1,5 @@
 (function () {
-  var marker = "apGhlFooterScrollFix20260610";
+  var marker = "apGhlFooterScrollFix20260610b";
   if (window[marker]) return;
   window[marker] = true;
 
@@ -41,6 +41,7 @@
   function unlockFooterElement(element) {
     if (!element || isWidget(element)) return;
 
+    element.setAttribute("data-ap-footer-scroll-fixed", "true");
     element.style.setProperty("position", "relative", "important");
     element.style.setProperty("top", "auto", "important");
     element.style.setProperty("right", "auto", "important");
@@ -49,6 +50,54 @@
     element.style.setProperty("transform", "none", "important");
     element.style.setProperty("z-index", "1", "important");
     element.style.setProperty("contain", "layout paint", "important");
+  }
+
+  function isAtRealPageBottom() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var viewportBottom = scrollTop + window.innerHeight;
+    var pageHeight = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+
+    return viewportBottom >= pageHeight - 36;
+  }
+
+  function setFooterVisibility(element) {
+    if (!element || isWidget(element)) return;
+
+    var atBottom = isAtRealPageBottom();
+    element.style.setProperty("visibility", atBottom ? "visible" : "hidden", "important");
+    element.style.setProperty("opacity", atBottom ? "1" : "0", "important");
+    element.style.setProperty("pointer-events", atBottom ? "auto" : "none", "important");
+  }
+
+  function getFooterLayer(element) {
+    var current = element;
+    var best = element;
+    var depth = 0;
+
+    while (current && current !== document.body && depth < 7) {
+      if (isWidget(current)) break;
+
+      var rect = current.getBoundingClientRect();
+      var style = window.getComputedStyle(current);
+      var wideEnough = rect.width >= window.innerWidth * 0.45;
+      var fixedLike = style.position === "fixed" || style.position === "sticky";
+      var footerNamed = classLooksLikeFooter(current);
+
+      if ((wideEnough && textLooksLikeFooter(current)) || fixedLike || footerNamed) {
+        best = current;
+      }
+
+      current = current.parentElement;
+      depth += 1;
+    }
+
+    return best;
   }
 
   function unlockFooterParents(element) {
@@ -62,6 +111,7 @@
 
       if ((fixedLike || bottomPinned || classLooksLikeFooter(current)) && !isWidget(current)) {
         unlockFooterElement(current);
+        setFooterVisibility(current);
       }
 
       current = current.parentElement;
@@ -85,6 +135,7 @@
       "[id*='footer' i]",
       "[class*='footer' i]",
       "section",
+      "div",
       ".c-section",
       ".hl_page-creator--section",
       ".hl_page-preview--section"
@@ -98,8 +149,10 @@
   function applyFix() {
     normalizePageScroll();
     findFooterCandidates().forEach(function (element) {
-      unlockFooterElement(element);
-      unlockFooterParents(element);
+      var footerLayer = getFooterLayer(element);
+      unlockFooterElement(footerLayer);
+      setFooterVisibility(footerLayer);
+      unlockFooterParents(footerLayer);
     });
   }
 
