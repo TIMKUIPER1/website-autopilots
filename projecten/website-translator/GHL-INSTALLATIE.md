@@ -17,13 +17,13 @@ De widget kiest automatisch de taal op basis van de browsertaal van de bezoeker.
 
 Let op bij landingspagina's in een iframe: een script op de hoofdsite kan de inhoud van een iframe niet rechtstreeks aanpassen. Daarom staat er in de GHL-embedpagina's een verborgen translator-laag. Die toont geen tweede knop, maar zorgt wel dat de inhoud van de embedpagina vertaald kan worden.
 
-## Footer blijft plakken bij terugscrollen
+## Footer komt te vroeg in beeld bij embeds
 
-Als de live website na helemaal naar beneden scrollen de voettekst vast laat staan terwijl je weer omhoog scrolt, plaats dan ook deze globale fix in dezelfde body/footer custom code. Dit zet alleen echte footer-secties terug in de normale paginaflow en laat de Voice & Chat widget ongemoeid.
+Als de live website bij terugscrollen de voettekst laat hangen, komt dat meestal doordat een GHL iframe nog op een vaste hoogte staat. Plaats daarom deze globale controller in dezelfde body/footer custom code. Hij luistert naar de hoogte van Autopilots embeds, past de iframe automatisch aan en laat de Voice & Chat widget ongemoeid.
 
 ```html
 <script
-  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610b">
+  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610c">
 </script>
 ```
 
