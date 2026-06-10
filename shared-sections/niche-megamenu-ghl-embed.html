@@ -172,6 +172,29 @@
       white-space: normal;
     }
   }
+/* ap-no-sticky-footer-scroll-2026-06 */
+html,
+body {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+.ap-language-card,
+.ap-aside {
+  position: static !important;
+  top: auto !important;
+}
+
+.ap-no-inner-page-scroll {
+  overflow-y: visible !important;
+}
+
 </style>
 
 <div id="ap-niche-menu-content">
@@ -306,3 +329,47 @@
   </div>
 </div>
 <script src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=4" data-show-widget="false" data-auto-detect="true"></script>
+
+<script>
+(function () {
+  var marker = "ap-ghl-height-sync-2026-06";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function syncHeight() {
+    var body = document.body;
+    var html = document.documentElement;
+    if (!body || !html) return;
+
+    body.style.overflowY = "visible";
+    html.style.overflowY = "visible";
+
+    var height = Math.max(
+      body.scrollHeight, body.offsetHeight,
+      html.clientHeight, html.scrollHeight, html.offsetHeight
+    );
+
+    try {
+      if (window.frameElement) {
+        window.frameElement.setAttribute("scrolling", "no");
+        window.frameElement.style.overflow = "visible";
+        window.frameElement.style.height = height + "px";
+      }
+    } catch (error) {}
+
+    try {
+      window.parent && window.parent.postMessage({ type: "autopilots:embed-height", height: height }, "*");
+    } catch (error) {}
+  }
+
+  syncHeight();
+  window.addEventListener("load", syncHeight);
+  window.addEventListener("resize", syncHeight);
+  setTimeout(syncHeight, 250);
+  setTimeout(syncHeight, 1000);
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(syncHeight).observe(document.body);
+  }
+})();
+</script>

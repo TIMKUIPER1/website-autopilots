@@ -50,7 +50,30 @@
       line-height: 1.65;
       font-weight: 600;
     }
-  </style>
+  /* ap-no-sticky-footer-scroll-2026-06 */
+html,
+body {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+.ap-language-card,
+.ap-aside {
+  position: static !important;
+  top: auto !important;
+}
+
+.ap-no-inner-page-scroll {
+  overflow-y: visible !important;
+}
+
+</style>
 </head>
 <body>
   <main>

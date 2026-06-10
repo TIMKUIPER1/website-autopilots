@@ -25,7 +25,30 @@
       background: #f5f5f2;
       padding: 36px 0;
     }
-  </style>
+  /* ap-no-sticky-footer-scroll-2026-06 */
+html,
+body {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+.ap-language-card,
+.ap-aside {
+  position: static !important;
+  top: auto !important;
+}
+
+.ap-no-inner-page-scroll {
+  overflow-y: visible !important;
+}
+
+</style>
 </head>
 <body>
   <div style="max-width:1180px;margin:0 auto;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:30px;box-shadow:0 20px 60px rgba(17,17,17,.12);padding:22px;">

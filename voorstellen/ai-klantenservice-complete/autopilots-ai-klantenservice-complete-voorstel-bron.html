@@ -1,0 +1,1892 @@
+<div id="ap-cs-complete-proposal" class="ap-cs-proposal">
+
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .ap-cs-proposal {
+      --bg: #f5f5f2;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --soft: #eeeeea;
+      --line: rgba(0, 0, 0, 0.1);
+      --brown: #9f3826;
+      --brown-dark: #7d2a1d;
+      --black: #111111;
+      --white: #ffffff;
+
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .ap-cs-proposal * {
+      box-sizing: border-box;
+    }
+
+    .ap-cs-proposal h1,
+    .ap-cs-proposal h2,
+    .ap-cs-proposal h3,
+    .ap-cs-proposal h4,
+    .ap-cs-proposal p {
+      margin: 0;
+    }
+
+    .ap-cs-proposal a {
+      color: inherit;
+    }
+
+    .ap-cs-proposal .ap-section {
+      width: 100%;
+      padding: 80px 0;
+    }
+
+    .ap-cs-proposal .ap-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .ap-cs-proposal .ap-center {
+      max-width: 880px;
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    .ap-cs-proposal .ap-eyebrow {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .ap-cs-proposal .ap-hero-title {
+      max-width: 920px;
+      margin: 0 auto;
+      font-size: clamp(38px, 5.4vw, 62px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      font-weight: 850;
+    }
+
+    .ap-cs-proposal .ap-hero-title .ap-hero-line {
+      display: block;
+    }
+
+    .ap-cs-proposal .ap-hero-title .ap-hero-ai {
+      display: block;
+      margin-top: 8px;
+    }
+
+    .ap-cs-proposal .ap-title {
+      max-width: 920px;
+      margin: 0 auto 16px;
+      font-size: clamp(34px, 4.8vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-title-line,
+    .ap-cs-proposal .ap-title-ai {
+      display: block;
+    }
+
+    .ap-cs-proposal .ap-title-ai {
+      margin-top: 8px;
+    }
+
+    .ap-cs-proposal .ap-italic {
+      font-style: italic;
+      color: var(--brown);
+      letter-spacing: -0.055em;
+    }
+
+    .ap-cs-proposal .ap-subtitle {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-hero-text {
+      max-width: 800px;
+      margin: 24px auto 0;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .ap-cs-proposal .ap-button {
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .ap-cs-proposal .ap-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .ap-cs-proposal .ap-button.primary {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-button.secondary {
+      background: var(--white);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .ap-cs-proposal details {
+      width: 100%;
+    }
+
+    .ap-cs-proposal summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .ap-cs-proposal summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .ap-cs-proposal .ap-plus {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 999px;
+      background: var(--black);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    .ap-cs-proposal details[open] .ap-plus {
+      background: var(--brown);
+      transform: rotate(45deg);
+    }
+
+    .ap-cs-proposal .ap-card,
+    .ap-cs-proposal .ap-panel,
+    .ap-cs-proposal .ap-calculator,
+    .ap-cs-proposal .ap-roadmap-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+    }
+
+    .ap-cs-proposal .ap-panel {
+      margin-top: 54px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    .ap-cs-proposal .ap-step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .ap-cs-proposal .ap-step {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 190px;
+    }
+
+    .ap-cs-proposal .ap-step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .ap-cs-proposal .ap-step h3 {
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .ap-cs-proposal .ap-step p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .ap-cs-proposal .ap-feature {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 26px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ap-cs-proposal .ap-feature summary {
+      display: block;
+    }
+
+    .ap-cs-proposal .ap-feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 34px;
+    }
+
+    .ap-cs-proposal .ap-feature h3 {
+      font-size: clamp(25px, 2.8vw, 34px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .ap-cs-proposal .ap-feature p {
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-more {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-feature .ap-more {
+      margin-top: 26px;
+    }
+
+    .ap-cs-proposal .ap-usage-info {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .ap-cs-proposal .ap-usage-info strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .ap-cs-proposal .ap-usage-info p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ap-cs-proposal .ap-calculator-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .ap-cs-proposal .ap-inputs {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ap-cs-proposal .ap-field {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .ap-cs-proposal .ap-field label {
+      display: block;
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .ap-cs-proposal .ap-field small {
+      display: block;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .ap-cs-proposal .ap-field input,
+    .ap-cs-proposal .ap-field select {
+      width: 100%;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .ap-cs-proposal .ap-toggle {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: var(--soft);
+      padding: 8px;
+      border-radius: 999px;
+    }
+
+    .ap-cs-proposal .ap-toggle-button {
+      border: 0;
+      border-radius: 999px;
+      min-height: 42px;
+      background: transparent;
+      font: inherit;
+      font-weight: 800;
+      color: var(--muted);
+      cursor: default;
+    }
+
+    .ap-cs-proposal .ap-toggle-button.is-active {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .ap-cs-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button {
+      pointer-events: none;
+    }
+
+    .ap-cs-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button:not(.is-active) {
+      opacity: 0.5;
+    }
+
+    .ap-cs-proposal .ap-flow-info {
+      margin-top: 12px;
+      padding: 16px;
+      background: #fff7f4;
+      color: var(--brown-dark);
+      border: 1px solid rgba(159, 56, 38, 0.16);
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .ap-cs-proposal .ap-results {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 28px;
+      padding: 26px;
+    }
+
+    .ap-cs-proposal .ap-results h3 {
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .ap-cs-proposal .ap-cost-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .ap-cs-proposal .ap-pill {
+      background: #242424;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .ap-cs-proposal .ap-pill span {
+      display: block;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .ap-cs-proposal .ap-pill strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(22px, 2.8vw, 34px);
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ap-cs-proposal .ap-compare-card {
+      background: #242424;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .ap-cs-proposal .ap-compare-card.ai {
+      background: #2b1a16;
+      border-color: rgba(159, 56, 38, 0.36);
+    }
+
+    .ap-cs-proposal .ap-compare-card h4 {
+      font-size: 17px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-metric {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    .ap-cs-proposal .ap-metric:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .ap-cs-proposal .ap-metric span {
+      display: block;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .ap-cs-proposal .ap-metric strong {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 28px;
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-impact {
+      margin-top: 16px;
+      background: #181818;
+      border-radius: 24px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .ap-cs-proposal .ap-impact-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .ap-cs-proposal .ap-impact-head h4 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .ap-cs-proposal .ap-impact-head p {
+      color: rgba(255, 255, 255, 0.62);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .ap-cs-proposal .ap-impact-badge {
+      white-space: nowrap;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .ap-cs-proposal .ap-impact-item {
+      background: #242424;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .ap-cs-proposal .ap-impact-item span {
+      display: block;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .ap-cs-proposal .ap-impact-item strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(22px, 3vw, 38px);
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-roadmap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ap-cs-proposal .ap-roadmap details,
+    .ap-cs-proposal .ap-faq details {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .ap-cs-proposal .ap-roadmap details[open],
+    .ap-cs-proposal .ap-faq details[open] {
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.06);
+    }
+
+    .ap-cs-proposal .ap-roadmap summary,
+    .ap-cs-proposal .ap-faq summary {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .ap-cs-proposal .ap-roadmap .ap-step-number {
+      margin-bottom: 0;
+    }
+
+    .ap-cs-proposal .ap-road-title {
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-road-preview {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .ap-cs-proposal .ap-road-content {
+      padding: 18px 0 0 50px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .ap-cs-proposal .ap-road-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .ap-cs-proposal .ap-road-mini {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .ap-cs-proposal .ap-road-mini span {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      color: var(--brown);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .ap-cs-proposal .ap-road-mini p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .ap-cs-proposal .ap-black-summary {
+      margin-top: 34px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 30px;
+      padding: 46px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .ap-cs-proposal .ap-black-summary h3 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      max-width: 520px;
+    }
+
+    .ap-cs-proposal .ap-black-summary p {
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+      font-size: 18px;
+    }
+
+    .ap-cs-proposal .ap-package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .ap-cs-proposal .ap-package {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .ap-cs-proposal .ap-package.featured {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
+      color: var(--white);
+      transform: translateY(-12px);
+    }
+
+    .ap-cs-proposal .ap-package-top {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .ap-cs-proposal .ap-badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .featured .ap-badge {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-package h3 {
+      font-size: clamp(20px, 1.6vw, 24px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ap-cs-proposal .ap-package p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .ap-cs-proposal .featured p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .ap-cs-proposal .ap-price strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    .ap-cs-proposal .featured .ap-price strong {
+      color: var(--white);
+    }
+
+    .ap-cs-proposal .ap-price span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .ap-cs-proposal .featured .ap-price span {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .ap-cs-proposal .ap-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .ap-cs-proposal .ap-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .ap-cs-proposal .featured .ap-list li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .ap-cs-proposal .ap-check {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    .ap-cs-proposal .featured .ap-check {
+      background: var(--white);
+      color: var(--brown);
+    }
+
+    .ap-cs-proposal .ap-package-details {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ap-cs-proposal .featured .ap-package-details {
+      border-color: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .ap-cs-proposal .ap-package-details summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-stripe-box {
+      margin-top: auto;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ap-cs-proposal .ap-faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ap-cs-proposal .ap-faq details {
+      padding: 22px;
+    }
+
+    .ap-cs-proposal .ap-faq summary {
+      grid-template-columns: 1fr auto;
+    }
+
+    .ap-cs-proposal .ap-faq .ap-road-content {
+      padding-left: 0;
+    }
+
+    .ap-cs-proposal .ap-faq-category {
+      margin: 34px 0 14px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 700;
+    }
+
+    .ap-cs-proposal .ap-final {
+      text-align: center;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 46px 26px;
+    }
+
+    .ap-cs-proposal .ap-final h2 {
+      max-width: 850px;
+      margin: 0 auto;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-final p {
+      max-width: 700px;
+      margin: 18px auto 0;
+      color: rgba(255, 255, 255, 0.68);
+      line-height: 1.6;
+    }
+
+
+    /* ap-ai-brain-visual-2026-06 */
+    .ap-cs-proposal .ap-brain-section {
+      padding-top: 28px;
+    }
+
+    .ap-cs-proposal .ap-brain-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 20px;
+      align-items: stretch;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 24px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ap-cs-proposal .ap-brain-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 35% 26%, rgba(159, 56, 38, 0.36), transparent 34%), radial-gradient(circle at 78% 72%, rgba(255, 255, 255, 0.08), transparent 30%);
+      pointer-events: none;
+    }
+
+    .ap-cs-proposal .ap-brain-visual,
+    .ap-cs-proposal .ap-brain-side {
+      position: relative;
+      z-index: 1;
+    }
+
+    .ap-cs-proposal .ap-brain-visual {
+      display: grid;
+      gap: 16px;
+      min-height: 520px;
+    }
+
+    .ap-cs-proposal .ap-brain-ticket {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 14px;
+    }
+
+    .ap-cs-proposal .ap-brain-ticket-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      color: var(--brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+    }
+
+    .ap-cs-proposal .ap-brain-ticket strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .ap-cs-proposal .ap-brain-ticket span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .ap-cs-proposal .ap-brain-status {
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.22);
+      color: #f3c1b7;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .ap-cs-proposal .ap-brain-map {
+      position: relative;
+      min-height: 398px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.045);
+      overflow: hidden;
+    }
+
+    .ap-cs-proposal .ap-brain-map::before,
+    .ap-cs-proposal .ap-brain-map::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 74%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+      transform: translate(-50%, -50%);
+      opacity: 0.7;
+    }
+
+    .ap-cs-proposal .ap-brain-map::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .ap-cs-proposal .ap-brain-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 174px;
+      height: 174px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: var(--white);
+      color: var(--text);
+      box-shadow: 0 0 0 14px rgba(255, 255, 255, 0.06), 0 22px 60px rgba(0, 0, 0, 0.28);
+      z-index: 2;
+    }
+
+    .ap-cs-proposal .ap-brain-core strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .ap-cs-proposal .ap-brain-core span {
+      display: block;
+      max-width: 112px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .ap-cs-proposal .ap-brain-pulse {
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(159, 56, 38, 0.38);
+      animation: apBrainPulse 2.6s ease-in-out infinite;
+    }
+
+    .ap-cs-proposal .ap-brain-node {
+      position: absolute;
+      z-index: 3;
+      width: 148px;
+      min-height: 78px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font: inherit;
+      text-align: left;
+      padding: 13px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .ap-cs-proposal .ap-brain-node:hover,
+    .ap-cs-proposal .ap-brain-node.is-active {
+      transform: translateY(-2px);
+      background: rgba(159, 56, 38, 0.26);
+      border-color: rgba(243, 193, 183, 0.52);
+    }
+
+    .ap-cs-proposal .ap-brain-node small {
+      display: block;
+      color: #f3c1b7;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .ap-cs-proposal .ap-brain-node strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .ap-cs-proposal .ap-brain-node[data-ap-brain-step="intake"] { left: 22px; top: 30px; }
+    .ap-cs-proposal .ap-brain-node[data-ap-brain-step="context"] { right: 22px; top: 30px; }
+    .ap-cs-proposal .ap-brain-node[data-ap-brain-step="policy"] { left: 22px; bottom: 30px; }
+    .ap-cs-proposal .ap-brain-node[data-ap-brain-step="action"] { right: 22px; bottom: 30px; }
+
+    .ap-cs-proposal .ap-brain-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ap-cs-proposal .ap-brain-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 8px;
+    }
+
+    .ap-cs-proposal .ap-brain-tab {
+      min-height: 40px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.64);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .ap-cs-proposal .ap-brain-tab.is-active {
+      background: var(--white);
+      color: var(--text);
+    }
+
+    .ap-cs-proposal .ap-brain-panel {
+      display: none;
+      flex: 1;
+      border-radius: 28px;
+      background: var(--white);
+      color: var(--text);
+      padding: 28px;
+      min-height: 318px;
+    }
+
+    .ap-cs-proposal .ap-brain-panel.is-active {
+      display: block;
+    }
+
+    .ap-cs-proposal .ap-brain-panel .ap-eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .ap-cs-proposal .ap-brain-panel h3 {
+      max-width: 430px;
+      font-size: clamp(30px, 3.4vw, 48px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .ap-cs-proposal .ap-brain-panel p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .ap-cs-proposal .ap-brain-output {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .ap-cs-proposal .ap-brain-output span {
+      border-radius: 16px;
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 850;
+    }
+
+    @keyframes apBrainPulse {
+      0%, 100% { transform: scale(0.96); opacity: 0.46; }
+      50% { transform: scale(1.08); opacity: 0.9; }
+    }
+
+    @media (max-width: 980px) {
+
+      .ap-cs-proposal .ap-brain-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .ap-cs-proposal .ap-brain-visual {
+        min-height: auto;
+      }
+
+      .ap-cs-proposal .ap-brain-map {
+        min-height: 420px;
+      }
+
+      .ap-cs-proposal .ap-step-grid,
+      .ap-cs-proposal .ap-feature-grid,
+      .ap-cs-proposal .ap-calculator-grid,
+      .ap-cs-proposal .ap-road-grid,
+      .ap-cs-proposal .ap-package-grid,
+      .ap-cs-proposal .ap-black-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .ap-cs-proposal .ap-package.featured {
+        transform: none;
+      }
+
+      .ap-cs-proposal .ap-package-top {
+        min-height: 0;
+      }
+
+      .ap-cs-proposal .ap-package h3 {
+        font-size: 30px;
+      }
+
+      .ap-cs-proposal .ap-cost-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ap-cs-proposal .ap-impact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ap-cs-proposal .ap-section {
+        padding: 58px 0;
+      }
+
+      .ap-cs-proposal .ap-brain-shell {
+        border-radius: 28px;
+        padding: 16px;
+      }
+
+      .ap-cs-proposal .ap-brain-ticket {
+        grid-template-columns: 42px 1fr;
+      }
+
+      .ap-cs-proposal .ap-brain-ticket-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .ap-cs-proposal .ap-brain-status {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .ap-cs-proposal .ap-brain-map {
+        min-height: auto;
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .ap-cs-proposal .ap-brain-map::before,
+      .ap-cs-proposal .ap-brain-map::after {
+        display: none;
+      }
+
+      .ap-cs-proposal .ap-brain-core,
+      .ap-cs-proposal .ap-brain-node {
+        position: relative;
+        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 100%;
+      }
+
+      .ap-cs-proposal .ap-brain-core {
+        height: auto;
+        min-height: 128px;
+        border-radius: 24px;
+        order: -1;
+      }
+
+      .ap-cs-proposal .ap-brain-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: 22px;
+      }
+
+      .ap-cs-proposal .ap-brain-tab {
+        border-radius: 16px;
+      }
+
+      .ap-cs-proposal .ap-brain-panel {
+        padding: 22px;
+        min-height: 0;
+      }
+
+      .ap-cs-proposal .ap-brain-output {
+        grid-template-columns: 1fr;
+      }
+
+
+    }
+  /* ap-no-sticky-footer-scroll-2026-06 */
+html,
+body {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+.ap-language-card,
+.ap-aside {
+  position: static !important;
+  top: auto !important;
+}
+
+.ap-no-inner-page-scroll {
+  overflow-y: visible !important;
+}
+
+</style>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">VOORSTEL KLANTENSERVICE</div>
+        <h1 class="ap-hero-title">
+          <span class="ap-hero-line">Maak van ticketdruk een</span>
+          <span class="ap-hero-line">schaalbare supportflow.</span>
+          <span class="ap-italic ap-hero-ai">AI Klantenservice Complete.</span>
+        </h1>
+        <p class="ap-hero-text">Voor klantenservice teams die telefoon, chat, WhatsApp, e-mail en ticketsysteem willen combineren. De AI vangt de eerste lijn op, verrijkt tickets, volgt op en houdt medewerkers vrij voor complexe cases.</p>
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-cs-complete-proposal-pakketten">Kies pakket en start direct</a>
+          <a class="ap-button secondary" href="#ap-cs-complete-proposal-calculator">Bereken ticketbesparing</a>
+        </div>
+      </div>
+
+      <div class="ap-panel">
+        <div class="ap-step-grid">
+          <div class="ap-step">
+            <div class="ap-step-number">1</div>
+            <h3>Kies de supportscope</h3>
+            <p>Start, Scale en Premium verschillen in scenario’s, kanalen, integraties, SLA-logica en optimalisatie.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">2</div>
+            <h3>Bevestig het abonnement</h3>
+            <p>Na bevestiging controleren we scope, ticketsysteem, kennisbank en planning met support.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">3</div>
+            <h3>Plan de onboarding</h3>
+            <p>Daarna starten we met ticketanalyse, fallbackregels, kennisbasis, scenario’s en implementatie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">WAAROM DIT WERKT</div>
+        <h2 class="ap-title">Chat en voice werken samen als eerste supportlaag.</h2>
+        <p class="ap-subtitle">De AI medewerker reageert op berichten, neemt op, vraagt door, maakt tickets compleet en routeert complexe cases.</p>
+      </div>
+
+      <div class="ap-feature-grid">
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">01</div>
+            <h3>Herhaalvragen wegvangen</h3>
+            <p>Statusvragen, procedures, wijzigingen, simpele verzoeken en standaardantwoorden hoeven niet meer langs je team.</p>
+          </summary>
+
+          <div class="ap-more">De AI antwoordt vanuit jullie kennisbank en vraagt door wanneer informatie ontbreekt of beleid afhangt van de situatie.</div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">02</div>
+            <h3>Tickets compleet maken</h3>
+            <p>De AI verzamelt klantgegevens, context, urgentie, bijlagen en gewenste vervolgstap voordat een medewerker meekijkt.</p>
+          </summary>
+
+          <div class="ap-more">Daardoor komt een ticket niet als losse zin binnen, maar als bruikbaar dossier met samenvatting en prioriteit.</div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">03</div>
+            <h3>Slim escaleren</h3>
+            <p>Alleen tickets met risico, emotie, SLA-impact of specialistische inhoud gaan door naar de juiste medewerker.</p>
+          </summary>
+
+          <div class="ap-more">Bij Scale en Premium wordt de flow uitgebreid met multichannel opvolging, SLA-routering, escalaties, rapportage en optimalisatie.</div>
+        </details>
+      </div>
+
+      <div class="ap-black-summary">
+        <h3>Niet meer tickets wegklikken. Wel structureel minder druk.</h3>
+        <p>De AI wordt ingericht op jullie beleid, kennisbank, ticketsysteem en tone of voice. Zo ontstaat een eerste supportlaag die consistent werkt, ook buiten openingstijden en tijdens piekmomenten.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-brain-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AI BREIN</div>
+        <h2 class="ap-title">Zo denkt de AI voordat er iets naar je team gaat.</h2>
+        <p class="ap-subtitle">Niet zomaar een chatbot of voicebot. De AI combineert intake, klantcontext, beleid, kennisbank en escalatieregels voordat hij antwoordt, afrondt of doorzet.</p>
+      </div>
+
+      <div class="ap-brain-shell" data-ap-brain>
+        <div class="ap-brain-visual" aria-label="Interactieve visualisatie van het AI klantenservice brein">
+          <div class="ap-brain-ticket">
+            <div class="ap-brain-ticket-icon">IN</div>
+            <div><strong>Nieuw klantcontact komt binnen</strong><span>Telefoon, chat, WhatsApp, e-mail of ticketformulier met incomplete informatie.</span></div>
+            <div class="ap-brain-status">live analyse</div>
+          </div>
+
+          <div class="ap-brain-map">
+            <button class="ap-brain-node is-active" type="button" data-ap-brain-step="intake"><small>01</small><strong>Vraag verduidelijken</strong></button>
+            <button class="ap-brain-node" type="button" data-ap-brain-step="context"><small>02</small><strong>Klantcontext ophalen</strong></button>
+            <button class="ap-brain-node" type="button" data-ap-brain-step="policy"><small>03</small><strong>Beleid toepassen</strong></button>
+            <button class="ap-brain-node" type="button" data-ap-brain-step="action"><small>04</small><strong>Actie bepalen</strong></button>
+            <div class="ap-brain-core"><div class="ap-brain-pulse"></div><div><strong>AI brein</strong><span>begrijpt, checkt en beslist</span></div></div>
+          </div>
+        </div>
+
+        <div class="ap-brain-side">
+          <div class="ap-brain-tabs" role="tablist" aria-label="AI brein stappen">
+            <button class="ap-brain-tab is-active" type="button" data-ap-brain-step="intake">Intake</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="context">Context</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="policy">Beleid</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="action">Actie</button>
+          </div>
+
+          <div class="ap-brain-panel is-active" data-ap-brain-panel="intake">
+            <div class="ap-eyebrow">Stap 01</div>
+            <h3>De AI maakt van een losse vraag een compleet ticket.</h3>
+            <p>Hij herkent intentie, urgentie, emotie en ontbrekende informatie. Daarna stelt hij gericht door, zodat je team niet meer hoeft te raden wat de klant bedoelt.</p>
+            <div class="ap-brain-output"><span>Intentie herkend</span><span>Urgentie bepaald</span><span>Ontbrekende velden uitgevraagd</span><span>Samenvatting voorbereid</span></div>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="context">
+            <div class="ap-eyebrow">Stap 02</div>
+            <h3>De AI kijkt naar klantdata en eerdere contactmomenten.</h3>
+            <p>Waar mogelijk gebruikt hij CRM, ticketsysteem, orderstatus, afspraken, klanttype en eerdere gesprekken. Zo voelt de afhandeling persoonlijk, maar blijft hij controleerbaar.</p>
+            <div class="ap-brain-output"><span>CRM-context</span><span>Ticketgeschiedenis</span><span>Status of afspraak</span><span>Klantsegment</span></div>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="policy">
+            <div class="ap-eyebrow">Stap 03</div>
+            <h3>De AI antwoordt niet vrij, maar binnen jullie regels.</h3>
+            <p>De kennisbank, tone of voice, uitzonderingen, SLA’s en escalatiecriteria bepalen wat de AI mag zeggen of doen. Alles buiten de veilige bandbreedte gaat naar een medewerker.</p>
+            <div class="ap-brain-output"><span>Kennisbankcheck</span><span>SLA-regels</span><span>Tone of voice</span><span>Escalatiegrenzen</span></div>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="action">
+            <div class="ap-eyebrow">Stap 04</div>
+            <h3>Daarna kiest de AI de juiste vervolgactie.</h3>
+            <p>Antwoorden, ticket aanvullen, prioriteit zetten, afspraak plannen, status delen, opvolging starten of escaleren met context. De medewerker krijgt alleen wat echt aandacht nodig heeft.</p>
+            <div class="ap-brain-output"><span>Direct afgehandeld</span><span>Ticket verrijkt</span><span>Taak of afspraak</span><span>Escalatie met context</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-cs-complete-proposal-calculator">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">ROI CALCULATOR</div>
+        <h2 class="ap-title">Bereken hoeveel FTE AI Complete kan vrijspelen.</h2>
+        <p class="ap-subtitle">Vul ticketvolume, afhandeltijd en personeelskosten in. De calculator laat zien hoeveel tickets, uren en FTE-capaciteit je kunt vrijspelen.</p>
+      </div>
+
+      <div class="ap-calculator">
+        <div class="ap-calculator-grid">
+          <div class="ap-inputs">
+            <div class="ap-field">
+              <label for="apPackage">Kies pakket en start direct</label>
+              <small>Abonnement, implementatie en supportdekking passen automatisch aan.</small>
+              <select id="apPackage">
+                <option value="start">Complete Start</option>
+                <option value="scale">Complete Scale</option>
+                <option value="premium">Complete Premium</option>
+              </select>
+            </div>
+
+            <div class="ap-field">
+              <label>Inbegrepen supportdekking</label>
+              <small>De dekking staat automatisch vast op basis van het gekozen pakket.</small>
+
+              <div class="ap-toggle ap-toggle-locked" role="group" aria-label="Inbegrepen supportdekking">
+                <button class="ap-toggle-button is-active" type="button" data-package-flow="start" tabindex="-1">1 supportflow</button>
+                <button class="ap-toggle-button" type="button" data-package-flow="scale" tabindex="-1">2 supportflows</button>
+                <button class="ap-toggle-button" type="button" data-package-flow="premium" tabindex="-1">Volledige supportlaag</button>
+              </div>
+
+              <div id="apFlowLabel" class="ap-flow-info">Complete Start bevat 1 supportflow via chat en voice. De AI vangt de eerste lijn op en maakt tickets compleet.</div>
+            </div>
+
+            <div class="ap-field">
+              <label for="apTickets">Supporttickets per maand</label>
+              <small>Alle tickets via telefoon, chat, WhatsApp, e-mail, portaal of formulieren.</small>
+              <input id="apTickets" type="number" min="0" value="1200">
+            </div>
+
+            <div class="ap-field">
+              <label for="apMinutes">Gemiddelde afhandeltijd per ticket</label>
+              <small>Inclusief lezen, beantwoorden, uitvragen, registreren en opvolgen.</small>
+              <input id="apMinutes" type="number" min="1" value="8">
+            </div>
+
+            <div class="ap-field">
+              <label for="apHourly">All-in supportkosten per uur</label>
+              <small>Bruto loonkosten, werkgeverslasten, tooling, teamlead tijd en overhead samen.</small>
+              <input id="apHourly" type="number" min="1" value="38">
+            </div>
+
+            <div class="ap-field">
+              <label for="apFteHours">Productieve uren per FTE per maand</label>
+              <small>Gebruik 132 als realistische standaard voor supportcapaciteit.</small>
+              <input id="apFteHours" type="number" min="1" value="132">
+            </div>
+
+            <div class="ap-usage-info">
+              <strong>Gebruikerskosten AI Medewerker</strong>
+              <p>Inbound chat &euro;0,02 per bericht. Outbound chat &euro;0,22 per bericht. Inbound belminuten &euro;0,19 per minuut. Outbound belminuten &euro;0,22 per minuut.</p>
+            </div>
+          </div>
+
+          <div class="ap-results">
+            <h3>Jouw supportprognose</h3>
+
+            <div class="ap-cost-grid">
+              <div class="ap-pill"><span>Abonnement</span><strong id="apMonthly">&euro;0</strong></div>
+              <div class="ap-pill"><span>Implementatie</span><strong id="apSetup">&euro;0</strong></div>
+              <div class="ap-pill"><span id="apAutomationLabel">Geschikte tickets</span><strong id="apAutomationRate">35%</strong></div>
+            </div>
+
+            <div class="ap-compare">
+              <div class="ap-compare-card">
+                <h4>Zonder AI Klantenservice</h4>
+                <div class="ap-metric"><span>Tickets door team</span><strong id="apManualTickets">0</strong></div>
+                <div class="ap-metric"><span>Benodigde supporturen</span><strong id="apManualHours">0</strong></div>
+                <div class="ap-metric"><span>Supportkosten per maand</span><strong id="apManualCost">&euro;0</strong></div>
+              </div>
+
+              <div class="ap-compare-card ai">
+                <h4>Met AI Klantenservice</h4>
+                <div class="ap-metric"><span>Tickets voor team</span><strong id="apRemainingTickets">0</strong></div>
+                <div class="ap-metric"><span>Supporturen na AI</span><strong id="apRemainingHours">0</strong></div>
+                <div class="ap-metric"><span>Vrijgespeelde FTE</span><strong id="apFteSaved">0,0</strong></div>
+              </div>
+            </div>
+
+            <div class="ap-impact">
+              <div class="ap-impact-head">
+                <div>
+                  <h4>Het verschil door AI</h4>
+                  <p>De meeste winst zit in minder herhaalwerk, schonere tickets en minder context zoeken.</p>
+                </div>
+                <div class="ap-impact-badge" id="apAutomationBadge">35% geschikt</div>
+              </div>
+
+              <div class="ap-impact-grid">
+                <div class="ap-impact-item"><span>Tickets geautomatiseerd</span><strong id="apTicketsSaved">0</strong></div>
+                <div class="ap-impact-item"><span>Uren bespaard</span><strong id="apHoursSaved">0</strong></div>
+                <div class="ap-impact-item"><span>Bruto besparing</span><strong id="apGrossSaved">&euro;0</strong></div>
+                <div class="ap-impact-item"><span>Besparing na abonnement</span><strong id="apNetAfterCost">&euro;0</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-more" style="margin-top:16px;">Deze calculator is een indicatie. Resultaten hangen af van ticketmix, kennisbankkwaliteit, integraties, bevoegdheden, escalatieregels en hoe strak supportprocessen zijn ingericht.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-cs-complete-proposal-implementatie">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">IMPLEMENTATIEPROCES</div>
+        <h2 class="ap-title"><span class="ap-title-line">Van ticketanalyse naar live</span><span class="ap-italic ap-title-ai">AI Klantenservice Complete.</span></h2>
+        <p class="ap-subtitle">We leveren scope, kennisbasis, integraties en testen in duidelijke fases op. Support communiceert actief over planning, resultaten en eventuele blockers.</p>
+      </div>
+
+      <div class="ap-roadmap-card">
+        <div class="ap-roadmap">
+          <details open>
+            <summary><span class="ap-step-number">1</span><div><h3 class="ap-road-title">Scope en ticketanalyse</h3><p class="ap-road-preview">We bepalen welke tickets de AI mag oplossen, verrijken, routeren of escaleren.</p></div><span class="ap-plus">+</span></summary>
+            <div class="ap-road-content"><div class="ap-road-grid"><div class="ap-road-mini"><span>Ticketmix</span><p>We analyseren categorieën, herhaalvragen, SLA, piekmomenten en incomplete tickets.</p></div><div class="ap-road-mini"><span>Bevoegdheden</span><p>We bepalen wat de AI zelfstandig mag zeggen, aanpassen, aanmaken of alleen mag voorbereiden.</p></div><div class="ap-road-mini"><span>Escalaties</span><p>We leggen vast wanneer emotie, risico, spoed of specialistische inhoud naar je team gaat.</p></div></div></div>
+          </details>
+
+          <details>
+            <summary><span class="ap-step-number">2</span><div><h3 class="ap-road-title">Kennisbasis en flowbouw</h3><p class="ap-road-preview">We vertalen jullie beleid, procedures en tone of voice naar AI supportlogica.</p></div><span class="ap-plus">+</span></summary>
+            <div class="ap-road-content"><div class="ap-road-grid"><div class="ap-road-mini"><span>Kennisbank</span><p>We verwerken FAQ, procedures, uitzonderingen, garanties, statusinformatie en interne werkwijze.</p></div><div class="ap-road-mini"><span>Intake</span><p>We ontwerpen vragen voor klantnummer, order, context, urgentie, bewijs en gewenste oplossing.</p></div><div class="ap-road-mini"><span>Antwoorden</span><p>We schrijven heldere antwoorden die menselijk klinken en binnen jullie beleid blijven.</p></div></div></div>
+          </details>
+
+          <details>
+            <summary><span class="ap-step-number">3</span><div><h3 class="ap-road-title">Koppelingen en testen</h3><p class="ap-road-preview">We richten waar mogelijk ticketsysteem, CRM, telefonie, chat of mailboxkoppelingen in en testen de flow.</p></div><span class="ap-plus">+</span></summary>
+            <div class="ap-road-content"><div class="ap-road-grid"><div class="ap-road-mini"><span>Systemen</span><p>We koppelen via API, webhook of bestaande integraties wanneer dat technisch mogelijk is.</p></div><div class="ap-road-mini"><span>Testcases</span><p>We testen simpele tickets, boze klanten, incomplete informatie, SLA-situaties en overdracht.</p></div><div class="ap-road-mini"><span>Review</span><p>Jullie controleren antwoorden, samenvattingen, routing en ticketoutput voordat we live gaan.</p></div></div></div>
+          </details>
+
+          <details>
+            <summary><span class="ap-step-number">4</span><div><h3 class="ap-road-title">Livegang en optimalisatie</h3><p class="ap-road-preview">Na livegang monitoren we echte tickets en verbeteren we antwoorden, routering en fallbackregels.</p></div><span class="ap-plus">+</span></summary>
+            <div class="ap-road-content"><div class="ap-road-grid"><div class="ap-road-mini"><span>Monitoring</span><p>We kijken naar afhandeling, escalaties, foutgevoelige antwoorden en terugkerende vragen.</p></div><div class="ap-road-mini"><span>Verbeteringen</span><p>We scherpen kennisbank, prompts, intakevragen en overdrachten aan.</p></div><div class="ap-road-mini"><span>Groei</span><p>Bij Scale en Premium breiden we uit met extra scenario’s, kanalen, SLA-logica en rapportage.</p></div></div></div>
+          </details>
+        </div>
+
+        <div class="ap-black-summary"><h3>Duidelijke fases. Geen losse supportchaos.</h3><p>Start maximaal binnen 6 tot 10 weken na onboarding, afhankelijk van pakket, scope, aangeleverde input, systeemtoegang en feedbackmomenten.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-cs-complete-proposal-pakketten">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">PAKKETTEN</div>
+        <h2 class="ap-title">Kies een AI Klantenservice Complete pakket.</h2>
+        <p class="ap-subtitle">Start met één flow of bouw een volledige AI supportdesk voor chat, voice, opvolging, tickets en rapportage.</p>
+      </div>
+
+      <div class="ap-package-grid">
+        
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Start</span>
+            <h3>Complete Start</h3>
+            <p>Voor teams die één supportflow via chat én voice willen automatiseren.</p>
+
+            <div class="ap-price">
+              <strong>&euro;719</strong>
+              <span>per maand, implementatie &euro;7625</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>1 scenario naar keuze via chat en voice, zoals inbound support, statusvragen of terugbelverzoeken</span></li><li><span class="ap-check">✓</span><span>Inbound of outbound tickets opvangen</span></li><li><span class="ap-check">✓</span><span>Basis ticketkwalificatie over telefoon en chat</span></li><li><span class="ap-check">✓</span><span>Contactgegevens, context en ontbrekende informatie verzamelen</span></li><li><span class="ap-check">✓</span><span>Basis kennisbankantwoorden via beide kanalen</span></li><li><span class="ap-check">✓</span><span>Basis ticketoverdracht naar vaste medewerker of mailbox</span></li><li><span class="ap-check">✓</span><span>Heldere fallback bij emotie, spoed of uitzonderingen</span></li><li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 6 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound chat &euro;0,02 per bericht.<br>Outbound chat &euro;0,22 per bericht.<br>Inbound belminuten &euro;0,19 per minuut.<br>Outbound belminuten &euro;0,22 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeG2wQbNJoBxwDUYQzC2opI"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+        
+        <div class="ap-package featured">
+          <div class="ap-package-top">
+            <span class="ap-badge">Scale</span>
+            <h3>Complete Scale</h3>
+            <p>Voor teams die ticketdruk over meerdere kanalen structureel willen verlagen.</p>
+
+            <div class="ap-price">
+              <strong>&euro;979</strong>
+              <span>per maand, implementatie &euro;9495</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>2 scenario’s naar keuze via chat en voice</span></li><li><span class="ap-check">✓</span><span>Inbound en outbound support via meerdere kanalen</span></li><li><span class="ap-check">✓</span><span>Uitgebreide triage op categorie, urgentie, SLA en klanttype</span></li><li><span class="ap-check">✓</span><span>Statusupdates, terugbelacties en incomplete tickets opvolgen</span></li><li><span class="ap-check">✓</span><span>Uitgebreide kennisbank met procedures en uitzonderingen</span></li><li><span class="ap-check">✓</span><span>Teamroutering voor meerdere afdelingen of specialisten</span></li><li><span class="ap-check">✓</span><span>CRM/ticketsysteem update met status, tags en notities</span></li><li><span class="ap-check">✓</span><span>Gespreksoverzicht voor kwaliteitscontrole</span></li><li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 8 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more" style="color:rgba(255,255,255,0.78);border-top-color:rgba(255,255,255,0.14);">
+              Inbound chat &euro;0,02 per bericht.<br>Outbound chat &euro;0,22 per bericht.<br>Inbound belminuten &euro;0,19 per minuut.<br>Outbound belminuten &euro;0,22 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeG4YQbNJoBxwDUmbduJfAh"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+        
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Premium</span>
+            <h3>Complete Premium</h3>
+            <p>Voor organisaties die een volledige AI first-line supportdesk willen bouwen.</p>
+
+            <div class="ap-price">
+              <strong>&euro;1299</strong>
+              <span>per maand, implementatie &euro;12799</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Alle afgesproken supportscenario’s via chat en voice</span></li><li><span class="ap-check">✓</span><span>Inbound, outbound, proactieve opvolging en escalaties</span></li><li><span class="ap-check">✓</span><span>Diepe triage op SLA, impact, emotie, compliance en specialistische inhoud</span></li><li><span class="ap-check">✓</span><span>Volledige supportkennisbank met beleid, uitzonderingen, procedures en tone of voice</span></li><li><span class="ap-check">✓</span><span>Geavanceerde routering naar teams, locaties, specialisten en prioriteiten</span></li><li><span class="ap-check">✓</span><span>Escalatieflows met samenvatting, urgentie en voorgestelde vervolgstap</span></li><li><span class="ap-check">✓</span><span>Volledige CRM/ticketsysteem flow met taken, tags, status, notities en prioriteit</span></li><li><span class="ap-check">✓</span><span>Kwaliteitscontrole over chatgesprekken, telefoongesprekken en overdrachten</span></li><li><span class="ap-check">✓</span><span>Rapportage over ticketreductie, escalaties en verbeterpunten</span></li><li><span class="ap-check">✓</span><span>Maandelijkse optimalisatie op basis van echte supportdata</span></li><li><span class="ap-check">✓</span><span>Lanceerdatum maximaal 10 weken na onboarding</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Inbound chat &euro;0,02 per bericht.<br>Outbound chat &euro;0,22 per bericht.<br>Inbound belminuten &euro;0,19 per minuut.<br>Outbound belminuten &euro;0,22 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TeG6VQbNJoBxwDUcRk9NU4T"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-cs-complete-proposal-faq">
+    <div class="ap-container">
+      <div class="ap-center"><div class="ap-eyebrow">FAQ</div><h2 class="ap-title">Veelgestelde vragen over AI klantenservice.</h2><p class="ap-subtitle">De belangrijkste vragen over tickets, kennisbank, systemen, gebruikskosten en pakketkeuze.</p></div>
+      <div class="ap-faq">
+        <details open><summary><div><h3 class="ap-road-title">Vervangt dit mijn klantenserviceteam?</h3><p class="ap-road-preview">Nee. De AI vangt de eerste lijn op, werkt standaardtickets weg en verzamelt context. Je team houdt meer tijd over voor complexe, gevoelige of commerciële cases.</p></div><span class="ap-plus">+</span></summary></details>
+        <details><summary><div><h3 class="ap-road-title">Kan de AI tickets aanmaken in ons systeem?</h3><p class="ap-road-preview">Ja, meestal wel. We koppelen waar mogelijk met CRM, ticketsysteem, mailbox, chat, telefonie of formulieren via API, webhook of bestaande integraties.</p></div><span class="ap-plus">+</span></summary></details>
+        <details><summary><div><h3 class="ap-road-title">Wat gebeurt er bij boze of complexe klanten?</h3><p class="ap-road-preview">We richten duidelijke fallbackregels in. Bij hoge urgentie, emotie, uitzonderingen of ontbrekende rechten schakelt de AI door of maakt hij een compleet ticket voor je team.</p></div><span class="ap-plus">+</span></summary></details>
+        <details><summary><div><h3 class="ap-road-title">Hoe kies ik tussen Start, Scale en Premium?</h3><p class="ap-road-preview">Start is voor één duidelijke supportflow. Scale is voor meerdere scenario’s, kanalen en teamroutering. Premium is voor een volledige AI supportlaag met SLA-logica, escalatieflows, rapportage en maandelijkse optimalisatie.</p></div><span class="ap-plus">+</span></summary></details>
+        <details><summary><div><h3 class="ap-road-title">Zitten gebruikskosten in het abonnement?</h3><p class="ap-road-preview">Nee. Het pakket bepaalt wat de AI kan doen. Gebruikskosten worden apart afgerekend op basis van werkelijk verbruik, zoals berichten of belminuten.</p></div><span class="ap-plus">+</span></summary></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section"><div class="ap-container"><div class="ap-final"><h2>Start met klantenservice die tickets echt wegwerkt.</h2><p>Niet alleen sneller reageren, maar structureel minder druk op je supportteam.</p><div class="ap-actions"><a class="ap-button primary" href="#ap-cs-complete-proposal-pakketten">Kies je pakket</a><a class="ap-button secondary" href="#ap-cs-complete-proposal-calculator">Bereken impact</a></div></div></div></section>
+
+  <script>
+    (function() {
+      const root = document.getElementById('ap-cs-complete-proposal');
+      if (!root) return;
+      const packages = {start:{monthly:719,setup:7625,automation:35},scale:{monthly:979,setup:9495,automation:50},premium:{monthly:1299,setup:12799,automation:65}};
+      const flowMessages = {start: 'Complete Start bevat 1 supportflow via chat en voice. De AI vangt de eerste lijn op en maakt tickets compleet.',scale: 'Complete Scale bevat meerdere supportflows over chat en voice met opvolging, routering en ticketsysteem updates.',premium: 'Complete Premium bevat een volledige AI first-line supportlaag met SLA-triage, escalatieflows, rapportage en optimalisatie.'};
+      let selectedPackageKey = 'start';
+      const formatEuro = n => new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Math.round(n || 0));
+      const formatNumber = n => new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 0 }).format(Math.round(n || 0));
+      const getNumber = id => Math.max(0, Number(root.querySelector('#' + id)?.value || 0));
+      const setOutput = (id, value) => { const node = root.querySelector('#' + id); if (node) node.textContent = value; };
+      function updateFlowButtons() {
+        root.querySelectorAll('[data-package-flow]').forEach(button => {
+          button.classList.toggle('is-active', button.getAttribute('data-package-flow') === selectedPackageKey);
+        });
+        const label = root.querySelector('#apFlowLabel');
+        if (label) label.textContent = flowMessages[selectedPackageKey];
+      }
+
+      function initBrainVisual() {
+        const brain = root.querySelector('[data-ap-brain]');
+        if (!brain) return;
+        const controls = brain.querySelectorAll('[data-ap-brain-step]');
+        const panels = brain.querySelectorAll('[data-ap-brain-panel]');
+        function setBrainStep(step) {
+          controls.forEach(control => control.classList.toggle('is-active', control.getAttribute('data-ap-brain-step') === step));
+          panels.forEach(panel => panel.classList.toggle('is-active', panel.getAttribute('data-ap-brain-panel') === step));
+        }
+        controls.forEach(control => control.addEventListener('click', () => setBrainStep(control.getAttribute('data-ap-brain-step'))));
+        setBrainStep('intake');
+      }
+
+      function calculate() {
+        const selectedPackage = packages[selectedPackageKey];
+        const tickets = getNumber('apTickets');
+        const minutes = getNumber('apMinutes');
+        const hourly = getNumber('apHourly');
+        const fteHours = Math.max(1, getNumber('apFteHours'));
+        const manualHours = tickets * minutes / 60;
+        const manualCost = manualHours * hourly;
+        const ticketsSaved = tickets * selectedPackage.automation / 100;
+        const hoursSaved = ticketsSaved * minutes / 60;
+        const grossSaved = hoursSaved * hourly;
+        const remainingTickets = Math.max(0, tickets - ticketsSaved);
+        const remainingHours = Math.max(0, manualHours - hoursSaved);
+        const fteSaved = hoursSaved / fteHours;
+        const netAfterCost = grossSaved - selectedPackage.monthly;
+        setOutput('apMonthly', formatEuro(selectedPackage.monthly));
+        setOutput('apSetup', formatEuro(selectedPackage.setup));
+        setOutput('apAutomationRate', selectedPackage.automation + '%');
+        setOutput('apAutomationBadge', selectedPackage.automation + '% geschikt');
+        setOutput('apManualTickets', formatNumber(tickets));
+        setOutput('apManualHours', formatNumber(manualHours));
+        setOutput('apManualCost', formatEuro(manualCost));
+        setOutput('apRemainingTickets', formatNumber(remainingTickets));
+        setOutput('apRemainingHours', formatNumber(remainingHours));
+        setOutput('apFteSaved', fteSaved.toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 }));
+        setOutput('apTicketsSaved', formatNumber(ticketsSaved));
+        setOutput('apHoursSaved', formatNumber(hoursSaved));
+        setOutput('apGrossSaved', formatEuro(grossSaved));
+        setOutput('apNetAfterCost', formatEuro(netAfterCost));
+        updateFlowButtons();
+      }
+      const packageSelect = root.querySelector('#apPackage');
+      if (packageSelect) packageSelect.addEventListener('change', () => { selectedPackageKey = packageSelect.value; calculate(); });
+      ['apTickets', 'apMinutes', 'apHourly', 'apFteHours'].forEach(id => root.querySelector('#' + id)?.addEventListener('input', calculate));
+      initBrainVisual();
+      calculate();
+    })();
+  </script>
+</div>
