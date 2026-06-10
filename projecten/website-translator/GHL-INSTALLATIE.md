@@ -23,7 +23,7 @@ Als de live website bij terugscrollen de voettekst laat hangen, komt dat meestal
 
 ```html
 <script
-  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610c">
+  src="https://timkuiper1.github.io/website-autopilots/shared-sections/autopilots-ghl-footer-scroll-fix.js?v=20260610d">
 </script>
 ```
 
