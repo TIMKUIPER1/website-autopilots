@@ -147,12 +147,28 @@ Standaard voor website en landingpage H1:
 
 ```css
 h1 {
-  font-size: clamp(40px, calc(6vw - 6px), 72px);
+  font-size: clamp(38px, calc(6vw - 12px), 66px);
   line-height: 1.06;
 }
 ```
 
-Gebruik alleen grotere H1's als er bewust een hero-campagnebeeld is met veel negatieve ruimte. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's en afspraakpagina's is 72px de desktop bovengrens.
+Gebruik alleen grotere H1's als er bewust een hero-campagnebeeld is met veel negatieve ruimte. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's en afspraakpagina's is 66px de desktop bovengrens.
+
+### **H2 desktop formaat**
+
+Alle H2 sectietitels moeten 6px rustiger zijn dan de eerdere previewversie.
+
+Standaard voor H2 titels:
+
+```css
+h2,
+.ap-section-title {
+  font-size: clamp(28px, calc(4.5vw - 6px), 52px);
+  line-height: 1.07;
+}
+```
+
+Gebruik voor kleinere kaarttitels geen hero-schaal. Kaart-H2's blijven compact en scannable, meestal tussen 20px en 24px.
 
 ### **Titel spacing**
 
