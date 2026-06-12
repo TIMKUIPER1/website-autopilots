@@ -1024,6 +1024,136 @@
     justify-content: center;
   }
 
+
+
+  #ap-property .ap-roi-calculator {
+    border: 1px solid var(--ap-line);
+    border-radius: 34px;
+    background: var(--ap-card);
+    box-shadow: 0 18px 54px rgba(17, 17, 17, 0.07);
+    padding: 28px;
+  }
+
+  #ap-property .ap-roi-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.72fr);
+    gap: 22px;
+    align-items: stretch;
+    margin-top: 28px;
+  }
+
+  #ap-property .ap-roi-inputs,
+  #ap-property .ap-roi-results {
+    display: grid;
+    gap: 12px;
+  }
+
+  #ap-property .ap-roi-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 146px;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid var(--ap-line);
+    border-radius: 22px;
+    background: var(--ap-soft-2);
+    padding: 16px 18px;
+  }
+
+  #ap-property .ap-roi-field span {
+    display: block;
+    color: var(--ap-muted);
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+
+  #ap-property .ap-roi-field strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-roi-field input {
+    width: 100%;
+    min-height: 52px;
+    border: 1px solid var(--ap-line);
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ap-text);
+    font: 900 18px/1 "Public Sans", Arial, sans-serif;
+    padding: 0 16px;
+    outline: none;
+  }
+
+  #ap-property .ap-roi-field input:focus {
+    border-color: rgba(159, 56, 38, 0.38);
+    box-shadow: 0 0 0 5px rgba(159, 56, 38, 0.09);
+  }
+
+  #ap-property .ap-roi-results {
+    border-radius: 28px;
+    background: var(--ap-black);
+    color: #fff;
+    padding: 22px;
+  }
+
+  #ap-property .ap-roi-metric {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: end;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 0 0 14px;
+  }
+
+  #ap-property .ap-roi-metric span {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 800;
+  }
+
+  #ap-property .ap-roi-metric strong {
+    color: #fff;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 0.95;
+    font-weight: 900;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  #ap-property .ap-roi-total {
+    border: 1px solid rgba(228, 160, 146, 0.4);
+    border-radius: 24px;
+    background: rgba(159, 56, 38, 0.18);
+    padding: 18px;
+  }
+
+  #ap-property .ap-roi-total span {
+    display: block;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  #ap-property .ap-roi-total strong {
+    display: block;
+    color: #fff;
+    font-size: clamp(34px, 4.6vw, 58px);
+    line-height: 0.95;
+    font-weight: 900;
+  }
+
+  #ap-property .ap-roi-note {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
   @media (max-width: 980px) {
     #ap-property .ap-hero-grid,
     #ap-property .ap-section-head,
@@ -1031,6 +1161,10 @@
     #ap-property .ap-voice-grid,
     #ap-property .ap-voice-card,
     #ap-property .ap-calendar-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-property .ap-roi-grid {
       grid-template-columns: 1fr;
     }
 
@@ -1119,6 +1253,24 @@
 
     #ap-property .ap-calendar-card iframe {
       min-height: 720px;
+    }
+
+    #ap-property .ap-roi-calculator,
+    #ap-property .ap-roi-results {
+      border-radius: 26px;
+      padding: 22px;
+    }
+
+    #ap-property .ap-roi-field {
+      grid-template-columns: 1fr;
+    }
+
+    #ap-property .ap-roi-field input {
+      min-height: 50px;
+    }
+
+    #ap-property .ap-roi-metric strong {
+      font-size: 26px;
     }
   }
 
@@ -1584,6 +1736,67 @@ body {
     </div>
   </section>
 
+
+
+  <section class="ap-section" id="roi-calculator">
+    <div class="ap-container">
+      <div class="ap-roi-calculator" data-ap-install-roi>
+        <div class="ap-section-head">
+          <div>
+            <div class="ap-kicker">ROI Calculator</div>
+            <h2 class="ap-title-sm">Bereken hoeveel capaciteit je terugwint.</h2>
+          </div>
+          <p class="ap-section-text">Vul je maandelijkse klantvragen, storingen en gemiste aanvragen in. Je ziet direct hoeveel uren, FTE en omzetruimte AI kan vrijspelen.</p>
+        </div>
+        <div class="ap-roi-grid">
+          <div class="ap-roi-inputs">
+            <label class="ap-roi-field">
+              <span><strong>Klantvragen en storingen per maand</strong><span>Telefoon, mail, WhatsApp en website samen.</span></span>
+              <input type="number" min="0" step="10" value="450" data-roi-input="tickets">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Gemiddelde intake per vraag</strong><span>Hoeveel minuten kost uitvragen, noteren en doorzetten?</span></span>
+              <input type="number" min="1" step="1" value="8" data-roi-input="minutes">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Percentage dat AI kan overnemen</strong><span>Denk aan intake, FAQ, afspraakvoorstel en samenvatting.</span></span>
+              <input type="number" min="0" max="100" step="5" value="55" data-roi-input="automation">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Uurkosten binnendienst</strong><span>All-in kosten per uur voor planning, receptie of service.</span></span>
+              <input type="number" min="0" step="5" value="42" data-roi-input="hourly">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Gemiste aanvragen per maand</strong><span>Avond, weekend, drukte of te late opvolging.</span></span>
+              <input type="number" min="0" step="1" value="35" data-roi-input="missed">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Gemiddelde waarde per extra opdracht</strong><span>Serviceklus, onderhoud, offerte of installatie-aanvraag.</span></span>
+              <input type="number" min="0" step="50" value="650" data-roi-input="value">
+            </label>
+            <label class="ap-roi-field">
+              <span><strong>Conversie naar opdracht</strong><span>Van teruggewonnen aanvraag naar betaalde opdracht.</span></span>
+              <input type="number" min="0" max="100" step="5" value="30" data-roi-input="conversion">
+            </label>
+          </div>
+          <div class="ap-roi-results">
+            <div class="ap-roi-metric"><span>Uren terug per maand</span><strong data-roi-output="hours">0</strong></div>
+            <div class="ap-roi-metric"><span>FTE ruimte vrijgespeeld</span><strong data-roi-output="fte">0</strong></div>
+            <div class="ap-roi-metric"><span>Kosten bespaard</span><strong data-roi-output="savings">0</strong></div>
+            <div class="ap-roi-metric"><span>Extra opdrachten uit dezelfde drukte</span><strong data-roi-output="jobs">0</strong></div>
+            <div class="ap-roi-metric"><span>Extra omzet per maand</span><strong data-roi-output="revenue">0</strong></div>
+            <div class="ap-roi-total"><span>Netto extra resultaat per maand</span><strong data-roi-output="net">0</strong></div>
+            <p class="ap-roi-note">Indicatie op basis van eenvoudige aannames. In een demo rekenen we dit scherper door met jullie eigen openingstijden, serviceproces, type meldingen en gemiddelde opdrachtwaarde.</p>
+            <div class="ap-actions">
+              <a class="ap-button ap-button-primary" href="#afspraak">Plan een afspraak</a>
+              <a class="ap-button ap-button-secondary" href="#voice-test">Test de Voice AI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="ap-section" id="voice-test">
     <div class="ap-container">
       <div class="ap-section-head">
@@ -1923,27 +2136,57 @@ body {
 
 <script>
 (function () {
-  var marker = "ap-ghl-height-sync-2026-06";
+  var marker = "ap-ghl-height-sync-2026-06-12";
   if (window[marker]) return;
   window[marker] = true;
 
-  function syncHeight() {
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
+  function getHeight() {
     var body = document.body;
-    var html = document.documentElement;
-    if (!body || !html) return;
+    var candidates = [];
+    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
 
-    body.style.overflowY = "visible";
-    html.style.overflowY = "visible";
+    Array.prototype.forEach.call(roots, function (root) {
+      candidates.push(elementBottom(root));
+    });
 
-    var height = Math.max(
-      body.scrollHeight, body.offsetHeight,
-      html.clientHeight, html.scrollHeight, html.offsetHeight
-    );
+    if (body) {
+      body.style.overflowY = "visible";
+      Array.prototype.forEach.call(body.children, function (child) {
+        candidates.push(elementBottom(child));
+      });
+    }
+
+    document.documentElement.style.overflowY = "visible";
+
+    var measured = Math.max.apply(Math, candidates.filter(function (value) {
+      return Number.isFinite(value) && value > 0;
+    }));
+
+    if (!Number.isFinite(measured) || measured < 400) {
+      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
+    }
+
+    return Math.ceil(measured + 24);
+  }
+
+  function syncHeight() {
+    var height = getHeight();
 
     try {
       if (window.frameElement) {
         window.frameElement.setAttribute("scrolling", "no");
-        window.frameElement.style.overflow = "visible";
+        window.frameElement.style.overflow = "hidden";
         window.frameElement.style.height = height + "px";
       }
     } catch (error) {}
@@ -1958,9 +2201,18 @@ body {
   window.addEventListener("resize", syncHeight);
   setTimeout(syncHeight, 250);
   setTimeout(syncHeight, 1000);
+  setTimeout(syncHeight, 2500);
 
-  if ("ResizeObserver" in window) {
+  if ("ResizeObserver" in window && document.body) {
     new ResizeObserver(syncHeight).observe(document.body);
+  }
+
+  if ("MutationObserver" in window) {
+    new MutationObserver(syncHeight).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
   }
 })();
 </script>
@@ -2082,23 +2334,113 @@ body {
 })();
 </script>
 
+
 <script>
 (function () {
-  var marker = "ap-embed-height-sync-2026-06-10";
+  var marker = "ap-install-roi-calculator-2026-06-12";
   if (window[marker]) return;
   window[marker] = true;
 
+  var euro = new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0
+  });
+  var number = new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 1 });
+
+  function value(root, key) {
+    var input = root.querySelector('[data-roi-input="' + key + '"]');
+    return Math.max(0, Number(input && input.value ? input.value : 0));
+  }
+
+  function set(root, key, text) {
+    var output = root.querySelector('[data-roi-output="' + key + '"]');
+    if (output) output.textContent = text;
+  }
+
+  function calculate(root) {
+    var tickets = value(root, "tickets");
+    var minutes = value(root, "minutes");
+    var automation = Math.min(value(root, "automation"), 100) / 100;
+    var hourly = value(root, "hourly");
+    var missed = value(root, "missed");
+    var orderValue = value(root, "value");
+    var conversion = Math.min(value(root, "conversion"), 100) / 100;
+    var aiCost = 1500;
+
+    var hours = tickets * minutes / 60 * automation;
+    var fte = hours / 160;
+    var savings = hours * hourly;
+    var extraJobs = missed * conversion;
+    var revenue = extraJobs * orderValue;
+    var net = savings + revenue - aiCost;
+
+    set(root, "hours", number.format(hours));
+    set(root, "fte", number.format(fte));
+    set(root, "savings", euro.format(savings));
+    set(root, "jobs", number.format(extraJobs));
+    set(root, "revenue", euro.format(revenue));
+    set(root, "net", euro.format(net));
+  }
+
+  function init() {
+    document.querySelectorAll("[data-ap-install-roi]").forEach(function (root) {
+      root.querySelectorAll("input").forEach(function (input) {
+        input.addEventListener("input", function () { calculate(root); });
+      });
+      calculate(root);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+(function () {
+  var marker = "ap-embed-height-sync-2026-06-12";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
   function getHeight() {
-    var doc = document.documentElement;
     var body = document.body;
-    var heights = [
-      doc ? doc.scrollHeight : 0,
-      body ? body.scrollHeight : 0,
-      doc ? doc.offsetHeight : 0,
-      body ? body.offsetHeight : 0,
-      doc ? doc.clientHeight : 0
-    ];
-    return Math.max.apply(Math, heights) + 24;
+    var candidates = [];
+    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
+
+    Array.prototype.forEach.call(roots, function (root) {
+      candidates.push(elementBottom(root));
+    });
+
+    if (body) {
+      Array.prototype.forEach.call(body.children, function (child) {
+        candidates.push(elementBottom(child));
+      });
+    }
+
+    var measured = Math.max.apply(Math, candidates.filter(function (value) {
+      return Number.isFinite(value) && value > 0;
+    }));
+
+    if (!Number.isFinite(measured) || measured < 400) {
+      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
+    }
+
+    return Math.ceil(measured + 24);
   }
 
   function syncHeight() {

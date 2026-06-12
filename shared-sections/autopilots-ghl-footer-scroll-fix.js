@@ -1,5 +1,5 @@
 (function () {
-  var marker = "apGhlIframeHeightFix20260610e";
+  var marker = "apGhlIframeHeightFix20260612a";
   if (window[marker]) return;
   window[marker] = true;
 
@@ -14,13 +14,13 @@
 
   function getFallbackHeight(frame) {
     var src = (frame && frame.getAttribute("src") || "").toLowerCase();
-    if (src.indexOf("autopilots-crm") !== -1 || src.indexOf("crm-landing-page") !== -1) return 5600;
-    if (src.indexOf("homepage") !== -1 || src.indexOf("home-landing-page") !== -1) return 7800;
-    if (src.indexOf("niche-landing-pages") !== -1) return 7600;
-    if (src.indexOf("leadsmachine") !== -1) return 7200;
-    if (src.indexOf("privacy-policy") !== -1) return 3600;
-    if (src.indexOf("voice-agent-bedankt") !== -1) return 4200;
-    return 6200;
+    if (src.indexOf("privacy-policy") !== -1) return 1800;
+    if (src.indexOf("voice-agent-bedankt") !== -1) return 1800;
+    if (src.indexOf("autopilots-crm") !== -1 || src.indexOf("crm-landing-page") !== -1) return 2200;
+    if (src.indexOf("homepage") !== -1 || src.indexOf("home-landing-page") !== -1) return 2400;
+    if (src.indexOf("niche-landing-pages") !== -1) return 2400;
+    if (src.indexOf("leadsmachine") !== -1) return 2400;
+    return 2200;
   }
 
   function prepareAutopilotsFrame(frame) {

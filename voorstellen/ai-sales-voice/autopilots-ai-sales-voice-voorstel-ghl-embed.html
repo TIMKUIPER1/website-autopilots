@@ -2165,27 +2165,57 @@ body {
 
 <script>
 (function () {
-  var marker = "ap-ghl-height-sync-2026-06";
+  var marker = "ap-ghl-height-sync-2026-06-12";
   if (window[marker]) return;
   window[marker] = true;
 
-  function syncHeight() {
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
+  function getHeight() {
     var body = document.body;
-    var html = document.documentElement;
-    if (!body || !html) return;
+    var candidates = [];
+    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
 
-    body.style.overflowY = "visible";
-    html.style.overflowY = "visible";
+    Array.prototype.forEach.call(roots, function (root) {
+      candidates.push(elementBottom(root));
+    });
 
-    var height = Math.max(
-      body.scrollHeight, body.offsetHeight,
-      html.clientHeight, html.scrollHeight, html.offsetHeight
-    );
+    if (body) {
+      body.style.overflowY = "visible";
+      Array.prototype.forEach.call(body.children, function (child) {
+        candidates.push(elementBottom(child));
+      });
+    }
+
+    document.documentElement.style.overflowY = "visible";
+
+    var measured = Math.max.apply(Math, candidates.filter(function (value) {
+      return Number.isFinite(value) && value > 0;
+    }));
+
+    if (!Number.isFinite(measured) || measured < 400) {
+      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
+    }
+
+    return Math.ceil(measured + 24);
+  }
+
+  function syncHeight() {
+    var height = getHeight();
 
     try {
       if (window.frameElement) {
         window.frameElement.setAttribute("scrolling", "no");
-        window.frameElement.style.overflow = "visible";
+        window.frameElement.style.overflow = "hidden";
         window.frameElement.style.height = height + "px";
       }
     } catch (error) {}
@@ -2200,30 +2230,63 @@ body {
   window.addEventListener("resize", syncHeight);
   setTimeout(syncHeight, 250);
   setTimeout(syncHeight, 1000);
+  setTimeout(syncHeight, 2500);
 
-  if ("ResizeObserver" in window) {
+  if ("ResizeObserver" in window && document.body) {
     new ResizeObserver(syncHeight).observe(document.body);
+  }
+
+  if ("MutationObserver" in window) {
+    new MutationObserver(syncHeight).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
   }
 })();
 </script>
 
 <script>
 (function () {
-  var marker = "ap-embed-height-sync-2026-06-10";
+  var marker = "ap-embed-height-sync-2026-06-12";
   if (window[marker]) return;
   window[marker] = true;
 
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
   function getHeight() {
-    var doc = document.documentElement;
     var body = document.body;
-    var heights = [
-      doc ? doc.scrollHeight : 0,
-      body ? body.scrollHeight : 0,
-      doc ? doc.offsetHeight : 0,
-      body ? body.offsetHeight : 0,
-      doc ? doc.clientHeight : 0
-    ];
-    return Math.max.apply(Math, heights) + 24;
+    var candidates = [];
+    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
+
+    Array.prototype.forEach.call(roots, function (root) {
+      candidates.push(elementBottom(root));
+    });
+
+    if (body) {
+      Array.prototype.forEach.call(body.children, function (child) {
+        candidates.push(elementBottom(child));
+      });
+    }
+
+    var measured = Math.max.apply(Math, candidates.filter(function (value) {
+      return Number.isFinite(value) && value > 0;
+    }));
+
+    if (!Number.isFinite(measured) || measured < 400) {
+      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
+    }
+
+    return Math.ceil(measured + 24);
   }
 
   function syncHeight() {
