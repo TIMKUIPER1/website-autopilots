@@ -103,14 +103,33 @@
             <h2 class="ap-section-title">Alles loopt door naar een duidelijke systeemactie.</h2>
             <p class="ap-text">Een gesprek is pas waardevol als er iets gebeurt: een afspraak wordt geboekt, een ticket wordt aangemaakt, CRM is bijgewerkt of een medewerker krijgt de juiste context.</p>
           </div>
-          <div class="ap-architecture">
-            <div class="ap-arch-card"><strong>Instroom</strong><span>Chat, voice, WhatsApp, formulier, mail, advertentie of landingspagina.</span></div>
-            <div class="ap-arrow">→</div>
-            <div class="ap-arch-card"><strong>AI-brein</strong><span>Branchekennis, scripts, klantdata, triage, regels en menselijke fallback.</span></div>
-            <div class="ap-arrow">→</div>
-            <div class="ap-arch-card"><strong>Koppelingen</strong><span>GoHighLevel, HubSpot, Salesforce, Google Calendar, Outlook, Exact en meer.</span></div>
-            <div class="ap-arrow">→</div>
-            <div class="ap-arch-card"><strong>Output</strong><span>Afspraak, CRM-update, ticket, taak, bevestiging, follow-up of overdracht.</span></div>
+          <div class="ap-architecture-live" data-architecture-live>
+            <div class="ap-architecture-tabs" aria-label="AI architectuur stappen">
+              <button class="is-active" type="button" data-arch-step="0">Instroom</button>
+              <button type="button" data-arch-step="1">AI-brein</button>
+              <button type="button" data-arch-step="2">Koppelingen</button>
+              <button type="button" data-arch-step="3">Systeemactie</button>
+            </div>
+            <div class="ap-architecture-map" aria-live="polite">
+              <div class="ap-arch-orbit" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <article class="ap-arch-main">
+                <span data-arch-number>01</span>
+                <h3 data-arch-title>Instroom</h3>
+                <p data-arch-text>Chat, Voice AI, WhatsApp, formulier, mail, advertentie of landingspagina komt binnen.</p>
+              </article>
+              <div class="ap-arch-route">
+                <div class="is-active"><span>IN</span><strong>Vraag komt binnen</strong></div>
+                <div><span>AI</span><strong>Context wordt begrepen</strong></div>
+                <div><span>SYS</span><strong>Systeem wordt geraakt</strong></div>
+                <div><span>OUT</span><strong>Actie is klaar</strong></div>
+              </div>
+              <aside class="ap-arch-output">
+                <span>Output</span>
+                <strong data-arch-output>Nieuwe klantvraag staat direct in de juiste route.</strong>
+              </aside>
+            </div>
           </div>
           <div class="ap-integration-strip" aria-label="Integraties">
             <div class="ap-integration-track">
@@ -259,6 +278,76 @@
         root.addEventListener("mouseleave", start);
         render(0);
         start();
+
+        const architectureSteps = [
+          {
+            number: "01",
+            title: "Instroom",
+            text: "Chat, Voice AI, WhatsApp, formulier, mail, advertentie of landingspagina komt binnen.",
+            output: "Nieuwe klantvraag staat direct in de juiste route."
+          },
+          {
+            number: "02",
+            title: "AI-brein",
+            text: "De AI raadpleegt scripts, klantdata, openingstijden, branchekennis en fallbackregels.",
+            output: "Intentie, urgentie, voorkeur en benodigde vervolgstap zijn duidelijk."
+          },
+          {
+            number: "03",
+            title: "Koppelingen",
+            text: "Agenda, CRM, tickets, mail, WhatsApp, taakbeheer en API-acties worden geraakt.",
+            output: "Het systeem weet wat er moet gebeuren en waar het moet landen."
+          },
+          {
+            number: "04",
+            title: "Systeemactie",
+            text: "Afspraak, ticket, CRM-update, bevestiging, follow-up of overdracht wordt direct uitgevoerd.",
+            output: "Klant is geholpen en het team krijgt context zonder handwerk."
+          }
+        ];
+
+        const archRoot = document.querySelector("[data-architecture-live]");
+        if (archRoot) {
+          const archButtons = [...archRoot.querySelectorAll("[data-arch-step]")];
+          const archNumber = archRoot.querySelector("[data-arch-number]");
+          const archTitle = archRoot.querySelector("[data-arch-title]");
+          const archText = archRoot.querySelector("[data-arch-text]");
+          const archOutput = archRoot.querySelector("[data-arch-output]");
+          const archRoute = [...archRoot.querySelectorAll(".ap-arch-route > div")];
+          let archActive = 0;
+          let archTimer;
+
+          const renderArch = (index) => {
+            archActive = index;
+            const item = architectureSteps[index];
+            archRoot.classList.remove("is-changing");
+            void archRoot.offsetWidth;
+            archRoot.classList.add("is-changing");
+            archButtons.forEach((button, buttonIndex) => button.classList.toggle("is-active", buttonIndex === index));
+            archRoute.forEach((route, routeIndex) => route.classList.toggle("is-active", routeIndex <= index));
+            archNumber.textContent = item.number;
+            archTitle.textContent = item.title;
+            archText.textContent = item.text;
+            archOutput.textContent = item.output;
+          };
+
+          const startArch = () => {
+            clearInterval(archTimer);
+            archTimer = setInterval(() => renderArch((archActive + 1) % architectureSteps.length), 3600);
+          };
+
+          archButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+              renderArch(Number(button.dataset.archStep));
+              startArch();
+            });
+          });
+
+          archRoot.addEventListener("mouseenter", () => clearInterval(archTimer));
+          archRoot.addEventListener("mouseleave", startArch);
+          renderArch(0);
+          startArch();
+        }
       })();
     </script>
     <script src="shared-preview.js"></script>
