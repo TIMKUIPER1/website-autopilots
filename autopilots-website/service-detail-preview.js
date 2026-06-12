@@ -77,7 +77,11 @@ const service = servicePages[key] || servicePages.voice;
 document.title = `${service.kicker} | Autopilots preview`;
 document.querySelectorAll("[data-service-kicker]").forEach((el) => (el.textContent = service.kicker));
 document.querySelectorAll("[data-service-icon]").forEach((el) => (el.textContent = service.icon));
-document.querySelectorAll("[data-service-title]").forEach((el) => (el.textContent = service.title));
+document.querySelectorAll("[data-service-title]").forEach((el) => {
+  const words = service.title.split(" ");
+  const accentWords = words.splice(Math.max(words.length - 3, 0)).join(" ");
+  el.innerHTML = `${words.join(" ")} <span class="ap-title-accent">${accentWords}</span>`;
+});
 document.querySelectorAll("[data-service-intro]").forEach((el) => (el.textContent = service.intro));
 document.querySelectorAll("[data-service-seo]").forEach((el) => (el.textContent = service.seo));
 
@@ -98,7 +102,7 @@ const visual = document.querySelector("[data-service-visual]");
 if (visual) {
   visual.dataset.visual = service.visual;
   visual.innerHTML = `
-    <div class="ap-service-detail-core"><span>${service.icon}</span><strong>${service.kicker}</strong></div>
+    <div class="ap-service-detail-core"><strong>${service.kicker}</strong></div>
     <div class="ap-service-detail-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <div class="ap-service-detail-lines" aria-hidden="true"><span></span><span></span><span></span></div>
   `;

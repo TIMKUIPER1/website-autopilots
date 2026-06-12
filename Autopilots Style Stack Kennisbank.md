@@ -268,6 +268,10 @@ Korte duidelijke subtitel
 1 secundaire CTA  
 Optioneel 3 cards onder de hero
 
+Belangrijke H1-regel:
+
+Elke hero H1 eindigt met een scheve rode tekst. Gebruik hiervoor altijd een laatste span met `ap-title-accent` of dezelfde styling: roestbruin, italic, stevig font-weight. Dus niet alleen midden in de zin een accent; het laatste visuele deel van de titel moet de rode italic punchline zijn.
+
 Voorbeeld structuur:
 
 ```html

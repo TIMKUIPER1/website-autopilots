@@ -32,7 +32,7 @@
       <section class="ap-section">
         <div class="ap-container">
           <div class="ap-kicker" data-branch-kicker>AI voor autobedrijven</div>
-          <h1 data-branch-title>AI medewerkers voor autobedrijven.</h1>
+          <h1><span data-branch-title-main>AI medewerkers voor</span> <span class="ap-title-accent" data-branch-title-accent>autobedrijven.</span></h1>
           <p class="ap-lead" data-branch-lead>Plan proefritten, volg leads op en werk CRM direct bij zonder dat verkoop achter de feiten aanloopt.</p>
           <div class="ap-actions">
             <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo</a>
@@ -264,7 +264,7 @@
             button.classList.toggle("is-active",button.getAttribute("data-agent-lang")===currentAgentLang);
           });
         }
-        setText("[data-branch-kicker]",item.kicker);setText("[data-branch-title]",item.title);setText("[data-branch-lead]",item.lead);
+        setText("[data-branch-kicker]",item.kicker);setText("[data-branch-title-main]","AI medewerkers voor");setText("[data-branch-title-accent]",item.name+".");setText("[data-branch-lead]",item.lead);
         setText("[data-pill-1]",item.pills[0]);setText("[data-pill-2]",item.pills[1]);setText("[data-pill-3]",item.pills[2]);
         setText("[data-example-title]",item.exampleTitle);
         setText("[data-workflow-intro]","De AI medewerker verwerkt dit contactmoment tot een concrete actie voor "+item.name+".");

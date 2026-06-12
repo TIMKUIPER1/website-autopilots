@@ -154,6 +154,25 @@
       border-color: var(--line);
     }
 
+    #ap-crm-proposal .ap-logo-mark {
+      width: 86px;
+      height: 42px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    #ap-crm-proposal .ap-logo-mark img {
+      width: 56px;
+      height: auto;
+      display: block;
+    }
+
     #ap-crm-proposal .ap-hero-card {
       margin-top: 46px;
       background: var(--black);
@@ -246,6 +265,213 @@
       font-size: 16px;
       line-height: 1.25;
       font-weight: 800;
+    }
+
+    #ap-crm-proposal .ap-source-grid,
+    #ap-crm-proposal .ap-inbox-grid,
+    #ap-crm-proposal .ap-review-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    #ap-crm-proposal .ap-funnel-board,
+    #ap-crm-proposal .ap-source-board,
+    #ap-crm-proposal .ap-inbox-board,
+    #ap-crm-proposal .ap-review-board {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+    }
+
+    #ap-crm-proposal .ap-funnel-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    #ap-crm-proposal .ap-funnel-tab {
+      border-radius: 999px;
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      padding: 9px 12px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    #ap-crm-proposal .ap-funnel-tab.active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-crm-proposal .ap-flowline {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-crm-proposal .ap-flowstep {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    #ap-crm-proposal .ap-flowstep b {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.12);
+      color: var(--brown);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #ap-crm-proposal .ap-flowstep strong,
+    #ap-crm-proposal .ap-source-row strong,
+    #ap-crm-proposal .ap-message strong,
+    #ap-crm-proposal .ap-review-route strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 850;
+      margin-bottom: 4px;
+    }
+
+    #ap-crm-proposal .ap-flowstep span,
+    #ap-crm-proposal .ap-source-row span,
+    #ap-crm-proposal .ap-message span,
+    #ap-crm-proposal .ap-review-route span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.42;
+      color: var(--muted);
+    }
+
+    #ap-crm-proposal .ap-arrow {
+      color: var(--brown);
+      font-weight: 900;
+    }
+
+    #ap-crm-proposal .ap-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    #ap-crm-proposal .ap-stat {
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    #ap-crm-proposal .ap-stat span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    #ap-crm-proposal .ap-stat strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    #ap-crm-proposal .ap-source-list,
+    #ap-crm-proposal .ap-message-list,
+    #ap-crm-proposal .ap-review-routes {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-crm-proposal .ap-source-row,
+    #ap-crm-proposal .ap-message,
+    #ap-crm-proposal .ap-review-route {
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    #ap-crm-proposal .ap-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    #ap-crm-proposal .ap-bar i {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--brown);
+    }
+
+    #ap-crm-proposal .ap-channel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    #ap-crm-proposal .ap-channel-tags span {
+      border-radius: 999px;
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    #ap-crm-proposal .ap-review-score {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    #ap-crm-proposal .ap-score-card {
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    #ap-crm-proposal .ap-score-card strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      margin-bottom: 7px;
+    }
+
+    #ap-crm-proposal .ap-score-card span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--muted);
     }
 
     #ap-crm-proposal .ap-hero-copy {
@@ -606,7 +832,10 @@
 
     @media (max-width: 920px) {
       #ap-crm-proposal .ap-hero-card,
-      #ap-crm-proposal .ap-system-grid {
+      #ap-crm-proposal .ap-system-grid,
+      #ap-crm-proposal .ap-source-grid,
+      #ap-crm-proposal .ap-inbox-grid,
+      #ap-crm-proposal .ap-review-grid {
         grid-template-columns: 1fr;
       }
 
@@ -640,8 +869,18 @@
       }
 
       #ap-crm-proposal .ap-pipeline,
-      #ap-crm-proposal .ap-mini-grid {
+      #ap-crm-proposal .ap-mini-grid,
+      #ap-crm-proposal .ap-stat-grid,
+      #ap-crm-proposal .ap-review-score {
         grid-template-columns: 1fr 1fr;
+      }
+
+      #ap-crm-proposal .ap-flowstep {
+        grid-template-columns: 36px 1fr;
+      }
+
+      #ap-crm-proposal .ap-flowstep .ap-arrow {
+        display: none;
       }
 
       #ap-crm-proposal .ap-actions,
@@ -658,10 +897,13 @@
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">CRM SYSTEEM INRICHTEN</div>
-        <h1 class="ap-hero-title">Van losse leads naar een <span class="ap-italic">commercieel besturingssysteem</span>.</h1>
+        <div class="ap-logo-mark">
+          <img src="assets/ap-logo.svg" alt="Autopilots">
+        </div>
+        <div class="ap-eyebrow">AUTOPILOTS CRM</div>
+        <h1 class="ap-hero-title">Een CRM dat precies laat zien <span class="ap-italic">waar je omzet ontstaat</span>.</h1>
         <p class="ap-hero-text">
-          We richten GoHighLevel in als het centrale systeem voor leads, klanten, afspraken, opvolging, pipeline, reviews en automatisering. Niet als lege software, maar als werkend proces voor je team.
+          Autopilots CRM brengt leads, funnels, verkopers, afspraken, gesprekken, reviews en dashboards samen in een systeem dat je team elke dag kan gebruiken. Niet als losse database, maar als commerciele cockpit.
         </p>
         <div class="ap-actions">
           <a class="ap-button primary" href="#ap-crm-pakketten">Bekijk de pakketten</a>
@@ -672,23 +914,23 @@
       <div class="ap-hero-card">
         <div class="ap-dashboard">
           <div class="ap-dashboard-head">
-            <h3>CRM cockpit</h3>
-            <span class="ap-live">LIVE PIPELINE</span>
+            <h3>Autopilots CRM</h3>
+            <span class="ap-live">LIVE COCKPIT</span>
           </div>
           <div class="ap-pipeline">
-            <div class="ap-pipe"><span>Nieuw</span><strong>24</strong></div>
-            <div class="ap-pipe"><span>Gekwalificeerd</span><strong>16</strong></div>
-            <div class="ap-pipe"><span>Afspraak</span><strong>9</strong></div>
-            <div class="ap-pipe"><span>Gewonnen</span><strong>5</strong></div>
+            <div class="ap-pipe"><span>Leads</span><strong>148</strong></div>
+            <div class="ap-pipe"><span>Afspraken</span><strong>41</strong></div>
+            <div class="ap-pipe"><span>Deals</span><strong>17</strong></div>
+            <div class="ap-pipe"><span>Reviews</span><strong>4.8</strong></div>
           </div>
           <div class="ap-mini-grid">
             <div class="ap-mini">
-              <span class="ap-mini-label">Automatisering</span>
-              <strong>Follow-up, reminders en taakverdeling</strong>
+              <span class="ap-mini-label">Beste bron</span>
+              <strong>Google Ads, 31% lead naar afspraak</strong>
             </div>
             <div class="ap-mini">
-              <span class="ap-mini-label">Kanalen</span>
-              <strong>Formulieren, chat, e-mail, sms, agenda</strong>
+              <span class="ap-mini-label">Actie nodig</span>
+              <strong>7 warme leads wachten op opvolging</strong>
             </div>
           </div>
         </div>
@@ -697,11 +939,11 @@
           <div>
             <h2>Alle commerciele beweging op een plek.</h2>
             <p>
-              HighLevel is krachtig, maar de waarde zit in de inrichting. Wij maken van de techniek een duidelijk systeem: iedere lead krijgt een status, eigenaar, opvolging en volgende stap.
+              Autopilots CRM laat zien welke leads binnenkomen, wie ze moet opvolgen, in welke pipeline ze staan, welke bron goed converteert en waar deals blijven hangen.
             </p>
           </div>
           <p>
-            Het resultaat: minder handwerk, minder vergeten leads, beter zicht op omzetkansen en een team dat weet wat er vandaag moet gebeuren.
+            Het resultaat: minder handwerk, minder vergeten leads, betere sturing op verkopers en direct inzicht in marketingkanalen die wel of niet renderen.
           </p>
         </div>
       </div>
@@ -738,64 +980,73 @@
     </div>
   </section>
 
-  <section class="ap-section ap-dark">
+  <section class="ap-section">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">GOHIGHLEVEL SETUP</div>
-        <h2 class="ap-title">Dit richten we slim voor je in.</h2>
+        <div class="ap-eyebrow">FUNNELS EN ROUTES</div>
+        <h2 class="ap-title">Kies de funnels die we voor je bouwen.</h2>
         <p class="ap-subtitle">
-          HighLevel kan veel. Wij selecteren en bouwen wat je echt nodig hebt voor een strak sales- en klantproces.
+          Elke funnel krijgt een eigen route: van binnenkomst naar dataverwerking, persoon, pipeline, afspraak, deal en review. Zo wordt ieder proces meetbaar.
         </p>
       </div>
 
-      <div class="ap-system-grid">
-        <div class="ap-system-list">
-          <div class="ap-system-item">
-            <strong>CRM en pipelines</strong>
-            <p>Contactvelden, dealfases, leadbronnen, taken, filters, tags en duidelijke pipeline-afspraken.</p>
-          </div>
-          <div class="ap-system-item">
-            <strong>Automations en workflows</strong>
-            <p>Nieuwe lead, afspraak geboekt, offerte open, no-show, gewonnen, verloren en reactivatie.</p>
-          </div>
-          <div class="ap-system-item">
-            <strong>Agendas en afspraken</strong>
-            <p>Boekingslinks, reminders, routing, teamagendas en overdracht naar de juiste medewerker.</p>
-          </div>
-          <div class="ap-system-item">
-            <strong>Conversaties en kanalen</strong>
-            <p>Websiteformulieren, chat, e-mail, sms, WhatsApp of social inbox waar passend binnen de scope.</p>
-          </div>
+      <div class="ap-funnel-board">
+        <div class="ap-funnel-tabs">
+          <span class="ap-funnel-tab active">Nieuwe aanvraag</span>
+          <span class="ap-funnel-tab">Offerte opvolging</span>
+          <span class="ap-funnel-tab">No-show herstel</span>
+          <span class="ap-funnel-tab">Oude leads</span>
+          <span class="ap-funnel-tab">Review na verkoop</span>
         </div>
 
-        <div class="ap-flow">
-          <div class="ap-flow-row">
-            <span class="ap-step-number">1</span>
+        <div class="ap-flowline">
+          <div class="ap-flowstep">
+            <b>01</b>
             <div>
-              <h3>Lead komt binnen</h3>
-              <p>Via formulier, funnel, website, chat, advertentie, telefoonnotitie of handmatige invoer.</p>
+              <strong>Lead komt binnen</strong>
+              <span>Via advertentie, formulier, WhatsApp, website, social, telefoonnotitie of handmatige invoer.</span>
             </div>
+            <span class="ap-arrow">-></span>
           </div>
-          <div class="ap-flow-row">
-            <span class="ap-step-number">2</span>
+          <div class="ap-flowstep">
+            <b>02</b>
             <div>
-              <h3>CRM verrijkt en routeert</h3>
-              <p>De lead krijgt bron, tag, fase, eigenaar, prioriteit en de juiste vervolgactie.</p>
+              <strong>Informatie wordt verwerkt</strong>
+              <span>Bron, campagne, interesse, budget, urgentie, locatie en contactmoment worden vastgelegd.</span>
             </div>
+            <span class="ap-arrow">-></span>
           </div>
-          <div class="ap-flow-row">
-            <span class="ap-step-number">3</span>
+          <div class="ap-flowstep">
+            <b>03</b>
             <div>
-              <h3>Opvolging start automatisch</h3>
-              <p>Berichten, taken, reminders en afspraaklinks lopen volgens de gekozen salesroute.</p>
+              <strong>Toegewezen aan juiste persoon</strong>
+              <span>De lead gaat automatisch naar de juiste verkoper, vestiging, regio of specialist.</span>
             </div>
+            <span class="ap-arrow">-></span>
           </div>
-          <div class="ap-flow-row">
-            <span class="ap-step-number">4</span>
+          <div class="ap-flowstep">
+            <b>04</b>
             <div>
-              <h3>Pipeline blijft actueel</h3>
-              <p>Je team ziet per dag wie opvolging nodig heeft, welke kansen warm zijn en waar omzet vastloopt.</p>
+              <strong>Komt in de juiste pipeline</strong>
+              <span>Nieuwe lead, gekwalificeerd, afspraak gepland, offerte open, gewonnen of verloren.</span>
             </div>
+            <span class="ap-arrow">-></span>
+          </div>
+          <div class="ap-flowstep">
+            <b>05</b>
+            <div>
+              <strong>Afspraak gepland en status wijzigt</strong>
+              <span>Na boeking verhuist de kaart automatisch naar de afspraakpipeline met reminders en taken.</span>
+            </div>
+            <span class="ap-arrow">-></span>
+          </div>
+          <div class="ap-flowstep">
+            <b>06</b>
+            <div>
+              <strong>Deal, review en rapportage</strong>
+              <span>Na verkoop start reviewmanagement en wordt zichtbaar welke bron, verkoper en funnel resultaat bracht.</span>
+            </div>
+            <span class="ap-arrow">OK</span>
           </div>
         </div>
       </div>
