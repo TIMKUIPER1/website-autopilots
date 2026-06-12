@@ -18,6 +18,7 @@ Deze map bevat de proposal embeds die vanuit GitHub Pages in GoHighLevel kunnen 
 - AI Klantenservice Voice: `voorstellen/ai-klantenservice-voice/autopilots-ai-klantenservice-voice-voorstel-ghl-embed.html`
 - AI Klantenservice Complete: `voorstellen/ai-klantenservice-complete/autopilots-ai-klantenservice-complete-voorstel-ghl-embed.html`
 - Leadsmachine AI: `voorstellen/leadsmachine-ai/autopilots-leadsmachine-ai-voorstel-ghl-embed.html`
+- CRM systeem: `voorstellen/crm-systeem/autopilots-crm-systeem-voorstel-ghl-embed.html`
 
 ## GHL iframe voorbeeld
 

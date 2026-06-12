@@ -54,20 +54,20 @@ const contactSection = `
       <div class="ap-section-head">
         <div class="ap-kicker">Contact Autopilots</div>
         <h2 class="ap-section-title">Kies hoe je <span class="ap-title-accent">ons wilt spreken.</span></h2>
-        <p class="ap-lead">Kies de route die past bij je vraag: plan een demo, bespreek een samenwerking of neem direct contact op met Tim en Larissa.</p>
+        <p class="ap-lead">Kies de route die past bij je vraag: plan een demo, bespreek een samenwerking of neem direct contact op met Autopilots.</p>
       </div>
       <div class="ap-shared-contact-grid">
         <div class="ap-shared-route-list">
-          <div class="ap-shared-route is-active"><strong>Demo plannen</strong><span>Kies direct een moment in onze agenda.</span></div>
-          <div class="ap-shared-route"><strong>Samenwerken</strong><span>Voor partnerships, projecten of nieuwe kansen.</span></div>
-          <div class="ap-shared-route"><strong>Direct contact</strong><span>Bel of mail Tim en Larissa persoonlijk.</span></div>
+          <button class="ap-shared-route is-active" type="button" data-ap-contact-route="demo"><strong>Demo plannen</strong><span>Kies direct een moment in onze agenda.</span></button>
+          <button class="ap-shared-route" type="button" data-ap-contact-route="partner"><strong>Samenwerken</strong><span>Voor partnerships, projecten of nieuwe kansen.</span></button>
+          <button class="ap-shared-route" type="button" data-ap-contact-route="direct"><strong>Direct contact</strong><span>Neem direct contact op met Autopilots.</span></button>
         </div>
-        <div class="ap-shared-contact-card">
-          <div class="ap-kicker">Meest gekozen</div>
-          <h3>Plan direct een kennismaking.</h3>
-          <p>In een korte afspraak kijken we waar AI medewerkers direct werk kunnen overnemen in je klantcontact, support, receptie of planning.</p>
-          <div class="ap-shared-tags"><span>Agenda</span><span>Demo</span><span>Concrete route</span></div>
-          <div class="ap-shared-contact-actions"><a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan een afspraak</a><a class="ap-button ap-button-secondary" href="crew-preview.html">Tim & Larissa</a></div>
+        <div class="ap-shared-contact-card" data-ap-contact-card>
+          <div class="ap-kicker" data-ap-contact-kicker>Meest gekozen</div>
+          <h3 data-ap-contact-title>Plan direct een kennismaking.</h3>
+          <p data-ap-contact-text>In een korte afspraak kijken we waar AI medewerkers direct werk kunnen overnemen in je klantcontact, support, receptie of planning.</p>
+          <div class="ap-shared-tags" data-ap-contact-tags><span>Agenda</span><span>Demo</span><span>Concrete route</span></div>
+          <div class="ap-shared-contact-actions" data-ap-contact-actions><a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan een afspraak</a><a class="ap-button ap-button-secondary" href="mailto:info@auto-pilots.io?subject=Direct%20contact%20met%20Autopilots">Neem direct contact op</a></div>
         </div>
       </div>
       <div class="ap-shared-people">
@@ -108,5 +108,60 @@ document.querySelectorAll("[data-ap-slide-prev]").forEach((button) => {
   button.addEventListener("click", () => {
     const slider = document.querySelector(`[data-ap-slider="${button.dataset.apSlidePrev}"]`);
     if (slider) slider.scrollBy({ left: -280, behavior: "smooth" });
+  });
+});
+
+const contactRoutes = {
+  demo: {
+    kicker: "Meest gekozen",
+    title: "Plan direct een kennismaking.",
+    text: "In een korte afspraak kijken we waar AI medewerkers direct werk kunnen overnemen in je klantcontact, support, receptie of planning.",
+    tags: ["Agenda", "Demo", "Concrete route"],
+    actions: [
+      { label: "Plan een afspraak", href: "afspraak-preview.html", variant: "primary" },
+      { label: "Bekijk proces", href: "process-preview.html", variant: "secondary" },
+    ],
+  },
+  partner: {
+    kicker: "Samen bouwen",
+    title: "Bespreek een partnership of project.",
+    text: "Voor samenwerkingen, implementatiepartners en groeikansen kijken we hoe Autopilots waarde kan toevoegen aan jouw klanten, markt of operatie.",
+    tags: ["Partnership", "Project", "Lange termijn"],
+    actions: [
+      { label: "Mail Autopilots", href: "mailto:info@auto-pilots.io?subject=Samenwerken%20met%20Autopilots", variant: "primary" },
+      { label: "Bekijk crew", href: "crew-preview.html", variant: "secondary" },
+    ],
+  },
+  direct: {
+    kicker: "Direct contact",
+    title: "Stel je vraag direct aan Autopilots.",
+    text: "Wil je snel schakelen over AI, klantcontact, een bestaande flow of een idee? Laat een bericht achter en we pakken het persoonlijk op.",
+    tags: ["Vraag", "AI route", "Snelle reactie"],
+    actions: [
+      { label: "Mail Autopilots", href: "mailto:info@auto-pilots.io?subject=Direct%20contact%20met%20Autopilots", variant: "primary" },
+      { label: "Plan afspraak", href: "afspraak-preview.html", variant: "secondary" },
+    ],
+  },
+};
+
+document.querySelectorAll("[data-ap-contact-route]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const route = contactRoutes[button.dataset.apContactRoute];
+    const section = button.closest(".ap-shared-contact-section");
+    const card = section?.querySelector("[data-ap-contact-card]");
+    if (!route || !section || !card) return;
+
+    section.querySelectorAll("[data-ap-contact-route]").forEach((item) => {
+      item.classList.toggle("is-active", item === button);
+    });
+
+    card.classList.remove("is-switching");
+    void card.offsetWidth;
+    card.classList.add("is-switching");
+    card.querySelector("[data-ap-contact-kicker]").textContent = route.kicker;
+    card.querySelector("[data-ap-contact-title]").textContent = route.title;
+    card.querySelector("[data-ap-contact-text]").textContent = route.text;
+    card.querySelector("[data-ap-contact-tags]").innerHTML = route.tags.map((tag) => `<span>${tag}</span>`).join("");
+    card.querySelector("[data-ap-contact-actions]").innerHTML = route.actions.map((action) => `<a class="ap-button ap-button-${action.variant}" href="${action.href}">${action.label}</a>`).join("");
   });
 });
