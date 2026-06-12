@@ -139,6 +139,36 @@ Cijfers: Syne 600 of 700
 
 Cijfers mogen Syne bold zijn, maar nooit te groot of schreeuwerig.
 
+### **Hero H1 desktop formaat**
+
+Desktop H1 titels mogen krachtig zijn, maar niet te massief.
+
+Standaard voor website en landingpage H1:
+
+```css
+h1 {
+  font-size: clamp(40px, calc(6vw - 6px), 72px);
+  line-height: 1.06;
+}
+```
+
+Gebruik alleen grotere H1's als er bewust een hero-campagnebeeld is met veel negatieve ruimte. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's en afspraakpagina's is 72px de desktop bovengrens.
+
+### **Titel spacing**
+
+Zorg altijd voor duidelijke ademruimte tussen de rode eyebrow/kicker en de zwarte titel.
+
+De rode tekst mag nooit te dicht op de titel staan.
+
+Standaard:
+
+- Eyebrow/kicker margin-bottom: 18px tot 22px
+- Grote titels line-height: minimaal 1.04
+- Sectietitels line-height: minimaal 1.06
+- Geen extreem compacte titelblokken waarbij rood en zwart visueel aan elkaar plakken
+
+Als een titel over meerdere regels loopt, moet de regelafstand rustig en premium voelen. Liever iets meer hoogte dan te agressief compacte typografie.
+
 ## **Layout regels**
 
 ### **Container**
@@ -798,4 +828,3 @@ Dit is het probleem.
 Dit is het systeem.  
 Dit is waarom het werkt.  
 Dit is de volgende stap.
-

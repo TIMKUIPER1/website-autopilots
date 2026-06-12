@@ -1,0 +1,209 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Hero from "../../../components/sections/Hero.astro";
+import GhlEmbed from "../../../components/embeds/GhlEmbed.astro";
+
+const faq = [
+  ["Kan de AI ook buiten openingstijden reageren?", "Ja. De AI medewerker kan aanvragen direct beantwoorden, kwalificeren en klaarzetten voor opvolging of afspraakplanning."],
+  ["Wordt het gekoppeld aan ons CRM?", "Ja. De bedoeling is dat leads, afspraken en context netjes in jullie bestaande CRM of GoHighLevel omgeving terechtkomen."],
+  ["Neemt de AI het verkoopgesprek volledig over?", "Nee. De AI neemt vooral eerste opvolging, kwalificatie en planning over. Warme of complexe gesprekken gaan naar het team."],
+  ["Kunnen we starten met alleen chat of voice?", "Ja. We kunnen klein starten met Chat AI of Voice AI en daarna uitbreiden met follow-up, planning en CRM-verwerking."]
+];
+---
+
+<BaseLayout
+  title="AI voor autobedrijven | Autopilots"
+  description="AI medewerkers voor autobedrijven die leads sneller opvolgen, proefritten of verkoopgesprekken plannen en CRM-verwerking strakker maken."
+  canonical="/branches/autobedrijven/"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI voor autobedrijven",
+    "provider": {
+      "@type": "Organization",
+      "name": "Autopilots",
+      "url": "https://auto-pilots.io"
+    },
+    "serviceType": "AI sales automation for car dealerships",
+    "areaServed": "Worldwide",
+    "description": "AI medewerkers voor autobedrijven die leads kwalificeren, opvolgen, afspraken plannen en CRM-processen ondersteunen."
+  })} />
+
+  <Hero
+    eyebrow="AI voor autobedrijven"
+    title="Meer autoleads opvolgen zonder dat je team"
+    accent="achter de feiten aanloopt."
+    text="Autopilots bouwt AI medewerkers voor autobedrijven die aanvragen kwalificeren, vragen beantwoorden, proefritten of verkoopgesprekken plannen en alles netjes klaarzetten in het CRM."
+    primaryLabel="Plan demo"
+    primaryHref="#demo"
+    secondaryLabel="Bekijk workflow"
+    secondaryHref="#workflow"
+    chips={["Autoleads", "Proefritten", "Voorraadvragen", "CRM", "Follow-up"]}
+  />
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Probleem</div>
+        <h2 class="ap-section-title">Autokopers wachten niet tot iemand tijd heeft.</h2>
+        <p class="ap-text">Een lead vraagt naar beschikbaarheid, financiering, inruil of proefrit. Als opvolging te laat komt, is de kans vaak al bij een andere aanbieder. Autopilots zorgt dat die eerste reactie en vervolgstap direct worden opgepakt.</p>
+      </div>
+      <div class="ap-grid-3">
+        <article class="ap-card">
+          <h3 class="ap-card-title">Trage opvolging</h3>
+          <p class="ap-text">Leads komen binnen via website, portalen, advertenties of WhatsApp, maar worden niet altijd meteen opgevolgd.</p>
+        </article>
+        <article class="ap-card">
+          <h3 class="ap-card-title">Veel herhaalvragen</h3>
+          <p class="ap-text">Beschikbaarheid, opties, inruil, financiering en proefritten kosten veel tijd voordat een verkoper aan het echte gesprek begint.</p>
+        </article>
+        <article class="ap-card">
+          <h3 class="ap-card-title">Te weinig grip</h3>
+          <p class="ap-text">Zonder strakke CRM-verwerking raakt context kwijt en wordt opvolging afhankelijk van wie toevallig tijd heeft.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="workflow">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-kicker">Autobedrijf workflow</div>
+        <h2 class="ap-section-title">Van aanvraag naar afspraak met minder handwerk.</h2>
+        <div class="ap-workflow">
+          <div>
+            <span class="ap-step-number">01</span>
+            <h3>Lead komt binnen</h3>
+            <p>Via website, advertentie, voorraadpagina, portaal, chat of formulier.</p>
+          </div>
+          <div>
+            <span class="ap-step-number">02</span>
+            <h3>AI kwalificeert</h3>
+            <p>De AI vraagt naar auto, budget, timing, inruil, financiering en voorkeur voor contact.</p>
+          </div>
+          <div>
+            <span class="ap-step-number">03</span>
+            <h3>Afspraak gepland</h3>
+            <p>Een proefrit, belafspraak of showroommoment wordt direct klaargezet.</p>
+          </div>
+          <div>
+            <span class="ap-step-number">04</span>
+            <h3>CRM bijgewerkt</h3>
+            <p>De context komt in de pipeline, zodat verkoop met de juiste informatie kan doorpakken.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Business case</div>
+        <h2 class="ap-section-title">Voor autobedrijven zit de winst vooral in snelheid en opvolging.</h2>
+      </div>
+      <div class="ap-grid-2">
+        <article class="ap-card">
+          <h3 class="ap-card-title">Zonder AI</h3>
+          <p class="ap-text">Leads worden handmatig verdeeld, vragen blijven liggen buiten openingstijden en verkopers missen context wanneer ze later terugbellen.</p>
+        </article>
+        <article class="ap-card">
+          <h3 class="ap-card-title">Met Autopilots</h3>
+          <p class="ap-text">Elke lead krijgt direct reactie, wordt gestructureerd gekwalificeerd en komt met context bij verkoop terecht.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">FAQ</div>
+        <h2 class="ap-section-title">Veelgestelde vragen over AI voor autobedrijven.</h2>
+      </div>
+      <div class="ap-accordion">
+        {faq.map(([question, answer], index) => (
+          <details open={index === 0}>
+            <summary>{question}</summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="demo">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Demo</div>
+        <h2 class="ap-section-title">Bekijk hoe dit voor jullie autobedrijf kan werken.</h2>
+        <p class="ap-text">Plan een korte afspraak. We kijken naar jullie huidige leadkanalen, voorraadproces, opvolging en CRM-route.</p>
+      </div>
+      <GhlEmbed
+        src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
+        title="Plan een Autopilots demo voor autobedrijven"
+        id="autobedrijven-calendar"
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ap-card .ap-text {
+    margin-top: 12px;
+  }
+
+  .ap-workflow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .ap-workflow > div {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 20px;
+  }
+
+  .ap-step-number {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--ap-white);
+    color: var(--ap-brown);
+    font-weight: 700;
+  }
+
+  .ap-workflow h3 {
+    margin-top: 18px;
+    font-size: 19px;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+
+  .ap-workflow p {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.56;
+    font-weight: 600;
+  }
+
+  @media (max-width: 980px) {
+    .ap-workflow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .ap-workflow {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

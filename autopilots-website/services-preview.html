@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diensten | Autopilots preview</title>
+    <meta name="description" content="Autopilots diensten: Voice AI, Chat AI, Follow Up AI, Planning AI, Leadsmachine AI, Autopilots CRM en Autopilots Support." />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+      :root{--ap-bg:#f5f5f2;--ap-card:#fff;--ap-soft:#f8f8f5;--ap-text:#111;--ap-muted:#656565;--ap-line:rgba(0,0,0,.1);--ap-brown:#9f3826;--ap-brown-dark:#7d2a1d}
+      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ap-bg);color:var(--ap-text);font-family:"Public Sans",Arial,sans-serif}a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}.ap-container{width:min(1120px,calc(100% - 36px));margin:0 auto}.ap-header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--ap-line);background:rgba(245,245,242,.9);backdrop-filter:blur(16px)}.ap-header-inner{display:flex;min-height:74px;align-items:center;justify-content:space-between;gap:18px}.ap-logo,.ap-kicker,.ap-icon{font-family:"Syne","Public Sans",Arial,sans-serif}.ap-logo{font-size:13px;font-weight:700;letter-spacing:2px}.ap-nav{display:flex;gap:8px;border:1px solid var(--ap-line);border-radius:999px;background:rgba(255,255,255,.72);padding:6px}.ap-nav a{border-radius:999px;padding:10px 12px;color:var(--ap-muted);font-size:13px;font-weight:850}.ap-nav a:hover,.ap-nav a.is-active{background:#fff;color:#111}.ap-button{display:inline-flex;min-height:50px;align-items:center;justify-content:center;border-radius:999px;padding:15px 24px;border:1px solid var(--ap-line);font-size:15px;font-weight:850}.ap-button-primary{background:var(--ap-brown);border-color:var(--ap-brown);color:#fff}.ap-button-secondary{background:#fff}.ap-header .ap-button{min-height:42px;padding:12px 18px;font-size:13px}.ap-section{padding:78px 0}.ap-kicker{display:inline-flex;margin-bottom:20px;color:var(--ap-brown);font-size:12px;font-weight:700;letter-spacing:2px;line-height:1.2;text-transform:uppercase}h1{max-width:980px;font-size:clamp(46px,6vw,78px);line-height:1.04;font-weight:900}.ap-lead{max-width:800px;margin-top:22px;color:var(--ap-muted);font-size:19px;line-height:1.62;font-weight:500}.ap-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.ap-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.ap-service{border:1px solid var(--ap-line);border-radius:30px;background:#fff;padding:28px;box-shadow:0 16px 50px rgba(17,17,17,.06)}.ap-service-top{display:flex;gap:14px;align-items:flex-start}.ap-icon{position:relative;display:flex;width:54px;height:54px;flex:0 0 54px;align-items:center;justify-content:center;border-radius:18px;background:#111;color:#fff;font-size:13px;font-weight:700;animation:apIconFloat 4s ease-in-out infinite}.ap-icon:after{content:"";position:absolute;right:8px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--ap-brown);box-shadow:0 0 0 0 rgba(159,56,38,.55);animation:apIconPulse 1.8s ease-out infinite}.ap-service h2{font-size:30px;line-height:1.08;font-weight:900}.ap-service p{margin-top:12px;color:var(--ap-muted);font-size:15px;line-height:1.62;font-weight:560}.ap-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:18px}.ap-list span{border:1px solid var(--ap-line);border-radius:999px;background:var(--ap-soft);padding:9px 12px;font-size:12px;font-weight:900}.ap-dark{border-radius:34px;background:#111;color:#fff;padding:44px}.ap-dark .ap-kicker{color:#e4a092}.ap-dark .ap-lead{color:rgba(255,255,255,.72)}.ap-final-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:42px;box-shadow:0 16px 50px rgba(17,17,17,.065)}@keyframes apIconFloat{50%{transform:translateY(-2px)}}@keyframes apIconPulse{70%{box-shadow:0 0 0 10px rgba(159,56,38,0)}}@media(max-width:900px){.ap-service-grid,.ap-final-box{grid-template-columns:1fr}.ap-header-inner{flex-wrap:wrap;padding:12px 0}.ap-nav{order:3;width:100%;overflow-x:auto}.ap-header .ap-button{display:none}}@media(max-width:560px){.ap-container{width:min(100% - 28px,1120px)}.ap-section{padding:58px 0}h1{font-size:clamp(42px,12vw,58px)}.ap-actions{flex-direction:column}.ap-button{width:100%}.ap-service,.ap-dark,.ap-final-box{border-radius:26px;padding:24px}.ap-list{grid-template-columns:1fr}}
+    </style>
+    <link rel="stylesheet" href="shared-preview.css" />
+  </head>
+  <body>
+    <header class="ap-header">
+      <div class="ap-container ap-header-inner">
+        <a class="ap-logo" href="preview-homepage.html?v=10">AUTOPILOTS</a>
+        <nav class="ap-nav" aria-label="Hoofdnavigatie">
+          <a class="is-active" href="services-preview.html">Diensten</a>
+          <a href="preview-homepage.html?v=10#branches">Voor wie</a>
+          <a href="process-preview.html">Proces</a>
+          <a href="crew-preview.html">Crew</a>
+        </nav>
+        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-kicker">Autopilots diensten</div>
+          <h1>AI medewerkers die niet naast je bedrijf staan, maar <span class="ap-title-accent">in je proces werken.</span></h1>
+          <p class="ap-lead">Gebaseerd op de bestaande Autopilots service-embeds: Voice AI, Chat AI, Follow Up AI, Planning AI, Leadsmachine AI, Autopilots CRM en Autopilots Support. Elke dienst krijgt straks een eigen SEO-pagina, eigen demo en eigen CTA.</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan dienstenadvies</a>
+            <a class="ap-button ap-button-secondary" href="#voice">Bekijk diensten</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section ap-systems-section">
+        <div class="ap-container">
+          <div class="ap-shared-logo-wrap">
+            <p>We integreren met de systemen, kanalen en samenwerkingen die je team al gebruikt.</p>
+            <div class="ap-shared-slider" aria-label="Systemen">
+              <div class="ap-shared-track">
+                <div class="ap-shared-logo"><img src="connecties/1.png" alt="Exact Online"></div><div class="ap-shared-logo"><img src="connecties/2.png" alt="Zendesk"></div><div class="ap-shared-logo"><img src="connecties/3.png" alt="Solvari"></div><div class="ap-shared-logo"><img src="connecties/4.png" alt="HubSpot"></div><div class="ap-shared-logo"><img src="connecties/6.png" alt="Monday"></div><div class="ap-shared-logo"><img src="connecties/7.png" alt="Google Calendar"></div><div class="ap-shared-logo"><img src="connecties/8.png" alt="Outlook Calendar"></div><div class="ap-shared-logo"><img src="connecties/12.png" alt="Odoo"></div>
+                <div class="ap-shared-logo"><img src="connecties/1.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/2.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/3.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/4.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/6.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/7.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/8.png" alt=""></div><div class="ap-shared-logo"><img src="connecties/12.png" alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container ap-service-grid">
+          <article class="ap-service" id="voice">
+            <div class="ap-service-top"><div class="ap-icon">VO</div><div><div class="ap-kicker">Voice AI</div><h2>Neemt telefoontjes op, kwalificeert en zet acties direct door.</h2></div></div>
+            <p>Of het nu gaat om complexe klantvragen inbound of het proactief opvolgen van offertes outbound: Voice AI neemt op, vraagt door en verwerkt alles netjes.</p>
+            <div class="ap-list"><span>24/7 telefonische opvang</span><span>Outbound bellen</span><span>Slimme triage</span><span>Gespreksnotities in CRM</span></div>
+          </article>
+
+          <article class="ap-service" id="chat">
+            <div class="ap-service-top"><div class="ap-icon">CH</div><div><div class="ap-kicker">Chat AI</div><h2>Beantwoordt websitechat en WhatsApp-vragen zonder wachttijd.</h2></div></div>
+            <p>Of het nu een DM op Instagram is of een vraag op je website: Chat AI begrijpt de context, geeft direct antwoord en helpt klanten verder naar afspraak, offerte of ticket.</p>
+            <div class="ap-list"><span>Websitebezoekers converteren</span><span>WhatsApp & SMS</span><span>Social DM opvolging</span><span>Menselijke fallback</span></div>
+          </article>
+
+          <article class="ap-service" id="follow-up">
+            <div class="ap-service-top"><div class="ap-icon">FU</div><div><div class="ap-kicker">Follow Up AI</div><h2>Volgt leads, offertes en gemiste kansen automatisch op.</h2></div></div>
+            <p>Automatische opvolging via WhatsApp, SMS, mail en telefonie. Niet schreeuwerig, wel precies op tijd en afgestemd op de fase van de klant.</p>
+            <div class="ap-list"><span>WhatsApp opvolging</span><span>SMS reminders</span><span>Mail sequences</span><span>Reply classificatie</span></div>
+          </article>
+
+          <article class="ap-service" id="planning">
+            <div class="ap-service-top"><div class="ap-icon">PL</div><div><div class="ap-kicker">Planning AI</div><h2>Plant afspraken op basis van beschikbaarheid, regio en route.</h2></div></div>
+            <p>Van lead naar afspraak naar routeplanning. Planning AI houdt rekening met capaciteit, regio, prioriteit en klantcommunicatie.</p>
+            <div class="ap-list"><span>Intelligente agendaregie</span><span>Routeoptimalisatie</span><span>Status updates</span><span>Gaten vullen</span></div>
+          </article>
+
+          <article class="ap-service" id="leadsmachine">
+            <div class="ap-service-top"><div class="ap-icon">LM</div><div><div class="ap-kicker">Leadsmachine AI</div><h2>Full-funnel machine van klik, intake en opvolging naar klant.</h2></div></div>
+            <p>Van advertentie of websitebezoek naar gesprek, intake, afspraak en opvolging: de Leadsmachine houdt de hele route in beweging.</p>
+            <div class="ap-list"><span>Lead intake</span><span>Opvolging loopt door</span><span>Afspraak gepland</span><span>Data voor groei</span></div>
+          </article>
+
+          <article class="ap-service" id="crm">
+            <div class="ap-service-top"><div class="ap-icon">CR</div><div><div class="ap-kicker">Autopilots CRM</div><h2>Je volledige funnel en salesdata in een CRM.</h2></div></div>
+            <p>Leads, opvolging, afspraken, funnels en klantdata komen samen in een AI-gestuurde CRM omgeving. Zo zie je waar kansen liggen en waar conversie blijft hangen.</p>
+            <div class="ap-list"><span>Pipeline overzicht</span><span>AI opvolging</span><span>Afspraken sneller rond</span><span>Reviews en automatisering</span></div>
+          </article>
+
+          <article class="ap-service" id="support">
+            <div class="ap-service-top"><div class="ap-icon">SU</div><div><div class="ap-kicker">Autopilots Support</div><h2>Monitoring, optimalisatie en snelle hulp na livegang.</h2></div></div>
+            <p>Na livegang blijven we gesprekken, flows en koppelingen monitoren zodat de AI beter blijft aansluiten op echte klantvragen.</p>
+            <div class="ap-list"><span>Monitoring</span><span>Optimalisatie</span><span>Support</span><span>Doorontwikkeling</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-dark">
+            <div class="ap-kicker">Waarom aparte dienstenpagina's</div>
+            <h2>Ja, dit is SEO-proof.</h2>
+            <p class="ap-lead">De homepage blijft de positionering. De dienstenpagina rankt op algemene dienst-intenties. Daarna krijgt elke dienst een eigen pagina zoals `/diensten/voice-ai/`, `/diensten/chat-ai/`, `/diensten/follow-up-ai/` en elke niche combineert die dienst met niche-intentie zoals “AI voice agent voor autobedrijven”.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Autopilots diensten</div>
+            <h2 class="ap-section-title">Eindeloos opschalen <span class="ap-title-accent">zonder extra personeel.</span></h2>
+            <p class="ap-lead">Deze kaarten komen uit de oude dienstenbeleving terug, maar scherper: elke dienst beweegt subtiel, krijgt straks een eigen SEO-pagina en blijft gekoppeld aan afspraak, voice-test of demo.</p>
+          </div>
+          <div class="ap-shared-service-grid">
+            <article class="ap-shared-service-card">
+              <div><div class="ap-service-visual"><div class="bars"><span></span><span></span><span></span><span></span><span></span></div></div><h3>Voice Agent AI</h3><p>24/7 telefonische opvang, outbound opvolging en slimme doorverbinding voor klanten en leads.</p></div>
+              <a class="ap-button ap-button-secondary" href="#voice">Meer info</a>
+            </article>
+            <article class="ap-shared-service-card">
+              <div><div class="ap-service-visual"><div class="lines"><span></span><span></span><span></span></div></div><h3>Follow Up AI</h3><p>Offertes, aanvragen en open gesprekken blijven bewegen via WhatsApp, SMS, mail en telefonie.</p></div>
+              <a class="ap-button ap-button-secondary" href="#follow-up">Meer info</a>
+            </article>
+            <article class="ap-shared-service-card">
+              <div><div class="ap-service-visual"><div class="calendar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><h3>Planning AI</h3><p>Agenda, routes, capaciteit, wijzigingen, reminders en bevestigingen worden direct geregeld.</p></div>
+              <a class="ap-button ap-button-secondary" href="#planning">Meer info</a>
+            </article>
+            <article class="ap-shared-service-card">
+              <div><div class="ap-service-visual"><div class="chat"><span></span><span></span><span></span></div></div><h3>Chat AI</h3><p>Websitebezoekers, servicevragen en klantgesprekken worden direct geholpen en vastgelegd.</p></div>
+              <a class="ap-button ap-button-secondary" href="#chat">Meer info</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section ap-team-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Meet the crew</div>
+            <h2 class="ap-section-title">Built by the <span class="ap-title-accent">Autopilots team.</span></h2>
+            <p class="ap-lead">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p>
+          </div>
+          <div class="ap-shared-team-shell">
+            <div class="ap-shared-team-slider" data-ap-slider="team">
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/tim-kuiper.png" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales & Partnerships</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/larissa-rosanna-pen.webp" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
+              <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/hasan-shabbir.png" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></div>
+            </div>
+            <div class="ap-shared-controls"><button class="ap-shared-control" type="button" data-ap-slide-prev="team" aria-label="Vorige">←</button><button class="ap-shared-control" type="button" data-ap-slide-next="team" aria-label="Volgende">→</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section ap-collabs-section">
+        <div class="ap-container">
+          <div class="ap-shared-logo-wrap">
+            <p>Aantal trotse samenwerkingen.</p>
+            <div class="ap-shared-slider" aria-label="Samenwerkingen">
+              <div class="ap-shared-track">
+                <div class="ap-shared-logo"><img src="samenwerkingen/dakcentrale-nederland.png" alt="Dakcentrale Nederland"></div><div class="ap-shared-logo"><img src="samenwerkingen/zieleman.png" alt="Zieleman Nieuwleusen"></div><div class="ap-shared-logo"><img src="samenwerkingen/afa.png" alt="AFA Sustainable Fashion Academy"></div><div class="ap-shared-logo"><img src="samenwerkingen/animals-faith.png" alt="Animals Faith"></div><div class="ap-shared-logo"><img src="samenwerkingen/den-dekker.png" alt="Den Dekker Dakbedekking"></div><div class="ap-shared-logo"><img src="samenwerkingen/h3a.png" alt="Heeren 3 Architecten"></div><div class="ap-shared-logo"><img src="samenwerkingen/leadfactor.png" alt="LeadFactor"></div><div class="ap-shared-logo"><img src="samenwerkingen/social-impact.png" alt="The Social Impact"></div><div class="ap-shared-logo"><img src="samenwerkingen/rlx-consultancy.png" alt="RLX Consultancy"></div>
+                <div class="ap-shared-logo"><img src="samenwerkingen/dakcentrale-nederland.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/zieleman.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/afa.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/animals-faith.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/den-dekker.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/h3a.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/leadfactor.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/social-impact.png" alt=""></div><div class="ap-shared-logo"><img src="samenwerkingen/rlx-consultancy.png" alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-final-box">
+            <div>
+              <div class="ap-kicker">Volgende stap</div>
+              <h2>Bekijk welke AI medewerker jouw proces als eerste nodig heeft.</h2>
+              <p class="ap-lead">Tijdens een afspraak mappen we je kanalen, systemen, klantmomenten en de dienst die de snelste impact geeft.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="shared-preview.js"></script>
+  </body>
+</html>

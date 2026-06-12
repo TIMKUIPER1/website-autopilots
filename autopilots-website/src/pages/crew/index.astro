@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const crew = [
+  ["Tim Kuiper", "Sales & Partnerships", "TK"],
+  ["Rohail Zuberi", "Head of Development", "RZ"],
+  ["Larissa Rosanna Pen", "Head of Operations", "LR"],
+  ["Pratt Olan", "AI Specialist", "PO"],
+  ["Mit Dong", "AI Specialist", "MD"],
+  ["Luca van der Meer", "Online Marketeer", "LM"]
+];
+---
+
+<BaseLayout
+  title="Crew | Autopilots"
+  description="Maak kennis met de Autopilots crew achter AI medewerkers, CRM-koppelingen, workflows en optimalisatie."
+  canonical="/crew/"
+>
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-kicker">Crew</div>
+      <h1 class="ap-page-title">Een compact team voor strategie, bouw, operations en optimalisatie.</h1>
+      <p class="ap-lead">Autopilots blijft betrokken na livegang. We bouwen de AI medewerker, koppelen systemen, monitoren gesprekken en sturen bij op echte data.</p>
+
+      <div class="ap-crew-grid">
+        {crew.map(([name, role, initials]) => (
+          <article class="ap-card ap-crew-card">
+            <div class="ap-avatar">{initials}</div>
+            <h2 class="ap-card-title">{name}</h2>
+            <p class="ap-text">{role}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="ap-dark-band ap-crew-band">
+        <div class="ap-kicker">Werkwijze</div>
+        <h2 class="ap-section-title">Geen losse chatbot. Een operationeel systeem.</h2>
+        <p class="ap-text">We ontwerpen de gesprekslogica, bouwen de agent, koppelen forms, calendars en CRM, testen scenario's en blijven na livegang optimaliseren.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ap-crew-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .ap-crew-card .ap-text {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  .ap-avatar {
+    display: flex;
+    width: 76px;
+    height: 76px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .ap-crew-band {
+    margin-top: 22px;
+  }
+
+  @media (max-width: 900px) {
+    .ap-crew-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ap-crew-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

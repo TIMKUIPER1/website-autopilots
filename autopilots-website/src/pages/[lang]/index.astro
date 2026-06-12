@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { supportedLocales } from "../../i18n/languages";
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({
+    params: { lang: locale.code },
+    props: { locale }
+  }));
+}
+
+const { locale } = Astro.props;
+const title =
+  locale.code === "nl"
+    ? "Autopilots | AI medewerkers voor klantcontact en operatie"
+    : `Autopilots | AI employees for customer contact and operations (${locale.name})`;
+---
+
+<BaseLayout
+  title={title}
+  description="Autopilots bouwt AI medewerkers voor chat, voice, planning, support, CRM en follow-up."
+  canonical={`/${locale.code}/`}
+>
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-kicker">{locale.name}</div>
+      <h1>AI medewerkers voor klantcontact en operatie.</h1>
+      <p class="ap-lead">Deze route is de start van de internationale website. Per taal krijgt Autopilots straks eigen nichepagina's, metadata, FAQ's, voorbeeldgesprekken en calculatorcopy.</p>
+      <div class="ap-actions">
+        <a class="ap-button ap-button-primary" href="/afspraak/">Plan afspraak</a>
+        <a class="ap-button ap-button-secondary" href="/proces/">Bekijk proces</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    max-width: 960px;
+    font-size: clamp(46px, 6.2vw, 80px);
+    line-height: 1.04;
+    font-weight: 900;
+  }
+
+  .ap-lead {
+    max-width: 790px;
+    margin-top: 22px;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.62;
+    font-weight: 500;
+  }
+
+  .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+</style>

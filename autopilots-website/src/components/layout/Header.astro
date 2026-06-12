@@ -1,10 +1,20 @@
 ---
-const nav = [
-  { label: "Diensten", href: "/#diensten" },
-  { label: "Branches", href: "/#branches" },
-  { label: "Klantenmachine", href: "/#klantenmachine" },
-  { label: "Proces", href: "/#proces" },
-  { label: "Contact", href: "/contact/" }
+const services = [
+  ["Chat AI", "Websitebezoekers helpen en direct afspraken plannen.", "CH"],
+  ["AI Voice Agent", "Bellen, opnemen, opvolgen en afspraken plannen.", "VO"],
+  ["Follow-up AI", "Offertes, aanvragen en open gesprekken blijven bewegen.", "FU"],
+  ["Planning AI", "Agenda, route en capaciteit slimmer organiseren.", "PL"],
+  ["Klantenmachine AI", "Full-funnel machine van klik tot klant.", "KM"],
+  ["Autopilots CRM", "Gesprekken, leads en opvolging op een plek.", "CR"]
+];
+
+const branches = [
+  ["Autobedrijven", "Leads, proefritten, voorraadvragen en CRM.", "AU"],
+  ["Makelaars", "Bezichtigingen, intake en snelle opvolging.", "MA"],
+  ["Installatie", "Storingen, werkbonnen en planning.", "IN"],
+  ["Hotels", "Reserveringen, vragen en serviceverzoeken.", "HO"],
+  ["Tandartsen", "Afspraken, intake en patientvragen.", "TA"],
+  ["Restaurants", "Reserveringen, groepsaanvragen en opvolging.", "RE"]
 ];
 ---
 
@@ -12,9 +22,58 @@ const nav = [
   <div class="ap-container ap-header-inner">
     <a class="ap-logo" href="/" aria-label="Autopilots home">AUTOPILOTS</a>
     <nav class="ap-nav" aria-label="Hoofdnavigatie">
-      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <div class="ap-menu-shell">
+        <button class="ap-menu-trigger" type="button" onclick="location.href='/diensten/'">Diensten</button>
+        <div class="ap-mega" aria-label="Diensten megamenu">
+          <div class="ap-mega-feature">
+            <div>
+              <div class="ap-menu-label">Autopilots OS</div>
+              <h3>AI medewerkers voor klantcontact, operatie en groei.</h3>
+              <p>Autopilots bouwt AI medewerkers voor receptie, klantenservice, planning, opvolging, voice, chat en CRM-verwerking.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="/#diensten">Bekijk alle diensten</a>
+          </div>
+          <div class="ap-mega-grid">
+            {services.map(([label, text, icon]) => (
+              <a class="ap-mega-link" href="/#diensten">
+                <span class="ap-mega-icon">{icon}</span>
+                <div>
+                  <strong>{label}</strong>
+                  <span>{text}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="ap-menu-shell">
+        <button class="ap-menu-trigger" type="button">Branches</button>
+        <div class="ap-mega" aria-label="Branches megamenu">
+          <div class="ap-mega-feature">
+            <div>
+              <div class="ap-menu-label">SEO branches</div>
+              <h3>Per branche een eigen zoekintentie en klantreis.</h3>
+              <p>De nichepagina's worden de internationale SEO-machine: eerst Nederlands, daarna Engels en andere marktvarianten.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="/#branches">Bekijk branches</a>
+          </div>
+          <div class="ap-mega-grid">
+            {branches.map(([label, text, icon]) => (
+              <a class="ap-mega-link" href="/#branches">
+                <span class="ap-mega-icon">{icon}</span>
+                <div>
+                  <strong>{label}</strong>
+                  <span>{text}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <a href="/proces/">Proces</a>
+      <a href="/crew/">Crew</a>
     </nav>
-    <a class="ap-button ap-button-primary ap-header-cta" href="/contact/">Plan afspraak</a>
+    <a class="ap-button ap-button-primary ap-header-cta" href="/afspraak/">Plan afspraak</a>
   </div>
 </header>
 
@@ -53,18 +112,164 @@ const nav = [
     padding: 6px;
   }
 
-  .ap-nav a {
+  .ap-nav > a,
+  .ap-menu-trigger {
+    border: 0;
     border-radius: 999px;
+    background: transparent;
     padding: 10px 12px;
     color: var(--ap-muted);
+    font: inherit;
     font-size: 13px;
     font-weight: 850;
+    cursor: pointer;
     transition: background 180ms ease, color 180ms ease;
   }
 
-  .ap-nav a:hover {
+  .ap-nav > a:hover,
+  .ap-menu-shell:hover .ap-menu-trigger,
+  .ap-menu-trigger:focus {
     background: var(--ap-soft-2);
     color: var(--ap-text);
+  }
+
+  .ap-menu-shell {
+    position: relative;
+  }
+
+  .ap-mega {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    width: min(1040px, calc(100vw - 36px));
+    display: grid;
+    grid-template-columns: minmax(300px, 0.78fr) minmax(420px, 1.22fr);
+    gap: 18px;
+    transform: translateX(-50%) translateY(8px);
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 24px 70px rgba(17, 17, 17, 0.14);
+    padding: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .ap-menu-shell:hover .ap-mega,
+  .ap-menu-shell:focus-within .ap-mega {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .ap-mega-feature {
+    position: relative;
+    overflow: hidden;
+    min-height: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 24px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    padding: 26px;
+  }
+
+  .ap-mega-feature::after {
+    content: "";
+    position: absolute;
+    right: -72px;
+    bottom: -80px;
+    width: 220px;
+    height: 220px;
+    border-radius: 999px;
+    background: rgba(159, 56, 38, 0.32);
+    filter: blur(22px);
+  }
+
+  .ap-mega-feature > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ap-menu-label {
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    color: #e4a092;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+  }
+
+  .ap-mega-feature h3 {
+    margin: 10px 0 0;
+    font-size: 30px;
+    line-height: 1.04;
+    font-weight: 900;
+  }
+
+  .ap-mega-feature p {
+    margin: 12px 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 650;
+  }
+
+  .ap-mega-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .ap-mega-link {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    padding: 10px;
+    transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .ap-mega-link:hover {
+    background: var(--ap-soft-2);
+    border-color: var(--ap-line);
+    transform: translateY(-1px);
+  }
+
+  .ap-mega-icon {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .ap-mega-link strong,
+  .ap-mega-link span {
+    display: block;
+  }
+
+  .ap-mega-link strong {
+    font-size: 14px;
+    line-height: 1.1;
+    font-weight: 900;
+  }
+
+  .ap-mega-link span {
+    margin-top: 4px;
+    color: var(--ap-muted);
+    font-size: 11px;
+    line-height: 1.22;
+    font-weight: 700;
   }
 
   .ap-header-cta {
@@ -84,6 +289,12 @@ const nav = [
       width: 100%;
       justify-content: flex-start;
       overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 920px) {
+    .ap-mega {
+      display: none;
     }
   }
 

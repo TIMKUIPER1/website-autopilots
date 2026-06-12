@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proces | Autopilots preview</title>
+    <meta name="description" content="Bekijk hoe Autopilots AI medewerkers implementeert: onboarding, architectuur, bouw, koppelingen, demo, livegang en optimalisatie." />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+      :root{--ap-bg:#f5f5f2;--ap-card:#fff;--ap-soft:#f8f8f5;--ap-text:#111;--ap-muted:#656565;--ap-line:rgba(0,0,0,.1);--ap-brown:#9f3826;--ap-brown-dark:#7d2a1d}
+      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ap-bg);color:var(--ap-text);font-family:"Public Sans",Arial,sans-serif}a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}.ap-container{width:min(1120px,calc(100% - 36px));margin:0 auto}.ap-header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--ap-line);background:rgba(245,245,242,.9);backdrop-filter:blur(16px)}.ap-header-inner{display:flex;min-height:74px;align-items:center;justify-content:space-between;gap:18px}.ap-logo,.ap-kicker,.ap-step span{font-family:"Syne","Public Sans",Arial,sans-serif}.ap-logo{font-size:13px;font-weight:700;letter-spacing:2px}.ap-nav{display:flex;gap:8px;border:1px solid var(--ap-line);border-radius:999px;background:rgba(255,255,255,.72);padding:6px}.ap-nav a{border-radius:999px;padding:10px 12px;color:var(--ap-muted);font-size:13px;font-weight:850}.ap-nav a:hover,.ap-nav a.is-active{background:#fff;color:#111}.ap-button{display:inline-flex;min-height:50px;align-items:center;justify-content:center;border-radius:999px;padding:15px 24px;border:1px solid var(--ap-line);font-size:15px;font-weight:850}.ap-button-primary{background:var(--ap-brown);border-color:var(--ap-brown);color:#fff}.ap-button-primary:hover{background:var(--ap-brown-dark)}.ap-button-secondary{background:#fff}.ap-header .ap-button{min-height:42px;padding:12px 18px;font-size:13px}.ap-section{padding:78px 0}.ap-kicker{display:inline-flex;margin-bottom:20px;color:var(--ap-brown);font-size:12px;font-weight:700;letter-spacing:2px;line-height:1.2;text-transform:uppercase}h1{max-width:960px;font-size:clamp(46px,6.2vw,80px);line-height:1.04;font-weight:900}.ap-lead{max-width:790px;margin-top:22px;color:var(--ap-muted);font-size:19px;line-height:1.62;font-weight:500}.ap-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.ap-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:stretch}.ap-hero-panel{border-radius:34px;background:#111;color:#fff;padding:28px;overflow:hidden}.ap-system-map{display:grid;gap:12px}.ap-map-row{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:rgba(255,255,255,.08);padding:14px}.ap-map-row span{display:flex;width:52px;height:52px;align-items:center;justify-content:center;border-radius:17px;background:#fff;color:var(--ap-brown);font-family:"Syne";font-weight:700}.ap-map-row strong{display:block;font-size:16px;line-height:1.2;font-weight:900}.ap-map-row em{display:block;margin-top:4px;color:rgba(255,255,255,.68);font-style:normal;font-size:13px;line-height:1.35;font-weight:650}.ap-section-head{max-width:860px;margin-bottom:36px}.ap-section-title{max-width:830px;font-size:clamp(34px,4.5vw,58px);line-height:1.06;font-weight:900}.ap-text{margin-top:18px;color:var(--ap-muted);font-size:16px;line-height:1.65;font-weight:500}.ap-journey{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.ap-step{min-height:235px;border:1px solid var(--ap-line);border-radius:28px;background:#fff;padding:24px;box-shadow:0 16px 50px rgba(17,17,17,.055)}.ap-step span{display:flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:16px;background:#111;color:#fff;font-weight:700}.ap-step h3{margin-top:22px;font-size:21px;line-height:1.12;font-weight:900}.ap-step p{margin-top:10px;color:var(--ap-muted);font-size:14px;line-height:1.56;font-weight:600}.ap-architecture{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:18px;box-shadow:0 16px 50px rgba(17,17,17,.055)}.ap-arch-card{min-height:160px;border:1px solid var(--ap-line);border-radius:24px;background:var(--ap-soft);padding:20px}.ap-arch-card strong{display:block;font-size:18px;font-weight:900}.ap-arch-card span{display:block;margin-top:10px;color:var(--ap-muted);font-size:14px;line-height:1.45;font-weight:650}.ap-arrow{display:flex;align-items:center;justify-content:center;color:var(--ap-brown);font-size:24px;font-weight:900}.ap-integration-strip{overflow:hidden;margin-top:22px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.ap-integration-track{display:flex;width:max-content;gap:10px;animation:apSlide 34s linear infinite}.ap-integration-track span{flex:0 0 auto;border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:10px 14px;font-size:12px;font-weight:900}.ap-dark{border-radius:34px;background:#111;color:#fff;padding:44px}.ap-dark .ap-kicker{color:#e4a092}.ap-dark .ap-text{color:rgba(255,255,255,.72)}.ap-final-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:42px;box-shadow:0 16px 50px rgba(17,17,17,.065)}@keyframes apSlide{to{transform:translateX(-50%)}}@media(max-width:980px){.ap-hero-grid,.ap-journey,.ap-final-box{grid-template-columns:1fr}.ap-architecture{grid-template-columns:1fr}.ap-arrow{transform:rotate(90deg);min-height:24px}.ap-header-inner{flex-wrap:wrap;padding:12px 0}.ap-nav{order:3;width:100%;overflow-x:auto}.ap-header .ap-button{display:none}}@media(max-width:560px){.ap-container{width:min(100% - 28px,1120px)}.ap-section{padding:58px 0}h1{font-size:clamp(42px,12vw,58px);line-height:1.06}.ap-lead{font-size:17px}.ap-actions{flex-direction:column}.ap-button{width:100%}.ap-hero-panel,.ap-dark,.ap-final-box{border-radius:26px;padding:24px}}
+    </style>
+    <link rel="stylesheet" href="shared-preview.css" />
+  </head>
+  <body>
+    <header class="ap-header">
+      <div class="ap-container ap-header-inner">
+        <a class="ap-logo" href="preview-homepage.html?v=9">AUTOPILOTS</a>
+        <nav class="ap-nav" aria-label="Hoofdnavigatie">
+          <a href="services-preview.html">Diensten</a>
+          <a href="preview-homepage.html?v=9#branches">Voor wie</a>
+          <a class="is-active" href="process-preview.html">Proces</a>
+          <a href="crew-preview.html">Crew</a>
+        </nav>
+        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ap-section ap-process-hero">
+        <div class="ap-container ap-hero-grid">
+          <div>
+            <div class="ap-kicker">Implementatieproces</div>
+            <h1>Van klantreis naar <span class="ap-title-accent">live AI medewerker.</span></h1>
+            <p class="ap-lead">We bouwen geen losse chatbot. We ontwerpen de klantreis, leggen het AI-brein vast, koppelen je systemen, testen scenario's en blijven na livegang optimaliseren tot het echt werkt in je operatie.</p>
+            <div class="ap-actions">
+              <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan implementatiegesprek</a>
+              <a class="ap-button ap-button-secondary" href="#architectuur">Bekijk architectuur</a>
+            </div>
+          </div>
+          <aside class="ap-hero-panel">
+            <div class="ap-system-map">
+              <div class="ap-map-row"><span>IN</span><div><strong>Kanalen</strong><em>Website, telefoon, WhatsApp, forms en mail.</em></div></div>
+              <div class="ap-map-row"><span>AI</span><div><strong>AI-brein</strong><em>Scripts, regels, context, tone of voice en fallback.</em></div></div>
+              <div class="ap-map-row"><span>SYS</span><div><strong>Systemen</strong><em>CRM, calendar, tickets, taken en follow-up.</em></div></div>
+              <div class="ap-map-row"><span>OUT</span><div><strong>Actie</strong><em>Afspraak, case, mail, beltaak of overdracht.</em></div></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Van idee naar operatie</div>
+            <h2 class="ap-section-title">Acht stappen waarmee AI niet blijft hangen in demo, maar live waarde levert.</h2>
+            <p class="ap-text">Elke stap heeft een duidelijke output. Zo weet de klant wat er gebeurt, wat Autopilots bouwt en waar de koppelingen in het bedrijf landen.</p>
+          </div>
+          <div class="ap-process-experience" data-process-experience>
+            <div class="ap-process-rail" aria-label="Processtappen">
+              <button class="ap-process-dot is-active" type="button" data-step="0"><span>01</span><strong>Onboarding</strong></button>
+              <button class="ap-process-dot" type="button" data-step="1"><span>02</span><strong>Architectuur</strong></button>
+              <button class="ap-process-dot" type="button" data-step="2"><span>03</span><strong>AI-brein</strong></button>
+              <button class="ap-process-dot" type="button" data-step="3"><span>04</span><strong>Koppelingen</strong></button>
+              <button class="ap-process-dot" type="button" data-step="4"><span>05</span><strong>Bouwen</strong></button>
+              <button class="ap-process-dot" type="button" data-step="5"><span>06</span><strong>Demo</strong></button>
+              <button class="ap-process-dot" type="button" data-step="6"><span>07</span><strong>Livegang</strong></button>
+              <button class="ap-process-dot" type="button" data-step="7"><span>08</span><strong>Optimalisatie</strong></button>
+            </div>
+
+            <article class="ap-process-stage" aria-live="polite">
+              <div class="ap-process-glow" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="ap-process-stage-copy">
+                <div class="ap-kicker" data-process-kicker>Stap 01</div>
+                <h3 data-process-title>Onboarding</h3>
+                <p data-process-text>Doelen, doelgroep, processen, huidige tools, tone of voice en belangrijkste contactmomenten scherp krijgen.</p>
+                <div class="ap-process-tags" data-process-tags>
+                  <span>Doelen</span><span>Tools</span><span>Klantreis</span>
+                </div>
+              </div>
+              <div class="ap-process-output">
+                <span>Output</span>
+                <strong data-process-output>Klantreis, kanalen, doelgroep en succescriteria staan scherp.</strong>
+              </div>
+              <div class="ap-process-action">
+                <span>Systeemactie</span>
+                <strong data-process-action>Projectboard, intakevelden en eerste proceskaart worden ingericht.</strong>
+              </div>
+              <div class="ap-process-progress" aria-hidden="true">
+                <span data-process-progress></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section" id="architectuur">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Architectuur</div>
+            <h2 class="ap-section-title">Alles loopt door naar een duidelijke systeemactie.</h2>
+            <p class="ap-text">Een gesprek is pas waardevol als er iets gebeurt: een afspraak wordt geboekt, een ticket wordt aangemaakt, CRM is bijgewerkt of een medewerker krijgt de juiste context.</p>
+          </div>
+          <div class="ap-architecture">
+            <div class="ap-arch-card"><strong>Instroom</strong><span>Chat, voice, WhatsApp, formulier, mail, advertentie of landingspagina.</span></div>
+            <div class="ap-arrow">→</div>
+            <div class="ap-arch-card"><strong>AI-brein</strong><span>Branchekennis, scripts, klantdata, triage, regels en menselijke fallback.</span></div>
+            <div class="ap-arrow">→</div>
+            <div class="ap-arch-card"><strong>Koppelingen</strong><span>GoHighLevel, HubSpot, Salesforce, Google Calendar, Outlook, Exact en meer.</span></div>
+            <div class="ap-arrow">→</div>
+            <div class="ap-arch-card"><strong>Output</strong><span>Afspraak, CRM-update, ticket, taak, bevestiging, follow-up of overdracht.</span></div>
+          </div>
+          <div class="ap-integration-strip" aria-label="Integraties">
+            <div class="ap-integration-track">
+              <span>GoHighLevel</span><span>HubSpot</span><span>Salesforce</span><span>Google Calendar</span><span>Outlook</span><span>WhatsApp</span><span>Zapier</span><span>Make</span><span>Slack</span><span>Exact</span><span>Teamleader</span><span>Monday</span><span>Pipedrive</span><span>Zoho</span><span>Google Sheets</span><span>Gmail</span><span>Microsoft Teams</span><span>Calendly</span><span>Webhooks</span><span>API</span>
+              <span>GoHighLevel</span><span>HubSpot</span><span>Salesforce</span><span>Google Calendar</span><span>Outlook</span><span>WhatsApp</span><span>Zapier</span><span>Make</span><span>Slack</span><span>Exact</span><span>Teamleader</span><span>Monday</span><span>Pipedrive</span><span>Zoho</span><span>Google Sheets</span><span>Gmail</span><span>Microsoft Teams</span><span>Calendly</span><span>Webhooks</span><span>API</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-dark">
+            <div class="ap-kicker">Na livegang</div>
+            <h2 class="ap-section-title">De eerste weken zijn geen afsluiting, maar de start van slimmer klantcontact.</h2>
+            <p class="ap-text">We kijken naar echte gesprekken, waar mensen afhaken, welke vragen ontbreken, welke acties beter kunnen en welke data straks waardevoller wordt. Zo groeit de AI mee met je bedrijf en blijft het persoonlijk.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-final-box">
+            <div>
+              <div class="ap-kicker">Volgende stap</div>
+              <h2 class="ap-section-title">Laat ons jouw proces uittekenen.</h2>
+              <p class="ap-text">In een afspraak bepalen we welke kanalen, systemen, scripts en nichepagina's als eerste gebouwd moeten worden.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      (() => {
+        const steps = [
+          {
+            kicker: "Stap 01",
+            title: "Onboarding",
+            text: "We halen doelen, doelgroep, processen, huidige tools, tone of voice en belangrijkste contactmomenten naar boven.",
+            tags: ["Doelen", "Tools", "Klantreis"],
+            output: "Klantreis, kanalen, doelgroep en succescriteria staan scherp.",
+            action: "Projectboard, intakevelden en eerste proceskaart worden ingericht."
+          },
+          {
+            kicker: "Stap 02",
+            title: "Architectuur",
+            text: "We tekenen hoe chat, voice, planning, follow-up, CRM en menselijke fallback door het bedrijf moeten lopen.",
+            tags: ["Flow", "Fallback", "Datavelden"],
+            output: "Een duidelijke blauwdruk van gesprek naar actie.",
+            action: "Datavelden, triggers, routes en overdrachtsmomenten worden vastgelegd."
+          },
+          {
+            kicker: "Stap 03",
+            title: "AI-brein",
+            text: "We bouwen het geheugen: scripts, vragen, uitzonderingen, branchekennis, tone of voice en persoonlijke context.",
+            tags: ["Scripts", "Kennisbank", "Uitzonderingen"],
+            output: "Een AI-brein dat weet wat wel, niet en wanneer menselijk moet.",
+            action: "Kennisbank, promptlogica en fallbackregels worden klaargezet."
+          },
+          {
+            kicker: "Stap 04",
+            title: "Koppelingen",
+            text: "We verbinden CRM, calendar, mail, WhatsApp, ticketing, forms, webhooks en API-acties.",
+            tags: ["CRM", "Calendar", "API"],
+            output: "Alle belangrijke systemen praten met elkaar.",
+            action: "Agenda, CRM, notificaties, tickets en opvolging worden gekoppeld."
+          },
+          {
+            kicker: "Stap 05",
+            title: "Bouwen",
+            text: "We bouwen de scenario's voor chat, voice, follow-up, planning en CRM-acties en testen de eerste flows.",
+            tags: ["Voice", "Chat", "Follow-up"],
+            output: "Een werkende eerste versie van de AI medewerker.",
+            action: "Gespreksflows, acties, embeds en automatiseringen worden gebouwd."
+          },
+          {
+            kicker: "Stap 06",
+            title: "Demo",
+            text: "We lopen gesprekken door, checken edge cases, scherpen teksten aan en finetunen de klantreis.",
+            tags: ["Testgesprekken", "Edge cases", "Feedback"],
+            output: "Een demo die voelt als jullie bedrijf, niet als een generieke bot.",
+            action: "Feedback wordt verwerkt in scripts, prompts en systeemacties."
+          },
+          {
+            kicker: "Stap 07",
+            title: "Livegang",
+            text: "We zetten embed, telefonie, formulieren, tracking en afspraakflow gecontroleerd live.",
+            tags: ["Embed", "Telefonie", "Tracking"],
+            output: "De AI medewerker staat live op de juiste kanalen.",
+            action: "Live routes, notificaties en meetpunten worden actief gezet."
+          },
+          {
+            kicker: "Stap 08",
+            title: "Optimalisatie",
+            text: "We monitoren echte gesprekken, analyseren waar mensen afhaken en verbeteren promptlogica en support.",
+            tags: ["Monitoring", "Data", "Support"],
+            output: "De AI wordt slimmer op basis van echte klantcontacten.",
+            action: "Gespreksdata wordt gebruikt voor betere antwoorden, routes en opvolging."
+          }
+        ];
+
+        const root = document.querySelector("[data-process-experience]");
+        if (!root) return;
+
+        const dots = [...root.querySelectorAll("[data-step]")];
+        const title = root.querySelector("[data-process-title]");
+        const kicker = root.querySelector("[data-process-kicker]");
+        const text = root.querySelector("[data-process-text]");
+        const tags = root.querySelector("[data-process-tags]");
+        const output = root.querySelector("[data-process-output]");
+        const action = root.querySelector("[data-process-action]");
+        const progress = root.querySelector("[data-process-progress]");
+        let active = 0;
+        let timer;
+
+        const render = (index) => {
+          active = index;
+          const step = steps[index];
+          root.classList.remove("is-changing");
+          void root.offsetWidth;
+          root.classList.add("is-changing");
+          dots.forEach((dot, dotIndex) => dot.classList.toggle("is-active", dotIndex === index));
+          kicker.textContent = step.kicker;
+          title.textContent = step.title;
+          text.textContent = step.text;
+          tags.innerHTML = step.tags.map((tag) => `<span>${tag}</span>`).join("");
+          output.textContent = step.output;
+          action.textContent = step.action;
+          progress.style.width = `${((index + 1) / steps.length) * 100}%`;
+        };
+
+        const start = () => {
+          clearInterval(timer);
+          timer = setInterval(() => render((active + 1) % steps.length), 4200);
+        };
+
+        dots.forEach((dot) => {
+          dot.addEventListener("click", () => {
+            render(Number(dot.dataset.step));
+            start();
+          });
+        });
+
+        root.addEventListener("mouseenter", () => clearInterval(timer));
+        root.addEventListener("mouseleave", start);
+        render(0);
+        start();
+      })();
+    </script>
+    <script src="shared-preview.js"></script>
+  </body>
+</html>

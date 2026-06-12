@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const steps = [
+  ["01", "Onboarding", "Doelen, klantreis, kanalen, tools en belangrijkste contactmomenten scherp krijgen."],
+  ["02", "Architectuur", "Gesprekslogica, systeemacties, datavelden en menselijke fallback uittekenen."],
+  ["03", "AI-brein", "Scripts, branchekennis, uitzonderingen en tone of voice vastleggen."],
+  ["04", "Koppelingen", "CRM, calendar, mail, WhatsApp, ticketing, forms, webhooks en API verbinden."],
+  ["05", "Bouwen", "Chat, voice, follow-up, planning en CRM-acties in scenario's bouwen."],
+  ["06", "Demo", "Gesprekken testen, edge cases checken en feedback verwerken."],
+  ["07", "Livegang", "Embeds, telefonie, tracking en afspraakflow gecontroleerd live zetten."],
+  ["08", "Optimalisatie", "Eerste weken monitoren, aanpassen, support leveren en doorontwikkelen."]
+];
+---
+
+<BaseLayout
+  title="Proces | Autopilots implementatie"
+  description="Bekijk hoe Autopilots AI medewerkers implementeert: onboarding, architectuur, AI-brein, koppelingen, demo, livegang en optimalisatie."
+  canonical="/proces/"
+>
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-kicker">Implementatieproces</div>
+      <h1>Van klantreis naar live AI medewerker.</h1>
+      <p class="ap-lead">Autopilots bouwt geen losse chatbot. We ontwerpen de klantreis, leggen het AI-brein vast, koppelen je systemen, testen scenario's en blijven na livegang optimaliseren tot het werkt in je operatie.</p>
+      <div class="ap-actions">
+        <a class="ap-button ap-button-primary" href="/afspraak/">Plan implementatiegesprek</a>
+        <a class="ap-button ap-button-secondary" href="#stappen">Bekijk stappen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="stappen">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Van idee naar operatie</div>
+        <h2 class="ap-section-title">Acht stappen waarmee AI niet blijft hangen in demo, maar live waarde levert.</h2>
+      </div>
+      <div class="ap-process-grid">
+        {steps.map(([number, title, text]) => (
+          <article class="ap-process-card">
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-kicker">Architectuur</div>
+        <h2 class="ap-section-title">Alles loopt door naar een duidelijke systeemactie.</h2>
+        <p class="ap-text">Een gesprek is pas waardevol als er iets gebeurt: een afspraak wordt geboekt, een ticket wordt aangemaakt, CRM is bijgewerkt of een medewerker krijgt de juiste context.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    max-width: 960px;
+    font-size: clamp(46px, 6.2vw, 80px);
+    line-height: 1.04;
+    font-weight: 900;
+  }
+
+  .ap-lead {
+    max-width: 790px;
+    margin-top: 22px;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.62;
+    font-weight: 500;
+  }
+
+  .ap-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .ap-process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .ap-process-card {
+    min-height: 235px;
+    border: 1px solid var(--ap-line);
+    border-radius: 28px;
+    background: var(--ap-card);
+    padding: 24px;
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.055);
+  }
+
+  .ap-process-card span {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--ap-black);
+    color: var(--ap-white);
+    font-family: "Syne", "Public Sans", Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .ap-process-card h3 {
+    margin-top: 22px;
+    font-size: 21px;
+    line-height: 1.12;
+    font-weight: 900;
+  }
+
+  .ap-process-card p {
+    margin-top: 10px;
+    color: var(--ap-muted);
+    font-size: 14px;
+    line-height: 1.56;
+    font-weight: 600;
+  }
+
+  @media (max-width: 980px) {
+    .ap-process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
+---
+
+<BaseLayout
+  title="Contact | Autopilots"
+  description="Plan een afspraak met Autopilots en ontdek waar AI medewerkers werk kunnen overnemen in klantcontact, support, planning en opvolging."
+  canonical="/contact/"
+>
+  <Hero
+    eyebrow="Contact Autopilots"
+    title="Laten we kijken waar AI in jouw proces"
+    accent="direct werk overneemt."
+    text="Plan een korte kennismaking. We bekijken je huidige workflow en laten zien welke AI medewerker logisch is als eerste stap."
+    primaryLabel="Plan afspraak"
+    primaryHref="#calendar"
+    secondaryLabel="Bekijk diensten"
+    secondaryHref="/#diensten"
+    chips={["Demo", "Advies", "Workflow", "CRM", "Livegang"]}
+  />
+
+  <section class="ap-section" id="calendar">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Afspraak plannen</div>
+        <h2 class="ap-section-title">Kies direct een moment in de agenda.</h2>
+        <p class="ap-text">Deze calendar blijft gekoppeld aan GoHighLevel, zodat afspraken en opvolging in jullie bestaande systeem blijven lopen.</p>
+      </div>
+      <GhlEmbed
+        src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
+        title="Plan een afspraak met Autopilots"
+        id="autopilots-contact-calendar"
+      />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
+---
+
+<BaseLayout
+  title="Afspraak plannen | Autopilots"
+  description="Plan direct een afspraak met Autopilots en ontdek welke AI medewerker het meeste werk uit jouw klantcontact haalt."
+  canonical="/afspraak/"
+>
+  <section class="ap-section">
+    <div class="ap-container ap-booking-grid">
+      <aside class="ap-card ap-booking-copy">
+        <div class="ap-kicker">Afspraak plannen</div>
+        <h1 class="ap-page-title">Bekijk waar AI direct werk overneemt.</h1>
+        <p class="ap-lead">Kies een moment. We bekijken je huidige klantcontact, planning, CRM en opvolging. Daarna krijg je een concrete route: Chat, Voice of allebei.</p>
+        <div class="ap-booking-list">
+          <div>1. Huidige workflow in kaart brengen</div>
+          <div>2. Eerste AI medewerker kiezen</div>
+          <div>3. Forms, calendar en CRM-koppeling bepalen</div>
+          <div>4. Livegang en optimalisatie plannen</div>
+        </div>
+      </aside>
+      <div class="ap-booking-frame">
+        <GhlEmbed
+          src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
+          title="Plan een afspraak met Autopilots"
+          id="autopilots-afspraak-calendar"
+        />
+        <p class="ap-booking-note">Deze calendar is gekoppeld aan GoHighLevel. Afspraken blijven dus in het bestaande CRM/follow-up systeem binnenkomen.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ap-booking-grid {
+    display: grid;
+    grid-template-columns: 0.78fr 1.22fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .ap-booking-copy .ap-page-title {
+    font-size: clamp(42px, 5.8vw, 72px);
+  }
+
+  .ap-booking-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .ap-booking-list div {
+    border: 1px solid var(--ap-line);
+    border-radius: 20px;
+    background: var(--ap-soft-2);
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .ap-booking-frame {
+    overflow: hidden;
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  .ap-booking-frame :global(iframe) {
+    min-height: 680px;
+  }
+
+  .ap-booking-note {
+    border-top: 1px solid var(--ap-line);
+    padding: 14px 16px;
+    color: var(--ap-muted);
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .ap-booking-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ap-booking-frame :global(iframe) {
+      min-height: 620px;
+    }
+  }
+</style>

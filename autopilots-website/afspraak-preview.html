@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Afspraak plannen | Autopilots preview</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+      :root{--ap-bg:#f5f5f2;--ap-card:#fff;--ap-text:#111;--ap-muted:#656565;--ap-line:rgba(0,0,0,.1);--ap-brown:#9f3826;--ap-black:#111;--ap-soft:#f8f8f5}*{box-sizing:border-box}body{margin:0;background:var(--ap-bg);color:var(--ap-text);font-family:"Public Sans",Arial,sans-serif}a{text-decoration:none;color:inherit}h1,h2,h3,p{margin:0}.ap-container{width:min(1120px,calc(100% - 36px));margin:0 auto}.ap-top{padding:18px 0;border-bottom:1px solid var(--ap-line);background:rgba(245,245,242,.9);position:sticky;top:0}.ap-top-inner{display:flex;justify-content:space-between;align-items:center}.ap-logo{font-family:"Syne";font-size:13px;font-weight:700;letter-spacing:2px}.ap-link{font-size:13px;font-weight:850;color:var(--ap-muted)}.ap-section{padding:76px 0}.ap-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:18px;align-items:start}.ap-kicker{display:inline-flex;margin-bottom:20px;color:var(--ap-brown);font-family:"Syne";font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(42px,5.8vw,72px);line-height:1.04;font-weight:900}.ap-lead{margin-top:22px;color:var(--ap-muted);font-size:18px;line-height:1.62;font-weight:550}.ap-card{border:1px solid var(--ap-line);border-radius:30px;background:#fff;padding:28px;box-shadow:0 16px 50px rgba(17,17,17,.065)}.ap-card h3{font-size:22px;line-height:1.14;font-weight:900}.ap-card p{margin-top:10px;color:var(--ap-muted);font-size:15px;line-height:1.6;font-weight:550}.ap-list{display:grid;gap:10px;margin-top:22px}.ap-list div{border:1px solid var(--ap-line);border-radius:20px;background:var(--ap-soft);padding:15px;font-size:14px;font-weight:800}.ap-calendar{overflow:hidden;border:1px solid var(--ap-line);border-radius:30px;background:#fff;box-shadow:0 16px 50px rgba(17,17,17,.065)}.ap-calendar iframe{display:block;width:100%;min-height:680px;border:0}.ap-note{border-top:1px solid var(--ap-line);padding:14px 16px;color:var(--ap-muted);font-size:12px;font-weight:700}@media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-calendar iframe{min-height:620px}}
+    </style>
+    <link rel="stylesheet" href="shared-preview.css" />
+  </head>
+  <body>
+    <header class="ap-top"><div class="ap-container ap-top-inner"><a class="ap-logo" href="preview-homepage.html?v=3">AUTOPILOTS</a><a class="ap-link" href="preview-homepage.html?v=3#contact">Terug naar website</a></div></header>
+    <main>
+      <section class="ap-section">
+        <div class="ap-container ap-grid">
+          <aside class="ap-card">
+            <div class="ap-kicker">Afspraak plannen</div>
+            <h1>Bekijk waar AI direct <span class="ap-title-accent">werk overneemt.</span></h1>
+            <p class="ap-lead">Kies een moment. We bekijken je huidige klantcontact, planning, CRM en opvolging. Daarna krijg je een concrete route: Chat, Voice of allebei.</p>
+            <div class="ap-list">
+              <div>1. Huidige workflow in kaart brengen</div>
+              <div>2. Eerste AI medewerker kiezen</div>
+              <div>3. Forms, calendar en CRM-koppeling bepalen</div>
+              <div>4. Livegang en optimalisatie plannen</div>
+            </div>
+          </aside>
+          <div class="ap-calendar">
+            <iframe src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ" scrolling="no" title="Plan een afspraak met Autopilots"></iframe>
+            <div class="ap-note">Deze calendar is gekoppeld aan GoHighLevel. Afspraken blijven dus in het bestaande CRM/follow-up systeem binnenkomen.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="shared-preview.js"></script>
+  </body>
+</html>

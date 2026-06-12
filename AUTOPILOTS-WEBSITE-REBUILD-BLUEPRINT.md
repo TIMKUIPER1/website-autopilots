@@ -324,6 +324,42 @@ Elke nichepagina krijgt deze customer journey:
 8. CTA/booking
    - Actieve GoHighLevel calendar of form
 
+## 9.1 Rijke Conversie Modules
+
+De huidige embeds bevatten sterke interactieve elementen. Die moeten niet verdwijnen in de rebuild, maar juist netter en herbruikbaar worden.
+
+Standaard modules voor nieuwe pagina's:
+
+- Voorbeeldgesprek per branche
+- Taalkeuze voor internationale varianten
+- Voice AI demo of testformulier
+- Impact calculator of prognose
+- Branchespecifieke intakeflow
+- Proces/implementatie accordion
+- Booking/calendar wrapper
+- Integratie/samenwerkingen slider
+- Team/crew slider
+- FAQ met schema markup
+
+Voorbeeldgesprek module:
+
+- Bezoeker kiest branche
+- Bezoeker kiest taal
+- Chatvoorbeeld past direct aan
+- Resultaatblok toont wat er in CRM/agenda/ticket gebeurt
+
+Impact calculator:
+
+- Maximaal 2 tot 3 inputs
+- Laat zien: zonder AI, met AI, verschil door AI
+- Gebruik duidelijke woorden, geen ingewikkelde financiele taal
+
+Internationale SEO:
+
+- Elke taalvariant krijgt eigen scenario's
+- Niet alleen vertalen, maar ook lokale zoekintentie en woorden gebruiken
+- Voorbeeld: `AI voor autobedrijven`, `AI for car dealerships`, `KI fuer Autohaeuser`
+
 ## 10. Embeds en Koppelingen
 
 Alle bestaande forms/calendars blijven actief.

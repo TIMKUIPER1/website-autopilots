@@ -110,6 +110,21 @@ Font weights:
 
 Cijfers mogen stevig zijn, maar nooit schreeuwerig of overdreven groot.
 
+### Titel spacing
+
+Zorg altijd voor duidelijke ademruimte tussen de rode eyebrow/kicker en de zwarte titel.
+
+De rode tekst mag nooit te dicht op de titel staan.
+
+Standaard:
+
+- Eyebrow/kicker margin-bottom: 18px tot 22px
+- Grote titels line-height: minimaal 1.04
+- Sectietitels line-height: minimaal 1.06
+- Geen extreem compacte titelblokken waarbij rood en zwart visueel aan elkaar plakken
+
+Als een titel over meerdere regels loopt, moet de regelafstand rustig en premium voelen. Liever iets meer hoogte dan te agressief compacte typografie.
+
 ## 4. Layout Regels
 
 Container:

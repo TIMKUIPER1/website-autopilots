@@ -1,0 +1,269 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+
+const services = [
+  ["Chat AI", "Helpt websitebezoekers, beantwoordt vragen en plant direct een passende afspraak."],
+  ["AI Voice Agent", "Neemt op, belt terug, volgt op en helpt klanten of leads sneller naar de juiste vervolgstap."],
+  ["AI Follow-up", "Zorgt dat offertes, aanvragen en open gesprekken niet stilvallen."],
+  ["Planning AI", "Plant afspraken slimmer en vermindert handwerk in agenda en routeplanning."],
+  ["Klantenmachine AI", "Verbindt chat, voice, follow-up, CRM en planning tot een full-funnel machine."],
+  ["Autopilots CRM", "Houdt gesprekken, leads, marketing, taken en opvolging op een plek."]
+];
+
+const niches = [
+  ["Autobedrijven", "/branches/autobedrijven/"],
+  ["Makelaars", "/branches/makelaars/"],
+  ["Tandartsen", "/branches/tandartsen/"],
+  ["Hotels", "/branches/hotels/"],
+  ["Restaurants", "/branches/restaurants/"],
+  ["Installatietechniek", "/branches/installatietechniek/"],
+  ["Dakdekkers", "/branches/dakdekkers/"],
+  ["Glaszetters", "/branches/glaszetters/"],
+  ["Hoveniers", "/branches/hoveniers/"],
+  ["Kozijnen", "/branches/kozijnen/"],
+  ["Zonnepanelen", "/branches/zonnepanelen/"],
+  ["Vastgoedbeheerders", "/branches/vastgoedbeheerders/"],
+  ["Woningcorporaties", "/branches/woningcorporaties/"],
+  ["Verzekeraars", "/branches/verzekeraars/"],
+  ["Kapperszaken", "/branches/kapperszaken/"],
+  ["Cosmetische klinieken", "/branches/cosmetische-klinieken/"],
+  ["Evenementen", "/branches/evenementen/"],
+  ["Non-profit", "/branches/non-profit/"],
+  ["Dierenarts", "/branches/dierenarts/"],
+  ["Dierenverzorging", "/branches/dierenverzorging/"],
+  ["Vloerenleggers", "/branches/vloerenleggers/"]
+];
+---
+
+<BaseLayout
+  title="Autopilots | AI medewerkers voor klantcontact en operatie"
+  description="Autopilots bouwt AI medewerkers die klantcontact afhandelen, afspraken plannen, supportvragen voorbereiden en CRM-processen slimmer maken."
+>
+  <Hero
+    eyebrow="Autopilots"
+    title="AI medewerkers voor klantcontact en operatie."
+    accent="24/7."
+    text="Autopilots bouwt AI medewerkers die gesprekken voeren, vragen beantwoorden, leads opvolgen, afspraken plannen en context vastleggen in je CRM. Niet als losse tool, maar als werkend systeem in je bedrijf."
+    chips={["Voice", "Chat", "Support", "Receptie", "Planning", "CRM"]}
+  />
+
+  <section class="ap-section" id="diensten">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Diensten</div>
+        <h2 class="ap-section-title">Eén systeem voor alle momenten waarop klantcontact werk vraagt.</h2>
+        <p class="ap-text">Autopilots combineert AI medewerkers met duidelijke flows, CRM verwerking en menselijke overdracht. Het gaat om het hele klantcontactproces: support, receptie, planning, opvolging en commerciële aanvragen in hetzelfde systeem.</p>
+      </div>
+      <div class="ap-grid-3">
+        {services.map(([title, text]) => (
+          <article class="ap-card">
+            <h3 class="ap-card-title">{title}</h3>
+            <p class="ap-text">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="klantenmachine">
+    <div class="ap-container">
+      <div class="ap-dark-band">
+        <div class="ap-kicker">Klantenmachine AI</div>
+        <h2 class="ap-section-title">Van eerste vraag naar juiste actie, zonder gaten in je proces.</h2>
+        <p class="ap-text">De meeste bedrijven verliezen tijd en kansen tussen website, telefoon, supportvraag, planning en CRM. Autopilots bouwt daar een werkend systeem tussen: klantcontact, AI afhandeling, afspraakplanning, overdracht en CRM-verwerking.</p>
+        <div class="ap-grid-3 ap-dark-grid">
+          <div>
+            <span class="ap-step-number">01</span>
+            <h3>Instroom</h3>
+            <p>Nieuwe leads, klanten, telefoontjes, formulieren, supportvragen en afspraken.</p>
+          </div>
+          <div>
+            <span class="ap-step-number">02</span>
+            <h3>AI afhandeling</h3>
+            <p>De AI begrijpt de vraag, stelt vervolgvragen en kiest de juiste route.</p>
+          </div>
+          <div>
+            <span class="ap-step-number">03</span>
+            <h3>Overdracht</h3>
+            <p>Afspraken, tickets, taken en pipeline updates komen netjes bij het team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="branches">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Branches</div>
+        <h2 class="ap-section-title">SEO-landingspagina's per branche, met dezelfde sterke basis.</h2>
+        <p class="ap-text">Elke niche krijgt een eigen customer journey, eigen zoekintentie en eigen business case. Autobedrijven is de eerste prioriteit, daarna schalen we door naar de rest.</p>
+      </div>
+      <div class="ap-niche-grid">
+        {niches.map(([label, href]) => (
+          <a class="ap-niche-link" href={href}>
+            <span>{label}</span>
+            <strong>Bekijk route</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="proces">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Implementatie</div>
+        <h2 class="ap-section-title">We bouwen geen demo. We bouwen een proces dat live kan.</h2>
+      </div>
+      <div class="ap-accordion">
+        <details open>
+          <summary>Ontwerp en inrichting</summary>
+          <p>We vertalen jullie werkwijze naar gesprekslogica, tone of voice, uitzonderingen, overdracht en technische inrichting.</p>
+        </details>
+        <details>
+          <summary>Bouw en testen</summary>
+          <p>We bouwen de AI medewerker, richten koppelingen in en testen belangrijke scenario's voordat de flow live gaat.</p>
+        </details>
+        <details>
+          <summary>Review en livegang</summary>
+          <p>We lopen alles samen door, verwerken feedback en zetten de agent klaar voor livegang.</p>
+        </details>
+        <details>
+          <summary>Monitoring en optimalisatie</summary>
+          <p>Na livegang sturen we bij op echte gesprekken, conversiepunten en CRM-data.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-final-cta">
+        <div>
+          <div class="ap-kicker">Volgende stap</div>
+          <h2 class="ap-section-title">Klaar om de nieuwe website als systeem te bouwen?</h2>
+          <p class="ap-text">We starten met de homepage, daarna de niche-template en daarna alle branches met internationale SEO-structuur.</p>
+        </div>
+        <a class="ap-button ap-button-primary" href="/contact/">Plan een afspraak</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ap-card .ap-text {
+    margin-top: 12px;
+  }
+
+  .ap-dark-grid {
+    margin-top: 34px;
+  }
+
+  .ap-dark-grid > div {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 22px;
+  }
+
+  .ap-step-number {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--ap-white);
+    color: var(--ap-brown);
+    font-weight: 700;
+  }
+
+  .ap-dark-grid h3 {
+    margin-top: 18px;
+    font-size: 20px;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+
+  .ap-dark-grid p {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.58;
+    font-weight: 600;
+  }
+
+  .ap-niche-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .ap-niche-link {
+    display: flex;
+    min-height: 112px;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--ap-line);
+    border-radius: 24px;
+    background: var(--ap-card);
+    padding: 18px;
+    box-shadow: 0 16px 40px rgba(17, 17, 17, 0.045);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .ap-niche-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(159, 56, 38, 0.28);
+    background: #fffaf8;
+  }
+
+  .ap-niche-link span {
+    font-size: 17px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  .ap-niche-link strong {
+    color: var(--ap-brown);
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ap-final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: end;
+    border: 1px solid var(--ap-line);
+    border-radius: 34px;
+    background: var(--ap-card);
+    padding: 42px;
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
+  }
+
+  @media (max-width: 900px) {
+    .ap-niche-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ap-final-cta {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ap-niche-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ap-final-cta {
+      padding: 24px;
+      border-radius: 26px;
+    }
+  }
+</style>

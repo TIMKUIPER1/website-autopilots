@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autopilots Branch Preview</title>
+    <meta name="description" content="Nichepagina preview voor Autopilots met voorbeeldgesprek, workflow en nichecalculator." />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
+      :root{--ap-bg:#f5f5f2;--ap-card:#fff;--ap-text:#111;--ap-muted:#656565;--ap-line:rgba(0,0,0,.1);--ap-brown:#9f3826;--ap-brown-dark:#7d2a1d;--ap-black:#111;--ap-soft:#f8f8f5;--ap-soft-2:#eeeeea}
+      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ap-bg);color:var(--ap-text);font-family:"Public Sans",Arial,sans-serif}a{color:inherit;text-decoration:none}button,input{font:inherit}h1,h2,h3,p{margin:0}.ap-container{width:min(1120px,calc(100% - 36px));margin:0 auto}.ap-section{padding:76px 0}.ap-kicker,.ap-logo,.ap-metric strong{font-family:"Syne","Public Sans",Arial,sans-serif}.ap-kicker{display:inline-flex;margin-bottom:20px;color:var(--ap-brown);font-size:12px;font-weight:700;letter-spacing:2px;line-height:1.2;text-transform:uppercase}h1{max-width:960px;font-size:clamp(44px,6vw,78px);line-height:1.04;font-weight:900;letter-spacing:0}.ap-lead{max-width:790px;margin-top:22px;color:var(--ap-muted);font-size:19px;line-height:1.62;font-weight:500}.ap-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.ap-button{display:inline-flex;min-height:50px;align-items:center;justify-content:center;border-radius:999px;padding:15px 24px;border:1px solid var(--ap-line);font-size:15px;font-weight:800}.ap-button-primary{background:var(--ap-brown);color:#fff;border-color:var(--ap-brown)}.ap-button-secondary{background:#fff}.ap-top{position:sticky;top:0;z-index:10;padding:18px 0;border-bottom:1px solid var(--ap-line);background:rgba(245,245,242,.9);backdrop-filter:blur(14px)}.ap-top-inner{display:flex;justify-content:space-between;align-items:center;gap:14px}.ap-logo{font-size:13px;font-weight:700;letter-spacing:2px}.ap-small-link{font-size:13px;font-weight:850;color:var(--ap-muted)}.ap-hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}.ap-pill{display:inline-flex;align-items:center;border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:9px 13px;font-size:13px;font-weight:900}.ap-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}.ap-card{border:1px solid var(--ap-line);border-radius:30px;background:#fff;box-shadow:0 16px 50px rgba(17,17,17,.065);padding:28px}.ap-card h2{font-size:clamp(30px,4vw,48px);line-height:1.06;font-weight:900}.ap-card h3{font-size:22px;line-height:1.14;font-weight:900}.ap-card p{margin-top:12px;color:var(--ap-muted);font-size:15px;line-height:1.6;font-weight:550}.ap-chat{display:grid;gap:10px;margin-top:18px;border:1px solid var(--ap-line);border-radius:24px;background:var(--ap-soft);padding:16px}.ap-chat-meta{display:flex;justify-content:space-between;gap:10px;color:var(--ap-muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px}.ap-bubble{max-width:84%;border-radius:20px;padding:13px 14px;font-size:14px;line-height:1.48;font-weight:650}.ap-user{justify-self:start;background:#fff;border:1px solid var(--ap-line)}.ap-agent{justify-self:end;background:#111;color:#fff}.ap-result{border:1px solid rgba(159,56,38,.18);border-radius:20px;background:#fffaf8;padding:15px;color:var(--ap-text);font-size:14px;line-height:1.48;font-weight:750}.ap-result strong{display:block;margin-bottom:6px;color:var(--ap-brown);font-size:12px;text-transform:uppercase;letter-spacing:1px}.ap-steps{display:grid;gap:10px;margin-top:18px}.ap-step{display:grid;grid-template-columns:48px 1fr;gap:12px;border-radius:20px;background:var(--ap-soft);border:1px solid var(--ap-line);padding:14px}.ap-step span{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:16px;background:#111;color:#fff;font-family:"Syne";font-weight:700}.ap-step strong{display:block;font-size:15px;font-weight:900}.ap-step em{display:block;margin-top:4px;color:var(--ap-muted);font-style:normal;font-size:13px;font-weight:700}.ap-calculator-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:18px;align-items:stretch}.ap-slider-card{display:grid;gap:20px}.ap-range-label{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;color:var(--ap-muted);font-size:13px;font-weight:900}.ap-range-label strong{color:var(--ap-text);font-family:"Syne","Public Sans",Arial,sans-serif;font-size:24px;line-height:1}input[type=range]{width:100%;accent-color:var(--ap-brown);margin-top:10px}.ap-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ap-metric,.ap-insight{border:1px solid var(--ap-line);border-radius:22px;background:var(--ap-soft);padding:16px}.ap-metric span,.ap-insight span{display:block;color:var(--ap-muted);font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.ap-metric strong{display:block;margin-top:8px;font-size:34px;line-height:1;font-weight:700}.ap-metric em{display:block;margin-top:7px;color:var(--ap-muted);font-style:normal;font-size:12px;line-height:1.35;font-weight:700}.ap-insight{margin-top:10px;background:#111;color:#fff}.ap-insight span{color:#e4a092}.ap-insight strong{display:block;margin-top:8px;font-size:20px;line-height:1.25;font-weight:900}.ap-brain-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(360px,1.08fr);gap:18px;align-items:center}.ap-brain{position:relative;min-height:420px;border-radius:34px;background:#111;color:#fff;overflow:hidden;padding:28px}.ap-brain-core{position:absolute;left:50%;top:48%;width:156px;height:156px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#fff 0 18%,#9f3826 19% 40%,#111 41%);box-shadow:0 0 0 22px rgba(255,255,255,.06),0 0 70px rgba(159,56,38,.5);animation:apBrain 3s ease-in-out infinite}.ap-brain-chip{position:absolute;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(255,255,255,.09);padding:12px 14px;font-size:13px;font-weight:850}.ap-brain-chip:nth-child(2){left:28px;top:34px}.ap-brain-chip:nth-child(3){right:28px;top:70px}.ap-brain-chip:nth-child(4){left:54px;bottom:92px}.ap-brain-chip:nth-child(5){right:44px;bottom:78px}.ap-brain-data{position:absolute;left:28px;right:28px;bottom:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ap-brain-data div{border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.07);padding:11px}.ap-brain-data strong{display:block;font-size:12px;font-weight:900}.ap-brain-data span{display:block;margin-top:4px;color:rgba(255,255,255,.64);font-size:11px;line-height:1.3;font-weight:650}@keyframes apBrain{50%{transform:translate(-50%,-50%) scale(1.06)}}.ap-seo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.ap-seo-card{border:1px solid var(--ap-line);border-radius:24px;background:#fff;padding:22px}.ap-seo-card h3{font-size:18px;line-height:1.16;font-weight:900}.ap-seo-card p{margin-top:10px;color:var(--ap-muted);font-size:14px;line-height:1.56;font-weight:600}.ap-final-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:42px;box-shadow:0 16px 50px rgba(17,17,17,.065)}@media(max-width:900px){.ap-grid,.ap-calculator-grid,.ap-seo-grid,.ap-final-box,.ap-brain-grid{grid-template-columns:1fr}.ap-actions{flex-direction:column}.ap-button{width:100%}.ap-card{border-radius:26px;padding:24px}.ap-metrics{grid-template-columns:1fr}.ap-brain{border-radius:26px}}@media(max-width:560px){.ap-container{width:min(100% - 28px,1120px)}.ap-section{padding:58px 0}h1{font-size:clamp(42px,12vw,58px);line-height:1.06}.ap-lead{font-size:17px}.ap-bubble{max-width:100%}.ap-final-box{padding:24px;border-radius:26px}.ap-brain{min-height:470px}.ap-brain-data{grid-template-columns:1fr}}
+    </style>
+    <link rel="stylesheet" href="shared-preview.css" />
+    <style>
+      .ap-nav{display:flex;gap:8px;border:1px solid var(--ap-line);border-radius:999px;background:rgba(255,255,255,.72);padding:6px}.ap-nav a{border-radius:999px;padding:10px 12px;color:var(--ap-muted);font-size:13px;font-weight:850}.ap-nav a:hover{background:#fff;color:#111}.ap-top .ap-button{min-height:42px;padding:12px 18px;font-size:13px}.ap-calculator-grid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}.ap-agent-lang{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}.ap-agent-lang span{color:var(--ap-muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px}.ap-agent-lang button{border:1px solid var(--ap-line);border-radius:999px;background:#fff;color:var(--ap-muted);padding:8px 11px;font-size:12px;font-weight:900;cursor:pointer}.ap-agent-lang button.is-active{background:var(--ap-brown);border-color:var(--ap-brown);color:#fff}@media(max-width:760px){.ap-top-inner{flex-wrap:wrap}.ap-nav{order:3;width:100%;overflow-x:auto}.ap-top .ap-button{display:none}}
+    </style>
+  </head>
+  <body>
+    <header class="ap-top">
+      <div class="ap-container ap-top-inner">
+        <a class="ap-logo" href="preview-homepage.html?v=8">AUTOPILOTS</a>
+        <nav class="ap-nav" aria-label="Hoofdnavigatie">
+          <a href="services-preview.html">Diensten</a>
+          <a href="preview-homepage.html?v=8#branches">Voor wie</a>
+          <a href="process-preview.html">Proces</a>
+          <a href="crew-preview.html">Crew</a>
+        </nav>
+        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+      </div>
+    </header>
+    <main>
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-kicker" data-branch-kicker>AI voor autobedrijven</div>
+          <h1 data-branch-title>AI medewerkers voor autobedrijven.</h1>
+          <p class="ap-lead" data-branch-lead>Plan proefritten, volg leads op en werk CRM direct bij zonder dat verkoop achter de feiten aanloopt.</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo</a>
+            <a class="ap-button ap-button-secondary" href="#calculator">Bereken impact</a>
+          </div>
+          <div class="ap-hero-meta">
+            <span class="ap-pill" data-pill-1>24/7 leadopvolging</span>
+            <span class="ap-pill" data-pill-2>Direct in agenda</span>
+            <span class="ap-pill" data-pill-3>CRM bijgewerkt</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section" id="voorbeeld">
+        <div class="ap-container ap-grid">
+          <article class="ap-card">
+            <div class="ap-kicker">Voorbeeldgesprek</div>
+            <h2 data-example-title>Proefrit direct gepland.</h2>
+            <div class="ap-agent-lang" aria-label="Taalkeuze agent">
+              <span>Agent taal</span>
+              <button class="is-active" type="button" data-agent-lang="nl">NL</button>
+              <button type="button" data-agent-lang="en">EN</button>
+              <button type="button" data-agent-lang="de">DE</button>
+              <button type="button" data-agent-lang="fr">FR</button>
+              <button type="button" data-agent-lang="es">ES</button>
+            </div>
+            <div class="ap-chat">
+              <div class="ap-chat-meta"><span>Live intake</span><span>Chat of voice</span></div>
+              <div class="ap-bubble ap-user" data-line-1>Ik wil een proefrit plannen met de Volkswagen Golf.</div>
+              <div class="ap-bubble ap-agent" data-line-2>Ik help u direct. Wanneer wilt u komen en heeft u een geldig rijbewijs?</div>
+              <div class="ap-bubble ap-user" data-line-3>Donderdag 15:00. Ja, ik heb een rijbewijs.</div>
+              <div class="ap-bubble ap-agent" data-line-4>Prima. Ik plan de proefrit direct in en stuur de bevestiging.</div>
+              <div class="ap-result"><strong>Actie in systeem</strong><span data-result>Afspraak direct geboekt. CRM bijgewerkt. Follow-up mail naar klant gestuurd.</span></div>
+            </div>
+          </article>
+          <aside class="ap-card">
+            <div class="ap-kicker">Workflow</div>
+            <h3>Wat gebeurt er automatisch?</h3>
+            <p data-workflow-intro>De AI medewerker verwerkt het gesprek tot een duidelijke actie voor agenda, CRM en team.</p>
+            <div class="ap-steps">
+              <div class="ap-step"><span>01</span><div><strong data-step-title-1>Intake</strong><em data-step-1>AI verzamelt context en voorkeur.</em></div></div>
+              <div class="ap-step"><span>02</span><div><strong data-step-title-2>Planning</strong><em data-step-2>Afspraak wordt direct ingepland.</em></div></div>
+              <div class="ap-step"><span>03</span><div><strong data-step-title-3>CRM</strong><em data-step-3>Pipeline, notities en velden worden bijgewerkt.</em></div></div>
+              <div class="ap-step"><span>04</span><div><strong data-step-title-4>Follow-up</strong><em data-step-4>Klant ontvangt bevestiging en vervolginformatie.</em></div></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="ap-section" id="ai-brein">
+        <div class="ap-container ap-brain-grid">
+          <div>
+            <div class="ap-kicker">Persoonlijk AI brein</div>
+            <h2 data-brain-title>Een AI brein voor deze branche.</h2>
+            <p class="ap-lead" data-brain-copy>Hierin staat opgeslagen hoe de AI moet reageren, welke vragen gesteld worden, welke uitzonderingen gelden en wanneer een mens moet overnemen.</p>
+            <p class="ap-lead" style="font-size:16px;margin-top:14px">Elke vraag, afspraak, voorkeur, uitzondering en vervolgstap wordt vastgelegd. Daardoor wordt de AI niet afstandelijker, maar persoonlijker: klanten hoeven minder te herhalen en het team krijgt steeds betere context.</p>
+          </div>
+          <div class="ap-brain">
+            <div class="ap-brain-core"></div>
+            <div class="ap-brain-chip" data-brain-1>Triage regels</div>
+            <div class="ap-brain-chip" data-brain-2>CRM geheugen</div>
+            <div class="ap-brain-chip" data-brain-3>Agenda logica</div>
+            <div class="ap-brain-chip" data-brain-4>Menselijke fallback</div>
+            <div class="ap-brain-data" aria-label="AI brein datalaag">
+              <div><strong>Contactdata</strong><span>Vraag, intentie en voorkeur.</span></div>
+              <div><strong>Systeemactie</strong><span>CRM, agenda, ticket of taak.</span></div>
+              <div><strong>Toekomst</strong><span>Persoonlijkere opvolging.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section" id="calculator">
+        <div class="ap-container">
+          <div class="ap-grid">
+            <div>
+              <div class="ap-kicker" data-calc-kicker>Calculator</div>
+              <h2 class="ap-card-title" data-calc-title>Wat levert snellere opvolging op?</h2>
+              <p class="ap-lead" data-calc-lead>Schuif met de waarden en zie hoeveel kansen, uren of capaciteit je terugwint met een AI medewerker die direct reageert.</p>
+            </div>
+            <div class="ap-card">
+              <h3 data-calc-summary-title>Reken met je eigen situatie.</h3>
+              <p data-calc-summary>Gebruik dit straks als conversiemodule op elke nichepagina. De rekensom en woorden passen zich aan de branche aan.</p>
+            </div>
+          </div>
+          <div class="ap-calculator-grid" style="margin-top:18px">
+            <article class="ap-card ap-slider-card">
+              <div>
+                <label class="ap-range-label" for="volumeRange"><span data-volume-label>Aanvragen per maand</span><strong data-volume-output>80</strong></label>
+                <input id="volumeRange" type="range" min="20" max="300" step="5" value="80" data-volume-range>
+              </div>
+              <div>
+                <label class="ap-range-label" for="minutesRange"><span data-minutes-label>Minuten handwerk per aanvraag</span><strong data-minutes-output>12</strong></label>
+                <input id="minutesRange" type="range" min="4" max="45" step="1" value="12" data-minutes-range>
+              </div>
+              <div>
+                <label class="ap-range-label" for="automationRange"><span data-automation-label>Deel dat AI kan afhandelen</span><strong data-automation-output>65%</strong></label>
+                <input id="automationRange" type="range" min="20" max="90" step="5" value="65" data-automation-range>
+              </div>
+              <div>
+                <label class="ap-range-label" for="marginRange"><span data-margin-label>Marge per extra klant</span><strong data-margin-output>€750</strong></label>
+                <input id="marginRange" type="range" min="100" max="5000" step="50" value="750" data-margin-range>
+              </div>
+            </article>
+            <article class="ap-card">
+              <div class="ap-metrics">
+                <div class="ap-metric"><span data-metric-1-label>Automatisch verwerkt</span><strong data-automated-output>52</strong><em data-metric-1-help>per maand</em></div>
+                <div class="ap-metric"><span data-metric-2-label>Uren teruggewonnen</span><strong data-hours-output>10</strong><em data-metric-2-help>voor team en planning</em></div>
+                <div class="ap-metric"><span data-metric-3-label>Waarde per maand</span><strong data-value-output>€450</strong><em data-metric-3-help>op basis van bespaarde tijd</em></div>
+                <div class="ap-metric"><span data-metric-4-label>Sneller opgevolgd</span><strong data-speed-output>52</strong><em data-metric-4-help>zonder wachttijd</em></div>
+                <div class="ap-metric"><span data-metric-5-label>Extra klanten</span><strong data-customers-output>3</strong><em data-metric-5-help>verwacht per maand</em></div>
+                <div class="ap-metric"><span data-metric-6-label>Extra marge</span><strong data-margin-value-output>€2.250</strong><em data-metric-6-help>op basis van extra klanten</em></div>
+              </div>
+              <div class="ap-insight">
+                <span>Businesscase</span>
+                <strong data-insight-output>Je wint ongeveer 10 uur per maand terug, laat 52 aanvragen direct verwerken en haalt naar verwachting 3 extra klanten binnen.</strong>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-kicker">SEO structuur</div>
+          <div class="ap-seo-grid">
+            <article class="ap-seo-card"><h3 data-seo-1-title>Lokale zoekintentie</h3><p data-seo-1>Elke pagina krijgt eigen woorden voor problemen, aanvragen en vervolgstappen binnen de niche.</p></article>
+            <article class="ap-seo-card"><h3>Internationale variant</h3><p data-seo-2>Dezelfde pagina kan naar Engels en Duits worden doorvertaald met eigen zoekwoorden per markt.</p></article>
+            <article class="ap-seo-card"><h3>Conversie boven alles</h3><p data-seo-3>Voorbeeldgesprek, workflow, calculator en afspraakmodule werken samen naar de demo.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-final-box">
+            <div>
+              <div class="ap-kicker">Volgende stap</div>
+              <h2 class="ap-card-title">Bekijk hoe dit voor jouw bedrijf live werkt.</h2>
+              <p class="ap-lead">Plan een korte afspraak. Dan koppelen we de juiste chat, voice, CRM-flow en calendar aan deze nichepagina.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function(){
+        var branchData={
+          autobedrijven:{name:"autobedrijven",kicker:"AI voor autobedrijven",title:"AI medewerkers voor autobedrijven.",lead:"Plan proefritten, beantwoord voorraadvragen, volg leads op en werk CRM direct bij zonder dat verkoop achter de feiten aanloopt.",pills:["Proefritten direct gepland","Voorraadvragen beantwoord","CRM bijgewerkt"],exampleTitle:"Proefrit direct gepland.",lines:["Ik wil een proefrit plannen met de Volkswagen Golf.","Ik help u direct. Wanneer wilt u komen en heeft u een geldig rijbewijs?","Donderdag 15:00. Ja, ik heb een rijbewijs.","Prima. Ik plan de proefrit direct in en stuur de bevestiging."],result:"Afspraak direct geboekt. CRM bijgewerkt met voertuig, tijdstip en rijbewijscheck. Follow-up mail naar klant gestuurd.",steps:[["Lead intake","Model, budget, inruil en timing worden vastgelegd."],["Agenda","Proefrit of belafspraak wordt direct geboekt."],["CRM","Voertuig, interesse en leadstatus worden bijgewerkt."],["Follow-up","Klant krijgt bevestiging en verkoop krijgt context."]],calc:{title:"Wat leveren snellere proefritten en leadopvolging op?",lead:"Voor autobedrijven draait de calculator om gemiste leads, proefritten en handwerk in CRM.",summary:"Een lead die direct een proefrit boekt, heeft meer waarde dan een formulier dat blijft liggen.",volumeLabel:"Leads/proefritaanvragen per maand",minutesLabel:"Minuten opvolging per lead",automationLabel:"Leads die AI direct kan opvolgen",valuePerHour:55,marginLabel:"Gemiddelde marge per extra verkoop",extraCustomerRate:5,metric4:"Proefritten sneller opgevolgd",insight:"Je wint {hours} uur per maand terug en laat ongeveer {automated} leads direct opvolgen of inplannen."}},
+          makelaars:{name:"makelaars",kicker:"AI voor makelaars",title:"AI medewerkers voor makelaars.",lead:"Laat AI bezichtigingen plannen, kandidaten kwalificeren en woninginteresse direct vastleggen in je CRM.",pills:["Bezichtigingen gepland","Kandidaten gekwalificeerd","CRM schoon"],exampleTitle:"Bezichtiging direct geboekt.",lines:["Ik wil de woning aan de Lindenlaan 8 bezichtigen.","Ik help u direct. Koopt u voor eigen bewoning en heeft u financiering?","Ja, eigen bewoning. Tot 475.000 euro bevestigd.","Prima. Ik plan direct een bezichtiging en stuur de voorbereiding."],result:"Bezichtiging geboekt. CRM bijgewerkt met woning, koopmotief en financiering. Bevestiging naar kandidaat gestuurd.",steps:[["Woningvraag","Object, budget en koopmotief worden herkend."],["Kwalificatie","Financiering, timing en interesse worden gevraagd."],["Bezichtiging","Beschikbaar moment wordt direct geboekt."],["Dossier","Makelaar krijgt samenvatting en kandidaatstatus."]],calc:{title:"Wat levert automatische bezichtigingsplanning op?",lead:"Voor makelaars telt vooral minder telefoonwerk en sneller gekwalificeerde kandidaten.",summary:"Deze calculator laat zien hoeveel intakes en bezichtigingsverzoeken je niet meer handmatig hoeft te verwerken.",volumeLabel:"Bezichtigingsaanvragen per maand",minutesLabel:"Minuten intake per kandidaat",automationLabel:"Aanvragen die AI kan kwalificeren",valuePerHour:65,marginLabel:"Marge per extra opdracht",extraCustomerRate:3,metric4:"Kandidaten direct gekwalificeerd",insight:"Je wint {hours} uur per maand terug en kwalificeert ongeveer {automated} kandidaten zonder wachttijd."}},
+          tandartsen:{name:"tandartspraktijken",kicker:"AI voor tandartsen",title:"AI medewerkers voor tandartspraktijken.",lead:"Laat AI patientvragen triageren, afspraken plannen en spoedvragen netjes voorbereiden voor de praktijk.",pills:["Spoed triage","Afspraken gepland","Minder telefoondruk"],exampleTitle:"Spoedafspraak direct gepland.",lines:["Ik heb sinds vannacht hevige kiespijn.","Dat is vervelend. Heeft u zwelling, koorts of pijn bij dichtbijten?","Geen koorts, wel kloppende pijn en ik kan nauwelijks eten.","Dank u. Ik plan direct een spoedslot en stuur de bevestiging."],result:"Spoedafspraak geboekt. Patientkaart/CRM bijgewerkt met klacht en triage. Bevestiging naar patient gestuurd.",steps:[["Klacht","Pijn, urgentie en beschikbaarheid worden uitgevraagd."],["Triage","AI bepaalt of spoed, regulier of terugbel nodig is."],["Planning","Geschikt slot wordt direct geboekt."],["Overdracht","Praktijk krijgt klacht, context en bevestiging."]],calc:{title:"Hoeveel telefoondruk haalt AI uit de praktijk?",lead:"Voor tandartsen gaat de businesscase over triage, afspraken en minder receptiedruk.",summary:"Reken uit hoeveel patientvragen AI kan verwerken voordat het team hoeft in te springen.",volumeLabel:"Patientvragen per maand",minutesLabel:"Minuten receptietijd per vraag",automationLabel:"Vragen die AI kan afhandelen",valuePerHour:42,marginLabel:"Marge per extra behandeling",extraCustomerRate:4,metric4:"Patientvragen direct geholpen",insight:"Je wint {hours} uur receptietijd per maand terug en helpt ongeveer {automated} patientvragen direct."}},
+          installatietechniek:{name:"installatiebedrijven",kicker:"AI voor installatietechniek",title:"AI medewerkers voor installatietechniek.",lead:"Plan storingen, werkbonnen en klantvragen direct door naar planning, monteur en CRM.",pills:["Storingen gerouteerd","Werkbon klaar","Monteur krijgt context"],exampleTitle:"Servicemoment direct geboekt.",lines:["Mijn cv-ketel geeft storing E10 en we hebben geen warm water.","Ik help u direct. Werkt de verwarming nog en wat is het adres?","Verwarming doet het niet. Adres is Industrieweg 4.","Dank u. Ik plan direct een urgente servicemelding in."],result:"Servicemoment geboekt. Werkbon en CRM bijgewerkt. Bevestiging naar klant en taak naar monteur gestuurd.",steps:[["Storing","Code, adres en urgentie worden vastgelegd."],["Planning","Beschikbaarheid en type monteur worden gekoppeld."],["Werkbon","Taak wordt gevuld met context en prioriteit."],["Bevestiging","Klant en monteur krijgen dezelfde informatie."]],calc:{title:"Wat bespaar je op storingsintake en planning?",lead:"Voor installatie draait het om minder handmatige intake, snellere werkbonnen en betere planning.",summary:"Bereken hoeveel servicemeldingen AI kan voorbereiden voordat de planner hoeft te schakelen.",volumeLabel:"Storingen/servicevragen per maand",minutesLabel:"Minuten intake per melding",automationLabel:"Meldingen die AI kan voorbereiden",valuePerHour:58,marginLabel:"Marge per extra serviceklus",extraCustomerRate:5,metric4:"Werkbonnen voorbereid",insight:"Je wint {hours} uur planning per maand terug en laat ongeveer {automated} werkbonnen automatisch voorbereiden."}},
+          vastgoedbeheerders:{name:"vastgoedbeheerders",kicker:"AI voor vastgoedbeheerders",title:"AI medewerkers voor vastgoedbeheerders.",lead:"Laat AI huurdersvragen, reparatieverzoeken en tickets verzamelen, prioriteren en doorzetten naar het juiste team.",pills:["Tickets aangemaakt","Minder herhaalvragen","Leverancier krijgt context"],exampleTitle:"Reparatieverzoek direct als ticket.",lines:["Er is lekkage onder de gootsteen in appartement 3B.","Ik help u direct. Is er actieve waterschade en kunt u een foto toevoegen?","Het druppelt nog, foto is beschikbaar. Adres is bekend.","Dank u. Ik maak direct een urgent ticket aan en stuur de bevestiging."],result:"Ticket aangemaakt. CRM bijgewerkt met adres, urgentie en fotoverzoek. Follow-up mail naar huurder en taak naar beheer gestuurd.",steps:[["Melding","Adres, type probleem en urgentie worden herkend."],["Ticket","AI maakt een compleet ticket aan."],["Routing","Beheerder of leverancier krijgt de juiste taak."],["Status","Huurder krijgt bevestiging en vervolgstap."]],calc:{title:"Hoeveel tickets en personeelstijd bespaar je?",lead:"Voor vastgoedbeheer draait de calculator om tickets, herhaalvragen en tijd van beheerders.",summary:"Reken uit hoeveel meldingen AI kan voorbereiden zodat beheerders minder losse informatie hoeven op te vragen.",volumeLabel:"Huurdersmeldingen per maand",minutesLabel:"Minuten handwerk per ticket",automationLabel:"Tickets die AI kan voorbereiden",valuePerHour:48,marginLabel:"Waarde per voorkomen escalatie",extraCustomerRate:2,metric4:"Tickets compleet voorbereid",insight:"Je wint {hours} uur beheerderstijd per maand terug en laat ongeveer {automated} tickets compleet binnenkomen."}},
+          verzekeraars:{name:"verzekeraars",kicker:"AI voor verzekeraars",title:"AI medewerkers voor verzekeraars.",lead:"Laat AI schademeldingen, polisvragen en documentchecks voorbereiden met duidelijke routing naar schade, acceptatie of service.",pills:["Schade-intake","Documentcheck","Snellere routing"],exampleTitle:"Schademelding direct voorbereid.",lines:["Ik wil autoschade melden na een aanrijding.","Ik help u direct. Is iedereen veilig en heeft u foto's of een Europees schadeformulier?","Iedereen is veilig. Foto's heb ik, formulier nog niet.","Dank u. Ik maak de schademelding aan en stuur de uploadlink."],result:"Schadecase aangemaakt. CRM bijgewerkt met type schade, urgentie en ontbrekende documenten. Follow-up mail naar klant gestuurd.",steps:[["Schade of vraag","AI herkent polis, claimtype en urgentie."],["Documenten","Benodigde bewijsstukken worden opgevraagd."],["Routing","Case gaat naar schade, acceptatie of service."],["Follow-up","Klant krijgt bevestiging en duidelijke vervolgstap."]],calc:{title:"Wat levert snellere schade-intake op?",lead:"Voor verzekeraars telt vooral minder incomplete dossiers, minder wachttijd en betere routing.",summary:"Bereken hoeveel cases AI kan voorbereiden voordat een medewerker ze inhoudelijk oppakt.",volumeLabel:"Claims/polisvragen per maand",minutesLabel:"Minuten intake per case",automationLabel:"Cases die AI kan voorbereiden",valuePerHour:62,marginLabel:"Waarde per extra dossier",extraCustomerRate:3,metric4:"Cases sneller gerouteerd",insight:"Je wint {hours} uur dossierwerk per maand terug en laat ongeveer {automated} cases compleet voorbereiden."}}
+        };
+        var generic={
+          dakdekkers:["dakdekkers","Daklekkage direct als inspectie gepland.","Ik heb lekkage bij de dakkapel.","Ik help u direct. Is het actief lekkage en wat is het adres?","Ja, vooral bij regen. Adres staat in mijn aanvraag.","Ik plan direct een inspectie en stuur de bevestiging.","Inspectie geboekt. CRM bijgewerkt met urgentie, daktype en adres. Follow-up mail naar klant gestuurd.","Dakinspecties per maand","inspecties"],
+          glaszetters:["glaszetters","Glasschade direct opgevolgd.","Mijn ruit is gebarsten en moet vervangen worden.","Ik help u direct. Is het enkel of dubbel glas en is het veilig?","Dubbel glas, het zit nog vast maar is gebarsten.","Ik plan direct een opname en stuur de bevestiging.","Opname geboekt. CRM bijgewerkt met glastype, veiligheid en adres. Follow-up mail naar klant gestuurd.","Glasaanvragen per maand","opnames"],
+          hotels:["hotels","Gastvraag direct afgehandeld.","Kan ik een late check-in en kinderbedje regelen?","Ik help u direct. Op welke naam staat de reservering?","Kuiper, aankomst vrijdag rond 23:00.","Ik leg het direct vast en stuur de bevestiging.","Reservering bijgewerkt. CRM/PMS-notitie toegevoegd. Bevestiging naar gast gestuurd.","Gastvragen per maand","gastvragen"],
+          hoveniers:["hoveniers","Tuinintake direct gepland.","Ik wil een offerte voor tuinonderhoud.","Ik help u direct. Gaat het om eenmalig werk of periodiek onderhoud?","Periodiek, tuin is ongeveer 120 m2.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met tuinoppervlak, wens en timing. Follow-up mail naar klant gestuurd.","Tuinvragen per maand","intakes"],
+          kozijnen:["kozijnenbedrijven","Kozijnaanvraag direct gekwalificeerd.","Ik wil kunststof kozijnen laten plaatsen.","Ik help u direct. Om hoeveel ramen gaat het en is inmeten gewenst?","Ongeveer acht ramen, inmeten graag.","Ik plan direct een inmeetafspraak en stuur de bevestiging.","Inmeetafspraak geboekt. CRM bijgewerkt met aantal ramen en materiaalwens. Follow-up mail naar klant gestuurd.","Kozijnaanvragen per maand","inmeetafspraken"],
+          restaurants:["restaurants","Reservering direct bevestigd.","Kunnen we zaterdag met 8 personen reserveren?","Ik help u direct. Hoe laat wilt u komen en zijn er dieetwensen?","19:30, een persoon vegetarisch.","Ik boek de tafel direct en stuur de bevestiging.","Reservering geboekt. CRM bijgewerkt met groep, tijd en dieetwens. Bevestiging naar gast gestuurd.","Reserveringen per maand","reserveringen"],
+          zonnepanelen:["zonnepanelenbedrijven","Zonnepanelen-intake direct gepland.","Ik wil weten of mijn dak geschikt is voor zonnepanelen.","Ik help u direct. Wat is uw adres en weet u het jaarverbruik?","Adres is bekend, jaarverbruik rond 3.800 kWh.","Ik plan direct een adviesgesprek en stuur de bevestiging.","Adviesgesprek geboekt. CRM bijgewerkt met adres, verbruik en dakvraag. Follow-up mail naar klant gestuurd.","Zonnepanelenleads per maand","adviesgesprekken"],
+          woningcorporaties:["woningcorporaties","Bewonersmelding direct gerouteerd.","Ik wil een reparatie melden aan mijn voordeur.","Ik help u direct. Is de woning nog veilig afsluitbaar?","Nee, het slot klemt en sluit niet goed.","Ik maak direct een urgente melding en stuur bevestiging.","Ticket aangemaakt. CRM bijgewerkt met woning, urgentie en reparatietype. Taak naar onderhoud gestuurd.","Bewonersmeldingen per maand","meldingen"],
+          kapperszaken:["kapperszaken","Afspraak direct geboekt.","Kan ik vrijdag een knip- en kleurafspraak boeken?","Ik help u direct. Heeft u voorkeur voor een stylist of tijd?","Vrijdagmiddag, geen voorkeur.","Ik boek direct het passende slot en stuur de bevestiging.","Afspraak geboekt. CRM bijgewerkt met behandeling en voorkeur. Bevestiging naar klant gestuurd.","Afspraken per maand","afspraken"],
+          "cosmetische-klinieken":["cosmetische klinieken","Consult direct gepland.","Ik wil informatie over een huidbehandeling.","Ik help u direct. Gaat het om acne, pigment of huidverjonging?","Pigment en huidverbetering.","Ik plan direct een consult en stuur de voorbereiding.","Consult geboekt. CRM bijgewerkt met behandelwens en intake. Bevestiging naar klant gestuurd.","Consultaanvragen per maand","consulten"],
+          evenementen:["evenementenbedrijven","Eventaanvraag direct gekwalificeerd.","We zoeken catering en entertainment voor 120 gasten.","Ik help u direct. Wat is de datum, locatie en budgetrange?","12 september, Utrecht, ongeveer 8.000 euro.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met datum, gasten, budget en locatie. Follow-up mail gestuurd.","Eventaanvragen per maand","intakes"],
+          "non-profit":["non-profit organisaties","Donateurvraag direct opgevolgd.","Ik wil vrijwilliger worden bij jullie organisatie.","Ik help u direct. Voor welke regio en hoeveel tijd heeft u beschikbaar?","Regio Rotterdam, een dagdeel per week.","Ik plan direct een kennismaking en stuur de informatie.","Kennismaking geboekt. CRM bijgewerkt met regio, beschikbaarheid en motivatie. Follow-up mail gestuurd.","Aanvragen per maand","contactmomenten"],
+          dierenarts:["dierenartsen","Dierenartsafspraak direct beoordeeld.","Mijn hond eet niet en is erg sloom.","Ik help u direct. Hoe oud is uw hond en hoelang speelt dit?","Vier jaar, sinds gisterenavond.","Ik plan direct een passend consult en stuur de bevestiging.","Consult geboekt. CRM bijgewerkt met dier, klacht en urgentie. Bevestiging naar eigenaar gestuurd.","Patientvragen per maand","consulten"],
+          dierenverzorging:["dierenverzorging","Boeking direct gepland.","Ik zoek opvang voor mijn hond tijdens vakantie.","Ik help u direct. Welke periode en welk ras betreft het?","Twee weken in augustus, labrador.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met periode, dier en wensen. Bevestiging naar klant gestuurd.","Boekingsvragen per maand","boekingen"],
+          vloerenleggers:["vloerenleggers","Vloeropname direct gepland.","Ik wil een pvc vloer laten leggen in de woonkamer.","Ik help u direct. Hoeveel m2 en is egaliseren nodig?","Ongeveer 45 m2, dat weet ik niet zeker.","Ik plan direct een opname en stuur de bevestiging.","Opname geboekt. CRM bijgewerkt met m2, vloertype en vraag. Follow-up mail naar klant gestuurd.","Vloeraanvragen per maand","opnames"]
+        };
+        Object.keys(generic).forEach(function(slug){
+          var g=generic[slug];
+          branchData[slug]={name:g[0],kicker:"AI voor "+g[0],title:"AI medewerkers voor "+g[0]+".",lead:"Laat AI aanvragen, afspraken en klantvragen direct afhandelen, plannen en vastleggen in CRM.",pills:["Directe intake","Planning gekoppeld","Follow-up klaar"],exampleTitle:g[1],lines:[g[2],g[3],g[4],g[5]],result:g[6],steps:[["Aanvraag","AI verzamelt context, timing en contactgegevens."],["Kwalificatie","Urgentie, type werk en vervolgstap worden bepaald."],["Planning","Afspraak, ticket of intake wordt direct aangemaakt."],["CRM","Team krijgt samenvatting en klant krijgt bevestiging."]],calc:{title:"Wat levert automatische intake op voor "+g[0]+"?",lead:"Deze rekentool vertaalt klantvragen naar uren, capaciteit en directe opvolging.",summary:"Gebruik dit als niche-specifieke conversiemodule voor "+g[0]+".",volumeLabel:g[7],minutesLabel:"Minuten handwerk per aanvraag",automationLabel:"Aanvragen die AI kan afhandelen",valuePerHour:50,marginLabel:"Marge per extra klant",extraCustomerRate:4,metric4:g[8].charAt(0).toUpperCase()+g[8].slice(1)+" direct verwerkt",insight:"Je wint {hours} uur per maand terug en laat ongeveer {automated} "+g[8]+" direct verwerken."}};
+        });
+        var slug=new URLSearchParams(location.search).get("branche")||"autobedrijven";
+        var item=branchData[slug]||branchData.autobedrijven;
+        var currentCalc=item.calc;
+        var calculatorLabels={
+          autobedrijven:"Autobedrijf calculator",
+          makelaars:"Makelaar calculator",
+          tandartsen:"Tandarts calculator",
+          installatietechniek:"Installatie calculator",
+          vastgoedbeheerders:"Vastgoedbeheer calculator",
+          verzekeraars:"Verzekeraar calculator",
+          dakdekkers:"Dakdekker calculator",
+          glaszetters:"Glaszetter calculator",
+          hotels:"Hotel calculator",
+          hoveniers:"Hovenier calculator",
+          kozijnen:"Kozijnen calculator",
+          restaurants:"Restaurant calculator",
+          zonnepanelen:"Zonnepanelen calculator",
+          woningcorporaties:"Woningcorporatie calculator",
+          kapperszaken:"Kapperszaak calculator",
+          "cosmetische-klinieken":"Cosmetische kliniek calculator",
+          evenementen:"Evenementen calculator",
+          "non-profit":"Non-profit calculator",
+          dierenarts:"Dierenarts calculator",
+          dierenverzorging:"Dierenverzorging calculator",
+          vloerenleggers:"Vloerenlegger calculator"
+        };
+        var currentAgentLang="nl";
+        var agentLanguages={
+          nl:{label:"Nederlands",lines:null,result:null},
+          en:{label:"English",lines:["I would like to schedule this with your team.","I can help right away. What is the situation, preferred timing and contact detail?","This week works. Please send the confirmation by email.","Done. I scheduled it directly and sent the confirmation."],result:"Appointment booked. CRM updated with context, preference and next step. Follow-up email sent to the customer."},
+          de:{label:"Deutsch",lines:["Ich moechte das gerne mit Ihrem Team planen.","Ich helfe Ihnen direkt. Worum geht es, wann passt es und wie erreichen wir Sie?","Diese Woche passt. Bitte senden Sie die Bestaetigung per E-Mail.","Erledigt. Ich habe den Termin direkt geplant und die Bestaetigung gesendet."],result:"Termin gebucht. CRM mit Kontext, Wunsch und naechstem Schritt aktualisiert. Follow-up-Mail an den Kunden gesendet."},
+          fr:{label:"Francais",lines:["Je souhaite planifier cela avec votre equipe.","Je vous aide tout de suite. Quelle est la situation, le moment souhaite et vos coordonnees ?","Cette semaine me convient. Envoyez la confirmation par e-mail.","C'est fait. Le rendez-vous est planifie et la confirmation est envoyee."],result:"Rendez-vous planifie. CRM mis a jour avec le contexte, la preference et la prochaine etape. E-mail de suivi envoye au client."},
+          es:{label:"Espanol",lines:["Quiero planificar esto con vuestro equipo.","Le ayudo directamente. Cual es la situacion, el horario preferido y sus datos?","Esta semana me va bien. Envien la confirmacion por correo.","Listo. He planificado la cita y enviado la confirmacion."],result:"Cita planificada. CRM actualizado con contexto, preferencia y siguiente paso. Correo de seguimiento enviado al cliente."}
+        };
+        var brain={
+          tandartsen:["AI brein voor tandartspraktijken.","Het brein kent triagevragen, spoedregels, behandeltypes, agenda-afspraken en wanneer de balie of tandarts moet overnemen.",["Spoedtriage","Patientkaart","Agenda slots","Balie fallback"]],
+          vastgoedbeheerders:["AI brein voor vastgoedbeheer.","Het brein kent huurdersmeldingen, adressen, tickettypes, leveranciers, urgenties en terugkoppeling naar bewoners.",["Ticketregels","Adresdata","Leveranciers","Statusupdates"]],
+          verzekeraars:["AI brein voor verzekeraars.","Het brein kent claimtypes, polisvragen, documentchecks, urgenties en routing naar schade, acceptatie of service.",["Claimtypes","Poliscontext","Documenten","Schaderouting"]],
+          makelaars:["AI brein voor makelaars.","Het brein kent woningen, bezichtigingsregels, kandidaatkwalificatie, financieringsvragen en overdracht naar de makelaar.",["Objectkennis","Kandidaatdata","Agenda slots","Makelaar fallback"]],
+          autobedrijven:["AI brein voor autobedrijven.","Het brein kent voorraad, proefritten, inruilvragen, leadstatussen en overdracht naar verkoop.",["Voorraad","Proefritten","Inruilvragen","Verkoop CRM"]]
+        }[slug]||["AI brein voor "+item.name+".","Het brein kent de belangrijkste vragen, uitzonderingen, planning, CRM-velden en overdracht voor "+item.name+".",["Intake regels","CRM velden","Planning","Fallback"]];
+        function setText(selector,value){var el=document.querySelector(selector);if(el)el.textContent=value;}
+        function renderAgentLanguage(){
+          var language=agentLanguages[currentAgentLang]||agentLanguages.nl;
+          var lines=language.lines||item.lines;
+          ["[data-line-1]","[data-line-2]","[data-line-3]","[data-line-4]"].forEach(function(selector,index){setText(selector,lines[index]);});
+          setText("[data-result]",language.result||item.result);
+          var meta=document.querySelector(".ap-chat-meta span:last-child");
+          if(meta)meta.textContent="Agent: "+language.label;
+          document.querySelectorAll("[data-agent-lang]").forEach(function(button){
+            button.classList.toggle("is-active",button.getAttribute("data-agent-lang")===currentAgentLang);
+          });
+        }
+        setText("[data-branch-kicker]",item.kicker);setText("[data-branch-title]",item.title);setText("[data-branch-lead]",item.lead);
+        setText("[data-pill-1]",item.pills[0]);setText("[data-pill-2]",item.pills[1]);setText("[data-pill-3]",item.pills[2]);
+        setText("[data-example-title]",item.exampleTitle);
+        setText("[data-workflow-intro]","De AI medewerker verwerkt dit contactmoment tot een concrete actie voor "+item.name+".");
+        item.steps.forEach(function(step,index){setText("[data-step-title-"+(index+1)+"]",step[0]);setText("[data-step-"+(index+1)+"]",step[1]);});
+        setText("[data-brain-title]",brain[0]);setText("[data-brain-copy]",brain[1]);brain[2].forEach(function(label,index){setText("[data-brain-"+(index+1)+"]",label);});
+        setText("[data-calc-kicker]",calculatorLabels[slug]||"Niche calculator");setText("[data-calc-title]",calculatorLabels[slug]||"Niche calculator");setText("[data-calc-lead]",currentCalc.lead);setText("[data-calc-summary-title]","Reken met echte "+item.name+"-situaties.");setText("[data-calc-summary]",currentCalc.summary);
+        setText("[data-volume-label]",currentCalc.volumeLabel);setText("[data-minutes-label]",currentCalc.minutesLabel);setText("[data-automation-label]",currentCalc.automationLabel);setText("[data-margin-label]",currentCalc.marginLabel||"Marge per extra klant");setText("[data-metric-4-label]",currentCalc.metric4);
+        setText("[data-seo-1-title]","Zoekintentie voor "+item.name);setText("[data-seo-1]","De pagina gebruikt nichewoorden, problemen, bezwaren en CTA's die passen bij "+item.name+".");
+        document.title=item.kicker+" | Autopilots preview";
+        document.querySelector("meta[name='description']").setAttribute("content",item.lead);
+        document.querySelectorAll("[data-agent-lang]").forEach(function(button){
+          button.addEventListener("click",function(){
+            currentAgentLang=button.getAttribute("data-agent-lang")||"nl";
+            renderAgentLanguage();
+          });
+        });
+        var volume=document.querySelector("[data-volume-range]");
+        var minutes=document.querySelector("[data-minutes-range]");
+        var automation=document.querySelector("[data-automation-range]");
+        var margin=document.querySelector("[data-margin-range]");
+        function euros(number){return "€"+Math.round(number).toLocaleString("nl-NL");}
+        function renderCalc(){
+          var v=Number(volume.value),m=Number(minutes.value),a=Number(automation.value),gm=Number(margin.value);
+          var automated=Math.round(v*a/100);
+          var hours=Math.round((automated*m/60)*10)/10;
+          var value=hours*currentCalc.valuePerHour;
+          var extraCustomers=Math.max(1,Math.round(automated*((currentCalc.extraCustomerRate||6)/100)));
+          var extraMargin=extraCustomers*gm;
+          setText("[data-volume-output]",String(v));setText("[data-minutes-output]",String(m));setText("[data-automation-output]",a+"%");setText("[data-margin-output]",euros(gm));
+          setText("[data-automated-output]",String(automated));setText("[data-hours-output]",String(hours));setText("[data-value-output]",euros(value));setText("[data-speed-output]",String(automated));
+          setText("[data-customers-output]",String(extraCustomers));setText("[data-margin-value-output]",euros(extraMargin));
+          setText("[data-insight-output]",currentCalc.insight.replace("{hours}",String(hours)).replace("{automated}",String(automated))+" Verwacht extra: "+extraCustomers+" klanten en "+euros(extraMargin)+" marge per maand.");
+        }
+        [volume,minutes,automation,margin].forEach(function(input){if(input)input.addEventListener("input",renderCalc);});
+        renderAgentLanguage();
+        renderCalc();
+      })();
+    </script>
+    <script src="shared-preview.js"></script>
+  </body>
+</html>

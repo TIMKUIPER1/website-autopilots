@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const services = [
+  ["Voice Agent AI", "Altijd het juiste antwoord op het juiste moment.", "Inbound, outbound, triage, afspraken en CRM-notities."],
+  ["Chat AI", "Jouw bedrijf, op elk kanaal, met de juiste antwoorden.", "Website, WhatsApp, SMS, social DM's, kennisbank en menselijke fallback."],
+  ["Follow-up AI", "Volg leads en offertes op voordat ze koud worden.", "WhatsApp, SMS, mail, telefonie, reply-classificatie en afspraakplanning."],
+  ["Planning AI", "Geen lege kilometers, geen lege gaten in je agenda.", "Capaciteit, regio, prioriteit, route en klantupdates."],
+  ["Support AI", "Herhaalvragen opvangen zonder je servicestandaard te verliezen.", "Kennisbank, tickets, urgentie en overdracht."],
+  ["Autopilots CRM", "Je volledige funnel en salesdata in een CRM.", "Leads, afspraken, funnels, reviews, pipeline en automatisering."]
+];
+---
+
+<BaseLayout
+  title="Diensten | Autopilots AI medewerkers"
+  description="Bekijk de Autopilots diensten: Chat AI, Voice Agent AI, Follow-up AI, Planning AI, Support AI, Contact AI en Autopilots CRM."
+  canonical="/diensten/"
+>
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-kicker">Autopilots diensten</div>
+      <h1>AI medewerkers die in je proces werken.</h1>
+      <p class="ap-lead">Elke dienst krijgt een eigen SEO-route, eigen demo en eigen koppeling met je CRM, agenda, opvolging en klantdata.</p>
+      <div class="ap-services-grid">
+        {services.map(([title, headline, text]) => (
+          <article class="ap-service-card">
+            <h2>{title}</h2>
+            <strong>{headline}</strong>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    max-width: 960px;
+    font-size: clamp(46px, 6.2vw, 78px);
+    line-height: 1.04;
+    font-weight: 900;
+  }
+
+  .ap-lead {
+    max-width: 790px;
+    margin-top: 22px;
+    color: var(--ap-muted);
+    font-size: 19px;
+    line-height: 1.62;
+    font-weight: 500;
+  }
+
+  .ap-services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .ap-service-card {
+    border: 1px solid var(--ap-line);
+    border-radius: 30px;
+    background: var(--ap-card);
+    padding: 28px;
+    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.06);
+  }
+
+  .ap-service-card h2 {
+    font-size: 30px;
+    line-height: 1.08;
+  }
+
+  .ap-service-card strong {
+    display: block;
+    margin-top: 12px;
+    color: var(--ap-brown);
+  }
+
+  .ap-service-card p {
+    margin-top: 10px;
+    color: var(--ap-muted);
+    line-height: 1.62;
+  }
+
+  @media (max-width: 900px) {
+    .ap-services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
