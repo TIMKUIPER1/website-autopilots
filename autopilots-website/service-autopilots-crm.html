@@ -3,16 +3,198 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Autopilots CRM brengt leads, afspraken, funnels, klantdata en AI opvolging samen in een overzichtelijke CRM omgeving." />
+    <title>Autopilots CRM | Funnel, salesdata en AI opvolging</title>
+    <meta name="description" content="Autopilots CRM brengt leads, opvolging, afspraken, funnels en klantdata samen in een AI-gestuurde CRM omgeving." />
     <link rel="stylesheet" href="shared-preview.css" />
   </head>
-  <body data-service="crm">
-    <header class="ap-header"><div class="ap-container ap-header-inner"><a class="ap-logo" href="preview-homepage.html?v=10">AUTOPILOTS</a><nav class="ap-nav" aria-label="Hoofdnavigatie"><a class="is-active" href="services-preview.html">Diensten</a><a href="preview-homepage.html?v=10#branches">Voor wie</a><a href="process-preview.html">Proces</a><a href="crew-preview.html">Crew</a></nav><a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a></div></header>
-    <main class="ap-service-detail-page">
-      <section class="ap-section"><div class="ap-container ap-service-detail-hero"><div><div class="ap-kicker" data-service-kicker></div><h1><span data-service-title></span></h1><p class="ap-lead" data-service-intro></p><div class="ap-actions"><a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo</a><a class="ap-button ap-button-secondary" href="services-preview.html">Alle diensten</a></div></div><div class="ap-service-detail-visual" data-service-visual></div></div></section>
-      <section class="ap-section"><div class="ap-container ap-service-detail-grid"><article class="ap-service-detail-card"><div class="ap-icon" data-service-icon></div><h2>Wat deze AI medewerker overneemt.</h2><div class="ap-list" data-service-points></div></article><article class="ap-service-detail-card ap-service-detail-dark"><div class="ap-kicker">Van gesprek naar overzicht</div><div data-service-flow></div></article></div></section>
-      <section class="ap-section"><div class="ap-container"><div class="ap-final-box"><div><div class="ap-kicker">SEO focus</div><h2 class="ap-section-title">Gebouwd als losse dienstpagina voor vindbaarheid.</h2><p class="ap-text" data-service-seo></p></div><a class="ap-button ap-button-primary" href="afspraak-preview.html">Bespreek Autopilots CRM</a></div></div></section>
+  <body class="ap-crm-page">
+    <header class="ap-header">
+      <div class="ap-container ap-header-inner">
+        <a class="ap-logo" href="preview-homepage.html?v=10">AUTOPILOTS</a>
+        <nav class="ap-nav" aria-label="Hoofdnavigatie">
+          <a class="is-active" href="services-preview.html">Diensten</a>
+          <a href="preview-homepage.html?v=10#branches">Voor wie</a>
+          <a href="process-preview.html">Proces</a>
+          <a href="crew-preview.html">Crew</a>
+        </nav>
+        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ap-section ap-crm-hero-section">
+        <div class="ap-container ap-crm-hero">
+          <img class="ap-crm-mark" src="ap-crm-logo.svg" alt="Autopilots CRM" />
+          <div class="ap-kicker">Autopilots CRM</div>
+          <h1>Je volledige funnel en salesdata in <span class="ap-title-accent">één CRM.</span></h1>
+          <p class="ap-lead">Wij brengen leads, opvolging, afspraken, funnels en klantdata samen in een AI-gestuurde CRM omgeving. Zo zie je sneller waar kansen liggen en waar conversie blijft hangen.</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo gesprek</a>
+            <a class="ap-button ap-button-secondary" href="#crm-dashboard">Bekijk het systeem</a>
+          </div>
+          <div class="ap-crm-pills" aria-label="CRM voordelen">
+            <span>Alles op één plek</span>
+            <span>Geen lead meer vergeten</span>
+            <span>Minder handmatig werk</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section ap-crm-dashboard-section" id="crm-dashboard">
+        <div class="ap-container">
+          <div class="ap-crm-dashboard">
+            <aside class="ap-crm-sidebar">
+              <div class="ap-crm-sidebar-brand"><img src="ap-crm-logo.svg" alt="">CRM</div>
+              <span class="is-active">Pipeline</span>
+              <span>Gesprekken</span>
+              <span>Automations</span>
+              <span>Afspraken</span>
+              <span>Reviews</span>
+            </aside>
+            <div class="ap-crm-main">
+              <div class="ap-crm-search"></div>
+              <div class="ap-crm-metrics">
+                <div><span>Nieuwe leads</span><strong>154</strong></div>
+                <div><span>Opvolging nodig</span><strong>28</strong></div>
+                <div><span>Deals open</span><strong>41</strong></div>
+              </div>
+              <div class="ap-crm-kanban">
+                <div><strong>Nieuw</strong><i></i><i></i><i></i></div>
+                <div><strong>Opvolgen</strong><i></i><i></i><i></i></div>
+                <div><strong>Afspraak</strong><i></i><i></i><i></i></div>
+              </div>
+            </div>
+            <aside class="ap-crm-ai-panel">
+              <div class="ap-kicker">AI opvolging</div>
+              <h2>Nieuwe lead herkend.</h2>
+              <p>AI plant vervolgactie, werkt de pipeline bij en zet de juiste reminder klaar.</p>
+              <div class="ap-crm-ai-action">Taak aangemaakt</div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Funnel overzicht</div>
+            <h2 class="ap-section-title">Verlies geen lead meer <span class="ap-title-accent">uit het oog.</span></h2>
+            <p class="ap-lead">Autopilots CRM maakt zichtbaar welke kansen nieuw zijn, welke opvolging nodig hebben en waar omzet blijft hangen.</p>
+          </div>
+          <div class="ap-crm-feature-grid">
+            <article><span data-ap-icon="crm"></span><h3>Pipeline overzicht</h3><p>Zie precies waar elke lead staat en welke actie nodig is om het gesprek verder te brengen.</p></article>
+            <article><span data-ap-icon="follow"></span><h3>AI opvolging</h3><p>Laat terugkerende opvolging automatisch lopen, zonder dat leads stilvallen of vergeten worden.</p></article>
+            <article><span data-ap-icon="planning"></span><h3>Afspraken sneller rond</h3><p>Beheer beschikbaarheid, boekingen en reminders vanuit dezelfde omgeving als je salesgesprekken.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-crm-dark-system">
+            <div>
+              <div class="ap-kicker">Totaal oplossing</div>
+              <h2>Alle kanalen in één systeem.</h2>
+              <p>Van binnenkomende leads en klantgesprekken tot automatiseringen, afspraken, funnels en betalingsacties: alles komt samen in één centrale omgeving.</p>
+            </div>
+            <div class="ap-crm-system-steps">
+              <div><span>01</span><strong>Instroom wordt vastgelegd</strong><em>Leads uit funnels, formulieren en campagnes komen direct op de juiste plek binnen.</em></div>
+              <div><span>02</span><strong>Opvolging loopt door</strong><em>Automatiseringen zorgen dat nieuwe leads niet wachten op handmatig werk.</em></div>
+              <div><span>03</span><strong>Sales houdt overzicht</strong><em>Je ziet waar omzet blijft hangen en welke kansen prioriteit verdienen.</em></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-shared-logo-wrap ap-crm-systems">
+            <p>Wij integreren met de tools die je team al gebruikt.</p>
+            <div class="ap-crm-system-tags">
+              <span>Meta</span><span>Google</span><span>LinkedIn</span><span>WhatsApp</span><span>Stripe</span><span>Calendly</span><span>Mailchimp</span><span>Zapier</span><span>Slack</span><span>Outlook</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container ap-crm-branch-grid">
+          <div>
+            <div class="ap-kicker">Geschikt voor</div>
+            <h2 class="ap-section-title">Autopilots CRM past zich aan op je <span class="ap-title-accent">branche.</span></h2>
+            <p class="ap-lead">Klik een branche aan en zie direct welk probleem Autopilots CRM daar oplost.</p>
+            <div class="ap-crm-branches">
+              <button>Dakdekkers</button><button>Installatietechniek</button><button>Vastgoedbeheerders</button><button>Zonnepanelen</button><button>Hoveniers</button><button>Kapperszaken</button><button>Kozijnen</button><button>Woningcorporaties</button><button>Verzekeraars</button><button>Tandartsen</button><button class="is-active">Hotels</button><button>Non-profit</button>
+            </div>
+          </div>
+          <article class="ap-crm-branch-card">
+            <div class="ap-kicker">Hotels</div>
+            <h3>Meer boekingen uit aanvragen en terugkerende gasten.</h3>
+            <ul>
+              <li>Snellere reactie op aanvragen</li>
+              <li>Meer grip op arrangementen</li>
+              <li>Reviews en herhaalbezoek stimuleren</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">CRM modules</div>
+            <h2 class="ap-section-title">Alles wat normaal los staat, werkt hier <span class="ap-title-accent">samen.</span></h2>
+            <p class="ap-lead">Autopilots CRM vervangt losse puzzelstukjes door één strak systeem voor leads, content, facturen, automatisering, reviews, agenda en pagina's.</p>
+          </div>
+          <div class="ap-crm-module-grid">
+            <article><span data-ap-icon="chat"></span><h3>Social media planner</h3><p>Plan content vooruit en verbind reacties met opvolging.</p></article>
+            <article><span data-ap-icon="crm"></span><h3>Facturen en offertes</h3><p>Verstuur sneller en houd betalingen overzichtelijk in je proces.</p></article>
+            <article><span data-ap-icon="follow"></span><h3>Automatiseringen</h3><p>Zet terugkerende taken op autopilot zonder handmatig werk.</p></article>
+            <article><span data-ap-icon="leadsmachine"></span><h3>Funnels en pagina's</h3><p>Bouw routes die campagnes direct koppelen aan opvolging.</p></article>
+            <article><span data-ap-icon="support"></span><h3>Reviews</h3><p>Vraag automatisch reviews op het juiste moment.</p></article>
+            <article><span data-ap-icon="planning"></span><h3>Agenda beheer</h3><p>Voorkom dubbele boekingen en gemiste afspraken.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-crm-commercial">
+            <div><h2>Eén platform voor je commerciële proces.</h2><p>Veel ondernemers betalen voor meerdere systemen die net goed samenwerken. Autopilots CRM brengt de belangrijkste routes samen, zodat je team minder hoeft te schakelen.</p></div>
+            <div><strong>Wat je samenbrengt</strong><ul><li>CRM en pipeline management</li><li>E-mailmarketing en automatiseringen</li><li>Formulieren, afspraken en opvolging</li><li>Reviews, facturen en offertes</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">Veelgestelde vragen</div>
+            <h2 class="ap-section-title">Heldere antwoorden voordat je een <span class="ap-title-accent">demo plant.</span></h2>
+          </div>
+          <div class="ap-crm-faq-grid">
+            <details open><summary>Kan ik altijd opstappen?</summary><p>Ja. Je zit niet vast aan lange contracten en houdt controle over je eigen account en omgeving.</p></details>
+            <details><summary>Hoe snel kan ik aan de slag?</summary><p>Na onboarding kunnen de eerste funnels, pipelines en opvolging vaak snel worden ingericht.</p></details>
+            <details><summary>Zijn mijn gegevens veilig?</summary><p>We richten de omgeving zo in dat toegang, data en processen logisch worden gescheiden.</p></details>
+            <details><summary>Heb ik technische kennis nodig?</summary><p>Nee. Autopilots vertaalt de techniek naar praktische processen die je team begrijpt.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section ap-final">
+        <div class="ap-container">
+          <div class="ap-final-box">
+            <div>
+              <div class="ap-kicker">Autopilots CRM</div>
+              <h2>Klaar om je leads, opvolging en salesproces strakker te <span class="ap-title-accent">organiseren?</span></h2>
+              <p class="ap-lead">Plan een demo gesprek. Dan laten we zien hoe Autopilots CRM jouw funnel, pipeline en automatiseringen samenbrengt in één helder systeem.</p>
+            </div>
+            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo gesprek</a>
+          </div>
+        </div>
+      </section>
     </main>
-    <script src="service-detail-preview.js"></script><script src="shared-preview.js"></script>
+
+    <script src="shared-preview.js"></script>
   </body>
 </html>

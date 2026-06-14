@@ -79,12 +79,13 @@ const contactSection = `
 `;
 
 const main = document.querySelector("main");
-if (main && !document.querySelector(".ap-shared-logo-wrap") && !document.querySelector(".ap-shared-autofill")) {
+const skipSharedAutofill = document.body.classList.contains("ap-no-shared-autofill");
+if (!skipSharedAutofill && main && !document.querySelector(".ap-shared-logo-wrap") && !document.querySelector(".ap-shared-autofill")) {
   const finalSection = main.querySelector(".ap-final, .ap-final-box")?.closest("section");
   const template = document.createElement("template");
   template.innerHTML = sharedSections + contactSection;
   main.insertBefore(template.content, finalSection || null);
-} else if (main && !document.querySelector(".ap-shared-contact-grid")) {
+} else if (!skipSharedAutofill && main && !document.querySelector(".ap-shared-contact-grid")) {
   const finalSection = main.querySelector(".ap-final, .ap-final-box")?.closest("section");
   const template = document.createElement("template");
   template.innerHTML = contactSection;
@@ -165,3 +166,27 @@ document.querySelectorAll("[data-ap-contact-route]").forEach((button) => {
     card.querySelector("[data-ap-contact-actions]").innerHTML = route.actions.map((action) => `<a class="ap-button ap-button-${action.variant}" href="${action.href}">${action.label}</a>`).join("");
   });
 });
+
+const apServiceIcons = {
+  voice: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 18v-4"/><path d="M12 22V10"/><path d="M17 25V7"/><path d="M22 22V10"/><path d="M27 18v-4"/></svg>',
+  chat: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 9h14a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4h-6l-6 4v-4H7a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"/><path d="M10 14h8"/><path d="M10 18h5"/></svg>',
+  follow: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 11H5V6"/><path d="M5.5 11c2.2-4.7 8.4-7 13.4-4.4 3.8 2 6.1 5.8 6.1 9.9"/><path d="M22 21h5v5"/><path d="M26.5 21c-2.2 4.7-8.4 7-13.4 4.4A11 11 0 0 1 7 15.5"/></svg>',
+  planning: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 5v5"/><path d="M23 5v5"/><path d="M5 12h22"/><path d="M7 7h18a3 3 0 0 1 3 3v15a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V10a3 3 0 0 1 3-3Z"/><path d="M10 17h4"/><path d="M18 17h4"/><path d="M10 22h4"/><path d="M18 22h4"/></svg>',
+  leadsmachine: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22l-9 10v7l-4 2v-9L5 7Z"/><path d="M10 7c2.8 3.6 9.2 3.6 12 0"/></svg>',
+  support: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 18v-2a10 10 0 0 1 20 0v2"/><path d="M6 18h4v7H8a2 2 0 0 1-2-2v-5Z"/><path d="M22 18h4v5a2 2 0 0 1-2 2h-2v-7Z"/><path d="M22 25c-1.2 2.4-3.6 4-7 4"/></svg>',
+  crm: '<img src="ap-crm-logo.svg" alt="Autopilots CRM">'
+};
+
+const renderApIcons = () => {
+  document.querySelectorAll("[data-ap-icon]").forEach((icon) => {
+    const iconKey = icon.dataset.apIcon;
+    const iconMarkup = apServiceIcons[iconKey];
+    if (!iconMarkup || icon.dataset.apRendered === "true") return;
+    icon.classList.add("ap-saas-icon");
+    if (iconKey === "crm") icon.classList.add("ap-saas-icon-crm");
+    icon.innerHTML = iconMarkup;
+    icon.dataset.apRendered = "true";
+  });
+};
+
+renderApIcons();

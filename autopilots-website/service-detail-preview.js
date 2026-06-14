@@ -76,7 +76,12 @@ const service = servicePages[key] || servicePages.voice;
 
 document.title = `${service.kicker} | Autopilots preview`;
 document.querySelectorAll("[data-service-kicker]").forEach((el) => (el.textContent = service.kicker));
-document.querySelectorAll("[data-service-icon]").forEach((el) => (el.textContent = service.icon));
+document.querySelectorAll("[data-service-icon]").forEach((el) => {
+  el.textContent = "";
+  el.dataset.apIcon = key;
+  el.classList.add("ap-saas-icon");
+  if (key === "crm") el.classList.add("ap-saas-icon-crm");
+});
 document.querySelectorAll("[data-service-title]").forEach((el) => {
   const words = service.title.split(" ");
   const accentWords = words.splice(Math.max(words.length - 3, 0)).join(" ");
@@ -102,7 +107,7 @@ const visual = document.querySelector("[data-service-visual]");
 if (visual) {
   visual.dataset.visual = service.visual;
   visual.innerHTML = `
-    <div class="ap-service-detail-core"><strong>${service.kicker}</strong></div>
+    <div class="ap-service-detail-core">${key === "crm" ? '<img class="ap-service-crm-mark" src="ap-crm-logo.svg" alt="Autopilots CRM">' : `<strong>${service.kicker}</strong>`}</div>
     <div class="ap-service-detail-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <div class="ap-service-detail-lines" aria-hidden="true"><span></span><span></span><span></span></div>
   `;

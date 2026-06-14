@@ -155,21 +155,21 @@
     }
 
     #ap-crm-proposal .ap-logo-mark {
-      width: 86px;
-      height: 42px;
-      margin: 0 auto 24px;
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 28px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--white);
       border: 1px solid var(--line);
-      border-radius: 999px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.08);
     }
 
     #ap-crm-proposal .ap-logo-mark img {
-      width: 56px;
-      height: auto;
+      width: 70px;
+      height: 70px;
       display: block;
     }
 
@@ -281,6 +281,7 @@
     #ap-crm-proposal .ap-inbox-board,
     #ap-crm-proposal .ap-review-board {
       background: var(--white);
+      color: var(--text);
       border: 1px solid var(--line);
       border-radius: 30px;
       padding: 28px;
@@ -294,6 +295,25 @@
       margin-bottom: 18px;
     }
 
+    #ap-crm-proposal .ap-funnel-board h3,
+    #ap-crm-proposal .ap-source-board h3,
+    #ap-crm-proposal .ap-inbox-board h3,
+    #ap-crm-proposal .ap-review-board h3 {
+      font-size: 23px;
+      line-height: 1.18;
+      font-weight: 850;
+      margin-bottom: 10px;
+    }
+
+    #ap-crm-proposal .ap-funnel-board p,
+    #ap-crm-proposal .ap-source-board p,
+    #ap-crm-proposal .ap-inbox-board p,
+    #ap-crm-proposal .ap-review-board p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
     #ap-crm-proposal .ap-funnel-tab {
       border-radius: 999px;
       background: var(--soft-2);
@@ -303,12 +323,19 @@
       font-size: 12px;
       font-weight: 700;
       color: var(--muted);
+      cursor: pointer;
+      transition: 0.18s ease;
     }
 
-    #ap-crm-proposal .ap-funnel-tab.active {
+    #ap-crm-proposal .ap-funnel-tab.active,
+    #ap-crm-proposal .ap-funnel-tab.is-active {
       background: var(--brown);
       border-color: var(--brown);
       color: var(--white);
+    }
+
+    #ap-crm-proposal .ap-funnel-tab:hover {
+      transform: translateY(-1px);
     }
 
     #ap-crm-proposal .ap-flowline {
@@ -478,7 +505,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 18px;
+      gap: 34px;
       padding: 6px 4px 6px 0;
     }
 
@@ -487,6 +514,7 @@
       font-size: clamp(28px, 4vw, 46px);
       line-height: 1.05;
       font-weight: 900;
+      margin-bottom: 24px;
     }
 
     #ap-crm-proposal .ap-hero-copy p {
@@ -650,10 +678,13 @@
     }
 
     #ap-crm-proposal .ap-package.featured {
-      background: var(--black);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
       color: var(--white);
-      border-color: var(--black);
+      border-color: var(--brown);
       transform: translateY(-10px);
+      box-shadow: 0 24px 70px rgba(159, 56, 38, 0.22);
     }
 
     #ap-crm-proposal .ap-package.featured p,
@@ -692,6 +723,17 @@
 
     #ap-crm-proposal .ap-package.featured .ap-price {
       border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #ap-crm-proposal .ap-package.featured .ap-button.primary {
+      background: var(--white);
+      color: var(--brown);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    #ap-crm-proposal .ap-package.featured .ap-check {
+      background: var(--white);
+      color: var(--brown);
     }
 
     #ap-crm-proposal .ap-price strong {
@@ -992,59 +1034,59 @@
 
       <div class="ap-funnel-board">
         <div class="ap-funnel-tabs">
-          <span class="ap-funnel-tab active">Nieuwe aanvraag</span>
-          <span class="ap-funnel-tab">Offerte opvolging</span>
-          <span class="ap-funnel-tab">No-show herstel</span>
-          <span class="ap-funnel-tab">Oude leads</span>
-          <span class="ap-funnel-tab">Review na verkoop</span>
+          <button class="ap-funnel-tab is-active" type="button" data-crm-flow="aanvraag">Nieuwe aanvraag</button>
+          <button class="ap-funnel-tab" type="button" data-crm-flow="offerte">Offerte opvolging</button>
+          <button class="ap-funnel-tab" type="button" data-crm-flow="noshow">No-show herstel</button>
+          <button class="ap-funnel-tab" type="button" data-crm-flow="oude-leads">Oude leads</button>
+          <button class="ap-funnel-tab" type="button" data-crm-flow="review">Review na verkoop</button>
         </div>
 
         <div class="ap-flowline">
           <div class="ap-flowstep">
             <b>01</b>
             <div>
-              <strong>Lead komt binnen</strong>
-              <span>Via advertentie, formulier, WhatsApp, website, social, telefoonnotitie of handmatige invoer.</span>
+              <strong data-crm-flow-title="0">Lead komt binnen</strong>
+              <span data-crm-flow-text="0">Via advertentie, formulier, WhatsApp, website, social, telefoonnotitie of handmatige invoer.</span>
             </div>
             <span class="ap-arrow">-></span>
           </div>
           <div class="ap-flowstep">
             <b>02</b>
             <div>
-              <strong>Informatie wordt verwerkt</strong>
-              <span>Bron, campagne, interesse, budget, urgentie, locatie en contactmoment worden vastgelegd.</span>
+              <strong data-crm-flow-title="1">Informatie wordt verwerkt</strong>
+              <span data-crm-flow-text="1">Bron, campagne, interesse, budget, urgentie, locatie en contactmoment worden vastgelegd.</span>
             </div>
             <span class="ap-arrow">-></span>
           </div>
           <div class="ap-flowstep">
             <b>03</b>
             <div>
-              <strong>Toegewezen aan juiste persoon</strong>
-              <span>De lead gaat automatisch naar de juiste verkoper, vestiging, regio of specialist.</span>
+              <strong data-crm-flow-title="2">Toegewezen aan juiste persoon</strong>
+              <span data-crm-flow-text="2">De lead gaat automatisch naar de juiste verkoper, vestiging, regio of specialist.</span>
             </div>
             <span class="ap-arrow">-></span>
           </div>
           <div class="ap-flowstep">
             <b>04</b>
             <div>
-              <strong>Komt in de juiste pipeline</strong>
-              <span>Nieuwe lead, gekwalificeerd, afspraak gepland, offerte open, gewonnen of verloren.</span>
+              <strong data-crm-flow-title="3">Komt in de juiste pipeline</strong>
+              <span data-crm-flow-text="3">Nieuwe lead, gekwalificeerd, afspraak gepland, offerte open, gewonnen of verloren.</span>
             </div>
             <span class="ap-arrow">-></span>
           </div>
           <div class="ap-flowstep">
             <b>05</b>
             <div>
-              <strong>Afspraak gepland en status wijzigt</strong>
-              <span>Na boeking verhuist de kaart automatisch naar de afspraakpipeline met reminders en taken.</span>
+              <strong data-crm-flow-title="4">Afspraak gepland en status wijzigt</strong>
+              <span data-crm-flow-text="4">Na boeking verhuist de kaart automatisch naar de afspraakpipeline met reminders en taken.</span>
             </div>
             <span class="ap-arrow">-></span>
           </div>
           <div class="ap-flowstep">
             <b>06</b>
             <div>
-              <strong>Deal, review en rapportage</strong>
-              <span>Na verkoop start reviewmanagement en wordt zichtbaar welke bron, verkoper en funnel resultaat bracht.</span>
+              <strong data-crm-flow-title="5">Deal, review en rapportage</strong>
+              <span data-crm-flow-text="5">Na verkoop start reviewmanagement en wordt zichtbaar welke bron, verkoper en funnel resultaat bracht.</span>
             </div>
             <span class="ap-arrow">OK</span>
           </div>
@@ -1065,34 +1107,173 @@
 
       <div class="ap-feature-grid">
         <div class="ap-card">
-          <div class="ap-icon">CRM</div>
-          <h3>Contacten en segmenten</h3>
-          <p>Velden, tags, smart lists en segmenten zodat leads en klanten netjes vindbaar blijven.</p>
+          <div class="ap-icon">MAP</div>
+          <h3>Leads mapping</h3>
+          <p>Iedere lead krijgt automatisch bron, campagne, interesse, status, eigenaar, prioriteit en volgende stap.</p>
         </div>
         <div class="ap-card">
           <div class="ap-icon">PIPE</div>
           <h3>Sales pipelines</h3>
-          <p>Fases die passen bij jullie verkoopproces, met duidelijke definities en vervolgacties.</p>
-        </div>
-        <div class="ap-card">
-          <div class="ap-icon">AUTO</div>
-          <h3>Workflows</h3>
-          <p>Automatische opvolging, interne meldingen, taakcreatie, no-show flows en statusupdates.</p>
+          <p>Fases die passen bij jullie verkoopproces: nieuw, gekwalificeerd, afspraak, offerte, gewonnen of verloren.</p>
         </div>
         <div class="ap-card">
           <div class="ap-icon">CAL</div>
-          <h3>Agenda en reminders</h3>
-          <p>Boekingspaginas, beschikbaarheid, afspraakbevestigingen en herinneringen voor minder no-shows.</p>
+          <h3>Afspraken en calendars</h3>
+          <p>Boekingslinks, beschikbaarheid, agenda-routing, afspraakreminders en no-show opvolging.</p>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon">DASH</div>
+          <h3>Dashboard en ratios</h3>
+          <p>Direct inzicht in verkopers, deals per bron, lead naar afspraak, afspraak naar deal en closing percentage.</p>
+        </div>
+        <div class="ap-card">
+          <div class="ap-icon">INBX</div>
+          <h3>Gesprekken op een plek</h3>
+          <p>WhatsApp, mail, websitechat en social media gesprekken worden centraal zichtbaar per contact.</p>
         </div>
         <div class="ap-card">
           <div class="ap-icon">REV</div>
-          <h3>Reviews en reactivatie</h3>
-          <p>Reviewverzoeken, oude lead reactivatie en campagnes om bestaande contacten opnieuw te activeren.</p>
+          <h3>Reviewmanagement</h3>
+          <p>Automatische reviewuitvraag na verkoop, met interne klachtafhandeling voor lage scores.</p>
         </div>
-        <div class="ap-card">
-          <div class="ap-icon">DATA</div>
-          <h3>Dashboard en overdracht</h3>
-          <p>Rapportage, pipeline-overzicht en korte teamuitleg zodat het systeem ook gebruikt blijft worden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-dark">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">DASHBOARD</div>
+        <h2 class="ap-title">Je ziet precies welke bron geld oplevert.</h2>
+        <p class="ap-subtitle">
+          Autopilots CRM maakt niet alleen zichtbaar hoeveel leads je krijgt, maar vooral welke bron afspraken, deals en omzet maakt.
+        </p>
+      </div>
+
+      <div class="ap-source-grid">
+        <div class="ap-source-board">
+          <div class="ap-stat-grid">
+            <div class="ap-stat">
+              <span>Lead naar afspraak</span>
+              <strong>28%</strong>
+            </div>
+            <div class="ap-stat">
+              <span>Afspraak naar deal</span>
+              <strong>41%</strong>
+            </div>
+            <div class="ap-stat">
+              <span>Closing totaal</span>
+              <strong>11%</strong>
+            </div>
+          </div>
+
+          <div class="ap-source-list">
+            <div class="ap-source-row">
+              <strong>Google Ads</strong>
+              <span>62 leads, 31% naar afspraak, 44% afspraak naar deal</span>
+              <div class="ap-bar"><i style="width: 82%;"></i></div>
+            </div>
+            <div class="ap-source-row">
+              <strong>Website SEO</strong>
+              <span>38 leads, 24% naar afspraak, 47% afspraak naar deal</span>
+              <div class="ap-bar"><i style="width: 67%;"></i></div>
+            </div>
+            <div class="ap-source-row">
+              <strong>Meta campagne</strong>
+              <span>48 leads, 14% naar afspraak, 21% afspraak naar deal</span>
+              <div class="ap-bar"><i style="width: 36%;"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-source-board">
+          <div class="ap-source-list">
+            <div class="ap-source-row">
+              <strong>Verkopersstatus</strong>
+              <span>Wie heeft vandaag warme leads open, wie heeft afspraken gepland en wie loopt achter op opvolging.</span>
+            </div>
+            <div class="ap-source-row">
+              <strong>Deals per bron</strong>
+              <span>Zie per marketingkanaal hoeveel deals, omzetkansen, verloren redenen en gemiddelde doorlooptijd ontstaan.</span>
+            </div>
+            <div class="ap-source-row">
+              <strong>Conversielekken</strong>
+              <span>Zie welke bron veel leads geeft maar weinig afspraken, of welke verkoper veel afspraken heeft maar weinig deals sluit.</span>
+            </div>
+            <div class="ap-source-row">
+              <strong>Contactpercentage</strong>
+              <span>Inzichtelijk welk percentage leads daadwerkelijk contact heeft gehad via telefoon, WhatsApp, mail of social.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">INBOX EN REVIEWS</div>
+        <h2 class="ap-title">Gesprekken en reviews worden onderdeel van je salesproces.</h2>
+        <p class="ap-subtitle">
+          Je team hoeft niet te zoeken in losse apps. Contactmomenten, opvolging en reviewroutes staan bij het contact en in de pipeline.
+        </p>
+      </div>
+
+      <div class="ap-inbox-grid">
+        <div class="ap-inbox-board">
+          <h3>Een centrale inbox voor ieder contact.</h3>
+          <p>WhatsApp, e-mail, social media en websitechat komen samen in een gespreksoverzicht. Je ziet direct wie wat heeft gevraagd, welke afspraak gepland is en welke taak openstaat.</p>
+          <div class="ap-message-list" style="margin-top: 18px;">
+            <div class="ap-message">
+              <strong>WhatsApp</strong>
+              <span>"Kan ik morgen een afspraak plannen?" -> automatisch naar agenda en pipeline.</span>
+            </div>
+            <div class="ap-message">
+              <strong>E-mail</strong>
+              <span>Offertevraag wordt gekoppeld aan contact, dealwaarde en opvolgtaak.</span>
+            </div>
+            <div class="ap-message">
+              <strong>Social media</strong>
+              <span>DM wordt lead, krijgt bron "Instagram" en komt in de juiste salesroute.</span>
+            </div>
+          </div>
+          <div class="ap-channel-tags">
+            <span>WhatsApp</span>
+            <span>E-mail</span>
+            <span>Websitechat</span>
+            <span>Social DM</span>
+            <span>SMS</span>
+          </div>
+        </div>
+
+        <div class="ap-review-board">
+          <h3>Reviewmanagement na verkoop.</h3>
+          <p>Na een gewonnen deal kan Autopilots CRM automatisch een reviewverzoek sturen. De route hangt af van de score, zodat klachten intern worden opgelost en tevreden klanten direct naar Google gaan.</p>
+          <div class="ap-review-score">
+            <div class="ap-score-card">
+              <strong>1-3 ster &#9733;</strong>
+              <span>Interne klacht, taak voor team, geen publieke reviewlink.</span>
+            </div>
+            <div class="ap-score-card">
+              <strong>4-5 ster &#9733;</strong>
+              <span>Direct naar Google review, plus bedankbericht.</span>
+            </div>
+          </div>
+          <div class="ap-review-routes">
+            <div class="ap-review-route">
+              <strong>Verkoop gewonnen</strong>
+              <span>Reviewflow start automatisch na aankoop, oplevering of afgeronde afspraak.</span>
+            </div>
+            <div class="ap-review-route">
+              <strong>Klacht intern zichtbaar</strong>
+              <span>Onder 4 sterren krijgt je team een melding, notitie en opvolgtaak.</span>
+            </div>
+            <div class="ap-review-route">
+              <strong>Reputatie groeit gecontroleerd</strong>
+              <span>Tevreden klanten worden naar Google gestuurd, terwijl issues eerst intern worden opgelost.</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1104,7 +1285,7 @@
         <div class="ap-eyebrow">3 PAKKETTEN</div>
         <h2 class="ap-title">Kies de CRM-inrichting die past bij je groei.</h2>
         <p class="ap-subtitle">
-          Start compact, schaal met meer automatisering of bouw een volledige HighLevel omgeving voor sales, service en reactivatie.
+          Start compact, schaal met meer automatisering of bouw een volledige Autopilots CRM omgeving voor sales, service, reviews en reactivatie.
         </p>
       </div>
 
@@ -1114,11 +1295,12 @@
           <h3>CRM Start</h3>
           <p>Voor bedrijven die snel orde willen in leads, opvolging en afspraken.</p>
           <div class="ap-price">
-            <strong>&euro;297</strong>
-            <span>per maand, implementatie &euro;2490</span>
+            <strong>&euro;149</strong>
+            <span>per maand, implementatie &euro;1245</span>
           </div>
           <ul class="ap-list">
-            <li><span class="ap-check">&#10003;</span><span>HighLevel basisinrichting</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Autopilots CRM basisinrichting</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Ongelimiteerd personen toevoegen</span></li>
             <li><span class="ap-check">&#10003;</span><span>1 sales pipeline</span></li>
             <li><span class="ap-check">&#10003;</span><span>Contactvelden, tags en smart lists</span></li>
             <li><span class="ap-check">&#10003;</span><span>1 formulier of funnel intake</span></li>
@@ -1132,13 +1314,14 @@
         <div class="ap-package featured">
           <span class="ap-badge">Scale</span>
           <h3>CRM Scale</h3>
-          <p>Voor teams die meerdere bronnen, agendas en opvolgroutes strak willen organiseren.</p>
+          <p>Voor teams die leadopvolging, afspraken, pipelines en bronrapportage professioneel willen organiseren.</p>
           <div class="ap-price">
-            <strong>&euro;497</strong>
-            <span>per maand, implementatie &euro;4490</span>
+            <strong>&euro;249</strong>
+            <span>per maand, implementatie &euro;2245</span>
           </div>
           <ul class="ap-list">
             <li><span class="ap-check">&#10003;</span><span>Alles uit CRM Start</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Ongelimiteerd personen toevoegen</span></li>
             <li><span class="ap-check">&#10003;</span><span>Tot 3 pipelines of procesroutes</span></li>
             <li><span class="ap-check">&#10003;</span><span>Meerdere leadbronnen en formulieren</span></li>
             <li><span class="ap-check">&#10003;</span><span>Tot 3 agendas of teamroutes</span></li>
@@ -1152,19 +1335,22 @@
         <div class="ap-package">
           <span class="ap-badge">Premium</span>
           <h3>CRM Premium</h3>
-          <p>Voor bedrijven die HighLevel als centrale sales- en klantomgeving willen gebruiken.</p>
+          <p>Voor bedrijven die Autopilots CRM als volledig sales-, marketing-, betaling- en reputatiesysteem willen gebruiken.</p>
           <div class="ap-price">
-            <strong>&euro;797</strong>
-            <span>per maand, implementatie &euro;7490</span>
+            <strong>&euro;399</strong>
+            <span>per maand, implementatie &euro;3745</span>
           </div>
           <ul class="ap-list">
             <li><span class="ap-check">&#10003;</span><span>Alles uit CRM Scale</span></li>
-            <li><span class="ap-check">&#10003;</span><span>Uitgebreide automatisering per fase</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Ongelimiteerd personen toevoegen</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Onbeperkte procesroutes binnen de afgesproken scope</span></li>
             <li><span class="ap-check">&#10003;</span><span>Lead scoring en prioriteitslogica</span></li>
-            <li><span class="ap-check">&#10003;</span><span>Reactivatiecampagnes voor oude leads</span></li>
-            <li><span class="ap-check">&#10003;</span><span>Sales, service en reviewprocessen</span></li>
-            <li><span class="ap-check">&#10003;</span><span>Uitgebreide dashboarding en rapportage</span></li>
-            <li><span class="ap-check">&#10003;</span><span>Maandelijkse optimalisatie en uitbreiding</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Voorstellen, facturen en betaalroutes</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Orderforms, upsells, betaalde afspraken of aanbetalingen</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Broadcasts en segmentatie voor oude leads en klanten</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Geavanceerd review- en reputatiemanagement</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Uitgebreide dashboards per bron, verkoper, funnel en omzet</span></li>
+            <li><span class="ap-check">&#10003;</span><span>Maandelijkse optimalisatie en nieuwe groeiroutes</span></li>
           </ul>
           <a class="ap-button secondary" href="mailto:info@websiteautopilots.nl?subject=CRM%20Premium">Kies CRM Premium</a>
         </div>
@@ -1201,7 +1387,7 @@
           <span class="ap-step-number">3</span>
           <div>
             <h3>Bouw en koppelingen</h3>
-            <p>We richten HighLevel in, koppelen de afgesproken kanalen en bouwen de automatiseringen.</p>
+            <p>We richten Autopilots CRM in, koppelen de afgesproken kanalen en bouwen de automatiseringen.</p>
           </div>
         </div>
         <div class="ap-flow-row">
@@ -1232,38 +1418,108 @@
       <div class="ap-faq-grid">
         <details>
           <summary>
-            <h3>Is dit letterlijk GoHighLevel?</h3>
+            <h3>Wat is Autopilots CRM precies?</h3>
             <span class="ap-plus">+</span>
           </summary>
-          <p>Ja. De technische basis is HighLevel/GoHighLevel. Het verschil zit in de inrichting: wij bouwen de pipelines, workflows, agendas, communicatie, dashboards en werkafspraken zodat het systeem direct bruikbaar is.</p>
+          <p>Autopilots CRM is jullie centrale omgeving voor leads, contactmomenten, afspraken, pipelines, verkopers, deals, reviews en dashboards. Wij richten het systeem zo in dat iedere lead een duidelijke route krijgt en het team precies weet wat er moet gebeuren.</p>
         </details>
         <details>
           <summary>
-            <h3>Zit de HighLevel licentie inbegrepen?</h3>
+            <h3>Hoe werkt lead mapping?</h3>
             <span class="ap-plus">+</span>
           </summary>
-          <p>De maandprijs is bedoeld voor inrichting, beheer en optimalisatie vanuit Autopilots. Platformlicentie, telefoon, e-mail, sms, WhatsApp, AI-usage of externe tools worden apart afgestemd als die nodig zijn.</p>
+          <p>Bij binnenkomst krijgt een lead automatisch informatie mee zoals bron, campagne, formulier, interesse, locatie, urgentie, gekozen dienst, contactstatus en eigenaar. Daardoor kun je later precies zien welke bron kwaliteit levert en welke route beter moet.</p>
         </details>
         <details>
           <summary>
-            <h3>Kunnen jullie bestaande leads importeren?</h3>
+            <h3>Kunnen we meerdere funnels tegelijk gebruiken?</h3>
             <span class="ap-plus">+</span>
           </summary>
-          <p>Ja, mits de data schoon genoeg is. We kunnen contacten importeren, segmenteren, taggen en waar passend een reactivatieflow opzetten.</p>
+          <p>Ja. Je kunt bijvoorbeeld aparte funnels hebben voor nieuwe aanvragen, offerte opvolging, no-shows, oude leads, servicevragen en reviews. Elke funnel kan een eigen pipeline, eigenaar, opvolging en dashboardlogica krijgen.</p>
         </details>
         <details>
           <summary>
-            <h3>Hoe snel kan dit live?</h3>
+            <h3>Kunnen we meerdere personen toevoegen?</h3>
             <span class="ap-plus">+</span>
           </summary>
-          <p>CRM Start kan meestal binnen 2 tot 4 weken live. Scale zit vaak op 4 tot 6 weken. Premium is afhankelijk van scope en koppelingen, meestal 6 tot 8 weken.</p>
+          <p>Ja. In ieder pakket kunnen ongelimiteerd personen worden toegevoegd. Denk aan verkopers, planners, marketeers, binnendienst, management of vestigingsmanagers. Het verschil tussen pakketten zit in de inrichting, automatisering, dashboards en routes, niet in het aantal mensen dat mee kan werken.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Wat gebeurt er nadat een lead binnenkomt?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>De lead wordt verwerkt, krijgt de juiste broninformatie, wordt toegewezen aan een persoon of team, komt in de juiste pipeline en krijgt automatisch de juiste opvolging. Als er een afspraak wordt gepland, kan de kaart automatisch naar een andere pipelinefase verplaatsen.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Hoe werken pipelines?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Een pipeline is de visuele route van een lead of deal. Denk aan nieuw, gekwalificeerd, afspraak gepland, offerte verstuurd, follow-up nodig, gewonnen of verloren. Per fase kunnen taken, reminders, berichten en dashboards worden aangestuurd.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Kunnen afspraken automatisch worden gepland?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Ja. We kunnen agenda's, boekingslinks, teamrouting, beschikbaarheid, afspraakbevestigingen en reminders inrichten. Daardoor kan een lead vanuit een funnel of gesprek direct naar een afspraak worden gestuurd.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Wat zie ik in het dashboard?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Je ziet onder andere leads per bron, afspraken per bron, deals per bron, conversie van lead naar afspraak, conversie van afspraak naar deal, closing percentage, open taken, verkopersstatus, contactpercentage en waar kansen blijven hangen.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Kan ik zien welke marketingbron minder converteert?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Ja. Het systeem maakt zichtbaar of een bron veel leads geeft maar weinig afspraken, of juist minder leads maar betere deals. Zo kun je advertentiebudget, opvolging en funnelcopy sturen op kwaliteit in plaats van alleen volume.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Hoe werkt de centrale inbox?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Gesprekken via WhatsApp, e-mail, websitechat, SMS en social media kunnen centraal bij het contact zichtbaar worden. Je team ziet dan de context, laatste berichten, pipelinefase, taken en afspraken op een plek.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Hoe werkt reviewmanagement?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Na verkoop kan automatisch een reviewverzoek worden gestuurd. Bij 1 tot en met 3 sterren gaat de feedback intern naar een klachtenroute. Bij 4 of 5 sterren wordt de klant doorgestuurd naar Google om publiek een review achter te laten.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Kunnen bestaande leads worden geimporteerd?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Ja, mits de data schoon genoeg is. We kunnen contacten importeren, segmenteren, taggen en waar passend een reactivatieflow bouwen voor oude leads, open offertes of slapende klanten.</p>
         </details>
         <details>
           <summary>
             <h3>Wat als mijn proces nog niet scherp is?</h3>
             <span class="ap-plus">+</span>
           </summary>
-          <p>Dan beginnen we juist daar. Een goede CRM-inrichting dwingt heldere keuzes af: welke fases bestaan er, wie is eigenaar, wanneer volg je op en wanneer is een kans gewonnen of verloren.</p>
+          <p>Dan beginnen we juist daar. Een goede CRM-inrichting dwingt heldere keuzes af: welke fases bestaan er, wie is eigenaar, wanneer volg je op, wanneer verandert een status en wanneer is een kans gewonnen of verloren.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Hoe snel kan dit live?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>CRM Start kan meestal binnen 2 tot 4 weken live. Scale zit vaak op 4 tot 6 weken. Premium is afhankelijk van funnels, dashboards, koppelingen en teamroutes, meestal 6 tot 8 weken.</p>
+        </details>
+        <details>
+          <summary>
+            <h3>Wat is het grootste verschil tussen Scale en Premium?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <p>Scale organiseert vooral je leadopvolging: meerdere pipelines, agenda's, bronrapportage, follow-up en basis reactivatie. Premium maakt er een breder commercieel systeem van met lead scoring, betaalroutes, voorstellen, facturen, orderforms, broadcasts, diepere segmentatie, reputatiemanagement en dashboards op omzetniveau.</p>
         </details>
       </div>
     </div>
@@ -1284,6 +1540,74 @@
 </div>
 
 <script>
+(function () {
+  var root = document.getElementById("ap-crm-proposal");
+  if (!root) return;
+
+  var flows = {
+    aanvraag: [
+      ["Lead komt binnen", "Via advertentie, formulier, WhatsApp, website, social, telefoonnotitie of handmatige invoer."],
+      ["Informatie wordt verwerkt", "Bron, campagne, interesse, budget, urgentie, locatie en contactmoment worden vastgelegd."],
+      ["Toegewezen aan juiste persoon", "De lead gaat automatisch naar de juiste verkoper, vestiging, regio of specialist."],
+      ["Komt in de juiste pipeline", "Nieuwe lead, gekwalificeerd, afspraak gepland, offerte open, gewonnen of verloren."],
+      ["Afspraak gepland en status wijzigt", "Na boeking verhuist de kaart automatisch naar de afspraakpipeline met reminders en taken."],
+      ["Deal, review en rapportage", "Na verkoop start reviewmanagement en wordt zichtbaar welke bron, verkoper en funnel resultaat bracht."]
+    ],
+    offerte: [
+      ["Offerte blijft openstaan", "Een deal staat langer dan afgesproken in offerte verstuurd of wacht op akkoord."],
+      ["Waarde en timing worden gelezen", "Autopilots CRM ziet dealwaarde, verantwoordelijke verkoper, datum en laatste contactmoment."],
+      ["Verkoper krijgt taak", "De juiste persoon krijgt een follow-up taak met context en voorgestelde actie."],
+      ["Contact krijgt opvolging", "Mail, WhatsApp of beltaak wordt gestart op basis van de afgesproken offerteflow."],
+      ["Status verandert bij reactie", "Bij akkoord, vraag of geen reactie schuift de deal naar de juiste vervolgstatus."],
+      ["Dashboard toont offerteconversie", "Je ziet per bron en verkoper hoeveel offertes sluiten en waar opvolging blijft liggen."]
+    ],
+    noshow: [
+      ["Afspraak wordt gemist", "Een afspraak staat op no-show of er is geen contact geweest na het geplande moment."],
+      ["Contacthistorie wordt gekoppeld", "Het systeem ziet welke afspraak, bron, verkoper en vorige berichten bij de lead horen."],
+      ["Herstelroute start", "De lead krijgt een nieuwe afspraaklink of je team krijgt een beltaak met duidelijke context."],
+      ["Pipeline wordt bijgewerkt", "De kaart verhuist naar no-show herstel zodat niemand denkt dat de lead nog normaal gepland staat."],
+      ["Reminder en herkansing", "Automatische herinneringen helpen om de lead alsnog naar een nieuw moment te krijgen."],
+      ["Rapportage toont verliespunt", "Je ziet hoeveel no-shows ontstaan per bron, verkoper, funnel of type afspraak."]
+    ],
+    "oude-leads": [
+      ["Oude lead wordt geselecteerd", "Contacten zonder recente opvolging, open offertes of verloren kansen worden gefilterd."],
+      ["Segment wordt bepaald", "Autopilots CRM kijkt naar bron, interesse, laatste status, dealwaarde en reden van verlies."],
+      ["Reactivatie start", "De lead krijgt een passende WhatsApp, mail of beltaak op basis van het oude contactmoment."],
+      ["Reacties komen terug in inbox", "Iedere reactie komt centraal binnen en wordt direct gekoppeld aan het bestaande contact."],
+      ["Warme lead wordt opnieuw toegewezen", "Bij interesse verhuist de lead naar de juiste pipeline en krijgt een verkoper een taak."],
+      ["Resultaat wordt meetbaar", "Je ziet hoeveel oude leads opnieuw afspraak, offerte of deal zijn geworden."]
+    ],
+    review: [
+      ["Deal wordt gewonnen", "Na verkoop, oplevering of afgeronde afspraak start automatisch de reviewroute."],
+      ["Klant krijgt reviewvraag", "De klant ontvangt een korte scorevraag via mail, WhatsApp of SMS."],
+      ["Score wordt verwerkt", "1-3 ster gaat naar interne opvolging, 4-5 ster gaat naar de publieke reviewroute."],
+      ["Klacht of Google route", "Lage score wordt een taak voor je team. Hoge score krijgt direct de Google reviewlink."],
+      ["Status wordt opgeslagen", "Bij het contact zie je of iemand gevraagd, tevreden, ontevreden of opgevolgd is."],
+      ["Reputatie wordt gestuurd", "Je bouwt meer positieve reviews op en vangt ontevreden klanten eerst intern op."]
+    ]
+  };
+
+  function setFlow(key) {
+    var flow = flows[key] || flows.aanvraag;
+    root.querySelectorAll("[data-crm-flow]").forEach(function (button) {
+      button.classList.toggle("is-active", button.getAttribute("data-crm-flow") === key);
+    });
+
+    flow.forEach(function (step, index) {
+      var title = root.querySelector('[data-crm-flow-title="' + index + '"]');
+      var text = root.querySelector('[data-crm-flow-text="' + index + '"]');
+      if (title) title.textContent = step[0];
+      if (text) text.textContent = step[1];
+    });
+  }
+
+  root.querySelectorAll("[data-crm-flow]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      setFlow(button.getAttribute("data-crm-flow"));
+    });
+  });
+})();
+
 (function () {
   var marker = "ap-crm-proposal-height-sync-2026-06-12";
   if (window[marker]) return;

@@ -1,6 +1,6 @@
 # CRM systeem voorstel
 
-Voorstelpagina voor het inrichten van een CRM systeem op basis van HighLevel/GoHighLevel.
+Voorstelpagina voor het inrichten van Autopilots CRM.
 
 ## Bestanden
 

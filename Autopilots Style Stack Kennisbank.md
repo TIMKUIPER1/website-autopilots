@@ -214,6 +214,32 @@ Border radius: 999px
 Primary button: bruin met witte tekst  
 Secondary button: wit met zwarte tekst en border
 
+### **Diensticonen**
+
+Gebruik geen emoji's of losse symbolen als diensticoon.
+
+Diensticonen moeten voelen als high-end SaaS producticonen:
+
+- Zwarte rounded square
+- Witte custom lijniconen
+- Subtiele beweging of pulse mag
+- Duidelijk herkenbaar per dienst
+- Geen smileys, standaard emoji's of willekeurige tekens
+
+Autopilots CRM is de uitzondering: gebruik daar altijd het AP CRM-logo als trademark-icoon. Dit logo blijft wit met roestbruine AP-markering en wordt gebruikt in de CRM-pagina, het dienstenmenu, de dienstenconsole en alle CRM-kaarten.
+
+### **Premium rode hoekaccenten**
+
+Op productpagina's, calculators, dashboardmockups en belangrijke conversieblokken mag subtiel een roestbruine glow in de rechteronderhoek terugkomen.
+
+Gebruik dit als premium diepte-element:
+
+- Zeer subtiel, nooit fel of schreeuwerig
+- Vooral in witte cards, dark blocks en calculator/resultaatblokken
+- Altijd achter de inhoud
+- Geen losse gradient-orbs buiten de card
+- Het accent moet voelen als diepte/licht, niet als decoratie
+
 ### **Grids**
 
 Gebruik 2 of 3 kolommen op desktop.
