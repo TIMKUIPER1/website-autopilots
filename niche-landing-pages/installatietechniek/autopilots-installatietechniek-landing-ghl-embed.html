@@ -108,7 +108,7 @@
   }
 
   #ap-property h2 {
-    font-size: clamp(34px, 4.5vw, 58px);
+    font-size: clamp(26px, calc(4.5vw - 8px), 50px);
     line-height: 1;
     font-weight: 900;
     letter-spacing: 0;
@@ -435,7 +435,7 @@
   }
 
   #ap-property .ap-section-head h2.ap-title-sm {
-    font-size: clamp(30px, 3.5vw, 46px);
+    font-size: clamp(22px, calc(3.5vw - 8px), 38px);
     max-width: 680px;
   }
 
@@ -1142,7 +1142,7 @@
   #ap-property .ap-roi-total strong {
     display: block;
     color: #fff;
-    font-size: clamp(34px, 4.6vw, 58px);
+    font-size: clamp(26px, calc(4.6vw - 8px), 50px);
     line-height: 0.95;
     font-weight: 900;
   }
@@ -1275,7 +1275,7 @@
   }
 
   #ap-property .ap-section-head h2.ap-title-sm {
-    font-size: clamp(34px, 4.5vw, 58px);
+    font-size: clamp(26px, calc(4.5vw - 8px), 50px);
     max-width: 760px;
   }
 
@@ -1476,11 +1476,43 @@ body {
 }
 
 
-/* ap-section-head-stack-2026-06 */
-.ap-section-head{display:block!important;grid-template-columns:1fr!important;align-items:start!important;gap:0!important;max-width:900px;margin-bottom:42px!important;}
-.ap-section-head > :not(:first-child){margin-top:18px!important;}
-.ap-section-head .ap-section-text{max-width:760px!important;}
-.ap-section-head .ap-kicker{display:inline-flex!important;margin-bottom:16px!important;line-height:1.2!important;}
+/* ap-niche-readability-2026-06-15 */
+#ap-property .ap-section-head,
+#ap-property .ap-section-head.ap-section-head {
+  display: flex !important;
+  grid-template-columns: none !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 18px !important;
+  max-width: 900px !important;
+  margin-bottom: 42px !important;
+}
+#ap-property .ap-section-head > * {
+  width: 100% !important;
+}
+#ap-property .ap-section-head > :not(:first-child) {
+  margin-top: 0 !important;
+}
+#ap-property .ap-section-head .ap-section-text {
+  max-width: 760px !important;
+  margin-top: 0 !important;
+}
+#ap-property .ap-section-head .ap-kicker {
+  display: inline-flex !important;
+  margin-bottom: 16px !important;
+  line-height: 1.2 !important;
+}
+#ap-property h2:not(.ap-title-support),
+#ap-property .ap-section-head h2:not(.ap-title-support) {
+  font-size: clamp(26px, calc(4.5vw - 8px), 50px) !important;
+  line-height: 1.07 !important;
+}
+#ap-property .ap-section-head h2.ap-title-sm {
+  font-size: clamp(22px, calc(3.5vw - 8px), 38px) !important;
+  line-height: 1.08 !important;
+}
+
 
 /* ap-team-slider-control-2026-06 */
 .ap-team-shell{position:relative;overflow:hidden;}
