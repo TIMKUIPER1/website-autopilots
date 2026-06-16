@@ -167,6 +167,78 @@ document.querySelectorAll("[data-ap-contact-route]").forEach((button) => {
   });
 });
 
+document.querySelectorAll(".ap-inspiration-track").forEach((track) => {
+  if (track.dataset.apCloned === "true") return;
+  const items = Array.from(track.children);
+  items.forEach((item) => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
+  track.dataset.apCloned = "true";
+});
+
+const apBrainStates = {
+  intake: {
+    kicker: "Stap 01",
+    title: "De AI maakt van losse input een duidelijke vervolgstap.",
+    copy: "Hij herkent intentie, urgentie, waarde en ontbrekende informatie. Daarna stelt hij gericht door, zodat je team direct weet wat er moet gebeuren.",
+    tags: ["Intentie herkend", "Urgentie bepaald", "Ontbrekende velden uitgevraagd", "Samenvatting voorbereid"],
+  },
+  context: {
+    kicker: "Stap 02",
+    title: "De AI haalt de juiste bedrijfscontext op.",
+    copy: "Het brein raadpleegt CRM, agenda, kennisbank, eerdere gesprekken en belangrijke statusinformatie voordat er een antwoord of actie volgt.",
+    tags: ["CRM gelezen", "Agenda gecheckt", "Kennis opgehaald", "Historie meegenomen"],
+  },
+  beleid: {
+    kicker: "Stap 03",
+    title: "De AI past jullie regels en uitzonderingen toe.",
+    copy: "Openingstijden, regio, capaciteit, prioriteit, prijsafspraken en menselijke fallback worden meegenomen zodat de route klopt met hoe jullie werken.",
+    tags: ["Regels toegepast", "Capaciteit bekeken", "Fallback bepaald", "Risico gemarkeerd"],
+  },
+  actie: {
+    kicker: "Stap 04",
+    title: "De AI zet de juiste actie klaar in je systeem.",
+    copy: "Een afspraak wordt gepland, een taak aangemaakt, CRM bijgewerkt, een offerte opgevolgd of het team krijgt direct de juiste context.",
+    tags: ["Afspraak gepland", "Taak aangemaakt", "CRM bijgewerkt", "Follow-up gestart"],
+  },
+};
+
+const renderApBrain = (key) => {
+  const state = apBrainStates[key] || apBrainStates.intake;
+  const stage = document.querySelector(".ap-ai-brain-stage");
+  const detail = document.querySelector(".ap-ai-brain-detail");
+  if (!stage || !detail) return;
+
+  stage.dataset.activeBrain = key;
+  document.querySelectorAll("[data-brain-tab], [data-brain-step]").forEach((button) => {
+    const itemKey = button.dataset.brainTab || button.dataset.brainStep;
+    button.classList.toggle("is-active", itemKey === key);
+  });
+
+  detail.classList.remove("is-switching");
+  void detail.offsetWidth;
+  detail.classList.add("is-switching");
+
+  const kicker = detail.querySelector("[data-brain-kicker]");
+  const title = detail.querySelector("[data-brain-title]");
+  const copy = detail.querySelector("[data-brain-copy]");
+  const tags = detail.querySelector("[data-brain-tags]");
+  if (kicker) kicker.textContent = state.kicker;
+  if (title) title.textContent = state.title;
+  if (copy) copy.textContent = state.copy;
+  if (tags) tags.innerHTML = state.tags.map((tag) => `<span>${tag}</span>`).join("");
+
+  window.setTimeout(() => detail.classList.remove("is-switching"), 180);
+};
+
+document.querySelectorAll("[data-brain-tab], [data-brain-step]").forEach((button) => {
+  button.addEventListener("click", () => {
+    renderApBrain(button.dataset.brainTab || button.dataset.brainStep);
+  });
+});
+
 const apServiceIcons = {
   voice: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 18v-4"/><path d="M12 22V10"/><path d="M17 25V7"/><path d="M22 22V10"/><path d="M27 18v-4"/></svg>',
   chat: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 9h14a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4h-6l-6 4v-4H7a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"/><path d="M10 14h8"/><path d="M10 18h5"/></svg>',
@@ -175,6 +247,30 @@ const apServiceIcons = {
   leadsmachine: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22l-9 10v7l-4 2v-9L5 7Z"/><path d="M10 7c2.8 3.6 9.2 3.6 12 0"/></svg>',
   support: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 18v-2a10 10 0 0 1 20 0v2"/><path d="M6 18h4v7H8a2 2 0 0 1-2-2v-5Z"/><path d="M22 18h4v5a2 2 0 0 1-2 2h-2v-7Z"/><path d="M22 25c-1.2 2.4-3.6 4-7 4"/></svg>',
   crm: '<img src="ap-crm-logo.svg" alt="Autopilots CRM">'
+};
+
+const apBranchIcons = {
+  autobedrijven: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 19h18l-2-6H9l-2 6Z"/><path d="M9 19v4"/><path d="M23 19v4"/><path d="M10 23h2"/><path d="M20 23h2"/><path d="M11 13l2-4h6l2 4"/></svg>',
+  "cosmetische-klinieken": '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5v22"/><path d="M8 13h16"/><path d="M10 9h12"/><path d="M10 23h12"/><path d="M12 5h8a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/></svg>',
+  dakdekkers: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 17 16 7l11 10"/><path d="M8 16v10h16V16"/><path d="M13 26v-6h6v6"/></svg>',
+  dierenarts: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 7v18"/><path d="M7 16h18"/><path d="M10 10h12v12H10z"/></svg>',
+  dierenverzorging: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 18c-2 0-3-1.4-3-3.1S7.3 12 9 12s3 1.2 3 2.9S11 18 9 18Z"/><path d="M23 18c-2 0-3-1.4-3-3.1s1.3-2.9 3-2.9 3 1.2 3 2.9S25 18 23 18Z"/><path d="M12.5 22.5c0-2 1.6-4.5 3.5-4.5s3.5 2.5 3.5 4.5c0 1.7-1.2 2.5-3.5 2.5s-3.5-.8-3.5-2.5Z"/><path d="M13 12c0-1.7 1.3-3 3-3s3 1.3 3 3"/></svg>',
+  evenementen: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 6v5"/><path d="M23 6v5"/><path d="M6 12h20"/><path d="M7 8h18v18H7z"/><path d="m12 19 3 3 6-7"/></svg>',
+  glaszetters: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 5h14v22H9z"/><path d="M13 5v22"/><path d="M19 5v22"/><path d="m9 15 14-6"/><path d="m9 23 14-6"/></svg>',
+  hotels: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26V8h12v18"/><path d="M18 14h8v12"/><path d="M10 12h4"/><path d="M10 17h4"/><path d="M22 18h1"/><path d="M22 22h1"/></svg>',
+  hoveniers: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V9"/><path d="M16 9c-4 0-7 3-7 7 4 0 7-3 7-7Z"/><path d="M16 12c4 0 7 3 7 7-4 0-7-3-7-7Z"/><path d="M8 26h16"/></svg>',
+  installatietechniek: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="m21 5 6 6-5 5-6-6 5-5Z"/><path d="m16 10-9 9v6h6l9-9"/><path d="m8 24 5-5"/></svg>',
+  kapperszaken: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 8l14 16"/><path d="M23 8 9 24"/><circle cx="8" cy="7" r="3"/><circle cx="8" cy="25" r="3"/></svg>',
+  kozijnen: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 6h18v20H7z"/><path d="M16 6v20"/><path d="M7 16h18"/><path d="M11 11h2"/><path d="M19 21h2"/></svg>',
+  makelaars: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 26V8h14l4 4-4 4H7"/><path d="M7 8v18"/><path d="M13 13h8"/></svg>',
+  "non-profit": '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27s-9-5.6-9-13a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 7.4-9 13-9 13Z"/></svg>',
+  restaurants: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 5v22"/><path d="M7 5v8a3 3 0 0 0 6 0V5"/><path d="M21 5v22"/><path d="M21 5c3 2 4 5 4 9h-4"/></svg>',
+  tandartsen: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 5c-3 0-5 2.2-5 5.7 0 5.2 3 14.3 5.3 14.3 1.5 0 1.6-5.2 4.7-5.2s3.2 5.2 4.7 5.2C23 25 26 15.9 26 10.7 26 7.2 24 5 21 5c-2 0-3.2 1-5 1s-3-1-5-1Z"/></svg>',
+  vastgoedbeheerders: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 15 16 6l11 9"/><path d="M8 14v12h16V14"/><path d="M13 26v-7h6v7"/><path d="M22 11v-4h3v7"/></svg>',
+  verzekeraars: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5 7 9v7c0 6 4 10 9 12 5-2 9-6 9-12V9l-9-4Z"/><path d="M16 12v8"/><path d="M12 16h8"/></svg>',
+  vloerenleggers: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 9h20"/><path d="M6 16h20"/><path d="M6 23h20"/><path d="M10 9v7"/><path d="M18 16v7"/><path d="M24 9v7"/></svg>',
+  woningcorporaties: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 15 16 6l11 9"/><path d="M8 14v12h16V14"/><path d="M12 26v-6h8v6"/><path d="M12 14h2"/><path d="M18 14h2"/></svg>',
+  zonnepanelen: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 13h20v12H6z"/><path d="M10 13v12"/><path d="M16 13v12"/><path d="M22 13v12"/><path d="M8 19h16"/><path d="M16 5v3"/><path d="M10 7l2 2"/><path d="M22 7l-2 2"/></svg>'
 };
 
 const renderApIcons = () => {
@@ -190,3 +286,267 @@ const renderApIcons = () => {
 };
 
 renderApIcons();
+
+document.querySelectorAll(".ap-mega-branches .ap-mega-link").forEach((link) => {
+  const icon = link.querySelector(".ap-mega-icon");
+  const href = link.getAttribute("href") || "";
+  const slug = new URL(href, window.location.href).searchParams.get("branche");
+  const iconMarkup = slug ? apBranchIcons[slug] : "";
+  if (!icon || !iconMarkup || icon.dataset.apBranchRendered === "true") return;
+  icon.classList.add("ap-branch-icon");
+  icon.innerHTML = iconMarkup;
+  icon.dataset.apBranchRendered = "true";
+});
+
+document.querySelectorAll(".ap-niche-link").forEach((link) => {
+  const href = link.getAttribute("href") || "";
+  const slug = new URL(href, window.location.href).searchParams.get("branche");
+  const iconMarkup = slug ? apBranchIcons[slug] : "";
+  if (!iconMarkup || link.dataset.apNicheIconRendered === "true") return;
+  const icon = document.createElement("span");
+  icon.className = "ap-niche-icon ap-branch-icon";
+  icon.innerHTML = iconMarkup;
+  link.prepend(icon);
+  link.classList.add("has-branch-icon");
+  link.dataset.apNicheIconRendered = "true";
+});
+
+const apKnowledgeStates = {
+  ai: {
+    kicker: "AI kennis",
+    title: "Begrijp wat er verandert voordat je achterloopt.",
+    copy: "AI ontwikkelt snel. In deze kennisbank verzamelen we praktische uitleg over OpenAI, Claude, automation, voice agents, chat agents, AI zoekgedrag en nichetoepassingen voor bedrijven.",
+    libraryKicker: "Laatste AI kennis",
+    libraryTitle: "Nieuwe AI inzichten, vertaald naar bedrijfswaarde.",
+    libraryCopy: "Zoek op tools, branches, klantcontact of automatisering. De artikelen zijn opgebouwd rond duidelijke zoekintentie, praktische voorbeelden en vervolgstappen.",
+    placeholder: "Zoek op OpenAI, Claude, voice AI...",
+    items: [
+      ["OpenAI", "Modellen, agents en praktische toepassingen voor bedrijven."],
+      ["Claude", "Research, documenten, denkkracht en workflow-denken."],
+      ["Niches", "AI voor dakdekkers, installatie, autobedrijven, zorg en meer."],
+      ["Nieuws", "Laatste ontwikkelingen vertaald naar kansen in je operatie."],
+    ],
+  },
+  autopilots: {
+    kicker: "Autopilots kennis",
+    title: "Zie hoe Autopilots AI persoonlijk en productie-waardig maakt.",
+    copy: "Hier leggen we onze aanpak uit: AI-breinen, klantreizen, koppelingen, CRM-acties, voice en chat flows, livegang, monitoring en optimalisatie op basis van echte gesprekken.",
+    libraryKicker: "Laatste Autopilots kennis",
+    libraryTitle: "Hoe Autopilots AI omzet naar werkende systemen.",
+    libraryCopy: "Zoek op implementatie, klantreis, AI-brein, CRM, voice, chat of optimalisatie. Deze kennis komt uit hoe wij systemen ontwerpen, bouwen en verbeteren.",
+    placeholder: "Zoek op AI-brein, CRM, proces, livegang...",
+    items: [
+      ["AI-brein", "Hoe bedrijfskennis, regels, scripts en fallback samenkomen."],
+      ["Klantreis", "Van eerste vraag naar afspraak, ticket, offerte of overdracht."],
+      ["Koppelingen", "CRM, calendar, WhatsApp, mail, formulieren en API-acties."],
+      ["Livegang", "Hoe we testen, monitoren en blijven verbeteren na publicatie."],
+    ],
+  },
+};
+
+const apKnowledgeArticles = {
+  ai: [
+    {
+      category: "OpenAI agents",
+      title: "Wat betekenen AI agents voor klantcontact?",
+      excerpt: "Een praktische uitleg over agents die vragen begrijpen, context ophalen, acties uitvoeren en alles terugrapporteren in CRM.",
+      href: "blog-template-preview.html",
+      date: "Nieuw",
+      read: "7 min",
+      tags: ["openai", "agents", "klantcontact", "crm"],
+    },
+    {
+      category: "Claude workflows",
+      title: "Claude, OpenAI of beide: wanneer gebruik je welke AI?",
+      excerpt: "Geen toolstrijd, maar een heldere keuzehulp voor research, documenten, klantcommunicatie en automatisering.",
+      href: "blog-template-preview.html",
+      date: "Actueel",
+      read: "6 min",
+      tags: ["claude", "openai", "tools", "workflow"],
+    },
+    {
+      category: "AI voor branches",
+      title: "AI voor installatiebedrijven, dakdekkers en servicebedrijven.",
+      excerpt: "Hoe AI storingen, spoedvragen, planning, offertes en klantupdates sneller kan verwerken zonder persoonlijke service te verliezen.",
+      href: "blog-template-preview.html",
+      date: "Niche",
+      read: "8 min",
+      tags: ["installatie", "dakdekkers", "service", "planning"],
+    },
+    {
+      category: "AI zoeken",
+      title: "Waarom AI zoekgedrag je SEO strategie verandert.",
+      excerpt: "Mensen zoeken steeds vaker in AI-antwoorden. Daarom moeten kennisbankartikelen concreet, betrouwbaar en goed gestructureerd zijn.",
+      href: "blog-template-preview.html",
+      date: "SEO",
+      read: "5 min",
+      tags: ["seo", "ai search", "zoekintentie", "kennisbank"],
+    },
+    {
+      category: "Voice AI",
+      title: "Wanneer is Voice AI beter dan een formulier?",
+      excerpt: "Voice AI werkt vooral bij spoed, complexe vragen, offertes, intake en opvolging waar snelheid direct omzet of rust oplevert.",
+      href: "blog-template-preview.html",
+      date: "Voice",
+      read: "6 min",
+      tags: ["voice ai", "telefonie", "intake", "opvolging"],
+    },
+    {
+      category: "AI nieuws",
+      title: "Welke AI ontwikkelingen moet een ondernemer volgen?",
+      excerpt: "Een rustig overzicht van ontwikkelingen die echt impact hebben: multimodal, agents, realtime voice, documenten en automatisering.",
+      href: "blog-template-preview.html",
+      date: "Laatste",
+      read: "5 min",
+      tags: ["nieuws", "multimodal", "realtime", "agents"],
+    },
+  ],
+  autopilots: [
+    {
+      category: "AI-brein",
+      title: "Hoe Autopilots een AI-brein opbouwt voor je bedrijf.",
+      excerpt: "Van scripts en uitzonderingen tot CRM-context en fallback: zo wordt AI persoonlijker in plaats van afstandelijker.",
+      href: "blog-template-preview.html",
+      date: "Proces",
+      read: "7 min",
+      tags: ["ai-brein", "kennisbank", "fallback", "context"],
+    },
+    {
+      category: "Implementatie",
+      title: "Van klantreis naar live AI medewerker.",
+      excerpt: "Onze route van onboarding, architectuur, bouwen, koppelen, testen, livegang, monitoring en optimalisatie.",
+      href: "process-preview.html",
+      date: "Autopilots",
+      read: "6 min",
+      tags: ["proces", "implementatie", "livegang", "optimalisatie"],
+    },
+    {
+      category: "CRM acties",
+      title: "Waarom elk gesprek moet eindigen in een systeemactie.",
+      excerpt: "Een AI medewerker is pas waardevol als er iets gebeurt: afspraak gepland, ticket aangemaakt, CRM bijgewerkt of follow-up verzonden.",
+      href: "services-preview.html",
+      date: "CRM",
+      read: "5 min",
+      tags: ["crm", "actie", "follow-up", "afspraak"],
+    },
+    {
+      category: "Voice & Chat",
+      title: "Wanneer kies je Voice AI, Chat AI of allebei?",
+      excerpt: "Een praktische keuzehulp voor bedrijven die klantcontact willen versnellen zonder grip op de klantreis te verliezen.",
+      href: "services-preview.html",
+      date: "Diensten",
+      read: "6 min",
+      tags: ["voice ai", "chat ai", "klantcontact", "kanalen"],
+    },
+    {
+      category: "Niches",
+      title: "Waarom elke niche een eigen AI-brein nodig heeft.",
+      excerpt: "Autobedrijven, kapperszaken, vastgoedbeheer en tandartsen hebben andere vragen, marges, software en klantmomenten.",
+      href: "preview-homepage.html?v=10#branches",
+      date: "Voor wie",
+      read: "7 min",
+      tags: ["niches", "branches", "software", "roi"],
+    },
+    {
+      category: "Optimalisatie",
+      title: "Wat gebeurt er na livegang met een AI medewerker?",
+      excerpt: "Waarom monitoring, gespreksanalyse, promptverbetering en support essentieel zijn voor een systeem dat beter blijft worden.",
+      href: "process-preview.html",
+      date: "Support",
+      read: "5 min",
+      tags: ["monitoring", "support", "optimalisatie", "gesprekken"],
+    },
+  ],
+};
+
+let apKnowledgeActiveKey = "ai";
+
+const renderApKnowledgeResults = (key, query = "") => {
+  const results = document.querySelector("[data-knowledge-results]");
+  if (!results) return;
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const articles = apKnowledgeArticles[key] || apKnowledgeArticles.ai;
+  const filtered = articles.filter((article) => {
+    const haystack = [
+      article.category,
+      article.title,
+      article.excerpt,
+      ...(article.tags || []),
+    ].join(" ").toLowerCase();
+    return !normalizedQuery || haystack.includes(normalizedQuery);
+  });
+
+  if (!filtered.length) {
+    results.innerHTML = `<div class="ap-knowledge-empty">Geen artikelen gevonden. Probeer te zoeken op AI, CRM, voice, chat, implementatie of een branche.</div>`;
+    return;
+  }
+
+  results.innerHTML = filtered
+    .map(
+      (article) => `
+        <a class="ap-knowledge-result-card" href="${article.href}">
+          <span>${article.category}</span>
+          <h3>${article.title}</h3>
+          <p>${article.excerpt}</p>
+          <div class="ap-knowledge-result-meta">
+            <em>${article.date}</em>
+            <strong>${article.read}</strong>
+          </div>
+        </a>
+      `,
+    )
+    .join("");
+};
+
+const renderApKnowledge = (key) => {
+  const state = apKnowledgeStates[key] || apKnowledgeStates.ai;
+  const panel = document.querySelector("[data-knowledge-panel]");
+  if (!panel) return;
+  apKnowledgeActiveKey = key;
+
+  document.querySelectorAll("[data-knowledge-tab]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.knowledgeTab === key);
+  });
+
+  const kicker = panel.querySelector("[data-knowledge-kicker]");
+  const title = panel.querySelector("[data-knowledge-title]");
+  const copy = panel.querySelector("[data-knowledge-copy]");
+  const consoleItems = panel.querySelector(".ap-knowledge-console");
+  const libraryKicker = document.querySelector("[data-library-kicker]");
+  const libraryTitle = document.querySelector("[data-library-title]");
+  const libraryCopy = document.querySelector("[data-library-copy]");
+  const searchInput = document.querySelector("[data-knowledge-search]");
+
+  if (kicker) kicker.textContent = state.kicker;
+  if (title) title.textContent = state.title;
+  if (copy) copy.textContent = state.copy;
+  if (libraryKicker) libraryKicker.textContent = state.libraryKicker;
+  if (libraryTitle) libraryTitle.textContent = state.libraryTitle;
+  if (libraryCopy) libraryCopy.textContent = state.libraryCopy;
+  if (searchInput) {
+    searchInput.placeholder = state.placeholder;
+    searchInput.value = "";
+  }
+  if (consoleItems) {
+    consoleItems.innerHTML = state.items
+      .map(([label, text]) => `<div><span>${label}</span><strong>${text}</strong></div>`)
+      .join("");
+  }
+
+  renderApKnowledgeResults(key);
+};
+
+document.querySelectorAll("[data-knowledge-tab]").forEach((button) => {
+  button.addEventListener("click", () => {
+    renderApKnowledge(button.dataset.knowledgeTab);
+    const library = document.querySelector("#laatste-kennis");
+    if (library) library.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+document.querySelector("[data-knowledge-search]")?.addEventListener("input", (event) => {
+  renderApKnowledgeResults(apKnowledgeActiveKey, event.target.value);
+});
+
+renderApKnowledgeResults(apKnowledgeActiveKey);

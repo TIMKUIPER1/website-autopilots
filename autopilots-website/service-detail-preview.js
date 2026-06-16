@@ -6,8 +6,7 @@ const servicePages = {
     intro: "Of het nu gaat om complexe klantvragen inbound of het proactief opvolgen van offertes outbound: Voice AI neemt op, vraagt door en verwerkt alles netjes.",
     points: ["24/7 telefonische opvang", "Outbound bellen", "Slimme triage", "Gespreksnotities in CRM"],
     visual: "voice",
-    flow: [["Oproep komt binnen", "Voice AI neemt direct op."], ["AI vraagt door", "Reden, urgentie en gegevens worden helder."], ["Actie wordt gezet", "Afspraak, taak of CRM-update staat klaar."]],
-    seo: "AI telefoon beantwoorden, Voice AI voor klantcontact, AI receptionist, AI outbound bellen"
+    flow: [["Oproep komt binnen", "Voice AI neemt direct op."], ["AI vraagt door", "Reden, urgentie en gegevens worden helder."], ["Actie wordt gezet", "Afspraak, taak of CRM-update staat klaar."]]
   },
   chat: {
     kicker: "Chat AI",
@@ -16,8 +15,7 @@ const servicePages = {
     intro: "Of het nu een DM op Instagram is of een vraag op je website: Chat AI begrijpt de context, geeft direct antwoord en helpt klanten verder naar afspraak, offerte of ticket.",
     points: ["Websitebezoekers converteren", "WhatsApp & SMS", "Social DM opvolging", "Menselijke fallback"],
     visual: "chat",
-    flow: [["Vraag komt binnen", "Website, WhatsApp of social DM."], ["AI helpt direct", "Antwoord, intake of kwalificatie."], ["Vervolg staat klaar", "Afspraak, offerte, ticket of overdracht."]],
-    seo: "AI chatbot website, WhatsApp AI, Chat AI voor klantenservice, AI DM opvolging"
+    flow: [["Vraag komt binnen", "Website, WhatsApp of social DM."], ["AI helpt direct", "Antwoord, intake of kwalificatie."], ["Vervolg staat klaar", "Afspraak, offerte, ticket of overdracht."]]
   },
   followup: {
     kicker: "Follow Up AI",
@@ -26,8 +24,7 @@ const servicePages = {
     intro: "Automatische opvolging via WhatsApp, SMS, mail en telefonie. Niet schreeuwerig, wel precies op tijd en afgestemd op de fase van de klant.",
     points: ["WhatsApp opvolging", "SMS reminders", "Mail sequences", "Reply classificatie"],
     visual: "followup",
-    flow: [["Kans blijft open", "Lead, offerte of gemist contact."], ["AI volgt op", "Via het juiste kanaal en moment."], ["Reactie wordt verwerkt", "Classificatie, taak of afspraak in CRM."]],
-    seo: "AI lead opvolging, offerte opvolgen met AI, WhatsApp follow up AI, automatische sales opvolging"
+    flow: [["Kans blijft open", "Lead, offerte of gemist contact."], ["AI volgt op", "Via het juiste kanaal en moment."], ["Reactie wordt verwerkt", "Classificatie, taak of afspraak in CRM."]]
   },
   planning: {
     kicker: "Planning AI",
@@ -36,8 +33,7 @@ const servicePages = {
     intro: "Van lead naar afspraak naar routeplanning. Planning AI houdt rekening met capaciteit, regio, prioriteit en klantcommunicatie.",
     points: ["Intelligente agendaregie", "Routeoptimalisatie", "Status updates", "Gaten vullen"],
     visual: "planning",
-    flow: [["Aanvraag vraagt planning", "Klant wil afspraak, bezoek of service."], ["AI checkt capaciteit", "Regio, route, prioriteit en beschikbaarheid."], ["Moment wordt geboekt", "Agenda, klant en team krijgen update."]],
-    seo: "AI planning, agenda automatiseren, routeplanning AI, afspraken automatisch plannen"
+    flow: [["Aanvraag vraagt planning", "Klant wil afspraak, bezoek of service."], ["AI checkt capaciteit", "Regio, route, prioriteit en beschikbaarheid."], ["Moment wordt geboekt", "Agenda, klant en team krijgen update."]]
   },
   leadsmachine: {
     kicker: "Leadsmachine AI",
@@ -46,8 +42,7 @@ const servicePages = {
     intro: "Van advertentie of websitebezoek naar gesprek, intake, afspraak en opvolging: de Leadsmachine houdt de hele route in beweging.",
     points: ["Lead intake", "Opvolging loopt door", "Afspraak gepland", "Data voor groei"],
     visual: "leadsmachine",
-    flow: [["Klik of aanvraag", "Campagne, website of formulier."], ["Intake wordt gestart", "AI kwalificeert en stelt vervolgvragen."], ["Klantreis loopt door", "Afspraak, CRM en follow-up blijven actief."]],
-    seo: "AI leadsmachine, lead intake automatiseren, AI sales funnel, meer klanten met AI"
+    flow: [["Klik of aanvraag", "Campagne, website of formulier."], ["Intake wordt gestart", "AI kwalificeert en stelt vervolgvragen."], ["Klantreis loopt door", "Afspraak, CRM en follow-up blijven actief."]]
   },
   crm: {
     kicker: "Autopilots CRM",
@@ -56,8 +51,7 @@ const servicePages = {
     intro: "Leads, opvolging, afspraken, funnels en klantdata komen samen in een AI-gestuurde CRM omgeving. Zo zie je waar kansen liggen en waar conversie blijft hangen.",
     points: ["Pipeline overzicht", "AI opvolging", "Afspraken sneller rond", "Reviews en automatisering"],
     visual: "crm",
-    flow: [["Gesprek is afgerond", "AI heeft context en vervolgstap."], ["CRM wordt bijgewerkt", "Status, tags, notities en pipeline."], ["Team ziet kansen", "Opvolging, reviews en automatisering lopen door."]],
-    seo: "AI CRM, CRM automatisering, sales pipeline AI, klantdata automatiseren"
+    flow: [["Gesprek is afgerond", "AI heeft context en vervolgstap."], ["CRM wordt bijgewerkt", "Status, tags, notities en pipeline."], ["Team ziet kansen", "Opvolging, reviews en automatisering lopen door."]]
   },
   support: {
     kicker: "Autopilots Support",
@@ -66,8 +60,7 @@ const servicePages = {
     intro: "Na livegang blijven we gesprekken, flows en koppelingen monitoren zodat de AI beter blijft aansluiten op echte klantvragen.",
     points: ["Monitoring", "Optimalisatie", "Support", "Doorontwikkeling"],
     visual: "support",
-    flow: [["AI staat live", "Echte gesprekken komen binnen."], ["We monitoren", "Antwoorden, routes en edge cases worden bekeken."], ["We verbeteren", "Prompts, flows en koppelingen worden aangescherpt."]],
-    seo: "AI support, AI monitoring, chatbot optimalisatie, AI implementatie support"
+    flow: [["AI staat live", "Echte gesprekken komen binnen."], ["We monitoren", "Antwoorden, routes en edge cases worden bekeken."], ["We verbeteren", "Gespreksregels, flows en koppelingen worden aangescherpt."]]
   }
 };
 
@@ -88,8 +81,6 @@ document.querySelectorAll("[data-service-title]").forEach((el) => {
   el.innerHTML = `${words.join(" ")} <span class="ap-title-accent">${accentWords}</span>`;
 });
 document.querySelectorAll("[data-service-intro]").forEach((el) => (el.textContent = service.intro));
-document.querySelectorAll("[data-service-seo]").forEach((el) => (el.textContent = service.seo));
-
 const list = document.querySelector("[data-service-points]");
 if (list) list.innerHTML = service.points.map((point) => `<span>${point}</span>`).join("");
 

@@ -50,14 +50,13 @@
           </div>
           <div class="ap-menu-shell">
             <button class="ap-menu-trigger" type="button">Voor wie</button>
-            <div class="ap-mega" aria-label="Voor wie megamenu">
+            <div class="ap-mega ap-mega-branches" aria-label="Voor wie megamenu">
               <div class="ap-mega-feature">
                 <div>
                   <div class="ap-menu-label">Voor wie</div>
-                  <h3>Per niche een eigen zoekintentie en klantreis.</h3>
-                  <p>De nichepagina's worden de internationale SEO-machine: eerst Nederlands, daarna Engels en andere marktvarianten.</p>
+                  <h3>Per niche een eigen klantreis en route.</h3>
+                  <p>Elke branche krijgt voorbeelden, rekentool, AI-brein en vervolgstap die passen bij de praktijk.</p>
                 </div>
-                <a class="ap-button ap-button-primary" href="#branches">Bekijk voor wie</a>
               </div>
               <div class="ap-mega-grid">
                 <a class="ap-mega-link" href="branch-preview.html?branche=autobedrijven"><span class="ap-mega-icon">AU</span><div><strong>Autobedrijven</strong><span>Proefritten, voorraadvragen en CRM.</span></div></a>
@@ -82,10 +81,15 @@
                 <a class="ap-mega-link" href="branch-preview.html?branche=woningcorporaties"><span class="ap-mega-icon">WO</span><div><strong>Woningcorporaties</strong><span>Bewoners, meldingen en onderhoud.</span></div></a>
                 <a class="ap-mega-link" href="branch-preview.html?branche=zonnepanelen"><span class="ap-mega-icon">ZO</span><div><strong>Zonnepanelen</strong><span>Leads, schouw en advies.</span></div></a>
               </div>
+              <div class="ap-mega-footer">
+                <span>Bekijk de routes per niche, met eigen scenario's, calculator en AI-brein.</span>
+                <a class="ap-button ap-button-primary" href="#branches">Bekijk alle niches</a>
+              </div>
             </div>
           </div>
           <a href="process-preview.html">Proces</a>
           <a href="crew-preview.html">Crew</a>
+          <a href="knowledge-preview.html">Kennisbank</a>
         </nav>
         <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
       </div>
@@ -203,52 +207,58 @@
         </div>
       </section>
 
-      <section class="ap-section" id="ai-brein">
-        <div class="ap-container ap-personal-ai-grid">
-          <div>
+      <section class="ap-section ap-ai-brain-section" id="ai-brein">
+        <div class="ap-container">
+          <div class="ap-section-head">
             <div class="ap-kicker">AI persoonlijk maken</div>
-            <h2 class="ap-section-title">Een AI-brein is het geheugen van je klantcontact.</h2>
-            <p class="ap-text">Elk contactmoment wordt bruikbare context. Zo kan de AI beter luisteren, slimmer plannen en persoonlijker opvolgen zonder dat je team steeds opnieuw hoeft te zoeken.</p>
-            <div class="ap-data-grid">
-              <div><strong>Data</strong><span>Ieder gesprek wordt bruikbare context voor sales, service en operatie.</span></div>
-              <div><strong>Context</strong><span>De AI herkent afspraken, klantstatus, voorkeuren en eerdere vragen.</span></div>
-              <div><strong>Persoonlijk</strong><span>Niet kouder door AI, maar relevanter doordat niets verloren gaat.</span></div>
-            </div>
-            <div class="ap-actions">
-              <a class="ap-button ap-button-primary" href="branch-preview.html?branche=autobedrijven#ai-brein">Bekijk nichevoorbeeld</a>
-              <a class="ap-button ap-button-secondary" href="process-preview.html">Bekijk implementatie</a>
-            </div>
+            <h2 class="ap-section-title">Een AI-brein is het werkgeheugen van je bedrijf.</h2>
+            <p class="ap-text">Het brein begrijpt wat er binnenkomt, haalt context op, volgt jullie regels en zet de juiste actie klaar. Niet alleen voor klantenservice, maar voor sales, planning, support, receptie en operatie.</p>
           </div>
-          <div class="ap-brain-command" aria-label="Interactieve AI brein visualisatie">
-            <div class="ap-brain-map">
-              <svg class="ap-brain-links" viewBox="0 0 100 100" aria-hidden="true">
-                <line x1="50" y1="48" x2="22" y2="16"></line>
-                <line x1="50" y1="48" x2="50" y2="11"></line>
-                <line x1="50" y1="48" x2="78" y2="16"></line>
-                <line x1="50" y1="48" x2="15" y2="44"></line>
-                <line x1="50" y1="48" x2="85" y2="44"></line>
-                <line x1="50" y1="48" x2="22" y2="78"></line>
-                <line x1="50" y1="48" x2="50" y2="86"></line>
-                <line x1="50" y1="48" x2="78" y2="78"></line>
-              </svg>
-              <div class="ap-brain-core">
-                <span>AI Brein</span>
-                <strong>live context</strong>
+
+          <div class="ap-ai-brain-stage" data-active-brain="intake" aria-label="Interactieve AI brein visualisatie">
+            <div class="ap-ai-brain-left">
+              <div class="ap-ai-brain-incoming">
+                <span>IN</span>
+                <div>
+                  <strong>Nieuw contactmoment komt binnen</strong>
+                  <em>Telefoon, chat, WhatsApp, e-mail, formulier, advertentie of interne aanvraag met incomplete informatie.</em>
+                </div>
+                <b>live analyse</b>
               </div>
-              <div class="ap-brain-node ap-brain-node-1"><span>Agenda</span><em>vrije momenten</em></div>
-              <div class="ap-brain-node ap-brain-node-2"><span>CRM</span><em>klantstatus</em></div>
-              <div class="ap-brain-node ap-brain-node-3"><span>Kennisbank</span><em>antwoorden</em></div>
-              <div class="ap-brain-node ap-brain-node-4"><span>Openingstijden</span><em>beschikbaarheid</em></div>
-              <div class="ap-brain-node ap-brain-node-5"><span>Routeplanning</span><em>regio en capaciteit</em></div>
-              <div class="ap-brain-node ap-brain-node-6"><span>FAQ</span><em>veelgestelde vragen</em></div>
-              <div class="ap-brain-node ap-brain-node-7"><span>Offertes</span><em>kansen opvolgen</em></div>
-              <div class="ap-brain-node ap-brain-node-8"><span>Klantdata</span><em>persoonlijke context</em></div>
-              <div class="ap-brain-node ap-brain-node-9"><span>Menselijke fallback</span><em>als het nodig is</em></div>
+
+              <div class="ap-ai-brain-map-panel">
+                <span class="ap-ai-brain-axis ap-ai-brain-axis-v"></span>
+                <span class="ap-ai-brain-axis ap-ai-brain-axis-h"></span>
+                <div class="ap-ai-brain-core-new">
+                  <strong>AI brein</strong>
+                  <span>begrijpt, checkt en beslist</span>
+                </div>
+                <button class="ap-ai-brain-step is-active ap-ai-step-1" type="button" data-brain-step="intake"><span>01</span>Vraag verduidelijken</button>
+                <button class="ap-ai-brain-step ap-ai-step-2" type="button" data-brain-step="context"><span>02</span>Context ophalen</button>
+                <button class="ap-ai-brain-step ap-ai-step-3" type="button" data-brain-step="beleid"><span>03</span>Beleid toepassen</button>
+                <button class="ap-ai-brain-step ap-ai-step-4" type="button" data-brain-step="actie"><span>04</span>Actie bepalen</button>
+              </div>
             </div>
-            <div class="ap-brain-flow">
-              <span>01 Begrijpt gesprek</span><span>02 Raadpleegt kennis</span><span>03 Checkt planning</span><span>04 Voert actie uit</span><span>05 Rapporteert terug</span>
+
+            <div class="ap-ai-brain-right">
+              <div class="ap-ai-brain-tabs" role="tablist" aria-label="AI brein stappen">
+                <button class="is-active" type="button" data-brain-tab="intake">Intake</button>
+                <button type="button" data-brain-tab="context">Context</button>
+                <button type="button" data-brain-tab="beleid">Beleid</button>
+                <button type="button" data-brain-tab="actie">Actie</button>
+              </div>
+              <article class="ap-ai-brain-detail">
+                <div class="ap-kicker" data-brain-kicker>Stap 01</div>
+                <h3 data-brain-title>De AI maakt van losse input een duidelijke vervolgstap.</h3>
+                <p data-brain-copy>Hij herkent intentie, urgentie, waarde en ontbrekende informatie. Daarna stelt hij gericht door, zodat je team direct weet wat er moet gebeuren.</p>
+                <div class="ap-ai-brain-tags" data-brain-tags>
+                  <span>Intentie herkend</span>
+                  <span>Urgentie bepaald</span>
+                  <span>Ontbrekende velden uitgevraagd</span>
+                  <span>Samenvatting voorbereid</span>
+                </div>
+              </article>
             </div>
-            <div class="ap-memory-note">Op nichepagina's krijgt dit brein branchekennis: van proefritten tot triage, claims, tickets, reserveringen en offertes.</div>
           </div>
         </div>
       </section>
@@ -257,11 +267,11 @@
         <div class="ap-container">
           <div class="ap-section-head">
             <div class="ap-kicker">Voor wie</div>
-            <h2 class="ap-section-title">SEO-landingspagina's per niche, met dezelfde sterke basis.</h2>
-            <p class="ap-text">Elke niche krijgt een eigen customer journey, eigen zoekintentie en eigen business case. Autobedrijven is de eerste prioriteit.</p>
+            <h2 class="ap-section-title">Voor iedere branche een eigen route naar <span class="ap-title-accent">AI proof werken.</span></h2>
+            <p class="ap-text">Elke niche krijgt een eigen klantreis, eigen voorbeeldgesprekken, eigen rekentool en eigen AI-brein. Zo ziet iedere ondernemer direct hoe AI in zijn of haar praktijk werkt.</p>
           </div>
           <div class="ap-niche-grid">
-            <a class="ap-niche-link" data-icon="" href="branch-preview.html?branche=autobedrijven"><span>Autobedrijven</span><strong>SEO prioriteit</strong></a>
+            <a class="ap-niche-link" data-icon="" href="branch-preview.html?branche=autobedrijven"><span>Autobedrijven</span><strong>Bekijk route</strong></a>
             <a class="ap-niche-link" data-icon="" href="branch-preview.html?branche=cosmetische-klinieken"><span>Cosmetische klinieken</span><strong>Bekijk route</strong></a>
             <a class="ap-niche-link" data-icon="" href="branch-preview.html?branche=dakdekkers"><span>Dakdekkers</span><strong>Bekijk route</strong></a>
             <a class="ap-niche-link" data-icon="" href="branch-preview.html?branche=dierenarts"><span>Dierenarts</span><strong>Bekijk route</strong></a>
@@ -291,7 +301,7 @@
           <div class="ap-section-head">
             <div class="ap-kicker">Proces</div>
             <h2 class="ap-section-title">Kies Chat, Voice of allebei en zie precies wat er gebeurt.</h2>
-            <p class="ap-text">Dit wordt een live verkoopsectie: bezoekers zien van links naar rechts hoe Autopilots klantcontact overneemt, afspraken plant en CRM/follow-up verwerkt.</p>
+            <p class="ap-text">Je ziet van links naar rechts hoe Autopilots klantcontact overneemt, afspraken plant en CRM/follow-up verwerkt.</p>
           </div>
           <div class="ap-process-mode">
             <div class="ap-scenario-tabs" aria-label="Proces keuze">
@@ -317,7 +327,7 @@
           <div class="ap-section-head">
             <div class="ap-kicker">Interactieve demo's</div>
             <h2 class="ap-section-title">Laat bezoekers per niche voelen wat de AI echt doet.</h2>
-            <p class="ap-text">De huidige embeds gebruiken voorbeeldgesprekken, voice-tests, intakeflows en bookingframes. In de nieuwe website worden dit vaste modules die we per niche en per taal kunnen vullen.</p>
+            <p class="ap-text">Bekijk hoe voorbeeldgesprekken, voice-tests, intakeflows en bookingframes samenkomen in een route die per niche en per taal kan worden ingericht.</p>
           </div>
           <div class="ap-showcase-grid">
             <div class="ap-card ap-scenario-card">
@@ -374,28 +384,13 @@
         </div>
       </section>
 
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-dark-band">
-            <div class="ap-kicker">Internationaal schaalbaar</div>
-            <h2 class="ap-section-title">Dezelfde demo-module, maar met andere taal, markt en zoekintentie.</h2>
-            <p class="ap-text">Voor internationale SEO bouwen we niet alleen vertalingen. Elke nichepagina krijgt eigen scenario's, lokale woorden, FAQ's, metadata en CTA's. Zo wordt "AI voor autobedrijven" ook "AI for car dealerships" en later per land verder aangescherpt.</p>
-            <div class="ap-dark-grid">
-              <div><span class="ap-step">NL</span><h3>Nederlands</h3><p>AI voor autobedrijven, makelaars, tandartsen, installateurs en servicebedrijven.</p></div>
-              <div><span class="ap-step">EN</span><h3>English</h3><p>AI for car dealerships, real estate agencies, hotels and service companies.</p></div>
-              <div><span class="ap-step">DE</span><h3>Deutsch</h3><p>KI fuer Autohaeuser, Immobilienmakler, Hotels und lokale Dienstleister.</p></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="ap-section ap-final" id="contact">
         <div class="ap-container">
           <div class="ap-final-box">
             <div>
               <div class="ap-kicker">Volgende stap</div>
-              <h2 class="ap-section-title">Klaar om de nieuwe website als systeem te bouwen?</h2>
-              <p class="ap-text">We starten met de homepage, daarna de niche-template en daarna alle niches met internationale SEO-structuur.</p>
+              <h2 class="ap-section-title">Klaar om AI proof te worden?</h2>
+              <p class="ap-text">We kijken waar klantcontact, planning, opvolging of CRM nu druk geeft en bouwen daar de eerste praktische AI route voor.</p>
             </div>
             <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan een afspraak</a>
           </div>

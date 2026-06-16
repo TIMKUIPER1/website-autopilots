@@ -147,12 +147,12 @@ Standaard voor website en landingpage H1:
 
 ```css
 h1 {
-  font-size: clamp(38px, calc(6vw - 12px), 66px);
-  line-height: 1.06;
+  font-size: clamp(34px, calc(5vw - 12px), 54px);
+  line-height: 1.07;
 }
 ```
 
-Gebruik alleen grotere H1's als er bewust een hero-campagnebeeld is met veel negatieve ruimte. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's en afspraakpagina's is 66px de desktop bovengrens.
+Gebruik de procespagina als maatlat voor desktop H1's. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's, crew en afspraakpagina's is 54px de desktop bovengrens.
 
 ### **H2 desktop formaat**
 
@@ -184,6 +184,30 @@ Standaard:
 - Geen extreem compacte titelblokken waarbij rood en zwart visueel aan elkaar plakken
 
 Als een titel over meerdere regels loopt, moet de regelafstand rustig en premium voelen. Liever iets meer hoogte dan te agressief compacte typografie.
+
+## **Kennisbank en SEO blog standaard**
+
+Kennisbankpagina's moeten altijd voelen als een route, niet als een losse lijst met artikelen.
+
+Gebruik bij de hoofdpagina van de kennisbank altijd twee duidelijke keuzes:
+
+- AI kennis: algemene AI kennis, OpenAI, Claude, AI nieuws, tools, AI zoeken en nichegerichte AI uitleg.
+- Autopilots kennis: onze implementaties, klantreizen, AI-breinen, CRM-acties, livegang, support en optimalisatie.
+
+De routekeuze moet visueel direct duidelijk zijn met een links/rechts keuze, een middenpijl of route-indicator en daarna een sectie met laatste kennis plus zoekfunctie.
+
+Blogpagina's moeten SEO-proof en conversiegericht zijn:
+
+- Een duidelijke H1 met de zoekintentie.
+- De laatste woorden van de H1 krijgen de rode italic accentstijl.
+- Korte samenvatting bovenaan met direct antwoord.
+- Inhoudsopgave voor scanbaarheid.
+- Praktijkvoorbeelden, nichecontext en concrete systeemacties.
+- FAQ-blok voor bezwaren en structured data.
+- Interne links naar diensten, voor wie, proces, kennisbank en afspraak.
+- Duidelijke CTA aan het einde: bekijk route, bereken resultaat of plan afspraak.
+
+Schrijf blogcontent nooit als generieke AI-uitleg. De lezer moet voelen dat Autopilots het probleem van zijn bedrijf begrijpt en AI praktisch, persoonlijk en productie-waardig maakt.
 
 ## **Layout regels**
 
@@ -220,11 +244,13 @@ Gebruik geen emoji's of losse symbolen als diensticoon.
 
 Diensticonen moeten voelen als high-end SaaS producticonen:
 
-- Zwarte rounded square
-- Witte custom lijniconen
+- Witte rounded square als basis
+- Roestbruine custom lijniconen in dezelfde kleur als het AP-logo
 - Subtiele beweging of pulse mag
 - Duidelijk herkenbaar per dienst
 - Geen smileys, standaard emoji's of willekeurige tekens
+
+Voor wie/niche-iconen volgen dezelfde stijl: witte achtergrond, roestbruin lijnicoon, logisch passend bij het onderwerp. Dus autobedrijven krijgen een auto/voorraad-signaal, tandartsen een tand, dakdekkers een dak, verzekeraars een schild, enzovoort.
 
 Autopilots CRM is de uitzondering: gebruik daar altijd het AP CRM-logo als trademark-icoon. Dit logo blijft wit met roestbruine AP-markering en wordt gebruikt in de CRM-pagina, het dienstenmenu, de dienstenconsole en alle CRM-kaarten.
 
@@ -297,6 +323,27 @@ Optioneel 3 cards onder de hero
 Belangrijke H1-regel:
 
 Elke hero H1 eindigt met een scheve rode tekst. Gebruik hiervoor altijd een laatste span met `ap-title-accent` of dezelfde styling: roestbruin, italic, stevig font-weight. Dus niet alleen midden in de zin een accent; het laatste visuele deel van de titel moet de rode italic punchline zijn.
+
+### **Kennisbank pagina**
+
+Een Autopilots kennisbankpagina start met een duidelijke keuze tussen twee routes:
+
+AI kennis  
+Autopilots kennis
+
+AI kennis gaat over tools, ontwikkelingen, OpenAI, Claude, AI nieuws, algemene AI uitleg en nichegerichte AI toepassingen zoals AI voor installatiebedrijven, dakdekkers, autobedrijven, tandartsen en vastgoedbeheer.
+
+Autopilots kennis gaat over onze eigen visie, AI-breinen, klantreizen, implementatieproces, koppelingen, CRM-acties, voice, chat, follow-up, livegang, monitoring en optimalisatie.
+
+Visueel patroon:
+
+Twee grote keuzevlakken bovenaan.  
+Links AI kennis.  
+Rechts Autopilots kennis.  
+Daaronder een dynamisch paneel dat verandert op basis van de gekozen route.  
+Onder dat paneel komt een overzicht met wat je in de kennisbank kan vinden.
+
+De kennisbank moet educatief voelen, maar nog steeds premium, commercieel en visueel. Niet als een blogoverzicht met losse artikelen. Het moet voelen als een kenniscentrum dat ondernemers helpt betere AI keuzes te maken.
 
 Voorbeeld structuur:
 
@@ -861,6 +908,33 @@ Is het niet te druk?
 Is het geen generieke AI marketing?  
 Legt de pagina uit waarom dit werkt?  
 Is duidelijk wat de volgende stap is?
+
+## **Niche landingspagina standaard**
+
+Nichepagina's zijn belangrijke advertentiepagina's en mogen nooit generiek voelen.
+
+Elke nichepagina moet specifiek laten zien:
+
+De dagelijkse realiteit van de branche  
+De herkenbare frustraties van de ondernemer of het team  
+De persoonlijke AI oplossing in taal van die niche  
+Een voorbeeldgesprek dat bij de branche past  
+Een AI brein met branchekennis  
+Een ROI calculator met tijdwinst en extra klanten of waarde  
+Softwarekoppelingen die de doelgroep herkent  
+FAQ's die echte bezwaren wegnemen  
+Een duidelijke volgende stap richting afspraak
+
+Gebruik geen interne woorden zoals prompt, SEO-structuur, zoekintentie, niche-template of demo-module als zichtbare websitetekst.
+
+Softwarelogo's op nichepagina's mogen als rustige zwarte tekst-logo's worden weergegeven wanneer echte logo-assets niet beschikbaar of niet high-end genoeg zijn. Houd ze monochroom, compact en strak.
+
+Voor advertentieverkeer moet iedere nichepagina voelen alsof deze alleen voor die branche is geschreven. Bijvoorbeeld:
+
+Kappers: rust in de salon, telefoon tijdens behandelingen, avondboekers, WhatsApp/Instagram, behandeltijden en salonsoftware.  
+Autobedrijven: proefritten, voorraadvragen, inruil, CRM en snelle leadopvolging.  
+Vastgoedbeheer: huurdersmeldingen, tickets, leveranciers, statusvragen en urgentie.  
+Verzekeraars: claims, polisvragen, documentchecks en dossierroutering.
 
 ## **Belangrijkste regel**
 
