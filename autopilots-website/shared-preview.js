@@ -314,33 +314,23 @@ document.querySelectorAll(".ap-niche-link").forEach((link) => {
 const apKnowledgeStates = {
   ai: {
     kicker: "AI kennis",
-    title: "Begrijp wat er verandert voordat je achterloopt.",
-    copy: "AI ontwikkelt snel. In deze kennisbank verzamelen we praktische uitleg over OpenAI, Claude, automation, voice agents, chat agents, AI zoekgedrag en nichetoepassingen voor bedrijven.",
+    title: "Volg AI ontwikkelingen zonder de praktische toepassing te verliezen.",
+    copy: "AI verandert snel. Deze route vertaalt OpenAI, Claude, automation, voice agents, chat agents, AI zoekgedrag en nichetoepassingen naar concrete keuzes voor bedrijven.",
+    tags: ["OpenAI", "Claude", "AI nieuws", "Nichetoepassingen"],
     libraryKicker: "Laatste AI kennis",
     libraryTitle: "Nieuwe AI inzichten, vertaald naar bedrijfswaarde.",
-    libraryCopy: "Zoek op tools, branches, klantcontact of automatisering. De artikelen zijn opgebouwd rond duidelijke zoekintentie, praktische voorbeelden en vervolgstappen.",
+    libraryCopy: "Zoek op tools, branches, klantcontact of automatisering. Elk artikel vertaalt ontwikkelingen naar duidelijke keuzes, voorbeelden en vervolgstappen.",
     placeholder: "Zoek op OpenAI, Claude, voice AI...",
-    items: [
-      ["OpenAI", "Modellen, agents en praktische toepassingen voor bedrijven."],
-      ["Claude", "Research, documenten, denkkracht en workflow-denken."],
-      ["Niches", "AI voor dakdekkers, installatie, autobedrijven, zorg en meer."],
-      ["Nieuws", "Laatste ontwikkelingen vertaald naar kansen in je operatie."],
-    ],
   },
   autopilots: {
     kicker: "Autopilots kennis",
     title: "Zie hoe Autopilots AI persoonlijk en productie-waardig maakt.",
     copy: "Hier leggen we onze aanpak uit: AI-breinen, klantreizen, koppelingen, CRM-acties, voice en chat flows, livegang, monitoring en optimalisatie op basis van echte gesprekken.",
+    tags: ["AI-brein", "Klantreis", "CRM-acties", "Livegang"],
     libraryKicker: "Laatste Autopilots kennis",
     libraryTitle: "Hoe Autopilots AI omzet naar werkende systemen.",
     libraryCopy: "Zoek op implementatie, klantreis, AI-brein, CRM, voice, chat of optimalisatie. Deze kennis komt uit hoe wij systemen ontwerpen, bouwen en verbeteren.",
     placeholder: "Zoek op AI-brein, CRM, proces, livegang...",
-    items: [
-      ["AI-brein", "Hoe bedrijfskennis, regels, scripts en fallback samenkomen."],
-      ["Klantreis", "Van eerste vraag naar afspraak, ticket, offerte of overdracht."],
-      ["Koppelingen", "CRM, calendar, WhatsApp, mail, formulieren en API-acties."],
-      ["Livegang", "Hoe we testen, monitoren en blijven verbeteren na publicatie."],
-    ],
   },
 };
 
@@ -502,17 +492,16 @@ const renderApKnowledgeResults = (key, query = "") => {
 const renderApKnowledge = (key) => {
   const state = apKnowledgeStates[key] || apKnowledgeStates.ai;
   const panel = document.querySelector("[data-knowledge-panel]");
-  if (!panel) return;
   apKnowledgeActiveKey = key;
 
   document.querySelectorAll("[data-knowledge-tab]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.knowledgeTab === key);
   });
 
-  const kicker = panel.querySelector("[data-knowledge-kicker]");
-  const title = panel.querySelector("[data-knowledge-title]");
-  const copy = panel.querySelector("[data-knowledge-copy]");
-  const consoleItems = panel.querySelector(".ap-knowledge-console");
+  const kicker = panel?.querySelector("[data-knowledge-kicker]");
+  const title = panel?.querySelector("[data-knowledge-title]");
+  const copy = panel?.querySelector("[data-knowledge-copy]");
+  const tags = panel?.querySelector("[data-knowledge-tags]");
   const libraryKicker = document.querySelector("[data-library-kicker]");
   const libraryTitle = document.querySelector("[data-library-title]");
   const libraryCopy = document.querySelector("[data-library-copy]");
@@ -521,6 +510,7 @@ const renderApKnowledge = (key) => {
   if (kicker) kicker.textContent = state.kicker;
   if (title) title.textContent = state.title;
   if (copy) copy.textContent = state.copy;
+  if (tags) tags.innerHTML = state.tags.map((tag) => `<span>${tag}</span>`).join("");
   if (libraryKicker) libraryKicker.textContent = state.libraryKicker;
   if (libraryTitle) libraryTitle.textContent = state.libraryTitle;
   if (libraryCopy) libraryCopy.textContent = state.libraryCopy;
@@ -528,12 +518,6 @@ const renderApKnowledge = (key) => {
     searchInput.placeholder = state.placeholder;
     searchInput.value = "";
   }
-  if (consoleItems) {
-    consoleItems.innerHTML = state.items
-      .map(([label, text]) => `<div><span>${label}</span><strong>${text}</strong></div>`)
-      .join("");
-  }
-
   renderApKnowledgeResults(key);
 };
 

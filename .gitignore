@@ -4,3 +4,5 @@ node_modules/
 .env.*
 *.log
 sales-dashboard/
+autopilots-website/.astro/
+autopilots-website/dist/

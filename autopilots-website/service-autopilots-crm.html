@@ -16,6 +16,7 @@
           <a href="preview-homepage.html?v=10#branches">Voor wie</a>
           <a href="process-preview.html">Proces</a>
           <a href="crew-preview.html">Crew</a>
+          <a href="knowledge-preview.html">Kennisbank</a>
         </nav>
         <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
       </div>
@@ -166,6 +167,31 @@
         </div>
       </section>
 
+      <section class="ap-section" id="crm-roi">
+        <div class="ap-container">
+          <div class="ap-section-head">
+            <div class="ap-kicker">CRM calculator</div>
+            <h2 class="ap-section-title">Bereken wat minder handwerk en snellere opvolging <span class="ap-title-accent">oplevert.</span></h2>
+            <p class="ap-lead">Autopilots CRM wordt pas interessant als je team minder hoeft te zoeken, sneller opvolgt en meer kansen zichtbaar blijven.</p>
+          </div>
+          <div class="ap-service-roi-grid" data-crm-roi>
+            <div class="ap-service-roi-inputs">
+              <label><span>Leads en klantmomenten per maand</span><strong data-crm-roi-value="volume">180</strong><input data-crm-roi-input="volume" type="range" min="40" max="650" value="180"></label>
+              <label><span>Minuten administratie per lead</span><strong data-crm-roi-value="minutes">9</strong><input data-crm-roi-input="minutes" type="range" min="2" max="30" value="9"></label>
+              <label><span>Opvolging die automatisch loopt</span><strong data-crm-roi-value="rate">58%</strong><input data-crm-roi-input="rate" type="range" min="20" max="90" value="58"></label>
+              <label><span>Gemiddelde marge per extra klant</span><strong data-crm-roi-value="margin">€650</strong><input data-crm-roi-input="margin" type="range" min="100" max="3000" step="50" value="650"></label>
+            </div>
+            <div class="ap-service-roi-results">
+              <article><span>Netjes verwerkt</span><strong data-crm-roi-result="processed">0</strong><em>leads per maand</em></article>
+              <article><span>Uren teruggewonnen</span><strong data-crm-roi-result="hours">0</strong><em>voor sales en operatie</em></article>
+              <article><span>Waarde per maand</span><strong data-crm-roi-result="timeValue">€0</strong><em>op basis van minder handwerk</em></article>
+              <article><span>Extra klanten</span><strong data-crm-roi-result="extraClients">0</strong><em>door betere opvolging</em></article>
+              <article class="is-dark"><span>Extra marge</span><strong data-crm-roi-result="extraMargin">€0</strong><em>op basis van zichtbare kansen</em></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="ap-section">
         <div class="ap-container">
           <div class="ap-section-head">
@@ -196,5 +222,39 @@
     </main>
 
     <script src="shared-preview.js"></script>
+    <script>
+      const crmRoiRoot = document.querySelector("[data-crm-roi]");
+      const crmEuro = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+      const crmNumber = new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 1 });
+      const updateCrmRoi = () => {
+        if (!crmRoiRoot) return;
+        const get = (key) => Number(crmRoiRoot.querySelector(`[data-crm-roi-input="${key}"]`)?.value || 0);
+        const volume = get("volume");
+        const minutes = get("minutes");
+        const rate = get("rate");
+        const margin = get("margin");
+        const processed = Math.round(volume * (rate / 100));
+        const hours = (processed * minutes) / 60;
+        const extraClients = Math.max(1, Math.round(processed * 0.035));
+        const values = { volume, minutes, rate: `${rate}%`, margin: crmEuro.format(margin) };
+        Object.entries(values).forEach(([key, value]) => {
+          const el = crmRoiRoot.querySelector(`[data-crm-roi-value="${key}"]`);
+          if (el) el.textContent = value;
+        });
+        const results = {
+          processed: crmNumber.format(processed),
+          hours: crmNumber.format(hours),
+          timeValue: crmEuro.format(hours * 55),
+          extraClients: crmNumber.format(extraClients),
+          extraMargin: crmEuro.format(extraClients * margin)
+        };
+        Object.entries(results).forEach(([key, value]) => {
+          const el = crmRoiRoot.querySelector(`[data-crm-roi-result="${key}"]`);
+          if (el) el.textContent = value;
+        });
+      };
+      crmRoiRoot?.querySelectorAll("[data-crm-roi-input]").forEach((input) => input.addEventListener("input", updateCrmRoi));
+      updateCrmRoi();
+    </script>
   </body>
 </html>

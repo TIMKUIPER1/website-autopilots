@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { knowledgeArticles } from "../../content/knowledgeArticles";
+
+const featured = knowledgeArticles[0];
+---
+
+<BaseLayout
+  title="Autopilots kennisbank | AI kennis en implementatiekennis"
+  description="Kies je route: AI kennis over tools, modellen en ontwikkelingen of Autopilots kennis over klantreizen, AI-breinen, CRM-acties en livegang."
+  canonical="/kennisbank/"
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Autopilots kennisbank",
+    "description": "Kennisbank met AI kennis en Autopilots implementatiekennis voor bedrijven die AI praktisch willen toepassen.",
+    "url": "https://auto-pilots.io/kennisbank/",
+    "mainEntity": knowledgeArticles.map((article) => ({
+      "@type": "BlogPosting",
+      "headline": article.title,
+      "url": `https://auto-pilots.io/kennisbank/${article.slug}/`,
+      "description": article.description
+    }))
+  })} />
+
+  <section class="ap-section ap-knowledge-hero">
+    <div class="ap-container">
+      <div class="ap-kicker">Autopilots kennisbank</div>
+      <h1 class="ap-page-title">Je staat op de splitsing. Kies links AI kennis of rechts <span class="ap-accent">Autopilots kennis.</span></h1>
+      <p class="ap-lead">
+        Links vind je kennis over AI tools, modellen, OpenAI, Claude, AI nieuws en nichetoepassingen.
+        Rechts vind je hoe Autopilots AI omzet naar werkende systemen: klantreizen, AI-breinen, CRM-acties,
+        livegang, support en optimalisatie.
+      </p>
+      <div class="ap-actions">
+        <a class="ap-button ap-button-primary" href="#kennisroutes">Kies kennisroute</a>
+        <a class="ap-button ap-button-secondary" href="/afspraak/">Bespreek je AI route</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-knowledge-routes" id="kennisroutes" aria-label="Kennisroutes">
+    <div class="ap-container ap-grid-2">
+      <article class="ap-card ap-route-card">
+        <div class="ap-kicker">Route 01</div>
+        <h2>Ga naar AI kennis.</h2>
+        <p class="ap-text">Tools, modellen, OpenAI, Claude, AI nieuws, voice agents, chat agents en nichegerichte AI uitleg voor bedrijven die vooruit willen.</p>
+        <a class="ap-button ap-button-secondary" href="#laatste-kennis">Bekijk laatste AI kennis</a>
+      </article>
+      <article class="ap-card ap-route-card ap-route-card-dark">
+        <div class="ap-kicker">Route 02</div>
+        <h2>Ga naar Autopilots kennis.</h2>
+        <p class="ap-text">Onze AI-breinen, klantreizen, koppelingen, CRM-acties, livegang, monitoring en lessen uit echte implementaties.</p>
+        <a class="ap-button ap-button-primary" href="#laatste-kennis">Bekijk Autopilots kennis</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="ap-section" id="laatste-kennis">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-kicker">Laatste kennis</div>
+        <h2 class="ap-section-title">Laatste kennis voor ondernemers die AI praktisch willen toepassen.</h2>
+        <p class="ap-lead">
+          Lees praktische uitleg over tools, klantcontact, branches, implementatie en systemen die in de dagelijkse operatie blijven werken.
+        </p>
+      </div>
+
+      <div class="ap-article-feature">
+        <a class="ap-card ap-feature-card" href={`/kennisbank/${featured.slug}/`}>
+          <span class="ap-feature-label">{featured.category}</span>
+          <h3>{featured.cardTitle}</h3>
+          <p>{featured.excerpt}</p>
+          <div class="ap-chip-row">
+            <span class="ap-chip">{featured.label}</span>
+            <span class="ap-chip">{featured.readTime}</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ap-article-grid">
+        {knowledgeArticles.slice(1).map((article) => (
+          <a class="ap-card ap-article-card" href={`/kennisbank/${article.slug}/`}>
+            <span>{article.category}</span>
+            <h3>{article.cardTitle}</h3>
+            <p>{article.excerpt}</p>
+            <div class="ap-chip-row">
+              <em>{article.label}</em>
+              <em>{article.readTime}</em>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

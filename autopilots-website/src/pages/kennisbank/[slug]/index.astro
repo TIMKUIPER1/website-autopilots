@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { knowledgeArticles, type KnowledgeArticle } from "../../../content/knowledgeArticles";
+
+export function getStaticPaths() {
+  return knowledgeArticles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+interface Props {
+  article: KnowledgeArticle;
+}
+
+const { article } = Astro.props;
+const canonical = `/kennisbank/${article.slug}/`;
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: article.title,
+  description: article.description,
+  datePublished: article.published,
+  dateModified: article.modified,
+  mainEntityOfPage: `https://auto-pilots.io${canonical}`,
+  author: {
+    "@type": "Organization",
+    name: "Autopilots"
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Autopilots",
+    url: "https://auto-pilots.io"
+  },
+  keywords: article.keywords.join(", ")
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: article.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
+---
+
+<BaseLayout title={`${article.title} | Autopilots kennisbank`} description={article.description} canonical={canonical}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="ap-section ap-blog-hero">
+    <div class="ap-container">
+      <nav class="ap-breadcrumb" aria-label="Breadcrumb">
+        <a href="/kennisbank/">Kennisbank</a>
+        <span>/</span>
+        <a href="/kennisbank/#laatste-kennis">AI kennis</a>
+        <span>/</span>
+        <strong>{article.category}</strong>
+      </nav>
+
+      <div class="ap-blog-hero-grid">
+        <div>
+          <div class="ap-kicker">{article.category}</div>
+          <h1 class="ap-page-title">
+            {article.title.replace(article.accent, "")}
+            <span class="ap-accent">{article.accent}</span>
+          </h1>
+          <p class="ap-lead">{article.excerpt}</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" href="#kort-antwoord">Lees het antwoord</a>
+            <a class="ap-button ap-button-secondary" href="/kennisbank/">Terug naar kennisbank</a>
+          </div>
+        </div>
+
+        <aside class="ap-card ap-blog-intent" aria-label="Leesroute">
+          <h2>Leesroute.</h2>
+          <dl>
+            <div><dt>Vraag</dt><dd>{article.intent}</dd></div>
+            <div><dt>Doelgroep</dt><dd>{article.audience}</dd></div>
+            <div><dt>Belofte</dt><dd>{article.promise}</dd></div>
+            <div><dt>Vervolgstap</dt><dd>{article.conversion}</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="kort-antwoord">
+    <div class="ap-container ap-blog-layout">
+      <article class="ap-blog-article">
+        <div class="ap-blog-summary">
+          <div class="ap-kicker">Kort antwoord</div>
+          <h2>{article.title}</h2>
+          <ul>
+            {article.summary.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        {article.sections.map((section) => (
+          <section id={section.id}>
+            <div class="ap-kicker">{section.eyebrow}</div>
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            )}
+          </section>
+        ))}
+
+        {article.examples && (
+          <section id="praktijkvoorbeelden">
+            <div class="ap-kicker">Praktijk</div>
+            <h2>Voorbeelden uit echte klantreizen.</h2>
+            <div class="ap-blog-example">
+              {article.examples.map((example) => (
+                <div>
+                  <strong>{example.title}</strong>
+                  <p>{example.text}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section id="praktische-context">
+          <div class="ap-kicker">Praktijk</div>
+          <h2>Wanneer dit onderwerp relevant wordt.</h2>
+          <p>
+            Herken je een van deze situaties, dan is dit onderwerp waarschijnlijk nu al relevant voor je bedrijf.
+            Gebruik de begrippen hieronder als snelle route naar de juiste vervolgstap.
+          </p>
+          <div class="ap-keyword-list">
+            {article.keywords.map((keyword) => <span>{keyword}</span>)}
+          </div>
+        </section>
+
+        <section id="bronnen">
+          <div class="ap-kicker">Onderzoek</div>
+          <h2>Bronnen en richtinggevende documentatie.</h2>
+          <p>
+            De tekst is gebaseerd op actuele documentatie en praktijkervaring, vertaald naar concrete keuzes voor Nederlandse bedrijven.
+          </p>
+          <div class="ap-source-list">
+            {article.sources.map((source) => (
+              <a href={source.href} target="_blank" rel="noreferrer">{source.label}</a>
+            ))}
+          </div>
+        </section>
+
+        <section id="faq" class="ap-blog-faq">
+          <div class="ap-kicker">FAQ</div>
+          <h2>Veelgestelde vragen.</h2>
+          {article.faq.map((item, index) => (
+            <details open={index === 0}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </section>
+
+        <div class="ap-blog-cta">
+          <div>
+            <div class="ap-kicker">Volgende stap</div>
+            <h2 class="ap-section-title">Wil je weten welke AI route voor jouw bedrijf logisch is?</h2>
+            <p class="ap-lead">We kijken naar je klantcontact, bottlenecks, CRM, planning en opvolging. Daarna kiezen we de eerste flow die het snelst waarde oplevert.</p>
+          </div>
+          <a class="ap-button ap-button-primary" href="/afspraak/">Plan afspraak</a>
+        </div>
+      </article>
+
+      <aside class="ap-blog-sidebar">
+        <div class="ap-card ap-blog-sidebar-card">
+          <h2>Inhoud.</h2>
+          <nav class="ap-blog-toc" aria-label="Inhoudsopgave">
+            <a href="#kort-antwoord">Kort antwoord <span>01</span></a>
+            {article.sections.map((section, index) => (
+              <a href={`#${section.id}`}>{section.eyebrow} <span>{String(index + 2).padStart(2, "0")}</span></a>
+            ))}
+            <a href="#faq">FAQ <span>{String(article.sections.length + 3).padStart(2, "0")}</span></a>
+          </nav>
+        </div>
+
+        <div class="ap-card ap-blog-sidebar-card">
+          <h2>Pagina details.</h2>
+          <ul>
+            <li>{article.label}</li>
+            <li>{article.readTime} leestijd</li>
+            <li>Geupdate op 19 juni 2026</li>
+            <li>Praktische voorbeelden en FAQ</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-kicker">Gerelateerde kennis</div>
+      <h2 class="ap-section-title">Lees logisch verder.</h2>
+      <div class="ap-related-grid">
+        {article.related.map((item) => (
+          <a class="ap-card" href={item.href}>
+            <span>{item.label}</span>
+            <h3>{item.title}</h3>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
