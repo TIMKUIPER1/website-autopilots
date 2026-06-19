@@ -152,19 +152,19 @@
           <div>
             <div class="ap-kicker">Persoonlijk AI brein</div>
             <h2 data-brain-title>Een AI brein voor deze branche.</h2>
-            <p class="ap-lead" data-brain-copy>Hierin staat opgeslagen hoe de AI moet reageren, welke vragen gesteld worden, welke uitzonderingen gelden en wanneer een mens moet overnemen.</p>
-            <p class="ap-lead" style="font-size:16px;margin-top:14px">Elke vraag, afspraak, voorkeur, uitzondering en vervolgstap wordt vastgelegd. Daardoor wordt de AI niet afstandelijker, maar persoonlijker: klanten hoeven minder te herhalen en het team krijgt steeds betere context.</p>
+            <p class="ap-lead" data-brain-copy>Het brein neemt contactmomenten op: vragen, voorkeuren, afspraken, uitzonderingen en opvolging. Zo reageert de AI steeds persoonlijker zonder dat klanten opnieuw hoeven uit te leggen wie ze zijn.</p>
+            <p class="ap-lead" style="font-size:16px;margin-top:14px">Elke nieuwe vraag maakt het systeem slimmer. Niet kouder of technischer, maar juist menselijker: je team krijgt betere context en klanten voelen sneller dat ze begrepen worden.</p>
           </div>
           <div class="ap-brain">
             <div class="ap-brain-core"></div>
-            <div class="ap-brain-chip" data-brain-1>Triage regels</div>
-            <div class="ap-brain-chip" data-brain-2>CRM geheugen</div>
-            <div class="ap-brain-chip" data-brain-3>Agenda logica</div>
-            <div class="ap-brain-chip" data-brain-4>Menselijke fallback</div>
+            <div class="ap-brain-chip" data-brain-1>Klantvragen</div>
+            <div class="ap-brain-chip" data-brain-2>Voorkeuren</div>
+            <div class="ap-brain-chip" data-brain-3>Afspraken</div>
+            <div class="ap-brain-chip" data-brain-4>Menselijke hulp</div>
             <div class="ap-brain-data" aria-label="AI brein datalaag">
-              <div><strong>Contactdata</strong><span>Vraag, intentie en voorkeur.</span></div>
-              <div><strong>Systeemactie</strong><span>CRM, agenda, ticket of taak.</span></div>
-              <div><strong>Toekomst</strong><span>Persoonlijkere opvolging.</span></div>
+              <div><strong>Gesprek</strong><span>Wat iemand vraagt, kiest of nodig heeft.</span></div>
+              <div><strong>Context</strong><span>Eerdere afspraken, voorkeuren en contactmomenten.</span></div>
+              <div><strong>Actie</strong><span>Boeken, opvolgen of warm doorzetten.</span></div>
             </div>
           </div>
         </div>
@@ -466,12 +466,13 @@
           es:{label:"Espanol",lines:["Quiero planificar esto con vuestro equipo.","Le ayudo directamente. Cual es la situacion, el horario preferido y sus datos?","Esta semana me va bien. Envien la confirmacion por correo.","Listo. He planificado la cita y enviado la confirmacion."],result:"Cita planificada. CRM actualizado con contexto, preferencia y siguiente paso. Correo de seguimiento enviado al cliente."}
         };
         var brain={
-          tandartsen:["AI brein voor tandartspraktijken.","Het brein kent triagevragen, spoedregels, behandeltypes, agenda-afspraken en wanneer de balie of tandarts moet overnemen.",["Spoedtriage","Patientkaart","Agenda slots","Balie fallback"]],
-          vastgoedbeheerders:["AI brein voor vastgoedbeheer.","Het brein kent huurdersmeldingen, adressen, tickettypes, leveranciers, urgenties en terugkoppeling naar bewoners.",["Ticketregels","Adresdata","Leveranciers","Statusupdates"]],
-          verzekeraars:["AI brein voor verzekeraars.","Het brein kent claimtypes, polisvragen, documentchecks, urgenties en routing naar schade, acceptatie of service.",["Claimtypes","Poliscontext","Documenten","Schaderouting"]],
-          makelaars:["AI brein voor makelaars.","Het brein kent woningen, bezichtigingsregels, kandidaatkwalificatie, financieringsvragen en overdracht naar de makelaar.",["Objectkennis","Kandidaatdata","Agenda slots","Makelaar fallback"]],
-          autobedrijven:["AI brein voor autobedrijven.","Het brein kent voorraad, proefritten, inruilvragen, leadstatussen en overdracht naar verkoop.",["Voorraad","Proefritten","Inruilvragen","Verkoop CRM"]]
-        }[slug]||["AI brein voor "+item.name+".","Het brein kent de belangrijkste vragen, uitzonderingen, planning, CRM-velden en overdracht voor "+item.name+".",["Intake regels","CRM velden","Planning","Fallback"]];
+          tandartsen:["AI brein voor tandartspraktijken.","Het brein herkent pijnklachten, spoedvragen, behandelwensen, afspraken en wanneer de balie of tandarts persoonlijk moet meekijken.",["Pijnklachten","Patientcontext","Afspraakwens","Balie hulp"]],
+          vastgoedbeheerders:["AI brein voor vastgoedbeheer.","Het brein begrijpt huurdersmeldingen, adressen, reparaties, urgenties en welke terugkoppeling bewoners nodig hebben.",["Melding","Adrescontext","Urgentie","Bewoner update"]],
+          verzekeraars:["AI brein voor verzekeraars.","Het brein herkent claims, polisvragen, ontbrekende documenten, urgentie en welke afdeling de klant verder helpt.",["Claimvraag","Poliscontext","Documenten","Juiste afdeling"]],
+          makelaars:["AI brein voor makelaars.","Het brein onthoudt woningen, kijkwensen, kandidaatprofiel, financieringsvragen en wanneer de makelaar moet overnemen.",["Woonwens","Kandidaat","Bezichtiging","Makelaar hulp"]],
+          autobedrijven:["AI brein voor autobedrijven.","Het brein begrijpt voorraadvragen, proefritten, inruilwensen, aankoopfase en wanneer verkoop direct moet opvolgen.",["Voorraadvraag","Proefrit","Inruilwens","Verkoopactie"]],
+          "cosmetische-klinieken":["AI brein voor cosmetische klinieken.","Het brein herkent behandelvragen, consultwensen, nazorg, twijfel en wanneer een specialist persoonlijk moet meekijken.",["Behandelvraag","Consultwens","Nazorg","Specialist hulp"]]
+        }[slug]||["AI brein voor "+item.name+".","Het brein neemt de belangrijkste vragen, voorkeuren, afspraken en uitzonderingen van "+item.name+" op en zet die om naar persoonlijke opvolging.",["Klantvragen","Voorkeuren","Afspraken","Menselijke hulp"]];
         var landing=landingContent[slug]||landingContent.autobedrijven;
         function setText(selector,value){var el=document.querySelector(selector);if(el)el.textContent=value;}
         function renderCards(selector,items,template){
