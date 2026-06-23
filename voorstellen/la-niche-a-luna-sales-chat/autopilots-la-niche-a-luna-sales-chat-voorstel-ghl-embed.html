@@ -1,0 +1,1312 @@
+<div id="ap-luna-proposal">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    #ap-luna-proposal {
+      --ap-bg: #f5f5f2;
+      --ap-card: #ffffff;
+      --ap-soft: #eeeeea;
+      --ap-soft-2: #f8f8f5;
+      --ap-text: #111111;
+      --ap-muted: #656565;
+      --ap-line: rgba(0, 0, 0, 0.1);
+      --ap-brown: #9f3826;
+      --ap-brown-dark: #7d2a1d;
+      --ap-black: #111111;
+      --ap-white: #ffffff;
+      width: 100%;
+      background: var(--ap-bg);
+      color: var(--ap-text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #ap-luna-proposal * {
+      box-sizing: border-box;
+    }
+
+    #ap-luna-proposal h1,
+    #ap-luna-proposal h2,
+    #ap-luna-proposal h3,
+    #ap-luna-proposal p {
+      margin: 0;
+    }
+
+    #ap-luna-proposal a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    #ap-luna-proposal .ap-section {
+      padding: 80px 0;
+    }
+
+    #ap-luna-proposal .ap-container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    #ap-luna-proposal .ap-center {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #ap-luna-proposal .ap-eyebrow,
+    #ap-luna-proposal .ap-number,
+    #ap-luna-proposal .ap-price {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+    }
+
+    #ap-luna-proposal .ap-eyebrow {
+      margin-bottom: 20px;
+      color: var(--ap-brown);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    #ap-luna-proposal .ap-hero-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(36px, calc(5vw - 10px), 58px);
+      line-height: 1.07;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    #ap-luna-proposal .ap-italic {
+      color: var(--ap-brown);
+      font-style: italic;
+    }
+
+    #ap-luna-proposal .ap-lead {
+      max-width: 790px;
+      margin: 24px auto 0;
+      color: var(--ap-muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.62;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    #ap-luna-proposal .ap-button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 14px 24px;
+      border: 1px solid transparent;
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 850;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    #ap-luna-proposal .ap-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #ap-luna-proposal .ap-button-primary {
+      background: var(--ap-brown);
+      color: var(--ap-white);
+      box-shadow: 0 14px 30px rgba(159, 56, 38, 0.16);
+    }
+
+    #ap-luna-proposal .ap-button-primary:hover {
+      background: var(--ap-brown-dark);
+    }
+
+    #ap-luna-proposal .ap-button-secondary {
+      background: var(--ap-white);
+      border-color: var(--ap-line);
+      color: var(--ap-text);
+    }
+
+    #ap-luna-proposal .ap-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+    }
+
+    #ap-luna-proposal .ap-mini-card,
+    #ap-luna-proposal .ap-card,
+    #ap-luna-proposal .ap-panel,
+    #ap-luna-proposal .ap-package,
+    #ap-luna-proposal details {
+      background: var(--ap-card);
+      border: 1px solid var(--ap-line);
+      border-radius: 28px;
+      box-shadow: 0 16px 48px rgba(17, 17, 17, 0.06);
+    }
+
+    #ap-luna-proposal .ap-mini-card {
+      min-height: 144px;
+      padding: 22px;
+      text-align: left;
+    }
+
+    #ap-luna-proposal .ap-mini-card span {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--ap-brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-mini-card strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.18;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-section-head {
+      max-width: 900px;
+      margin-bottom: 42px;
+    }
+
+    #ap-luna-proposal .ap-section-head.center {
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+
+    #ap-luna-proposal .ap-title {
+      max-width: 900px;
+      font-size: clamp(30px, calc(4.5vw - 6px), 52px);
+      line-height: 1.07;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    #ap-luna-proposal .ap-section-text {
+      max-width: 760px;
+      margin-top: 18px;
+      color: var(--ap-muted);
+      font-size: 17px;
+      line-height: 1.62;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-section-head.center .ap-section-text {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    #ap-luna-proposal .ap-dark {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background: var(--ap-black);
+      color: var(--ap-white);
+      padding: 50px;
+    }
+
+    #ap-luna-proposal .ap-dark::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      bottom: -130px;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      background: rgba(159, 56, 38, 0.36);
+      filter: blur(36px);
+      pointer-events: none;
+    }
+
+    #ap-luna-proposal .ap-dark > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    #ap-luna-proposal .ap-dark .ap-eyebrow {
+      color: #e4a092;
+    }
+
+    #ap-luna-proposal .ap-dark .ap-section-text,
+    #ap-luna-proposal .ap-dark p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #ap-luna-proposal .ap-diagnosis-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    #ap-luna-proposal .ap-pain-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-luna-proposal .ap-pain-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    #ap-luna-proposal .ap-number {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: var(--ap-white);
+      color: var(--ap-brown);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-pain-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ap-white);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-pain-item p {
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-grid-3,
+    #ap-luna-proposal .ap-grid-2 {
+      display: grid;
+      gap: 16px;
+    }
+
+    #ap-luna-proposal .ap-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    #ap-luna-proposal .ap-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #ap-luna-proposal .ap-card {
+      padding: 28px;
+    }
+
+    #ap-luna-proposal .ap-card h3 {
+      margin: 18px 0 10px;
+      font-size: 22px;
+      line-height: 1.13;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-card p {
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.58;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-icon {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background: #fbf2ef;
+      color: var(--ap-brown);
+    }
+
+    #ap-luna-proposal .ap-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #ap-luna-proposal .ap-brain {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    #ap-luna-proposal .ap-brain-tabs {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-luna-proposal .ap-brain-tab {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid var(--ap-line);
+      border-radius: 20px;
+      background: var(--ap-card);
+      color: var(--ap-text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    #ap-luna-proposal .ap-brain-tab:hover,
+    #ap-luna-proposal .ap-brain-tab.is-active {
+      transform: translateY(-1px);
+      border-color: rgba(159, 56, 38, 0.34);
+      background: #fbf2ef;
+    }
+
+    #ap-luna-proposal .ap-brain-tab span {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      background: var(--ap-black);
+      color: var(--ap-white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-brain-tab strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-brain-panel {
+      position: relative;
+      min-height: 100%;
+      overflow: hidden;
+      border-radius: 30px;
+      background: var(--ap-black);
+      color: var(--ap-white);
+      padding: 32px;
+    }
+
+    #ap-luna-proposal .ap-brain-panel::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -70px;
+      bottom: -90px;
+      border-radius: 50%;
+      background: rgba(159, 56, 38, 0.45);
+      filter: blur(30px);
+    }
+
+    #ap-luna-proposal .ap-brain-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    #ap-luna-proposal .ap-brain-label {
+      color: #e4a092;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    #ap-luna-proposal .ap-brain-panel h3 {
+      max-width: 620px;
+      margin-top: 18px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.06;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-brain-panel p {
+      max-width: 680px;
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 17px;
+      line-height: 1.62;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    #ap-luna-proposal .ap-tags span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    #ap-luna-proposal .ap-flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-luna-proposal .ap-flow-row {
+      display: grid;
+      grid-template-columns: 58px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      border-radius: 24px;
+      background: var(--ap-card);
+      border: 1px solid var(--ap-line);
+      padding: 16px;
+      box-shadow: 0 14px 36px rgba(17, 17, 17, 0.045);
+    }
+
+    #ap-luna-proposal .ap-flow-row strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-flow-row p {
+      margin-top: 5px;
+      color: var(--ap-muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #fbf2ef;
+      color: var(--ap-brown);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    #ap-luna-proposal details {
+      overflow: hidden;
+    }
+
+    #ap-luna-proposal summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px 24px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    #ap-luna-proposal summary::-webkit-details-marker {
+      display: none;
+    }
+
+    #ap-luna-proposal summary strong {
+      font-size: 19px;
+      line-height: 1.22;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-plus {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--ap-black);
+      color: var(--ap-white);
+      font-size: 20px;
+      font-weight: 800;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    #ap-luna-proposal details[open] .ap-plus {
+      transform: rotate(45deg);
+      background: var(--ap-brown);
+    }
+
+    #ap-luna-proposal .ap-detail-body {
+      padding: 0 24px 24px;
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.62;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-detail-body ul,
+    #ap-luna-proposal .ap-package ul {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-luna-proposal .ap-detail-body li,
+    #ap-luna-proposal .ap-package li {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    #ap-luna-proposal .ap-detail-body li::before,
+    #ap-luna-proposal .ap-package li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ap-brown);
+    }
+
+    #ap-luna-proposal .ap-package {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 34px;
+    }
+
+    #ap-luna-proposal .ap-package-main h3 {
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.06;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-package-main p {
+      max-width: 670px;
+      margin-top: 16px;
+      color: var(--ap-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 550;
+    }
+
+    #ap-luna-proposal .ap-price-card {
+      border-radius: 28px;
+      background: var(--ap-black);
+      color: var(--ap-white);
+      padding: 28px;
+    }
+
+    #ap-luna-proposal .ap-price-row {
+      display: grid;
+      gap: 6px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-luna-proposal .ap-price-row:first-child {
+      padding-top: 0;
+    }
+
+    #ap-luna-proposal .ap-price-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    #ap-luna-proposal .ap-price-label {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    #ap-luna-proposal .ap-price {
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    #ap-luna-proposal .ap-price-note {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    #ap-luna-proposal .ap-final {
+      padding-bottom: 94px;
+    }
+
+    #ap-luna-proposal .ap-final-box {
+      border-radius: 34px;
+      background: linear-gradient(135deg, #111111 0%, #1b1513 58%, #38170f 100%);
+      color: var(--ap-white);
+      padding: 54px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #ap-luna-proposal .ap-final-box .ap-eyebrow {
+      color: #e4a092;
+    }
+
+    #ap-luna-proposal .ap-final-box .ap-lead {
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    @media (max-width: 980px) {
+      #ap-luna-proposal .ap-hero-grid,
+      #ap-luna-proposal .ap-grid-3,
+      #ap-luna-proposal .ap-diagnosis-grid,
+      #ap-luna-proposal .ap-brain,
+      #ap-luna-proposal .ap-package {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-luna-proposal .ap-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      #ap-luna-proposal .ap-section {
+        padding: 58px 0;
+      }
+
+      #ap-luna-proposal .ap-container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      #ap-luna-proposal .ap-hero-title {
+        font-size: clamp(38px, 12vw, 52px);
+      }
+
+      #ap-luna-proposal .ap-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #ap-luna-proposal .ap-button {
+        width: 100%;
+      }
+
+      #ap-luna-proposal .ap-dark,
+      #ap-luna-proposal .ap-final-box,
+      #ap-luna-proposal .ap-package {
+        padding: 26px;
+        border-radius: 28px;
+      }
+
+      #ap-luna-proposal .ap-flow-row {
+        grid-template-columns: 48px 1fr;
+      }
+
+      #ap-luna-proposal .ap-flow-row .ap-pill {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      #ap-luna-proposal summary {
+        padding: 20px;
+      }
+
+      #ap-luna-proposal .ap-detail-body {
+        padding: 0 20px 22px;
+      }
+    }
+  </style>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">Voorstel La Niche à Luna</div>
+        <h1 class="ap-hero-title">
+          Maak Rachel haar productkennis schaalbaar met <span class="ap-italic">AI Sales Chat.</span>
+        </h1>
+        <p class="ap-lead">
+          Een AI medewerker die klantvragen via webshop, mail, Messenger en Instagram opvangt, gericht doorvraagt,
+          producten adviseert op basis van Rachel haar expertise en complexe situaties veilig doorzet.
+        </p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="#ap-luna-package">Bekijk investering</a>
+          <a class="ap-button ap-button-secondary" href="#ap-luna-process">Bekijk implementatie</a>
+        </div>
+      </div>
+
+      <div class="ap-hero-grid">
+        <div class="ap-mini-card">
+          <span>01</span>
+          <strong>Lightspeed webshop als productbasis</strong>
+        </div>
+        <div class="ap-mini-card">
+          <span>02</span>
+          <strong>Rachel haar kennis wordt vastgelegd</strong>
+        </div>
+        <div class="ap-mini-card">
+          <span>03</span>
+          <strong>Meta, mail en websitechat in één flow</strong>
+        </div>
+        <div class="ap-mini-card">
+          <span>04</span>
+          <strong>Escalatie bij twijfel of risico</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-dark">
+        <div class="ap-diagnosis-grid">
+          <div>
+            <div class="ap-eyebrow">Analyse uit het gesprek</div>
+            <h2 class="ap-title">De webshop draait op productkennis die nu vooral in Rachel haar hoofd zit.</h2>
+            <p class="ap-section-text">
+              Het volume aan vragen is nog overzichtelijk. De echte kwetsbaarheid zit in afhankelijkheid:
+              specifieke productinformatie, dieradvies en uitzonderingen worden nu handmatig door Rachel beoordeeld.
+            </p>
+          </div>
+
+          <div class="ap-pain-list">
+            <div class="ap-pain-item">
+              <span class="ap-number">01</span>
+              <div>
+                <strong>Alle communicatie komt uiteindelijk bij Rachel uit</strong>
+                <p>Mail, Messenger en Instagram vragen vragen steeds opnieuw om dezelfde expertise en nuance.</p>
+              </div>
+            </div>
+            <div class="ap-pain-item">
+              <span class="ap-number">02</span>
+              <div>
+                <strong>Productinformatie is niet altijd compleet genoeg</strong>
+                <p>Bij gevoelige onderwerpen zoals hypoallergeen advies moet de AI weten wat wel en niet gezegd mag worden.</p>
+              </div>
+            </div>
+            <div class="ap-pain-item">
+              <span class="ap-number">03</span>
+              <div>
+                <strong>De organisatie is afhankelijk van één kennisdrager</strong>
+                <p>Als Rachel wegvalt, vertraagt service, productadvies en verkoopondersteuning direct.</p>
+              </div>
+            </div>
+            <div class="ap-pain-item">
+              <span class="ap-number">04</span>
+              <div>
+                <strong>Verkoopkansen blijven reactief</strong>
+                <p>Klanten krijgen antwoord, maar nog niet altijd een begeleid advies richting het juiste product.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head center">
+        <div class="ap-eyebrow">Wat we bouwen</div>
+        <h2 class="ap-title">Een AI productadviseur die eerst begrijpt, daarna pas adviseert.</h2>
+        <p class="ap-section-text">
+          De AI medewerker wordt geen simpele FAQ-bot. Hij stelt intakevragen, koppelt de situatie aan producten,
+          bewaakt de adviesgrenzen en leert van correcties van Rachel.
+        </p>
+      </div>
+
+      <div class="ap-grid-3">
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+          </span>
+          <h3>Lightspeed productkoppeling</h3>
+          <p>Productdata, categorieën, voorraad, varianten en relevante productvelden worden gebruikt als basis voor advies en verkoopondersteuning.</p>
+        </div>
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3v18M5 8h14M7 16h10"></path></svg>
+          </span>
+          <h3>Rachel kennisbank</h3>
+          <p>We vertalen Rachel haar expertise naar procedures, adviesregels, uitzonderingen en veilige antwoordkaders.</p>
+        </div>
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg>
+          </span>
+          <h3>Websitechat en interne chat</h3>
+          <p>Klanten krijgen hulp op de webshop en het team kan dezelfde AI intern gebruiken om productkennis snel terug te vinden.</p>
+        </div>
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.5L4 18z"></path><path d="M8 8h8M8 12h5"></path></svg>
+          </span>
+          <h3>Mail en Meta afhandeling</h3>
+          <p>Vragen via mail, Messenger en Instagram worden opgevangen, beantwoord of voorbereid voor Rachel.</p>
+        </div>
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.3 8-8 9-4.7-1-8-4-8-9V7z"></path><path d="M9 12l2 2 4-5"></path></svg>
+          </span>
+          <h3>Veilige escalatie</h3>
+          <p>Bij medische klachten, allergierisico, twijfel of ontbrekende kennis zet de AI het gesprek direct door naar Rachel.</p>
+        </div>
+        <div class="ap-card">
+          <span class="ap-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M8 17V9"></path><path d="M12 19V3"></path><path d="M16 15v-5"></path><path d="M20 17V7"></path></svg>
+          </span>
+          <h3>Lerende feedbackloop</h3>
+          <p>Als Rachel een antwoord corrigeert of aanvult, wordt die kennis verwerkt zodat de AI steeds beter wordt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-eyebrow">AI brein</div>
+        <h2 class="ap-title">De kracht zit in het omzetten van ervaring naar procedures.</h2>
+        <p class="ap-section-text">
+          We bouwen een gecontroleerde kennislaag waarin productdata, Rachel haar expertise en eerdere gesprekken samenkomen.
+        </p>
+      </div>
+
+      <div class="ap-brain">
+        <div class="ap-brain-tabs" role="tablist" aria-label="AI brein onderdelen">
+          <button class="ap-brain-tab is-active" type="button" data-ap-brain="products">
+            <span>01</span>
+            <strong>Productdata uit Lightspeed</strong>
+          </button>
+          <button class="ap-brain-tab" type="button" data-ap-brain="rachel">
+            <span>02</span>
+            <strong>Rachel haar adviesregels</strong>
+          </button>
+          <button class="ap-brain-tab" type="button" data-ap-brain="channels">
+            <span>03</span>
+            <strong>Gesprekken uit mail en socials</strong>
+          </button>
+          <button class="ap-brain-tab" type="button" data-ap-brain="safety">
+            <span>04</span>
+            <strong>Escalatie en veiligheidsgrenzen</strong>
+          </button>
+        </div>
+
+        <div class="ap-brain-panel" aria-live="polite">
+          <div class="ap-brain-label" data-ap-brain-label>Datalaag</div>
+          <h3 data-ap-brain-title>De AI kent producten, voorraad, categorieën en productcontext.</h3>
+          <p data-ap-brain-copy>
+            De Lightspeed koppeling zorgt dat de AI niet los adviseert van de webshop. Producten worden gekoppeld aan categorie,
+            voorraad, doelgroep, eigenschappen en relevante verkoopcontext.
+          </p>
+          <div class="ap-tags" data-ap-brain-tags>
+            <span>Productexport</span>
+            <span>Voorraad</span>
+            <span>Categorieën</span>
+            <span>Varianten</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head center">
+        <div class="ap-eyebrow">Voorbeeldflow</div>
+        <h2 class="ap-title">Van losse vraag naar gericht productadvies.</h2>
+        <p class="ap-section-text">
+          De AI geeft niet zomaar een productnaam. Eerst wordt de situatie helder gemaakt, daarna volgt pas een passend advies.
+        </p>
+      </div>
+
+      <div class="ap-flow">
+        <div class="ap-flow-row">
+          <span class="ap-number">01</span>
+          <div>
+            <strong>Klant stelt een vraag</strong>
+            <p>Bijvoorbeeld via Instagram: mijn hond reageert slecht op bepaalde voeding, wat raden jullie aan?</p>
+          </div>
+          <span class="ap-pill">Meta, mail of website</span>
+        </div>
+        <div class="ap-flow-row">
+          <span class="ap-number">02</span>
+          <div>
+            <strong>AI stelt intakevragen</strong>
+            <p>Diersoort, leeftijd, gewicht, klachten, huidige voeding, allergieën, voorkeuren en urgentie.</p>
+          </div>
+          <span class="ap-pill">Context verzamelen</span>
+        </div>
+        <div class="ap-flow-row">
+          <span class="ap-number">03</span>
+          <div>
+            <strong>AI matcht met kennisbank en producten</strong>
+            <p>De AI combineert Rachel haar regels met productinformatie uit Lightspeed en geeft een veilige shortlist.</p>
+          </div>
+          <span class="ap-pill">Advies op maat</span>
+        </div>
+        <div class="ap-flow-row">
+          <span class="ap-number">04</span>
+          <div>
+            <strong>Twijfel of risico gaat naar Rachel</strong>
+            <p>Bij medische signalen, allergierisico of ontbrekende kennis wordt het gesprek samengevat en doorgezet.</p>
+          </div>
+          <span class="ap-pill">Human handoff</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-luna-process">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-eyebrow">Implementatieproces</div>
+        <h2 class="ap-title">We bouwen eerst het brein, daarna pas de kanalen.</h2>
+        <p class="ap-section-text">
+          Voor La Niche à Luna is kenniskwaliteit belangrijker dan snelheid. Daarom starten we met data, intake en escalatieregels.
+        </p>
+      </div>
+
+      <div class="ap-grid-2">
+        <details open>
+          <summary>
+            <strong>1. Product- en kanaaldata verzamelen</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            We verzamelen de basis waarmee de AI betrouwbaar kan werken.
+            <ul>
+              <li>Lightspeed productexport</li>
+              <li>Top 50 meest verkochte producten</li>
+              <li>Top 30 meest gestelde vragen</li>
+              <li>Voorbeelden van Messenger, Instagram en mailgesprekken</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>2. Rachel intake en advieskaders</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            We houden twee gerichte sessies met Rachel om expertise om te zetten naar herbruikbare procedures.
+            <ul>
+              <li>Wat mag de AI zelfstandig adviseren?</li>
+              <li>Wanneer moet Rachel meekijken?</li>
+              <li>Welke productclaims zijn gevoelig?</li>
+              <li>Welke situaties mogen nooit automatisch worden afgehandeld?</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>3. AI brein en verkoopflow bouwen</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            We bouwen de kennisbank, intakeflow, productmatching, antwoordstijl en escalatielogica.
+            <ul>
+              <li>Productadvies op basis van dier, situatie en voorkeur</li>
+              <li>Antwoorden in de juiste tone of voice</li>
+              <li>Escalatie naar Rachel met gesprekssamenvatting</li>
+              <li>Interne chatversie voor het team</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>4. Livegang, controle en optimalisatie</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            Na livegang blijven we meekijken op kwaliteit, correcties en uitbreiding van het AI brein.
+            <ul>
+              <li>Testen op webshop, mail en Meta scenario's</li>
+              <li>Feedback van Rachel verwerken</li>
+              <li>Nieuwe productkennis toevoegen</li>
+              <li>Optimaliseren op verkoopadvies en veilige afhandeling</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-luna-package">
+    <div class="ap-container">
+      <div class="ap-section-head center">
+        <div class="ap-eyebrow">Voorstel</div>
+        <h2 class="ap-title">Complete AI Sales Chat voor La Niche à Luna.</h2>
+        <p class="ap-section-text">
+          Eén pakket waarin we het AI brein, de verkoopassistent, de kanaalkoppelingen en de feedbackloop samen opzetten.
+        </p>
+      </div>
+
+      <div class="ap-package">
+        <div class="ap-package-main">
+          <h3>Inclusief alles wat nodig is om Rachel haar kennis schaalbaar te maken.</h3>
+          <p>
+            Dit pakket is ingericht op een dierenwebshop waar productadvies gevoelig en contextafhankelijk is.
+            De AI wordt gebouwd als eerste support- en verkooplaag, met Rachel als expert-backup.
+          </p>
+          <ul>
+            <li>AI brein op basis van Rachel haar productexpertise</li>
+            <li>Lightspeed product- en voorraadkoppeling als kennisbron</li>
+            <li>Websitechat voor klanten op de webshop</li>
+            <li>Interne AI chat voor teamleden</li>
+            <li>Meta Messenger en Instagram intakeflow</li>
+            <li>Mail support flow voor productvragen</li>
+            <li>Productadvies op basis van dier, probleem, voorkeur en context</li>
+            <li>Escalatie naar Rachel bij twijfel, risico of ontbrekende kennis</li>
+            <li>Feedbackloop waarin correcties van Rachel worden verwerkt</li>
+            <li>Implementatieproces met productexport, FAQ's, gesprekshistorie en twee Rachel intake sessies</li>
+          </ul>
+        </div>
+
+        <div class="ap-price-card">
+          <div class="ap-price-row">
+            <span class="ap-price-label">Implementatie</span>
+            <span class="ap-price">$6.950</span>
+            <span class="ap-price-note">Eenmalig voor setup, kennisbank, flows, koppelingen, testfase en livegang.</span>
+          </div>
+          <div class="ap-price-row">
+            <span class="ap-price-label">Maandelijks</span>
+            <span class="ap-price">$749</span>
+            <span class="ap-price-note">Voor hosting, onderhoud, monitoring, optimalisatie en uitbreiding van het AI brein.</span>
+          </div>
+          <div class="ap-price-row">
+            <span class="ap-price-label">Focus</span>
+            <span class="ap-price-note">Niet zoveel mogelijk automatiseren, maar betrouwbaar advies schaalbaar maken.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-section-head">
+        <div class="ap-eyebrow">FAQ</div>
+        <h2 class="ap-title">Belangrijke afspraken voordat de AI zelfstandig antwoordt.</h2>
+      </div>
+
+      <div class="ap-grid-2">
+        <details>
+          <summary>
+            <strong>Kan de AI medisch advies geven?</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            Nee. De AI geeft productinformatie en helpt met aankoopadvies binnen afgesproken kaders. Bij medische klachten,
+            twijfel of risicosituaties wordt het gesprek doorgezet naar Rachel of wordt geadviseerd contact op te nemen met een dierenarts.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>Waarom is Rachel haar intake zo belangrijk?</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            Omdat de website en productdata niet genoeg context bevatten voor gevoelige productkeuzes. Rachel haar nuance bepaalt wat de AI wel,
+            niet en alleen onder voorwaarden mag zeggen.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>Kan de AI leren van nieuwe vragen?</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            Ja. Nieuwe situaties die de AI niet zelfstandig mag beantwoorden worden doorgezet. De reactie van Rachel kan daarna worden verwerkt
+            in de kennisbank, zodat de AI steeds completer wordt.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <strong>Welke taal gebruiken we?</strong>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-detail-body">
+            Primair Frans, omdat de webshop en klantcommunicatie daarop gericht zijn. Engels kan als extra taal worden toegevoegd wanneer dat
+            commercieel relevant is.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-final">
+    <div class="ap-container">
+      <div class="ap-final-box">
+        <div class="ap-eyebrow">Volgende stap</div>
+        <h2 class="ap-hero-title">Van persoonlijke expertise naar een schaalbaar AI brein.</h2>
+        <p class="ap-lead">
+          Zodra de productdata, gesprekshistorie en Rachel intake beschikbaar zijn, kunnen we de eerste versie van de AI medewerker bouwen,
+          testen en gecontroleerd live zetten.
+        </p>
+        <div class="ap-actions">
+          <a class="ap-button ap-button-primary" href="https://auto-pilots.io/contact">Start implementatie</a>
+          <a class="ap-button ap-button-secondary" href="#ap-luna-process">Bekijk benodigde input</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.getElementById("ap-luna-proposal");
+      if (!root) return;
+
+      var brainData = {
+        products: {
+          label: "Datalaag",
+          title: "De AI kent producten, voorraad, categorieën en productcontext.",
+          copy: "De Lightspeed koppeling zorgt dat de AI niet los adviseert van de webshop. Producten worden gekoppeld aan categorie, voorraad, doelgroep, eigenschappen en relevante verkoopcontext.",
+          tags: ["Productexport", "Voorraad", "Categorieën", "Varianten"]
+        },
+        rachel: {
+          label: "Expertiselaag",
+          title: "Rachel haar kennis wordt omgezet naar duidelijke adviesregels.",
+          copy: "We leggen vast wat bij bepaalde situaties wel en niet geadviseerd mag worden. Vooral bij allergieën, voeding, gevoeligheden en productclaims is deze laag bepalend.",
+          tags: ["Wel/niet regels", "Hypoallergeen nuance", "Productclaims", "Tone of voice"]
+        },
+        channels: {
+          label: "Gesprekslaag",
+          title: "Eerdere vragen uit mail en socials worden trainingscontext.",
+          copy: "Voorbeelden uit Messenger, Instagram en mail laten zien welke vragen klanten echt stellen. Daarmee bouwen we betere intakeflows en herkenbare antwoorden.",
+          tags: ["Messenger", "Instagram", "Mail", "Veelgestelde vragen"]
+        },
+        safety: {
+          label: "Controlelaag",
+          title: "Bij risico, twijfel of ontbrekende kennis neemt Rachel het over.",
+          copy: "De AI werkt met duidelijke grenzen. Medische signalen, heftige klachten, allergierisico of onvoldoende zekerheid worden niet zelfstandig afgehandeld.",
+          tags: ["Escalatie", "Samenvatting", "Expert handoff", "Veilig advies"]
+        }
+      };
+
+      function setBrain(key) {
+        var data = brainData[key] || brainData.products;
+        root.querySelectorAll("[data-ap-brain]").forEach(function (button) {
+          button.classList.toggle("is-active", button.getAttribute("data-ap-brain") === key);
+        });
+
+        root.querySelector("[data-ap-brain-label]").textContent = data.label;
+        root.querySelector("[data-ap-brain-title]").textContent = data.title;
+        root.querySelector("[data-ap-brain-copy]").textContent = data.copy;
+        root.querySelector("[data-ap-brain-tags]").innerHTML = data.tags.map(function (tag) {
+          return "<span>" + tag + "</span>";
+        }).join("");
+      }
+
+      root.querySelectorAll("[data-ap-brain]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          setBrain(button.getAttribute("data-ap-brain"));
+        });
+      });
+    })();
+  </script>
+</div>
+
+<script>
+(function () {
+  var marker = "ap-embed-height-sync-2026-06-23";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
+  function getHeight() {
+    var root = document.getElementById("ap-luna-proposal");
+    var body = document.body;
+    var measured = Math.max(elementBottom(root), body ? body.scrollHeight || 0 : 0, 800);
+    return Math.ceil(measured + 24);
+  }
+
+  function syncHeight() {
+    if (!window.parent || window.parent === window) return;
+    window.parent.postMessage({
+      type: "autopilots:embed-height",
+      height: getHeight(),
+      path: window.location.pathname
+    }, "*");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncHeight);
+  } else {
+    syncHeight();
+  }
+
+  window.addEventListener("load", syncHeight);
+  window.addEventListener("resize", syncHeight);
+  setTimeout(syncHeight, 250);
+  setTimeout(syncHeight, 1000);
+  setTimeout(syncHeight, 2500);
+
+  if ("ResizeObserver" in window && document.body) {
+    new ResizeObserver(syncHeight).observe(document.body);
+  }
+})();
+</script>
