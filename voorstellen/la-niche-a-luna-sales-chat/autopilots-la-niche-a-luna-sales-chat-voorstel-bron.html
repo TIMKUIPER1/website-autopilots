@@ -604,8 +604,7 @@
       padding-left: 24px;
     }
 
-    #ap-luna-proposal .ap-detail-body li::before,
-    #ap-luna-proposal .ap-package li::before {
+    #ap-luna-proposal .ap-detail-body li::before {
       content: "";
       position: absolute;
       left: 0;
@@ -621,7 +620,14 @@
       grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
       gap: 28px;
       align-items: stretch;
-      padding: 34px;
+      padding: 36px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(159, 56, 38, 0.34), transparent 34%),
+        linear-gradient(135deg, #111111 0%, #171110 48%, #3b160f 100%);
+      color: var(--ap-white);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 28px 72px rgba(17, 17, 17, 0.18);
     }
 
     #ap-luna-proposal .ap-package-main h3 {
@@ -633,17 +639,86 @@
     #ap-luna-proposal .ap-package-main p {
       max-width: 670px;
       margin-top: 16px;
-      color: var(--ap-muted);
+      color: rgba(255, 255, 255, 0.72);
       font-size: 16px;
       line-height: 1.6;
       font-weight: 550;
     }
 
+    #ap-luna-proposal .ap-package ul {
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    #ap-luna-proposal .ap-package li {
+      min-height: 34px;
+      display: flex;
+      align-items: flex-start;
+      padding-left: 46px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-package li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: inset 0 0 0 1px rgba(159, 56, 38, 0.22);
+    }
+
     #ap-luna-proposal .ap-price-card {
       border-radius: 28px;
-      background: var(--ap-black);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--ap-white);
       padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 22px 50px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(14px);
+    }
+
+    #ap-luna-proposal .ap-price-intro {
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-luna-proposal .ap-price-intro span {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    #ap-luna-proposal .ap-price-intro strong {
+      display: block;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.04;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-price-intro p {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 650;
     }
 
     #ap-luna-proposal .ap-price-row {
@@ -677,6 +752,11 @@
       letter-spacing: 0;
     }
 
+    #ap-luna-proposal .ap-price-row:nth-of-type(2) .ap-price {
+      color: #ffffff;
+      text-shadow: 0 10px 30px rgba(159, 56, 38, 0.22);
+    }
+
     #ap-luna-proposal .ap-price-note {
       color: rgba(255, 255, 255, 0.68);
       font-size: 13px;
@@ -688,6 +768,14 @@
       margin-top: 22px;
       padding-top: 22px;
       border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-luna-proposal .ap-stripe-label {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 800;
     }
 
     #ap-luna-proposal .ap-final {
@@ -1126,6 +1214,14 @@
         </div>
 
         <div class="ap-price-card">
+          <div class="ap-price-intro">
+            <span>Start package</span>
+            <strong>AI Sales Chat implementation</strong>
+            <p>
+              Built as one controlled launch package: knowledge base, channels, escalation logic,
+              testing and ongoing optimization.
+            </p>
+          </div>
           <div class="ap-price-row">
             <span class="ap-price-label">Implementation</span>
             <span class="ap-price">$6.950</span>
@@ -1146,6 +1242,7 @@
             <span class="ap-price-note">Not maximum automation at all costs, but reliable product advice at scale.</span>
           </div>
           <div class="ap-stripe-box">
+            <p class="ap-stripe-label">Ready to start? Secure the implementation directly.</p>
             <stripe-buy-button
               buy-button-id="buy_btn_1TlYkGQbNJoBxwDUMGINLWjp"
               publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
