@@ -370,7 +370,7 @@ const apKnowledgeArticles = {
       href: "blog-template-preview.html",
       date: "SEO",
       read: "5 min",
-      tags: ["seo", "ai search", "zoekintentie", "kennisbank"],
+      tags: ["seo", "ai search", "zoekgedrag", "kennisbank"],
     },
     {
       category: "Voice AI",
@@ -449,7 +449,7 @@ const apKnowledgeArticles = {
   ],
 };
 
-let apKnowledgeActiveKey = "ai";
+let apKnowledgeActiveKey = document.body?.dataset.knowledgePage || "ai";
 
 const renderApKnowledgeResults = (key, query = "") => {
   const results = document.querySelector("[data-knowledge-results]");
@@ -533,4 +533,6 @@ document.querySelector("[data-knowledge-search]")?.addEventListener("input", (ev
   renderApKnowledgeResults(apKnowledgeActiveKey, event.target.value);
 });
 
-renderApKnowledgeResults(apKnowledgeActiveKey);
+if (document.querySelector("[data-knowledge-results]")) {
+  renderApKnowledge(apKnowledgeActiveKey);
+}

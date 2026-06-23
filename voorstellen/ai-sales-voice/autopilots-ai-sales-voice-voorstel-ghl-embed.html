@@ -1536,8 +1536,8 @@ body {
             <p>Voor bedrijven die willen starten met één scenario en vooral inbound of outbound leads willen opvangen.</p>
 
             <div class="ap-price">
-              <strong>€399</strong>
-              <span>per maand, implementatie €4190</span>
+              <strong>&euro;260</strong>
+              <span>per maand, implementatie &euro;2700</span>
             </div>
           </div>
 
@@ -1584,8 +1584,8 @@ body {
             <p>Voor bedrijven die meerdere belscenario’s willen inzetten en leads automatisch willen opvolgen.</p>
 
             <div class="ap-price">
-              <strong>€559</strong>
-              <span>per maand, implementatie €5750</span>
+              <strong>&euro;365</strong>
+              <span>per maand, implementatie &euro;3750</span>
             </div>
           </div>
 
@@ -1635,8 +1635,8 @@ body {
             <p>Voor bedrijven die voice serieus als saleskanaal willen gebruiken met scoring, routing, reactivatie en optimalisatie.</p>
 
             <div class="ap-price">
-              <strong>€765</strong>
-              <span>per maand, implementatie €7899</span>
+              <strong>&euro;495</strong>
+              <span>per maand, implementatie &euro;5150</span>
             </div>
           </div>
 
@@ -1914,8 +1914,8 @@ body {
 
       const packages = {
         start: {
-          monthly: 399,
-          setup: 4190,
+          monthly: 260,
+          setup: 2700,
           flow: "inbound",
           inboundAiRate: 0.85,
           followupAiRate: 0,
@@ -1923,8 +1923,8 @@ body {
           appointmentMultiplier: 1.00
         },
         scale: {
-          monthly: 559,
-          setup: 5750,
+          monthly: 365,
+          setup: 3750,
           flow: "inboundOutbound",
           inboundAiRate: 0.95,
           followupAiRate: 0.88,
@@ -1932,8 +1932,8 @@ body {
           appointmentMultiplier: 1.10
         },
         premium: {
-          monthly: 765,
-          setup: 7899,
+          monthly: 495,
+          setup: 5150,
           flow: "inboundOutboundReactivation",
           inboundAiRate: 1.00,
           followupAiRate: 0.95,
@@ -2161,90 +2161,6 @@ body {
     })();
   </script>
 </div>
-<script src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=4" data-show-widget="false" data-auto-detect="true"></script>
-
-<script>
-(function () {
-  var marker = "ap-ghl-height-sync-2026-06-12";
-  if (window[marker]) return;
-  window[marker] = true;
-
-  function elementBottom(el) {
-    if (!el || !el.getBoundingClientRect) return 0;
-    var tag = (el.tagName || "").toUpperCase();
-    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
-    var style = window.getComputedStyle(el);
-    if (style.position === "fixed" || style.display === "none") return 0;
-    var rect = el.getBoundingClientRect();
-    if (!rect.height) return 0;
-    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
-  }
-
-  function getHeight() {
-    var body = document.body;
-    var candidates = [];
-    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
-
-    Array.prototype.forEach.call(roots, function (root) {
-      candidates.push(elementBottom(root));
-    });
-
-    if (body) {
-      body.style.overflowY = "visible";
-      Array.prototype.forEach.call(body.children, function (child) {
-        candidates.push(elementBottom(child));
-      });
-    }
-
-    document.documentElement.style.overflowY = "visible";
-
-    var measured = Math.max.apply(Math, candidates.filter(function (value) {
-      return Number.isFinite(value) && value > 0;
-    }));
-
-    if (!Number.isFinite(measured) || measured < 400) {
-      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
-    }
-
-    return Math.ceil(measured + 24);
-  }
-
-  function syncHeight() {
-    var height = getHeight();
-
-    try {
-      if (window.frameElement) {
-        window.frameElement.setAttribute("scrolling", "no");
-        window.frameElement.style.overflow = "hidden";
-        window.frameElement.style.height = height + "px";
-      }
-    } catch (error) {}
-
-    try {
-      window.parent && window.parent.postMessage({ type: "autopilots:embed-height", height: height }, "*");
-    } catch (error) {}
-  }
-
-  syncHeight();
-  window.addEventListener("load", syncHeight);
-  window.addEventListener("resize", syncHeight);
-  setTimeout(syncHeight, 250);
-  setTimeout(syncHeight, 1000);
-  setTimeout(syncHeight, 2500);
-
-  if ("ResizeObserver" in window && document.body) {
-    new ResizeObserver(syncHeight).observe(document.body);
-  }
-
-  if ("MutationObserver" in window) {
-    new MutationObserver(syncHeight).observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-      attributes: true
-    });
-  }
-})();
-</script>
 
 <script>
 (function () {

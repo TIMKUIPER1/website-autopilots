@@ -39,27 +39,29 @@
 
 .ap-knowledge-roadmap {
   position: relative;
+  min-height: 360px;
   overflow: hidden;
-  min-height: 430px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 42px;
   background:
-    radial-gradient(circle at 50% 84%, rgba(159, 56, 38, 0.52), transparent 27%),
-    radial-gradient(circle at 50% 96%, rgba(159, 56, 38, 0.24), transparent 50%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(145deg, #111 0%, #1c1c1a 100%);
-  background-size: auto, auto, 84px 84px, auto;
-  box-shadow: 0 24px 74px rgba(17, 17, 17, 0.16);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 86px 100%,
+    radial-gradient(circle at 50% 108%, rgba(159, 56, 38, 0.36), transparent 32%),
+    linear-gradient(180deg, #22211f 0%, #121211 48%, #0f0f0e 100%);
+  box-shadow: 0 28px 80px rgba(17, 17, 17, 0.18);
 }
 
 .ap-knowledge-roadmap::before {
   content: "";
   position: absolute;
-  inset: 0;
+  left: 50%;
+  bottom: -34px;
   z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.075), transparent 38%),
-    radial-gradient(circle at 50% 74%, rgba(159, 56, 38, 0.24), transparent 24%);
+  width: 250px;
+  height: 250px;
+  border: 1px solid rgba(159, 56, 38, 0.18);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(159, 56, 38, 0.18), transparent 68%);
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
@@ -67,15 +69,12 @@
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -120px;
-  z-index: 1;
-  width: 260px;
-  height: 260px;
-  border: 1px solid rgba(159, 56, 38, 0.22);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(159, 56, 38, 0.22), transparent 64%);
+  bottom: 0;
+  z-index: 3;
+  width: 2px;
+  height: 118px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.18), transparent);
   transform: translateX(-50%);
-  animation: apRoadPulseSoft 3.2s ease-in-out infinite;
   pointer-events: none;
 }
 
@@ -83,9 +82,9 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  display: block;
   width: 100%;
   height: 100%;
-  overflow: visible;
 }
 
 .ap-road-highway path {
@@ -101,14 +100,14 @@
 }
 
 .ap-road-asphalt {
-  stroke: #252522;
-  stroke-width: 92;
+  stroke: rgba(91, 91, 86, 0.88);
+  stroke-width: 102;
   stroke-linecap: round;
 }
 
 .ap-road-edge {
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 100;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 112;
   stroke-linecap: round;
   opacity: 0.86;
 }
@@ -136,23 +135,23 @@
 }
 
 .ap-road-sign {
-  top: 58px;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 330px;
-  min-height: 96px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  top: 52px;
+  min-height: 0;
+  align-items: center;
+  min-width: 0;
+  width: min(350px, 32%);
+  min-height: 88px;
+  border: 1px solid rgba(159, 56, 38, 0.18);
   background:
     radial-gradient(circle at 100% 100%, rgba(159, 56, 38, 0.22), transparent 46%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
-  color: #fff;
-  padding: 18px 30px;
-  font-size: 15px;
+    rgba(255, 255, 255, 0.96);
+  color: #111;
+  padding: 22px 64px;
+  font-size: clamp(14px, 1.1vw, 17px);
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 18px 42px rgba(0, 0, 0, 0.22);
+  text-align: center;
+  backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 22px 58px rgba(0, 0, 0, 0.18);
   animation: apRoadSignFloat 4.8s ease-in-out infinite;
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
@@ -168,80 +167,64 @@
 
 .ap-road-sign small,
 .ap-road-start small {
-  color: rgba(255, 255, 255, 0.64);
-  font-family: "Public Sans", Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0;
-  line-height: 1.2;
-  text-transform: none;
+  display: none;
 }
 
 .ap-road-sign:hover,
 .ap-road-sign.is-active {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+  transform: translateY(-5px);
+  border-color: rgba(159, 56, 38, 0.34);
+  background:
+    radial-gradient(circle at 100% 100%, rgba(159, 56, 38, 0.32), transparent 48%),
+    #fff;
+  box-shadow: 0 30px 80px rgba(17, 17, 17, 0.18);
 }
 
 .ap-road-sign-left {
-  left: 46px;
+  left: 52px;
+  justify-content: center;
+  border-color: rgba(159, 56, 38, 0.2);
+  background:
+    radial-gradient(circle at 100% 100%, rgba(159, 56, 38, 0.24), transparent 46%),
+    rgba(255, 255, 255, 0.96);
+  color: #111;
+  box-shadow: 0 26px 74px rgba(17, 17, 17, 0.16);
 }
 
 .ap-road-sign-left::before {
   content: "←";
   position: absolute;
-  left: 24px;
+  left: 30px;
   top: 50%;
   margin-right: 0;
-  color: #e4a092;
+  color: #9f3826;
   font-size: 22px;
   transform: translateY(-50%);
 }
 
 .ap-road-sign-right {
-  right: 46px;
+  right: 52px;
+  justify-content: center;
+  border-color: rgba(159, 56, 38, 0.2);
+  background:
+    radial-gradient(circle at 100% 100%, rgba(159, 56, 38, 0.24), transparent 46%),
+    rgba(255, 255, 255, 0.96);
   animation-delay: 0.55s;
 }
 
 .ap-road-sign-right::after {
   content: "→";
   position: absolute;
-  right: 24px;
+  right: 30px;
   top: 50%;
   margin-left: 0;
-  color: #e4a092;
+  color: #9f3826;
   font-size: 22px;
   transform: translateY(-50%);
 }
 
 .ap-road-start {
-  left: 50%;
-  bottom: 38px;
-  z-index: 4;
-  flex-direction: column;
-  gap: 6px;
-  width: 136px;
-  height: 136px;
-  border: 1px solid rgba(159, 56, 38, 0.28);
-  background: #fff;
-  color: var(--ap-brown);
-  font-size: 16px;
-  box-shadow: 0 14px 40px rgba(159, 56, 38, 0.18);
-  transform: translateX(-50%);
-}
-
-.ap-road-start small {
-  color: var(--ap-muted);
-}
-
-.ap-road-start::before {
-  content: "";
-  position: absolute;
-  inset: -14px;
-  border: 1px solid rgba(159, 56, 38, 0.16);
-  border-radius: inherit;
-  animation: apRoadPulse 2.8s ease-in-out infinite;
+  display: none;
 }
 
 .ap-knowledge-choice-panel {
@@ -300,6 +283,70 @@
   font-size: 24px;
   line-height: 1.1;
   font-weight: 950;
+}
+
+.ap-knowledge-route-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.ap-knowledge-route-cards article {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  border: 1px solid var(--ap-line);
+  border-radius: 34px;
+  background: #fff;
+  padding: 34px;
+  box-shadow: 0 18px 56px rgba(17, 17, 17, 0.06);
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.ap-knowledge-route-cards article:hover {
+  border-color: rgba(159, 56, 38, 0.28);
+  box-shadow: 0 24px 72px rgba(17, 17, 17, 0.08);
+  transform: translateY(-4px);
+}
+
+.ap-knowledge-route-cards span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  color: var(--ap-brown);
+  font-family: "Syne", "Public Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.ap-knowledge-route-cards h2 {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  font-size: clamp(34px, 4vw, 50px);
+  line-height: 1.05;
+  font-weight: 950;
+}
+
+.ap-knowledge-route-cards p {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin-top: 16px;
+  color: var(--ap-muted);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 620;
+}
+
+.ap-knowledge-route-cards .ap-button {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  margin-top: 28px;
 }
 
 .ap-knowledge-choice-tags {
@@ -461,6 +508,18 @@
   padding-top: 28px;
 }
 
+.ap-knowledge-index-page .ap-knowledge-library {
+  padding-top: 72px;
+}
+
+.ap-route-back {
+  display: inline-flex;
+  margin-bottom: 24px;
+  color: var(--ap-brown);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .ap-knowledge-library-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
@@ -603,6 +662,26 @@
   font-weight: 750;
 }
 
+.ap-knowledge-focus-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.ap-knowledge-focus-strip span {
+  display: inline-flex;
+  min-height: 58px;
+  align-items: center;
+  border: 1px solid var(--ap-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ap-muted);
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 850;
+}
+
 .ap-blog-frame-preview {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -666,7 +745,7 @@
 @keyframes apRoadPulseSoft {
   50% {
     opacity: 0.42;
-    transform: translateX(-50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
   }
 }
 
@@ -685,17 +764,19 @@
 @media (max-width: 940px) {
   .ap-knowledge-route-head,
   .ap-knowledge-choice-panel,
+  .ap-knowledge-route-cards,
   .ap-knowledge-route-proof,
   .ap-knowledge-grid,
   .ap-knowledge-final,
   .ap-knowledge-library-head,
   .ap-knowledge-results,
+  .ap-knowledge-focus-strip,
   .ap-blog-frame-preview {
     grid-template-columns: 1fr;
   }
 
   .ap-knowledge-roadmap {
-    min-height: 340px;
+    min-height: 330px;
   }
 }
 
@@ -715,89 +796,80 @@
   }
 
   .ap-knowledge-roadmap {
-    border-radius: 28px;
-    min-height: 345px;
-  }
-
-  .ap-road-highway {
-    width: 132%;
-    left: -16%;
-    transform: translateY(10px);
-  }
-
-  .ap-road-shadow {
-    stroke-width: 86;
-  }
-
-  .ap-road-asphalt {
-    stroke-width: 66;
-  }
-
-  .ap-road-edge {
-    stroke-width: 72;
-  }
-
-  .ap-road-lane {
-    stroke-width: 3.5;
-    stroke-dasharray: 18 20;
+    min-height: 430px;
+    border-radius: 30px;
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 58px 100%,
+      radial-gradient(circle at 50% 110%, rgba(159, 56, 38, 0.34), transparent 34%),
+      linear-gradient(180deg, #22211f 0%, #111 100%);
   }
 
   .ap-road-sign {
-    top: 26px;
-    min-width: 0;
-    width: calc(50% - 30px);
-    min-height: 72px;
-    padding: 10px 12px;
-    font-size: 9px;
-    letter-spacing: 0.9px;
+    width: calc(100% - 44px);
+    min-height: 82px;
+    border-radius: 999px;
+    padding: 16px 50px;
+    font-size: 15px;
+    transform: none;
+    animation: none;
   }
 
   .ap-road-sign small {
-    max-width: 138px;
-    font-size: 10px;
-  }
-
-  .ap-road-sign-left::before,
-  .ap-road-sign-right::after {
     display: none;
   }
 
+  .ap-road-sign-left::before {
+    left: 22px;
+    top: 50%;
+  }
+
+  .ap-road-sign-right::after {
+    right: 22px;
+    top: 50%;
+  }
+
   .ap-road-sign-left {
-    left: 14px;
+    left: 22px;
+    top: 28px;
   }
 
   .ap-road-sign-right {
-    right: 14px;
+    right: 22px;
+    top: auto;
+    bottom: 28px;
   }
 
-  .ap-road-start {
-    bottom: 36px;
-    width: 92px;
-    height: 92px;
-    font-size: 12px;
+  .ap-knowledge-roadmap::before {
+    bottom: 108px;
+    width: 180px;
+    height: 180px;
+  }
+
+  .ap-knowledge-roadmap::after {
+    bottom: 120px;
+    height: 170px;
   }
 }
 
 @media (max-width: 390px) {
   .ap-knowledge-roadmap {
-    min-height: 360px;
+    min-height: 400px;
   }
 
   .ap-road-sign {
     width: calc(100% - 32px);
+    min-height: 76px;
+    padding: 14px 44px;
+    font-size: 14px;
   }
 
   .ap-road-sign small {
     display: none;
   }
 
-  .ap-road-sign-left {
-    top: 24px;
-    left: 16px;
-  }
-
+  .ap-road-sign-left,
   .ap-road-sign-right {
-    top: 92px;
+    left: 16px;
     right: 16px;
   }
 }
@@ -4069,24 +4141,24 @@ h1 {
 
 .ap-service-capability-route {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(340px, .82fr);
-  gap: 18px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, .72fr);
+  gap: 22px;
+  align-items: start;
 }
 
 .ap-service-route-map {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  min-height: 610px;
+  gap: 16px;
+  min-height: 640px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, .13);
   border-radius: 34px;
   background:
     radial-gradient(circle at 50% 48%, rgba(159, 56, 38, .32), transparent 26%),
     linear-gradient(145deg, #151515, #101010 52%, #21120e);
-  padding: 28px;
+  padding: 88px 30px 30px;
   box-shadow: 0 22px 70px rgba(17, 17, 17, .14);
 }
 
@@ -4142,9 +4214,9 @@ h1 {
 
 .ap-service-route-steps {
   position: absolute;
-  left: 28px;
-  right: 28px;
-  top: 26px;
+  left: 30px;
+  right: 30px;
+  top: 24px;
   z-index: 4;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4240,12 +4312,15 @@ h1 {
   position: relative;
   z-index: 3;
   align-self: start;
-  min-height: 164px;
+  display: flex;
+  min-height: 148px;
+  flex-direction: column;
+  justify-content: flex-start;
   border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 24px;
   background: rgba(255, 255, 255, .07);
   color: #fff;
-  padding: 18px;
+  padding: 18px 18px 20px;
   text-align: left;
   cursor: pointer;
   box-shadow: 0 14px 40px rgba(0, 0, 0, .14);
@@ -4307,50 +4382,48 @@ h1 {
 }
 
 .ap-service-route-map button strong {
-  margin-top: 18px;
-  font-size: 18px;
+  margin-top: 20px;
+  font-size: clamp(17px, 1.35vw, 20px);
   line-height: 1.1;
   font-weight: 950;
 }
 
 .ap-service-route-map button em {
-  margin-top: 8px;
-  color: rgba(255, 255, 255, .62);
-  font-style: normal;
-  font-size: 12px;
-  line-height: 1.35;
-  font-weight: 750;
+  display: none;
 }
 
 .ap-service-route-detail {
+  position: sticky;
+  top: 104px;
   display: flex;
-  min-height: 610px;
+  min-height: 540px;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   border: 1px solid rgba(159, 56, 38, .24);
   border-radius: 34px;
   background: #fff;
-  padding: 34px;
+  padding: 38px;
   box-shadow: 0 22px 70px rgba(17, 17, 17, .08);
 }
 
 .ap-service-route-detail h3 {
-  max-width: 420px;
-  font-size: clamp(30px, 4vw, 52px);
+  max-width: 360px;
+  font-size: clamp(30px, 3.4vw, 48px);
   line-height: 1.05;
   font-weight: 950;
 }
 
 .ap-service-route-detail p {
-  margin-top: 20px;
+  display: none;
+  margin-top: 18px;
   color: var(--ap-muted);
-  font-size: 18px;
-  line-height: 1.58;
+  font-size: 16px;
+  line-height: 1.5;
   font-weight: 650;
 }
 
 .ap-service-route-output {
-  margin-top: 32px;
+  margin-top: 30px;
   border: 1px solid rgba(159, 56, 38, .24);
   border-radius: 24px;
   background: rgba(159, 56, 38, .06);
@@ -5760,6 +5833,10 @@ h1 {
     min-height: auto;
   }
 
+  .ap-service-route-detail {
+    position: static;
+  }
+
   .ap-service-route-map {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 92px 24px 24px;
@@ -6331,5 +6408,47 @@ h1 {
 
   .ap-shared-person img {
     margin: 0 auto;
+  }
+}
+
+@media (min-width: 981px) {
+  .ap-service-route-map {
+    padding-top: 122px;
+    gap: 18px;
+  }
+
+  .ap-service-route-steps {
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    gap: 18px;
+    z-index: 5;
+  }
+
+  .ap-service-route-steps span {
+    min-height: 42px;
+    padding: 0 14px;
+    opacity: .92;
+  }
+
+  .ap-service-route-map button {
+    min-height: 158px;
+    padding: 22px 18px 20px;
+  }
+
+  .ap-service-route-map button::before {
+    top: 56px;
+    left: 78px;
+    right: 24px;
+  }
+
+  .ap-service-route-map button span {
+    position: static;
+    flex: 0 0 auto;
+    margin-bottom: 18px;
+  }
+
+  .ap-service-route-map button strong {
+    margin-top: 0;
   }
 }

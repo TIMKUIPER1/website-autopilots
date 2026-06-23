@@ -1539,8 +1539,8 @@ body {
             <p>Voor bedrijven die willen starten met één kanaal en vooral inbound leads sneller willen opvangen.</p>
 
             <div class="ap-price">
-              <strong>€369</strong>
-              <span>per maand, implementatie €3790</span>
+              <strong>&euro;240</strong>
+              <span>per maand, implementatie &euro;2450</span>
             </div>
           </div>
 
@@ -1587,8 +1587,8 @@ body {
             <p>Voor bedrijven die meerdere kanalen willen inzetten en leads ook automatisch willen opvolgen.</p>
 
             <div class="ap-price">
-              <strong>€529</strong>
-              <span>per maand, implementatie €5250</span>
+              <strong>&euro;345</strong>
+              <span>per maand, implementatie &euro;3400</span>
             </div>
           </div>
 
@@ -1638,8 +1638,8 @@ body {
             <p>Voor bedrijven die chat serieus als saleskanaal willen gebruiken met scoring, routing en reactivatie.</p>
 
             <div class="ap-price">
-              <strong>€699</strong>
-              <span>per maand, implementatie €7599</span>
+              <strong>&euro;455</strong>
+              <span>per maand, implementatie &euro;4950</span>
             </div>
           </div>
 
@@ -1836,8 +1836,8 @@ body {
 
       const packages = {
         start: {
-          monthly: 369,
-          setup: 3790,
+          monthly: 240,
+          setup: 2450,
           flow: "inbound",
           directAiRate: 0.85,
           followupAiRate: 0,
@@ -1845,8 +1845,8 @@ body {
           appointmentMultiplier: 1.00
         },
         scale: {
-          monthly: 529,
-          setup: 5250,
+          monthly: 345,
+          setup: 3400,
           flow: "inboundOutbound",
           directAiRate: 0.95,
           followupAiRate: 0.90,
@@ -1854,8 +1854,8 @@ body {
           appointmentMultiplier: 1.10
         },
         premium: {
-          monthly: 699,
-          setup: 7599,
+          monthly: 455,
+          setup: 4950,
           flow: "inboundOutboundReactivation",
           directAiRate: 1.00,
           followupAiRate: 0.97,
@@ -2086,90 +2086,6 @@ body {
     })();
   </script>
 </div>
-<script src="https://timkuiper1.github.io/website-autopilots/projecten/website-translator/autopilots-translator-widget.js?v=4" data-show-widget="false" data-auto-detect="true"></script>
-
-<script>
-(function () {
-  var marker = "ap-ghl-height-sync-2026-06-12";
-  if (window[marker]) return;
-  window[marker] = true;
-
-  function elementBottom(el) {
-    if (!el || !el.getBoundingClientRect) return 0;
-    var tag = (el.tagName || "").toUpperCase();
-    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
-    var style = window.getComputedStyle(el);
-    if (style.position === "fixed" || style.display === "none") return 0;
-    var rect = el.getBoundingClientRect();
-    if (!rect.height) return 0;
-    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
-  }
-
-  function getHeight() {
-    var body = document.body;
-    var candidates = [];
-    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
-
-    Array.prototype.forEach.call(roots, function (root) {
-      candidates.push(elementBottom(root));
-    });
-
-    if (body) {
-      body.style.overflowY = "visible";
-      Array.prototype.forEach.call(body.children, function (child) {
-        candidates.push(elementBottom(child));
-      });
-    }
-
-    document.documentElement.style.overflowY = "visible";
-
-    var measured = Math.max.apply(Math, candidates.filter(function (value) {
-      return Number.isFinite(value) && value > 0;
-    }));
-
-    if (!Number.isFinite(measured) || measured < 400) {
-      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
-    }
-
-    return Math.ceil(measured + 24);
-  }
-
-  function syncHeight() {
-    var height = getHeight();
-
-    try {
-      if (window.frameElement) {
-        window.frameElement.setAttribute("scrolling", "no");
-        window.frameElement.style.overflow = "hidden";
-        window.frameElement.style.height = height + "px";
-      }
-    } catch (error) {}
-
-    try {
-      window.parent && window.parent.postMessage({ type: "autopilots:embed-height", height: height }, "*");
-    } catch (error) {}
-  }
-
-  syncHeight();
-  window.addEventListener("load", syncHeight);
-  window.addEventListener("resize", syncHeight);
-  setTimeout(syncHeight, 250);
-  setTimeout(syncHeight, 1000);
-  setTimeout(syncHeight, 2500);
-
-  if ("ResizeObserver" in window && document.body) {
-    new ResizeObserver(syncHeight).observe(document.body);
-  }
-
-  if ("MutationObserver" in window) {
-    new MutationObserver(syncHeight).observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-      attributes: true
-    });
-  }
-})();
-</script>
 
 <script>
 (function () {

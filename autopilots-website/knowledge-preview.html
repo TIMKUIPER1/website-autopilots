@@ -42,7 +42,7 @@
     </style>
     <link rel="stylesheet" href="shared-preview.css" />
   </head>
-  <body>
+  <body class="ap-knowledge-choice-page">
     <header class="ap-header">
       <div class="ap-container ap-header-inner">
         <a class="ap-logo" href="preview-homepage.html?v=10">AUTOPILOTS</a>
@@ -63,8 +63,8 @@
           <div class="ap-knowledge-route-head">
             <div>
               <div class="ap-kicker">Autopilots kennisbank</div>
-              <h1>Je staat op de splitsing. Kies links AI kennis of rechts <span class="ap-title-accent">Autopilots kennis.</span></h1>
-              <p class="ap-lead">Links vind je kennis over AI tools, modellen, OpenAI, Claude, AI nieuws en nichetoepassingen. Rechts vind je hoe Autopilots AI omzet naar werkende systemen: klantreizen, AI-breinen, CRM-acties, livegang, support en optimalisatie.</p>
+              <h1>Kies eerst je kennisroute: AI ontwikkelingen of <span class="ap-title-accent">Autopilots systemen.</span></h1>
+              <p class="ap-lead">De kennisbank is opgesplitst in twee omgevingen. AI kennis helpt je begrijpen wat er verandert in tools, modellen, zoekgedrag en branches. Autopilots kennis laat zien hoe wij die ontwikkeling vertalen naar AI-breinen, klantreizen, CRM-acties, livegang en optimalisatie.</p>
             </div>
           </div>
 
@@ -79,51 +79,28 @@
               <path class="ap-road-lane" d="M560 318 C520 218 370 144 10 214" />
               <path class="ap-road-lane" d="M560 318 C600 218 750 144 1110 214" />
             </svg>
-            <button class="ap-road-sign ap-road-sign-left is-active" type="button" data-knowledge-tab="ai">
+            <a class="ap-road-sign ap-road-sign-left" href="knowledge-ai-preview.html">
               <strong>AI kennis</strong>
-              <small>Tools, modellen, nieuws en toepassingen</small>
-            </button>
-            <span class="ap-road-start"><strong>Start</strong><small>kies route</small></span>
-            <button class="ap-road-sign ap-road-sign-right" type="button" data-knowledge-tab="autopilots">
+            </a>
+            <a class="ap-road-sign ap-road-sign-right" href="knowledge-autopilots-preview.html">
               <strong>Autopilots kennis</strong>
-              <small>AI-breinen, klantreizen en livegang</small>
-            </button>
+            </a>
           </div>
 
-          <div class="ap-knowledge-choice-panel" data-knowledge-panel>
+          <div class="ap-knowledge-route-cards" aria-label="Kennisroutes">
             <article class="ap-red-corner">
-              <div class="ap-kicker" data-knowledge-kicker>AI kennis</div>
-              <h2 data-knowledge-title>Volg AI ontwikkelingen zonder de praktische toepassing te verliezen.</h2>
-              <p data-knowledge-copy>AI verandert snel. Deze route vertaalt OpenAI, Claude, automation, voice agents, chat agents, AI zoekgedrag en nichetoepassingen naar concrete keuzes voor bedrijven.</p>
-              <div class="ap-knowledge-choice-tags" data-knowledge-tags>
-                <span>OpenAI</span>
-                <span>Claude</span>
-                <span>AI nieuws</span>
-                <span>Nichetoepassingen</span>
-              </div>
+              <span>Route 01</span>
+              <h2>AI kennis</h2>
+              <p>Voor ondernemers die willen begrijpen wat er gebeurt in AI: OpenAI, Claude, agents, realtime voice, AI zoeken, tooling en praktische toepassingen per branche.</p>
+              <a class="ap-button ap-button-secondary" href="knowledge-ai-preview.html">Ga naar AI kennis</a>
             </article>
-            <aside>
-              <strong>Hoe je deze kennisbank gebruikt</strong>
-              <p>Kies eerst je route. Zoek daarna op onderwerp, dienst of branche. Elk artikel helpt je om AI niet alleen te begrijpen, maar ook te vertalen naar klantcontact, planning, CRM of opvolging.</p>
-            </aside>
+            <article class="ap-red-corner">
+              <span>Route 02</span>
+              <h2>Autopilots kennis</h2>
+              <p>Voor bedrijven die willen zien hoe AI productie-waardig wordt: klantreizen, AI-breinen, CRM-acties, koppelingen, demo, livegang, support en optimalisatie.</p>
+              <a class="ap-button ap-button-secondary" href="knowledge-autopilots-preview.html">Ga naar Autopilots kennis</a>
+            </article>
           </div>
-        </div>
-      </section>
-
-      <section class="ap-section ap-knowledge-library" id="laatste-kennis">
-        <div class="ap-container">
-          <div class="ap-knowledge-library-head">
-            <div>
-              <div class="ap-kicker" data-library-kicker>Laatste AI kennis</div>
-              <h2 class="ap-section-title" data-library-title>Nieuwe AI inzichten, vertaald naar bedrijfswaarde.</h2>
-              <p class="ap-lead" data-library-copy>Zoek op tools, branches, klantcontact of automatisering. Elk artikel vertaalt ontwikkelingen naar duidelijke keuzes, voorbeelden en vervolgstappen.</p>
-            </div>
-            <label class="ap-knowledge-search">
-              <span>Zoeken in deze route</span>
-              <input type="search" data-knowledge-search placeholder="Zoek op OpenAI, Claude, voice AI..." />
-            </label>
-          </div>
-          <div class="ap-knowledge-results" data-knowledge-results aria-live="polite"></div>
         </div>
       </section>
 
