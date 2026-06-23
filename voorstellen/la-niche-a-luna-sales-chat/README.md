@@ -1,7 +1,8 @@
-# La Niche à Luna AI Sales Chat voorstel
+# La Niche à Luna AI Sales Chat Proposal
 
-- `autopilots-la-niche-a-luna-sales-chat-voorstel-bron.html` is de bewerkbare bronversie.
-- `autopilots-la-niche-a-luna-sales-chat-voorstel-ghl-embed.html` is de versie voor GoHighLevel.
+- `autopilots-la-niche-a-luna-sales-chat-voorstel-bron.html` is the editable source version.
+- `autopilots-la-niche-a-luna-sales-chat-voorstel-ghl-embed.html` is the GoHighLevel embed version.
+- Includes Stripe start payment and usage billing at `$0.032` per sent AI message.
 
 ## GHL iframe
 
@@ -13,4 +14,4 @@
 </iframe>
 ```
 
-Laatste vastgelegde versie: 2026-06-23.
+Last updated: 2026-06-23.

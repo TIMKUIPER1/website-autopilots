@@ -1,4 +1,6 @@
 <div id="ap-luna-proposal">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
 
@@ -682,6 +684,12 @@
       font-weight: 650;
     }
 
+    #ap-luna-proposal .ap-stripe-box {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
     #ap-luna-proposal .ap-final {
       padding-bottom: 94px;
     }
@@ -768,36 +776,36 @@
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">Voorstel La Niche à Luna</div>
+        <div class="ap-eyebrow">Proposal La Niche à Luna</div>
         <h1 class="ap-hero-title">
-          Maak Rachel haar productkennis schaalbaar met <span class="ap-italic">AI Sales Chat.</span>
+          Turn La Niche à Luna’s product expertise into a scalable <span class="ap-italic">AI Sales Chat.</span>
         </h1>
         <p class="ap-lead">
-          Een AI medewerker die klantvragen via webshop, mail, Messenger en Instagram opvangt, gericht doorvraagt,
-          producten adviseert op basis van Rachel haar expertise en complexe situaties veilig doorzet.
+          An AI employee that handles customer questions across the webshop, email, Messenger and Instagram,
+          asks the right intake questions, recommends suitable products and safely escalates complex situations.
         </p>
         <div class="ap-actions">
-          <a class="ap-button ap-button-primary" href="#ap-luna-package">Bekijk investering</a>
-          <a class="ap-button ap-button-secondary" href="#ap-luna-process">Bekijk implementatie</a>
+          <a class="ap-button ap-button-primary" href="#ap-luna-package">View investment</a>
+          <a class="ap-button ap-button-secondary" href="#ap-luna-process">View implementation</a>
         </div>
       </div>
 
       <div class="ap-hero-grid">
         <div class="ap-mini-card">
           <span>01</span>
-          <strong>Lightspeed webshop als productbasis</strong>
+          <strong>Lightspeed webshop as product foundation</strong>
         </div>
         <div class="ap-mini-card">
           <span>02</span>
-          <strong>Rachel haar kennis wordt vastgelegd</strong>
+          <strong>La Niche product expertise captured</strong>
         </div>
         <div class="ap-mini-card">
           <span>03</span>
-          <strong>Meta, mail en websitechat in één flow</strong>
+          <strong>Meta, email and website chat in one flow</strong>
         </div>
         <div class="ap-mini-card">
           <span>04</span>
-          <strong>Escalatie bij twijfel of risico</strong>
+          <strong>Escalation when confidence is low</strong>
         </div>
       </div>
     </div>
@@ -808,11 +816,11 @@
       <div class="ap-dark">
         <div class="ap-diagnosis-grid">
           <div>
-            <div class="ap-eyebrow">Analyse uit het gesprek</div>
-            <h2 class="ap-title">De webshop draait op productkennis die nu vooral in Rachel haar hoofd zit.</h2>
+            <div class="ap-eyebrow">Consultation analysis</div>
+            <h2 class="ap-title">The webshop depends on specialist product knowledge that needs to become reusable.</h2>
             <p class="ap-section-text">
-              Het volume aan vragen is nog overzichtelijk. De echte kwetsbaarheid zit in afhankelijkheid:
-              specifieke productinformatie, dieradvies en uitzonderingen worden nu handmatig door Rachel beoordeeld.
+              The current message volume is manageable. The real vulnerability is knowledge dependency:
+              product advice, animal-specific nuance and exceptions are still handled manually by the business.
             </p>
           </div>
 
@@ -820,29 +828,29 @@
             <div class="ap-pain-item">
               <span class="ap-number">01</span>
               <div>
-                <strong>Alle communicatie komt uiteindelijk bij Rachel uit</strong>
-                <p>Mail, Messenger en Instagram vragen vragen steeds opnieuw om dezelfde expertise en nuance.</p>
+                <strong>Too many questions still need expert review</strong>
+                <p>Email, Messenger and Instagram requests repeatedly rely on the same product expertise and nuance.</p>
               </div>
             </div>
             <div class="ap-pain-item">
               <span class="ap-number">02</span>
               <div>
-                <strong>Productinformatie is niet altijd compleet genoeg</strong>
-                <p>Bij gevoelige onderwerpen zoals hypoallergeen advies moet de AI weten wat wel en niet gezegd mag worden.</p>
+                <strong>Product information alone is not enough</strong>
+                <p>For sensitive topics like hypoallergenic advice, the AI must know exactly what it can and cannot say.</p>
               </div>
             </div>
             <div class="ap-pain-item">
               <span class="ap-number">03</span>
               <div>
-                <strong>De organisatie is afhankelijk van één kennisdrager</strong>
-                <p>Als Rachel wegvalt, vertraagt service, productadvies en verkoopondersteuning direct.</p>
+                <strong>The organization is too dependent on individual expertise</strong>
+                <p>If that knowledge is unavailable, service, product advice and sales support slow down immediately.</p>
               </div>
             </div>
             <div class="ap-pain-item">
               <span class="ap-number">04</span>
               <div>
-                <strong>Verkoopkansen blijven reactief</strong>
-                <p>Klanten krijgen antwoord, maar nog niet altijd een begeleid advies richting het juiste product.</p>
+                <strong>Sales opportunities stay too reactive</strong>
+                <p>Customers receive answers, but not always a guided path toward the right product for their situation.</p>
               </div>
             </div>
           </div>
@@ -854,11 +862,11 @@
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-section-head center">
-        <div class="ap-eyebrow">Wat we bouwen</div>
-        <h2 class="ap-title">Een AI productadviseur die eerst begrijpt, daarna pas adviseert.</h2>
+        <div class="ap-eyebrow">What we build</div>
+        <h2 class="ap-title">An AI product advisor that understands first, then recommends.</h2>
         <p class="ap-section-text">
-          De AI medewerker wordt geen simpele FAQ-bot. Hij stelt intakevragen, koppelt de situatie aan producten,
-          bewaakt de adviesgrenzen en leert van correcties van Rachel.
+          This is not a simple FAQ bot. The AI asks intake questions, connects the situation to product logic,
+          protects advisory boundaries and improves through expert feedback.
         </p>
       </div>
 
@@ -867,43 +875,43 @@
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
           </span>
-          <h3>Lightspeed productkoppeling</h3>
-          <p>Productdata, categorieën, voorraad, varianten en relevante productvelden worden gebruikt als basis voor advies en verkoopondersteuning.</p>
+          <h3>Lightspeed product connection</h3>
+          <p>Product data, categories, inventory, variants and relevant product fields are used as the foundation for advice and sales support.</p>
         </div>
         <div class="ap-card">
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 3v18M5 8h14M7 16h10"></path></svg>
           </span>
-          <h3>Rachel kennisbank</h3>
-          <p>We vertalen Rachel haar expertise naar procedures, adviesregels, uitzonderingen en veilige antwoordkaders.</p>
+          <h3>La Niche knowledge base</h3>
+          <p>We translate the company’s product expertise into procedures, advisory rules, exceptions and safe answer frameworks.</p>
         </div>
         <div class="ap-card">
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg>
           </span>
-          <h3>Websitechat en interne chat</h3>
-          <p>Klanten krijgen hulp op de webshop en het team kan dezelfde AI intern gebruiken om productkennis snel terug te vinden.</p>
+          <h3>Website chat and internal chat</h3>
+          <p>Customers get support on the webshop, while the team can use the same AI internally to retrieve product knowledge quickly.</p>
         </div>
         <div class="ap-card">
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.5L4 18z"></path><path d="M8 8h8M8 12h5"></path></svg>
           </span>
-          <h3>Mail en Meta afhandeling</h3>
-          <p>Vragen via mail, Messenger en Instagram worden opgevangen, beantwoord of voorbereid voor Rachel.</p>
+          <h3>Email and Meta handling</h3>
+          <p>Questions via email, Messenger and Instagram are captured, answered or prepared for expert review.</p>
         </div>
         <div class="ap-card">
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.3 8-8 9-4.7-1-8-4-8-9V7z"></path><path d="M9 12l2 2 4-5"></path></svg>
           </span>
-          <h3>Veilige escalatie</h3>
-          <p>Bij medische klachten, allergierisico, twijfel of ontbrekende kennis zet de AI het gesprek direct door naar Rachel.</p>
+          <h3>Safe escalation</h3>
+          <p>Medical signals, allergy risk, uncertainty or missing knowledge are immediately escalated instead of guessed.</p>
         </div>
         <div class="ap-card">
           <span class="ap-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M8 17V9"></path><path d="M12 19V3"></path><path d="M16 15v-5"></path><path d="M20 17V7"></path></svg>
           </span>
-          <h3>Lerende feedbackloop</h3>
-          <p>Als Rachel een antwoord corrigeert of aanvult, wordt die kennis verwerkt zodat de AI steeds beter wordt.</p>
+          <h3>Learning feedback loop</h3>
+          <p>When the expert team corrects or improves an answer, that knowledge is processed so the AI keeps improving.</p>
         </div>
       </div>
     </div>
@@ -912,45 +920,46 @@
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-section-head">
-        <div class="ap-eyebrow">AI brein</div>
-        <h2 class="ap-title">De kracht zit in het omzetten van ervaring naar procedures.</h2>
+        <div class="ap-eyebrow">AI Brain</div>
+        <h2 class="ap-title">The value is in turning product expertise into clear decision logic.</h2>
         <p class="ap-section-text">
-          We bouwen een gecontroleerde kennislaag waarin productdata, Rachel haar expertise en eerdere gesprekken samenkomen.
+          We build a controlled knowledge layer where Lightspeed product data, La Niche à Luna’s advisory rules
+          and previous customer conversations come together.
         </p>
       </div>
 
       <div class="ap-brain">
-        <div class="ap-brain-tabs" role="tablist" aria-label="AI brein onderdelen">
+        <div class="ap-brain-tabs" role="tablist" aria-label="AI brain components">
           <button class="ap-brain-tab is-active" type="button" data-ap-brain="products">
             <span>01</span>
-            <strong>Productdata uit Lightspeed</strong>
+            <strong>Lightspeed product data</strong>
           </button>
           <button class="ap-brain-tab" type="button" data-ap-brain="rachel">
             <span>02</span>
-            <strong>Rachel haar adviesregels</strong>
+            <strong>La Niche advisory rules</strong>
           </button>
           <button class="ap-brain-tab" type="button" data-ap-brain="channels">
             <span>03</span>
-            <strong>Gesprekken uit mail en socials</strong>
+            <strong>Email and social conversations</strong>
           </button>
           <button class="ap-brain-tab" type="button" data-ap-brain="safety">
             <span>04</span>
-            <strong>Escalatie en veiligheidsgrenzen</strong>
+            <strong>Escalation boundaries</strong>
           </button>
         </div>
 
         <div class="ap-brain-panel" aria-live="polite">
-          <div class="ap-brain-label" data-ap-brain-label>Datalaag</div>
-          <h3 data-ap-brain-title>De AI kent producten, voorraad, categorieën en productcontext.</h3>
+          <div class="ap-brain-label" data-ap-brain-label>Data layer</div>
+          <h3 data-ap-brain-title>The AI understands products, inventory, categories and product context.</h3>
           <p data-ap-brain-copy>
-            De Lightspeed koppeling zorgt dat de AI niet los adviseert van de webshop. Producten worden gekoppeld aan categorie,
-            voorraad, doelgroep, eigenschappen en relevante verkoopcontext.
+            The Lightspeed connection keeps the AI grounded in the webshop. Products are linked to category,
+            inventory, target animal, attributes and relevant sales context.
           </p>
           <div class="ap-tags" data-ap-brain-tags>
-            <span>Productexport</span>
-            <span>Voorraad</span>
-            <span>Categorieën</span>
-            <span>Varianten</span>
+            <span>Product export</span>
+            <span>Inventory</span>
+            <span>Categories</span>
+            <span>Variants</span>
           </div>
         </div>
       </div>
@@ -960,10 +969,10 @@
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-section-head center">
-        <div class="ap-eyebrow">Voorbeeldflow</div>
-        <h2 class="ap-title">Van losse vraag naar gericht productadvies.</h2>
+        <div class="ap-eyebrow">Example Flow</div>
+        <h2 class="ap-title">From a loose question to guided product advice.</h2>
         <p class="ap-section-text">
-          De AI geeft niet zomaar een productnaam. Eerst wordt de situatie helder gemaakt, daarna volgt pas een passend advies.
+          The AI does not simply drop a product name. It first clarifies the situation, then recommends the safest next step.
         </p>
       </div>
 
@@ -971,32 +980,32 @@
         <div class="ap-flow-row">
           <span class="ap-number">01</span>
           <div>
-            <strong>Klant stelt een vraag</strong>
-            <p>Bijvoorbeeld via Instagram: mijn hond reageert slecht op bepaalde voeding, wat raden jullie aan?</p>
+            <strong>A customer asks a question</strong>
+            <p>For example on Instagram: my dog reacts badly to certain food, what would you recommend?</p>
           </div>
-          <span class="ap-pill">Meta, mail of website</span>
+          <span class="ap-pill">Meta, email or website</span>
         </div>
         <div class="ap-flow-row">
           <span class="ap-number">02</span>
           <div>
-            <strong>AI stelt intakevragen</strong>
-            <p>Diersoort, leeftijd, gewicht, klachten, huidige voeding, allergieën, voorkeuren en urgentie.</p>
+            <strong>The AI asks intake questions</strong>
+            <p>Animal type, age, weight, symptoms, current food, allergies, preferences and urgency.</p>
           </div>
-          <span class="ap-pill">Context verzamelen</span>
+          <span class="ap-pill">Collect context</span>
         </div>
         <div class="ap-flow-row">
           <span class="ap-number">03</span>
           <div>
-            <strong>AI matcht met kennisbank en producten</strong>
-            <p>De AI combineert Rachel haar regels met productinformatie uit Lightspeed en geeft een veilige shortlist.</p>
+            <strong>The AI matches knowledge with products</strong>
+            <p>The AI combines La Niche à Luna’s advisory rules with Lightspeed product data and creates a safe shortlist.</p>
           </div>
-          <span class="ap-pill">Advies op maat</span>
+          <span class="ap-pill">Tailored advice</span>
         </div>
         <div class="ap-flow-row">
           <span class="ap-number">04</span>
           <div>
-            <strong>Twijfel of risico gaat naar Rachel</strong>
-            <p>Bij medische signalen, allergierisico of ontbrekende kennis wordt het gesprek samengevat en doorgezet.</p>
+            <strong>Uncertainty or risk goes to expert review</strong>
+            <p>Medical signals, allergy risk or missing knowledge are summarized and escalated before the AI answers.</p>
           </div>
           <span class="ap-pill">Human handoff</span>
         </div>
@@ -1007,74 +1016,76 @@
   <section class="ap-section" id="ap-luna-process">
     <div class="ap-container">
       <div class="ap-section-head">
-        <div class="ap-eyebrow">Implementatieproces</div>
-        <h2 class="ap-title">We bouwen eerst het brein, daarna pas de kanalen.</h2>
+        <div class="ap-eyebrow">Implementation Process</div>
+        <h2 class="ap-title">We build the brain first, then connect the channels.</h2>
         <p class="ap-section-text">
-          Voor La Niche à Luna is kenniskwaliteit belangrijker dan snelheid. Daarom starten we met data, intake en escalatieregels.
+          For La Niche à Luna, knowledge quality matters more than speed. We start with data, intake logic and escalation rules.
         </p>
       </div>
 
       <div class="ap-grid-2">
         <details open>
           <summary>
-            <strong>1. Product- en kanaaldata verzamelen</strong>
+            <strong>1. Collect product and channel data</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            We verzamelen de basis waarmee de AI betrouwbaar kan werken.
+            We collect the foundation the AI needs to work reliably.
             <ul>
-              <li>Lightspeed productexport</li>
-              <li>Top 50 meest verkochte producten</li>
-              <li>Top 30 meest gestelde vragen</li>
-              <li>Voorbeelden van Messenger, Instagram en mailgesprekken</li>
+              <li>Lightspeed product export</li>
+              <li>Top 50 best-selling products</li>
+              <li>Top 30 most frequently asked questions</li>
+              <li>Examples of Messenger, Instagram and email conversations</li>
             </ul>
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>2. Rachel intake en advieskaders</strong>
+            <strong>2. Expert intake and advisory framework</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            We houden twee gerichte sessies met Rachel om expertise om te zetten naar herbruikbare procedures.
+            We run two focused expert sessions to turn product knowledge into reusable rules and procedures.
             <ul>
-              <li>Wat mag de AI zelfstandig adviseren?</li>
-              <li>Wanneer moet Rachel meekijken?</li>
-              <li>Welke productclaims zijn gevoelig?</li>
-              <li>Welke situaties mogen nooit automatisch worden afgehandeld?</li>
+              <li>What can the AI recommend independently?</li>
+              <li>Which situations always require expert review?</li>
+              <li>Which product claims are sensitive?</li>
+              <li>Which conversations should never be handled automatically?</li>
+              <li>List of situations that must always be escalated</li>
+              <li>Language choice: French as primary, with English as optional second language</li>
             </ul>
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>3. AI brein en verkoopflow bouwen</strong>
+            <strong>3. Build the AI brain and sales flow</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            We bouwen de kennisbank, intakeflow, productmatching, antwoordstijl en escalatielogica.
+            We build the knowledge base, intake flow, product matching, answer style and escalation logic.
             <ul>
-              <li>Productadvies op basis van dier, situatie en voorkeur</li>
-              <li>Antwoorden in de juiste tone of voice</li>
-              <li>Escalatie naar Rachel met gesprekssamenvatting</li>
-              <li>Interne chatversie voor het team</li>
+              <li>Product advice based on animal, situation and preference</li>
+              <li>Answers in the right tone of voice</li>
+              <li>Expert handoff with conversation summary</li>
+              <li>Internal chat version for the team</li>
             </ul>
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>4. Livegang, controle en optimalisatie</strong>
+            <strong>4. Launch, quality control and optimization</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            Na livegang blijven we meekijken op kwaliteit, correcties en uitbreiding van het AI brein.
+            After launch, we keep improving answer quality, corrections and the AI brain.
             <ul>
-              <li>Testen op webshop, mail en Meta scenario's</li>
-              <li>Feedback van Rachel verwerken</li>
-              <li>Nieuwe productkennis toevoegen</li>
-              <li>Optimaliseren op verkoopadvies en veilige afhandeling</li>
+              <li>Testing on webshop, email and Meta scenarios</li>
+              <li>Processing expert corrections</li>
+              <li>Adding new product knowledge</li>
+              <li>Optimizing for sales advice and safe handling</li>
             </ul>
           </div>
         </details>
@@ -1085,48 +1096,60 @@
   <section class="ap-section" id="ap-luna-package">
     <div class="ap-container">
       <div class="ap-section-head center">
-        <div class="ap-eyebrow">Voorstel</div>
-        <h2 class="ap-title">Complete AI Sales Chat voor La Niche à Luna.</h2>
+        <div class="ap-eyebrow">Proposal</div>
+        <h2 class="ap-title">Complete AI Sales Chat for La Niche à Luna.</h2>
         <p class="ap-section-text">
-          Eén pakket waarin we het AI brein, de verkoopassistent, de kanaalkoppelingen en de feedbackloop samen opzetten.
+          One complete package to build the AI brain, sales assistant, channel connections and feedback loop.
         </p>
       </div>
 
       <div class="ap-package">
         <div class="ap-package-main">
-          <h3>Inclusief alles wat nodig is om Rachel haar kennis schaalbaar te maken.</h3>
+          <h3>Everything needed to make La Niche à Luna’s product expertise scalable.</h3>
           <p>
-            Dit pakket is ingericht op een dierenwebshop waar productadvies gevoelig en contextafhankelijk is.
-            De AI wordt gebouwd als eerste support- en verkooplaag, met Rachel als expert-backup.
+            This package is designed for a pet webshop where product advice is sensitive and context-dependent.
+            The AI becomes the first support and sales layer, with expert review whenever the situation requires it.
           </p>
           <ul>
-            <li>AI brein op basis van Rachel haar productexpertise</li>
-            <li>Lightspeed product- en voorraadkoppeling als kennisbron</li>
-            <li>Websitechat voor klanten op de webshop</li>
-            <li>Interne AI chat voor teamleden</li>
-            <li>Meta Messenger en Instagram intakeflow</li>
-            <li>Mail support flow voor productvragen</li>
-            <li>Productadvies op basis van dier, probleem, voorkeur en context</li>
-            <li>Escalatie naar Rachel bij twijfel, risico of ontbrekende kennis</li>
-            <li>Feedbackloop waarin correcties van Rachel worden verwerkt</li>
-            <li>Implementatieproces met productexport, FAQ's, gesprekshistorie en twee Rachel intake sessies</li>
+            <li>AI brain based on La Niche à Luna’s product expertise</li>
+            <li>Lightspeed product and inventory connection as knowledge source</li>
+            <li>Website chat for customers on the webshop</li>
+            <li>Internal AI chat for team members</li>
+            <li>Meta Messenger and Instagram intake flow</li>
+            <li>Email support flow for product questions</li>
+            <li>Product advice based on animal, problem, preference and context</li>
+            <li>Escalation when there is uncertainty, risk or missing knowledge</li>
+            <li>Feedback loop that turns expert corrections into improved AI knowledge</li>
+            <li>Implementation process with product export, FAQs, conversation history and two expert intake sessions</li>
+            <li>Usage billing at $0.032 per sent AI message</li>
           </ul>
         </div>
 
         <div class="ap-price-card">
           <div class="ap-price-row">
-            <span class="ap-price-label">Implementatie</span>
+            <span class="ap-price-label">Implementation</span>
             <span class="ap-price">$6.950</span>
-            <span class="ap-price-note">Eenmalig voor setup, kennisbank, flows, koppelingen, testfase en livegang.</span>
+            <span class="ap-price-note">One-time setup for knowledge base, flows, integrations, testing and launch.</span>
           </div>
           <div class="ap-price-row">
-            <span class="ap-price-label">Maandelijks</span>
+            <span class="ap-price-label">Monthly</span>
             <span class="ap-price">$749</span>
-            <span class="ap-price-note">Voor hosting, onderhoud, monitoring, optimalisatie en uitbreiding van het AI brein.</span>
+            <span class="ap-price-note">For hosting, maintenance, monitoring, optimization and AI brain expansion.</span>
+          </div>
+          <div class="ap-price-row">
+            <span class="ap-price-label">Usage billing</span>
+            <span class="ap-price">$0.032</span>
+            <span class="ap-price-note">Per sent AI message, billed based on actual usage across connected channels.</span>
           </div>
           <div class="ap-price-row">
             <span class="ap-price-label">Focus</span>
-            <span class="ap-price-note">Niet zoveel mogelijk automatiseren, maar betrouwbaar advies schaalbaar maken.</span>
+            <span class="ap-price-note">Not maximum automation at all costs, but reliable product advice at scale.</span>
+          </div>
+          <div class="ap-stripe-box">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TlYkGQbNJoBxwDUMGINLWjp"
+              publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+            </stripe-buy-button>
           </div>
         </div>
       </div>
@@ -1137,51 +1160,51 @@
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-eyebrow">FAQ</div>
-        <h2 class="ap-title">Belangrijke afspraken voordat de AI zelfstandig antwoordt.</h2>
+        <h2 class="ap-title">Important rules before the AI answers independently.</h2>
       </div>
 
       <div class="ap-grid-2">
         <details>
           <summary>
-            <strong>Kan de AI medisch advies geven?</strong>
+            <strong>Can the AI give medical advice?</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            Nee. De AI geeft productinformatie en helpt met aankoopadvies binnen afgesproken kaders. Bij medische klachten,
-            twijfel of risicosituaties wordt het gesprek doorgezet naar Rachel of wordt geadviseerd contact op te nemen met een dierenarts.
+            No. The AI provides product information and buying guidance within agreed boundaries. Medical symptoms,
+            uncertainty or risk situations are escalated to expert review or the customer is advised to contact a veterinarian.
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>Waarom is Rachel haar intake zo belangrijk?</strong>
+            <strong>Why is the expert intake important?</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            Omdat de website en productdata niet genoeg context bevatten voor gevoelige productkeuzes. Rachel haar nuance bepaalt wat de AI wel,
-            niet en alleen onder voorwaarden mag zeggen.
+            Because website and product data alone do not contain enough context for sensitive product choices.
+            La Niche à Luna’s expert nuance determines what the AI can say, cannot say and may only say under conditions.
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>Kan de AI leren van nieuwe vragen?</strong>
+            <strong>Can the AI learn from new questions?</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            Ja. Nieuwe situaties die de AI niet zelfstandig mag beantwoorden worden doorgezet. De reactie van Rachel kan daarna worden verwerkt
-            in de kennisbank, zodat de AI steeds completer wordt.
+            Yes. New situations that the AI should not answer independently are escalated. The approved expert response
+            can then be processed into the knowledge base so the AI becomes more complete over time.
           </div>
         </details>
 
         <details>
           <summary>
-            <strong>Welke taal gebruiken we?</strong>
+            <strong>Which language do we use?</strong>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-detail-body">
-            Primair Frans, omdat de webshop en klantcommunicatie daarop gericht zijn. Engels kan als extra taal worden toegevoegd wanneer dat
-            commercieel relevant is.
+            French is the primary language because the webshop and customer communication are focused on that market.
+            English can be added as an extra language when commercially relevant.
           </div>
         </details>
       </div>
@@ -1191,15 +1214,15 @@
   <section class="ap-section ap-final">
     <div class="ap-container">
       <div class="ap-final-box">
-        <div class="ap-eyebrow">Volgende stap</div>
-        <h2 class="ap-hero-title">Van persoonlijke expertise naar een schaalbaar AI brein.</h2>
+        <div class="ap-eyebrow">Next Step</div>
+        <h2 class="ap-hero-title">From specialist product expertise to a scalable AI brain.</h2>
         <p class="ap-lead">
-          Zodra de productdata, gesprekshistorie en Rachel intake beschikbaar zijn, kunnen we de eerste versie van de AI medewerker bouwen,
-          testen en gecontroleerd live zetten.
+          Once the product data, conversation history and expert intake are available, we can build the first version
+          of the AI employee, test it and launch it in a controlled way.
         </p>
         <div class="ap-actions">
-          <a class="ap-button ap-button-primary" href="https://auto-pilots.io/contact">Start implementatie</a>
-          <a class="ap-button ap-button-secondary" href="#ap-luna-process">Bekijk benodigde input</a>
+          <a class="ap-button ap-button-primary" href="#ap-luna-package">Start with Stripe</a>
+          <a class="ap-button ap-button-secondary" href="#ap-luna-process">View required input</a>
         </div>
       </div>
     </div>
@@ -1212,28 +1235,28 @@
 
       var brainData = {
         products: {
-          label: "Datalaag",
-          title: "De AI kent producten, voorraad, categorieën en productcontext.",
-          copy: "De Lightspeed koppeling zorgt dat de AI niet los adviseert van de webshop. Producten worden gekoppeld aan categorie, voorraad, doelgroep, eigenschappen en relevante verkoopcontext.",
-          tags: ["Productexport", "Voorraad", "Categorieën", "Varianten"]
+          label: "Data layer",
+          title: "The AI understands products, inventory, categories and product context.",
+          copy: "The Lightspeed connection keeps the AI grounded in the webshop. Products are linked to category, inventory, target animal, attributes and relevant sales context.",
+          tags: ["Product export", "Inventory", "Categories", "Variants"]
         },
         rachel: {
-          label: "Expertiselaag",
-          title: "Rachel haar kennis wordt omgezet naar duidelijke adviesregels.",
-          copy: "We leggen vast wat bij bepaalde situaties wel en niet geadviseerd mag worden. Vooral bij allergieën, voeding, gevoeligheden en productclaims is deze laag bepalend.",
-          tags: ["Wel/niet regels", "Hypoallergeen nuance", "Productclaims", "Tone of voice"]
+          label: "Expertise layer",
+          title: "La Niche à Luna’s knowledge becomes clear advisory rules.",
+          copy: "We define what can and cannot be recommended in specific situations. This layer is critical for allergies, nutrition, sensitivities and product claims.",
+          tags: ["Do and do not rules", "Hypoallergenic nuance", "Product claims", "Tone of voice"]
         },
         channels: {
-          label: "Gesprekslaag",
-          title: "Eerdere vragen uit mail en socials worden trainingscontext.",
-          copy: "Voorbeelden uit Messenger, Instagram en mail laten zien welke vragen klanten echt stellen. Daarmee bouwen we betere intakeflows en herkenbare antwoorden.",
-          tags: ["Messenger", "Instagram", "Mail", "Veelgestelde vragen"]
+          label: "Conversation layer",
+          title: "Previous email and social questions become training context.",
+          copy: "Examples from Messenger, Instagram and email show what customers really ask. This helps us build better intake flows and recognizable answers.",
+          tags: ["Messenger", "Instagram", "Email", "FAQs"]
         },
         safety: {
-          label: "Controlelaag",
-          title: "Bij risico, twijfel of ontbrekende kennis neemt Rachel het over.",
-          copy: "De AI werkt met duidelijke grenzen. Medische signalen, heftige klachten, allergierisico of onvoldoende zekerheid worden niet zelfstandig afgehandeld.",
-          tags: ["Escalatie", "Samenvatting", "Expert handoff", "Veilig advies"]
+          label: "Control layer",
+          title: "Risk, uncertainty or missing knowledge is escalated.",
+          copy: "The AI works with clear boundaries. Medical signals, serious complaints, allergy risk or low confidence are not handled independently.",
+          tags: ["Escalation", "Summary", "Expert handoff", "Safe advice"]
         }
       };
 
