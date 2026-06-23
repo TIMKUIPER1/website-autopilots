@@ -434,7 +434,7 @@
 
       .calculator-output {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 10px;
       }
 
@@ -663,10 +663,11 @@
                     <h3>Phase 1: trust, support and handover</h3>
                     <p class="text">The first phase is about operational reliability. Existing clients need stable support, Leadfactor needs to be completed properly, and Autopilots needs confidence that technical delivery can be delegated.</p>
                     <ul>
-                      <li>Monthly support fee per active client: EUR 75.</li>
+                      <li>Monthly support fee per active client starts at EUR 75.</li>
+                      <li>From 10 active clients, the support fee increases to EUR 100 per active client.</li>
                       <li>Leadfactor support fee starts only after implementation and go-live.</li>
                       <li>Leadfactor completion fee: EUR 750 after successful delivery.</li>
-                      <li>The existing 15% implementation commission per client remains in place.</li>
+                      <li>Implementation commission starts at 15% and scales up as client volume grows.</li>
                     </ul>
                   </div>
                   <span class="phase-trigger">Starts now</span>
@@ -678,8 +679,8 @@
                     <h3>Phase 2: technical growth and operational optimization</h3>
                     <p class="text">Once Autopilots reaches 20 active clients, the role expands from technical execution into technical strategy, systems thinking and operational automation.</p>
                     <ul>
-                      <li>Additional fixed fee: EUR 1,000 per month.</li>
-                      <li>For every 10 additional clients, the fixed strategic fee increases by EUR 1,000 per month.</li>
+                      <li>Internal service fee starts at EUR 1,000 per month from 20 active clients.</li>
+                      <li>For every 10 additional clients, the internal service fee increases by EUR 1,000 per month.</li>
                       <li>Focus areas: SOPs, reusable workflows, support automation, AI agents, quality control and technical roadmap.</li>
                     </ul>
                   </div>
@@ -714,8 +715,8 @@
               <div class="terms-grid">
                 <div class="term-card">
                   <strong>Monthly support per active client</strong>
-                  <span class="amount">EUR 75</span>
-                  <p>This covers small fixes, monitoring, technical support and keeping existing client environments stable.</p>
+                  <span class="amount">EUR 75-100</span>
+                  <p>This covers small fixes, monitoring, technical support and keeping existing client environments stable. The support fee starts at EUR 75 and increases to EUR 100 per active client from 10 active clients.</p>
                   <div class="client-list">
                     <div><strong>Zieleman</strong><span>Support</span><b>EUR 75</b></div>
                     <div><strong>Dakcentrale</strong><span>Support</span><b>EUR 75</b></div>
@@ -726,11 +727,16 @@
 
                 <div class="term-card">
                   <strong>Implementation and growth upside</strong>
-                  <span class="amount">15%</span>
-                  <p>The existing 15% implementation commission per client remains in place. This is separate from support and strategic fees.</p>
+                  <span class="amount">15-25%</span>
+                  <p>The implementation commission scales with active client volume. This is separate from support and internal service fees.</p>
                   <ul>
+                    <li>0-9 active clients: 15% implementation commission.</li>
+                    <li>From 10 active clients: 17.5% implementation commission.</li>
+                    <li>From 20 active clients: 20% implementation commission.</li>
+                    <li>From 50 active clients: 22.5% implementation commission.</li>
+                    <li>From 75 active clients: 25% implementation commission.</li>
                     <li>Leadfactor completion: EUR 750 after successful delivery.</li>
-                    <li>From 20 active clients: EUR 1,000 per month strategic technical fee.</li>
+                    <li>From 20 active clients: EUR 1,000 per month internal service fee.</li>
                     <li>After that: +EUR 1,000 per month for every 10 additional active clients.</li>
                     <li>Large new features, new integrations and rebuilds are scoped separately.</li>
                   </ul>
@@ -750,20 +756,21 @@
               <div class="calculator-grid" data-growth-calculator>
                 <div class="calculator-panel">
                   <h3>Monthly base compensation</h3>
-                  <p class="text">Move the slider to see how the monthly support and strategic fee scale as Autopilots grows.</p>
+                  <p class="text">Move the slider to see how support, commission rate and the internal service fee scale as Autopilots grows.</p>
                   <label for="clientRange">Active clients</label>
                   <input id="clientRange" type="range" min="4" max="120" value="20" step="1" data-client-range />
                   <div class="calculator-output">
                     <div><span>Clients</span><strong data-client-count>20</strong></div>
-                    <div><span>Support fee</span><strong data-support-fee>EUR 1,500</strong></div>
-                    <div><span>Strategic fee</span><strong data-strategy-fee>EUR 1,000</strong></div>
+                    <div><span>Support fee</span><strong data-support-fee>EUR 2,000</strong></div>
+                    <div><span>Commission</span><strong data-commission-rate>20%</strong></div>
+                    <div><span>Service fee</span><strong data-strategy-fee>EUR 1,000</strong></div>
                   </div>
                 </div>
 
                 <div class="note-card">
                   <strong>Calculation logic</strong>
-                  <p>Support fee = active clients x EUR 75 per month. Strategic fee starts at 20 active clients with EUR 1,000 per month and increases by EUR 1,000 for every 10 additional active clients.</p>
-                  <p>This calculator shows monthly base compensation only. It excludes the 15% implementation commission, one-off project fees, large feature work, new integrations and custom rebuilds.</p>
+                  <p>Support fee = EUR 75 per active client up to 9 clients, and EUR 100 per active client from 10 active clients onward. The internal service fee starts at 20 active clients with EUR 1,000 per month and increases by EUR 1,000 for every 10 additional active clients.</p>
+                  <p>The commission rate scales from 15% to 25% based on active client volume. This calculator shows monthly base compensation and commission percentage only. It excludes one-off project fees, large feature work, new integrations and custom rebuilds.</p>
                 </div>
               </div>
             </section>
@@ -873,16 +880,20 @@
         const range = calculator.querySelector("[data-client-range]");
         const clientCount = calculator.querySelector("[data-client-count]");
         const supportFee = calculator.querySelector("[data-support-fee]");
+        const commissionRate = calculator.querySelector("[data-commission-rate]");
         const strategyFee = calculator.querySelector("[data-strategy-fee]");
         const formatter = new Intl.NumberFormat("en-US");
 
         const updateCalculator = () => {
           const clients = Number(range.value);
-          const support = clients * 75;
+          const supportRate = clients >= 10 ? 100 : 75;
+          const support = clients * supportRate;
+          const commission = clients >= 75 ? 25 : clients >= 50 ? 22.5 : clients >= 20 ? 20 : clients >= 10 ? 17.5 : 15;
           const strategy = clients < 20 ? 0 : Math.floor((clients - 20) / 10 + 1) * 1000;
 
           clientCount.textContent = String(clients);
           supportFee.textContent = `EUR ${formatter.format(support)}`;
+          commissionRate.textContent = `${commission}%`;
           strategyFee.textContent = `EUR ${formatter.format(strategy)}`;
         };
 
