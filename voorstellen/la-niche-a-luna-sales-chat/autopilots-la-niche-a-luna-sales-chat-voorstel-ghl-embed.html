@@ -1363,7 +1363,7 @@
           </div>
           <p>
             La Niche à Luna already has product demand. The upside comes from better product advice,
-            faster answers and fewer customers leaving before they find the right product.
+            faster follow-up and helping customers reach the right order faster.
           </p>
         </div>
 
@@ -1383,8 +1383,14 @@
 
             <div class="ap-roi-field">
               <label for="apLunaUplift">Expected AI uplift</label>
-              <small>Extra orders from 24/7 answers, guided product advice and fewer abandoned questions.</small>
-              <input id="apLunaUplift" type="number" min="0" max="100" value="12">
+              <small>Baseline estimate: 15% extra orders through faster follow-up and guided product advice.</small>
+              <input id="apLunaUplift" type="number" min="0" max="100" value="15">
+            </div>
+
+            <div class="ap-roi-field">
+              <label for="apLunaQuestions">Customer questions per day</label>
+              <small>Email, Messenger, Instagram and webshop chat questions handled by the AI employee.</small>
+              <input id="apLunaQuestions" type="number" min="0" value="6">
             </div>
           </div>
 
@@ -1417,10 +1423,21 @@
                 <span>Break-even orders</span>
                 <strong id="apLunaBreakEven">0</strong>
               </div>
+
+              <div class="ap-roi-metric">
+                <span>Time saved monthly</span>
+                <strong id="apLunaTimeSaved">0h</strong>
+              </div>
+
+              <div class="ap-roi-metric">
+                <span>Manual work avoided</span>
+                <strong id="apLunaQuestionsHandled">0</strong>
+              </div>
             </div>
 
             <p class="ap-roi-note">
-              Indicative model. It uses revenue, not gross margin. Usage billing is separate at $0.032 per sent AI message.
+              Indicative model. It uses revenue, not gross margin. Time saved assumes 6 minutes per manually answered product question.
+              Usage billing is separate at $0.032 per sent AI message.
             </p>
           </div>
         </div>
@@ -1615,7 +1632,8 @@
       var roiInputs = {
         orders: root.querySelector("#apLunaOrders"),
         aov: root.querySelector("#apLunaAov"),
-        uplift: root.querySelector("#apLunaUplift")
+        uplift: root.querySelector("#apLunaUplift"),
+        questions: root.querySelector("#apLunaQuestions")
       };
 
       var roiOutputs = {
@@ -1624,6 +1642,8 @@
         extraRevenue: root.querySelector("#apLunaExtraRevenue"),
         extraOrders: root.querySelector("#apLunaExtraOrders"),
         breakEven: root.querySelector("#apLunaBreakEven"),
+        timeSaved: root.querySelector("#apLunaTimeSaved"),
+        questionsHandled: root.querySelector("#apLunaQuestionsHandled"),
         sentence: root.querySelector("#apLunaRoiSentence")
       };
 
@@ -1641,12 +1661,16 @@
       }
 
       function updateRoi() {
-        if (!roiInputs.orders || !roiInputs.aov || !roiInputs.uplift) return;
+        if (!roiInputs.orders || !roiInputs.aov || !roiInputs.uplift || !roiInputs.questions) return;
 
         var orders = asNumber(roiInputs.orders);
         var aov = asNumber(roiInputs.aov);
         var uplift = asNumber(roiInputs.uplift) / 100;
+        var questionsPerDay = asNumber(roiInputs.questions);
         var monthlyFee = 749;
+        var minutesSavedPerQuestion = 6;
+        var questionsHandled = questionsPerDay * 30;
+        var timeSavedHours = questionsHandled * minutesSavedPerQuestion / 60;
         var currentRevenue = orders * aov;
         var extraOrders = orders * uplift;
         var revenueAfter = (orders + extraOrders) * aov;
@@ -1659,9 +1683,11 @@
         roiOutputs.extraRevenue.textContent = money(extraRevenue);
         roiOutputs.extraOrders.textContent = Math.round(extraOrders).toLocaleString("en-US");
         roiOutputs.breakEven.textContent = breakEvenOrders.toLocaleString("en-US");
+        roiOutputs.timeSaved.textContent = Math.round(timeSavedHours).toLocaleString("en-US") + "h";
+        roiOutputs.questionsHandled.textContent = Math.round(questionsHandled).toLocaleString("en-US");
 
         roiOutputs.sentence.textContent = netAfterMonthly >= 0
-          ? "At this scenario, the projected extra revenue covers the monthly AI subscription before counting time savings and knowledge consistency."
+          ? "At this scenario, the 15% faster-follow-up uplift covers the monthly AI subscription before counting time saved and knowledge consistency."
           : "At this scenario, the calculator shows how many extra orders are needed before the monthly AI subscription is covered.";
       }
 
