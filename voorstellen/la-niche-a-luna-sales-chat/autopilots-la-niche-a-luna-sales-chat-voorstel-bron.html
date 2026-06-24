@@ -615,6 +615,162 @@
       background: var(--ap-brown);
     }
 
+    #ap-luna-proposal .ap-roi-card {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 30px;
+      background: var(--ap-card);
+      border: 1px solid var(--ap-line);
+      box-shadow: 0 18px 60px rgba(17, 17, 17, 0.06);
+    }
+
+    #ap-luna-proposal .ap-roi-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+      gap: 26px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    #ap-luna-proposal .ap-roi-head h3 {
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.06;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-roi-head p {
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    #ap-luna-proposal .ap-roi-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    #ap-luna-proposal .ap-roi-inputs {
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-luna-proposal .ap-roi-field {
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--ap-soft-2);
+      border: 1px solid var(--ap-line);
+    }
+
+    #ap-luna-proposal .ap-roi-field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    #ap-luna-proposal .ap-roi-field small {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ap-muted);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 650;
+    }
+
+    #ap-luna-proposal .ap-roi-field input {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 16px;
+      padding: 0 14px;
+      background: var(--ap-white);
+      color: var(--ap-text);
+      font: inherit;
+      font-size: 16px;
+      font-weight: 800;
+      outline: none;
+    }
+
+    #ap-luna-proposal .ap-roi-results {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 26px;
+      background: #111111;
+      color: var(--ap-white);
+    }
+
+    #ap-luna-proposal .ap-roi-main-result {
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 92% 0%, rgba(159, 56, 38, 0.46), transparent 42%),
+        linear-gradient(135deg, #171717 0%, #21110d 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #ap-luna-proposal .ap-roi-main-result span,
+    #ap-luna-proposal .ap-roi-metric span {
+      display: block;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    #ap-luna-proposal .ap-roi-main-result strong {
+      display: block;
+      margin-top: 10px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-roi-main-result p {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    #ap-luna-proposal .ap-roi-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #ap-luna-proposal .ap-roi-metric {
+      min-height: 118px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    #ap-luna-proposal .ap-roi-metric strong {
+      display: block;
+      margin-top: 9px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    #ap-luna-proposal .ap-roi-note {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
     #ap-luna-proposal .ap-package {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
@@ -623,11 +779,11 @@
       padding: 36px;
       overflow: hidden;
       background:
-        radial-gradient(circle at 92% 8%, rgba(159, 56, 38, 0.34), transparent 34%),
-        linear-gradient(135deg, #111111 0%, #171110 48%, #3b160f 100%);
+        radial-gradient(circle at 82% 0%, rgba(255, 255, 255, 0.16), transparent 34%),
+        var(--ap-brown);
       color: var(--ap-white);
       border-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 28px 72px rgba(17, 17, 17, 0.18);
+      box-shadow: 0 24px 70px rgba(159, 56, 38, 0.22);
     }
 
     #ap-luna-proposal .ap-package-main h3 {
@@ -682,7 +838,7 @@
 
     #ap-luna-proposal .ap-price-card {
       border-radius: 28px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.12);
       color: var(--ap-white);
       padding: 28px;
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -708,7 +864,7 @@
 
     #ap-luna-proposal .ap-price-intro strong {
       display: block;
-      font-size: clamp(26px, 3vw, 34px);
+      font-size: clamp(24px, 3vw, 32px);
       line-height: 1.04;
       font-weight: 900;
     }
@@ -746,7 +902,8 @@
     }
 
     #ap-luna-proposal .ap-price {
-      font-size: clamp(34px, 5vw, 54px);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(34px, 5vw, 52px);
       line-height: 1;
       font-weight: 700;
       letter-spacing: 0;
@@ -804,6 +961,8 @@
       #ap-luna-proposal .ap-grid-3,
       #ap-luna-proposal .ap-diagnosis-grid,
       #ap-luna-proposal .ap-brain,
+      #ap-luna-proposal .ap-roi-head,
+      #ap-luna-proposal .ap-roi-grid,
       #ap-luna-proposal .ap-package {
         grid-template-columns: 1fr;
       }
@@ -837,9 +996,14 @@
 
       #ap-luna-proposal .ap-dark,
       #ap-luna-proposal .ap-final-box,
+      #ap-luna-proposal .ap-roi-card,
       #ap-luna-proposal .ap-package {
         padding: 26px;
         border-radius: 28px;
+      }
+
+      #ap-luna-proposal .ap-roi-metrics {
+        grid-template-columns: 1fr;
       }
 
       #ap-luna-proposal .ap-flow-row {
@@ -1191,6 +1355,77 @@
         </p>
       </div>
 
+      <div class="ap-roi-card" id="ap-luna-roi">
+        <div class="ap-roi-head">
+          <div>
+            <div class="ap-eyebrow">ROI Calculator</div>
+            <h3>See how small webshop improvements make the deal logical.</h3>
+          </div>
+          <p>
+            La Niche à Luna already has product demand. The upside comes from better product advice,
+            faster answers and fewer customers leaving before they find the right product.
+          </p>
+        </div>
+
+        <div class="ap-roi-grid">
+          <div class="ap-roi-inputs">
+            <div class="ap-roi-field">
+              <label for="apLunaOrders">Current webshop orders per month</label>
+              <small>Use the current monthly average from Lightspeed.</small>
+              <input id="apLunaOrders" type="number" min="0" value="180">
+            </div>
+
+            <div class="ap-roi-field">
+              <label for="apLunaAov">Average order value</label>
+              <small>Average revenue per webshop order.</small>
+              <input id="apLunaAov" type="number" min="0" value="55">
+            </div>
+
+            <div class="ap-roi-field">
+              <label for="apLunaUplift">Expected AI uplift</label>
+              <small>Extra orders from 24/7 answers, guided product advice and fewer abandoned questions.</small>
+              <input id="apLunaUplift" type="number" min="0" max="100" value="12">
+            </div>
+          </div>
+
+          <div class="ap-roi-results" aria-live="polite">
+            <div class="ap-roi-main-result">
+              <span>Projected extra monthly revenue</span>
+              <strong id="apLunaExtraRevenue">$0</strong>
+              <p id="apLunaRoiSentence">
+                Based on the current inputs, the AI only needs a small number of extra orders to become logical.
+              </p>
+            </div>
+
+            <div class="ap-roi-metrics">
+              <div class="ap-roi-metric">
+                <span>Current monthly revenue</span>
+                <strong id="apLunaCurrentRevenue">$0</strong>
+              </div>
+
+              <div class="ap-roi-metric">
+                <span>Revenue after AI</span>
+                <strong id="apLunaRevenueAfter">$0</strong>
+              </div>
+
+              <div class="ap-roi-metric">
+                <span>Extra orders per month</span>
+                <strong id="apLunaExtraOrders">0</strong>
+              </div>
+
+              <div class="ap-roi-metric">
+                <span>Break-even orders</span>
+                <strong id="apLunaBreakEven">0</strong>
+              </div>
+            </div>
+
+            <p class="ap-roi-note">
+              Indicative model. It uses revenue, not gross margin. Usage billing is separate at $0.032 per sent AI message.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div class="ap-package">
         <div class="ap-package-main">
           <h3>Everything needed to make La Niche à Luna’s product expertise scalable.</h3>
@@ -1376,6 +1611,65 @@
           setBrain(button.getAttribute("data-ap-brain"));
         });
       });
+
+      var roiInputs = {
+        orders: root.querySelector("#apLunaOrders"),
+        aov: root.querySelector("#apLunaAov"),
+        uplift: root.querySelector("#apLunaUplift")
+      };
+
+      var roiOutputs = {
+        currentRevenue: root.querySelector("#apLunaCurrentRevenue"),
+        revenueAfter: root.querySelector("#apLunaRevenueAfter"),
+        extraRevenue: root.querySelector("#apLunaExtraRevenue"),
+        extraOrders: root.querySelector("#apLunaExtraOrders"),
+        breakEven: root.querySelector("#apLunaBreakEven"),
+        sentence: root.querySelector("#apLunaRoiSentence")
+      };
+
+      function asNumber(field) {
+        var value = Number(field && field.value ? field.value : 0);
+        return Number.isFinite(value) && value > 0 ? value : 0;
+      }
+
+      function money(value) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0
+        }).format(value || 0);
+      }
+
+      function updateRoi() {
+        if (!roiInputs.orders || !roiInputs.aov || !roiInputs.uplift) return;
+
+        var orders = asNumber(roiInputs.orders);
+        var aov = asNumber(roiInputs.aov);
+        var uplift = asNumber(roiInputs.uplift) / 100;
+        var monthlyFee = 749;
+        var currentRevenue = orders * aov;
+        var extraOrders = orders * uplift;
+        var revenueAfter = (orders + extraOrders) * aov;
+        var extraRevenue = revenueAfter - currentRevenue;
+        var breakEvenOrders = aov > 0 ? Math.ceil(monthlyFee / aov) : 0;
+        var netAfterMonthly = extraRevenue - monthlyFee;
+
+        roiOutputs.currentRevenue.textContent = money(currentRevenue);
+        roiOutputs.revenueAfter.textContent = money(revenueAfter);
+        roiOutputs.extraRevenue.textContent = money(extraRevenue);
+        roiOutputs.extraOrders.textContent = Math.round(extraOrders).toLocaleString("en-US");
+        roiOutputs.breakEven.textContent = breakEvenOrders.toLocaleString("en-US");
+
+        roiOutputs.sentence.textContent = netAfterMonthly >= 0
+          ? "At this scenario, the projected extra revenue covers the monthly AI subscription before counting time savings and knowledge consistency."
+          : "At this scenario, the calculator shows how many extra orders are needed before the monthly AI subscription is covered.";
+      }
+
+      Object.keys(roiInputs).forEach(function (key) {
+        if (roiInputs[key]) roiInputs[key].addEventListener("input", updateRoi);
+      });
+
+      updateRoi();
     })();
   </script>
 </div>
