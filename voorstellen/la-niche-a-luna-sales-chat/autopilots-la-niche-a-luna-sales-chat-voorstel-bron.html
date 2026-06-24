@@ -1430,7 +1430,7 @@
               </div>
 
               <div class="ap-roi-metric">
-                <span>Manual work avoided</span>
+                <span>Time basis</span>
                 <strong id="apLunaQuestionsHandled">0</strong>
               </div>
             </div>
@@ -1684,7 +1684,7 @@
         roiOutputs.extraOrders.textContent = Math.round(extraOrders).toLocaleString("en-US");
         roiOutputs.breakEven.textContent = breakEvenOrders.toLocaleString("en-US");
         roiOutputs.timeSaved.textContent = Math.round(timeSavedHours).toLocaleString("en-US") + "h";
-        roiOutputs.questionsHandled.textContent = Math.round(questionsHandled).toLocaleString("en-US");
+        roiOutputs.questionsHandled.textContent = Math.round(questionsHandled).toLocaleString("en-US") + " chats";
 
         roiOutputs.sentence.textContent = netAfterMonthly >= 0
           ? "At this scenario, the 15% faster-follow-up uplift covers the monthly AI subscription before counting time saved and knowledge consistency."
