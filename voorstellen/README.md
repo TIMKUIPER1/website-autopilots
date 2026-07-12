@@ -15,6 +15,7 @@ Deze map bevat de proposal embeds die vanuit GitHub Pages in GoHighLevel kunnen 
 - La Niche à Luna AI Sales Chat: `voorstellen/la-niche-a-luna-sales-chat/autopilots-la-niche-a-luna-sales-chat-voorstel-ghl-embed.html`
 - AI Sales Voice: `voorstellen/ai-sales-voice/autopilots-ai-sales-voice-voorstel-ghl-embed.html`
 - AI Sales Complete: `voorstellen/ai-sales-complete/autopilots-ai-sales-complete-voorstel-ghl-embed.html`
+- AI Sales Complete Autobedrijven: `voorstellen/ai-sales-complete-autobedrijven/autopilots-ai-sales-complete-autobedrijven-voorstel-ghl-embed.html`
 - AI Klantenservice Chat: `voorstellen/ai-klantenservice-chat/autopilots-ai-klantenservice-chat-voorstel-ghl-embed.html`
 - AI Klantenservice Voice: `voorstellen/ai-klantenservice-voice/autopilots-ai-klantenservice-voice-voorstel-ghl-embed.html`
 - AI Klantenservice Complete: `voorstellen/ai-klantenservice-complete/autopilots-ai-klantenservice-complete-voorstel-ghl-embed.html`

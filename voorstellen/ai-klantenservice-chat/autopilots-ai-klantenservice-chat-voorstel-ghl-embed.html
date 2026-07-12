@@ -416,21 +416,19 @@
       font: inherit;
       font-weight: 800;
       color: var(--muted);
-      cursor: default;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .ap-cs-proposal .ap-toggle-button:hover {
+      color: var(--black);
+      transform: translateY(-1px);
     }
 
     .ap-cs-proposal .ap-toggle-button.is-active {
       background: var(--black);
       color: var(--white);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .ap-cs-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button {
-      pointer-events: none;
-    }
-
-    .ap-cs-proposal .ap-toggle.ap-toggle-locked .ap-toggle-button:not(.is-active) {
-      opacity: 0.5;
     }
 
     .ap-cs-proposal .ap-flow-info {
@@ -1374,7 +1372,7 @@ body {
         </h1>
         <p class="ap-hero-text">Voor supportteams die veel tijd verliezen aan herhaalvragen, statusupdates en eenvoudige tickets. De AI beantwoordt, categoriseert, vraagt ontbrekende informatie uit en zet tickets klaar voor je team.</p>
         <div class="ap-actions">
-          <a class="ap-button primary" href="#ap-cs-chat-proposal-pakketten">Kies pakket en start direct</a>
+          <a class="ap-button primary" href="#ap-cs-chat-proposal-pakketten">Bekijk pakketten</a>
           <a class="ap-button secondary" href="#ap-cs-chat-proposal-calculator">Bereken ticketbesparing</a>
         </div>
       </div>
@@ -1527,7 +1525,7 @@ body {
         <div class="ap-calculator-grid">
           <div class="ap-inputs">
             <div class="ap-field">
-              <label for="apPackage">Kies pakket en start direct</label>
+              <label for="apPackage">Kies pakket</label>
               <small>Abonnement, implementatie en supportdekking passen automatisch aan.</small>
               <select id="apPackage">
                 <option value="start">Chat Start</option>
@@ -1540,10 +1538,10 @@ body {
               <label>Inbegrepen supportdekking</label>
               <small>De dekking staat automatisch vast op basis van het gekozen pakket.</small>
 
-              <div class="ap-toggle ap-toggle-locked" role="group" aria-label="Inbegrepen supportdekking">
-                <button class="ap-toggle-button is-active" type="button" data-package-flow="start" tabindex="-1">1 kanaal</button>
-                <button class="ap-toggle-button" type="button" data-package-flow="scale" tabindex="-1">Meerdere kanalen</button>
-                <button class="ap-toggle-button" type="button" data-package-flow="premium" tabindex="-1">Alle chat scenario’s</button>
+              <div class="ap-toggle" role="group" aria-label="Inbegrepen supportdekking">
+                <button class="ap-toggle-button is-active" type="button" data-package-flow="start">1 kanaal</button>
+                <button class="ap-toggle-button" type="button" data-package-flow="scale">Meerdere kanalen</button>
+                <button class="ap-toggle-button" type="button" data-package-flow="premium">Alle chat scenario’s</button>
               </div>
 
               <div id="apFlowLabel" class="ap-flow-info">Chat Start bevat 1 kanaal of supportscenario. De AI beantwoordt standaardvragen en maakt tickets compleet.</div>
@@ -1810,6 +1808,26 @@ body {
         if (label) label.textContent = flowMessages[selectedPackageKey];
       }
 
+      function syncPackageSelect() {
+        const select = root.querySelector('#apPackage');
+        if (select && select.value !== selectedPackageKey) select.value = selectedPackageKey;
+      }
+
+      function bindSectionLinks() {
+        root.querySelectorAll('a[href^="#"]').forEach(link => {
+          link.addEventListener('click', event => {
+            const targetId = link.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            if (!target) return;
+            event.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.history && window.history.replaceState) {
+              window.history.replaceState(null, '', '#' + targetId);
+            }
+          });
+        });
+      }
+
       function initBrainVisual() {
         const brain = root.querySelector('[data-ap-brain]');
         if (!brain) return;
@@ -1852,11 +1870,19 @@ body {
         setOutput('apHoursSaved', formatNumber(hoursSaved));
         setOutput('apGrossSaved', formatEuro(grossSaved));
         setOutput('apNetAfterCost', formatEuro(netAfterCost));
+        syncPackageSelect();
         updateFlowButtons();
       }
       const packageSelect = root.querySelector('#apPackage');
       if (packageSelect) packageSelect.addEventListener('change', () => { selectedPackageKey = packageSelect.value; calculate(); });
+      root.querySelectorAll('[data-package-flow]').forEach(button => {
+        button.addEventListener('click', () => {
+          selectedPackageKey = button.getAttribute('data-package-flow');
+          calculate();
+        });
+      });
       ['apTickets', 'apMinutes', 'apHourly', 'apFteHours'].forEach(id => root.querySelector('#' + id)?.addEventListener('input', calculate));
+      bindSectionLinks();
       initBrainVisual();
       calculate();
     })();

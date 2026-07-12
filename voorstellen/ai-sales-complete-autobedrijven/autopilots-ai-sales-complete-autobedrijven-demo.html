@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autopilots AI Demo voor Autobedrijven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ap-bg: #f5f5f2;
+      --ap-card: #ffffff;
+      --ap-soft: #eeeeea;
+      --ap-soft-2: #f8f8f5;
+      --ap-text: #111111;
+      --ap-muted: #656565;
+      --ap-line: rgba(0, 0, 0, 0.1);
+      --ap-brown: #9f3826;
+      --ap-brown-dark: #7d2a1d;
+      --ap-black: #111111;
+      --ap-white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 82% 0%, rgba(159, 56, 38, 0.12), transparent 30%),
+        var(--ap-bg);
+      color: var(--ap-text);
+      font-family: "Public Sans", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .ap-demo {
+      min-height: 100vh;
+      padding: 42px 18px;
+    }
+
+    .ap-container {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .ap-hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      padding: 34px;
+      border: 1px solid var(--ap-line);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(159, 56, 38, 0.14), transparent 32%),
+        var(--ap-card);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+    }
+
+    .ap-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      padding: 0 14px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--ap-brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 840px;
+      margin-bottom: 18px;
+      font-size: clamp(34px, calc(5vw - 12px), 54px);
+      line-height: 1.07;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    .ap-hero p {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--ap-muted);
+      font-size: 19px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .ap-logo {
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--ap-white);
+      color: var(--ap-brown);
+      border: 1px solid var(--ap-line);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .ap-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .ap-process-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+      padding: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 28px;
+      background: var(--ap-black);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
+    }
+
+    .ap-demo-context-toggle {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 24px;
+      background: var(--ap-card);
+      border: 1px solid var(--ap-line);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+    }
+
+    .ap-context-button {
+      min-height: 70px;
+      border: 1px solid var(--ap-line);
+      border-radius: 18px;
+      background: var(--ap-white);
+      color: var(--ap-text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .ap-context-button span {
+      display: block;
+      margin-top: 5px;
+      color: var(--ap-muted);
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .ap-context-button.is-active {
+      background: var(--ap-brown);
+      border-color: var(--ap-brown);
+      color: var(--ap-white);
+      box-shadow: 0 16px 42px rgba(159, 56, 38, 0.16);
+    }
+
+    .ap-context-button.is-active span {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .ap-mini-step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--ap-white);
+    }
+
+    .ap-mini-step b {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--ap-brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .ap-mini-step strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .ap-mini-step span {
+      display: block;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ap-demo-card {
+      min-height: 720px;
+      border-radius: 34px;
+      border: 1px solid var(--ap-line);
+      background: var(--ap-card);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .ap-demo-card.dark {
+      background:
+        radial-gradient(circle at 16% 8%, rgba(159, 56, 38, 0.35), transparent 32%),
+        var(--ap-black);
+      color: var(--ap-white);
+    }
+
+    .ap-demo-head {
+      padding: 30px 30px 18px;
+      border-bottom: 1px solid var(--ap-line);
+    }
+
+    .ap-demo-card.dark .ap-demo-head {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .ap-demo-head h2 {
+      margin-bottom: 12px;
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    .ap-demo-head p {
+      margin-bottom: 0;
+      color: var(--ap-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .ap-demo-card.dark .ap-demo-head p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .ap-demo-body {
+      padding: 24px 30px 30px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .ap-test-box {
+      border-radius: 24px;
+      border: 1px solid var(--ap-line);
+      background: var(--ap-soft-2);
+      padding: 20px;
+    }
+
+    .ap-demo-card.dark .ap-test-box {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .ap-test-box h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .ap-scenarios {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ap-scenario {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      min-height: 72px;
+      padding: 14px;
+      border: 1px solid var(--ap-line);
+      border-radius: 18px;
+      background: var(--ap-white);
+    }
+
+    .ap-demo-card.dark .ap-scenario {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ap-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(159, 56, 38, 0.12);
+      color: var(--ap-brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .ap-demo-card.dark .ap-number {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--ap-white);
+    }
+
+    .ap-scenario strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .ap-scenario span {
+      display: block;
+      color: var(--ap-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .ap-demo-card.dark .ap-scenario span {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .ap-widget-stage {
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      border-radius: 26px;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        rgba(255, 255, 255, 0.08);
+      background-size: 34px 34px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 22px;
+    }
+
+    .ap-phone-shell {
+      width: min(340px, 100%);
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--ap-text);
+      padding: 18px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+      text-align: center;
+    }
+
+    .ap-phone-shell span {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--ap-muted);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .ap-voice-launcher {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ap-demo-start {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ap-brown);
+      color: var(--ap-white);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 16px 42px rgba(159, 56, 38, 0.26);
+      transition: 0.18s ease;
+    }
+
+    .ap-demo-start:hover {
+      background: var(--ap-brown-dark);
+      transform: translateY(-1px);
+    }
+
+    .ap-demo-start.is-loaded {
+      background: var(--ap-black);
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .ap-elevenlabs-mount {
+      display: grid;
+      place-items: center;
+      min-height: 88px;
+      border-radius: 22px;
+      border: 1px dashed rgba(159, 56, 38, 0.3);
+      background: rgba(159, 56, 38, 0.07);
+      padding: 14px;
+    }
+
+    .ap-elevenlabs-mount.is-empty::before {
+      content: "De voice demo wordt pas geladen na het klikken.";
+      color: var(--ap-muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .ap-lead-controls {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .ap-lead-button {
+      min-height: 58px;
+      border: 1px solid var(--ap-line);
+      border-radius: 16px;
+      background: var(--ap-white);
+      color: var(--ap-text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      padding: 10px;
+      transition: 0.18s ease;
+    }
+
+    .ap-lead-button.is-active {
+      background: var(--ap-brown);
+      border-color: var(--ap-brown);
+      color: var(--ap-white);
+    }
+
+    .ap-lead-preview {
+      border-radius: 24px;
+      border: 1px solid var(--ap-line);
+      background: var(--ap-soft-2);
+      padding: 18px;
+    }
+
+    .ap-lead-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--ap-line);
+    }
+
+    .ap-lead-row strong {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .ap-lead-row span {
+      color: var(--ap-brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .ap-message {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ap-bubble {
+      max-width: 88%;
+      border-radius: 18px;
+      padding: 13px 14px;
+      font-size: 14px;
+      line-height: 1.48;
+      font-weight: 600;
+    }
+
+    .ap-bubble.customer {
+      background: var(--ap-white);
+      border: 1px solid var(--ap-line);
+    }
+
+    .ap-bubble.ai {
+      justify-self: end;
+      background: var(--ap-brown);
+      color: var(--ap-white);
+    }
+
+    .ap-placeholder {
+      border-radius: 24px;
+      border: 1px dashed rgba(159, 56, 38, 0.42);
+      background: rgba(159, 56, 38, 0.08);
+      padding: 20px;
+    }
+
+    .ap-placeholder strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .ap-placeholder p {
+      margin-bottom: 0;
+      color: var(--ap-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 980px) {
+      .ap-hero,
+      .ap-demo-grid,
+      .ap-process-strip,
+      .ap-demo-context-toggle {
+        grid-template-columns: 1fr;
+      }
+
+      .ap-logo {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ap-demo {
+        padding: 18px 12px;
+      }
+
+      .ap-hero,
+      .ap-demo-head,
+      .ap-demo-body {
+        padding: 22px;
+      }
+
+      .ap-demo-card {
+        min-height: 0;
+        border-radius: 26px;
+      }
+
+      .ap-lead-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="ap-demo">
+    <div class="ap-container">
+      <section class="ap-hero">
+        <div>
+          <div class="ap-eyebrow">Live demo voor autobedrijven</div>
+          <h1>Test zelf hoe de AI medewerker werkt.</h1>
+          <p>
+            Kies Werkplaats of Verkoop en test hoe de AI Telefoniste en het rechter demo-onderdeel dezelfde klantvraag verwerken.
+          </p>
+        </div>
+        <div class="ap-logo">AP</div>
+      </section>
+
+      <section class="ap-process-strip" aria-label="Demo stappen">
+        <div class="ap-mini-step">
+          <b>01</b>
+          <div>
+            <strong>Test een echte klantvraag</strong>
+            <span>Bel met een werkplaats- of verkoopvraag zoals een echte klant dat zou doen.</span>
+          </div>
+        </div>
+
+        <div class="ap-mini-step">
+          <b>02</b>
+          <div>
+            <strong>Bekijk de overdracht</strong>
+            <span>Zie welke notitie, urgentie en vervolgstap naar het team kan gaan.</span>
+          </div>
+        </div>
+
+        <div class="ap-mini-step">
+          <b>03</b>
+          <div>
+            <strong>Koppel aan ROI</strong>
+            <span>Bekijk daarna de impact: sneller reageren, meer afspraken, minder gemiste leads.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-demo-context-toggle" aria-label="Kies demo context">
+        <button class="ap-context-button is-active" type="button" data-demo-context="werkplaats">
+          Werkplaats
+          <span>APK, onderhoud, storing, planning</span>
+        </button>
+        <button class="ap-context-button" type="button" data-demo-context="verkoop">
+          Verkoop
+          <span>Voorraad, proefrit, inruil, offerte</span>
+        </button>
+      </section>
+
+      <section class="ap-demo-grid" aria-label="AI demo's">
+        <article class="ap-demo-card dark">
+          <div class="ap-demo-head">
+            <h2>AI Telefoniste</h2>
+            <p id="phoneDemoIntro">
+              Inbound telefoniste voor werkplaatsplanning. Ideaal om APK, onderhoud, storingen en terugbelverzoeken direct goed op te vangen.
+            </p>
+          </div>
+
+          <div class="ap-demo-body">
+            <div class="ap-widget-stage">
+              <div class="ap-phone-shell">
+                <span>Klik op start en spreek alsof je belt naar een autobedrijf.</span>
+                <div class="ap-voice-launcher" data-elevenlabs-demo>
+                  <button class="ap-demo-start" type="button" data-elevenlabs-start>Start AI Telefoniste demo</button>
+                  <div class="ap-elevenlabs-mount is-empty" data-elevenlabs-mount></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-test-box">
+              <h3>Zo test je hem goed</h3>
+              <div class="ap-scenarios" id="phoneDemoScenarios">
+                <div class="ap-scenario"><div class="ap-number">01</div><div><strong>Werkplaats</strong><span>Ik wil mijn auto inplannen voor APK en onderhoud.</span></div></div>
+                <div class="ap-scenario"><div class="ap-number">02</div><div><strong>Werkplaats</strong><span>Er brandt een lampje, kan ik vandaag nog terecht?</span></div></div>
+                <div class="ap-scenario"><div class="ap-number">03</div><div><strong>Werkplaats</strong><span>Kan iemand van de werkplaats mij terugbellen?</span></div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ap-demo-card">
+          <div class="ap-demo-head">
+            <h2 id="rightDemoTitle">AI Inboxmedewerker</h2>
+            <p>
+              Bekijk hoe een vraag via WhatsApp, e-mail of website binnenkomt, wordt begrepen en klaarstaat voor verkoop of werkplaats.
+            </p>
+          </div>
+
+          <div class="ap-demo-body">
+            <div class="ap-lead-preview">
+              <div class="ap-lead-row">
+                <strong id="leadTitle">Werkplaatsvraag via WhatsApp</strong>
+                <span id="leadStatus">Direct verwerkt</span>
+              </div>
+
+              <div class="ap-message">
+                <div class="ap-bubble customer" id="leadCustomer">
+                  Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?
+                </div>
+                <div class="ap-bubble ai" id="leadAi">
+                  Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-test-box">
+              <h3 id="rightDemoNoteTitle">Wat de AI Inboxmedewerker zichtbaar maakt</h3>
+              <div class="ap-scenarios" id="inboxDemoScenarios">
+                <div class="ap-scenario"><div class="ap-number">01</div><div><strong>Vraagsoort</strong><span>APK, onderhoud of storing.</span></div></div>
+                <div class="ap-scenario"><div class="ap-number">02</div><div><strong>Benodigde gegevens</strong><span>Kenteken, voorkeurstijd en telefoonnummer.</span></div></div>
+                <div class="ap-scenario"><div class="ap-number">03</div><div><strong>Overdracht</strong><span>Notitie naar werkplaats met urgentie en vervolgstap.</span></div></div>
+              </div>
+            </div>
+
+            <div class="ap-placeholder">
+              <strong id="rightDemoPlaceholderTitle">Inboxdemo als preview</strong>
+              <p id="rightDemoPlaceholderText">De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat alvast zien welke informatie de AI ophaalt en overdraagt.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const contexts = {
+        werkplaats: {
+          rightTitle: "AI Inboxmedewerker",
+          phoneIntro: "Inbound telefoniste voor werkplaatsplanning. Ideaal om APK, onderhoud, storingen en terugbelverzoeken direct goed op te vangen.",
+          phoneScenarios: [
+            ["Werkplaats", "Ik wil mijn auto inplannen voor APK en onderhoud."],
+            ["Werkplaats", "Er brandt een lampje, kan ik vandaag nog terecht?"],
+            ["Werkplaats", "Kan iemand van de werkplaats mij terugbellen?"]
+          ],
+          title: "Werkplaatsvraag via WhatsApp",
+          status: "Direct verwerkt",
+          customer: "Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?",
+          ai: "Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.",
+          noteTitle: "Wat de AI Inboxmedewerker zichtbaar maakt",
+          inboxScenarios: [
+            ["Vraagsoort", "APK, onderhoud of storing."],
+            ["Benodigde gegevens", "Kenteken, voorkeurstijd en telefoonnummer."],
+            ["Overdracht", "Notitie naar werkplaats met urgentie en vervolgstap."]
+          ],
+          placeholderTitle: "Inboxdemo als preview",
+          placeholderText: "De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat alvast zien welke informatie de AI ophaalt en overdraagt."
+        },
+        verkoop: {
+          rightTitle: "AI Leadopvolger",
+          phoneIntro: "Inbound telefoniste voor verkoopvragen. Ideaal om voorraadvragen, proefritten, inruil en terugbelverzoeken buiten openingstijden op te vangen.",
+          phoneScenarios: [
+            ["Verkoop", "Is deze occasion nog beschikbaar?"],
+            ["Verkoop", "Kan ik zaterdag een proefrit plannen?"],
+            ["Verkoop", "Ik wil mijn huidige auto inruilen, wat hebben jullie nodig?"]
+          ],
+          title: "Nieuwe verkooplead",
+          status: "Opvolging gestart",
+          customer: "Ik zag de Volkswagen Golf op jullie site. Is die nog beschikbaar en kan ik zaterdag proefrijden?",
+          ai: "Zeker, ik help u graag. Heeft u voorkeur voor zaterdag ochtend of middag? Ik stel meteen een proefritmoment voor, vraag eventuele inruil uit en zet de lead met status klaar voor sales.",
+          noteTitle: "Wat de AI Leadopvolger zichtbaar maakt",
+          inboxScenarios: [
+            ["Direct opvolgen", "Nieuwe lead krijgt meteen reactie."],
+            ["Vervolg voorstellen", "Proefrit, offertebespreking of terugbelmoment."],
+            ["CRM bijwerken", "Leadstatus, bron, auto-interesse en vervolgstap."]
+          ],
+          placeholderTitle: "Leadopvolgerdemo als preview",
+          placeholderText: "De live leadopvolger-widget kan later op deze plek worden toegevoegd. Deze preview laat alvast zien hoe verkoopopvolging en CRM-statussen werken."
+        }
+      };
+
+      function renderScenarios(node, rows) {
+        if (!node) return;
+        node.innerHTML = rows.map(function (row, index) {
+          const number = String(index + 1).padStart(2, "0");
+          return '<div class="ap-scenario"><div class="ap-number">' + number + '</div><div><strong>' + row[0] + '</strong><span>' + row[1] + '</span></div></div>';
+        }).join("");
+      }
+
+      function setContext(key) {
+        const context = contexts[key] || contexts.werkplaats;
+
+        document.querySelectorAll("[data-demo-context]").forEach(function (button) {
+          button.classList.toggle("is-active", button.getAttribute("data-demo-context") === key);
+        });
+
+        const phoneIntro = document.getElementById("phoneDemoIntro");
+        const rightTitle = document.getElementById("rightDemoTitle");
+        const title = document.getElementById("leadTitle");
+        const status = document.getElementById("leadStatus");
+        const customer = document.getElementById("leadCustomer");
+        const ai = document.getElementById("leadAi");
+        const noteTitle = document.getElementById("rightDemoNoteTitle");
+        const placeholderTitle = document.getElementById("rightDemoPlaceholderTitle");
+        const placeholderText = document.getElementById("rightDemoPlaceholderText");
+
+        if (phoneIntro) phoneIntro.textContent = context.phoneIntro;
+        if (rightTitle) rightTitle.textContent = context.rightTitle;
+        if (title) title.textContent = context.title;
+        if (status) status.textContent = context.status;
+        if (customer) customer.textContent = context.customer;
+        if (ai) ai.textContent = context.ai;
+        if (noteTitle) noteTitle.textContent = context.noteTitle;
+        if (placeholderTitle) placeholderTitle.textContent = context.placeholderTitle;
+        if (placeholderText) placeholderText.textContent = context.placeholderText;
+
+        renderScenarios(document.getElementById("phoneDemoScenarios"), context.phoneScenarios);
+        renderScenarios(document.getElementById("inboxDemoScenarios"), context.inboxScenarios);
+      }
+
+      const buttons = document.querySelectorAll("[data-demo-context]");
+      const title = document.getElementById("leadTitle");
+      const status = document.getElementById("leadStatus");
+      const customer = document.getElementById("leadCustomer");
+      const ai = document.getElementById("leadAi");
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setContext(button.getAttribute("data-demo-context"));
+        });
+      });
+
+      setContext("werkplaats");
+    })();
+
+    (function () {
+      const agentId = "agent_8301kx8wzxzbfstr2mtyh74taamx";
+      const scriptId = "ap-elevenlabs-convai-widget";
+
+      function loadElevenLabsScript() {
+        if (document.getElementById(scriptId)) return;
+
+        const script = document.createElement("script");
+        script.id = scriptId;
+        script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+        script.async = true;
+        script.type = "text/javascript";
+        document.body.appendChild(script);
+      }
+
+      document.querySelectorAll("[data-elevenlabs-demo]").forEach(function (demo) {
+        const button = demo.querySelector("[data-elevenlabs-start]");
+        const mount = demo.querySelector("[data-elevenlabs-mount]");
+        if (!button || !mount) return;
+
+        button.addEventListener("click", function () {
+          if (mount.querySelector("elevenlabs-convai")) return;
+
+          mount.classList.remove("is-empty");
+          mount.innerHTML = '<elevenlabs-convai agent-id="' + agentId + '"></elevenlabs-convai>';
+          button.textContent = "AI Telefoniste demo geladen";
+          button.classList.add("is-loaded");
+          button.setAttribute("aria-disabled", "true");
+          loadElevenLabsScript();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
