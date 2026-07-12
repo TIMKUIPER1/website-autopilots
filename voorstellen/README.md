@@ -30,6 +30,9 @@ Vervang `GITHUB_GEBRUIKER` en `REPO_NAAM` door jullie GitHub Pages URL.
 <iframe
   src="https://GITHUB_GEBRUIKER.github.io/REPO_NAAM/voorstellen/ai-sales-chat/autopilots-ai-sales-chat-voorstel-ghl-embed.html"
   style="width:100%;border:0;min-height:1200px;display:block;"
+  allow="microphone; autoplay; clipboard-write"
   loading="lazy">
 </iframe>
 ```
+
+Voor voorstellen met een voice widget is `allow="microphone"` noodzakelijk. Zonder deze iframe-permissie kan de browser een `Permission denied` melding geven, ook als de pagina via HTTPS draait.
