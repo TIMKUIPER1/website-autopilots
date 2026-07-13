@@ -1178,8 +1178,8 @@ body {
         <div class="ap-calculator-grid">
           <div class="ap-inputs">
             <div class="ap-field">
-              <label for="apPackage">Kies pakket</label>
-              <small>Abonnement, implementatie en scenario dekking passen automatisch aan.</small>
+              <label for="apPackage">Kies complete sales dekking</label>
+              <small>De calculator past de scenario’s aan op wat AI Sales Complete in dit product doet.</small>
               <select id="apPackage">
                 <option value="start">Complete Start</option>
                 <option value="scale">Complete Scale</option>
@@ -1211,27 +1211,27 @@ body {
             </div>
 
             <div class="ap-field">
-              <label for="apInboundLeads">Nieuwe sales kansen per maand</label>
-              <small>Nieuwe aanvragen via chat, website, telefoon, WhatsApp, e-mail of formulieren.</small>
-              <input id="apInboundLeads" type="number" min="0" value="120">
+              <label for="apInboundLeads">Nieuwe saleskansen per maand</label>
+              <small>Nieuwe verkoopkansen via chat, website, telefoon, WhatsApp, e-mail, formulieren of socials.</small>
+              <input id="apInboundLeads" type="number" min="0" value="180">
             </div>
 
             <div class="ap-field">
-              <label for="apAfterHours">Buiten openingstijden of gemiste oproepen</label>
-              <small>Welk percentage wordt niet direct bereikt omdat je team niet beschikbaar is?</small>
+              <label for="apAfterHours">Te laat of niet opgevolgd</label>
+              <small>Welk percentage krijgt nu te laat reactie, wordt niet opgenomen of valt helemaal stil?</small>
               <input id="apAfterHours" type="number" min="0" max="100" value="15">
             </div>
 
             <div class="ap-field">
-              <label for="apPeakHours">Tijdens piekdrukte of vertraagde opvolging</label>
-              <small>Welk percentage krijgt later reactie door drukte, bezetting of handmatige opvolging?</small>
+              <label for="apPeakHours">Tijdens piekdrukte</label>
+              <small>Welk percentage blijft tijdens drukte liggen of krijgt vertraagde opvolging?</small>
               <input id="apPeakHours" type="number" min="0" max="100" value="10">
             </div>
 
             <div class="ap-field">
-              <label for="apOldLeads">Leads voor opvolging of reactivatie</label>
+              <label for="apOldLeads">Openstaande leads voor opvolging</label>
               <small>Offertes, no shows, gemiste oproepen, oude CRM leads of openstaande aanvragen.</small>
-              <input id="apOldLeads" type="number" min="0" value="50">
+              <input id="apOldLeads" type="number" min="0" value="120">
             </div>
 
             <div class="ap-field">
@@ -1253,8 +1253,8 @@ body {
             </div>
 
             <div class="ap-usage-info">
-              <strong>Gebruikerskosten AI Medewerker</strong>
-              <p>Inbound chat €0,02 per bericht. Outbound chat €0,22 per bericht. Inbound belminuten €0,19 per minuut. Outbound belminuten €0,22 per minuut.</p>
+              <strong>Wat deze prognose laat zien</strong>
+              <p>De calculator rekent puur op extra bereik, afspraken, klanten en marge. Prijzen en gebruikskosten staan pas bij het voorstel.</p>
             </div>
           </div>
 
@@ -1263,18 +1263,18 @@ body {
 
             <div class="ap-cost-grid">
               <div class="ap-pill">
-                <span>Abonnement</span>
-                <strong id="apMonthly">€0</strong>
-              </div>
-
-              <div class="ap-pill">
-                <span>Implementatie</span>
-                <strong id="apSetup">€0</strong>
+                <span>Scenario dekking</span>
+                <strong id="apFocusLabel">1 scenario</strong>
               </div>
 
               <div class="ap-pill">
                 <span id="apOpportunityLabel">Gedekte kansen</span>
                 <strong id="apRiskLeads">0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span>AI-doel</span>
+                <strong>Chat + voice</strong>
               </div>
             </div>
 
@@ -1349,15 +1349,6 @@ body {
                   <strong id="apExtraMargin">€0</strong>
                 </div>
 
-                <div class="ap-impact-item">
-                  <span>Marge met AI</span>
-                  <strong id="apMarginWithAi">€0</strong>
-                </div>
-
-                <div class="ap-impact-item">
-                  <span>Marge na abonnement</span>
-                  <strong id="apNetAfterCost">€0</strong>
-                </div>
               </div>
             </div>
           </div>
@@ -1856,6 +1847,12 @@ body {
         premium: "Kansen binnen alle scenario’s"
       };
 
+      const focusLabels = {
+        start: "1 scenario",
+        scale: "2 scenario’s",
+        premium: "Alle scenario’s"
+      };
+
       const manualReachRate = 0.35;
 
       function el(id) {
@@ -1957,10 +1954,6 @@ body {
         const extraAppointments = appointmentsWithAi - appointmentsNoAi;
         const extraCustomers = customersWithAi - customersNoAi;
         const extraMargin = marginWithAi - marginNoAi;
-        const netAfterCost = marginWithAi - selectedPackage.monthly;
-
-        setOutput("apMonthly", formatEuro(selectedPackage.monthly));
-        setOutput("apSetup", formatEuro(selectedPackage.setup));
         setOutput("apRiskLeads", formatNumber(coveredPool));
 
         setOutput("apHandledNoAi", formatNumber(handledNoAi));
@@ -1975,11 +1968,10 @@ body {
         setOutput("apExtraAppointments", formatNumber(extraAppointments));
         setOutput("apExtraCustomers", formatNumber(extraCustomers));
         setOutput("apExtraMargin", formatEuro(extraMargin));
-        setOutput("apMarginWithAi", formatEuro(marginWithAi));
-        setOutput("apNetAfterCost", formatEuro(netAfterCost));
 
         setOutput("apFlowLabel", flowLabels[packageKey]);
         setOutput("apOpportunityLabel", opportunityLabels[packageKey]);
+        setOutput("apFocusLabel", focusLabels[packageKey]);
 
         updateFlowButtons(packageKey);
       }

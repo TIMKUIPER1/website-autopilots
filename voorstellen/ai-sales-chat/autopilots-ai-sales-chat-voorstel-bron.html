@@ -1185,8 +1185,8 @@ body {
         <div class="ap-calculator-grid">
           <div class="ap-inputs">
             <div class="ap-field">
-              <label for="apPackage">Kies pakket</label>
-              <small>Abonnement, implementatie en opvolgkwaliteit passen automatisch aan.</small>
+              <label for="apPackage">Kies sales chat dekking</label>
+              <small>De calculator past de opvolgflow aan op wat de AI Sales Chat in dit product doet.</small>
               <select id="apPackage">
                 <option value="start">Chat Start</option>
                 <option value="scale">Chat Scale</option>
@@ -1218,14 +1218,14 @@ body {
             </div>
 
             <div class="ap-field">
-              <label for="apInboundLeads">Nieuwe aanvragen per maand</label>
-              <small>Website chat, WhatsApp, e-mail of social DM’s.</small>
-              <input id="apInboundLeads" type="number" min="0" value="120">
+              <label for="apInboundLeads">Chat- en berichtkansen per maand</label>
+              <small>Directe verkoopvragen via website chat, WhatsApp, e-mail of social DM’s.</small>
+              <input id="apInboundLeads" type="number" min="0" value="150">
             </div>
 
             <div class="ap-field">
-              <label for="apAfterHours">Buiten openingstijden</label>
-              <small>Welk percentage van je aanvragen komt binnen wanneer niemand direct reageert?</small>
+              <label for="apAfterHours">Te laat of niet opgevolgd</label>
+              <small>Welk percentage krijgt nu te laat reactie of valt helemaal stil?</small>
               <input id="apAfterHours" type="number" min="0" max="100" value="15">
             </div>
 
@@ -1236,8 +1236,8 @@ body {
             </div>
 
             <div class="ap-field">
-              <label for="apOldLeads">Leads voor opvolging of reactivatie</label>
-              <small>Meta formulieren, Google Ads leads, LinkedIn reacties, oude CRM leads, offertes of gemiste contactmomenten.</small>
+              <label for="apOldLeads">Leads voor actieve chatopvolging</label>
+              <small>Voor Scale en Premium: formulierleads, advertentieleads, LinkedIn reacties, offertes of oude CRM leads.</small>
               <input id="apOldLeads" type="number" min="0" value="180">
             </div>
 
@@ -1260,8 +1260,8 @@ body {
             </div>
 
             <div class="ap-usage-info">
-              <strong>Gebruikerskosten AI Medewerker</strong>
-              <p>Inbound chat €0,02 per bericht. Outbound chat €0,22 per bericht.</p>
+              <strong>Wat deze prognose laat zien</strong>
+              <p>De calculator rekent puur op extra bereik, afspraken, klanten en marge. Prijzen en gebruikskosten staan pas bij het voorstel.</p>
             </div>
           </div>
 
@@ -1270,18 +1270,18 @@ body {
 
             <div class="ap-cost-grid">
               <div class="ap-pill">
-                <span>Abonnement</span>
-                <strong id="apMonthly">€0</strong>
-              </div>
-
-              <div class="ap-pill">
-                <span>Implementatie</span>
-                <strong id="apSetup">€0</strong>
+                <span>Productfocus</span>
+                <strong id="apFocusLabel">Inbound</strong>
               </div>
 
               <div class="ap-pill">
                 <span id="apOpportunityLabel">Inbound kansen</span>
                 <strong id="apRiskLeads">0</strong>
+              </div>
+
+              <div class="ap-pill">
+                <span>AI-doel</span>
+                <strong>Direct opvolgen</strong>
               </div>
             </div>
 
@@ -1356,15 +1356,6 @@ body {
                   <strong id="apExtraMargin">€0</strong>
                 </div>
 
-                <div class="ap-impact-item">
-                  <span>Marge met AI</span>
-                  <strong id="apMarginWithAi">€0</strong>
-                </div>
-
-                <div class="ap-impact-item">
-                  <span>Marge na abonnement + gebruikerskosten</span>
-                  <strong id="apNetAfterCost">€0</strong>
-                </div>
               </div>
             </div>
           </div>
@@ -1876,13 +1867,15 @@ body {
         premium: "Inbound, outbound en reactivatie"
       };
 
+      const focusLabels = {
+        start: "Inbound",
+        scale: "Inbound + outbound",
+        premium: "Volledige chatflow"
+      };
+
       const manualDirectRate = 0.35;
       const manualFollowupRate = 0.35;
       const manualReactivationRate = 0.08;
-
-      const inboundMessageCost = 0.02;
-      const outboundMessageCost = 0.22;
-      const messagesPerLead = 8;
 
       function el(id) {
         return root.querySelector("#" + id);
@@ -2021,26 +2014,6 @@ body {
         const extraCustomers = customersWithAi - customersNoAi;
         const extraMargin = marginWithAi - marginNoAi;
 
-        const inboundUsage =
-          hasInbound(selectedPackage)
-            ? handledWithAiInbound * messagesPerLead * inboundMessageCost
-            : 0;
-
-        const outboundUsage =
-          hasOutbound(selectedPackage)
-            ? handledWithAiOutbound * messagesPerLead * outboundMessageCost
-            : 0;
-
-        const reactivationUsage =
-          hasReactivation(selectedPackage)
-            ? handledWithAiReactivation * messagesPerLead * outboundMessageCost
-            : 0;
-
-        const usage = inboundUsage + outboundUsage + reactivationUsage;
-        const netAfterCost = marginWithAi - selectedPackage.monthly - usage;
-
-        setOutput("apMonthly", formatEuro(selectedPackage.monthly));
-        setOutput("apSetup", formatEuro(selectedPackage.setup));
         setOutput("apRiskLeads", formatNumber(inboundPool + outboundPool + reactivationPool));
 
         setOutput("apHandledNoAi", formatNumber(handledNoAi));
@@ -2055,11 +2028,10 @@ body {
         setOutput("apExtraAppointments", formatNumber(extraAppointments));
         setOutput("apExtraCustomers", formatNumber(extraCustomers));
         setOutput("apExtraMargin", formatEuro(extraMargin));
-        setOutput("apMarginWithAi", formatEuro(marginWithAi));
-        setOutput("apNetAfterCost", formatEuro(netAfterCost));
 
         setOutput("apFlowLabel", flowLabels[packageKey]);
         setOutput("apOpportunityLabel", opportunityLabels[packageKey]);
+        setOutput("apFocusLabel", focusLabels[packageKey]);
 
         updateFlowButtons(packageKey);
       }
