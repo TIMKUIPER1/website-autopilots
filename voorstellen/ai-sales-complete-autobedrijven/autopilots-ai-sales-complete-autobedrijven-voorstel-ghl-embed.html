@@ -1740,42 +1740,6 @@
       font-weight: 700;
     }
 
-    #ap-sales-complete-proposal .ap-demo-file-notice {
-      display: grid;
-      gap: 10px;
-      border-radius: 18px;
-      border: 1px dashed rgba(159, 56, 38, 0.42);
-      background: rgba(159, 56, 38, 0.08);
-      padding: 16px;
-      text-align: left;
-    }
-
-    #ap-sales-complete-proposal .ap-demo-file-notice strong {
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.25;
-      font-weight: 900;
-    }
-
-    #ap-sales-complete-proposal .ap-demo-file-notice p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-      font-weight: 700;
-    }
-
-    #ap-sales-complete-proposal .ap-demo-file-notice a {
-      width: fit-content;
-      border-radius: 999px;
-      background: var(--brown);
-      color: var(--white);
-      padding: 10px 14px;
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 900;
-      text-decoration: none;
-    }
-
     #ap-sales-complete-proposal .ap-demo-loading {
       width: 100%;
       border-radius: 16px;
@@ -2494,7 +2458,7 @@ body {
             <div class="ap-field" data-roi-field="volume">
               <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal verkoopkansen per maand</label>
               <small id="apInboundLeadsHelp">Directe berichten met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.</small>
-              <input id="apInboundLeads" type="number" min="0" value="150">
+              <input id="apInboundLeads" type="number" min="0" value="250">
             </div>
 
             <div class="ap-field" data-roi-field="sales">
@@ -2764,7 +2728,7 @@ body {
 
         <div class="ap-black-summary">
           <h3>Duidelijke fases. Geen losse chaos.</h3>
-          <p>Start maximaal binnen 6 tot 10 weken na onboarding, afhankelijk van product, scope, aangeleverde input en feedbackmomenten.</p>
+          <p>Gemiddeld wordt het product binnen 2 tot 4 weken geïmplementeerd, afhankelijk van product, scope, aangeleverde input en feedbackmomenten.</p>
         </div>
       </div>
     </div>
@@ -3267,7 +3231,7 @@ body {
         start: {
           volumeLabel: "Aantal verkoopkansen per maand",
           volumeHelp: "Directe inboxvragen met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
-          defaultVolume: 150,
+          defaultVolume: 250,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel berichten gaan over voorraad, proefrit, inruil, offerte of een verkoopvraag?",
           afterLabel: "Te laat gereageerd",
@@ -3281,7 +3245,7 @@ body {
         telefoniste: {
           volumeLabel: "Aantal verkoopkansen per maand",
           volumeHelp: "Telefoontjes met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
-          defaultVolume: 150,
+          defaultVolume: 250,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel telefoontjes hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?",
           afterLabel: "Buiten openingstijden",
@@ -3297,11 +3261,11 @@ body {
         scale: {
           volumeLabel: "Aantal platformleads per maand",
           volumeHelp: "Nieuwe aanvragen via BOVAG, Marktplaats, AutoScout of vergelijkbare leadbronnen.",
-          defaultVolume: 200,
+          defaultVolume: 350,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel platformleads zijn serieus genoeg voor proefrit, offertebespreking of terugbelmoment?",
-          afterLabel: "Niet of te laat opgevolgd",
-          afterHelp: "Welk percentage krijgt nu geen structurele of te late opvolging?",
+          afterLabel: "Te laat of niet opgevolgd",
+          afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
           fields: ["volume", "after-hours"],
           opportunity: "Leadopvolgkansen",
           handledLabel: "Actief opgevolgd",
@@ -3311,11 +3275,11 @@ body {
         premium: {
           volumeLabel: "Aantal verkoopkansen per maand",
           volumeHelp: "Alle verkoopkansen samen binnen de gekozen focus: inbox, telefonie en platformleads.",
-          defaultVolume: 150,
+          defaultVolume: 250,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel contactmomenten kunnen leiden tot afspraak, proefrit, offerte of verkoopgesprek?",
-          afterLabel: "Buiten openingstijden of te laat",
-          afterHelp: "Welk percentage wordt nu buiten werktijd of te laat opgepakt?",
+          afterLabel: "Te laat of niet opgevolgd",
+          afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
           peakLabel: "Tijdens piekdrukte",
           peakHelp: "Welk percentage blijft tijdens drukte liggen of krijgt vertraagde opvolging?",
           fields: ["volume", "after-hours", "peak"],
@@ -3653,22 +3617,62 @@ body {
       };
 
       const scriptId = "ap-elevenlabs-convai-widget";
-      const onlineDemoUrl = "https://timkuiper1.github.io/website-autopilots/voorstellen/ai-sales-complete-autobedrijven/autopilots-ai-sales-complete-autobedrijven-voorstel-ghl-embed.html#ap-sales-complete-demo";
+      let elevenLabsScriptPromise = null;
       let activeProductDemo = productDemos.telefoniste;
 
-      function isFilePreview() {
-        return window.location.protocol === "file:";
+      function loadElevenLabsScript() {
+        if (window.customElements && customElements.get("elevenlabs-convai")) {
+          return Promise.resolve();
+        }
+
+        if (elevenLabsScriptPromise) return elevenLabsScriptPromise;
+
+        elevenLabsScriptPromise = new Promise(function (resolve, reject) {
+          const existingScript = document.getElementById(scriptId);
+          if (existingScript) {
+            existingScript.addEventListener("load", resolve, { once: true });
+            existingScript.addEventListener("error", reject, { once: true });
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.id = scriptId;
+          script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+          script.async = true;
+          script.type = "text/javascript";
+          script.addEventListener("load", resolve, { once: true });
+          script.addEventListener("error", reject, { once: true });
+          document.body.appendChild(script);
+        });
+
+        return elevenLabsScriptPromise;
       }
 
-      function loadElevenLabsScript() {
-        if (document.getElementById(scriptId)) return;
+      function openElevenLabsWidget(widget) {
+        if (!widget) return;
 
-        const script = document.createElement("script");
-        script.id = scriptId;
-        script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
-        script.async = true;
-        script.type = "text/javascript";
-        document.body.appendChild(script);
+        const tryOpen = function () {
+          if (typeof widget.open === "function") {
+            widget.open();
+            return;
+          }
+
+          const EventConstructor = window.PointerEvent || window.MouseEvent;
+          widget.dispatchEvent(new EventConstructor("pointerdown", { bubbles: true, composed: true }));
+          widget.dispatchEvent(new EventConstructor("pointerup", { bubbles: true, composed: true }));
+          widget.click();
+
+          if (widget.shadowRoot) {
+            const trigger = widget.shadowRoot.querySelector("button, [role='button'], [tabindex='0']");
+            if (trigger) trigger.click();
+          }
+        };
+
+        requestAnimationFrame(function () {
+          tryOpen();
+          window.setTimeout(tryOpen, 450);
+          window.setTimeout(tryOpen, 1200);
+        });
       }
 
       function renderProductList(items) {
@@ -3721,9 +3725,7 @@ body {
         if (mount) {
           mount.classList.add("is-empty");
           mount.innerHTML = "";
-          mount.setAttribute("data-placeholder", isFilePreview() && demo.type === "widget"
-            ? "Je bekijkt nu een file-preview. Klik op de knop om de online demo te openen."
-            : demo.placeholder || "De demo wordt pas geladen na het klikken.");
+          mount.setAttribute("data-placeholder", demo.placeholder || "De demo wordt pas geladen na het klikken.");
         }
 
         if (demo.type === "preview") {
@@ -3751,25 +3753,29 @@ body {
 
           if (activeProductDemo.type !== "widget" || !mount) return;
 
-          if (isFilePreview()) {
-            mount.classList.remove("is-empty");
-            mount.innerHTML = [
-              '<div class="ap-demo-file-notice">',
-              '<strong>Open de online demo om de widget te testen.</strong>',
-              '<p>De browser blokkeert ElevenLabs permissies in een lokale file-preview. Op de online pagina opent de widget normaal na je klik.</p>',
-              '<a href="' + onlineDemoUrl + '">Open online demo</a>',
-              '</div>'
-            ].join("");
-            openButton.textContent = "Open online demo";
-            return;
-          }
-
           mount.classList.remove("is-empty");
-          mount.innerHTML = '<elevenlabs-convai agent-id="' + activeProductDemo.agentId + '"></elevenlabs-convai>';
+          mount.innerHTML = "";
+          const widget = document.createElement("elevenlabs-convai");
+          widget.setAttribute("agent-id", activeProductDemo.agentId);
+          mount.appendChild(widget);
+
           openButton.textContent = "Widget geopend";
           openButton.classList.add("is-loaded");
           openButton.setAttribute("aria-disabled", "true");
-          loadElevenLabsScript();
+          loadElevenLabsScript()
+            .then(function () {
+              if (window.customElements && customElements.whenDefined) {
+                return customElements.whenDefined("elevenlabs-convai");
+              }
+            })
+            .then(function () {
+              openElevenLabsWidget(widget);
+            })
+            .catch(function () {
+              openButton.textContent = activeProductDemo.buttonLabel;
+              openButton.classList.remove("is-loaded");
+              openButton.removeAttribute("aria-disabled");
+            });
         });
       }
 
