@@ -28,15 +28,44 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p _site
-          rsync -a --delete \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='_site' \
-            --exclude='.DS_Store' \
-            --exclude='autopilots-website/node_modules' \
-            --exclude='sales-dashboard/.git' \
-            ./ _site/
+
+          for file in \
+            .nojekyll \
+            index.html \
+            autobedrijven-ai-voorstel.html \
+            autopilots-crm-landing-embed.html \
+            plan-je-onboarding-page
+          do
+            if [ -f "$file" ]; then
+              cp "$file" "_site/$file"
+            fi
+          done
+
+          for dir in \
+            agent-service-pages \
+            crm-landing-page \
+            ghl-autopilots-dashboard \
+            home-landing-page \
+            leadsmachine-ai-landing-page \
+            niche-landing-pages \
+            projecten \
+            shared-sections \
+            splandid-demo \
+            vastgoedbeheer-landing-page \
+            voice-agent-bedankt-pagina \
+            voorstellen
+          do
+            if [ -d "$dir" ]; then
+              mkdir -p "_site/$dir"
+              rsync -a --delete \
+                --exclude='.DS_Store' \
+                --exclude='snapshots' \
+                "$dir/" "_site/$dir/"
+            fi
+          done
+
           touch _site/.nojekyll
+          find _site -name '.DS_Store' -delete
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
