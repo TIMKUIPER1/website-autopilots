@@ -1,0 +1,3863 @@
+<div id="ap-sales-complete-proposal">
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    #ap-sales-complete-proposal {
+      --bg: #f5f5f2;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --soft: #eeeeea;
+      --line: rgba(0, 0, 0, 0.1);
+      --brown: #9f3826;
+      --brown-dark: #7d2a1d;
+      --black: #111111;
+      --white: #ffffff;
+
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #ap-sales-complete-proposal * {
+      box-sizing: border-box;
+    }
+
+    #ap-sales-complete-proposal [hidden] {
+      display: none !important;
+    }
+
+    #ap-sales-complete-proposal h1,
+    #ap-sales-complete-proposal h2,
+    #ap-sales-complete-proposal h3,
+    #ap-sales-complete-proposal h4,
+    #ap-sales-complete-proposal p {
+      margin: 0;
+    }
+
+    #ap-sales-complete-proposal a {
+      color: inherit;
+    }
+
+    #ap-sales-complete-proposal .ap-section {
+      width: 100%;
+      padding: 80px 0;
+    }
+
+    #ap-sales-complete-proposal .ap-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-center {
+      max-width: 880px;
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    #ap-sales-complete-proposal .ap-eyebrow {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-hero-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-hero-title .ap-hero-line {
+      display: block;
+    }
+
+    #ap-sales-complete-proposal .ap-hero-title .ap-hero-ai {
+      display: block;
+      margin-top: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-title {
+      max-width: 920px;
+      margin: 0 auto 16px;
+      font-size: clamp(34px, 4.8vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-title-line,
+    #ap-sales-complete-proposal .ap-title-ai {
+      display: block;
+    }
+
+    #ap-sales-complete-proposal .ap-title-ai {
+      margin-top: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-italic {
+      font-style: italic;
+      color: var(--brown);
+      letter-spacing: -0.055em;
+    }
+
+    #ap-sales-complete-proposal .ap-subtitle {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-hero-text {
+      max-width: 800px;
+      margin: 24px auto 0;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    #ap-sales-complete-proposal .ap-button {
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-complete-proposal .ap-button:hover {
+      transform: translateY(-1px);
+    }
+
+    #ap-sales-complete-proposal .ap-button.primary {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-button.secondary {
+      background: var(--white);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    #ap-sales-complete-proposal details {
+      width: 100%;
+    }
+
+    #ap-sales-complete-proposal summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    #ap-sales-complete-proposal summary::-webkit-details-marker {
+      display: none;
+    }
+
+    #ap-sales-complete-proposal .ap-plus {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 999px;
+      background: var(--black);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-complete-proposal details[open] .ap-plus {
+      background: var(--brown);
+      transform: rotate(45deg);
+    }
+
+    #ap-sales-complete-proposal .ap-panel,
+    #ap-sales-complete-proposal .ap-calculator,
+    #ap-sales-complete-proposal .ap-roadmap-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.07);
+    }
+
+    #ap-sales-complete-proposal .ap-panel {
+      margin-top: 54px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    #ap-sales-complete-proposal .ap-step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-step {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 190px;
+    }
+
+    #ap-sales-complete-proposal .ap-step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-step h3 {
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-step p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    #ap-sales-complete-proposal .ap-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    #ap-sales-complete-proposal .ap-feature {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      min-height: 250px;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-complete-proposal .ap-feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(159, 56, 38, 0.11);
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-feature h3 {
+      font-size: 23px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-feature p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-more {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 15px;
+      line-height: 1.62;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-usage-info {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-usage-info strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-usage-info p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-calculator-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    #ap-sales-complete-proposal .ap-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-field {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-field label {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-field small {
+      display: block;
+      font-size: 13px;
+      line-height: 1.42;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-field input,
+    #ap-sales-complete-proposal .ap-field select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 0 12px;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    #ap-sales-complete-proposal .ap-hidden-select {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #ap-sales-complete-proposal .ap-toggle {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-toggle-button {
+      width: 100%;
+      min-height: 58px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: var(--white);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+      padding: 8px 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-toggle-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-toggle-button:not(.is-active) {
+      background: #ffffff;
+      color: #111111;
+      opacity: 0.72;
+    }
+
+    #ap-sales-complete-proposal .ap-flow-info {
+      margin-top: 10px;
+      min-height: 58px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--text);
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    #ap-sales-complete-proposal .ap-results {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    #ap-sales-complete-proposal .ap-results h3 {
+      font-size: 30px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-cost-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-pill span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.25;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-pill strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-compare-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-compare-card.ai {
+      background: rgba(159, 56, 38, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #ap-sales-complete-proposal .ap-compare-card h4 {
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-metric {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #ap-sales-complete-proposal .ap-metric:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-metric span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.64);
+      margin-bottom: 7px;
+    }
+
+    #ap-sales-complete-proposal .ap-metric strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1.04;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-impact {
+      margin-top: 18px;
+      background: var(--white);
+      color: var(--text);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-head h4 {
+      font-size: 24px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-impact-head p {
+      max-width: 560px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-impact-badge {
+      min-width: fit-content;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-item {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-item span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-impact-item strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-roadmap details,
+    #ap-sales-complete-proposal .ap-faq details {
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #ap-sales-complete-proposal .ap-roadmap details[open],
+    #ap-sales-complete-proposal .ap-faq details[open] {
+      background: var(--white);
+      border-color: rgba(159, 56, 38, 0.28);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
+    }
+
+    #ap-sales-complete-proposal .ap-roadmap summary,
+    #ap-sales-complete-proposal .ap-faq summary {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #ap-sales-complete-proposal .ap-roadmap .ap-step-number {
+      margin-bottom: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-road-title {
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 5px;
+    }
+
+    #ap-sales-complete-proposal .ap-road-preview {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-road-content {
+      padding: 0 22px 22px 78px;
+    }
+
+    #ap-sales-complete-proposal .ap-road-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-road-mini {
+      border-radius: 16px;
+      background: #f7f7f5;
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-road-mini span {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-road-mini p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-black-summary {
+      margin-top: 18px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #ap-sales-complete-proposal .ap-black-summary h3 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-black-summary p {
+      max-width: 780px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    #ap-sales-complete-proposal .ap-package-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    #ap-sales-complete-proposal .ap-package {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+      display: grid;
+      grid-template-columns: minmax(300px, 0.85fr) minmax(360px, 1.15fr);
+      gap: 24px 28px;
+      align-items: start;
+    }
+
+    #ap-sales-complete-proposal .ap-package.featured {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 34%),
+        var(--brown);
+      color: var(--white);
+      transform: none;
+    }
+
+    #ap-sales-complete-proposal .ap-package-top {
+      display: grid;
+      grid-template-rows: auto auto minmax(44px, auto) auto;
+      row-gap: 12px;
+      margin-bottom: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-badge {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-package h3 {
+      font-size: clamp(24px, 2.2vw, 32px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: normal;
+      display: flex;
+      align-items: center;
+    }
+
+    #ap-sales-complete-proposal .ap-package p {
+      max-width: 460px;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .featured p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    #ap-sales-complete-proposal .ap-price {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: 6px;
+    }
+
+    #ap-sales-complete-proposal .ap-price strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: clamp(44px, 5vw, 66px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-price span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-price span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-savings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-saving-pill {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-saving-pill span {
+      display: block;
+      margin: 0 0 5px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-saving-pill strong {
+      display: block;
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-list li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    #ap-sales-complete-proposal .ap-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-check {
+      background: var(--white);
+      color: var(--brown);
+    }
+
+    #ap-sales-complete-proposal .ap-package-details {
+      grid-column: 1 / -1;
+      align-self: stretch;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    #ap-sales-complete-proposal .featured .ap-package-details {
+      border-top-color: rgba(255, 255, 255, 0.14);
+    }
+
+    #ap-sales-complete-proposal .ap-package-details summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      min-height: 56px;
+      border-radius: 18px;
+      background: #f8f8f5;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 12px 14px 12px 16px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-package-details summary {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-scope-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-scope-card {
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: linear-gradient(180deg, #ffffff 0%, #f8f8f5 100%);
+      padding: 18px;
+      min-width: 0;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-scope-card {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    #ap-sales-complete-proposal .ap-scope-card h4 {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    #ap-sales-complete-proposal .ap-scope-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #ap-sales-complete-proposal .ap-scope-card li {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.42;
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-scope-card li {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    #ap-sales-complete-proposal .ap-scope-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      background: var(--brown);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    #ap-sales-complete-proposal .ap-scope-icon.no {
+      background: rgba(0, 0, 0, 0.12);
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .featured .ap-scope-icon.no {
+      background: rgba(255, 255, 255, 0.16);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-package > .ap-button {
+      grid-column: 1 / -1;
+      align-self: start;
+      width: min(280px, 100%);
+      margin-top: 14px;
+      padding-inline: 18px;
+      text-align: center;
+    }
+
+    #ap-sales-complete-proposal .ap-stripe-box {
+      margin-top: 18px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    #ap-sales-complete-proposal .ap-faq {
+      max-width: 940px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-faq details {
+      background: var(--white);
+      border-radius: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-faq summary {
+      grid-template-columns: 1fr auto;
+    }
+
+    #ap-sales-complete-proposal .ap-faq .ap-road-content {
+      padding: 0 22px 22px;
+    }
+
+    #ap-sales-complete-proposal .ap-faq-category {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin: 34px 0 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-final {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(159, 56, 38, 0.2), transparent 34%),
+        var(--black);
+      color: var(--white);
+      border-radius: 34px;
+      padding: 56px 30px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    #ap-sales-complete-proposal .ap-final h2 {
+      max-width: 850px;
+      margin: 0 auto 18px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-final p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-shell {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(159, 56, 38, 0.32), transparent 30%),
+        var(--black);
+      color: var(--white);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    #ap-sales-complete-proposal .ap-brain-visual,
+    #ap-sales-complete-proposal .ap-brain-side {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-ticket {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    #ap-sales-complete-proposal .ap-brain-ticket strong,
+    #ap-sales-complete-proposal .ap-brain-panel strong,
+    #ap-sales-complete-proposal .ap-brain-output strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-ticket span,
+    #ap-sales-complete-proposal .ap-brain-panel p,
+    #ap-sales-complete-proposal .ap-brain-output p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-ticket span {
+      color: var(--muted);
+    }
+
+    #ap-sales-complete-proposal .ap-brain-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(159, 56, 38, 0.12);
+      color: var(--brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-map {
+      position: relative;
+      min-height: 390px;
+      margin-top: 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      overflow: hidden;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-core,
+    #ap-sales-complete-proposal .ap-brain-node {
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(17, 17, 17, 0.86);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    }
+
+    #ap-sales-complete-proposal .ap-brain-core {
+      left: 50%;
+      top: 50%;
+      width: 190px;
+      min-height: 190px;
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 22px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-core b {
+      font-size: 21px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-node {
+      width: 172px;
+      border-radius: 20px;
+      padding: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-node b {
+      display: block;
+      font-size: 13px;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-node span {
+      display: block;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    #ap-sales-complete-proposal .ap-node-1 { left: 18px; top: 38px; }
+    #ap-sales-complete-proposal .ap-node-2 { right: 18px; top: 38px; }
+    #ap-sales-complete-proposal .ap-node-3 { left: 18px; bottom: 38px; }
+    #ap-sales-complete-proposal .ap-node-4 { right: 18px; bottom: 38px; }
+
+    #ap-sales-complete-proposal .ap-brain-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-tab {
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.74);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 850;
+      cursor: pointer;
+      padding: 10px;
+      text-align: left;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-tab.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-brain-panel {
+      display: none;
+      min-height: 168px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-panel.is-active {
+      display: block;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-output {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-brain-output div {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-shell {
+      display: grid;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-route-bar {
+      display: grid;
+      gap: 18px;
+      padding: 20px;
+      border-radius: 24px;
+      background: #f8f8f5;
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-route-heading {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-route-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--brown);
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-route-bar strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-route-bar p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-stepper {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-step b {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-step span {
+      display: block;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-step small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-context-toggle {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 10px;
+      border-radius: 24px;
+      background: #f7f7f4;
+      border: 1px solid var(--line);
+    }
+
+    #ap-sales-complete-proposal .ap-context-button {
+      min-height: 68px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-complete-proposal .ap-context-button span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-context-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+      box-shadow: 0 16px 42px rgba(159, 56, 38, 0.16);
+    }
+
+    #ap-sales-complete-proposal .ap-context-button.is-active span {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-picker {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-button {
+      min-height: 102px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fbfbf8;
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      text-align: left;
+      padding: 16px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-button strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-button span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-button.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+      box-shadow: 0 18px 50px rgba(159, 56, 38, 0.18);
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-button.is-active span {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-panel {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 0;
+      align-items: stretch;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-copy {
+      padding: 30px;
+      background: #f8f8f5;
+      color: var(--text);
+      border-right: 1px solid var(--line);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-step-label {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(159, 56, 38, 0.1);
+      color: var(--brown);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-copy h3 {
+      margin-bottom: 12px;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-copy p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-list li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-list b {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--brown);
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    #ap-sales-complete-proposal .ap-product-demo-stage {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      padding: 30px;
+      background: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-preview-shell {
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-card {
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: #fbfbf8;
+      overflow: hidden;
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-card.dark {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(159, 56, 38, 0.38), transparent 35%),
+        var(--black);
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-head {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #ap-sales-complete-proposal .dark .ap-live-demo-head {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-head h3 {
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-head p,
+    #ap-sales-complete-proposal .ap-demo-note p,
+    #ap-sales-complete-proposal .ap-demo-script-placeholder p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    #ap-sales-complete-proposal .dark .ap-live-demo-head p,
+    #ap-sales-complete-proposal .dark .ap-demo-note p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #ap-sales-complete-proposal .ap-live-demo-body {
+      display: grid;
+      gap: 14px;
+      padding: 18px 24px 24px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-stage {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        #f8f8f5;
+      background-size: 34px 34px;
+      padding: 18px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-phone {
+      width: min(440px, 100%);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--text);
+      padding: 20px;
+      text-align: center;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.14);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-phone span {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-voice-launcher {
+      display: grid;
+      gap: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-widget-panel {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      min-height: 118px;
+      border-radius: 22px;
+      border: 1px solid rgba(159, 56, 38, 0.16);
+      background: #f8f8f5;
+      padding: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-widget-panel[hidden] {
+      display: none;
+    }
+
+    #ap-sales-complete-proposal .ap-widget-panel elevenlabs-convai {
+      width: 100%;
+      max-width: 360px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-start {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--brown);
+      color: var(--white);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 16px 42px rgba(159, 56, 38, 0.26);
+      transition: 0.18s ease;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-start:hover {
+      background: var(--brown-dark);
+      transform: translateY(-1px);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-start.is-loaded {
+      background: var(--black);
+      box-shadow: none;
+      cursor: default;
+    }
+
+    #ap-sales-complete-proposal .ap-elevenlabs-mount {
+      display: grid;
+      place-items: center;
+      min-height: 88px;
+      border-radius: 22px;
+      border: 1px dashed rgba(159, 56, 38, 0.3);
+      background: rgba(159, 56, 38, 0.07);
+      padding: 14px;
+    }
+
+    #ap-sales-complete-proposal .ap-elevenlabs-mount.is-empty::before {
+      content: attr(data-placeholder);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-loading {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(159, 56, 38, 0.24);
+      background: rgba(159, 56, 38, 0.07);
+      color: var(--muted);
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-note {
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 16px;
+    }
+
+    #ap-sales-complete-proposal .dark .ap-demo-note {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-prompts {
+      display: grid;
+      gap: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-prompt {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(159, 56, 38, 0.08);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .dark .ap-demo-prompt {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-prompt b {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--brown);
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-tab {
+      min-height: 54px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--text);
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 900;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-tab.is-active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-preview {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 16px;
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-top strong {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-lead-demo-top span {
+      color: var(--brown);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-chat {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-bubble {
+      max-width: 88%;
+      border-radius: 17px;
+      padding: 12px 13px;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-bubble.customer {
+      background: #f4f4ef;
+      border: 1px solid var(--line);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-bubble.ai {
+      justify-self: end;
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    #ap-sales-complete-proposal .ap-demo-script-placeholder {
+      border-radius: 20px;
+      border: 1px dashed rgba(159, 56, 38, 0.42);
+      background: rgba(159, 56, 38, 0.08);
+      padding: 16px;
+    }
+
+    #ap-sales-complete-proposal .ap-demo-script-placeholder strong {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      #ap-sales-complete-proposal .ap-step-grid,
+      #ap-sales-complete-proposal .ap-feature-grid,
+      #ap-sales-complete-proposal .ap-calculator-grid,
+      #ap-sales-complete-proposal .ap-road-grid,
+      #ap-sales-complete-proposal .ap-package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-brain-shell {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-demo-route-bar,
+      #ap-sales-complete-proposal .ap-demo-grid,
+      #ap-sales-complete-proposal .ap-product-demo-panel {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-demo-stepper {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-product-demo-copy {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      #ap-sales-complete-proposal .ap-product-demo-picker {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-demo-flow {
+        white-space: normal;
+      }
+
+      #ap-sales-complete-proposal .ap-package.featured {
+        transform: none;
+      }
+
+      #ap-sales-complete-proposal .ap-package {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      #ap-sales-complete-proposal .ap-package-top {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+
+      #ap-sales-complete-proposal .ap-list {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-scope-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-bundle-savings {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-package h3 {
+        white-space: normal;
+        font-size: 28px;
+      }
+
+      #ap-sales-complete-proposal .ap-cost-grid,
+      #ap-sales-complete-proposal .ap-lead-demo-tabs {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      #ap-sales-complete-proposal .ap-section {
+        padding: 58px 0;
+      }
+
+      #ap-sales-complete-proposal .ap-container {
+        padding: 0 14px;
+      }
+
+      #ap-sales-complete-proposal .ap-panel,
+      #ap-sales-complete-proposal .ap-calculator,
+      #ap-sales-complete-proposal .ap-roadmap-card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      #ap-sales-complete-proposal .ap-toggle,
+      #ap-sales-complete-proposal .ap-cost-grid,
+      #ap-sales-complete-proposal .ap-compare,
+      #ap-sales-complete-proposal .ap-impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-roadmap summary {
+        grid-template-columns: auto 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-roadmap summary .ap-plus {
+        grid-column: 1 / -1;
+      }
+
+      #ap-sales-complete-proposal .ap-road-content {
+        padding: 0 20px 20px;
+      }
+
+      #ap-sales-complete-proposal .ap-actions,
+      #ap-sales-complete-proposal .ap-button {
+        width: 100%;
+      }
+
+      #ap-sales-complete-proposal .ap-impact-head {
+        flex-direction: column;
+      }
+
+      #ap-sales-complete-proposal .ap-impact-item strong {
+        font-size: 24px;
+      }
+    }
+  /* ap-no-sticky-footer-scroll-2026-06 */
+html,
+body {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+.ap-language-card,
+.ap-aside {
+  position: static !important;
+  top: auto !important;
+}
+
+.ap-no-inner-page-scroll {
+  overflow-y: visible !important;
+}
+
+</style>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AI MEDEWERKER AUTOBEDRIJVEN</div>
+
+        <h1 class="ap-hero-title">
+          <span class="ap-hero-line">Mis geen verkoop- of werkplaatsaanvraag met</span>
+          <span class="ap-italic ap-hero-ai">AI Medewerker voor autobedrijven.</span>
+        </h1>
+
+        <p class="ap-hero-text">
+          Combineer AI chat en AI voice voor proefritaanvragen, inruilvragen, financiering, werkplaatsplanning, onderhoud, APK en gemiste oproepen. Nieuwe aanvragen worden direct geholpen, gekwalificeerd en naar sales of werkplaats overgedragen.
+        </p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-complete-producten">Kies product en start direct</a>
+          <a class="ap-button secondary" href="#ap-sales-complete-calculator">Bereken extra afspraken</a>
+        </div>
+      </div>
+
+      <div class="ap-panel">
+        <div class="ap-step-grid">
+          <div class="ap-step">
+            <div class="ap-step-number">1</div>
+            <h3>Kies je autobedrijf product</h3>
+            <p>Kies inbox, telefonie, leadopvolging of de volledige AI medewerker op basis van bereikbaarheid, leadbronnen, agenda’s en CRM behoefte.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">2</div>
+            <h3>Bevestig het abonnement</h3>
+            <p>Na bevestiging controleren we de gegevens en plannen we direct de onboarding met support.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-number">3</div>
+            <h3>Plan de onboarding</h3>
+            <p>Zodra alles bevestigd is, starten we met voorraadcontext, leadroutes, scripts, agenda’s, CRM velden en implementatie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">WAAROM DIT WERKT</div>
+        <h2 class="ap-title">Directe klantvragen en externe platformleads krijgen allebei de juiste opvolging.</h2>
+        <p class="ap-subtitle">
+          De AI medewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen én volgt platformleads uit bronnen zoals BOVAG, Marktplaats en AutoScout actief op richting afspraak.
+        </p>
+      </div>
+
+      <div class="ap-feature-grid">
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">01</div>
+            <h3>Direct bereikbaar op eigen kanalen</h3>
+            <p>Rechtstreekse vragen via WhatsApp, e-mail, website en telefoon worden direct begrepen, samengevat en naar verkoop of werkplaats geleid.</p>
+          </summary>
+
+          <div class="ap-more">
+            Handig voor directe klantvragen, gemiste oproepen, werkplaatsplanning, proefritverzoeken, inruiltaxaties en vragen buiten openingstijden.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">02</div>
+            <h3>Automotive kwalificatie</h3>
+            <p>De AI vraagt door op gewenste auto, budget, inruilauto, financiering, aankooptermijn, locatie en proefritmoment.</p>
+          </summary>
+
+          <div class="ap-more">
+            Denk aan merk/model, bouwjaar, kilometerstand, inruil, financiering, beschikbaarheid, proefrit, bezwaren en vervolgstap.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">03</div>
+            <h3>Actieve opvolging van platformleads</h3>
+            <p>Leads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen worden niet losgelaten. De AI volgt actief op en stuurt op proefrit, offerte of terugbelmoment.</p>
+          </summary>
+
+          <div class="ap-more">
+            Bij AI Leadopvolger en Volledige AI Medewerker wordt de flow uitgebreid met platformbron-herkenning, follow up, reactivatie, routing en CRM verwerking.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AUTOBEDRIJF SCENARIO'S</div>
+        <h2 class="ap-title">Van online autolead naar showroomafspraak.</h2>
+        <p class="ap-subtitle">
+          De AI medewerker helpt bij de momenten waar autobedrijven normaal omzet verliezen: directe klantvragen die blijven liggen, gemiste oproepen, openstaande platformleads en leads die nog twijfelen over inruil of financiering.
+        </p>
+      </div>
+
+      <div class="ap-feature-grid">
+        <details class="ap-feature" open>
+          <summary>
+            <div class="ap-feature-icon">AUTO</div>
+            <h3>Proefrit en showroom</h3>
+            <p>De AI plant proefritten, belafspraken of showroombezoeken en checkt beschikbaarheid, locatie en voorkeurstijd.</p>
+          </summary>
+          <div class="ap-more">
+            Ideaal voor voorraadpagina's, BOVAG-, Marktplaats- en AutoScout-aanvragen, directe WhatsApp-vragen en leads die buiten openingstijden binnenkomen.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">INR</div>
+            <h3>Inruil en financiering</h3>
+            <p>De AI vraagt door op inruilauto, kilometerstand, bouwjaar, budget, financieringswens en aankooptermijn.</p>
+          </summary>
+          <div class="ap-more">
+            Zo krijgt je verkoopteam geen kale naam en telefoonnummer, maar direct bruikbare context voor een beter verkoopgesprek.
+          </div>
+        </details>
+
+        <details class="ap-feature">
+          <summary>
+            <div class="ap-feature-icon">CRM</div>
+            <h3>Opvolging per verkoper</h3>
+            <p>Elke lead krijgt status, notities, bron, auto-interesse en vervolgstap in CRM, inclusief overdracht naar de juiste verkoper.</p>
+          </summary>
+          <div class="ap-more">
+            Je ziet welke bronnen proefritten opleveren, welke verkoper moet opvolgen en welke leads nog wachten op reactie.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-complete-brein">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">AI BREIN VOOR AUTOBEDRIJVEN</div>
+        <h2 class="ap-title">Zo denkt de AI voordat er iets naar sales of werkplaats gaat.</h2>
+        <p class="ap-subtitle">
+          Geen losse chatbot of standaard telefoniste. De AI combineert klantvraag, voorraad, inruilcontext, agenda, CRM en fallbackregels voordat hij antwoordt, plant of overdraagt.
+        </p>
+      </div>
+
+      <div class="ap-brain-shell" data-ap-brain>
+        <div class="ap-brain-visual">
+          <div class="ap-brain-ticket">
+            <div class="ap-brain-dot">AI</div>
+            <div>
+              <strong>Nieuwe aanvraag</strong>
+              <span>“Is deze auto nog beschikbaar en kan ik zaterdag een proefrit plannen?”</span>
+            </div>
+            <div class="ap-badge">live</div>
+          </div>
+
+          <div class="ap-brain-map" aria-label="Visueel AI brein voor autobedrijven">
+            <div class="ap-brain-core">
+              <b>Autopilots AI Brein</b>
+            </div>
+
+            <div class="ap-brain-node ap-node-1">
+              <b>Intake</b>
+              <span>Vraag, urgentie en ontbrekende gegevens herkennen.</span>
+            </div>
+
+            <div class="ap-brain-node ap-node-2">
+              <b>Voertuigcontext</b>
+              <span>Auto, voorraad, vestiging, inruil en eerdere gesprekken koppelen.</span>
+            </div>
+
+            <div class="ap-brain-node ap-node-3">
+              <b>Regels</b>
+              <span>Tone of voice, kennisbank, grenzen en fallback controleren.</span>
+            </div>
+
+            <div class="ap-brain-node ap-node-4">
+              <b>Actie</b>
+              <span>Antwoorden, plannen, samenvatten en CRM bijwerken.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-brain-side">
+          <div class="ap-brain-tabs" role="tablist" aria-label="AI brein stappen">
+            <button class="ap-brain-tab is-active" type="button" data-ap-brain-step="intake">1. Intake</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="context">2. Context</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="regels">3. Regels</button>
+            <button class="ap-brain-tab" type="button" data-ap-brain-step="actie">4. Actie</button>
+          </div>
+
+          <div class="ap-brain-panel is-active" data-ap-brain-panel="intake">
+            <strong>De AI begrijpt eerst wat iemand nodig heeft.</strong>
+            <p>Proefrit, inruil, financiering, APK, onderhoud, klacht, terugbelverzoek of voorraadcheck. Mist er informatie, dan vraagt de AI door zonder het gesprek onnodig lang te maken.</p>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="context">
+            <strong>Daarna koppelt hij de vraag aan de juiste automotive context.</strong>
+            <p>Welke auto bedoelt de klant, is de auto beschikbaar, welke vestiging is logisch, is er een inruilauto, welke verkoper hoort erbij en staat deze lead al in CRM?</p>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="regels">
+            <strong>Het brein checkt de afspraken voordat er iets wordt gezegd.</strong>
+            <p>Antwoorden lopen langs kennisbank, tone of voice, prijs- en garantieregels, financieringsgrenzen, werkplaatsafspraken en menselijke fallback wanneer de AI niet zelfstandig moet beslissen.</p>
+          </div>
+
+          <div class="ap-brain-panel" data-ap-brain-panel="actie">
+            <strong>Pas daarna voert de AI de juiste vervolgstap uit.</strong>
+            <p>Hij beantwoordt, plant een proefrit of terugbelverzoek, maakt een werkplaatsnotitie, werkt CRM en pipeline bij en stuurt een korte samenvatting naar sales of werkplaats.</p>
+          </div>
+
+          <div class="ap-brain-output">
+            <div>
+              <strong>Voor sales</strong>
+              <p>Leadprofiel met auto-interesse, inruil, budget, kooptermijn, bron en voorgestelde vervolgstap.</p>
+            </div>
+
+            <div>
+              <strong>Voor werkplaats</strong>
+              <p>Samenvatting van APK, onderhoud, urgentie, kenteken, voorkeurstijd en terugbelreden.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-complete-demo">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">LIVE DEMO</div>
+        <h2 class="ap-title">Kies welk AI product je wilt testen.</h2>
+        <p class="ap-subtitle">
+          Selecteer één product en open daarna de demo. Zo zie je precies wat de AI Telefoniste, AI Inboxmedewerker of AI Leadopvolger doet in het proces van een autobedrijf.
+        </p>
+      </div>
+
+      <div class="ap-live-demo-shell">
+        <div class="ap-demo-route-bar">
+          <div class="ap-demo-route-heading">
+            <div class="ap-demo-route-icon">AP</div>
+            <div>
+              <strong>Test de AI in 3 stappen</strong>
+              <p>Kies eerst wat je wilt bekijken. Daarna zie je kort wat de AI doet en open je de demo pas wanneer je wilt testen.</p>
+            </div>
+          </div>
+
+          <div class="ap-demo-stepper" aria-label="Demo stappen">
+            <div class="ap-demo-step">
+              <b>1</b>
+              <div>
+                <span>Kies product</span>
+                <small>Telefonie, inbox of leadopvolging.</small>
+              </div>
+            </div>
+            <div class="ap-demo-step">
+              <b>2</b>
+              <div>
+                <span>Bekijk uitleg</span>
+                <small>Zie wat de AI precies overneemt.</small>
+              </div>
+            </div>
+            <div class="ap-demo-step">
+              <b>3</b>
+              <div>
+                <span>Gebruik widget</span>
+                <small>Klik in de widget en test direct.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-product-demo-picker" role="group" aria-label="Kies AI product">
+          <button class="ap-product-demo-button is-active" type="button" data-product-demo="telefoniste">
+            <strong>AI Telefoniste</strong>
+            <span>Test verkoop met de Audi A4 of bel voor APK, onderhoud, storing of werkplaatsplanning.</span>
+          </button>
+          <button class="ap-product-demo-button" type="button" data-product-demo="inbox">
+            <strong>AI Inboxmedewerker</strong>
+            <span>Chat als klant over de Audi A4 of een werkplaatsvraag via WhatsApp, e-mail of website.</span>
+          </button>
+          <button class="ap-product-demo-button" type="button" data-product-demo="leadopvolger">
+            <strong>AI Leadopvolger</strong>
+            <span>Platformleads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen actief opvolgen.</span>
+          </button>
+        </div>
+
+        <div class="ap-product-demo-panel">
+          <div class="ap-product-demo-copy">
+            <div class="ap-demo-step-label">Stap 2 · uitleg</div>
+            <h3 id="apProductDemoTitle">AI Telefoniste</h3>
+            <p id="apProductDemoText">
+              Start de telefonie-demo en bel alsof je klant bent. Test verkoop met de Audi A4 Avant of stel een werkplaatsvraag over APK, onderhoud, storing, banden of airco.
+            </p>
+            <ul class="ap-product-demo-list" id="apProductDemoList">
+              <li><b>01</b><span>Verkooptest: vraag naar de zwarte Audi A4 Avant met kenteken T-709-BG.</span></li>
+              <li><b>02</b><span>Werkplaatstest: bel voor APK, onderhoud, storing, banden, airco of diagnose.</span></li>
+              <li><b>03</b><span>De AI vraagt het kenteken, helpt kort en stuurt naar proefrit, bezichtiging of werkplaatsafspraak.</span></li>
+            </ul>
+          </div>
+
+          <div class="ap-product-demo-stage">
+            <div class="ap-demo-step-label">Stap 3 · gebruik de widget</div>
+            <div class="ap-demo-stage" id="apVoiceDemoStage">
+              <div class="ap-demo-phone">
+                <span id="apProductDemoInstruction">Probeer: “Ik bel over de Audi A4” of “Ik wil APK plannen”.</span>
+                <div class="ap-voice-launcher" data-elevenlabs-demo>
+                  <button class="ap-demo-start" type="button" data-product-demo-open>Open AI Telefoniste demo</button>
+                  <div class="ap-elevenlabs-mount is-empty" data-elevenlabs-mount data-placeholder="De live widget wordt pas geladen na het klikken."></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-demo-preview-shell" id="apPreviewDemoStage" hidden>
+              <div class="ap-lead-demo-preview">
+                <div class="ap-lead-demo-top">
+                  <strong id="apProductPreviewTitle">Inboxvraag via WhatsApp</strong>
+                  <span id="apProductPreviewStatus">Direct verwerkt</span>
+                </div>
+
+                <div class="ap-demo-chat">
+                  <div class="ap-demo-bubble customer" id="apProductPreviewCustomer">
+                    Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?
+                  </div>
+                  <div class="ap-demo-bubble ai" id="apProductPreviewAi">
+                    Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.
+                  </div>
+                </div>
+              </div>
+
+              <div class="ap-demo-note">
+                <strong id="apProductPreviewNoteTitle">Wat de AI zichtbaar maakt</strong>
+                <div class="ap-demo-prompts" id="apProductPreviewPrompts">
+                  <div class="ap-demo-prompt"><b>01</b><span>Vraagsoort en urgentie worden herkend.</span></div>
+                  <div class="ap-demo-prompt"><b>02</b><span>Ontbrekende gegevens worden uitgevraagd.</span></div>
+                  <div class="ap-demo-prompt"><b>03</b><span>Overdracht gaat naar het juiste team.</span></div>
+                </div>
+              </div>
+
+              <div class="ap-demo-script-placeholder">
+                <strong id="apProductPreviewPlaceholderTitle">Preview demo</strong>
+                <p id="apProductPreviewPlaceholderText">De live koppeling kan later op deze plek worden toegevoegd. Deze preview laat alvast zien welke informatie de AI ophaalt en overdraagt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-complete-calculator">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">ROI CALCULATOR</div>
+        <h2 class="ap-title">Bereken wat AI Medewerker voor autobedrijven kan opleveren.</h2>
+        <p class="ap-subtitle">
+          Kies een product en vul alleen de cijfers in die bij dat product horen. Zo blijft de prognose simpel, helder en eerlijk.
+        </p>
+      </div>
+
+      <div class="ap-calculator">
+        <div class="ap-calculator-grid">
+          <div class="ap-inputs">
+            <div class="ap-field">
+              <label>Kies AI dekking</label>
+              <small>Klik op een productfocus. De berekening past automatisch mee.</small>
+
+              <select id="apPackage" class="ap-hidden-select" aria-hidden="true" tabindex="-1">
+                <option value="start">AI Inboxmedewerker</option>
+                <option value="telefoniste">AI Telefoniste</option>
+                <option value="scale">AI Leadopvolger</option>
+                <option value="premium">Volledige AI Medewerker</option>
+              </select>
+
+              <div class="ap-toggle" role="group" aria-label="AI dekking">
+                <button class="ap-toggle-button is-active" type="button" data-package-flow="start" tabindex="-1">
+                  Inbox
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="telefoniste" tabindex="-1">
+                  Telefonie
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="scale" tabindex="-1">
+                  Leadopvolging
+                </button>
+
+                <button class="ap-toggle-button" type="button" data-package-flow="premium" tabindex="-1">
+                  Alles
+                </button>
+              </div>
+
+              <div id="apFlowLabel" class="ap-flow-info">
+                AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar sales of werkplaats.
+              </div>
+            </div>
+
+            <div class="ap-field" data-roi-field="volume">
+              <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal verkoopkansen per maand</label>
+              <small id="apInboundLeadsHelp">Directe berichten met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.</small>
+              <input id="apInboundLeads" type="number" min="0" value="250">
+            </div>
+
+            <div class="ap-field" data-roi-field="sales">
+              <label id="apSalesChanceLabel" for="apOldLeads">Aantal verkoopkansen per maand</label>
+              <small id="apSalesChanceHelp">Hoeveel berichten of gesprekken hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?</small>
+              <input id="apOldLeads" type="number" min="0" value="50">
+            </div>
+
+            <div class="ap-field" data-roi-field="after-hours">
+              <label id="apAfterHoursLabel" for="apAfterHours">Te laat gereageerd</label>
+              <small id="apAfterHoursHelp">Welk percentage krijgt te laat reactie doordat het team druk is of buiten werktijd niet reageert?</small>
+              <input id="apAfterHours" type="number" min="0" max="100" value="15">
+            </div>
+
+            <div class="ap-field" data-roi-field="peak">
+              <label id="apPeakHoursLabel" for="apPeakHours">Tijdens piekdrukte</label>
+              <small id="apPeakHoursHelp">Welk percentage wordt tijdens piekdrukte gemist of te laat opgepakt?</small>
+              <input id="apPeakHours" type="number" min="0" max="100" value="10">
+            </div>
+
+            <div class="ap-field">
+              <label for="apAppointmentRate">Afspraakratio na goede opvolging</label>
+              <small>Gemiddeld percentage opgevolgde autoleads dat naar proefrit, showroomafspraak of belafspraak gaat.</small>
+              <input id="apAppointmentRate" type="number" min="0" max="100" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apCloseRate">Verkoop uit afspraak</label>
+              <small>Gemiddeld percentage afspraken dat klant wordt.</small>
+              <input id="apCloseRate" type="number" min="0" max="100" value="25">
+            </div>
+
+            <div class="ap-field">
+              <label for="apMargin">Gemiddelde marge per klant</label>
+              <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
+              <input id="apMargin" type="number" min="0" value="1500">
+            </div>
+          </div>
+
+          <div class="ap-results">
+            <h3>Jouw simpele prognose</h3>
+
+            <div class="ap-cost-grid">
+              <div class="ap-pill">
+                <span id="apOpportunityLabel">Gedekte kansen</span>
+                <strong id="apRiskLeads">0</strong>
+              </div>
+            </div>
+
+            <div class="ap-compare">
+              <div class="ap-compare-card">
+                <h4>Zonder AI medewerker</h4>
+
+                <div class="ap-metric">
+                  <span id="apHandledNoAiLabel">Op tijd verwerkt</span>
+                  <strong id="apHandledNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span id="apAppointmentsNoAiLabel">Verwachte afspraken</span>
+                  <strong id="apAppointmentsNoAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span id="apCustomersNoAiLabel">Verwachte verkopen</span>
+                  <strong id="apCustomersNoAi">0</strong>
+                </div>
+              </div>
+
+              <div class="ap-compare-card ai">
+                <h4>Met AI medewerker</h4>
+
+                <div class="ap-metric">
+                  <span id="apHandledWithAiLabel">Op tijd verwerkt</span>
+                  <strong id="apHandledWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span id="apAppointmentsWithAiLabel">Verwachte afspraken</span>
+                  <strong id="apAppointmentsWithAi">0</strong>
+                </div>
+
+                <div class="ap-metric">
+                  <span id="apCustomersWithAiLabel">Verwachte verkopen</span>
+                  <strong id="apCustomersWithAi">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="ap-impact">
+              <div class="ap-impact-head">
+                <div>
+                  <h4>Het verschil door AI</h4>
+                  <p id="apImpactText">De meeste winst zit in directe WhatsApp-, e-mail- en websitevragen sneller verwerken en netjes overdragen.</p>
+                </div>
+
+                <div class="ap-impact-badge" id="apImpactBadge">Inbox</div>
+              </div>
+
+              <div class="ap-impact-grid">
+                <div class="ap-impact-item">
+                  <span id="apExtraHandledLabel">Extra kansen op tijd verwerkt</span>
+                  <strong id="apExtraHandled">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra afspraken</span>
+                  <strong id="apExtraAppointments">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra klanten</span>
+                  <strong id="apExtraCustomers">0</strong>
+                </div>
+
+                <div class="ap-impact-item">
+                  <span>Extra marge</span>
+                  <strong id="apExtraMargin">€0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-more" style="margin-top:16px;">
+          Deze calculator is een indicatie. Resultaten hangen af van leadkwaliteit, voorraad, prijspositie, bereikbaarheid, scripts, proefritproces, teamopvolging en verkoopconversie.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-complete-implementatie">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">IMPLEMENTATIEPROCES</div>
+        <h2 class="ap-title">
+          <span class="ap-title-line">Van onboarding naar live</span>
+          <span class="ap-italic ap-title-ai">AI Medewerker voor autobedrijven.</span>
+        </h2>
+        <p class="ap-subtitle">
+          We leveren scope, kennisbasis, integraties en testen in duidelijke fases op. Support communiceert actief over planning, resultaten en eventuele blockers.
+        </p>
+      </div>
+
+      <div class="ap-roadmap-card">
+        <div class="ap-roadmap">
+          <details open>
+            <summary>
+              <span class="ap-step-number">1</span>
+              <div>
+                <h3 class="ap-road-title">Ontwerp en inrichting</h3>
+                <p class="ap-road-preview">We vertalen jullie werkwijze naar gesprekslogica, tone of voice, uitzonderingen en technische inrichting.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Scope</span>
+                  <p>We bepalen scenario’s, kanalen, overdracht, agenda’s, CRM velden en succescriteria.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Gesprekslogica</span>
+                  <p>We ontwerpen de chat en voice flow voor intake, opvolging, bellen, bezwaren en afspraken.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Tone of voice</span>
+                  <p>We stemmen taal, tempo, stijl, uitzonderingen en overdracht af op jullie merk en salesproces.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">2</span>
+              <div>
+                <h3 class="ap-road-title">Bouw en testen</h3>
+                <p class="ap-road-preview">We bouwen de AI medewerker, richten koppelingen in en testen alle belangrijke scenario’s.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Kennisbasis</span>
+                  <p>We verwerken aanbod, prijzen, FAQ, bezwaren, processen, cases en interne werkwijze.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Koppelingen</span>
+                  <p>We koppelen waar nodig CRM, agenda, telefonie, e-mail, WhatsApp, website chat of formulieren.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Testcases</span>
+                  <p>We testen proefritaanvragen, inruilvragen, voorraadvragen, gemiste oproepen, no-show opvolging en overdracht.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">3</span>
+              <div>
+                <h3 class="ap-road-title">Review en livegang</h3>
+                <p class="ap-road-preview">We lopen de oplossing samen door, verwerken feedback en zetten alles klaar voor livegang.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Review</span>
+                  <p>Jullie controleren antwoorden, belgedrag, kwalificatie, afspraakflow, overdracht en CRM output.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Feedback</span>
+                  <p>We verwerken aanpassingen in copy, timing, gesprekslogica, uitzonderingen en integraties.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Livegang</span>
+                  <p>We zetten de AI medewerker live volgens planning, afhankelijk van scope, input en feedback.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="ap-step-number">4</span>
+              <div>
+                <h3 class="ap-road-title">Monitoring en optimalisatie</h3>
+                <p class="ap-road-preview">Na livegang monitoren we prestaties en sturen we bij op basis van echte data.</p>
+              </div>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-road-content">
+              <div class="ap-road-grid">
+                <div class="ap-road-mini">
+                  <span>Gesprekken</span>
+                  <p>We kijken naar chatgesprekken, telefoongesprekken, bereikbaarheid, bezwaren en conversiepunten.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Verbeteringen</span>
+                  <p>We verbeteren antwoorden, belscripts, opvolging, kwalificatie, planning en CRM verwerking.</p>
+                </div>
+
+                <div class="ap-road-mini">
+                  <span>Groei</span>
+                  <p>Bij AI Leadopvolger en Volledige AI Medewerker breiden we uit met reactivatie, CRM statusupdates en complexere overdrachten.</p>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="ap-black-summary">
+          <h3>Duidelijke fases. Geen losse chaos.</h3>
+          <p>Gemiddeld wordt het product binnen 2 tot 4 weken geïmplementeerd, afhankelijk van product, scope, aangeleverde input en feedbackmomenten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="ap-sales-complete-producten">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">PRODUCTEN</div>
+        <h2 class="ap-title">Kies je AI product voor het autobedrijf.</h2>
+        <p class="ap-subtitle">
+          Start met inbox, telefonie of leadopvolging. Bij elk product kies je een focus: Werkplaats of Verkoop. De volledige AI Medewerker combineert de meeste functies binnen die gekozen focus met duidelijke bundelkorting.
+        </p>
+      </div>
+
+      <div class="ap-package-grid">
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Inbox</span>
+            <h3>AI Inboxmedewerker</h3>
+            <p>Voor rechtstreekse WhatsApp-, e-mail- en websitevragen die bij het autobedrijf zelf binnenkomen.</p>
+
+            <div class="ap-price">
+              <strong>&euro;399</strong>
+              <span>per maand, implementatie &euro;1750</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+            <li><span class="ap-check">✓</span><span>Rechtstreekse WhatsApp, e-mail en websitevragen</span></li>
+            <li><span class="ap-check">✓</span><span>Werkplaats: APK, onderhoud, storing en planning</span></li>
+            <li><span class="ap-check">✓</span><span>Verkoop: voorraad, proefrit, inruil en offerte</span></li>
+            <li><span class="ap-check">✓</span><span>Samenvatting naar sales of werkplaats</span></li>
+            <li><span class="ap-check">✓</span><span>Basis kennisbank en tone of voice</span></li>
+            <li><span class="ap-check">✓</span><span>Support inbegrepen</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Productscope: wat valt wel en niet binnen dit product</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-scope-grid">
+              <div class="ap-scope-card">
+                <h4>Dit kan AI wel</h4>
+                <ul>
+                  <li><span class="ap-scope-icon">✓</span><span>Directe WhatsApp-, e-mail- en websitevragen verwerken.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Kenteken, voorkeurstijd en contactgegevens ophalen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Samenvatting doorzetten naar verkoop of werkplaats.</span></li>
+                </ul>
+              </div>
+              <div class="ap-scope-card">
+                <h4>Dit kan AI niet</h4>
+                <ul>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen inkomende telefoongesprekken.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen actieve platformlead-opvolging.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen korting, diagnose of inruilwaarde toezeggen.</span></li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Voor dit product gelden alleen chatberichten.
+              <br><br>
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <a class="ap-button primary" href="mailto:info@websiteautopilots.nl?subject=AI%20Inboxmedewerker%20autobedrijven">Bespreek dit product</a>
+        </div>
+
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Telefonie</span>
+            <h3>AI Telefoniste</h3>
+            <p>Voor piekdrukte, gemiste oproepen en bereikbaarheid buiten openingstijden binnen één gekozen afdeling.</p>
+
+            <div class="ap-price">
+              <strong>&euro;479</strong>
+              <span>per maand, implementatie &euro;2250</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+            <li><span class="ap-check">✓</span><span>Inkomende oproepen opnemen</span></li>
+            <li><span class="ap-check">✓</span><span>Werkplaats: APK, onderhoud, storing en terugbelverzoek</span></li>
+            <li><span class="ap-check">✓</span><span>Verkoop: voorraadvraag, proefrit, inruil en terugbelverzoek</span></li>
+            <li><span class="ap-check">✓</span><span>Urgentie en fallback bepalen</span></li>
+            <li><span class="ap-check">✓</span><span>Gespreksnotitie naar uw team</span></li>
+            <li><span class="ap-check">✓</span><span>Support inbegrepen</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Productscope: wat valt wel en niet binnen dit product</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-scope-grid">
+              <div class="ap-scope-card">
+                <h4>Dit kan AI wel</h4>
+                <ul>
+                  <li><span class="ap-scope-icon">✓</span><span>Inkomende oproepen aannemen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Doorvragen binnen verkoop of werkplaats.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Notitie en fallback naar het team sturen.</span></li>
+                </ul>
+              </div>
+              <div class="ap-scope-card">
+                <h4>Dit kan AI niet</h4>
+                <ul>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen WhatsApp-, e-mail- of website-inbox.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen externe platformleads.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen prijsafspraken of diagnoses geven.</span></li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Voor dit product gelden alleen belminuten.
+              <br><br>
+              Inbound belminuten €0,19 per minuut.
+              <br>
+              Outbound belminuten €0,22 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <a class="ap-button primary" href="mailto:info@websiteautopilots.nl?subject=AI%20Telefoniste%20autobedrijven">Bespreek dit product</a>
+        </div>
+
+        <div class="ap-package">
+          <div class="ap-package-top">
+            <span class="ap-badge">Leadopvolging</span>
+            <h3>AI Leadopvolger</h3>
+            <p>Voor platformleads uit bijvoorbeeld BOVAG, Marktplaats en AutoScout die actief opgevolgd moeten worden richting afspraak of verkoop.</p>
+
+            <div class="ap-price">
+              <strong>&euro;559</strong>
+              <span>per maand, implementatie &euro;2950</span>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>BOVAG, Marktplaats, AutoScout en vergelijkbare leadbronnen</span></li>
+            <li><span class="ap-check">✓</span><span>Leadmails en platformaanvragen herkennen per bron</span></li>
+            <li><span class="ap-check">✓</span><span>Nieuwe platformleads actief opvolgen, niet alleen beantwoorden</span></li>
+            <li><span class="ap-check">✓</span><span>Proefrit of offerte voorstellen</span></li>
+            <li><span class="ap-check">✓</span><span>Openstaande leads heractiveren</span></li>
+            <li><span class="ap-check">✓</span><span>Pipeline-status bijwerken</span></li>
+            <li><span class="ap-check">✓</span><span>Support inbegrepen</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Productscope: wat valt wel en niet binnen dit product</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-scope-grid">
+              <div class="ap-scope-card">
+                <h4>Dit kan AI wel</h4>
+                <ul>
+                  <li><span class="ap-scope-icon">✓</span><span>BOVAG-, Marktplaats- en AutoScout-leads opvolgen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Proefrit, offerte of terugbelmoment voorstellen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Bron, status en vervolgstap bijwerken.</span></li>
+                </ul>
+              </div>
+              <div class="ap-scope-card">
+                <h4>Dit kan AI niet</h4>
+                <ul>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen algemene inbox of telefonie.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen opvolging zonder bron of route.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen korting, financiering of inruilwaarde toezeggen.</span></li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more">
+              Voor dit product gelden berichten voor actieve opvolging en reacties.
+              <br><br>
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <a class="ap-button primary" href="mailto:info@websiteautopilots.nl?subject=AI%20Leadopvolger%20autobedrijven">Bespreek dit product</a>
+        </div>
+
+        <div class="ap-package featured">
+          <div class="ap-package-top">
+            <span class="ap-badge">Beste waarde</span>
+            <h3>Volledige AI Medewerker</h3>
+            <p>Voor autobedrijven die inbox, telefonie en leadopvolging in één digitale collega willen combineren binnen Werkplaats of Verkoop.</p>
+
+            <div class="ap-price">
+              <strong>&euro;749</strong>
+              <span>per maand, implementatie &euro;3799</span>
+              <div class="ap-bundle-savings" aria-label="Bundelkorting">
+                <div class="ap-saving-pill">
+                  <span>Maandelijkse korting</span>
+                  <strong>&euro;688</strong>
+                </div>
+                <div class="ap-saving-pill">
+                  <span>Implementatiekorting</span>
+                  <strong>&euro;3.151</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="ap-list">
+            <li><span class="ap-check">✓</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+            <li><span class="ap-check">✓</span><span>Telefonie, WhatsApp, e-mail en platformleads</span></li>
+            <li><span class="ap-check">✓</span><span>Agenda, CRM en overdracht</span></li>
+            <li><span class="ap-check">✓</span><span>Menselijke fallback waar nodig</span></li>
+            <li><span class="ap-check">✓</span><span>Monitoring en optimalisatie</span></li>
+            <li><span class="ap-check">✓</span><span>Losse waarde: &euro;1.437 p/m en &euro;6.950 implementatie</span></li>
+            <li><span class="ap-check">✓</span><span>Support inbegrepen</span></li>
+          </ul>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Productscope: wat valt wel en niet binnen dit product</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-scope-grid">
+              <div class="ap-scope-card">
+                <h4>Dit kan AI wel</h4>
+                <ul>
+                  <li><span class="ap-scope-icon">✓</span><span>Inbox, telefonie en leadopvolging combineren.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Agenda, CRM-status en overdracht structureren.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Monitoring en optimalisatie na livegang.</span></li>
+                </ul>
+              </div>
+              <div class="ap-scope-card">
+                <h4>Dit kan AI niet</h4>
+                <ul>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen onbeperkt maatwerk buiten de gekozen focus.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen garanties, juridische toezeggingen of diagnoses.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen koppeling zonder API, webhook of route.</span></li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ap-package-details">
+            <summary>
+              <span>Usage en voorwaarden</span>
+              <span class="ap-plus">+</span>
+            </summary>
+
+            <div class="ap-more" style="color:rgba(255,255,255,0.78);border-top-color:rgba(255,255,255,0.14);">
+              Voor dit product kunnen chatberichten en belminuten van toepassing zijn.
+              <br><br>
+              Inbound chat €0,02 per bericht.
+              <br>
+              Outbound chat €0,22 per bericht.
+              <br>
+              Inbound belminuten €0,19 per minuut.
+              <br>
+              Outbound belminuten €0,22 per minuut.
+              <br><br>
+              Maandelijks opzegbaar met een opzegtermijn van 1 maand.
+              <br><br>
+              Lanceerdatum is afhankelijk van ontvangen input en feedback.
+            </div>
+          </details>
+
+          <a class="ap-button secondary" href="mailto:info@websiteautopilots.nl?subject=Volledige%20AI%20Medewerker%20autobedrijven">Bespreek dit product</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-center">
+        <div class="ap-eyebrow">FAQ</div>
+        <h2 class="ap-title">Vragen over AI Medewerker voor autobedrijven?</h2>
+        <p class="ap-subtitle">
+          De belangrijkste vragen over AI Inboxmedewerker, AI Telefoniste, AI Leadopvolger, proefritten, inruil, financiering, CRM, usage en producten.
+        </p>
+      </div>
+
+      <div class="ap-faq">
+        <div class="ap-faq-category">Algemeen</div>
+
+        <details open>
+          <summary>
+            <h3 class="ap-road-title">Wat doet AI Medewerker voor autobedrijven?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">AI Medewerker voor autobedrijven bestaat uit gerichte producten. AI Inboxmedewerker verwerkt directe WhatsApp-, e-mail- en websitevragen. AI Telefoniste vangt telefoongesprekken op. AI Leadopvolger volgt platformleads uit bijvoorbeeld BOVAG, Marktplaats en AutoScout actief op richting proefrit, offerte of terugbelmoment.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat is het verschil tussen AI Inboxmedewerker en AI Leadopvolger?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">AI Inboxmedewerker verwerkt rechtstreekse klantvragen die via WhatsApp, e-mail of de website bij het autobedrijf binnenkomen. AI Leadopvolger is voor externe leadbronnen zoals BOVAG, Marktplaats, AutoScout en vergelijkbare platforms: die leads worden actief opgevolgd richting proefrit, offertebespreking of terugbelmoment.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Waarom zijn de producten afgekaderd?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Omdat elk product een duidelijke taak heeft. Zo weet je vooraf wat de AI wel doet, wat niet binnen het product valt en wanneer je beter kunt kiezen voor Telefonie, Inbox, Leadopvolging of de Volledige AI Medewerker.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Welke scenario’s kunnen we kiezen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Voorbeelden zijn directe inboxvragen, werkplaatsplanning, verkoopvragen, proefritaanvragen, inruilvragen, financieringsvragen, gemiste oproepen, platformleads uit BOVAG, Marktplaats of AutoScout, no-show opvolging, oude leads en reactivatie.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Kan de AI medewerker afspraken plannen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja, binnen de afgesproken productscope. De AI kan voorkeurstijden ophalen, twee momenten voorstellen of een afspraakverzoek klaarzetten. Definitieve planning hangt af van de gekozen koppeling, agenda-inrichting en jullie interne werkwijze.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Met welke systemen kan dit koppelen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Typisch met CRM’s, agenda’s, telefonie, formulieren, website chat, WhatsApp en e-mail. Een koppeling kan wanneer er een API, webhook, mailboxroute of andere werkbare route beschikbaar is. Zonder route kan de AI wel samenvatten of overdragen, maar niet automatisch in dat systeem schrijven.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Zijn gebruikskosten inbegrepen?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Nee. Het product bepaalt wat de AI medewerker kan doen. Gebruikskosten worden apart afgerekend op basis van werkelijk verbruik. Bij Inbox en Leadopvolging gaat dit vooral om berichten; bij Telefonie om belminuten; bij Volledig kan beide gelden.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wat doet de AI bewust niet?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">De AI geeft geen definitieve korting, financieringsgoedkeuring, juridische toezegging, garantie-uitspraak, inruilwaarde of technische diagnose. Bij twijfel, klachten, uitzonderingen of risico wordt er overgedragen aan een medewerker.</p>
+          </div>
+        </details>
+
+        <div class="ap-faq-category">Productkeuze</div>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je AI Inboxmedewerker?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies AI Inboxmedewerker als rechtstreekse WhatsApp-, e-mail- en websitevragen sneller beantwoord moeten worden. Dit product neemt geen telefonie of platformlead-opvolging over. Je kiest hierbij één focus: Werkplaats of Verkoop.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je AI Telefoniste?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies AI Telefoniste als je veel piekdrukte, gemiste oproepen of vragen buiten openingstijden hebt. Dit product neemt geen WhatsApp-, e-mail- of website-inbox over en volgt geen externe platformleads op. Je kiest hierbij één focus: Werkplaats of Verkoop.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je AI Leadopvolger?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies AI Leadopvolger wanneer leads uit externe bronnen zoals BOVAG, Marktplaats, AutoScout of vergelijkbare platformen actief opgevolgd moeten worden. Dit product neemt geen algemene inbox of telefonie over, maar richt zich op opvolging, reactivatie, bronherkenning en pipeline-status.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Wanneer kies je Volledige AI Medewerker?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Kies Volledige AI Medewerker wanneer je binnen Werkplaats of Verkoop inbox, telefonie, leadopvolging, agenda, CRM, overdracht, menselijke fallback, monitoring en optimalisatie wilt combineren. Ook dit blijft een product: extra afdelingen, complexe uitzonderingen of maatwerkflows stemmen we apart af.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <h3 class="ap-road-title">Kunnen we later uitbreiden?</h3>
+            <span class="ap-plus">+</span>
+          </summary>
+          <div class="ap-road-content">
+            <p class="ap-road-preview">Ja. Je kunt starten met één product en later uitbreiden naar een andere focus of de Volledige AI Medewerker. Nieuwe kanalen, extra afdelingen of maatwerklogica beoordelen we apart, zodat de scope helder blijft.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section">
+    <div class="ap-container">
+      <div class="ap-final">
+        <h2>Start met een AI medewerker voor je autobedrijf.</h2>
+        <p>AI Medewerker voor autobedrijven helpt je sneller reageren, beter plannen en aanvragen voor verkoop én werkplaats netjes overdragen naar het juiste team.</p>
+
+        <div class="ap-actions">
+          <a class="ap-button primary" href="#ap-sales-complete-producten">Kies je product</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.getElementById("ap-sales-complete-proposal");
+      if (!root) return;
+
+      const packages = {
+        start: {
+          coverage: 0.55,
+          aiReachRate: 0.86
+        },
+        telefoniste: {
+          coverage: 0.62,
+          aiReachRate: 0.90
+        },
+        scale: {
+          coverage: 0.80,
+          aiReachRate: 0.93
+        },
+        premium: {
+          coverage: 1.00,
+          aiReachRate: 0.98
+        }
+      };
+
+      const productCalculator = {
+        start: {
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Directe inboxvragen met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          defaultVolume: 250,
+          salesLabel: "Aantal verkoopkansen per maand",
+          salesHelp: "Hoeveel berichten gaan over voorraad, proefrit, inruil, offerte of een verkoopvraag?",
+          afterLabel: "Te laat gereageerd",
+          afterHelp: "Welk percentage krijgt te laat reactie doordat het team druk is of buiten werktijd niet reageert?",
+          fields: ["volume", "after-hours"],
+          opportunity: "Inboxkansen",
+          handledLabel: "Op tijd verwerkt",
+          extraHandledLabel: "Extra inboxkansen op tijd verwerkt",
+          baseHelp: "Inbox rekent alleen met directe verkoopkansen uit WhatsApp, e-mail en website. Telefonie en platformlead-opvolging tellen hier niet mee."
+        },
+        telefoniste: {
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Telefoontjes met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          defaultVolume: 250,
+          salesLabel: "Aantal verkoopkansen per maand",
+          salesHelp: "Hoeveel telefoontjes hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?",
+          afterLabel: "Buiten openingstijden",
+          afterHelp: "Welk percentage van de telefoontjes komt buiten openingstijden binnen?",
+          peakLabel: "Tijdens piekdrukte",
+          peakHelp: "Welk percentage wordt tijdens drukte gemist of te laat opgepakt?",
+          fields: ["volume", "after-hours", "peak"],
+          opportunity: "Telefoniekansen",
+          handledLabel: "Op tijd opgenomen",
+          extraHandledLabel: "Extra telefoontjes op tijd opgepakt",
+          baseHelp: "Telefonie rekent alleen met verkoopkansen via telefoon. Inboxberichten en platformlead-opvolging tellen hier niet mee."
+        },
+        scale: {
+          volumeLabel: "Aantal platformleads per maand",
+          volumeHelp: "Nieuwe aanvragen via BOVAG, Marktplaats, AutoScout of vergelijkbare leadbronnen.",
+          defaultVolume: 350,
+          salesLabel: "Aantal verkoopkansen per maand",
+          salesHelp: "Hoeveel platformleads zijn serieus genoeg voor proefrit, offertebespreking of terugbelmoment?",
+          afterLabel: "Te laat of niet opgevolgd",
+          afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
+          fields: ["volume", "after-hours"],
+          opportunity: "Leadopvolgkansen",
+          handledLabel: "Actief opgevolgd",
+          extraHandledLabel: "Extra platformleads actief opgevolgd",
+          baseHelp: "Leadopvolging rekent platformleads direct als verkoopkansen. Algemene inbox en telefonie tellen hier niet mee."
+        },
+        premium: {
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Alle verkoopkansen samen binnen de gekozen focus: inbox, telefonie en platformleads.",
+          defaultVolume: 250,
+          salesLabel: "Aantal verkoopkansen per maand",
+          salesHelp: "Hoeveel contactmomenten kunnen leiden tot afspraak, proefrit, offerte of verkoopgesprek?",
+          afterLabel: "Te laat of niet opgevolgd",
+          afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
+          peakLabel: "Tijdens piekdrukte",
+          peakHelp: "Welk percentage blijft tijdens drukte liggen of krijgt vertraagde opvolging?",
+          fields: ["volume", "after-hours", "peak"],
+          opportunity: "Alle AI kansen",
+          handledLabel: "Op tijd opgepakt",
+          extraHandledLabel: "Extra kansen op tijd opgepakt",
+          baseHelp: "Volledig combineert inbox, telefonie en leadopvolging binnen de gekozen focus."
+        }
+      };
+
+      const flowLabels = {
+        start: "AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar sales of werkplaats.",
+        telefoniste: "AI Telefoniste vangt piekdrukte, gemiste oproepen, APK, onderhoud en terugbelverzoeken op.",
+        scale: "AI Leadopvolger volgt platformleads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen actief op richting proefrit, offerte of terugbelmoment.",
+        premium: "Volledige AI Medewerker combineert telefonie, WhatsApp, e-mail, leadopvolging, agenda, CRM, overdracht en optimalisatie."
+      };
+
+      const opportunityLabels = {
+        start: "Inboxkansen",
+        telefoniste: "Telefoniekansen",
+        scale: "Leadopvolgkansen",
+        premium: "Alle AI kansen"
+      };
+
+      const impactLabels = {
+        start: {
+          badge: "Inbox",
+          text: "De meeste winst zit in directe WhatsApp-, e-mail- en websitevragen sneller verwerken en netjes overdragen."
+        },
+        telefoniste: {
+          badge: "Telefonie",
+          text: "De meeste winst zit in gemiste oproepen, piekdrukte en terugbelverzoeken direct opvangen."
+        },
+        scale: {
+          badge: "Leadopvolging",
+          text: "De meeste winst zit in platformleads actief opvolgen, sneller reageren en oude kansen opnieuw activeren."
+        },
+        premium: {
+          badge: "Alles",
+          text: "De meeste winst zit in inbox, telefonie en leadopvolging samen: minder gemiste kansen en meer afspraken."
+        }
+      };
+
+      const manualReachRate = 0.35;
+
+      function el(id) {
+        return root.querySelector("#" + id);
+      }
+
+      function getNumber(id) {
+        const field = el(id);
+        if (!field) return 0;
+
+        const value = parseFloat(field.value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function setOutput(id, value) {
+        const node = el(id);
+        if (node) node.textContent = value;
+      }
+
+      function setText(id, value) {
+        const node = el(id);
+        if (node) node.textContent = value;
+      }
+
+      function formatEuro(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0
+        }).format(safeValue);
+      }
+
+      function formatNumber(value) {
+        const safeValue = Number.isFinite(value) ? value : 0;
+
+        return new Intl.NumberFormat("nl-NL", {
+          maximumFractionDigits: 1
+        }).format(safeValue);
+      }
+
+      function clampPercent(value) {
+        return Math.min(Math.max(value, 0), 100) / 100;
+      }
+
+      function getPackageKey() {
+        const select = el("apPackage");
+        if (!select) return "start";
+
+        return packages[select.value] ? select.value : "start";
+      }
+
+      function getPackage() {
+        return packages[getPackageKey()] || packages.start;
+      }
+
+      function updateFlowButtons(packageKey) {
+        const buttons = root.querySelectorAll("[data-package-flow]");
+
+        buttons.forEach(function (button) {
+          const buttonPackage = button.getAttribute("data-package-flow");
+
+          if (buttonPackage === packageKey) {
+            button.classList.add("is-active");
+          } else {
+            button.classList.remove("is-active");
+          }
+        });
+      }
+
+      function updateCalculatorCopy(packageKey) {
+        const config = productCalculator[packageKey] || productCalculator.start;
+        const volumeInput = el("apInboundLeads");
+
+        setText("apInboundLeadsLabel", config.volumeLabel);
+        setText("apInboundLeadsHelp", config.volumeHelp);
+        setText("apSalesChanceLabel", config.salesLabel);
+        setText("apSalesChanceHelp", config.salesHelp);
+        setText("apAfterHoursLabel", config.afterLabel);
+        setText("apAfterHoursHelp", config.afterHelp);
+        setText("apPeakHoursLabel", config.peakLabel || "Tijdens piekdrukte");
+        setText("apPeakHoursHelp", config.peakHelp || "Welk percentage wordt tijdens piekdrukte gemist of te laat opgepakt?");
+
+        root.querySelectorAll("[data-roi-field]").forEach(function (field) {
+          const fieldKey = field.getAttribute("data-roi-field");
+          field.hidden = config.fields.indexOf(fieldKey) === -1;
+        });
+
+        setText("apHandledNoAiLabel", config.handledLabel);
+        setText("apHandledWithAiLabel", config.handledLabel);
+        setText("apExtraHandledLabel", config.extraHandledLabel);
+        setText("apOpportunityLabel", config.opportunity);
+        setText("apImpactText", config.baseHelp);
+
+        if (volumeInput && volumeInput.getAttribute("data-last-product") !== packageKey) {
+          volumeInput.value = config.defaultVolume || 150;
+          volumeInput.setAttribute("data-last-product", packageKey);
+        }
+      }
+
+      function calculate() {
+        const packageKey = getPackageKey();
+        const selectedPackage = getPackage();
+        const config = productCalculator[packageKey] || productCalculator.start;
+        updateCalculatorCopy(packageKey);
+
+        const volume = getNumber("apInboundLeads");
+        const afterHours = clampPercent(getNumber("apAfterHours"));
+        const peakHours = clampPercent(getNumber("apPeakHours"));
+
+        const appointmentRate = clampPercent(getNumber("apAppointmentRate"));
+        const closeRate = clampPercent(getNumber("apCloseRate"));
+        const margin = getNumber("apMargin");
+
+        const relevantSalesChances = volume;
+        const issueRate = config.fields.indexOf("peak") >= 0
+          ? Math.min(afterHours + peakHours, 1)
+          : afterHours;
+        const opportunityPool = relevantSalesChances * issueRate;
+        const coveredPool = opportunityPool * selectedPackage.coverage;
+
+        const handledNoAi = coveredPool * manualReachRate;
+        const handledWithAi = coveredPool * selectedPackage.aiReachRate;
+
+        const appointmentsNoAi = handledNoAi * appointmentRate;
+        const appointmentsWithAi = handledWithAi * appointmentRate;
+
+        const customersNoAi = appointmentsNoAi * closeRate;
+        const customersWithAi = appointmentsWithAi * closeRate;
+
+        const marginNoAi = customersNoAi * margin;
+        const marginWithAi = customersWithAi * margin;
+
+        const extraHandled = handledWithAi - handledNoAi;
+        const extraAppointments = appointmentsWithAi - appointmentsNoAi;
+        const extraCustomers = customersWithAi - customersNoAi;
+        const extraMargin = marginWithAi - marginNoAi;
+
+        setOutput("apRiskLeads", formatNumber(coveredPool));
+
+        setOutput("apHandledNoAi", formatNumber(handledNoAi));
+        setOutput("apAppointmentsNoAi", formatNumber(appointmentsNoAi));
+        setOutput("apCustomersNoAi", formatNumber(customersNoAi));
+
+        setOutput("apHandledWithAi", formatNumber(handledWithAi));
+        setOutput("apAppointmentsWithAi", formatNumber(appointmentsWithAi));
+        setOutput("apCustomersWithAi", formatNumber(customersWithAi));
+
+        setOutput("apExtraHandled", formatNumber(extraHandled));
+        setOutput("apExtraAppointments", formatNumber(extraAppointments));
+        setOutput("apExtraCustomers", formatNumber(extraCustomers));
+        setOutput("apExtraMargin", formatEuro(extraMargin));
+        setOutput("apFlowLabel", flowLabels[packageKey]);
+        setOutput("apImpactBadge", impactLabels[packageKey].badge);
+
+        updateFlowButtons(packageKey);
+      }
+
+      [
+        "apPackage",
+        "apInboundLeads",
+        "apAfterHours",
+        "apPeakHours",
+        "apOldLeads",
+        "apAppointmentRate",
+        "apCloseRate",
+        "apMargin"
+      ].forEach(function (id) {
+        const input = el(id);
+
+        if (input) {
+          input.addEventListener("input", calculate);
+          input.addEventListener("change", calculate);
+        }
+      });
+
+      root.querySelectorAll("[data-package-flow]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const select = el("apPackage");
+          const packageKey = button.getAttribute("data-package-flow");
+
+          if (select && packages[packageKey]) {
+            select.value = packageKey;
+            calculate();
+          }
+        });
+      });
+
+      calculate();
+    })();
+
+    (function () {
+      const brains = document.querySelectorAll("[data-ap-brain]");
+      if (!brains.length) return;
+
+      brains.forEach(function (brain) {
+        const tabs = brain.querySelectorAll("[data-ap-brain-step]");
+        const panels = brain.querySelectorAll("[data-ap-brain-panel]");
+
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            const step = tab.getAttribute("data-ap-brain-step");
+
+            tabs.forEach(function (item) {
+              item.classList.toggle("is-active", item === tab);
+            });
+
+            panels.forEach(function (panel) {
+              panel.classList.toggle(
+                "is-active",
+                panel.getAttribute("data-ap-brain-panel") === step
+              );
+            });
+          });
+        });
+      });
+    })();
+
+    (function () {
+      const root = document.getElementById("ap-sales-complete-proposal");
+      if (!root) return;
+
+      const productDemos = {
+        telefoniste: {
+          title: "AI Telefoniste",
+          text: "Start de telefonie-demo en bel alsof je klant bent. Test verkoop met de Audi A4 Avant of stel een werkplaatsvraag over APK, onderhoud, storing, banden of airco.",
+          list: [
+            "Verkooptest: vraag naar de zwarte Audi A4 Avant met kenteken T-709-BG.",
+            "Werkplaatstest: bel voor APK, onderhoud, storing, banden, airco of diagnose.",
+            "De AI vraagt het kenteken, helpt kort en stuurt naar proefrit, bezichtiging of werkplaatsafspraak."
+          ],
+          type: "widget",
+          agentId: "agent_8301kx8wzxzbfstr2mtyh74taamx",
+          instruction: "Probeer: “Ik bel over de Audi A4” of “Ik wil APK plannen”.",
+          buttonLabel: "Open AI Telefoniste demo",
+          placeholder: "De AI Telefoniste widget wordt pas geladen nadat je klikt."
+        },
+        inbox: {
+          title: "AI Inboxmedewerker",
+          text: "Open de inboxdemo en chat alsof je klant bent. Test een rechtstreekse verkoopvraag over de Audi A4 of een werkplaatsvraag over APK, onderhoud, storing, banden of airco.",
+          list: [
+            "Verkooptest: chat over de zwarte Audi A4 Avant met kenteken T-709-BG.",
+            "Werkplaatstest: vraag via chat naar APK, onderhoud, storing, banden, airco of diagnose.",
+            "De AI vraagt het kenteken, helpt kort en stuurt naar proefrit, bezichtiging of werkplaatsafspraak."
+          ],
+          type: "widget",
+          agentId: "agent_7901kxc39kb2er9vmep56v1s5673",
+          instruction: "Probeer: “Ik chat over de Audi A4” of “Ik wil APK plannen”.",
+          buttonLabel: "Open AI Inboxmedewerker demo",
+          placeholder: "De AI Inboxmedewerker demo wordt pas geladen na het klikken.",
+          previewTitle: "Rechtstreekse inboxvraag",
+          previewStatus: "Direct verwerkt",
+          customer: "Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?",
+          ai: "Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.",
+          noteTitle: "Wat de inboxmedewerker zichtbaar maakt",
+          prompts: [
+            "Vraagsoort en urgentie worden herkend.",
+            "Ontbrekende gegevens worden uitgevraagd.",
+            "Overdracht gaat naar verkoop of werkplaats."
+          ],
+          placeholderTitle: "Inboxdemo als preview",
+          placeholderText: "De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat zien hoe directe WhatsApp-, e-mail- en websitevragen worden verwerkt."
+        },
+        leadopvolger: {
+          title: "AI Leadopvolger",
+          text: "Bekijk hoe leads uit externe platforms zoals BOVAG, Marktplaats en AutoScout actief worden opgevolgd richting proefrit, offertebespreking of terugbelmoment.",
+          list: [
+            "Volgt platformleads actief op, ook als ze alleen als aanvraag of mail binnenkomen.",
+            "Nieuwe leads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen krijgen direct reactie.",
+            "De AI stelt proefrit, offertebespreking of terugbelmoment voor.",
+            "CRM krijgt leadstatus, bron, auto-interesse en volgende stap."
+          ],
+          type: "preview",
+          instruction: "Klik op open om de AI Leadopvolger demo te bekijken.",
+          buttonLabel: "Open AI Leadopvolger demo",
+          placeholder: "De AI Leadopvolger demo wordt pas geopend na het klikken.",
+          previewTitle: "Platformlead uit Marktplaats",
+          previewStatus: "Opvolging gestart",
+          customer: "Nieuwe aanvraag via Marktplaats: interesse in Volkswagen Golf, telefoonnummer bekend, nog geen afspraak gepland.",
+          ai: "De AI pakt de lead actief op, stuurt een opvolgbericht, stelt een proefrit of terugbelmoment voor en zet bron, auto-interesse en status klaar voor sales.",
+          noteTitle: "Wat de leadopvolger zichtbaar maakt",
+          prompts: [
+            "Bron herkennen: BOVAG, Marktplaats, AutoScout of vergelijkbaar.",
+            "Direct opvolgen: platformlead krijgt actief reactie.",
+            "Vervolg voorstellen: proefrit, offertebespreking of terugbelmoment.",
+            "CRM bijwerken: leadstatus, bron, auto-interesse en vervolgstap."
+          ],
+          placeholderTitle: "Leadopvolgerdemo als preview",
+          placeholderText: "De live leadopvolger-widget kan later op deze plek worden toegevoegd. Deze preview laat zien hoe externe platformleads actief worden opgevolgd."
+        }
+      };
+
+      const scriptId = "ap-elevenlabs-convai-widget";
+      let elevenLabsScriptPromise = null;
+      let activeProductDemo = productDemos.telefoniste;
+
+      function loadElevenLabsScript() {
+        if (window.customElements && customElements.get("elevenlabs-convai")) {
+          return Promise.resolve();
+        }
+
+        if (elevenLabsScriptPromise) return elevenLabsScriptPromise;
+
+        elevenLabsScriptPromise = new Promise(function (resolve, reject) {
+          const existingScript = document.getElementById(scriptId);
+          if (existingScript) {
+            existingScript.addEventListener("load", resolve, { once: true });
+            existingScript.addEventListener("error", reject, { once: true });
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.id = scriptId;
+          script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+          script.async = true;
+          script.type = "text/javascript";
+          script.addEventListener("load", resolve, { once: true });
+          script.addEventListener("error", reject, { once: true });
+          document.body.appendChild(script);
+        });
+
+        return elevenLabsScriptPromise;
+      }
+
+      function openElevenLabsWidget(widget) {
+        if (!widget) return;
+
+        const tryOpen = function () {
+          if (typeof widget.open === "function") {
+            widget.open();
+            return;
+          }
+
+          const EventConstructor = window.PointerEvent || window.MouseEvent;
+          widget.dispatchEvent(new EventConstructor("pointerdown", { bubbles: true, composed: true }));
+          widget.dispatchEvent(new EventConstructor("pointerup", { bubbles: true, composed: true }));
+          widget.click();
+
+          if (widget.shadowRoot) {
+            const trigger = widget.shadowRoot.querySelector("button, [role='button'], [tabindex='0']");
+            if (trigger) trigger.click();
+          }
+        };
+
+        requestAnimationFrame(function () {
+          tryOpen();
+          window.setTimeout(tryOpen, 450);
+          window.setTimeout(tryOpen, 1200);
+        });
+      }
+
+      function renderProductList(items) {
+        const list = root.querySelector("#apProductDemoList");
+        if (!list) return;
+        list.innerHTML = items.map(function (item, index) {
+          const number = String(index + 1).padStart(2, "0");
+          return "<li><b>" + number + "</b><span>" + item + "</span></li>";
+        }).join("");
+      }
+
+      function renderPreviewPrompts(items) {
+        const prompts = root.querySelector("#apProductPreviewPrompts");
+        if (!prompts) return;
+        prompts.innerHTML = items.map(function (item, index) {
+          const number = String(index + 1).padStart(2, "0");
+          return '<div class="ap-demo-prompt"><b>' + number + '</b><span>' + item + '</span></div>';
+        }).join("");
+      }
+
+      function setProductDemo(key) {
+        const demo = productDemos[key] || productDemos.telefoniste;
+        activeProductDemo = demo;
+
+        root.querySelectorAll("[data-product-demo]").forEach(function (button) {
+          button.classList.toggle("is-active", button.getAttribute("data-product-demo") === key);
+        });
+
+        const voiceStage = root.querySelector("#apVoiceDemoStage");
+        const previewStage = root.querySelector("#apPreviewDemoStage");
+        const openButton = root.querySelector("[data-product-demo-open]");
+        const mount = root.querySelector("[data-elevenlabs-mount]");
+
+        root.querySelector("#apProductDemoTitle").textContent = demo.title;
+        root.querySelector("#apProductDemoText").textContent = demo.text;
+        renderProductList(demo.list);
+
+        if (voiceStage) voiceStage.hidden = demo.type !== "widget";
+        if (previewStage) previewStage.hidden = demo.type !== "preview";
+
+        const instruction = root.querySelector("#apProductDemoInstruction");
+        if (instruction) instruction.textContent = demo.instruction;
+
+        if (openButton) {
+          openButton.textContent = demo.type === "widget" ? demo.buttonLabel : "Bekijk demo";
+          openButton.classList.remove("is-loaded");
+          openButton.removeAttribute("aria-disabled");
+        }
+
+        if (mount) {
+          mount.classList.add("is-empty");
+          mount.innerHTML = "";
+          mount.setAttribute("data-placeholder", demo.placeholder || "De demo wordt pas geladen na het klikken.");
+        }
+
+        if (demo.type === "preview") {
+          root.querySelector("#apProductPreviewTitle").textContent = demo.previewTitle;
+          root.querySelector("#apProductPreviewStatus").textContent = demo.previewStatus;
+          root.querySelector("#apProductPreviewCustomer").textContent = demo.customer;
+          root.querySelector("#apProductPreviewAi").textContent = demo.ai;
+          root.querySelector("#apProductPreviewNoteTitle").textContent = demo.noteTitle;
+          root.querySelector("#apProductPreviewPlaceholderTitle").textContent = demo.placeholderTitle;
+          root.querySelector("#apProductPreviewPlaceholderText").textContent = demo.placeholderText;
+          renderPreviewPrompts(demo.prompts);
+        }
+      }
+
+      root.querySelectorAll("[data-product-demo]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          setProductDemo(button.getAttribute("data-product-demo"));
+        });
+      });
+
+      const openButton = root.querySelector("[data-product-demo-open]");
+      if (openButton) {
+        openButton.addEventListener("click", function () {
+          const mount = root.querySelector("[data-elevenlabs-mount]");
+
+          if (activeProductDemo.type !== "widget" || !mount) return;
+
+          mount.classList.remove("is-empty");
+          mount.innerHTML = "";
+          const widget = document.createElement("elevenlabs-convai");
+          widget.setAttribute("agent-id", activeProductDemo.agentId);
+          mount.appendChild(widget);
+
+          openButton.textContent = "Widget geopend";
+          openButton.classList.add("is-loaded");
+          openButton.setAttribute("aria-disabled", "true");
+          loadElevenLabsScript()
+            .then(function () {
+              if (window.customElements && customElements.whenDefined) {
+                return customElements.whenDefined("elevenlabs-convai");
+              }
+            })
+            .then(function () {
+              openElevenLabsWidget(widget);
+            })
+            .catch(function () {
+              openButton.textContent = activeProductDemo.buttonLabel;
+              openButton.classList.remove("is-loaded");
+              openButton.removeAttribute("aria-disabled");
+            });
+        });
+      }
+
+      setProductDemo("telefoniste");
+    })();
+  </script>
+</div>
+
+<script>
+(function () {
+  var marker = "ap-embed-height-sync-2026-06-12";
+  if (window[marker]) return;
+  window[marker] = true;
+
+  function elementBottom(el) {
+    if (!el || !el.getBoundingClientRect) return 0;
+    var tag = (el.tagName || "").toUpperCase();
+    if (/^(SCRIPT|STYLE|LINK|META|NOSCRIPT)$/.test(tag)) return 0;
+    var style = window.getComputedStyle(el);
+    if (style.position === "fixed" || style.display === "none") return 0;
+    var rect = el.getBoundingClientRect();
+    if (!rect.height) return 0;
+    return rect.bottom + (window.pageYOffset || document.documentElement.scrollTop || 0);
+  }
+
+  function getHeight() {
+    var body = document.body;
+    var candidates = [];
+    var roots = document.querySelectorAll('#ap-property, #ap-home, #ap-crm-landing, #ap-leadsmachine-ai, #ap-thankyou, .ap-agent, main');
+
+    Array.prototype.forEach.call(roots, function (root) {
+      candidates.push(elementBottom(root));
+    });
+
+    if (body) {
+      Array.prototype.forEach.call(body.children, function (child) {
+        candidates.push(elementBottom(child));
+      });
+    }
+
+    var measured = Math.max.apply(Math, candidates.filter(function (value) {
+      return Number.isFinite(value) && value > 0;
+    }));
+
+    if (!Number.isFinite(measured) || measured < 400) {
+      measured = body ? Math.max(body.scrollHeight || 0, body.offsetHeight || 0, 800) : 800;
+    }
+
+    return Math.ceil(measured + 24);
+  }
+
+  function syncHeight() {
+    if (!window.parent || window.parent === window) return;
+    window.parent.postMessage({
+      type: "autopilots:embed-height",
+      height: getHeight(),
+      path: window.location.pathname
+    }, "*");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncHeight);
+  } else {
+    syncHeight();
+  }
+
+  window.addEventListener("load", syncHeight);
+  window.addEventListener("resize", syncHeight);
+  setTimeout(syncHeight, 250);
+  setTimeout(syncHeight, 1000);
+  setTimeout(syncHeight, 2500);
+
+  if ("ResizeObserver" in window && document.body) {
+    new ResizeObserver(syncHeight).observe(document.body);
+  }
+
+  if ("MutationObserver" in window) {
+    new MutationObserver(syncHeight).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
+  }
+})();
+</script>
