@@ -1,0 +1,1454 @@
+<div id="ap-splandid-demo">  
+  <style>  
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+
+    html,  
+    body {  
+      margin: 0;  
+      overflow-x: hidden;  
+      background: #f5f5f2;  
+      scrollbar-width: none;  
+    }
+
+    html::-webkit-scrollbar,  
+    body::-webkit-scrollbar {  
+      width: 0;  
+      height: 0;  
+    }
+
+    #ap-splandid-demo {  
+      --bg: #f5f5f2;  
+      --card: #ffffff;  
+      --soft: #eeeeea;  
+      --soft-2: #f8f8f5;  
+      --text: #111111;  
+      --muted: #656565;  
+      --line: rgba(0, 0, 0, 0.1);  
+      --brown: #9f3826;  
+      --brown-dark: #7d2a1d;  
+      --black: #111111;  
+      --white: #ffffff;  
+      --green-soft: #dce9dd;  
+      width: 100%;  
+      background: var(--bg);  
+      color: var(--text);  
+      font-family: "Public Sans", Arial, sans-serif;  
+      overflow-x: hidden;  
+    }
+
+    #ap-splandid-demo * {  
+      box-sizing: border-box;  
+    }
+
+    #ap-splandid-demo h1,  
+    #ap-splandid-demo h2,  
+    #ap-splandid-demo h3,  
+    #ap-splandid-demo p {  
+      margin: 0;  
+    }
+
+    #ap-splandid-demo a {  
+      color: inherit;  
+    }
+
+    #ap-splandid-demo .ap-section {  
+      width: 100%;  
+      padding: 80px 0;  
+    }
+
+    #ap-splandid-demo .ap-container {  
+      width: 100%;  
+      max-width: 1120px;  
+      margin: 0 auto;  
+      padding: 0 18px;  
+    }
+
+    #ap-splandid-demo .ap-center {  
+      max-width: 890px;  
+      margin: 0 auto 44px;  
+      text-align: center;  
+    }
+
+    #ap-splandid-demo .ap-eyebrow {  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-size: 13px;  
+      line-height: 1.2;  
+      letter-spacing: 0.18em;  
+      text-transform: uppercase;  
+      color: var(--brown);  
+      font-weight: 700;  
+      margin-bottom: 20px;  
+    }
+
+    #ap-splandid-demo .ap-hero-title {  
+      max-width: 980px;  
+      margin: 0 auto;  
+      font-size: clamp(34px, calc(5vw - 12px), 54px);  
+      line-height: 1.07;  
+      font-weight: 900;  
+      letter-spacing: 0;  
+    }
+
+    #ap-splandid-demo .ap-title {  
+      max-width: 920px;  
+      margin: 0 auto 18px;  
+      font-size: clamp(28px, calc(4.5vw - 6px), 52px);  
+      line-height: 1.07;  
+      font-weight: 900;  
+      letter-spacing: 0;  
+    }
+
+    #ap-splandid-demo .ap-italic {  
+      color: var(--brown);  
+      font-style: italic;  
+    }
+
+    #ap-splandid-demo .ap-hero-text,  
+    #ap-splandid-demo .ap-subtitle {  
+      max-width: 790px;  
+      margin: 24px auto 0;  
+      color: var(--muted);  
+      font-size: clamp(17px, 1.9vw, 21px);  
+      line-height: 1.58;  
+      font-weight: 500;  
+    }
+
+    #ap-splandid-demo .ap-subtitle {  
+      margin-top: 0;  
+      font-size: 17px;  
+      line-height: 1.65;  
+    }
+
+    #ap-splandid-demo .ap-actions {  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      flex-wrap: wrap;  
+      gap: 12px;  
+      margin-top: 34px;  
+    }
+
+    #ap-splandid-demo .ap-button {  
+      min-height: 50px;  
+      padding: 0 28px;  
+      border-radius: 999px;  
+      display: inline-flex;  
+      align-items: center;  
+      justify-content: center;  
+      border: 1px solid transparent;  
+      text-decoration: none;  
+      font-size: 15px;  
+      font-weight: 850;  
+      cursor: pointer;  
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;  
+    }
+
+    #ap-splandid-demo .ap-button:hover {  
+      transform: translateY(-1px);  
+    }
+
+    #ap-splandid-demo .ap-button.primary {  
+      background: var(--brown);  
+      color: var(--white);  
+    }
+
+    #ap-splandid-demo .ap-button.secondary {  
+      background: var(--white);  
+      color: var(--text);  
+      border-color: var(--line);  
+    }
+
+    #ap-splandid-demo .ap-panel,  
+    #ap-splandid-demo .ap-card,  
+    #ap-splandid-demo .ap-agent-card,  
+    #ap-splandid-demo .ap-demo-console,  
+    #ap-splandid-demo .ap-road-card {  
+      background: var(--white);  
+      border: 1px solid var(--line);  
+      border-radius: 30px;  
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);  
+    }
+
+    #ap-splandid-demo .ap-panel {  
+      padding: 30px;  
+    }
+
+    #ap-splandid-demo .ap-hero-panel {  
+      margin-top: 46px;  
+      display: grid;  
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.72fr);  
+      gap: 18px;  
+      align-items: stretch;  
+    }
+
+    #ap-splandid-demo .ap-demo-summary {  
+      background: var(--black);  
+      color: var(--white);  
+      border-radius: 30px;  
+      padding: 28px;  
+      min-height: 100%;  
+      display: grid;  
+      align-content: space-between;  
+      gap: 30px;  
+      position: relative;  
+      overflow: hidden;  
+    }
+
+    #ap-splandid-demo .ap-demo-summary::after {  
+      content: "";  
+      position: absolute;  
+      inset: auto -80px -140px auto;  
+      width: 260px;  
+      height: 260px;  
+      border-radius: 999px;  
+      background: radial-gradient(circle, rgba(159, 56, 38, 0.48), transparent 66%);  
+      pointer-events: none;  
+    }
+
+    #ap-splandid-demo .ap-demo-summary > * {  
+      position: relative;  
+      z-index: 1;  
+    }
+
+    #ap-splandid-demo .ap-demo-summary h3 {  
+      max-width: 600px;  
+      font-size: clamp(26px, 3vw, 38px);  
+      line-height: 1.08;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-demo-summary p {  
+      margin-top: 16px;  
+      color: rgba(255, 255, 255, 0.72);  
+      font-size: 16px;  
+      line-height: 1.6;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-metrics {  
+      display: grid;  
+      grid-template-columns: repeat(3, 1fr);  
+      gap: 12px;  
+    }
+
+    #ap-splandid-demo .ap-metric {  
+      background: var(--white);  
+      color: var(--text);  
+      border-radius: 22px;  
+      padding: 18px;  
+      min-height: 118px;  
+      display: grid;  
+      align-content: center;  
+      gap: 8px;  
+    }
+
+    #ap-splandid-demo .ap-metric strong {  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      color: var(--brown);  
+      font-size: 28px;  
+      line-height: 1;  
+    }
+
+    #ap-splandid-demo .ap-metric span {  
+      font-size: 13px;  
+      line-height: 1.35;  
+      font-weight: 800;  
+    }
+
+    #ap-splandid-demo .ap-note-card {  
+      padding: 26px;  
+      display: grid;  
+      gap: 14px;  
+    }
+
+    #ap-splandid-demo .ap-note-card h3 {  
+      font-size: 22px;  
+      line-height: 1.15;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-note-card p,  
+    #ap-splandid-demo .ap-note-card li {  
+      color: var(--muted);  
+      font-size: 15px;  
+      line-height: 1.55;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-note-card ul {  
+      display: grid;  
+      gap: 10px;  
+      margin: 0;  
+      padding: 0;  
+      list-style: none;  
+    }
+
+    #ap-splandid-demo .ap-note-card li {  
+      position: relative;  
+      padding-left: 22px;  
+    }
+
+    #ap-splandid-demo .ap-note-card li::before {  
+      content: "";  
+      position: absolute;  
+      left: 0;  
+      top: 8px;  
+      width: 9px;  
+      height: 9px;  
+      border-radius: 999px;  
+      background: var(--brown);  
+    }
+
+    #ap-splandid-demo .ap-agent-grid {  
+      display: grid;  
+      grid-template-columns: repeat(2, minmax(0, 1fr));  
+      gap: 18px;  
+    }
+
+    #ap-splandid-demo .ap-agent-card {  
+      padding: 28px;  
+      display: grid;  
+      gap: 22px;  
+      min-height: 100%;  
+    }
+
+    #ap-splandid-demo .ap-agent-head {  
+      display: flex;  
+      gap: 16px;  
+      align-items: center;  
+    }
+
+    #ap-splandid-demo .ap-icon {  
+      width: 58px;  
+      height: 58px;  
+      min-width: 58px;  
+      border-radius: 18px;  
+      background: var(--soft-2);  
+      border: 1px solid var(--line);  
+      display: grid;  
+      place-items: center;  
+      color: var(--brown);  
+    }
+
+    #ap-splandid-demo .ap-icon svg {  
+      width: 29px;  
+      height: 29px;  
+      stroke: currentColor;  
+      fill: none;  
+      stroke-width: 2.1;  
+      stroke-linecap: round;  
+      stroke-linejoin: round;  
+    }
+
+    #ap-splandid-demo .ap-agent-card h3 {  
+      font-size: 24px;  
+      line-height: 1.12;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-agent-card .ap-tag {  
+      margin-top: 7px;  
+      color: var(--brown);  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-size: 12px;  
+      letter-spacing: 0.14em;  
+      text-transform: uppercase;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-agent-card p {  
+      color: var(--muted);  
+      font-size: 15px;  
+      line-height: 1.6;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-check-list {  
+      display: grid;  
+      gap: 11px;  
+      margin: 0;  
+      padding: 0;  
+      list-style: none;  
+    }
+
+    #ap-splandid-demo .ap-check-list li {  
+      display: grid;  
+      grid-template-columns: 24px minmax(0, 1fr);  
+      gap: 10px;  
+      color: var(--text);  
+      font-size: 14px;  
+      line-height: 1.45;  
+      font-weight: 800;  
+    }
+
+    #ap-splandid-demo .ap-check-list li::before {  
+      content: "";  
+      width: 24px;  
+      height: 24px;  
+      border-radius: 999px;  
+      background: #fff1ec;  
+      border: 1px solid rgba(159, 56, 38, 0.22);  
+      background-image: linear-gradient(135deg, transparent 44%, var(--brown) 45%, var(--brown) 56%, transparent 57%);  
+      background-size: 11px 11px;  
+      background-repeat: no-repeat;  
+      background-position: center;  
+    }
+
+    #ap-splandid-demo .ap-demo-console {  
+      overflow: hidden;  
+    }
+
+    #ap-splandid-demo .ap-console-grid {  
+      display: grid;  
+      grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);  
+      min-height: 620px;  
+    }
+
+    #ap-splandid-demo .ap-console-left {  
+      padding: 26px;  
+      background: var(--black);  
+      color: var(--white);  
+      display: grid;  
+      align-content: start;  
+      gap: 18px;  
+    }
+
+    #ap-splandid-demo .ap-console-left .ap-eyebrow {  
+      color: #e9b7aa;  
+      margin-bottom: 0;  
+    }
+
+    #ap-splandid-demo .ap-console-left h3 {  
+      font-size: 30px;  
+      line-height: 1.08;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-console-left p {  
+      color: rgba(255, 255, 255, 0.7);  
+      font-size: 15px;  
+      line-height: 1.6;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-demo-controls {  
+      display: grid;  
+      gap: 10px;  
+      margin-top: 10px;  
+    }
+
+    #ap-splandid-demo .ap-demo-step {  
+      width: 100%;  
+      border: 1px solid rgba(255, 255, 255, 0.14);  
+      border-radius: 18px;  
+      background: rgba(255, 255, 255, 0.06);  
+      color: var(--white);  
+      padding: 16px;  
+      text-align: left;  
+      cursor: pointer;  
+      display: grid;  
+      grid-template-columns: 34px minmax(0, 1fr);  
+      gap: 12px;  
+      align-items: start;  
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;  
+    }
+
+    #ap-splandid-demo .ap-demo-step:hover,  
+    #ap-splandid-demo .ap-demo-step.is-active {  
+      background: rgba(159, 56, 38, 0.28);  
+      border-color: rgba(233, 183, 170, 0.5);  
+      transform: translateY(-1px);  
+    }
+
+    #ap-splandid-demo .ap-demo-step span {  
+      width: 34px;  
+      height: 34px;  
+      border-radius: 999px;  
+      background: var(--white);  
+      color: var(--brown);  
+      display: grid;  
+      place-items: center;  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-size: 14px;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-demo-step strong {  
+      display: block;  
+      font-size: 14px;  
+      line-height: 1.25;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-demo-step small {  
+      display: block;  
+      margin-top: 4px;  
+      color: rgba(255, 255, 255, 0.65);  
+      font-size: 12px;  
+      line-height: 1.35;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-console-right {  
+      padding: 26px;  
+      display: grid;  
+      grid-template-rows: auto 1fr;  
+      gap: 16px;  
+      background: var(--soft-2);  
+    }
+
+    #ap-splandid-demo .ap-status-row {  
+      display: grid;  
+      grid-template-columns: repeat(4, 1fr);  
+      gap: 10px;  
+    }
+
+    #ap-splandid-demo .ap-status-card {  
+      background: var(--white);  
+      border: 1px solid var(--line);  
+      border-radius: 18px;  
+      padding: 14px;  
+      min-height: 86px;  
+      display: grid;  
+      align-content: center;  
+      gap: 7px;  
+    }
+
+    #ap-splandid-demo .ap-status-card span {  
+      color: var(--muted);  
+      font-size: 11px;  
+      line-height: 1.2;  
+      text-transform: uppercase;  
+      letter-spacing: 0.08em;  
+      font-weight: 850;  
+    }
+
+    #ap-splandid-demo .ap-status-card strong {  
+      font-size: 14px;  
+      line-height: 1.2;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-status-card .planned {  
+      color: var(--brown);  
+    }
+
+    #ap-splandid-demo .ap-workspace {  
+      display: grid;  
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);  
+      gap: 14px;  
+    }
+
+    #ap-splandid-demo .ap-splandid-card,  
+    #ap-splandid-demo .ap-call-card {  
+      background: var(--white);  
+      border: 1px solid var(--line);  
+      border-radius: 24px;  
+      padding: 20px;  
+      min-height: 100%;  
+    }
+
+    #ap-splandid-demo .ap-splandid-card h4,  
+    #ap-splandid-demo .ap-call-card h4 {  
+      font-size: 18px;  
+      line-height: 1.2;  
+      font-weight: 900;  
+      margin: 0 0 14px;  
+    }
+
+    #ap-splandid-demo .ap-field-stack {  
+      display: grid;  
+      gap: 11px;  
+    }
+
+    #ap-splandid-demo .ap-field {  
+      background: var(--soft-2);  
+      border: 1px solid var(--line);  
+      border-radius: 16px;  
+      padding: 13px;  
+      display: grid;  
+      gap: 5px;  
+    }
+
+    #ap-splandid-demo .ap-field span {  
+      color: var(--muted);  
+      font-size: 11px;  
+      text-transform: uppercase;  
+      letter-spacing: 0.08em;  
+      font-weight: 850;  
+    }
+
+    #ap-splandid-demo .ap-field strong,  
+    #ap-splandid-demo .ap-field input {  
+      color: var(--text);  
+      font-size: 14px;  
+      line-height: 1.28;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-field input {  
+      width: 100%;  
+      border: 0;  
+      outline: 0;  
+      background: transparent;  
+      font-family: inherit;  
+      padding: 0;  
+    }
+
+    #ap-splandid-demo .ap-status-pill {  
+      display: inline-flex;  
+      width: fit-content;  
+      min-height: 30px;  
+      align-items: center;  
+      border-radius: 999px;  
+      padding: 0 12px;  
+      background: #fff1ec;  
+      color: var(--brown-dark);  
+      border: 1px solid rgba(159, 56, 38, 0.18);  
+      font-size: 12px;  
+      line-height: 1;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-status-pill.is-planned {  
+      background: var(--green-soft);  
+      color: #233c2a;  
+      border-color: rgba(35, 60, 42, 0.12);  
+    }
+
+    #ap-splandid-demo .ap-call-card {  
+      display: grid;  
+      gap: 14px;  
+    }
+
+    #ap-splandid-demo .ap-call-screen {  
+      border-radius: 22px;  
+      background: var(--black);  
+      color: var(--white);  
+      padding: 20px;  
+      min-height: 226px;  
+      display: grid;  
+      align-content: space-between;  
+      gap: 18px;  
+      overflow: hidden;  
+      position: relative;  
+    }
+
+    #ap-splandid-demo .ap-call-screen::after {  
+      content: "";  
+      position: absolute;  
+      right: -70px;  
+      bottom: -100px;  
+      width: 220px;  
+      height: 220px;  
+      border-radius: 999px;  
+      background: radial-gradient(circle, rgba(159, 56, 38, 0.48), transparent 66%);  
+      pointer-events: none;  
+    }
+
+    #ap-splandid-demo .ap-call-screen > * {  
+      position: relative;  
+      z-index: 1;  
+    }
+
+    #ap-splandid-demo .ap-call-screen .ap-call-label {  
+      color: #e9b7aa;  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-size: 12px;  
+      letter-spacing: 0.14em;  
+      text-transform: uppercase;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-call-screen h5 {  
+      margin: 10px 0 0;  
+      font-size: 22px;  
+      line-height: 1.13;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-call-screen p {  
+      color: rgba(255, 255, 255, 0.72);  
+      font-size: 14px;  
+      line-height: 1.52;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-mini-button {  
+      width: 100%;  
+      min-height: 45px;  
+      border-radius: 999px;  
+      border: 0;  
+      background: var(--brown);  
+      color: var(--white);  
+      font-family: inherit;  
+      font-size: 14px;  
+      font-weight: 900;  
+      cursor: pointer;  
+    }
+
+    #ap-splandid-demo .ap-mini-button:disabled {  
+      cursor: not-allowed;  
+      opacity: 0.68;  
+    }
+
+    #ap-splandid-demo .ap-live-form {  
+      display: grid;  
+      gap: 12px;  
+    }
+
+    #ap-splandid-demo .ap-form-field {  
+      display: grid;  
+      gap: 7px;  
+    }
+
+    #ap-splandid-demo .ap-form-field label {  
+      color: var(--text);  
+      font-size: 13px;  
+      line-height: 1.25;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-form-field input {  
+      width: 100%;  
+      min-height: 48px;  
+      border-radius: 16px;  
+      border: 1px solid var(--line);  
+      background: var(--soft-2);  
+      color: var(--text);  
+      padding: 0 14px;  
+      font: inherit;  
+      font-size: 14px;  
+      font-weight: 800;  
+      outline: none;  
+      transition: border-color 0.18s ease, background 0.18s ease;  
+    }
+
+    #ap-splandid-demo .ap-form-field input:focus {  
+      border-color: rgba(159, 56, 38, 0.55);  
+      background: var(--white);  
+    }
+
+    #ap-splandid-demo .ap-form-field small,  
+    #ap-splandid-demo .ap-demo-message {  
+      color: var(--muted);  
+      font-size: 12px;  
+      line-height: 1.42;  
+      font-weight: 650;  
+    }
+
+    #ap-splandid-demo .ap-demo-message {  
+      border-radius: 16px;  
+      background: var(--soft-2);  
+      border: 1px solid var(--line);  
+      padding: 12px;  
+    }
+
+    #ap-splandid-demo .ap-demo-message.is-success {  
+      background: var(--green-soft);  
+      color: #233c2a;  
+      border-color: rgba(35, 60, 42, 0.12);  
+    }
+
+    #ap-splandid-demo .ap-demo-message.is-error {  
+      background: #fff1ec;  
+      color: var(--brown-dark);  
+      border-color: rgba(159, 56, 38, 0.2);  
+    }
+
+    #ap-splandid-demo .ap-transcript {  
+      display: grid;  
+      gap: 9px;  
+    }
+
+    #ap-splandid-demo .ap-bubble {  
+      width: fit-content;  
+      max-width: 92%;  
+      border-radius: 16px;  
+      padding: 11px 13px;  
+      font-size: 12px;  
+      line-height: 1.4;  
+      font-weight: 750;  
+      color: var(--text);  
+      background: var(--soft);  
+    }
+
+    #ap-splandid-demo .ap-bubble.agent {  
+      background: #fff1ec;  
+      color: var(--brown-dark);  
+    }
+
+    #ap-splandid-demo .ap-bubble.customer {  
+      justify-self: end;  
+      background: var(--black);  
+      color: var(--white);  
+    }
+
+    #ap-splandid-demo .ap-road-grid {  
+      display: grid;  
+      grid-template-columns: repeat(4, minmax(0, 1fr));  
+      gap: 14px;  
+    }
+
+    #ap-splandid-demo .ap-road-card {  
+      padding: 22px;  
+      min-height: 210px;  
+      display: grid;  
+      align-content: start;  
+      gap: 16px;  
+    }
+
+    #ap-splandid-demo .ap-road-number {  
+      width: 46px;  
+      height: 46px;  
+      border-radius: 16px;  
+      background: var(--black);  
+      color: var(--white);  
+      display: grid;  
+      place-items: center;  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-road-card h3 {  
+      font-size: 20px;  
+      line-height: 1.16;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-road-card p {  
+      color: var(--muted);  
+      font-size: 14px;  
+      line-height: 1.55;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-dark-band {  
+      background: var(--black);  
+      color: var(--white);  
+      border-radius: 34px;  
+      padding: 34px;  
+      display: grid;  
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);  
+      gap: 28px;  
+      align-items: start;  
+      position: relative;  
+      overflow: hidden;  
+    }
+
+    #ap-splandid-demo .ap-dark-band::after {  
+      content: "";  
+      position: absolute;  
+      right: -110px;  
+      top: -130px;  
+      width: 300px;  
+      height: 300px;  
+      border-radius: 999px;  
+      background: radial-gradient(circle, rgba(159, 56, 38, 0.42), transparent 66%);  
+      pointer-events: none;  
+    }
+
+    #ap-splandid-demo .ap-dark-band > * {  
+      position: relative;  
+      z-index: 1;  
+    }
+
+    #ap-splandid-demo .ap-dark-band .ap-eyebrow {  
+      color: #e9b7aa;  
+    }
+
+    #ap-splandid-demo .ap-dark-band h2 {  
+      font-size: clamp(28px, 4vw, 46px);  
+      line-height: 1.07;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-dark-band p {  
+      margin-top: 16px;  
+      color: rgba(255, 255, 255, 0.7);  
+      font-size: 16px;  
+      line-height: 1.62;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-partner-list {  
+      display: grid;  
+      gap: 12px;  
+    }
+
+    #ap-splandid-demo .ap-partner-item {  
+      display: grid;  
+      grid-template-columns: 42px minmax(0, 1fr);  
+      gap: 14px;  
+      align-items: start;  
+      background: rgba(255, 255, 255, 0.07);  
+      border: 1px solid rgba(255, 255, 255, 0.12);  
+      border-radius: 20px;  
+      padding: 16px;  
+    }
+
+    #ap-splandid-demo .ap-partner-item span {  
+      width: 42px;  
+      height: 42px;  
+      border-radius: 14px;  
+      background: var(--white);  
+      color: var(--brown);  
+      display: grid;  
+      place-items: center;  
+      font-family: "Syne", "Public Sans", Arial, sans-serif;  
+      font-weight: 700;  
+    }
+
+    #ap-splandid-demo .ap-partner-item strong {  
+      display: block;  
+      font-size: 16px;  
+      line-height: 1.25;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-partner-item small {  
+      display: block;  
+      margin-top: 5px;  
+      color: rgba(255, 255, 255, 0.64);  
+      font-size: 13px;  
+      line-height: 1.45;  
+      font-weight: 650;  
+    }
+
+    #ap-splandid-demo details {  
+      width: 100%;  
+    }
+
+    #ap-splandid-demo summary {  
+      list-style: none;  
+      cursor: pointer;  
+    }
+
+    #ap-splandid-demo summary::-webkit-details-marker {  
+      display: none;  
+    }
+
+    #ap-splandid-demo .ap-faq {  
+      display: grid;  
+      gap: 12px;  
+      max-width: 920px;  
+      margin: 0 auto;  
+    }
+
+    #ap-splandid-demo .ap-faq details {  
+      background: var(--white);  
+      border: 1px solid var(--line);  
+      border-radius: 24px;  
+      padding: 20px 22px;  
+    }
+
+    #ap-splandid-demo .ap-faq summary {  
+      display: flex;  
+      justify-content: space-between;  
+      gap: 18px;  
+      align-items: center;  
+    }
+
+    #ap-splandid-demo .ap-faq h3 {  
+      font-size: 18px;  
+      line-height: 1.2;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-faq p {  
+      margin-top: 10px;  
+      color: var(--muted);  
+      font-size: 14px;  
+      line-height: 1.58;  
+      font-weight: 600;  
+    }
+
+    #ap-splandid-demo .ap-plus {  
+      width: 32px;  
+      height: 32px;  
+      min-width: 32px;  
+      border-radius: 999px;  
+      background: var(--black);  
+      color: var(--white);  
+      display: grid;  
+      place-items: center;  
+      font-size: 18px;  
+      font-weight: 700;  
+      transition: transform 0.18s ease, background 0.18s ease;  
+    }
+
+    #ap-splandid-demo details[open] .ap-plus {  
+      background: var(--brown);  
+      transform: rotate(45deg);  
+    }
+
+    #ap-splandid-demo .ap-final {  
+      text-align: center;  
+      background: var(--white);  
+      border: 1px solid var(--line);  
+      border-radius: 34px;  
+      padding: 42px 26px;  
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);  
+    }
+
+    #ap-splandid-demo .ap-final h2 {  
+      max-width: 820px;  
+      margin: 0 auto;  
+      font-size: clamp(30px, 4.2vw, 50px);  
+      line-height: 1.08;  
+      font-weight: 900;  
+    }
+
+    #ap-splandid-demo .ap-final p {  
+      max-width: 700px;  
+      margin: 18px auto 0;  
+      color: var(--muted);  
+      font-size: 17px;  
+      line-height: 1.6;  
+      font-weight: 600;  
+    }
+
+    @media (max-width: 920px) {  
+      #ap-splandid-demo .ap-section {  
+        padding: 58px 0;  
+      }
+
+      #ap-splandid-demo .ap-hero-panel,  
+      #ap-splandid-demo .ap-agent-grid,  
+      #ap-splandid-demo .ap-console-grid,  
+      #ap-splandid-demo .ap-workspace,  
+      #ap-splandid-demo .ap-dark-band {  
+        grid-template-columns: 1fr;  
+      }
+
+      #ap-splandid-demo .ap-road-grid,  
+      #ap-splandid-demo .ap-status-row {  
+        grid-template-columns: repeat(2, 1fr);  
+      }  
+    }
+
+    @media (max-width: 620px) {  
+      #ap-splandid-demo .ap-container {  
+        padding: 0 14px;  
+      }
+
+      #ap-splandid-demo .ap-panel,  
+      #ap-splandid-demo .ap-demo-summary,  
+      #ap-splandid-demo .ap-dark-band {  
+        padding: 22px;  
+        border-radius: 26px;  
+      }
+
+      #ap-splandid-demo .ap-metrics,  
+      #ap-splandid-demo .ap-road-grid,  
+      #ap-splandid-demo .ap-status-row {  
+        grid-template-columns: 1fr;  
+      }
+
+      #ap-splandid-demo .ap-console-left,  
+      #ap-splandid-demo .ap-console-right {  
+        padding: 18px;  
+      }
+
+      #ap-splandid-demo .ap-button {  
+        width: 100%;  
+      }  
+    }  
+  </style>
+
+  <section class="ap-section">  
+    <div class="ap-container">  
+      <div class="ap-center">  
+        <div class="ap-eyebrow">SPLANDID DEMO</div>  
+        <h1 class="ap-hero-title">Test hoe Alex activiteiten plant binnen de Splandid-flow.</h1>  
+        <p class="ap-hero-text">Deze demo is gemaakt voor Splandid. Jullie kunnen een bestaande activiteit laten bellen door Alex, de AI voice agent. Alex spreekt een datum en tijd af met de klant en schrijft de afspraak daarna terug naar Splandid.</p>  
+        <div class="ap-actions">  
+          <a class="ap-button primary" href="#ap-live-demo">Test de demo-flow</a>  
+          <a class="ap-button secondary" href="#ap-two-agents">De 2 AI Agents</a>  
+        </div>  
+      </div>
+
+      <div class="ap-hero-panel">  
+        <div class="ap-demo-summary">  
+          <div>  
+            <div class="ap-eyebrow">Wat jullie kunnen testen</div>  
+            <h3>Van Te plannen naar Gepland, tijdens één telefoongesprek.</h3>  
+            <p>De installateur maakt een activiteit aan zoals normaal, zet de plan method op Ai Planner en daarna neemt Alex het planwerk over. In productie gebeurt dit automatisch via de activity webhook.</p>  
+          </div>  
+          <div class="ap-metrics">  
+            <div class="ap-metric"><strong>01</strong><span>Activity hash als unieke koppeling</span></div>  
+            <div class="ap-metric"><strong>02</strong><span>Alex belt de klant</span></div>  
+            <div class="ap-metric"><strong>03</strong><span>Status naar Gepland</span></div>  
+          </div>  
+        </div>
+
+        <div class="ap-note-card ap-card">  
+          <div class="ap-eyebrow">Demo-context</div>  
+          <h3>De knop op deze pagina is alleen voor de live demo.</h3>  
+          <p>In productie hoeft er geen knop te worden ingedrukt. Zodra een activiteit wordt opgeslagen met plan method Ai Planner, triggert de Splandid activity webhook automatisch de call.</p>  
+          <ul>  
+            <li>Voor de demo vullen jullie activity hash en telefoonnummer in.</li>  
+            <li>Het nummer moet in internationaal formaat staan, bijvoorbeeld +31612345678.</li>  
+            <li>Na de call ververs je dezelfde activiteit in Splandid om de geplande afspraak en AI-notitie te zien.</li>  
+          </ul>  
+        </div>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section" id="ap-two-agents">  
+    <div class="ap-container">  
+      <div class="ap-center">  
+        <div class="ap-eyebrow">TWEE PRODUCTEN</div>  
+        <h2 class="ap-title">Twee AI Agents die jullie als uitbreiding kunnen aanbieden.</h2>  
+        <p class="ap-subtitle">De kracht zit niet in een losse demo, maar in een herhaalbare productlaag. Splandid kan deze agents los aanbieden of bundelen als AI-planningslaag voor klanten.</p>  
+      </div>
+
+      <div class="ap-agent-grid">  
+        <article class="ap-agent-card">  
+          <div class="ap-agent-head">  
+            <div class="ap-icon" aria-hidden="true">  
+              <svg viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3.5 9.5h17"/><path d="M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path d="m8 15 2.2 2.2L16 11.5"/></svg>  
+            </div>  
+            <div>  
+              <h3>AI Dienstplanner</h3>  
+              <div class="ap-tag">Voor bestaande activiteiten</div>  
+            </div>  
+          </div>  
+          <p>Deze agent neemt het planwerk over nadat een activiteit klaarstaat. Hij belt de klant, stemt een tijd af en laat de activiteit verwerken als gepland.</p>  
+          <ul class="ap-check-list">  
+            <li>Gebruikt activity hash als unieke koppeling met Splandid.</li>  
+            <li>Haalt activiteit, klantinformatie en servicecontext op.</li>  
+            <li>Plant op basis van beschikbaarheid, route en planninglogica.</li>  
+            <li>Werkt status, tijdvenster en label automatisch bij.</li>  
+          </ul>  
+        </article>
+
+        <article class="ap-agent-card">  
+          <div class="ap-agent-head">  
+            <div class="ap-icon" aria-hidden="true">  
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5Z"/><path d="M8 9h8"/><path d="M8 12h5"/><path d="M17 19c1.8-.2 3-1.2 3-2.8"/><path d="M20 16.2V14"/></svg>  
+            </div>  
+            <div>  
+              <h3>AI Leadopvolger</h3>  
+              <div class="ap-tag">Voor nieuwe aanvragen</div>  
+            </div>  
+          </div>  
+          <p>Deze agent volgt nieuwe leads snel op, kwalificeert de aanvraag en zorgt dat alleen kansrijke of complete aanvragen doorgaan naar planning of sales.</p>  
+          <ul class="ap-check-list">  
+            <li>Belt of bericht leads direct na binnenkomst.</li>  
+            <li>Vraagt dienst, locatie, urgentie en voorkeurmoment uit.</li>  
+            <li>Valt terug op SMS, e-mail of WhatsApp als iemand niet opneemt.</li>  
+            <li>Zet complete informatie klaar voor Splandid of het klantteam.</li>  
+          </ul>  
+        </article>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section" id="ap-live-demo">  
+    <div class="ap-container">  
+      <div class="ap-center">  
+        <div class="ap-eyebrow">INTERACTIEVE DEMO</div>  
+        <h2 class="ap-title">Klik door de flow en zie wat er achter één AI-call gebeurt.</h2>  
+        <p class="ap-subtitle">Gebruik de stappen hieronder om de demo te testen. De flow laat zien wat er gebeurt vanaf het moment dat een activiteit klaarstaat tot het moment dat deze als gepland terugkomt.</p>  
+      </div>
+
+      <div class="ap-demo-console" data-ap-demo>  
+        <div class="ap-console-grid">  
+          <div class="ap-console-left">  
+            <div class="ap-eyebrow">Testomgeving</div>  
+            <h3>Een standaard AI-laag voor planning en opvolging.</h3>  
+            <p>De basis blijft hetzelfde: activiteit ophalen, klant bereiken, afspraak maken en status terugschrijven. Per klant kunnen bedrijfsinformatie, diensttype, taal en regels worden aangepast.</p>  
+            <div class="ap-demo-controls">  
+              <button class="ap-demo-step is-active" type="button" data-step="1"><span>1</span><div><strong>Activiteit klaarzetten</strong><small>Status Te plannen + plan method Ai Planner</small></div></button>  
+              <button class="ap-demo-step" type="button" data-step="2"><span>2</span><div><strong>Hash en telefoonnummer invullen</strong><small>Deze pagina triggert dezelfde flow on demand</small></div></button>  
+              <button class="ap-demo-step" type="button" data-step="3"><span>3</span><div><strong>Alex belt de klant</strong><small>De telefoon gaat binnen ongeveer 15 seconden</small></div></button>  
+              <button class="ap-demo-step" type="button" data-step="4"><span>4</span><div><strong>Splandid verversen</strong><small>Activiteit staat op Gepland met AI-notitie</small></div></button>  
+            </div>  
+          </div>
+
+          <div class="ap-console-right">  
+            <div class="ap-status-row">  
+              <div class="ap-status-card"><span>Agent</span><strong id="apDemoAgent">Alex</strong></div>  
+              <div class="ap-status-card"><span>Plan method</span><strong id="apDemoLabel">Ai Planner</strong></div>  
+              <div class="ap-status-card"><span>Status</span><strong id="apDemoStatus">Te plannen</strong></div>  
+              <div class="ap-status-card"><span>Tijdvenster</span><strong id="apDemoWindow">Nog leeg</strong></div>  
+            </div>
+
+            <div class="ap-workspace">  
+              <div class="ap-splandid-card">  
+                <h4>Splandid activiteit</h4>  
+                <div class="ap-field-stack">  
+                  <div class="ap-field"><span>Voorwaarde</span><strong>Status Te plannen</strong></div>  
+                  <div class="ap-field"><span>Plan method</span><strong>Ai Planner</strong></div>  
+                  <div class="ap-field"><span>Splandid leest uit</span><strong>Contact, telefoonnummer, werklocatie en plan window</strong></div>  
+                  <div class="ap-field"><span>Na succesvolle call</span><strong><span class="ap-status-pill" id="apDemoPill">Gepland + AI-notitie</span></strong></div>  
+                  <div class="ap-field"><span>Praktische reset</span><strong id="apDemoResult">Gebruik een verse activiteit of zet de demo-activiteit terug naar Te plannen.</strong></div>  
+                </div>  
+              </div>
+
+              <div class="ap-call-card">  
+                <h4>Live demo starten</h4>  
+                <div class="ap-call-screen">  
+                  <div>  
+                    <div class="ap-call-label" id="apCallLabel">Klaar voor demo</div>  
+                    <h5 id="apCallTitle">Vul de activity hash en het telefoonnummer in.</h5>  
+                  </div>  
+                  <p id="apCallCopy">De knop hieronder stuurt een live request naar de Splandid demo webhook. De telefoon gaat meestal binnen ongeveer 15 seconden.</p>  
+                  <form class="ap-live-form" id="apLiveDemoForm">  
+                    <div class="ap-form-field">  
+                      <label for="apActivityHash">Activity hash</label>  
+                      <input id="apActivityHash" name="activity_hash" placeholder="Bijv. A-XXX-X" autocomplete="off" required>  
+                      <small>Gebruik de hash van een activiteit die op Te plannen staat met plan method Ai Planner.</small>  
+                    </div>  
+                    <div class="ap-form-field">  
+                      <label for="apPhoneNumber">Telefoonnummer</label>  
+                      <input id="apPhoneNumber" name="phone" value="+316" autocomplete="tel" inputmode="tel" required>  
+                      <small>Gebruik internationaal formaat, bijvoorbeeld +31612345678.</small>  
+                    </div>  
+                    <button class="ap-mini-button" type="submit" id="apSubmitDemo">Plan deze activiteit</button>  
+                    <div class="ap-demo-message" id="apDemoMessage">Nog niet gestart. Controleer eerst of de activiteit klaarstaat in Splandid.</div>  
+                  </form>  
+                </div>  
+                <div class="ap-transcript" id="apTranscript">  
+                  <div class="ap-bubble agent">Alex belt de klant op basis van de activity hash.</div>  
+                  <div class="ap-bubble customer">De klant spreekt een datum en tijd af.</div>  
+                  <div class="ap-bubble agent">Na ophangen staat de activiteit in Splandid op Gepland met een AI-notitie.</div>  
+                </div>  
+              </div>  
+            </div>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section">  
+    <div class="ap-container">  
+      <div class="ap-center">  
+        <div class="ap-eyebrow">HOE DE FLOW WERKT</div>  
+        <h2 class="ap-title">Van Splandid-activiteit naar automatisch geplande afspraak.</h2>  
+        <p class="ap-subtitle">De demo is opgebouwd rond vier stappen. Eerst bewijst de flow dat het technisch werkt, daarna is dezelfde basis inzetbaar als productlaag voor meerdere klanten.</p>  
+      </div>
+
+      <div class="ap-road-grid">  
+        <div class="ap-road-card"><div class="ap-road-number">01</div><h3>Installateur maakt een activiteit</h3><p>De activiteit wordt aangemaakt zoals normaal, met contactpersoon, telefoonnummer en werklocatie.</p></div>  
+        <div class="ap-road-card"><div class="ap-road-number">02</div><h3>Plan method wordt Ai Planner</h3><p>Dat is het enige wat anders is. Vanaf daar neemt de AI de planning over.</p></div>  
+        <div class="ap-road-card"><div class="ap-road-number">03</div><h3>Alex belt de klant</h3><p>Alex leest de activiteit via de Splandid API en spreekt een datum en tijd af binnen het plan window.</p></div>  
+        <div class="ap-road-card"><div class="ap-road-number">04</div><h3>Splandid wordt bijgewerkt</h3><p>De activiteit gaat van Te plannen naar Gepland, inclusief gekozen slot, toegewezen medewerker en AI-notitie.</p></div>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section">  
+    <div class="ap-container">  
+      <div class="ap-dark-band">  
+        <div>  
+          <div class="ap-eyebrow">PARTNERMODEL</div>  
+          <h2>Gebouwd om met Splandid mee te schalen.</h2>  
+          <p>De demo is bewust generiek gemaakt. Splandid kan per klant bedrijfsnaam, adres en serviceomschrijving meegeven. Daarna gebruikt de agent dezelfde basisflow, terwijl de details per klant worden aangescherpt.</p>  
+        </div>  
+        <div class="ap-partner-list">  
+          <div class="ap-partner-item"><span>1</span><div><strong>Standaard basisflow</strong><small>Activiteit ophalen, klant bereiken, afspraak afstemmen, status terugschrijven.</small></div></div>  
+          <div class="ap-partner-item"><span>2</span><div><strong>Klant-specifieke variabelen</strong><small>Bedrijfsnaam, diensttype, taal, tone of voice, planningregels en fallbackkanalen.</small></div></div>  
+          <div class="ap-partner-item"><span>3</span><div><strong>Fallback bij geen gehoor</strong><small>Als iemand niet opneemt, kan de flow door naar SMS, e-mail of WhatsApp-opvolging.</small></div></div>  
+          <div class="ap-partner-item"><span>4</span><div><strong>Support en doorontwikkeling</strong><small>Autopilots kan de technische laag, optimalisaties en agent-performance blijven beheren.</small></div></div>  
+        </div>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section">  
+    <div class="ap-container">  
+      <div class="ap-center">  
+        <div class="ap-eyebrow">FAQ VOOR SPLANDID</div>  
+        <h2 class="ap-title">Veelgestelde vragen over deze AI-laag.</h2>  
+      </div>
+
+      <div class="ap-faq">  
+        <details open>  
+          <summary><h3>Moet Splandid elke klant apart bouwen?</h3><span class="ap-plus">+</span></summary>  
+          <p>Nee. De basisflow blijft hetzelfde. Per klant worden variabelen zoals bedrijfsnaam, dienstomschrijving, taal, planningregels en fallbackscenario's meegegeven.</p>  
+        </details>  
+        <details>  
+          <summary><h3>Wat gebeurt er als iemand niet opneemt?</h3><span class="ap-plus">+</span></summary>  
+          <p>Dan kan dezelfde workflow een fallback starten via SMS, e-mail of WhatsApp. Dit is vooral interessant voor de AI Leadopvolger.</p>  
+        </details>  
+        <details>  
+          <summary><h3>Wat is het verschil tussen de twee agents?</h3><span class="ap-plus">+</span></summary>  
+          <p>De AI Dienstplanner plant bestaande activiteiten in. De AI Leadopvolger zit eerder in de klantreis en volgt nieuwe aanvragen op voordat ze volledig gepland kunnen worden.</p>  
+        </details>  
+        <details>  
+          <summary><h3>Waarom is dit interessant voor Splandid?</h3><span class="ap-plus">+</span></summary>  
+          <p>Omdat Splandid hiermee niet alleen routeplanning levert, maar ook de communicatielaag ervoor automatiseert. Dat maakt de software waardevoller voor servicebedrijven.</p>  
+        </details>  
+        <details>  
+          <summary><h3>Waar moeten we op letten tijdens het testen?</h3><span class="ap-plus">+</span></summary>  
+          <p>De demo-activiteit moet voor elke call op Te plannen staan met plan method Ai Planner. Na een succesvolle booking staat de activiteit op Gepland. Gebruik daarna een verse activiteit of zet dezelfde activiteit terug voordat je opnieuw test.</p>  
+        </details>  
+      </div>  
+    </div>  
+  </section>
+
+  <section class="ap-section">  
+    <div class="ap-container">  
+      <div class="ap-final">  
+        <h2>Deze demo laat zien hoe Splandid AI kan aanbieden als planningslaag.</h2>  
+        <p>Test eerst de activity hash, call-flow en statusupdate. Daarna kunnen we samen bepalen hoe Alex en de AI Leadopvolger als productlaag voor Splandid-klanten kunnen worden ingericht.</p>  
+        <div class="ap-actions">  
+          <a class="ap-button primary" href="#ap-live-demo">Test de demo-flow opnieuw</a>  
+          <a class="ap-button secondary" href="#ap-two-agents">Bekijk de agents</a>  
+        </div>  
+      </div>  
+    </div>  
+  </section>
+
+  <script>  
+    (function() {  
+      const root = document.getElementById("ap-splandid-demo");  
+      if (!root) return;  
+      const webhookUrl = "https://n8n.auto-pilots.io/webhook/splandid-demo-call";
+
+      const states = {  
+        1: {  
+          label: "Ai Planner",  
+          status: "Te plannen",  
+          window: "Nog leeg",  
+          pill: "Klaar voor demo",  
+          result: "Gebruik een verse activiteit of zet de demo-activiteit terug naar Te plannen.",  
+          callLabel: "Stap 01",  
+          callTitle: "Activiteit staat op Te plannen.",  
+          callCopy: "Controleer dat de activiteit plan method Ai Planner heeft. In productie triggert dit automatisch de call."  
+        },  
+        2: {  
+          label: "Ai Planner",  
+          status: "Demo-input",  
+          window: "Nog leeg",  
+          pill: "Hash + phone",  
+          result: "Vul activity hash en telefoonnummer in om de webhook te starten.",  
+          callLabel: "Stap 02",  
+          callTitle: "Hash en telefoonnummer gaan naar de webhook.",  
+          callCopy: "De webhook ontvangt activity_hash en phone. Daarna start de call naar het opgegeven nummer."  
+        },  
+        3: {  
+          label: "Ai Planner",  
+          status: "Alex belt",  
+          window: "Voorkeur wordt afgestemd",  
+          pill: "Call gestart",  
+          result: "De telefoon gaat meestal binnen ongeveer 15 seconden.",  
+          callLabel: "Stap 03",  
+          callTitle: "Alex belt de klant.",  
+          callCopy: "Alex spreekt met de klant, kiest een datum en tijd en boekt het slot tijdens het gesprek."  
+        },  
+        4: {  
+          label: "Ai Planner",  
+          status: "Gepland",  
+          window: "Gekozen slot",  
+          pill: "Gepland",  
+          result: "Refresh de activiteit in Splandid om het geplande slot en de AI-notitie te zien.",  
+          callLabel: "Stap 04",  
+          callTitle: "Splandid is bijgewerkt.",  
+          callCopy: "Na ophangen wordt de activiteit gepland met het gekozen slot, toegewezen medewerker en AI-notitie."  
+        }  
+      };
+
+      function setText(id, value) {  
+        const node = root.querySelector("#" + id);  
+        if (node) node.textContent = value;  
+      }
+
+      function setStep(step) {  
+        const state = states[step] || states[1];  
+        root.querySelectorAll("[data-step]").forEach(button => {  
+          button.classList.toggle("is-active", button.getAttribute("data-step") === String(step));  
+        });  
+        setText("apDemoLabel", state.label);  
+        setText("apDemoStatus", state.status);  
+        setText("apDemoWindow", state.window);  
+        setText("apDemoPill", state.pill);  
+        setText("apDemoResult", state.result);  
+        setText("apCallLabel", state.callLabel);  
+        setText("apCallTitle", state.callTitle);  
+        setText("apCallCopy", state.callCopy);  
+        const pill = root.querySelector("#apDemoPill");  
+        if (pill) pill.classList.toggle("is-planned", String(step) === "4");  
+      }
+
+      root.querySelectorAll("[data-step]").forEach(button => {  
+        button.addEventListener("click", () => setStep(button.getAttribute("data-step")));  
+      });
+
+      function setMessage(text, type) {  
+        const message = root.querySelector("#apDemoMessage");  
+        if (!message) return;  
+        message.textContent = text;  
+        message.classList.remove("is-success", "is-error");  
+        if (type) message.classList.add(type);  
+      }
+
+      const demoForm = root.querySelector("#apLiveDemoForm");  
+      if (demoForm) {  
+        demoForm.addEventListener("submit", async event => {  
+          event.preventDefault();  
+          const submit = root.querySelector("#apSubmitDemo");  
+          const activityHash = root.querySelector("#apActivityHash")?.value.trim();  
+          const phone = root.querySelector("#apPhoneNumber")?.value.trim();
+
+          if (!activityHash || !phone) {  
+            setMessage("Vul eerst de activity hash en het telefoonnummer in.", "is-error");  
+            return;  
+          }
+
+          if (!phone.startsWith("+")) {  
+            setMessage("Gebruik het internationale telefoonformaat, bijvoorbeeld +31612345678.", "is-error");  
+            return;  
+          }
+
+          try {  
+            if (submit) {  
+              submit.disabled = true;  
+              submit.textContent = "Call wordt gestart...";  
+            }  
+            setStep(3);  
+            setMessage("Webhook wordt aangeroepen. Als de activiteit goed klaarstaat, gaat de telefoon binnen ongeveer 15 seconden.", "");
+
+            const response = await fetch(webhookUrl, {  
+              method: "POST",  
+              headers: { "Content-Type": "application/json" },  
+              body: JSON.stringify({ activity_hash: activityHash, phone })  
+            });
+
+            if (!response.ok) throw new Error("Webhook returned " + response.status);
+
+            setMessage("Call gestart. Neem op, spreek een slot af met Alex en refresh daarna dezelfde activiteit in Splandid.", "is-success");  
+            window.setTimeout(() => setStep(4), 1200);  
+          } catch (error) {  
+            setStep(2);  
+            setMessage("De call kon niet worden gestart. Controleer de hash, het telefoonnummer en probeer opnieuw.", "is-error");  
+          } finally {  
+            if (submit) {  
+              submit.disabled = false;  
+              submit.textContent = "Plan deze activiteit";  
+            }  
+          }  
+        });  
+      }
+
+      root.querySelectorAll('a[href^="#"]').forEach(link => {  
+        link.addEventListener("click", event => {  
+          const targetId = link.getAttribute("href").slice(1);  
+          const target = document.getElementById(targetId);  
+          if (!target) return;  
+          event.preventDefault();  
+          target.scrollIntoView({ behavior: "smooth", block: "start" });  
+          if (window.history && window.history.replaceState) {  
+            window.history.replaceState(null, "", "#" + targetId);  
+          }  
+        });  
+      });
+
+      setStep(1);  
+    })();  
+  </script>  
+</div>
