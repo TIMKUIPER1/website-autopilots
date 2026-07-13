@@ -2492,9 +2492,9 @@ body {
             </div>
 
             <div class="ap-field" data-roi-field="volume">
-              <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal berichten per maand</label>
-              <small id="apInboundLeadsHelp">Rechtstreekse WhatsApp-, e-mail- en websitevragen die bij jullie binnenkomen.</small>
-              <input id="apInboundLeads" type="number" min="0" value="120">
+              <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal verkoopkansen per maand</label>
+              <small id="apInboundLeadsHelp">Directe berichten met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.</small>
+              <input id="apInboundLeads" type="number" min="0" value="150">
             </div>
 
             <div class="ap-field" data-roi-field="sales">
@@ -2614,12 +2614,6 @@ body {
                   <span>Extra marge</span>
                   <strong id="apExtraMargin">€0</strong>
                 </div>
-
-                <div class="ap-impact-item">
-                  <span>Marge met AI</span>
-                  <strong id="apMarginWithAi">€0</strong>
-                </div>
-
               </div>
             </div>
           </div>
@@ -3271,56 +3265,60 @@ body {
 
       const productCalculator = {
         start: {
-          volumeLabel: "Aantal berichten per maand",
-          volumeHelp: "Rechtstreekse WhatsApp-, e-mail- en websitevragen die bij jullie binnenkomen.",
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Directe inboxvragen met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          defaultVolume: 150,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel berichten gaan over voorraad, proefrit, inruil, offerte of een verkoopvraag?",
           afterLabel: "Te laat gereageerd",
           afterHelp: "Welk percentage krijgt te laat reactie doordat het team druk is of buiten werktijd niet reageert?",
-          fields: ["volume", "sales", "after-hours"],
+          fields: ["volume", "after-hours"],
           opportunity: "Inboxkansen",
           handledLabel: "Op tijd verwerkt",
           extraHandledLabel: "Extra inboxkansen op tijd verwerkt",
-          baseHelp: "Inbox gebruikt alleen directe berichten en verkoopkansen. Telefonie en platformlead-opvolging tellen hier niet mee."
+          baseHelp: "Inbox rekent alleen met directe verkoopkansen uit WhatsApp, e-mail en website. Telefonie en platformlead-opvolging tellen hier niet mee."
         },
         telefoniste: {
-          volumeLabel: "Aantal telefoontjes per maand",
-          volumeHelp: "Inkomende telefoontjes voor verkoop, werkplaats, gemiste oproepen en terugbelverzoeken.",
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Telefoontjes met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          defaultVolume: 150,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel telefoontjes hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?",
           afterLabel: "Buiten openingstijden",
           afterHelp: "Welk percentage van de telefoontjes komt buiten openingstijden binnen?",
           peakLabel: "Tijdens piekdrukte",
           peakHelp: "Welk percentage wordt tijdens drukte gemist of te laat opgepakt?",
-          fields: ["volume", "sales", "after-hours", "peak"],
+          fields: ["volume", "after-hours", "peak"],
           opportunity: "Telefoniekansen",
           handledLabel: "Op tijd opgenomen",
           extraHandledLabel: "Extra telefoontjes op tijd opgepakt",
-          baseHelp: "Telefonie gebruikt alleen telefoontjes. Inboxberichten en platformlead-opvolging tellen hier niet mee."
+          baseHelp: "Telefonie rekent alleen met verkoopkansen via telefoon. Inboxberichten en platformlead-opvolging tellen hier niet mee."
         },
         scale: {
           volumeLabel: "Aantal platformleads per maand",
           volumeHelp: "Nieuwe aanvragen via BOVAG, Marktplaats, AutoScout of vergelijkbare leadbronnen.",
+          defaultVolume: 200,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel platformleads zijn serieus genoeg voor proefrit, offertebespreking of terugbelmoment?",
           afterLabel: "Niet of te laat opgevolgd",
           afterHelp: "Welk percentage krijgt nu geen structurele of te late opvolging?",
-          fields: ["volume", "sales", "after-hours"],
+          fields: ["volume", "after-hours"],
           opportunity: "Leadopvolgkansen",
           handledLabel: "Actief opgevolgd",
           extraHandledLabel: "Extra platformleads actief opgevolgd",
-          baseHelp: "Leadopvolging gebruikt alleen externe leadbronnen. Algemene inbox en telefonie tellen hier niet mee."
+          baseHelp: "Leadopvolging rekent platformleads direct als verkoopkansen. Algemene inbox en telefonie tellen hier niet mee."
         },
         premium: {
-          volumeLabel: "Totaal contactmomenten per maand",
-          volumeHelp: "Directe berichten, telefoontjes en platformleads samen binnen de gekozen focus.",
+          volumeLabel: "Aantal verkoopkansen per maand",
+          volumeHelp: "Alle verkoopkansen samen binnen de gekozen focus: inbox, telefonie en platformleads.",
+          defaultVolume: 150,
           salesLabel: "Aantal verkoopkansen per maand",
           salesHelp: "Hoeveel contactmomenten kunnen leiden tot afspraak, proefrit, offerte of verkoopgesprek?",
           afterLabel: "Buiten openingstijden of te laat",
           afterHelp: "Welk percentage wordt nu buiten werktijd of te laat opgepakt?",
           peakLabel: "Tijdens piekdrukte",
           peakHelp: "Welk percentage blijft tijdens drukte liggen of krijgt vertraagde opvolging?",
-          fields: ["volume", "sales", "after-hours", "peak"],
+          fields: ["volume", "after-hours", "peak"],
           opportunity: "Alle AI kansen",
           handledLabel: "Op tijd opgepakt",
           extraHandledLabel: "Extra kansen op tijd opgepakt",
@@ -3434,6 +3432,7 @@ body {
 
       function updateCalculatorCopy(packageKey) {
         const config = productCalculator[packageKey] || productCalculator.start;
+        const volumeInput = el("apInboundLeads");
 
         setText("apInboundLeadsLabel", config.volumeLabel);
         setText("apInboundLeadsHelp", config.volumeHelp);
@@ -3454,15 +3453,20 @@ body {
         setText("apExtraHandledLabel", config.extraHandledLabel);
         setText("apOpportunityLabel", config.opportunity);
         setText("apImpactText", config.baseHelp);
+
+        if (volumeInput && volumeInput.getAttribute("data-last-product") !== packageKey) {
+          volumeInput.value = config.defaultVolume || 150;
+          volumeInput.setAttribute("data-last-product", packageKey);
+        }
       }
 
       function calculate() {
         const packageKey = getPackageKey();
         const selectedPackage = getPackage();
         const config = productCalculator[packageKey] || productCalculator.start;
+        updateCalculatorCopy(packageKey);
 
         const volume = getNumber("apInboundLeads");
-        const salesChances = getNumber("apOldLeads");
         const afterHours = clampPercent(getNumber("apAfterHours"));
         const peakHours = clampPercent(getNumber("apPeakHours"));
 
@@ -3470,7 +3474,7 @@ body {
         const closeRate = clampPercent(getNumber("apCloseRate"));
         const margin = getNumber("apMargin");
 
-        const relevantSalesChances = Math.min(volume, salesChances || volume);
+        const relevantSalesChances = volume;
         const issueRate = config.fields.indexOf("peak") >= 0
           ? Math.min(afterHours + peakHours, 1)
           : afterHours;
@@ -3508,11 +3512,9 @@ body {
         setOutput("apExtraAppointments", formatNumber(extraAppointments));
         setOutput("apExtraCustomers", formatNumber(extraCustomers));
         setOutput("apExtraMargin", formatEuro(extraMargin));
-        setOutput("apMarginWithAi", formatEuro(marginWithAi));
         setOutput("apFlowLabel", flowLabels[packageKey]);
         setOutput("apImpactBadge", impactLabels[packageKey].badge);
 
-        updateCalculatorCopy(packageKey);
         updateFlowButtons(packageKey);
       }
 
