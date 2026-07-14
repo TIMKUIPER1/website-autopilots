@@ -2176,20 +2176,291 @@ body {
   overflow-y: visible !important;
 }
 
+
+    #ap-sales-complete-proposal .ap-order-cta-box {
+      min-height: 320px;
+      padding: 34px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #ap-sales-complete-proposal .ap-order-cta-inner {
+      width: min(100%, 340px);
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    #ap-sales-complete-proposal .ap-order-cta-kicker {
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    #ap-sales-complete-proposal .ap-order-cta-title {
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    #ap-sales-complete-proposal .ap-order-cta-text {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    #ap-sales-complete-proposal .ap-order-cta-box .ap-button {
+      width: min(100%, 300px);
+      justify-content: center;
+      min-height: 52px;
+    }
+
+    #ap-sales-complete-proposal .featured .ap-order-cta-box {
+      background: #f8f8f5;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    #ap-sales-complete-proposal .ap-route-shell {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 28px;
+      box-shadow: 0 22px 58px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      position: relative;
+    }
+
+    #ap-sales-complete-proposal .ap-route-shell:after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -160px auto;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(159, 56, 38, 0.34), transparent 68%);
+      pointer-events: none;
+    }
+
+    #ap-sales-complete-proposal .ap-route-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    #ap-sales-complete-proposal .ap-route-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 460px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-copy h3 {
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.03;
+      font-weight: 900;
+      letter-spacing: -0.055em;
+      margin: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-route-copy p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      line-height: 1.58;
+      max-width: 560px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-step {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    #ap-sales-complete-proposal .ap-route-step b {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    #ap-sales-complete-proposal .ap-route-step strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-step span {
+      display: block;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    #ap-sales-complete-proposal .ap-route-step.is-active {
+      background: var(--brown);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: 0 16px 30px rgba(159, 56, 38, 0.24);
+    }
+
+    #ap-sales-complete-proposal .ap-route-map {
+      min-height: 460px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.13);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      align-content: space-between;
+    }
+
+    #ap-sales-complete-proposal .ap-route-map:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at 50% 45%, black, transparent 78%);
+      pointer-events: none;
+    }
+
+    #ap-sales-complete-proposal .ap-route-card {
+      position: relative;
+      z-index: 1;
+      background: var(--white);
+      color: var(--text);
+      border-radius: 22px;
+      padding: 22px;
+      max-width: 420px;
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+    }
+
+    #ap-sales-complete-proposal .ap-route-card strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.16;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-card p {
+      font-size: 15px;
+      line-height: 1.48;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    #ap-sales-complete-proposal .ap-route-line {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-point {
+      min-height: 86px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 14px;
+      color: rgba(255,255,255,0.68);
+      transition: 180ms ease;
+    }
+
+    #ap-sales-complete-proposal .ap-route-point.is-active {
+      background: #f8f8f5;
+      color: var(--text);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+    }
+
+    #ap-sales-complete-proposal .ap-route-point b {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      color: var(--brown);
+      margin-bottom: 7px;
+    }
+
+    #ap-sales-complete-proposal .ap-route-point span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    @media (max-width: 860px) {
+      #ap-sales-complete-proposal .ap-route-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ap-sales-complete-proposal .ap-route-copy,
+      #ap-sales-complete-proposal .ap-route-map {
+        min-height: 0;
+      }
+
+      #ap-sales-complete-proposal .ap-route-line {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
 </style>
 
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">AI MEDEWERKER AUTOBEDRIJVEN</div>
+        <div class="ap-eyebrow">AI MEDEWERKER TANDARTSPRAKTIJKEN</div>
 
         <h1 class="ap-hero-title">
-          <span class="ap-hero-line">Mis geen verkoop- of werkplaatsaanvraag.</span>
-          <span class="ap-italic ap-hero-ai">AI Medewerker voor autobedrijven.</span>
+          <span class="ap-hero-line">Mis geen afspraak of spoedvraag.</span>
+          <span class="ap-italic ap-hero-ai">AI Medewerker voor tandartsen.</span>
         </h1>
 
         <p class="ap-hero-text">
-          Combineer een inboxmedewerker en telefoniste voor proefritaanvragen, inruilvragen, financiering, werkplaatsplanning, onderhoud, APK en gemiste oproepen. Nieuwe aanvragen worden direct geholpen, gekwalificeerd en naar sales of werkplaats overgedragen.
+          Combineer een inboxmedewerker en telefoniste voor controles, spoedvragen, behandelvragen, orthodontievragen, terugbelverzoeken en gemiste oproepen. Nieuwe aanvragen worden direct geholpen, gekwalificeerd en naar balie of behandelaar overgedragen.
         </p>
 
         <div class="ap-actions">
@@ -2202,8 +2473,8 @@ body {
         <div class="ap-step-grid">
           <div class="ap-step">
             <div class="ap-step-number">1</div>
-            <h3>Kies het AI product voor jullie autobedrijf</h3>
-            <p>Kies inbox, telefonie, leadopvolging of de volledige AI medewerker op basis van bereikbaarheid, leadbronnen, agenda’s en CRM behoefte.</p>
+            <h3>Kies het AI product voor jullie praktijk</h3>
+            <p>Kies inbox, telefonie, leadopvolging of de volledige AI medewerker op basis van bereikbaarheid, aanvraagbronnen, agenda’s en CRM behoefte.</p>
           </div>
 
           <div class="ap-step">
@@ -2215,7 +2486,7 @@ body {
           <div class="ap-step">
             <div class="ap-step-number">3</div>
             <h3>Plan de onboarding</h3>
-            <p>Zodra alles bevestigd is, starten we met voorraadcontext, leadroutes, scripts, agenda’s, CRM velden en implementatie.</p>
+            <p>Zodra alles bevestigd is, starten we met context, routes, scripts, agenda’s, CRM velden en implementatie.</p>
           </div>
         </div>
       </div>
@@ -2226,9 +2497,9 @@ body {
     <div class="ap-container">
       <div class="ap-center">
         <div class="ap-eyebrow">WAAROM DIT WERKT</div>
-        <h2 class="ap-title">Directe klantvragen en externe platformleads krijgen allebei de juiste opvolging.</h2>
+        <h2 class="ap-title">Directe klantvragen en opvolging krijgen allebei de juiste route.</h2>
         <p class="ap-subtitle">
-          De AI medewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen én volgt platformleads uit bronnen zoals BOVAG, Marktplaats en AutoScout actief op richting afspraak.
+          De AI medewerker verwerkt directe WhatsApp-, e-mail-, website- en telefoonavragen over controles, spoed, behandelingen en planning én volgt aanvragen uit website, Google, WhatsApp en terugbelvragen actief op richting afspraak.
         </p>
       </div>
 
@@ -2237,35 +2508,35 @@ body {
           <summary>
             <div class="ap-feature-icon">01</div>
             <h3>Direct bereikbaar op eigen kanalen</h3>
-            <p>Rechtstreekse vragen via WhatsApp, e-mail, website en telefoon worden direct begrepen, samengevat en naar verkoop of werkplaats geleid.</p>
+            <p>Directe WhatsApp-, e-mail-, website- en telefoonavragen over controles, spoed, behandelingen en planning worden direct begrepen, samengevat en naar balie of behandelaar geleid.</p>
           </summary>
 
           <div class="ap-more">
-            Handig voor directe klantvragen, gemiste oproepen, werkplaatsplanning, proefritverzoeken, inruiltaxaties en vragen buiten openingstijden.
+            Handig voor directe klantvragen, gemiste oproepen, planning, afspraakaanvragen, terugbelverzoeken en vragen buiten openingstijden.
           </div>
         </details>
 
         <details class="ap-feature">
           <summary>
             <div class="ap-feature-icon">02</div>
-            <h3>Automotive kwalificatie</h3>
-            <p>De AI vraagt door op gewenste auto, budget, inruilauto, financiering, aankooptermijn, locatie en proefritmoment.</p>
+            <h3>Praktijkkwalificatie</h3>
+            <p>De AI vraagt door op klacht, urgentie, behandeling, patiëntgegevens, voorkeurstijd en verzekeringsvraag.</p>
           </summary>
 
           <div class="ap-more">
-            Denk aan merk/model, bouwjaar, kilometerstand, inruil, financiering, beschikbaarheid, proefrit, bezwaren en vervolgstap.
+            Denk aan controle, pijnklacht, spoed, vulling, kroon, orthodontie, patiëntstatus en voorkeurstijd.
           </div>
         </details>
 
         <details class="ap-feature">
           <summary>
             <div class="ap-feature-icon">03</div>
-            <h3>Actieve opvolging van platformleads</h3>
-            <p>Leads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen worden niet losgelaten. De AI volgt actief op en stuurt op proefrit, offerte of terugbelmoment.</p>
+            <h3>Actieve opvolging van patiëntvragen</h3>
+            <p>Aanvragen uit website, Google, WhatsApp en terugbelvragen worden niet losgelaten. De AI volgt actief op en stuurt op afspraak, offerte of terugbelmoment.</p>
           </summary>
 
           <div class="ap-more">
-            Bij AI Leadopvolger en Volledige AI Medewerker wordt de flow uitgebreid met platformbron-herkenning, follow up, reactivatie, routing en CRM verwerking.
+            Bij AI Leadopvolger en Volledige AI Medewerker wordt de flow uitgebreid met reminders, no-show opvolging en CRM verwerking.
           </div>
         </details>
       </div>
@@ -2275,44 +2546,44 @@ body {
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">AUTOBEDRIJF SCENARIO'S</div>
-        <h2 class="ap-title">Van online autolead naar showroomafspraak.</h2>
+        <div class="ap-eyebrow">TANDARTSPRAKTIJKEN SCENARIO'S</div>
+        <h2 class="ap-title">Van patiëntvraag naar juiste afspraak.</h2>
         <p class="ap-subtitle">
-          De AI medewerker helpt bij de momenten waar autobedrijven normaal omzet verliezen: directe klantvragen die blijven liggen, gemiste oproepen, openstaande platformleads en leads die nog twijfelen over inruil of financiering.
+          De AI medewerker helpt tandartspraktijken de telefoondruk verlagen en patiëntvragen sneller triëren.
         </p>
       </div>
 
       <div class="ap-feature-grid">
         <details class="ap-feature" open>
           <summary>
-            <div class="ap-feature-icon">AUTO</div>
-            <h3>Proefrit en showroom</h3>
-            <p>De AI plant proefritten, belafspraken of showroombezoeken en checkt beschikbaarheid, locatie en voorkeurstijd.</p>
+            <div class="ap-feature-icon">TAND</div>
+            <h3>Controle en spoed</h3>
+            <p>De AI plant afspraakverzoeken en checkt klacht, urgentie en voorkeurstijd.</p>
           </summary>
           <div class="ap-more">
-            Ideaal voor voorraadpagina's, BOVAG-, Marktplaats- en AutoScout-aanvragen, directe WhatsApp-vragen en leads die buiten openingstijden binnenkomen.
+            Ideaal voor baliedrukte, websitevragen, WhatsApp en gemiste oproepen.
           </div>
         </details>
 
         <details class="ap-feature">
           <summary>
-            <div class="ap-feature-icon">INR</div>
-            <h3>Inruil en financiering</h3>
-            <p>De AI vraagt door op inruilauto, kilometerstand, bouwjaar, budget, financieringswens en aankooptermijn.</p>
+            <div class="ap-feature-icon">ZORG</div>
+            <h3>Behandeling en intake</h3>
+            <p>De AI vraagt door op klacht, behandeling, historie, verzekering en gewenste opvolging.</p>
           </summary>
           <div class="ap-more">
-            Zo krijgt jullie verkoopteam geen kale naam en telefoonnummer, maar direct bruikbare context voor een beter verkoopgesprek.
+            Zo krijgt balie of behandelaar direct bruikbare context.
           </div>
         </details>
 
         <details class="ap-feature">
           <summary>
             <div class="ap-feature-icon">CRM</div>
-            <h3>Opvolging per verkoper</h3>
-            <p>Elke lead krijgt status, notities, bron, auto-interesse en vervolgstap in CRM, inclusief overdracht naar de juiste verkoper.</p>
+            <h3>Opvolging per team</h3>
+            <p>Elke aanvraag krijgt status, notities, urgentie en vervolgstap in het systeem.</p>
           </summary>
           <div class="ap-more">
-            Jullie zien welke bronnen proefritten opleveren, welke verkoper moet opvolgen en welke leads nog wachten op reactie.
+            Jullie zien welke vragen spoed hebben en welke patiënten nog reactie nodig hebben.
           </div>
         </details>
       </div>
@@ -2322,10 +2593,10 @@ body {
   <section class="ap-section" id="ap-sales-complete-brein">
     <div class="ap-container">
       <div class="ap-center">
-        <div class="ap-eyebrow">AI BREIN VOOR AUTOBEDRIJVEN</div>
-        <h2 class="ap-title">Zo denkt de AI voordat er iets naar sales of werkplaats gaat.</h2>
+        <div class="ap-eyebrow">AI BREIN VOOR TANDARTSPRAKTIJKEN</div>
+        <h2 class="ap-title">Zo denkt de AI voordat er iets naar balie of behandelaar gaat.</h2>
         <p class="ap-subtitle">
-          Geen losse chatbot of standaard telefoniste. De AI combineert klantvraag, voorraad, inruilcontext, agenda, CRM en fallbackregels voordat hij antwoordt, plant of overdraagt.
+          Geen losse chatbot of standaard telefoniste. De AI combineert klantvraag, context, agenda, CRM en fallbackregels voordat hij antwoordt, plant of overdraagt.
         </p>
       </div>
 
@@ -2335,12 +2606,12 @@ body {
             <div class="ap-brain-dot">AI</div>
             <div>
               <strong>Nieuwe aanvraag</strong>
-              <span>“Is deze auto nog beschikbaar en kan ik zaterdag een proefrit plannen?”</span>
+              <span>“Ik heb kiespijn. Kan ik vandaag of morgen langskomen?”</span>
             </div>
             <div class="ap-badge">live</div>
           </div>
 
-          <div class="ap-brain-map" aria-label="Visueel AI brein voor autobedrijven">
+          <div class="ap-brain-map" aria-label="Visueel AI brein voor tandartspraktijken">
             <div class="ap-brain-core">
               <b>Autopilots AI Brein</b>
             </div>
@@ -2351,8 +2622,8 @@ body {
             </div>
 
             <div class="ap-brain-node ap-node-2" data-ap-brain-node="context">
-              <b>Voertuigcontext</b>
-              <span>Auto, voorraad, vestiging, inruil en eerdere gesprekken koppelen.</span>
+              <b>Patiëntcontext</b>
+              <span>Klacht, urgentie, behandeling, patiëntgegevens en afspraakwens koppelen.</span>
             </div>
 
             <div class="ap-brain-node ap-node-3" data-ap-brain-node="regels">
@@ -2377,33 +2648,33 @@ body {
 
           <div class="ap-brain-panel is-active" data-ap-brain-panel="intake">
             <strong>De AI begrijpt eerst wat iemand nodig heeft.</strong>
-            <p>Proefrit, inruil, financiering, APK, onderhoud, klacht, terugbelverzoek of voorraadcheck. Mist er informatie, dan vraagt de AI door zonder het gesprek onnodig lang te maken.</p>
+            <p>Controle, spoed, behandeling, pijnklacht, intake of terugbelverzoek. Mist er informatie, dan vraagt de AI door.</p>
           </div>
 
           <div class="ap-brain-panel" data-ap-brain-panel="context">
-            <strong>Daarna koppelt hij de vraag aan de juiste automotive context.</strong>
-            <p>Welke auto bedoelt de klant, is de auto beschikbaar, welke vestiging is logisch, is er een inruilauto, welke verkoper hoort erbij en staat deze lead al in CRM?</p>
+            <strong>Daarna koppelt hij de vraag aan de juiste context.</strong>
+            <p>Welke klacht, hoe urgent, welke behandeling, welke patiëntgegevens en welke agenda past?</p>
           </div>
 
           <div class="ap-brain-panel" data-ap-brain-panel="regels">
             <strong>Het brein checkt de afspraken voordat er iets wordt gezegd.</strong>
-            <p>Antwoorden lopen langs kennisbank, tone of voice, prijs- en garantieregels, financieringsgrenzen, werkplaatsafspraken en menselijke fallback wanneer de AI niet zelfstandig moet beslissen.</p>
+            <p>Antwoorden lopen langs praktijkregels, medische grenzen, agenda, tone of voice en menselijke fallback.</p>
           </div>
 
           <div class="ap-brain-panel" data-ap-brain-panel="actie">
             <strong>Pas daarna voert de AI de juiste vervolgstap uit.</strong>
-            <p>Hij beantwoordt, plant een proefrit of terugbelverzoek, maakt een werkplaatsnotitie, werkt CRM en pipeline bij en stuurt een korte samenvatting naar sales of werkplaats.</p>
+            <p>Hij beantwoordt, zet afspraakverzoek klaar, maakt een notitie en draagt over aan balie of behandelaar.</p>
           </div>
 
           <div class="ap-brain-output">
             <div>
-              <strong>Voor sales</strong>
-              <p>Leadprofiel met auto-interesse, inruil, budget, kooptermijn, bron en voorgestelde vervolgstap.</p>
+              <strong>Voor balie</strong>
+              <p>Aanvraagprofiel met klacht, urgentie, voorkeurstijd, patiëntstatus en vervolgstap.</p>
             </div>
 
             <div>
-              <strong>Voor werkplaats</strong>
-              <p>Samenvatting van APK, onderhoud, urgentie, kenteken, voorkeurstijd en terugbelreden.</p>
+              <strong>Voor behandelaar</strong>
+              <p>Samenvatting van klacht, historie, risico, medicatievraag en terugbelreden.</p>
             </div>
           </div>
         </div>
@@ -2459,15 +2730,15 @@ body {
         <div class="ap-product-demo-picker" role="group" aria-label="Kies AI product">
           <button class="ap-product-demo-button is-active" type="button" data-product-demo="telefoniste">
             <strong>AI Telefoniste</strong>
-            <span>Bel over verkoop of werkplaats.</span>
+            <span>Bel over commercie of planning.</span>
           </button>
           <button class="ap-product-demo-button" type="button" data-product-demo="inbox">
             <strong>AI Inboxmedewerker</strong>
-            <span>Chat over verkoop of werkplaats.</span>
+            <span>Chat over commercie of planning.</span>
           </button>
           <button class="ap-product-demo-button" type="button" data-product-demo="leadopvolger">
             <strong>AI Leadopvolger</strong>
-            <span>Test opvolging van platformleads.</span>
+            <span>Bekijk actieve opvolging.</span>
           </button>
         </div>
 
@@ -2476,11 +2747,11 @@ body {
             <div class="ap-demo-step-label">Stap 2 · uitleg</div>
             <h3 id="apProductDemoTitle">AI Telefoniste</h3>
             <p id="apProductDemoText">
-              Bel als klant over de Audi A4 of over APK, onderhoud, storing of banden.
+              Bel als klant over tandartsvraag of over controle, pijnklacht, behandeling of spoed.
             </p>
             <ul class="ap-product-demo-list" id="apProductDemoList">
-              <li><b>01</b><span>Verkoop: Audi A4 Avant, kenteken T-709-BG.</span></li>
-              <li><b>02</b><span>Werkplaats: APK, onderhoud, storing of banden.</span></li>
+              <li><b>01</b><span>Commercie: controleafspraak, patiëntgegevens.</span></li>
+              <li><b>02</b><span>Planning: controle, pijnklacht, behandeling of spoed.</span></li>
               <li><b>03</b><span>AI vraagt door en zet de vervolgstap klaar.</span></li>
             </ul>
           </div>
@@ -2489,7 +2760,7 @@ body {
             <div class="ap-demo-step-label">Stap 3 · gebruik de widget</div>
             <div class="ap-demo-stage" id="apVoiceDemoStage">
               <div class="ap-demo-phone">
-                <span id="apProductDemoInstruction">Probeer: “Ik bel over de Audi A4” of “Ik wil APK plannen”.</span>
+                <span id="apProductDemoInstruction">Probeer: “Ik bel over tandartsvraag” of “Ik wil spoedvraag plannen”.</span>
                 <div class="ap-voice-launcher" data-elevenlabs-demo>
                   <button class="ap-demo-start" type="button" data-product-demo-open>Open AI Telefoniste demo</button>
                   <div class="ap-elevenlabs-mount is-empty" data-elevenlabs-mount data-placeholder="De live widget wordt pas geladen na het klikken."></div>
@@ -2506,10 +2777,10 @@ body {
 
                 <div class="ap-demo-chat">
                   <div class="ap-demo-bubble customer" id="apProductPreviewCustomer">
-                    Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?
+                    Ik wil graag spoedvraag plannen. Kan dat deze week nog?
                   </div>
                   <div class="ap-demo-bubble ai" id="apProductPreviewAi">
-                    Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.
+                    Natuurlijk. Wat is jullie voorkeurstijd, locatie en telefoonnummer? Dan zet ik het verzoek klaar voor balie of behandelaar met samenvatting en terugbelnotitie.
                   </div>
                 </div>
               </div>
@@ -2538,7 +2809,7 @@ body {
     <div class="ap-container">
       <div class="ap-center">
         <div class="ap-eyebrow">ROI CALCULATOR</div>
-        <h2 class="ap-title">Bereken wat een AI medewerker voor autobedrijven kan opleveren.</h2>
+        <h2 class="ap-title">Bereken wat een AI medewerker voor tandartspraktijken kan opleveren.</h2>
         <p class="ap-subtitle">
           Kies een product en vul alleen de cijfers in die bij dat product horen. Zo blijft de prognose simpel, helder en eerlijk.
         </p>
@@ -2577,19 +2848,19 @@ body {
               </div>
 
               <div id="apFlowLabel" class="ap-flow-info">
-                AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar sales of werkplaats.
+                AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar balie of behandelaar.
               </div>
             </div>
 
             <div class="ap-field" data-roi-field="volume">
-              <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal verkoopkansen per maand</label>
-              <small id="apInboundLeadsHelp">Directe berichten met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.</small>
+              <label id="apInboundLeadsLabel" for="apInboundLeads">Aantal kansen per maand</label>
+              <small id="apInboundLeadsHelp">Directe berichten met afspraak- of omzetwaarde: aanbod, afspraak, spoedvraag, offerte of terugbelverzoek.</small>
               <input id="apInboundLeads" type="number" min="0" value="250">
             </div>
 
             <div class="ap-field" data-roi-field="sales">
-              <label id="apSalesChanceLabel" for="apOldLeads">Aantal verkoopkansen per maand</label>
-              <small id="apSalesChanceHelp">Hoeveel berichten of gesprekken hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?</small>
+              <label id="apSalesChanceLabel" for="apOldLeads">Aantal kansen per maand</label>
+              <small id="apSalesChanceHelp">Hoeveel berichten of gesprekken hebben afspraak- of omzetwaarde: aanbod, afspraak, spoedvraag, offerte of terugbelverzoek?</small>
               <input id="apOldLeads" type="number" min="0" value="50">
             </div>
 
@@ -2607,20 +2878,20 @@ body {
 
             <div class="ap-field">
               <label for="apAppointmentRate">Afspraakratio na goede opvolging</label>
-              <small>Gemiddeld percentage opgevolgde autoleads dat naar proefrit, showroomafspraak of belafspraak gaat.</small>
+              <small>Gemiddeld percentage opgevolgde aanvragen dat naar afspraak, afspraak of belmoment gaat.</small>
               <input id="apAppointmentRate" type="number" min="0" max="100" value="25">
             </div>
 
             <div class="ap-field">
-              <label for="apCloseRate">Verkoop uit afspraak</label>
+              <label for="apCloseRate">Conversie uit afspraak</label>
               <small>Gemiddeld percentage afspraken dat klant wordt.</small>
               <input id="apCloseRate" type="number" min="0" max="100" value="25">
             </div>
 
             <div class="ap-field">
-              <label for="apMargin">Gemiddelde marge per klant</label>
+              <label for="apMargin">Gemiddelde marge per nieuwe klant</label>
               <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
-              <input id="apMargin" type="number" min="0" value="1500">
+              <input id="apMargin" type="number" min="0" value="180">
             </div>
           </div>
 
@@ -2703,7 +2974,7 @@ body {
         </div>
 
         <div class="ap-more" style="margin-top:16px;">
-          Deze calculator is een indicatie. Resultaten hangen af van leadkwaliteit, voorraad, prijspositie, bereikbaarheid, scripts, proefritproces, teamopvolging en verkoopconversie.
+          Deze calculator is een indicatie. Resultaten hangen af van leadkwaliteit, aanbod, prijspositie, bereikbaarheid, scripts, teamopvolging en conversie.
         </div>
       </div>
     </div>
@@ -2715,7 +2986,7 @@ body {
         <div class="ap-eyebrow">IMPLEMENTATIEPROCES</div>
         <h2 class="ap-title">
           <span class="ap-title-line">Van onboarding naar live</span>
-          <span class="ap-italic ap-title-ai">AI Medewerker voor autobedrijven.</span>
+          <span class="ap-italic ap-title-ai">AI Medewerker voor tandartspraktijken.</span>
         </h2>
         <p class="ap-subtitle">
           We leveren scope, kennisbasis, integraties en testen in duidelijke fases op. Support communiceert actief over planning, resultaten en eventuele blockers.
@@ -2748,7 +3019,7 @@ body {
 
                 <div class="ap-road-mini">
                   <span>Tone of voice</span>
-                  <p>We stemmen taal, tempo, stijl, uitzonderingen en overdracht af op jullie merk en salesproces.</p>
+                  <p>We stemmen taal, tempo, stijl, uitzonderingen en overdracht af op jullie merk, team en proces.</p>
                 </div>
               </div>
             </div>
@@ -2778,7 +3049,7 @@ body {
 
                 <div class="ap-road-mini">
                   <span>Testcases</span>
-                  <p>We testen proefritaanvragen, inruilvragen, voorraadvragen, gemiste oproepen, no-show opvolging en overdracht.</p>
+                  <p>We testen afspraakaanvragen, controle, pijnklacht, behandeling of spoed, gemiste oproepen, no-show opvolging en overdracht.</p>
                 </div>
               </div>
             </div>
@@ -2857,9 +3128,9 @@ body {
     <div class="ap-container">
       <div class="ap-center">
         <div class="ap-eyebrow">PRODUCTEN</div>
-        <h2 class="ap-title">Kies het AI product voor jullie autobedrijf.</h2>
+        <h2 class="ap-title">Kies het AI product voor jullie praktijk.</h2>
         <p class="ap-subtitle">
-          Start met inbox, telefonie of leadopvolging. Bij elk product kiezen jullie een focus: Werkplaats of Verkoop. De volledige AI Medewerker combineert de meeste functies binnen die gekozen focus met duidelijke bundelkorting.
+          Start met inbox, telefonie of leadopvolging. Bij elk product kiezen jullie een focus: Intake of Opvolging. De volledige AI Medewerker combineert de meeste functies binnen die gekozen focus met duidelijke bundelkorting.
         </p>
       </div>
 
@@ -2868,33 +3139,35 @@ body {
           <div class="ap-package-top">
             <span class="ap-badge">Inbox</span>
             <h3>AI Inboxmedewerker</h3>
-            <p>Voor rechtstreekse WhatsApp-, e-mail- en websitevragen die bij het autobedrijf zelf binnenkomen.</p>
+            <p>Voor rechtstreekse WhatsApp-, e-mail- en websitevragen die bij jullie praktijk binnenkomen.</p>
 
             <div class="ap-price">
               <strong>&euro;399</strong>
-              <span>per maand, implementatie &euro;1850</span>
+              <span>per maand, implementatie &euro;1.850</span>
             </div>
 
             <ul class="ap-list">
-              <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Rechtstreekse WhatsApp, e-mail en websitevragen</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Werkplaats: APK, onderhoud, storing en planning</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Verkoop: voorraad, proefrit, inruil en offerte</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Samenvatting naar sales of werkplaats</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Basis kennisbank en tone of voice</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
+              <li><span class="ap-check">✓</span><span>Keuze tussen Intake of Opvolging</span></li>
+              <li><span class="ap-check">✓</span><span>Rechtstreekse WhatsApp, e-mail en websitevragen</span></li>
+              <li><span class="ap-check">✓</span><span>Planning: controle, pijnklacht, behandeling of spoed</span></li>
+              <li><span class="ap-check">✓</span><span>Commercie: tandartsvraag, afspraak, offerte en terugbelverzoek</span></li>
+              <li><span class="ap-check">✓</span><span>Samenvatting naar balie of behandelaar</span></li>
+              <li><span class="ap-check">✓</span><span>Basis kennisbank en tone of voice</span></li>
+              <li><span class="ap-check">✓</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
+              <li><span class="ap-check">✓</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
             </ul>
           </div>
 
           <div class="ap-package-includes">
             <div class="ap-stripe-order">
               <div class="ap-stripe-label">Direct bestellen <span>AI Inboxmedewerker</span></div>
-              <div class="ap-stripe-box">
-                <stripe-buy-button
-                  buy-button-id="buy_btn_1TsqAzQbNJoBxwDUEQ168YOB"
-                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
-                </stripe-buy-button>
+              <div class="ap-stripe-box ap-order-cta-box">
+                <div class="ap-order-cta-inner">
+                  <div class="ap-order-cta-kicker">Inbox</div>
+                  <div class="ap-order-cta-title">AI Inboxmedewerker</div>
+                  <p class="ap-order-cta-text">Klaar om dit product voor jullie praktijk te starten? Gebruik deze keuze als basis voor onboarding.</p>
+                  <a class="ap-button primary" href="#ap-sales-complete-producten">Vraag AI Inboxmedewerker aan</a>
+                </div>
               </div>
             </div>
           </div>
@@ -2909,25 +3182,25 @@ body {
               <div class="ap-scope-card">
                 <h4>Dit kan AI wel</h4>
                 <ul>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Rechtstreekse WhatsApp-, e-mail-, chat- en websitevragen verwerken.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Binnen Werkplaats of Verkoop ontbrekende gegevens uitvragen.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Antwoorden vanuit kennisbank, tone of voice en afgesproken regels.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Samenvatting, urgentie en voorgestelde vervolgstap doorzetten.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Rechtstreekse WhatsApp-, e-mail-, chat- en websitevragen verwerken.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Binnen Planning of Commercie ontbrekende gegevens uitvragen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Antwoorden vanuit kennisbank, tone of voice en afgesproken regels.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Samenvatting, urgentie en voorgestelde vervolgstap doorzetten.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Dit kan AI niet</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen inkomende telefoongesprekken aannemen of klanten bellen.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen platformleads uit BOVAG, Marktplaats of AutoScout actief najagen.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen definitieve korting, diagnose, financiering of inruilwaarde toezeggen.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen afspraak definitief bevestigen zonder agenda- of afspraakregels.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen inkomende telefoongesprekken aannemen of klanten bellen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen aanvragen uit website, Google, WhatsApp en terugbelvragen actief najagen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen definitieve prijs, diagnose, toezegging of waarde bepalen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen afspraak definitief bevestigen zonder agenda- of afspraakregels.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">+</span><span>Werkplaats én Verkoop samen valt onder uitbreiding of Volledige AI Medewerker.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>Planning én Commercie samen valt onder uitbreiding of Volledige AI Medewerker.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>CRM- of pipeline-updates alleen als koppeling en velden zijn afgesproken.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Maatwerk per vestiging, merk, afdeling of uitzonderingsflow stemmen we apart af.</span></li>
                 </ul>
@@ -2960,33 +3233,35 @@ body {
           <div class="ap-package-top">
             <span class="ap-badge">Telefonie</span>
             <h3>AI Telefoniste</h3>
-            <p>Voor piekdrukte, gemiste oproepen en bereikbaarheid buiten openingstijden binnen één gekozen afdeling.</p>
+            <p>Voor piekdrukte, gemiste oproepen en bereikbaarheid buiten openingstijden binnen één gekozen focus.</p>
 
             <div class="ap-price">
               <strong>&euro;479</strong>
-              <span>per maand, implementatie &euro;2450</span>
+              <span>per maand, implementatie &euro;2.450</span>
             </div>
 
             <ul class="ap-list">
-              <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Inkomende oproepen opnemen</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Werkplaats: APK, onderhoud, storing en terugbelverzoek</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Verkoop: voorraadvraag, proefrit, inruil en terugbelverzoek</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Urgentie en fallback bepalen</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Gespreksnotitie naar uw team</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
+              <li><span class="ap-check">✓</span><span>Keuze tussen Intake of Opvolging</span></li>
+              <li><span class="ap-check">✓</span><span>Inkomende oproepen opnemen</span></li>
+              <li><span class="ap-check">✓</span><span>Planning: controle, pijnklacht, behandeling of spoed en terugbelverzoek</span></li>
+              <li><span class="ap-check">✓</span><span>Commercie: tandartsvraag, afspraak, offerte en terugbelverzoek</span></li>
+              <li><span class="ap-check">✓</span><span>Urgentie en fallback bepalen</span></li>
+              <li><span class="ap-check">✓</span><span>Gespreksnotitie naar balie of behandelaar</span></li>
+              <li><span class="ap-check">✓</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
+              <li><span class="ap-check">✓</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
             </ul>
           </div>
 
           <div class="ap-package-includes">
             <div class="ap-stripe-order">
               <div class="ap-stripe-label">Direct bestellen <span>AI Telefoniste</span></div>
-              <div class="ap-stripe-box">
-                <stripe-buy-button
-                  buy-button-id="buy_btn_1Tsq86QbNJoBxwDUM4eEvgeu"
-                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
-                </stripe-buy-button>
+              <div class="ap-stripe-box ap-order-cta-box">
+                <div class="ap-order-cta-inner">
+                  <div class="ap-order-cta-kicker">Telefonie</div>
+                  <div class="ap-order-cta-title">AI Telefoniste</div>
+                  <p class="ap-order-cta-text">Klaar om dit product voor jullie praktijk te starten? Gebruik deze keuze als basis voor onboarding.</p>
+                  <a class="ap-button primary" href="#ap-sales-complete-producten">Vraag AI Telefoniste aan</a>
+                </div>
               </div>
             </div>
           </div>
@@ -3001,19 +3276,19 @@ body {
               <div class="ap-scope-card">
                 <h4>Dit kan AI wel</h4>
                 <ul>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Inkomende oproepen aannemen bij piekdrukte of buiten openingstijden.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Binnen Werkplaats of Verkoop doorvragen volgens belscript.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Urgentie, reden van bellen, kenteken of interesse vastleggen.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Heldere gespreksnotitie en fallback naar het team sturen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Inkomende oproepen aannemen bij piekdrukte of buiten openingstijden.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Binnen Planning of Commercie doorvragen volgens belscript.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Urgentie, reden van bellen, referentie of interesse vastleggen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Heldere gespreksnotitie en fallback naar het team sturen.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Dit kan AI niet</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen WhatsApp-, e-mail-, chat- of website-inbox verwerken.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen platformleads actief opvolgen of reactivatiecampagnes draaien.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen definitieve prijsafspraken, diagnoses of garanties geven.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen noodhulp of veiligheidskritieke beslissingen overnemen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen WhatsApp-, e-mail-, chat- of website-inbox verwerken.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen aanvragen actief opvolgen of reactivatiecampagnes draaien.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen definitieve prijsafspraken, diagnoses of garanties geven.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen noodhulp of veiligheidskritieke beslissingen overnemen.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
@@ -3052,33 +3327,35 @@ body {
           <div class="ap-package-top">
             <span class="ap-badge">Leadopvolging</span>
             <h3>AI Leadopvolger</h3>
-            <p>Voor platformleads uit bijvoorbeeld BOVAG, Marktplaats en AutoScout die actief opgevolgd moeten worden richting afspraak of verkoop.</p>
+            <p>Voor aanvragen uit website, Google, WhatsApp en terugbelvragen die actief opgevolgd moeten worden richting afspraak of klant.</p>
 
             <div class="ap-price">
               <strong>&euro;559</strong>
-              <span>per maand, implementatie &euro;2950</span>
+              <span>per maand, implementatie &euro;2.950</span>
             </div>
 
             <ul class="ap-list">
-              <li><span class="ap-check">&#10003;</span><span>BOVAG, Marktplaats, AutoScout en vergelijkbare leadbronnen</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Leadmails en platformaanvragen herkennen per bron</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Nieuwe platformleads actief opvolgen, niet alleen beantwoorden</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Proefrit of offerte voorstellen</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Openstaande leads heractiveren</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Pipeline-status bijwerken</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
+              <li><span class="ap-check">✓</span><span>website, Google, WhatsApp en terugbelvragen en vergelijkbare leadbronnen</span></li>
+              <li><span class="ap-check">✓</span><span>Aanvragen en leadmails herkennen per bron</span></li>
+              <li><span class="ap-check">✓</span><span>Nieuwe aanvragen actief opvolgen, niet alleen beantwoorden</span></li>
+              <li><span class="ap-check">✓</span><span>Afspraak of offerte voorstellen</span></li>
+              <li><span class="ap-check">✓</span><span>Openstaande leads heractiveren</span></li>
+              <li><span class="ap-check">✓</span><span>Pipeline-status bijwerken</span></li>
+              <li><span class="ap-check">✓</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
+              <li><span class="ap-check">✓</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
             </ul>
           </div>
 
           <div class="ap-package-includes">
             <div class="ap-stripe-order">
               <div class="ap-stripe-label">Direct bestellen <span>AI Leadopvolger</span></div>
-              <div class="ap-stripe-box">
-                <stripe-buy-button
-                  buy-button-id="buy_btn_1Tsq9aQbNJoBxwDUEdDfap6f"
-                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
-                </stripe-buy-button>
+              <div class="ap-stripe-box ap-order-cta-box">
+                <div class="ap-order-cta-inner">
+                  <div class="ap-order-cta-kicker">Leadopvolging</div>
+                  <div class="ap-order-cta-title">AI Leadopvolger</div>
+                  <p class="ap-order-cta-text">Klaar om dit product voor jullie praktijk te starten? Gebruik deze keuze als basis voor onboarding.</p>
+                  <a class="ap-button primary" href="#ap-sales-complete-producten">Vraag AI Leadopvolger aan</a>
+                </div>
               </div>
             </div>
           </div>
@@ -3093,25 +3370,25 @@ body {
               <div class="ap-scope-card">
                 <h4>Dit kan AI wel</h4>
                 <ul>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Platformleads uit BOVAG, Marktplaats, AutoScout of vergelijkbare bronnen herkennen.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Nieuwe leads actief opvolgen richting proefrit, offerte of terugbelmoment.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Openstaande leads heractiveren met afgesproken opvolgberichten.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Bron, interesse, status en vervolgstap klaarzetten of bijwerken.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Aanvragen uit website, Google, WhatsApp en terugbelvragen of vergelijkbare bronnen herkennen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Nieuwe leads actief opvolgen richting afspraak, offerte of terugbelmoment.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Openstaande leads heractiveren met afgesproken opvolgberichten.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Bron, interesse, status en vervolgstap klaarzetten of bijwerken.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Dit kan AI niet</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen algemene WhatsApp-, e-mail-, website-inbox of telefonie overnemen.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen platformportalen uitlezen zonder mailroute, export, webhook of koppeling.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen opvolging op rommelige leads zonder bron, contactgegevens of route.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen korting, financiering, beschikbaarheid of inruilwaarde toezeggen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen algemene WhatsApp-, e-mail-, website-inbox of telefonie overnemen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen externe portalen uitlezen zonder mailroute, export, webhook of koppeling.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen opvolging op rommelige leads zonder bron, contactgegevens of route.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen definitieve prijs, beschikbaarheid, toezegging of waarde bepalen.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">+</span><span>Nieuwe platformbronnen moeten eerst gemapt en getest worden.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>Nieuwe bronnen moeten eerst gemapt en getest worden.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Tweeweg CRM-sync hangt af van beschikbare API, velden en rechten.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Grote oude leadbestanden vragen om import, segmentatie en aparte reactivatieregels.</span></li>
                 </ul>
@@ -3144,11 +3421,11 @@ body {
           <div class="ap-package-top">
             <span class="ap-badge">Beste waarde</span>
             <h3>Volledige AI Medewerker</h3>
-            <p>Voor autobedrijven die inbox, telefonie en leadopvolging in één digitale collega willen combineren binnen Werkplaats of Verkoop.</p>
+            <p>Voor tandartspraktijken die inbox, telefonie en leadopvolging in één digitale collega willen combineren binnen Intake of Opvolging.</p>
 
             <div class="ap-price">
               <strong>&euro;849</strong>
-              <span>per maand, implementatie &euro;4350</span>
+              <span>per maand, implementatie &euro;4.350</span>
               <div class="ap-bundle-savings" aria-label="Bundelkorting">
                 <div class="ap-saving-pill">
                   <span>Maandelijkse korting</span>
@@ -3162,25 +3439,27 @@ body {
             </div>
 
             <ul class="ap-list">
-              <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Telefonie, WhatsApp, e-mail en platformleads</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Agenda, CRM en overdracht</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Menselijke fallback waar nodig</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Monitoring en optimalisatie</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Losse waarde: &euro;1.437 p/m en &euro;7.250 implementatie</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
-              <li><span class="ap-check">&#10003;</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
+              <li><span class="ap-check">✓</span><span>Keuze tussen Intake of Opvolging</span></li>
+              <li><span class="ap-check">✓</span><span>Telefonie, WhatsApp, e-mail en leadopvolging</span></li>
+              <li><span class="ap-check">✓</span><span>Agenda, CRM en overdracht</span></li>
+              <li><span class="ap-check">✓</span><span>Menselijke fallback waar nodig</span></li>
+              <li><span class="ap-check">✓</span><span>Monitoring en optimalisatie</span></li>
+              <li><span class="ap-check">✓</span><span>Losse waarde: &euro;1.437 p/m en &euro;7.250 implementatie</span></li>
+              <li><span class="ap-check">✓</span><span>Afspraken plannen, verzetten of annuleren volgens afspraakregels</span></li>
+              <li><span class="ap-check">✓</span><span>Support, EU-hosting, privacy database en volledige tooling licenties inbegrepen</span></li>
             </ul>
           </div>
 
           <div class="ap-package-includes">
             <div class="ap-stripe-order">
               <div class="ap-stripe-label">Direct bestellen <span>Volledige AI Medewerker</span></div>
-              <div class="ap-stripe-box">
-                <stripe-buy-button
-                  buy-button-id="buy_btn_1Tsq3RQbNJoBxwDUuV4vFUVJ"
-                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
-                </stripe-buy-button>
+              <div class="ap-stripe-box ap-order-cta-box">
+                <div class="ap-order-cta-inner">
+                  <div class="ap-order-cta-kicker">Beste waarde</div>
+                  <div class="ap-order-cta-title">Volledige AI Medewerker</div>
+                  <p class="ap-order-cta-text">Klaar om dit product voor jullie praktijk te starten? Gebruik deze keuze als basis voor onboarding.</p>
+                  <a class="ap-button primary" href="#ap-sales-complete-producten">Vraag Volledige AI Medewerker aan</a>
+                </div>
               </div>
             </div>
           </div>
@@ -3195,26 +3474,26 @@ body {
               <div class="ap-scope-card">
                 <h4>Dit kan AI wel</h4>
                 <ul>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Inbox, telefonie en platformlead-opvolging combineren binnen Werkplaats of Verkoop.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Kanaal, urgentie, bron, interesse en vervolgstap structureren.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Agenda, CRM-status, overdracht en menselijke fallback inrichten.</span></li>
-                  <li><span class="ap-scope-icon">&#10003;</span><span>Monitoring en optimalisatie na livegang meenemen.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Inbox, telefonie en leadopvolging combineren binnen Intake of Opvolging.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Kanaal, urgentie, bron, interesse en vervolgstap structureren.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Agenda, CRM-status, overdracht en menselijke fallback inrichten.</span></li>
+                  <li><span class="ap-scope-icon">✓</span><span>Monitoring en optimalisatie na livegang meenemen.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Dit kan AI niet</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen onbeperkt maatwerk buiten de gekozen focus, afdeling of kanaalset.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen juridische toezeggingen, garanties, diagnoses of definitieve waardebepalingen.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen koppeling maken zonder API, webhook, mailboxroute of technische toegang.</span></li>
-                  <li><span class="ap-scope-icon no">&times;</span><span>Geen volledige vervanging van menselijke beoordeling bij uitzonderingen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen onbeperkt maatwerk buiten de gekozen focus, afdeling of kanaalset.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen juridische toezeggingen, garanties, diagnoses of definitieve waardebepalingen.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen koppeling maken zonder API, webhook, mailboxroute of technische toegang.</span></li>
+                  <li><span class="ap-scope-icon no">×</span><span>Geen volledige vervanging van menselijke beoordeling bij uitzonderingen.</span></li>
                 </ul>
               </div>
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">+</span><span>Werkplaats én Verkoop tegelijk, extra merken of meerdere vestigingen vragen extra inrichting.</span></li>
-                  <li><span class="ap-scope-icon no">+</span><span>Maatwerk CRM-integraties, rapportages of voorraadlogica stemmen we apart af.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>Extra afdelingen, merken, locaties of complexe uitzonderingsflows vragen extra inrichting.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>Maatwerk CRM-integraties, rapportages of aanbodlogica stemmen we apart af.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Meertaligheid, extra tone of voice varianten of complexe escalaties vallen buiten standaard scope.</span></li>
                 </ul>
               </div>
@@ -3253,9 +3532,9 @@ body {
     <div class="ap-container">
       <div class="ap-center">
         <div class="ap-eyebrow">FAQ</div>
-        <h2 class="ap-title">Vragen over AI Medewerker voor autobedrijven?</h2>
+        <h2 class="ap-title">Vragen over AI Medewerker voor tandartspraktijken?</h2>
         <p class="ap-subtitle">
-          De belangrijkste vragen over AI Inboxmedewerker, AI Telefoniste, AI Leadopvolger, proefritten, inruil, financiering, CRM, usage en producten.
+          De belangrijkste vragen over AI Inboxmedewerker, AI Telefoniste, AI Leadopvolger, afspraken, planning, CRM, usage en producten.
         </p>
       </div>
 
@@ -3264,11 +3543,11 @@ body {
 
         <details open>
           <summary>
-            <h3 class="ap-road-title">Wat doet AI Medewerker voor autobedrijven?</h3>
+            <h3 class="ap-road-title">Wat doet AI Medewerker voor tandartspraktijken?</h3>
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">AI Medewerker voor autobedrijven bestaat uit gerichte producten. AI Inboxmedewerker verwerkt directe WhatsApp-, e-mail- en websitevragen. AI Telefoniste vangt telefoongesprekken op. AI Leadopvolger volgt platformleads uit bijvoorbeeld BOVAG, Marktplaats en AutoScout actief op richting proefrit, offerte of terugbelmoment.</p>
+            <p class="ap-road-preview">AI Medewerker voor tandartspraktijken bestaat uit gerichte producten. AI Inboxmedewerker verwerkt directe WhatsApp-, e-mail- en websitevragen. AI Telefoniste vangt telefoongesprekken op. AI Leadopvolger volgt aanvragen uit website, Google, WhatsApp en terugbelvragen actief op richting afspraak, offerte of terugbelmoment.</p>
           </div>
         </details>
 
@@ -3278,7 +3557,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">AI Inboxmedewerker verwerkt rechtstreekse klantvragen die via WhatsApp, e-mail of de website bij het autobedrijf binnenkomen. AI Leadopvolger is voor externe leadbronnen zoals BOVAG, Marktplaats, AutoScout en vergelijkbare platforms: die leads worden actief opgevolgd richting proefrit, offertebespreking of terugbelmoment.</p>
+            <p class="ap-road-preview">AI Inboxmedewerker verwerkt rechtstreekse klantvragen die via WhatsApp, e-mail of de website bij jullie praktijk binnenkomen. AI Leadopvolger is voor aanvragen uit bronnen zoals website, Google, WhatsApp en terugbelvragen: die leads worden actief opgevolgd richting afspraak, offertebespreking of terugbelmoment.</p>
           </div>
         </details>
 
@@ -3298,7 +3577,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Voorbeelden zijn directe inboxvragen, werkplaatsplanning, verkoopvragen, proefritaanvragen, inruilvragen, financieringsvragen, gemiste oproepen, platformleads uit BOVAG, Marktplaats of AutoScout, no-show opvolging, oude leads en reactivatie.</p>
+            <p class="ap-road-preview">Voorbeelden zijn directe inboxvragen, planning, afspraakaanvragen, controle, pijnklacht, behandeling of spoed, gemiste oproepen, aanvragen uit website, Google, WhatsApp en terugbelvragen, no-show opvolging, oude leads en reactivatie.</p>
           </div>
         </details>
 
@@ -3338,7 +3617,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">De AI geeft geen definitieve korting, financieringsgoedkeuring, juridische toezegging, garantie-uitspraak, inruilwaarde of technische diagnose. Bij twijfel, klachten, uitzonderingen of risico wordt er overgedragen aan een medewerker.</p>
+            <p class="ap-road-preview">De AI geeft geen definitieve korting, financieringsgoedkeuring, juridische toezegging, garantie-uitspraak, definitieve waarde of inhoudelijke diagnose. Bij twijfel, klachten, uitzonderingen of risico wordt er overgedragen aan een medewerker.</p>
           </div>
         </details>
 
@@ -3350,7 +3629,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Kies AI Inboxmedewerker als rechtstreekse WhatsApp-, e-mail- en websitevragen sneller beantwoord moeten worden. Dit product neemt geen telefonie of platformlead-opvolging over. Jullie kiezen hierbij één focus: Werkplaats of Verkoop.</p>
+            <p class="ap-road-preview">Kies AI Inboxmedewerker als rechtstreekse WhatsApp-, e-mail- en websitevragen sneller beantwoord moeten worden. Dit product neemt geen telefonie of actieve leadopvolging over. Jullie kiezen hierbij één focus: Intake of Opvolging.</p>
           </div>
         </details>
 
@@ -3360,7 +3639,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Kies AI Telefoniste als jullie veel piekdrukte, gemiste oproepen of vragen buiten openingstijden hebben. Dit product neemt geen WhatsApp-, e-mail- of website-inbox over en volgt geen externe platformleads op. Jullie kiezen hierbij één focus: Werkplaats of Verkoop.</p>
+            <p class="ap-road-preview">Kies AI Telefoniste als jullie veel piekdrukte, gemiste oproepen of vragen buiten openingstijden hebben. Dit product neemt geen WhatsApp-, e-mail- of website-inbox over en volgt geen externe aanvragen op. Jullie kiezen hierbij één focus: Intake of Opvolging.</p>
           </div>
         </details>
 
@@ -3370,7 +3649,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Kies AI Leadopvolger wanneer leads uit externe bronnen zoals BOVAG, Marktplaats, AutoScout of vergelijkbare platformen actief opgevolgd moeten worden. Dit product neemt geen algemene inbox of telefonie over, maar richt zich op opvolging, reactivatie, bronherkenning en pipeline-status.</p>
+            <p class="ap-road-preview">Kies AI Leadopvolger wanneer leads uit bronnen zoals website, Google, WhatsApp en terugbelvragen actief opgevolgd moeten worden. Dit product neemt geen algemene inbox of telefonie over, maar richt zich op opvolging, reactivatie, bronherkenning en pipeline-status.</p>
           </div>
         </details>
 
@@ -3380,7 +3659,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Kies Volledige AI Medewerker wanneer jullie binnen Werkplaats of Verkoop inbox, telefonie, leadopvolging, agenda, CRM, overdracht, menselijke fallback, monitoring en optimalisatie willen combineren. Ook dit blijft een product: extra afdelingen, complexe uitzonderingen of maatwerkflows stemmen we apart af.</p>
+            <p class="ap-road-preview">Kies Volledige AI Medewerker wanneer jullie binnen Intake of Opvolging inbox, telefonie, leadopvolging, agenda, CRM, overdracht, menselijke fallback, monitoring en optimalisatie willen combineren. Ook dit blijft een product: extra afdelingen, complexe uitzonderingen of maatwerkflows stemmen we apart af.</p>
           </div>
         </details>
 
@@ -3400,8 +3679,8 @@ body {
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-final">
-        <h2>Start met een AI medewerker voor jullie autobedrijf.</h2>
-        <p>AI Medewerker voor autobedrijven helpt jullie sneller reageren, beter plannen en aanvragen voor verkoop én werkplaats netjes overdragen naar het juiste team.</p>
+        <h2>Start met een AI medewerker voor jullie praktijk.</h2>
+        <p>AI Medewerker voor tandartspraktijken helpt jullie sneller reageren, beter plannen en aanvragen netjes overdragen naar balie of behandelaar.</p>
 
         <div class="ap-actions">
           <a class="ap-button primary" href="#ap-sales-complete-producten">Kies jullie product</a>
@@ -3409,8 +3688,6 @@ body {
       </div>
     </div>
   </section>
-
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
   <script>
     (function () {
@@ -3438,24 +3715,24 @@ body {
 
       const productCalculator = {
         start: {
-          volumeLabel: "Aantal verkoopkansen per maand",
-          volumeHelp: "Directe inboxvragen met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          volumeLabel: "Aantal kansen per maand",
+          volumeHelp: "Directe inboxvragen met afspraak- of omzetwaarde: aanbod, afspraak, spoedvraag, offerte of terugbelverzoek.",
           defaultVolume: 250,
-          salesLabel: "Aantal verkoopkansen per maand",
-          salesHelp: "Hoeveel berichten gaan over voorraad, proefrit, inruil, offerte of een verkoopvraag?",
+          salesLabel: "Aantal kansen per maand",
+          salesHelp: "Hoeveel berichten gaan over aanbod, afspraak, spoedvraag, offerte of een aanvraag?",
           afterLabel: "Te laat gereageerd",
           afterHelp: "Welk percentage krijgt te laat reactie doordat het team druk is of buiten werktijd niet reageert?",
           fields: ["volume", "after-hours"],
           handledLabel: "Op tijd verwerkt",
           extraHandledLabel: "Extra inboxkansen op tijd verwerkt",
-          baseHelp: "Inbox rekent alleen met directe verkoopkansen uit WhatsApp, e-mail en website. Telefonie en platformlead-opvolging tellen hier niet mee."
+          baseHelp: "Inbox rekent alleen met directe kansen uit WhatsApp, e-mail en website. Telefonie en aanvraag-opvolging tellen hier niet mee."
         },
         telefoniste: {
-          volumeLabel: "Aantal verkoopkansen per maand",
-          volumeHelp: "Telefoontjes met verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek.",
+          volumeLabel: "Aantal kansen per maand",
+          volumeHelp: "Telefoontjes met afspraak- of omzetwaarde: aanbod, afspraak, spoedvraag, offerte of terugbelverzoek.",
           defaultVolume: 250,
-          salesLabel: "Aantal verkoopkansen per maand",
-          salesHelp: "Hoeveel telefoontjes hebben verkoopwaarde: voorraad, proefrit, inruil, offerte of terugbelverzoek?",
+          salesLabel: "Aantal kansen per maand",
+          salesHelp: "Hoeveel telefoontjes hebben afspraak- of omzetwaarde: aanbod, afspraak, spoedvraag, offerte of terugbelverzoek?",
           afterLabel: "Buiten openingstijden",
           afterHelp: "Welk percentage van de telefoontjes komt buiten openingstijden binnen?",
           peakLabel: "Tijdens piekdrukte",
@@ -3463,27 +3740,27 @@ body {
           fields: ["volume", "after-hours", "peak"],
           handledLabel: "Op tijd opgenomen",
           extraHandledLabel: "Extra telefoontjes op tijd opgepakt",
-          baseHelp: "Telefonie rekent alleen met verkoopkansen via telefoon. Inboxberichten en platformlead-opvolging tellen hier niet mee."
+          baseHelp: "Telefonie rekent alleen met kansen via telefoon. Inboxberichten en aanvraag-opvolging tellen hier niet mee."
         },
         scale: {
-          volumeLabel: "Aantal platformleads per maand",
-          volumeHelp: "Nieuwe aanvragen via BOVAG, Marktplaats, AutoScout of vergelijkbare leadbronnen.",
+          volumeLabel: "Aantal aanvragen per maand",
+          volumeHelp: "Nieuwe aanvragen via website, Google, WhatsApp en terugbelvragen of vergelijkbare leadbronnen.",
           defaultVolume: 350,
-          salesLabel: "Aantal verkoopkansen per maand",
-          salesHelp: "Hoeveel platformleads zijn serieus genoeg voor proefrit, offertebespreking of terugbelmoment?",
+          salesLabel: "Aantal kansen per maand",
+          salesHelp: "Hoeveel aanvragen zijn serieus genoeg voor afspraak, offertebespreking of terugbelmoment?",
           afterLabel: "Te laat of niet opgevolgd",
           afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
           fields: ["volume", "after-hours"],
           handledLabel: "Actief opgevolgd",
-          extraHandledLabel: "Extra platformleads actief opgevolgd",
-          baseHelp: "Leadopvolging rekent platformleads direct als verkoopkansen. Algemene inbox en telefonie tellen hier niet mee."
+          extraHandledLabel: "Extra aanvragen actief opgevolgd",
+          baseHelp: "Leadopvolging rekent aanvragen direct als kansen. Algemene inbox en telefonie tellen hier niet mee."
         },
         premium: {
-          volumeLabel: "Aantal verkoopkansen per maand",
-          volumeHelp: "Alle verkoopkansen samen binnen de gekozen focus: inbox, telefonie en platformleads.",
+          volumeLabel: "Aantal kansen per maand",
+          volumeHelp: "Alle kansen samen binnen de gekozen focus: inbox, telefonie en aanvragen.",
           defaultVolume: 500,
-          salesLabel: "Aantal verkoopkansen per maand",
-          salesHelp: "Hoeveel contactmomenten kunnen leiden tot afspraak, proefrit, offerte of verkoopgesprek?",
+          salesLabel: "Aantal kansen per maand",
+          salesHelp: "Hoeveel contactmomenten kunnen leiden tot afspraak, afspraak, offerte of commerciegesprek?",
           afterLabel: "Te laat of niet opgevolgd",
           afterHelp: "Welk percentage wordt nu te laat of helemaal niet opgevolgd?",
           peakLabel: "Tijdens piekdrukte",
@@ -3496,9 +3773,9 @@ body {
       };
 
       const flowLabels = {
-        start: "AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar sales of werkplaats.",
-        telefoniste: "AI Telefoniste vangt piekdrukte, gemiste oproepen, APK, onderhoud en terugbelverzoeken op.",
-        scale: "AI Leadopvolger volgt platformleads uit BOVAG, Marktplaats, AutoScout en vergelijkbare bronnen actief op richting proefrit, offerte of terugbelmoment.",
+        start: "AI Inboxmedewerker verwerkt rechtstreekse WhatsApp-, e-mail- en websitevragen met samenvatting naar balie of behandelaar.",
+        telefoniste: "AI Telefoniste vangt piekdrukte, gemiste oproepen, spoedvraag, spoedvraag en terugbelverzoeken op.",
+        scale: "AI Leadopvolger volgt aanvragen uit website, Google, WhatsApp en terugbelvragen en vergelijkbare bronnen actief op richting afspraak, offerte of terugbelmoment.",
         premium: "Volledige AI Medewerker combineert telefonie, WhatsApp, e-mail, leadopvolging, agenda, CRM, overdracht en optimalisatie."
       };
 
@@ -3513,7 +3790,7 @@ body {
         },
         scale: {
           badge: "Leadopvolging",
-          text: "De meeste winst zit in platformleads actief opvolgen, sneller reageren en oude kansen opnieuw activeren."
+          text: "De meeste winst zit in aanvragen actief opvolgen, sneller reageren en oude kansen opnieuw activeren."
         },
         premium: {
           badge: "Alles",
@@ -3635,11 +3912,11 @@ body {
         const closeRate = clampPercent(getNumber("apCloseRate"));
         const margin = getNumber("apMargin");
 
-        const relevantSalesChances = volume;
+        const relevantChances = volume;
         const issueRate = config.fields.indexOf("peak") >= 0
           ? Math.min(afterHours + peakHours, 1)
           : afterHours;
-        const opportunityPool = relevantSalesChances * issueRate;
+        const opportunityPool = relevantChances * issueRate;
         const coveredPool = opportunityPool * selectedPackage.coverage;
 
         const handledNoAi = coveredPool * manualReachRate;
@@ -3763,70 +4040,70 @@ body {
       const productDemos = {
         telefoniste: {
           title: "AI Telefoniste",
-          text: "Bel als klant over de Audi A4 of over APK, onderhoud, storing of banden.",
+          text: "Bel als klant over tandartsvraag of over controle, pijnklacht, behandeling of spoed.",
           list: [
-            "Verkoop: Audi A4 Avant, kenteken T-709-BG.",
-            "Werkplaats: APK, onderhoud, storing of banden.",
+            "Commercie: controleafspraak, patiëntgegevens.",
+            "Planning: controle, pijnklacht, behandeling of spoed.",
             "AI vraagt door en zet de vervolgstap klaar."
           ],
           type: "widget",
           agentId: "agent_8301kx8wzxzbfstr2mtyh74taamx",
-          instruction: "Probeer: “Ik bel over de Audi A4” of “Ik wil APK plannen”.",
+          instruction: "Probeer: “Ik bel over tandartsvraag” of “Ik wil spoedvraag plannen”.",
           buttonLabel: "Open AI Telefoniste demo",
           placeholder: "De AI Telefoniste widget wordt pas geladen nadat jullie klikken."
         },
         inbox: {
           title: "AI Inboxmedewerker",
-          text: "Chat als klant over de Audi A4 of over APK, onderhoud, storing of banden.",
+          text: "Chat als klant over de tandartsvraag of over spoedvraag, spoedvraag, spoedvraag of spoedvraag.",
           list: [
-            "Verkoop: Audi A4 Avant, kenteken T-709-BG.",
-            "Werkplaats: APK, onderhoud, storing of banden.",
+            "Commercie: controleafspraak, patiëntgegevens.",
+            "Planning: controle, pijnklacht, behandeling of spoed.",
             "AI vraagt door en draagt over."
           ],
           type: "widget",
-          agentId: "agent_0101kxernqytetz986yz5t9td6zh",
-          instruction: "Probeer: “Ik chat over de Audi A4” of “Ik wil APK plannen”.",
+          agentId: "agent_7901kxc39kb2er9vmep56v1s5673",
+          instruction: "Probeer: “Ik chat over de tandartsvraag” of “Ik wil spoedvraag plannen”.",
           buttonLabel: "Open AI Inboxmedewerker demo",
           placeholder: "De AI Inboxmedewerker demo wordt pas geladen na het klikken.",
           previewTitle: "Rechtstreekse inboxvraag",
           previewStatus: "Direct verwerkt",
-          customer: "Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?",
-          ai: "Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.",
+          customer: "Ik wil graag spoedvraag plannen. Kan dat deze week nog?",
+          ai: "Natuurlijk. Wat is jullie voorkeurstijd, locatie en telefoonnummer? Dan zet ik het verzoek klaar voor balie of behandelaar met samenvatting en terugbelnotitie.",
           noteTitle: "Wat de inboxmedewerker zichtbaar maakt",
           prompts: [
             "Vraagsoort en urgentie worden herkend.",
             "Ontbrekende gegevens worden uitgevraagd.",
-            "Overdracht gaat naar verkoop of werkplaats."
+            "Overdracht gaat naar commercie of planning."
           ],
           placeholderTitle: "Inboxdemo als preview",
           placeholderText: "De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat zien hoe directe WhatsApp-, e-mail- en websitevragen worden verwerkt."
         },
         leadopvolger: {
           title: "AI Leadopvolger",
-          text: "Test hoe de AI een nieuwe of openstaande lead actief opvolgt richting proefrit, offerte of terugbelmoment.",
+          text: "Bekijk hoe aanvragen actief worden opgevolgd richting afspraak of terugbelmoment.",
           list: [
-            "Klik op openen en spreek of chat alsof jullie een lead zijn uit BOVAG, Marktplaats of AutoScout.",
-            "Probeer: ik heb interesse in deze auto, kan ik een proefrit plannen of bel mij terug.",
-            "Let op hoe de AI doorvraagt, opvolgt en stuurt op de juiste vervolgstap."
+            "Herkent website, Google, WhatsApp en terugbelvragen en vergelijkbare bronnen.",
+            "Stelt afspraak, offertebespreking of terugbelmoment voor.",
+            "Zet bron, status en vervolgstap klaar voor balie of behandelaar."
           ],
           type: "widget",
           agentId: "agent_7901kxer6f80fctrxvg9vkx253x3",
-          instruction: "Klik op openen en test als platformlead. Zeg bijvoorbeeld: ik heb via Marktplaats interesse, kan ik een proefrit plannen, ik wil een offerte of bel mij terug.",
+          instruction: "Klik op openen en test alsof er een nieuwe of openstaande lead opgevolgd moet worden. Gebruik bijvoorbeeld: ik heb interesse, kan ik een afspraak maken, ik wil een offerte of bel mij terug.",
           buttonLabel: "Open AI Leadopvolger demo",
           placeholder: "De AI Leadopvolger widget wordt pas geladen nadat jullie klikken.",
-          previewTitle: "Platformlead uit Marktplaats",
+          previewTitle: "Platformlead uit Google",
           previewStatus: "Opvolging gestart",
-          customer: "Nieuwe aanvraag via Marktplaats: interesse in Volkswagen Golf, telefoonnummer bekend, nog geen afspraak gepland.",
-          ai: "De AI pakt de lead actief op, stuurt een opvolgbericht, stelt een proefrit of terugbelmoment voor en zet bron, auto-interesse en status klaar voor sales.",
+          customer: "Nieuwe aanvraag via Google: interesse in controleafspraak, telefoonnummer bekend, nog geen afspraak gepland.",
+          ai: "De AI pakt de lead actief op, stuurt een opvolgbericht, stelt een afspraak of terugbelmoment voor en zet bron, interesse en status klaar voor balie of behandelaar.",
           noteTitle: "Wat jullie kunnen testen",
           prompts: [
-            "Bron herkennen: BOVAG, Marktplaats, AutoScout of vergelijkbaar.",
-            "Direct opvolgen: platformlead krijgt actief reactie.",
-            "Vervolg voorstellen: proefrit, offertebespreking of terugbelmoment.",
-            "CRM bijwerken: leadstatus, bron, auto-interesse en vervolgstap."
+            "Bron herkennen: website, Google, WhatsApp en terugbelvragen of vergelijkbaar.",
+            "Direct opvolgen: aanvraag krijgt actief reactie.",
+            "Vervolg voorstellen: afspraak, offertebespreking of terugbelmoment.",
+            "CRM bijwerken: leadstatus, bron, interesse en vervolgstap."
           ],
           placeholderTitle: "Live Leadopvolger demo",
-          placeholderText: "Klik op de demo-knop om de live AI Leadopvolger te testen. Spreek of chat alsof jullie een nieuwe platformlead of openstaande aanvraag zijn die opgevolgd moet worden."
+          placeholderText: "Klik op de demo-knop om de live AI Leadopvolger te testen. Spreek of chat alsof jullie een nieuwe lead of openstaande aanvraag zijn die opgevolgd moet worden."
         }
       };
 

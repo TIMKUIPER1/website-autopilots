@@ -637,7 +637,7 @@
             <div class="ap-widget-stage">
               <div class="ap-phone-shell">
                 <span>Klik op start en spreek alsof jullie bellen naar een autobedrijf.</span>
-                <div class="ap-voice-launcher" data-elevenlabs-demo>
+                <div class="ap-voice-launcher" data-elevenlabs-demo data-agent-id="agent_8301kx8wzxzbfstr2mtyh74taamx" data-loaded-label="AI Telefoniste demo geladen">
                   <button class="ap-demo-start" type="button" data-elevenlabs-start>Start AI Telefoniste demo</button>
                   <div class="ap-elevenlabs-mount is-empty" data-elevenlabs-mount></div>
                 </div>
@@ -693,6 +693,11 @@
               <strong id="rightDemoPlaceholderTitle">Inboxdemo als preview</strong>
               <p id="rightDemoPlaceholderText">De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat alvast zien welke informatie de AI ophaalt en overdraagt.</p>
             </div>
+
+            <div class="ap-voice-launcher" data-elevenlabs-demo data-right-widget data-agent-id="agent_0101kxernqytetz986yz5t9td6zh" data-loaded-label="AI Inboxmedewerker demo geladen">
+              <button class="ap-demo-start" type="button" data-elevenlabs-start id="rightDemoStart">Open AI Inboxmedewerker demo</button>
+              <div class="ap-elevenlabs-mount is-empty" data-elevenlabs-mount></div>
+            </div>
           </div>
         </article>
       </section>
@@ -715,13 +720,16 @@
           customer: "Ik wil graag APK en onderhoud plannen. Kan dat deze week nog?",
           ai: "Natuurlijk. Wat is uw kenteken, gewenste dagdeel en telefoonnummer? Dan zet ik het verzoek klaar voor de werkplaats met urgentie en terugbelnotitie.",
           noteTitle: "Wat de AI Inboxmedewerker zichtbaar maakt",
+          rightAgentId: "agent_0101kxernqytetz986yz5t9td6zh",
+          rightButtonLabel: "Open AI Inboxmedewerker demo",
+          rightLoadedLabel: "AI Inboxmedewerker demo geladen",
           inboxScenarios: [
             ["Vraagsoort", "APK, onderhoud of storing."],
             ["Benodigde gegevens", "Kenteken, voorkeurstijd en telefoonnummer."],
             ["Overdracht", "Notitie naar werkplaats met urgentie en vervolgstap."]
           ],
-          placeholderTitle: "Inboxdemo als preview",
-          placeholderText: "De live inboxkoppeling kan later op deze plek worden toegevoegd. Deze preview laat alvast zien welke informatie de AI ophaalt en overdraagt."
+          placeholderTitle: "Live Inboxmedewerker demo",
+          placeholderText: "Klik op openen en test alsof jullie via WhatsApp, e-mail of website een werkplaatsvraag stellen. Gebruik bijvoorbeeld: ik wil APK plannen, ik heb storing of bel mij terug."
         },
         verkoop: {
           rightTitle: "AI Leadopvolger",
@@ -736,13 +744,16 @@
           customer: "Ik zag de Volkswagen Golf op jullie site. Is die nog beschikbaar en kan ik zaterdag proefrijden?",
           ai: "Zeker, ik help u graag. Heeft u voorkeur voor zaterdag ochtend of middag? Ik stel meteen een proefritmoment voor, vraag eventuele inruil uit en zet de lead met status klaar voor sales.",
           noteTitle: "Wat de AI Leadopvolger zichtbaar maakt",
+          rightAgentId: "agent_7901kxer6f80fctrxvg9vkx253x3",
+          rightButtonLabel: "Open AI Leadopvolger demo",
+          rightLoadedLabel: "AI Leadopvolger demo geladen",
           inboxScenarios: [
             ["Direct opvolgen", "Nieuwe lead krijgt meteen reactie."],
             ["Vervolg voorstellen", "Proefrit, offertebespreking of terugbelmoment."],
             ["CRM bijwerken", "Leadstatus, bron, auto-interesse en vervolgstap."]
           ],
-          placeholderTitle: "Leadopvolgerdemo als preview",
-          placeholderText: "De live leadopvolger-widget kan later op deze plek worden toegevoegd. Deze preview laat alvast zien hoe verkoopopvolging en CRM-statussen werken."
+          placeholderTitle: "Live Leadopvolger demo",
+          placeholderText: "Klik op openen en test alsof jullie een nieuwe of openstaande verkooplead zijn. Gebruik bijvoorbeeld: ik heb interesse, kan ik een proefrit plannen, ik wil een offerte of bel mij terug."
         }
       };
 
@@ -770,6 +781,9 @@
         const noteTitle = document.getElementById("rightDemoNoteTitle");
         const placeholderTitle = document.getElementById("rightDemoPlaceholderTitle");
         const placeholderText = document.getElementById("rightDemoPlaceholderText");
+        const rightWidget = document.querySelector("[data-right-widget]");
+        const rightButton = document.getElementById("rightDemoStart");
+        const rightMount = rightWidget ? rightWidget.querySelector("[data-elevenlabs-mount]") : null;
 
         if (phoneIntro) phoneIntro.textContent = context.phoneIntro;
         if (rightTitle) rightTitle.textContent = context.rightTitle;
@@ -780,6 +794,19 @@
         if (noteTitle) noteTitle.textContent = context.noteTitle;
         if (placeholderTitle) placeholderTitle.textContent = context.placeholderTitle;
         if (placeholderText) placeholderText.textContent = context.placeholderText;
+        if (rightWidget) {
+          rightWidget.setAttribute("data-agent-id", context.rightAgentId);
+          rightWidget.setAttribute("data-loaded-label", context.rightLoadedLabel);
+        }
+        if (rightButton) {
+          rightButton.textContent = context.rightButtonLabel;
+          rightButton.classList.remove("is-loaded");
+          rightButton.removeAttribute("aria-disabled");
+        }
+        if (rightMount) {
+          rightMount.classList.add("is-empty");
+          rightMount.innerHTML = "";
+        }
 
         renderScenarios(document.getElementById("phoneDemoScenarios"), context.phoneScenarios);
         renderScenarios(document.getElementById("inboxDemoScenarios"), context.inboxScenarios);
@@ -801,7 +828,7 @@
     })();
 
     (function () {
-      const agentId = "agent_8301kx8wzxzbfstr2mtyh74taamx";
+      const fallbackAgentId = "agent_8301kx8wzxzbfstr2mtyh74taamx";
       const scriptId = "ap-elevenlabs-convai-widget";
 
       function loadElevenLabsScript() {
@@ -823,9 +850,12 @@
         button.addEventListener("click", function () {
           if (mount.querySelector("elevenlabs-convai")) return;
 
+          const agentId = demo.getAttribute("data-agent-id") || fallbackAgentId;
+          const loadedLabel = demo.getAttribute("data-loaded-label") || "Demo geladen";
+
           mount.classList.remove("is-empty");
           mount.innerHTML = '<elevenlabs-convai agent-id="' + agentId + '"></elevenlabs-convai>';
-          button.textContent = "AI Telefoniste demo geladen";
+          button.textContent = loadedLabel;
           button.classList.add("is-loaded");
           button.setAttribute("aria-disabled", "true");
           loadElevenLabsScript();
