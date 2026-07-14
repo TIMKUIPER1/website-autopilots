@@ -1812,6 +1812,20 @@
       max-width: 360px;
     }
 
+    elevenlabs-convai.ap-floating-elevenlabs-widget {
+      position: fixed !important;
+      right: 24px !important;
+      bottom: 24px !important;
+      z-index: 2147483647 !important;
+    }
+
+    @media (max-width: 680px) {
+      elevenlabs-convai.ap-floating-elevenlabs-widget {
+        right: 14px !important;
+        bottom: 14px !important;
+      }
+    }
+
     #ap-sales-complete-proposal .ap-demo-start {
       width: 100%;
       min-height: 58px;
@@ -3969,9 +3983,31 @@ body {
 
           mount.classList.remove("is-empty");
           mount.innerHTML = "";
+          mount.setAttribute("data-placeholder", "De live widget opent rechtsonder in beeld.");
+          mount.classList.add("is-empty");
+
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: "ap-elevenlabs-open",
+              agentId: activeProductDemo.agentId,
+              label: activeProductDemo.title
+            }, "*");
+
+            openButton.textContent = "Widget geopend";
+            openButton.classList.add("is-loaded");
+            openButton.setAttribute("aria-disabled", "true");
+            return;
+          }
+
+          document.querySelectorAll("elevenlabs-convai.ap-floating-elevenlabs-widget").forEach(function (oldWidget) {
+            oldWidget.remove();
+          });
+
+          mount.classList.remove("is-empty");
           const widget = document.createElement("elevenlabs-convai");
           widget.setAttribute("agent-id", activeProductDemo.agentId);
-          mount.appendChild(widget);
+          widget.className = "ap-floating-elevenlabs-widget";
+          document.body.appendChild(widget);
 
           openButton.textContent = "Widget geopend";
           openButton.classList.add("is-loaded");

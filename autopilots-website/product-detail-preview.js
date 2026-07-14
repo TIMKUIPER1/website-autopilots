@@ -412,6 +412,11 @@ const productUrl = {
   leadsmachine: "product-leadsmachine-ai.html",
 };
 
+function productHref(key) {
+  const slug = currentNiche?.slug || "autobedrijven";
+  return `${productUrl[key]}?branche=${encodeURIComponent(slug)}`;
+}
+
 function productIcon(key) {
   const markup = apProductIconMap[key] || apProductIconMap.inbox;
   return `<span class="ap-product-icon ${key === "crm" ? "is-crm" : ""}">${markup}</span>`;
@@ -423,7 +428,7 @@ function renderShell() {
   document.querySelector('meta[name="description"]')?.setAttribute("content", description);
 
   const productNav = Object.entries(apProducts)
-    .map(([key, item]) => `<a class="${key === productKey ? "is-active" : ""}" href="${productUrl[key]}">${item.nav}</a>`)
+    .map(([key, item]) => `<a class="${key === productKey ? "is-active" : ""}" href="${productHref(key)}" data-product-href="${key}">${item.nav}</a>`)
     .join("");
 
   const nicheButtons = apProductNiches
@@ -446,7 +451,7 @@ function renderShell() {
   const productOptions = Object.entries(apProducts)
     .map(
       ([key, item]) => `
-        <a class="ap-product-related ${key === productKey ? "is-active" : ""}" href="${productUrl[key]}">
+        <a class="ap-product-related ${key === productKey ? "is-active" : ""}" href="${productHref(key)}" data-product-href="${key}">
           ${productIcon(item.icon)}
           <span>${item.nav}</span>
         </a>`
@@ -764,6 +769,9 @@ function renderNiche() {
     branchLink.href = `branch-preview.html?branche=${currentNiche.slug}`;
     branchLink.textContent = `Meer informatie over AI medewerker voor ${currentNiche.label}`;
   }
+  document.querySelectorAll("[data-product-href]").forEach((link) => {
+    link.href = productHref(link.dataset.productHref);
+  });
   setRoiDefaults(currentNiche);
 }
 
@@ -802,8 +810,18 @@ function setRoiDefaults(niche) {
   minutes.value = niche.minutes;
   automation.value = niche.automation;
   margin.value = niche.margin;
-  document.querySelector("[data-roi-volume-label]").textContent = product.calculator.volumeLabel.replace("Binnenkomende", currentNiche.metric.charAt(0).toUpperCase() + currentNiche.metric.slice(1));
+  const metricLabel = `${niche.metric.charAt(0).toUpperCase()}${niche.metric.slice(1)}`;
+  document.querySelector("[data-roi-volume-label]").textContent = `${metricLabel} per maand`;
+  document.querySelector("[data-roi-minutes-label]").textContent = product.calculator.minutesLabel;
+  document.querySelector("[data-roi-automation-label]").textContent = product.calculator.automationLabel;
+  document.querySelector("[data-roi-margin-label]").textContent = product.calculator.marginLabel;
   updateRoi();
+}
+
+function syncNicheUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("branche", currentNiche.slug);
+  window.history.replaceState({}, "", url);
 }
 
 function updateRoi() {
@@ -837,6 +855,7 @@ renderDemoStep(0);
 document.querySelectorAll("[data-product-niche]").forEach((button) => {
   button.addEventListener("click", () => {
     currentNiche = getNiche(button.dataset.productNiche);
+    syncNicheUrl();
     renderNiche();
   });
 });
