@@ -4043,9 +4043,17 @@ body {
 
   function syncHeight() {
     if (!window.parent || window.parent === window) return;
+    var height = getHeight();
+
     window.parent.postMessage({
       type: "autopilots:embed-height",
-      height: getHeight(),
+      height: height,
+      path: window.location.pathname
+    }, "*");
+
+    window.parent.postMessage({
+      type: "ap-resize",
+      height: height,
       path: window.location.pathname
     }, "*");
   }
