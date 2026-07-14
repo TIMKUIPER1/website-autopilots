@@ -4012,11 +4012,9 @@ body {
 
           if (window.parent && window.parent !== window) {
             var requestId = "ap-widget-" + Date.now();
-            var handledByParent = false;
 
             function handleParentAck(event) {
               if (!event.data || event.data.type !== "ap-elevenlabs-opened" || event.data.requestId !== requestId) return;
-              handledByParent = true;
               window.removeEventListener("message", handleParentAck);
             }
 
@@ -4035,7 +4033,6 @@ body {
             openButton.setAttribute("aria-disabled", "true");
             window.setTimeout(function () {
               window.removeEventListener("message", handleParentAck);
-              if (!handledByParent) openLocalWidget();
             }, 700);
             return;
           }
