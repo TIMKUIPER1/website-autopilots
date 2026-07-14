@@ -204,7 +204,7 @@ Blogpagina's moeten SEO-proof en conversiegericht zijn:
 - Inhoudsopgave voor scanbaarheid.
 - Praktijkvoorbeelden, nichecontext en concrete systeemacties.
 - FAQ-blok voor bezwaren en structured data.
-- Interne links naar diensten, voor wie, proces, kennisbank en afspraak.
+- Interne links naar producten, voor wie, proces, kennisbank en afspraak.
 - Duidelijke CTA aan het einde: bekijk route, bereken resultaat of plan afspraak.
 
 Schrijf blogcontent nooit als generieke AI-uitleg. De lezer moet voelen dat Autopilots het probleem van zijn bedrijf begrijpt en AI praktisch, persoonlijk en productie-waardig maakt.

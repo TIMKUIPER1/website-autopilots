@@ -36,8 +36,8 @@ const products = [
 <style>
   h1 {
     max-width: 960px;
-    font-size: clamp(46px, 6.2vw, 78px);
-    line-height: 1.04;
+    font-size: clamp(34px, calc(5vw - 12px), 54px);
+    line-height: 1.07;
     font-weight: 900;
   }
 
@@ -77,12 +77,13 @@ const products = [
   }
 
   .ap-service-card p {
-    margin-top: 10px;
+    margin-top: 14px;
     color: var(--ap-muted);
-    line-height: 1.62;
+    font-weight: 600;
+    line-height: 1.55;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 760px) {
     .ap-services-grid {
       grid-template-columns: 1fr;
     }

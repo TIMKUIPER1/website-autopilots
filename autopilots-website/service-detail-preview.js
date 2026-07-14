@@ -290,7 +290,7 @@ const servicePages = {
     seo: ["AI support na livegang", "AI monitoring", "AI optimalisatie", "Prompt optimalisatie", "AI implementatie support"],
     faq: [
       ["Wat gebeurt er na livegang?", "We blijven monitoren, analyseren en verbeteren op basis van echte gesprekken en systeemdata."],
-      ["Kunnen nieuwe scenario's later worden toegevoegd?", "Ja. Nieuwe vragen, diensten of processen kunnen worden vertaald naar extra flows."],
+      ["Kunnen nieuwe scenario's later worden toegevoegd?", "Ja. Nieuwe vragen, producten of processen kunnen worden vertaald naar extra flows."],
       ["Is support technisch of praktisch?", "Beide. We vertalen techniek naar praktische keuzes die je team begrijpt en gebruikt."]
     ]
   }

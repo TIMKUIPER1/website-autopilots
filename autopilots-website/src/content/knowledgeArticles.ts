@@ -155,7 +155,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Dienst", title: "Bekijk Voice AI voor telefonische opvang.", href: "/diensten/" },
+      { label: "Product", title: "Bekijk Voice AI voor telefonische opvang.", href: "/producten/" },
       { label: "Proces", title: "Zo bouwen we een AI-brein met regels en context.", href: "/proces/" },
       { label: "Afspraak", title: "Bespreek welke klantreis geschikt is.", href: "/afspraak/" }
     ],
@@ -271,7 +271,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     ],
     related: [
       { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
-      { label: "Diensten", title: "Bekijk Chat AI, Voice AI en Follow-up AI.", href: "/diensten/" },
+      { label: "Producten", title: "Bekijk Chat AI, Voice AI en Follow-up AI.", href: "/producten/" },
       { label: "Proces", title: "Ontwerp eerst de workflow.", href: "/proces/" }
     ],
     sources: [
@@ -386,7 +386,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     ],
     related: [
       { label: "Branches", title: "Bekijk hoe Autopilots branches opbouwt.", href: "/#branches" },
-      { label: "Diensten", title: "Planning AI, Voice AI en Follow-up AI.", href: "/diensten/" },
+      { label: "Producten", title: "Planning AI, Voice AI en Follow-up AI.", href: "/producten/" },
       { label: "Afspraak", title: "Laat je serviceflow analyseren.", href: "/afspraak/" }
     ],
     sources: [
@@ -443,7 +443,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
           "Geef binnen 80 woorden een direct antwoord.",
           "Herhaal kerntermen natuurlijk: AI agent, CRM, klantcontact, voice, opvolging.",
           "Voeg FAQ's toe rond bezwaren en vervolgvragen.",
-          "Link intern naar diensten, proces, branches en afspraak."
+          "Link intern naar producten, proces, branches en afspraak."
         ]
       },
       {
@@ -605,7 +605,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Diensten", title: "Bekijk Voice AI als AI medewerker.", href: "/diensten/" },
+      { label: "Producten", title: "Bekijk Voice AI als AI medewerker.", href: "/producten/" },
       { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
       { label: "Afspraak", title: "Test je telefonische klantreis.", href: "/afspraak/" }
     ],
@@ -684,7 +684,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         eyebrow: "AI zoeken",
         title: "5. Zoekgedrag verschuift naar antwoorden",
         paragraphs: [
-          "AI zoeken verandert hoe klanten informatie vinden. Ze typen langere vragen, vergelijken opties en lezen samenvattingen. Daardoor moet je content concreter worden. Niet alleen dienstenpagina's, maar ook kennisbankartikelen die vragen echt beantwoorden.",
+          "AI zoeken verandert hoe klanten informatie vinden. Ze typen langere vragen, vergelijken opties en lezen samenvattingen. Daardoor moet je content concreter worden. Niet alleen productpagina's, maar ook kennisbankartikelen die vragen echt beantwoorden.",
           "Voor ondernemers betekent dit: publiceer uitleg die je klant al zoekt. Wat is Voice AI? Wanneer werkt AI voor servicebedrijven? Hoe kies je Claude of OpenAI? Wat doet een AI agent met CRM?",
           "Die content helpt niet alleen SEO. Het helpt sales, vertrouwen en onboarding, omdat je markt beter begrijpt wat je bouwt."
         ]

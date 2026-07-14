@@ -1,11 +1,10 @@
 ---
-const services = [
-  ["Chat AI", "Websitebezoekers helpen en direct afspraken plannen.", "CH"],
-  ["Voice AI", "Bellen, opnemen, opvolgen en afspraken plannen.", "VO"],
-  ["Follow-up AI", "Offertes, aanvragen en open gesprekken blijven bewegen.", "FU"],
-  ["Planning AI", "Agenda, route en capaciteit slimmer organiseren.", "PL"],
-  ["Klantenmachine AI", "Full-funnel machine van klik tot klant.", "KM"],
-  ["Autopilots CRM", "Gesprekken, leads en opvolging op een plek.", "CR"]
+const products = [
+  ["AI Inboxmedewerker", "Mail, WhatsApp, chat en DM naar duidelijke actie.", "IN", "/producten/ai-inboxmedewerker/"],
+  ["AI Leadopvolger", "Leads, offertes en stille gesprekken blijven bewegen.", "LO", "/producten/ai-leadopvolger/"],
+  ["AI Telefoniste", "Neemt op, kwalificeert en plant of routeert door.", "TE", "/producten/ai-telefoniste/"],
+  ["Autopilots CRM", "Gesprekken, leads en acties in een systeem.", "AP", "/producten/autopilots-crm/"],
+  ["Leadsmachine AI", "Van klik naar intake, afspraak en klant.", "LM", "/producten/leadsmachine-ai/"]
 ];
 
 const branches = [
@@ -23,19 +22,19 @@ const branches = [
     <a class="ap-logo" href="/" aria-label="Autopilots home">AUTOPILOTS</a>
     <nav class="ap-nav" aria-label="Hoofdnavigatie">
       <div class="ap-menu-shell">
-        <button class="ap-menu-trigger" type="button" onclick="location.href='/diensten/'">Diensten</button>
-        <div class="ap-mega" aria-label="Diensten megamenu">
+        <button class="ap-menu-trigger" type="button" onclick="location.href='/producten/'">Producten</button>
+        <div class="ap-mega" aria-label="Producten megamenu">
           <div class="ap-mega-feature">
             <div>
-              <div class="ap-menu-label">Autopilots OS</div>
-              <h3>AI medewerkers voor klantcontact, operatie en groei.</h3>
-              <p>Autopilots bouwt AI medewerkers voor receptie, klantenservice, planning, opvolging, voice, chat en CRM-verwerking.</p>
+              <div class="ap-menu-label">Autopilots producten</div>
+              <h3>Vijf AI producten voor klantcontact, opvolging en groei.</h3>
+              <p>Elke productbasis wordt per niche ingericht met eigen route, scripts, koppelingen en systeemacties.</p>
             </div>
-            <a class="ap-button ap-button-primary" href="/#diensten">Bekijk alle diensten</a>
+            <a class="ap-button ap-button-primary" href="/producten/">Bekijk alle producten</a>
           </div>
           <div class="ap-mega-grid">
-            {services.map(([label, text, icon]) => (
-              <a class="ap-mega-link" href="/#diensten">
+            {products.map(([label, text, icon, href]) => (
+              <a class="ap-mega-link" href={href}>
                 <span class="ap-mega-icon">{icon}</span>
                 <div>
                   <strong>{label}</strong>
