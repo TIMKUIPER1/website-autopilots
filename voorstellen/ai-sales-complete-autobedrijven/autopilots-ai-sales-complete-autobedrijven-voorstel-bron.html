@@ -1812,6 +1812,20 @@
       max-width: 360px;
     }
 
+    elevenlabs-convai.ap-floating-elevenlabs-widget {
+      position: fixed !important;
+      right: 24px !important;
+      bottom: 24px !important;
+      z-index: 2147483647 !important;
+    }
+
+    @media (max-width: 680px) {
+      elevenlabs-convai.ap-floating-elevenlabs-widget {
+        right: 14px !important;
+        bottom: 14px !important;
+      }
+    }
+
     #ap-sales-complete-proposal .ap-demo-start {
       width: 100%;
       min-height: 58px;
@@ -3969,27 +3983,67 @@ body {
 
           mount.classList.remove("is-empty");
           mount.innerHTML = "";
-          const widget = document.createElement("elevenlabs-convai");
-          widget.setAttribute("agent-id", activeProductDemo.agentId);
-          mount.appendChild(widget);
+
+          function openLocalWidget() {
+            document.querySelectorAll("elevenlabs-convai.ap-floating-elevenlabs-widget").forEach(function (oldWidget) {
+              oldWidget.remove();
+            });
+
+            const widget = document.createElement("elevenlabs-convai");
+            widget.setAttribute("agent-id", activeProductDemo.agentId);
+            widget.className = "ap-floating-elevenlabs-widget";
+            document.body.appendChild(widget);
+
+            loadElevenLabsScript()
+              .then(function () {
+                if (window.customElements && customElements.whenDefined) {
+                  return customElements.whenDefined("elevenlabs-convai");
+                }
+              })
+              .then(function () {
+                openElevenLabsWidget(widget);
+              })
+              .catch(function () {
+                openButton.textContent = activeProductDemo.buttonLabel;
+                openButton.classList.remove("is-loaded");
+                openButton.removeAttribute("aria-disabled");
+              });
+          }
+
+          if (window.parent && window.parent !== window) {
+            var requestId = "ap-widget-" + Date.now();
+            var handledByParent = false;
+
+            function handleParentAck(event) {
+              if (!event.data || event.data.type !== "ap-elevenlabs-opened" || event.data.requestId !== requestId) return;
+              handledByParent = true;
+              window.removeEventListener("message", handleParentAck);
+            }
+
+            window.addEventListener("message", handleParentAck);
+            window.parent.postMessage({
+              type: "ap-elevenlabs-open",
+              agentId: activeProductDemo.agentId,
+              label: activeProductDemo.title,
+              requestId: requestId
+            }, "*");
+
+            mount.classList.add("is-empty");
+            mount.setAttribute("data-placeholder", "De live widget opent rechtsonder in beeld.");
+            openButton.textContent = "Widget geopend";
+            openButton.classList.add("is-loaded");
+            openButton.setAttribute("aria-disabled", "true");
+            window.setTimeout(function () {
+              window.removeEventListener("message", handleParentAck);
+              if (!handledByParent) openLocalWidget();
+            }, 700);
+            return;
+          }
 
           openButton.textContent = "Widget geopend";
           openButton.classList.add("is-loaded");
           openButton.setAttribute("aria-disabled", "true");
-          loadElevenLabsScript()
-            .then(function () {
-              if (window.customElements && customElements.whenDefined) {
-                return customElements.whenDefined("elevenlabs-convai");
-              }
-            })
-            .then(function () {
-              openElevenLabsWidget(widget);
-            })
-            .catch(function () {
-              openButton.textContent = activeProductDemo.buttonLabel;
-              openButton.classList.remove("is-loaded");
-              openButton.removeAttribute("aria-disabled");
-            });
+          openLocalWidget();
         });
       }
 

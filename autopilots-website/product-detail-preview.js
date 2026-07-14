@@ -137,6 +137,149 @@ const apProductNiches = [
     minutes: 9,
     automation: 66,
   },
+  {
+    slug: "glaszetters",
+    label: "glaszetters",
+    short: "Spoedbreuk, glastype, foto's, opname en inmeten.",
+    route: "spoedbreuk, glastype, maatvoering, foto's en opname",
+    system: "agenda, offerteflow, CRM, foto's en werkvoorbereiding",
+    metric: "glasvragen",
+    extra: "extra opnames",
+    margin: 420,
+    volume: 72,
+    minutes: 12,
+    automation: 68,
+  },
+  {
+    slug: "hotels",
+    label: "hotels",
+    short: "Gastvragen, reserveringen, late check-in en serviceverzoeken.",
+    route: "reserveringen, gastvragen, wijzigingen en serviceverzoeken",
+    system: "mailbox, chat, reserveringsdata, PMS-notities en teamoverdracht",
+    metric: "gastvragen",
+    extra: "extra boekingen",
+    margin: 180,
+    volume: 180,
+    minutes: 6,
+    automation: 72,
+  },
+  {
+    slug: "kozijnen",
+    label: "kozijnen",
+    short: "Offertes, foto's, materiaalkeuze, inmeten en opvolging.",
+    route: "materiaalkeuze, foto's, woningtype, inmeten en offerteopvolging",
+    system: "agenda, CRM, offerteflow, inmeetroute en verkoopopvolging",
+    metric: "kozijnaanvragen",
+    extra: "extra inmeetafspraken",
+    margin: 620,
+    volume: 78,
+    minutes: 12,
+    automation: 64,
+  },
+  {
+    slug: "restaurants",
+    label: "restaurants",
+    short: "Reserveringen, groepsaanvragen, wijzigingen en dieetwensen.",
+    route: "reserveringen, groepsaanvragen, dieetwensen en wijzigingen",
+    system: "reserveringssysteem, telefoon, chat, mail en reminders",
+    metric: "reserveringsvragen",
+    extra: "extra reserveringen",
+    margin: 55,
+    volume: 220,
+    minutes: 5,
+    automation: 80,
+  },
+  {
+    slug: "zonnepanelen",
+    label: "zonnepanelen",
+    short: "Leads, daktype, verbruik, adviesgesprekken en follow-up.",
+    route: "adres, daktype, jaarverbruik, adviesgesprekken en leadopvolging",
+    system: "CRM, agenda, mail, WhatsApp, advertenties en salesopvolging",
+    metric: "solar leads",
+    extra: "extra adviesgesprekken",
+    margin: 520,
+    volume: 105,
+    minutes: 9,
+    automation: 69,
+  },
+  {
+    slug: "woningcorporaties",
+    label: "woningcorporaties",
+    short: "Bewonersmeldingen, reparaties, statusvragen en leveranciers.",
+    route: "bewonersmeldingen, reparatieverzoeken, urgentie en statusupdates",
+    system: "mailbox, ticketing, panddata, leveranciers en bewonerscommunicatie",
+    metric: "bewonersmeldingen",
+    extra: "meldingen sneller verwerkt",
+    margin: 130,
+    volume: 280,
+    minutes: 8,
+    automation: 73,
+  },
+  {
+    slug: "evenementen",
+    label: "evenementen",
+    short: "Datum, gasten, locatie, budget, leveranciers en intake.",
+    route: "datum, locatie, gasten, budget, leveranciers en intake",
+    system: "CRM, agenda, mail, offerteflow en projectoverdracht",
+    metric: "eventaanvragen",
+    extra: "extra intakes",
+    margin: 680,
+    volume: 64,
+    minutes: 11,
+    automation: 70,
+  },
+  {
+    slug: "non-profit",
+    label: "non-profit",
+    short: "Donateurs, vrijwilligers, partners, regio en betrokkenheid.",
+    route: "donateursvragen, vrijwilligersaanmeldingen, partners en follow-up",
+    system: "CRM, mailbox, formulieren, segmentatie en warme opvolging",
+    metric: "aanmeldingen",
+    extra: "extra betrokken contacten",
+    margin: 90,
+    volume: 170,
+    minutes: 7,
+    automation: 67,
+  },
+  {
+    slug: "dierenarts",
+    label: "dierenartsen",
+    short: "Urgentie, consulten, diersoort, klachtduur en planning.",
+    route: "diersoort, klachtduur, alarmsignalen, consulten en planning",
+    system: "agenda, triageregels, patientnotities, telefoon en balieoverdracht",
+    metric: "praktijkvragen",
+    extra: "extra consulten",
+    margin: 105,
+    volume: 145,
+    minutes: 6,
+    automation: 63,
+  },
+  {
+    slug: "dierenverzorging",
+    label: "dierenverzorging",
+    short: "Opvang, verzorging, dierprofiel, periode en voorkeuren.",
+    route: "boekingen, dierprofielen, periode, gedrag en verzorgingswensen",
+    system: "agenda, intakeformulier, klantdata, reminders en teamoverdracht",
+    metric: "boekingsvragen",
+    extra: "extra boekingen",
+    margin: 80,
+    volume: 130,
+    minutes: 7,
+    automation: 72,
+  },
+  {
+    slug: "vloerenleggers",
+    label: "vloerenleggers",
+    short: "M2, ondervloer, foto's, opname, planning en offerte.",
+    route: "m2, ondervloer, foto's, opnameplanning en offerteopvolging",
+    system: "agenda, CRM, foto's, offerteflow en werkvoorbereiding",
+    metric: "vloeraanvragen",
+    extra: "extra opnames",
+    margin: 460,
+    volume: 74,
+    minutes: 12,
+    automation: 66,
+  },
 ];
 
 const apProducts = {
@@ -145,7 +288,7 @@ const apProducts = {
     nav: "AI Inboxmedewerker",
     title: 'Alle binnenkomende vragen op een plek, <span class="ap-title-accent">direct verwerkt.</span>',
     intro: "De AI Inboxmedewerker leest e-mail, WhatsApp, websitechat en DM's. Hij herkent intentie, stelt vervolgvragen, geeft antwoord en zet het gesprek door naar afspraak, ticket, offerte of mens.",
-    promise: "Standaard product, per niche anders getraind.",
+    promise: "Standaard product, per branche ingericht.",
     icon: "inbox",
     cta: "Bekijk AI Inboxmedewerker",
     demoTitle: "Van losse inbox naar duidelijke actie.",
@@ -195,12 +338,12 @@ const apProducts = {
     nav: "AI Leadopvolger",
     title: 'Leads, offertes en gemiste kansen blijven <span class="ap-title-accent">automatisch bewegen.</span>',
     intro: "De AI Leadopvolger pakt nieuwe leads, open offertes en stille gesprekken precies op tijd op via WhatsApp, SMS, mail of belactie. Niet schreeuwerig, wel consequent.",
-    promise: "Opvolging met ritme, timing en context.",
+    promise: "Vaste opvolgroute, timing per branche.",
     icon: "leadopvolger",
     cta: "Bekijk AI Leadopvolger",
     demoTitle: "Van interesse naar afspraak.",
     demoIntro: "Zie hoe opvolging doorloopt zonder dat je team handmatig achter iedere kans aan hoeft.",
-    demoCore: "AI Follow-up",
+    demoCore: "AI Leadopvolger",
     demoSub: "van lead naar afspraak",
     steps: [
       {
@@ -394,6 +537,9 @@ const apProducts = {
 
 const productKey = document.body.dataset.product || "inbox";
 const product = apProducts[productKey] || apProducts.inbox;
+const productPathPrefix = window.location.pathname.includes("/producten/") ? "../../" : "";
+const productAsset = (path) => `${productPathPrefix}${path}`;
+const productsOverviewHref = window.location.pathname.includes("/producten/") ? "../" : "producten/";
 
 const escapeHtml = (value) =>
   String(value)
@@ -405,26 +551,29 @@ const escapeHtml = (value) =>
 const getNiche = (slug) => apProductNiches.find((item) => item.slug === slug) || apProductNiches[0];
 
 const productUrl = {
-  inbox: "product-ai-inboxmedewerker.html",
-  leadopvolger: "product-ai-leadopvolger.html",
-  telefoniste: "product-ai-telefoniste.html",
-  crm: "product-autopilots-crm.html",
-  leadsmachine: "product-leadsmachine-ai.html",
+  inbox: "producten/ai-inboxmedewerker/",
+  leadopvolger: "producten/ai-leadopvolger/",
+  telefoniste: "producten/ai-telefoniste/",
+  crm: "producten/autopilots-crm/",
+  leadsmachine: "producten/leadsmachine-ai/",
 };
 
 function productHref(key) {
   const slug = currentNiche?.slug || "autobedrijven";
-  return `${productUrl[key]}?branche=${encodeURIComponent(slug)}`;
+  return `${productAsset(productUrl[key])}?branche=${encodeURIComponent(slug)}`;
 }
 
 function productIcon(key) {
-  const markup = apProductIconMap[key] || apProductIconMap.inbox;
+  const markup = (apProductIconMap[key] || apProductIconMap.inbox).replaceAll(
+    'src="ap-crm-logo.svg"',
+    `src="${productAsset("ap-crm-logo.svg")}"`
+  );
   return `<span class="ap-product-icon ${key === "crm" ? "is-crm" : ""}">${markup}</span>`;
 }
 
 function renderShell() {
-  document.title = `${product.nav} | Autopilots product`;
-  const description = `${product.nav} van Autopilots: een gestandaardiseerd AI product dat per niche wordt ingericht op klantcontact, systemen en opvolging.`;
+  document.title = `${product.nav} | Autopilots`;
+  const description = `${product.nav} van Autopilots: een gestandaardiseerd AI product dat per branche wordt ingericht op klantcontact, systemen en opvolging.`;
   document.querySelector('meta[name="description"]')?.setAttribute("content", description);
 
   const productNav = Object.entries(apProducts)
@@ -462,15 +611,15 @@ function renderShell() {
   document.body.innerHTML = `
     <header class="ap-header">
       <div class="ap-container ap-header-inner">
-        <a class="ap-logo" href="preview-homepage.html?v=10">AUTOPILOTS</a>
+        <a class="ap-logo" href="${productAsset("preview-homepage.html?v=10")}">AUTOPILOTS</a>
         <nav class="ap-nav" aria-label="Hoofdnavigatie">
-          <a class="is-active" href="services-preview.html">Diensten</a>
-          <a href="preview-homepage.html?v=10#branches">Voor wie</a>
-          <a href="process-preview.html">Proces</a>
-          <a href="crew-preview.html">Crew</a>
-          <a href="knowledge-preview.html">Kennisbank</a>
+          <a class="is-active" href="${productsOverviewHref}">Producten</a>
+          <a href="${productAsset("preview-homepage.html?v=10#branches")}">Voor wie</a>
+          <a href="${productAsset("process-preview.html")}">Proces</a>
+          <a href="${productAsset("crew-preview.html")}">Crew</a>
+          <a href="${productAsset("knowledge-preview.html")}">Kennisbank</a>
         </nav>
-        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
+        <a class="ap-button ap-button-primary" href="${productAsset("afspraak-preview.html")}">Plan afspraak</a>
       </div>
     </header>
     <main>
@@ -484,7 +633,7 @@ function renderShell() {
               <p class="ap-lead">${product.intro}</p>
               <div class="ap-actions">
                 <a class="ap-button ap-button-primary" href="#product-demo">Bekijk interactieve demo</a>
-                <a class="ap-button ap-button-secondary" href="#niche-selector">Kies je niche</a>
+                <a class="ap-button ap-button-secondary" href="#niche-selector">Kies je branche</a>
               </div>
             </div>
             <aside class="ap-product-hero-card">
@@ -497,7 +646,7 @@ function renderShell() {
               </div>
               <div class="ap-product-card-metrics">
                 <span><strong>01</strong> Standaard product</span>
-                <span><strong>02</strong> Niche route</span>
+                <span><strong>02</strong> Praktijkroute</span>
                 <span><strong>03</strong> Demo + ROI</span>
               </div>
             </aside>
@@ -509,9 +658,9 @@ function renderShell() {
         <div class="ap-container">
           <div class="ap-product-section-head">
             <div>
-              <div class="ap-kicker">Kies je niche</div>
-              <h2 class="ap-section-title">Het product blijft hetzelfde, maar de route wordt <span class="ap-title-accent">branchegericht.</span></h2>
-              <p class="ap-lead">Een AI Telefoniste werkt anders bij een dakdekker dan bij een kapper. Daarom krijgt elk product een eigen niche-instelling: taal, regels, systemen, routes, acties en fallback.</p>
+              <div class="ap-kicker">Kies je branche</div>
+              <h2 class="ap-section-title">Een vast product, ingericht op <span class="ap-title-accent">jouw branche.</span></h2>
+              <p class="ap-lead">${product.nav} heeft een duidelijke productbasis, maar wordt pas waardevol als de vragen, systemen, planning, route, acties en menselijke fallback kloppen voor jouw praktijk.</p>
             </div>
           </div>
           <div class="ap-product-selector-grid">
@@ -565,8 +714,8 @@ function renderShell() {
           <div class="ap-product-roi">
             <div>
               <div class="ap-kicker">ROI calculator</div>
-              <h2 class="ap-section-title">Bereken de eerste businesscase <span class="ap-title-accent">per niche.</span></h2>
-              <p class="ap-lead">De uitkomst is een indicatie. In een implementatiegesprek scherpen we aantallen, marge, capaciteit en route per niche aan.</p>
+              <h2 class="ap-section-title">Bereken de eerste businesscase <span class="ap-title-accent">per branche.</span></h2>
+              <p class="ap-lead">De uitkomst is een indicatie. In een implementatiegesprek scherpen we aantallen, marge, capaciteit en route per bedrijf aan.</p>
               <div class="ap-product-sliders">
                 <label>
                   <span data-roi-volume-label>${product.calculator.volumeLabel}</span>
@@ -611,11 +760,11 @@ function renderShell() {
           <div class="ap-final-box ap-product-final">
             <div>
               <div class="ap-kicker">Volgende stap</div>
-              <h2>Klaar om dit product in je eigen niche <span class="ap-title-accent">te bekijken?</span></h2>
+              <h2>Klaar om dit product in je eigen bedrijf <span class="ap-title-accent">te bekijken?</span></h2>
               <p class="ap-lead" data-product-final-text></p>
             </div>
             <div class="ap-actions">
-              <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan productadvies</a>
+              <a class="ap-button ap-button-primary" href="${productAsset("afspraak-preview.html")}">Plan productadvies</a>
               <a class="ap-button ap-button-secondary" data-product-branch-link href="#">Meer informatie over AI medewerker</a>
             </div>
           </div>
@@ -749,25 +898,25 @@ function renderNiche() {
   });
   card.innerHTML = `
     <div class="ap-kicker">${product.nav} voor ${escapeHtml(currentNiche.label)}</div>
-    <h3>In deze niche draait het om ${escapeHtml(currentNiche.route)}.</h3>
-    <p>${product.nav} wordt ingericht op ${escapeHtml(currentNiche.system)}. De basis is gestandaardiseerd, maar scripts, velden, urgentie, agenda en fallback sluiten aan op hoe ${escapeHtml(currentNiche.label)} echt werken.</p>
+    <h3>${product.nav} voor ${escapeHtml(currentNiche.label)}: van ${escapeHtml(currentNiche.route)} naar systeemactie.</h3>
+    <p>Je koopt geen losse demo, maar een vast productkader dat we aansluiten op ${escapeHtml(currentNiche.system)}. Zo blijft de scope helder, terwijl intake, planning, opvolging, velden en fallback passen bij de dagelijkse praktijk van ${escapeHtml(currentNiche.label)}.</p>
     <div class="ap-product-niche-pills">
-      <span>${escapeHtml(currentNiche.short)}</span>
-      <span>${escapeHtml(product.promise)}</span>
-      <span>Doorlink naar de volledige nichepagina.</span>
+      <span>Praktijk: ${escapeHtml(currentNiche.short)}</span>
+      <span>Productkader: ${escapeHtml(product.promise)}</span>
+      <span>Vervolg: volledige branchepagina</span>
     </div>
     <div class="ap-actions">
-      <a class="ap-button ap-button-primary" href="branch-preview.html?branche=${currentNiche.slug}">Meer informatie over AI medewerker voor ${escapeHtml(currentNiche.label)}</a>
+      <a class="ap-button ap-button-primary" href="${productAsset(`branch-preview.html?branche=${currentNiche.slug}`)}">Bekijk AI medewerker voor ${escapeHtml(currentNiche.label)}</a>
       <a class="ap-button ap-button-secondary" href="#product-demo">Bekijk demo</a>
     </div>
   `;
 
   document.querySelector("[data-product-final-text]").textContent =
-    `Bekijk hoe ${product.nav} specifiek werkt voor ${currentNiche.label}: van ${currentNiche.route} naar ${currentNiche.system}.`;
+    `Bekijk hoe ${product.nav} als product werkt voor ${currentNiche.label}: van ${currentNiche.route} naar ${currentNiche.system}.`;
   const branchLink = document.querySelector("[data-product-branch-link]");
   if (branchLink) {
-    branchLink.href = `branch-preview.html?branche=${currentNiche.slug}`;
-    branchLink.textContent = `Meer informatie over AI medewerker voor ${currentNiche.label}`;
+    branchLink.href = productAsset(`branch-preview.html?branche=${currentNiche.slug}`);
+    branchLink.textContent = `Bekijk AI medewerker voor ${currentNiche.label}`;
   }
   document.querySelectorAll("[data-product-href]").forEach((link) => {
     link.href = productHref(link.dataset.productHref);
