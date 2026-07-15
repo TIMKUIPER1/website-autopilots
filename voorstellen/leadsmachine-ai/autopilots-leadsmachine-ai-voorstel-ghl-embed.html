@@ -2504,8 +2504,8 @@ body {
         const appointmentsNeeded = customersNeeded > 0
           ? Math.ceil(customersNeeded / benchmark.closeRate)
           : 0;
-        const withoutAiRate = Math.min(benchmark.withoutAiRate + 0.10, 1);
-        const withAiRate = Math.min(benchmark.withAiRate + 0.10, 1);
+        const withoutAiRate = Math.min(benchmark.withoutAiRate + 0.05, 1);
+        const withAiRate = Math.min(benchmark.withAiRate + 0.05, 1);
         const leadsWithoutAi = customersNeeded > 0
           ? Math.ceil(customersNeeded / withoutAiRate)
           : 0;
