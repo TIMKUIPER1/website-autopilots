@@ -3,13 +3,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { productBySlug, products } from "../../data/products";
 import { nicheBySlug, type Niche } from "../../data/niches";
 import { getOrderDestination, getDirectOffer } from "../../data/commerce";
+import { getNicheProposalBlueprint } from "../../data/nicheProposals";
 import VisualIcon from "../ui/VisualIcon.astro";
 
 interface Props { niche: Niche }
 const { niche } = Astro.props;
 const recommended = [...niche.primaryProducts, ...niche.optionalProducts].map((slug) => productBySlug[slug]);
 const related = niche.related.map((slug) => nicheBySlug[slug]).filter(Boolean);
-const clientData = JSON.stringify({ niche, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
+const proposal = getNicheProposalBlueprint(niche);
+const clientData = JSON.stringify({ niche, proposal, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
 const firstProduct = recommended[0];
 const schema = [
   {
@@ -62,6 +64,18 @@ const schema = [
       </div>
     </section>
 
+    <section class="ap-section ap-proposal-value">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Waarom dit werkt voor {niche.name}</div><h2>Directe vragen en opvolging krijgen allebei de <span class="ap-title-accent">juiste route.</span></h2><p>Gebaseerd op de nieuwste branchespecifieke voorstelroute, maar vertaald naar een algemene oplossing voor bedrijven in deze branche.</p></div>
+        <div class="ap-proposal-feature-grid">
+          {proposal.valueCards.map((item, index) => <details class="ap-proposal-feature" open={index === 0}>
+            <summary><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div><b aria-hidden="true">+</b></summary>
+            <div class="ap-proposal-feature-more">{item.more}</div>
+          </details>)}
+        </div>
+      </div>
+    </section>
+
     <section class="ap-section" id="praktijkdemo">
       <div class="ap-container">
         <div class="ap-section-head"><div class="ap-kicker">Interactieve praktijkdemo</div><h2>Van vraag naar een complete <span class="ap-title-accent">vervolgactie.</span></h2><p>Klik door het gesprek en zie welke context het team ontvangt.</p></div>
@@ -81,12 +95,58 @@ const schema = [
       </div>
     </section>
 
+    <section class="ap-section ap-soft-section" id="ai-brein">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">AI-brein voor {niche.name}</div><h2>Zo denkt de AI voordat iets naar {proposal.handoff} gaat.</h2><p>Geen losse chatbot. De AI combineert intake, context, regels en systeemacties voordat hij antwoordt, plant of overdraagt.</p></div>
+        <div class="ap-branch-brain" data-branch-brain>
+          <div class="ap-branch-brain-visual">
+            <div class="ap-brain-ticket"><span>AI</span><div><strong>Nieuwe vraag</strong><p>{niche.conversation.customer}</p></div><small>live</small></div>
+            <div class="ap-brain-orbit" aria-label={`AI-brein voor ${niche.name}`}>
+              <div class="ap-brain-core"><span>AP</span><strong>Autopilots<br />AI-brein</strong></div>
+              {proposal.brainSteps.map((step, index) => <button class:list={["ap-brain-node", `is-node-${index + 1}`, { "is-active": index === 0 }]} type="button" data-branch-brain-step={index}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step.label}</strong></button>)}
+            </div>
+          </div>
+          <div class="ap-branch-brain-copy">
+            <div class="ap-brain-tabs" role="tablist" aria-label="AI-brein stappen">
+              {proposal.brainSteps.map((step, index) => <button class:list={[{ "is-active": index === 0 }]} type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} data-branch-brain-tab={index}>{index + 1}. {step.label}</button>)}
+            </div>
+            <article class="ap-brain-panel" role="tabpanel" aria-live="polite">
+              <div class="ap-kicker" data-branch-brain-label>{proposal.brainSteps[0].label}</div>
+              <h3 data-branch-brain-title>{proposal.brainSteps[0].title}</h3>
+              <p data-branch-brain-text>{proposal.brainSteps[0].text}</p>
+            </article>
+            <div class="ap-brain-output-grid"><div><span>Voor het team</span><strong>Complete context en een duidelijke eigenaar.</strong></div><div><span>Voor de klant</span><strong>Direct antwoord of een concrete vervolgstap.</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="ap-section ap-dark-section">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Een voorbeeld van de nieuwe klantreis</div><h2>De ideale workflow voor {niche.name.toLowerCase()}.</h2></div>
+        <div class="ap-section-head"><div class="ap-kicker">De nieuwe klantreis</div><h2>{proposal.journeyTitle}</h2><p>Iedere stap heeft een doel, een benodigde context en een zichtbare vervolgstap.</p></div>
         <ol class="ap-dark-workflow">{niche.workflow.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>)}</ol>
       </div>
     </section>
+
+    {proposal.routePlanning && <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Route en buitendienst</div><h2>Slimmer plannen voor teams die <span class="ap-title-accent">onderweg zijn.</span></h2><p>De AI neemt niet alleen de aanvraag aan, maar zet locatie, urgentie, type werk en capaciteit klaar voor een bruikbare planning.</p></div>
+        <div class="ap-route-planner">
+          <div class="ap-route-steps">
+            {[
+              ["Aanvraag begrijpen", niche.workflow[0]?.text],
+              ["Route voorbereiden", `Regio, urgentie en capaciteit worden gecombineerd voor ${proposal.handoff}.`],
+              ["Overdracht klaarzetten", niche.conversation.result]
+            ].map((item, index) => <button class:list={[{ "is-active": index === 0 }]} type="button" data-route-step={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item[0]}</strong><small>{item[1]}</small></div></button>)}
+          </div>
+          <div class="ap-route-map">
+            <div class="ap-route-map-head"><span data-route-label>Nieuwe aanvraag</span><strong data-route-title>{niche.conversation.customer}</strong></div>
+            <div class="ap-route-line"><span class="is-active">Intake</span><i></i><span>Route</span><i></i><span>Team</span><i></i><span>CRM</span></div>
+            <p data-route-text>De belangrijkste gegevens worden compleet gemaakt voordat planning of buitendienst wordt belast.</p>
+          </div>
+        </div>
+      </div>
+    </section>}
 
     <section class="ap-section" id="producten">
       <div class="ap-container">
@@ -98,7 +158,7 @@ const schema = [
             const orderDestination = getOrderDestination(niche.slug, product.slug);
             return <article class:list={["ap-recommendation-card", { "is-primary": primary }]} data-product-card={product.slug}>
               <VisualIcon type="product" name={product.slug} /><span>{primary ? "Primair" : "Aanvullend"}</span><h3>{product.name}</h3><p>{product.promise}</p>
-              <div class="ap-recommendation-actions"><a href={`/producten/${product.slug}/?branche=${niche.slug}`}>Bekijk product</a><a class="is-order" data-ap-event={directOffer ? "proposal_opened" : "proposal_fallback_clicked"} data-ap-product={product.slug} data-ap-niche={niche.slug} href={orderDestination}>{directOffer ? "Open voorstel" : "Vraag voorstel aan"}</a></div>
+              <div class="ap-recommendation-actions"><a href={`/producten/${product.slug}/?branche=${niche.slug}`}>Bekijk product</a><a class="is-order" data-ap-event={directOffer ? "proposal_opened" : "proposal_fallback_clicked"} data-ap-product={product.slug} data-ap-niche={niche.slug} href={orderDestination}>{directOffer ? "Bekijk bestelroute" : "Bespreek dit product"}</a></div>
             </article>;
           })}
         </div>
@@ -129,6 +189,26 @@ const schema = [
             <label><span>Deel dat AI kan voorbereiden</span><strong><span data-n-automation-value>{niche.metric.automation}</span>%</strong><input data-n-automation type="range" min="10" max="90" value={niche.metric.automation} /></label>
           </div>
           <div class="ap-calculator-output"><span>Indicatieve tijd vrijgemaakt</span><strong><span data-n-hours>0</span> uur</strong><p><span data-n-actions>0</span> contactmomenten voorbereid per maand.</p><small>Exclusief implementatie, gebruikskosten en situaties die menselijke beoordeling vragen.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section" id="implementatie">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Implementatieproces</div><h2>Van onboarding naar een live AI-medewerker voor <span class="ap-title-accent">{niche.name.toLowerCase()}.</span></h2><p>Scope, kennisbasis, koppelingen en testen worden in duidelijke fases opgeleverd. Zo blijft zichtbaar wat gereed is en wat nog input nodig heeft.</p></div>
+        <div class="ap-implementation-shell">
+          <div class="ap-implementation-roadmap">
+            {[
+              { title: "Ontwerp en inrichting", text: "We vertalen de bestaande werkwijze naar gesprekslogica, tone of voice, uitzonderingen en succescriteria.", items: ["Klantreis en kanalen", "Intake en overdracht", "Tone of voice en grenzen"] },
+              { title: "Bouw en testen", text: "We richten kennis, acties en koppelingen in en testen de belangrijkste branchescenario’s.", items: [niche.systems.slice(0, 2).join(" en "), niche.painPoints.slice(0, 2).map((item) => item.title).join(" en "), "Fallback en systeemoutput"] },
+              { title: "Review en livegang", text: "Het team controleert antwoorden, kwalificatie, planning en overdracht voordat de route live gaat.", items: ["Review met het team", "Feedback verwerken", "Gecontroleerde livegang"] },
+              { title: "Monitoring en optimalisatie", text: "Na livegang verbeteren we op basis van echte gesprekken, uitzonderingen en conversiemomenten.", items: ["Gesprekskwaliteit", "Proces- en routeringsfouten", "Nieuwe scenario’s en groei"] }
+            ].map((phase, index) => <details class="ap-implementation-phase" open={index === 0}>
+              <summary><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{phase.title}</h3><p>{phase.text}</p></div><b aria-hidden="true">+</b></summary>
+              <div class="ap-phase-items">{phase.items.map((item) => <span>{item}</span>)}</div>
+            </details>)}
+          </div>
+          <aside class="ap-implementation-summary"><div class="ap-kicker">Duidelijke fases</div><h3>Geen losse chaos.</h3><p>De doorlooptijd hangt af van product, scope, beschikbare systemen, aangeleverde input en feedbackmomenten.</p><div class="ap-proof-metrics"><div><span>01</span><strong>Reactie en bereikbaarheid</strong></div><div><span>02</span><strong>Complete intake</strong></div><div><span>03</span><strong>Correcte overdracht</strong></div><div><span>04</span><strong>Opvolging en resultaat</strong></div></div><a class="ap-button ap-button-primary" href={`/afspraak/?branche=${niche.slug}`}>Bespreek de implementatie</a></aside>
         </div>
       </div>
     </section>
@@ -170,6 +250,7 @@ const schema = [
     if (!root || !node) return;
     const payload = JSON.parse(node.textContent || "{}");
     const niche = payload.niche;
+    const proposal = payload.proposal;
     const steps = [
       { stage: "Vraag komt binnen", message: niche.conversation.customer, label: "Volgende stap", result: "De AI bepaalt welke informatie nog ontbreekt." },
       { stage: "Gerichte intake", message: niche.conversation.ai, label: "Waarom deze vraag", result: `De intake gebruikt velden zoals ${niche.intake.slice(0, 3).join(", ")}.` },
@@ -200,6 +281,38 @@ const schema = [
       showNicheStep(Math.max(0, current - 1), true);
     });
     root.querySelector("[data-niche-reset]")?.addEventListener("click", () => showNicheStep(0, true));
+    const showBrainStep = (requestedIndex, focus = false) => {
+      const index = Math.max(0, Math.min(requestedIndex, proposal.brainSteps.length - 1));
+      const step = proposal.brainSteps[index];
+      root.querySelectorAll("[data-branch-brain-tab]").forEach((item) => {
+        const active = Number(item.dataset.branchBrainTab) === index;
+        item.classList.toggle("is-active", active); item.setAttribute("aria-selected", String(active)); item.tabIndex = active ? 0 : -1;
+      });
+      root.querySelectorAll("[data-branch-brain-step]").forEach((item) => item.classList.toggle("is-active", Number(item.dataset.branchBrainStep) === index));
+      setText("[data-branch-brain-label]", step.label); setText("[data-branch-brain-title]", step.title); setText("[data-branch-brain-text]", step.text);
+      if (focus) root.querySelector(`[data-branch-brain-tab="${index}"]`)?.focus({ preventScroll: true });
+    };
+    root.querySelectorAll("[data-branch-brain-tab],[data-branch-brain-step]").forEach((button) => {
+      const attr = button.hasAttribute("data-branch-brain-tab") ? "branchBrainTab" : "branchBrainStep";
+      button.addEventListener("click", () => showBrainStep(Number(button.dataset[attr] || 0)));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return;
+        event.preventDefault(); const current = Number(button.dataset[attr] || 0); const last = proposal.brainSteps.length - 1;
+        const next = event.key === "Home" ? 0 : event.key === "End" ? last : ["ArrowRight", "ArrowDown"].includes(event.key) ? (current + 1) % (last + 1) : (current - 1 + last + 1) % (last + 1);
+        showBrainStep(next, true);
+      });
+    });
+    const routeData = [
+      { label: "Nieuwe aanvraag", title: niche.conversation.customer, text: "De belangrijkste gegevens worden compleet gemaakt voordat planning of buitendienst wordt belast." },
+      { label: "Route voorbereid", title: "Regio, urgentie, type werk en capaciteit bij elkaar.", text: "De aanvraag krijgt een logische plaats in de planning, zonder dat het team losse berichten hoeft samen te voegen." },
+      { label: "Overdracht gereed", title: niche.conversation.result, text: "Context, eigenaar en vervolgstap worden samen vastgelegd en blijven zichtbaar voor het team." }
+    ];
+    root.querySelectorAll("[data-route-step]").forEach((button) => button.addEventListener("click", () => {
+      const index = Number(button.dataset.routeStep || 0); const item = routeData[index];
+      root.querySelectorAll("[data-route-step]").forEach((node) => node.classList.toggle("is-active", node === button));
+      root.querySelectorAll(".ap-route-line span").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex <= index));
+      setText("[data-route-label]", item.label); setText("[data-route-title]", item.title); setText("[data-route-text]", item.text);
+    }));
     const update = () => {
       const volume = Number(root.querySelector("[data-n-volume]")?.value || 0); const minutes = Number(root.querySelector("[data-n-minutes]")?.value || 0); const automation = Number(root.querySelector("[data-n-automation]")?.value || 0);
       setText("[data-n-volume-value]", volume.toLocaleString("nl-NL")); setText("[data-n-minutes-value]", minutes); setText("[data-n-automation-value]", automation);
@@ -218,4 +331,51 @@ const schema = [
   })();
 </script>
 
-<style>.ap-icon-kicker{display:block;margin-top:24px}.ap-recommendation-card :global(.ap-visual-icon){margin-bottom:18px}</style>
+<style>
+  .ap-icon-kicker{display:block;margin-top:24px}
+  .ap-recommendation-card :global(.ap-visual-icon){margin-bottom:18px}
+  .ap-proposal-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .ap-proposal-feature{overflow:hidden;border:1px solid var(--ap-line);border-radius:28px;background:#fff;box-shadow:0 18px 50px rgba(17,17,17,.045)}
+  .ap-proposal-feature summary{display:grid;grid-template-columns:48px minmax(0,1fr) 28px;gap:16px;align-items:start;min-height:240px;padding:26px;cursor:pointer;list-style:none}
+  .ap-proposal-feature summary::-webkit-details-marker,.ap-implementation-phase summary::-webkit-details-marker{display:none}
+  .ap-proposal-feature summary>span{display:grid;width:48px;height:48px;place-items:center;border-radius:16px;background:#111;color:#fff;font:700 11px/1 "Syne",sans-serif}
+  .ap-proposal-feature h3{margin:3px 0 0;font-size:21px;line-height:1.12}
+  .ap-proposal-feature p{margin:12px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}
+  .ap-proposal-feature summary>b,.ap-implementation-phase summary>b{display:grid;width:28px;height:28px;place-items:center;border-radius:50%;background:var(--ap-soft);color:var(--ap-brown);font-size:18px;transition:transform .2s ease}
+  .ap-proposal-feature[open] summary>b,.ap-implementation-phase[open] summary>b{transform:rotate(45deg)}
+  .ap-proposal-feature[open]{border-color:rgba(159,56,38,.24);background:linear-gradient(145deg,#fff,#faf1ed)}
+  .ap-proposal-feature-more{margin:0 26px 26px;border-top:1px solid rgba(159,56,38,.14);padding:18px 0 0;color:var(--ap-muted);font-size:13px;line-height:1.55}
+
+  .ap-branch-brain{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);overflow:hidden;border:1px solid var(--ap-line);border-radius:34px;background:#111;box-shadow:0 24px 70px rgba(17,17,17,.1)}
+  .ap-branch-brain-visual{position:relative;overflow:hidden;padding:28px;background:linear-gradient(145deg,#111 0%,#1d1715 100%)}
+  .ap-branch-brain-visual:after{content:"";position:absolute;right:-90px;bottom:-110px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.42),transparent 68%)}
+  .ap-brain-ticket{position:relative;z-index:2;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.13);border-radius:20px;background:rgba(255,255,255,.08);padding:13px;color:#fff}
+  .ap-brain-ticket>span{display:grid;width:44px;height:44px;place-items:center;border-radius:14px;background:#fff;color:var(--ap-brown);font:700 11px/1 "Syne",sans-serif}
+  .ap-brain-ticket strong,.ap-brain-ticket p{display:block;margin:0}.ap-brain-ticket strong{font-size:13px}.ap-brain-ticket p{display:-webkit-box;overflow:hidden;margin-top:4px;color:rgba(255,255,255,.62);font-size:11px;line-height:1.35;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .ap-brain-ticket small{border-radius:999px;background:rgba(124,203,134,.14);padding:7px 9px;color:#9ee0a6;font:700 9px/1 "Syne",sans-serif;text-transform:uppercase}
+  .ap-brain-orbit{position:relative;z-index:1;min-height:360px;margin-top:18px;border:1px solid rgba(255,255,255,.08);border-radius:28px;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:30px 30px}
+  .ap-brain-orbit:before,.ap-brain-orbit:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(231,162,149,.2);border-radius:50%}.ap-brain-orbit:before{width:240px;height:240px}.ap-brain-orbit:after{width:315px;height:315px}
+  .ap-brain-core{position:absolute;z-index:2;left:50%;top:50%;display:grid;width:132px;height:132px;place-items:center;transform:translate(-50%,-50%);border-radius:50%;background:#fff;color:#111;text-align:center;box-shadow:0 0 0 14px rgba(159,56,38,.1)}
+  .ap-brain-core span{color:var(--ap-brown);font:700 14px/1 "Syne",sans-serif}.ap-brain-core strong{margin-top:-28px;font-size:13px;line-height:1.15}
+  .ap-brain-node{position:absolute;z-index:3;display:flex;min-width:124px;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:#201f1e;padding:9px 12px;color:rgba(255,255,255,.68);font:inherit;cursor:pointer;transition:.2s}
+  .ap-brain-node>span{display:grid;width:30px;height:30px;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);color:#e7a295;font:700 9px/1 "Syne",sans-serif}.ap-brain-node>strong{font-size:11px}
+  .ap-brain-node:hover,.ap-brain-node:focus-visible,.ap-brain-node.is-active{border-color:rgba(231,162,149,.46);background:var(--ap-brown);color:#fff;outline:none}.ap-brain-node.is-active>span{background:#fff;color:var(--ap-brown)}
+  .ap-brain-node.is-node-1{left:18px;top:24px}.ap-brain-node.is-node-2{right:18px;top:24px}.ap-brain-node.is-node-3{left:18px;bottom:24px}.ap-brain-node.is-node-4{right:18px;bottom:24px}
+  .ap-branch-brain-copy{display:flex;min-width:0;flex-direction:column;background:#fff;padding:28px}
+  .ap-brain-tabs{display:flex;flex-wrap:wrap;gap:7px}.ap-brain-tabs button{border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:10px 12px;color:var(--ap-muted);font:800 11px/1 "Public Sans",sans-serif;cursor:pointer}.ap-brain-tabs button:hover,.ap-brain-tabs button:focus-visible,.ap-brain-tabs button.is-active{border-color:var(--ap-brown);background:var(--ap-brown);color:#fff;outline:none}
+  .ap-brain-panel{min-height:235px;display:flex;flex-direction:column;justify-content:center;padding:26px 4px}.ap-brain-panel h3{margin:0;font-size:clamp(27px,3vw,38px);line-height:1.06}.ap-brain-panel p{margin:15px 0 0;color:var(--ap-muted);font-size:15px;line-height:1.58}
+  .ap-brain-output-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:auto}.ap-brain-output-grid>div{border:1px solid var(--ap-line);border-radius:18px;background:var(--ap-soft-2);padding:15px}.ap-brain-output-grid span,.ap-brain-output-grid strong{display:block}.ap-brain-output-grid span{color:var(--ap-brown);font:700 9px/1 "Syne",sans-serif;letter-spacing:1.2px;text-transform:uppercase}.ap-brain-output-grid strong{margin-top:8px;font-size:12px;line-height:1.35}
+
+  .ap-route-planner{display:grid;grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr);gap:14px;border-radius:34px;background:#111;padding:18px;box-shadow:0 24px 70px rgba(17,17,17,.11)}
+  .ap-route-steps{display:grid;gap:9px}.ap-route-steps button{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:rgba(255,255,255,.06);padding:14px;color:rgba(255,255,255,.7);font:inherit;text-align:left;cursor:pointer}.ap-route-steps button:hover,.ap-route-steps button:focus-visible,.ap-route-steps button.is-active{border-color:rgba(231,162,149,.38);background:#fff;color:#111;outline:none}.ap-route-steps button>span{display:grid;width:44px;height:44px;place-items:center;border-radius:14px;background:rgba(255,255,255,.08);color:#e7a295;font:700 10px/1 "Syne",sans-serif}.ap-route-steps button.is-active>span{background:var(--ap-brown);color:#fff}.ap-route-steps strong,.ap-route-steps small{display:block}.ap-route-steps strong{font-size:13px}.ap-route-steps small{margin-top:4px;color:inherit;font-size:10px;line-height:1.35}
+  .ap-route-map{position:relative;overflow:hidden;min-height:350px;display:flex;flex-direction:column;justify-content:center;border-radius:26px;background:linear-gradient(145deg,#fff,#f5eee9);padding:34px}.ap-route-map:after{content:"";position:absolute;right:-80px;bottom:-100px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.18),transparent 68%)}.ap-route-map>*{position:relative;z-index:1}.ap-route-map-head span{display:block;color:var(--ap-brown);font:700 10px/1 "Syne",sans-serif;letter-spacing:1.3px;text-transform:uppercase}.ap-route-map-head strong{display:block;max-width:620px;margin-top:12px;font-size:25px;line-height:1.15}.ap-route-map>p{max-width:620px;margin:24px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}
+  .ap-route-line{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr auto;gap:8px;align-items:center;margin-top:38px}.ap-route-line span{border-radius:999px;background:#dddcd7;padding:8px 10px;color:var(--ap-muted);font-size:10px;font-weight:850}.ap-route-line span.is-active{background:var(--ap-brown);color:#fff}.ap-route-line i{height:2px;background:#d7d4cf}
+
+  .ap-implementation-shell{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);gap:16px;align-items:start}
+  .ap-implementation-roadmap{display:grid;gap:9px}.ap-implementation-phase{overflow:hidden;border:1px solid var(--ap-line);border-radius:24px;background:#fff}.ap-implementation-phase summary{display:grid;grid-template-columns:48px minmax(0,1fr) 30px;gap:15px;align-items:center;padding:20px;cursor:pointer;list-style:none}.ap-implementation-phase summary>span{display:grid;width:48px;height:48px;place-items:center;border-radius:15px;background:#111;color:#fff;font:700 11px/1 "Syne",sans-serif}.ap-implementation-phase h3{margin:0;font-size:19px}.ap-implementation-phase p{margin:6px 0 0;color:var(--ap-muted);font-size:12px;line-height:1.45}.ap-phase-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid var(--ap-line);padding:16px 20px 20px}.ap-phase-items span{border-radius:15px;background:var(--ap-soft-2);padding:13px;color:#111;font-size:11px;font-weight:800;line-height:1.35}
+  .ap-implementation-summary{position:sticky;top:96px;overflow:hidden;border-radius:30px;background:#111;color:#fff;padding:28px;box-shadow:0 20px 60px rgba(17,17,17,.11)}.ap-implementation-summary:after{content:"";position:absolute;right:-75px;bottom:-90px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.48),transparent 70%)}.ap-implementation-summary>*{position:relative;z-index:1}.ap-implementation-summary .ap-kicker{color:#e7a295}.ap-implementation-summary h3{margin:0;font-size:32px}.ap-implementation-summary>p{margin:14px 0 0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.55}.ap-implementation-summary .ap-button{margin-top:22px}
+  .ap-proof-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:22px}.ap-proof-metrics>div{border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(255,255,255,.07);padding:12px}.ap-proof-metrics span,.ap-proof-metrics strong{display:block}.ap-proof-metrics span{color:#e7a295;font:700 9px/1 "Syne",sans-serif}.ap-proof-metrics strong{margin-top:8px;font-size:11px;line-height:1.3}
+
+  @media(max-width:980px){.ap-proposal-feature-grid{grid-template-columns:1fr}.ap-proposal-feature summary{min-height:auto}.ap-branch-brain,.ap-route-planner,.ap-implementation-shell{grid-template-columns:1fr}.ap-implementation-summary{position:relative;top:auto}.ap-route-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.ap-route-steps button{grid-template-columns:1fr}.ap-route-steps button>span{width:38px;height:38px}}
+  @media(max-width:640px){.ap-proposal-feature summary{grid-template-columns:42px minmax(0,1fr) 26px;padding:21px 18px}.ap-proposal-feature summary>span{width:42px;height:42px}.ap-branch-brain-visual,.ap-branch-brain-copy{padding:18px}.ap-brain-orbit{min-height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:170px 12px 12px}.ap-brain-orbit:before,.ap-brain-orbit:after{display:none}.ap-brain-core{top:82px}.ap-brain-node{position:relative;inset:auto!important;min-width:0;justify-content:center}.ap-brain-node>strong{font-size:10px}.ap-brain-output-grid,.ap-proof-metrics{grid-template-columns:1fr}.ap-brain-panel{min-height:260px}.ap-route-planner{padding:12px}.ap-route-steps{grid-template-columns:1fr}.ap-route-steps button{grid-template-columns:44px 1fr}.ap-route-map{min-height:330px;padding:24px}.ap-route-line{grid-template-columns:repeat(4,1fr);gap:5px}.ap-route-line i{display:none}.ap-route-line span{text-align:center}.ap-implementation-phase summary{grid-template-columns:42px minmax(0,1fr) 28px;padding:17px}.ap-implementation-phase summary>span{width:42px;height:42px}.ap-phase-items{grid-template-columns:1fr}.ap-implementation-summary{padding:24px}}
+</style>
