@@ -49,8 +49,8 @@ const featured = knowledgeArticles[0];
           <path class="ap-road-asphalt" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-asphalt" d="M560 318 C600 218 750 144 1110 214" />
           <path class="ap-road-lane" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-lane" d="M560 318 C600 218 750 144 1110 214" />
         </svg>
-        <a class="ap-road-sign ap-road-sign-left" href="#ai-kennis"><strong>AI kennis</strong></a>
-        <a class="ap-road-sign ap-road-sign-right" href="#autopilots-kennis"><strong>Autopilots kennis</strong></a>
+        <a class="ap-road-sign ap-road-sign-left" href="/kennisbank/ai/"><strong>AI kennis</strong></a>
+        <a class="ap-road-sign ap-road-sign-right" href="/kennisbank/autopilots/"><strong>Autopilots kennis</strong></a>
       </div>
       <div class="ap-grid-2 ap-knowledge-route-cards">
       <article class="ap-card ap-route-card">
@@ -58,14 +58,14 @@ const featured = knowledgeArticles[0];
         <div class="ap-kicker">Route 01</div>
         <h2>Ga naar AI kennis.</h2>
         <p class="ap-text">Tools, modellen, OpenAI, Claude, AI nieuws, voice agents, chat agents en nichegerichte AI uitleg voor bedrijven die vooruit willen.</p>
-        <a class="ap-button ap-button-secondary" href="#laatste-kennis">Bekijk laatste AI kennis</a>
+        <a class="ap-button ap-button-secondary" href="/kennisbank/ai/">Ga naar AI kennis</a>
       </article>
       <article class="ap-card ap-route-card ap-route-card-dark">
         <span id="autopilots-kennis" class="ap-anchor-target"></span>
         <div class="ap-kicker">Route 02</div>
         <h2>Ga naar Autopilots kennis.</h2>
         <p class="ap-text">Onze AI-breinen, klantreizen, koppelingen, CRM-acties, livegang, monitoring en lessen uit echte implementaties.</p>
-        <a class="ap-button ap-button-primary" href="#laatste-kennis">Bekijk Autopilots kennis</a>
+        <a class="ap-button ap-button-primary" href="/kennisbank/autopilots/">Ga naar Autopilots kennis</a>
       </article>
       </div>
     </div>
@@ -112,4 +112,5 @@ const featured = knowledgeArticles[0];
 
 <style>
   .ap-knowledge-roadmap{position:relative;min-height:360px;overflow:hidden;border-radius:42px;background:linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/86px 100%,radial-gradient(circle at 50% 108%,rgba(159,56,38,.36),transparent 32%),linear-gradient(180deg,#22211f,#121211 48%,#0f0f0e);box-shadow:0 28px 80px rgba(17,17,17,.18)}.ap-knowledge-roadmap:before{content:"";position:absolute;left:50%;bottom:-34px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.2),transparent 68%);transform:translateX(-50%)}.ap-road-highway{position:absolute;inset:0;width:100%;height:100%}.ap-road-highway path{fill:none;vector-effect:non-scaling-stroke}.ap-road-shadow{stroke:rgba(0,0,0,.5);stroke-width:118;stroke-linecap:round}.ap-road-edge{stroke:rgba(255,255,255,.14);stroke-width:112;stroke-linecap:round}.ap-road-asphalt{stroke:rgba(82,82,78,.94);stroke-width:102;stroke-linecap:round}.ap-road-lane{stroke:rgba(255,255,255,.78);stroke-width:5;stroke-linecap:round;stroke-dasharray:30 28;animation:roadMove 1.45s linear infinite}@keyframes roadMove{to{stroke-dashoffset:-58}}.ap-road-sign{position:absolute;top:52px;z-index:2;display:flex;width:min(350px,32%);min-height:88px;align-items:center;justify-content:center;border:1px solid rgba(159,56,38,.2);border-radius:999px;background:radial-gradient(circle at 100% 100%,rgba(159,56,38,.24),transparent 46%),rgba(255,255,255,.96);padding:22px 60px;font-family:"Syne",sans-serif;font-size:clamp(14px,1.1vw,17px);font-weight:800;letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 26px 74px rgba(17,17,17,.16);transition:transform .2s ease}.ap-road-sign:hover{transform:translateY(-5px)}.ap-road-sign-left{left:52px}.ap-road-sign-right{right:52px}.ap-road-sign-left:before{content:"←";position:absolute;left:30px;color:var(--ap-brown);font-size:22px}.ap-road-sign-right:after{content:"→";position:absolute;right:30px;color:var(--ap-brown);font-size:22px}.ap-knowledge-route-cards{margin-top:18px}.ap-anchor-target{position:absolute;margin-top:-130px}@media(max-width:560px){.ap-knowledge-roadmap{min-height:430px;border-radius:30px}.ap-road-sign{width:calc(100% - 44px);padding:16px 50px}.ap-road-sign-left{left:22px;top:28px}.ap-road-sign-right{right:22px;top:auto;bottom:28px}}
+  .ap-route-card{position:relative;display:flex;min-height:390px;flex-direction:column}.ap-route-card .ap-text{margin-bottom:30px}.ap-route-card .ap-button{align-self:flex-start;margin-top:auto}
 </style>

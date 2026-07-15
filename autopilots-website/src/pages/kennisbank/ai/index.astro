@@ -1,0 +1,6 @@
+---
+import KnowledgeLibrary from "../../../components/ecosystem/KnowledgeLibrary.astro";
+import { knowledgeArticles } from "../../../content/knowledgeArticles";
+const items=knowledgeArticles.map(article=>({title:article.cardTitle,description:article.excerpt,href:`/kennisbank/${article.slug}/`,category:article.category,label:`${article.label} · ${article.readTime}`,keywords:article.keywords}));
+---
+<KnowledgeLibrary mode="ai" items={items} />

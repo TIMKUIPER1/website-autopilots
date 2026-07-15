@@ -3,11 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/sections/Hero.astro";
 import { products } from "../data/products";
 import { niches } from "../data/niches";
+const { pageTitle = "Autopilots | AI medewerkers voor klantcontact en operatie", canonical = "/" } = Astro.props;
 ---
 
 <BaseLayout
-  title="Autopilots | AI medewerkers voor klantcontact en operatie"
+  title={pageTitle}
   description="Autopilots bouwt AI medewerkers die klantcontact afhandelen, afspraken plannen, supportvragen voorbereiden en CRM-processen slimmer maken."
+  canonical={canonical}
 >
   <Hero
     eyebrow="Autopilots"

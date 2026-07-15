@@ -662,6 +662,92 @@
       outline: none;
     }
 
+    #leadsmachine-ai-page .lm-industry-picker {
+      width: 100%;
+    }
+
+    #leadsmachine-ai-page .lm-industry-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      width: 100%;
+      min-height: 50px;
+      padding: 0 14px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 14px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-industry-summary:hover,
+    #leadsmachine-ai-page .lm-industry-picker[open] .lm-industry-summary {
+      border-color: rgba(159, 56, 38, 0.48);
+      box-shadow: 0 0 0 3px rgba(159, 56, 38, 0.08);
+    }
+
+    #leadsmachine-ai-page .lm-industry-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f1ee;
+      color: var(--brown);
+      font-size: 18px;
+      line-height: 1;
+      transition: transform 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-industry-picker[open] .lm-industry-chevron {
+      transform: rotate(180deg);
+    }
+
+    #leadsmachine-ai-page .lm-industry-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    #leadsmachine-ai-page .lm-industry-option {
+      min-height: 42px;
+      padding: 9px 11px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: #f7f7f5;
+      color: #111111;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #leadsmachine-ai-page .lm-industry-option:hover {
+      border-color: rgba(159, 56, 38, 0.3);
+      background: rgba(159, 56, 38, 0.07);
+      color: var(--brown);
+    }
+
+    #leadsmachine-ai-page .lm-industry-option.is-active {
+      background: var(--brown);
+      color: #ffffff;
+    }
+
     #leadsmachine-ai-page .lm-benchmark-toggle {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -902,6 +988,167 @@
       font-weight: 700;
       letter-spacing: -0.045em;
       color: #111111;
+    }
+
+    #leadsmachine-ai-page .lm-growth-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    #leadsmachine-ai-page .lm-growth-metric {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    #leadsmachine-ai-page .lm-growth-metric span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+
+    #leadsmachine-ai-page .lm-growth-metric strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 21px;
+      line-height: 1.08;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-growth-route {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    #leadsmachine-ai-page .lm-route-node {
+      position: relative;
+      min-height: 132px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #leadsmachine-ai-page .lm-route-node.is-accent {
+      background: var(--brown);
+      border-color: var(--brown);
+    }
+
+    #leadsmachine-ai-page .lm-route-node.is-budget {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-route-node.is-budget span,
+    #leadsmachine-ai-page .lm-route-node.is-budget small {
+      color: #656565;
+    }
+
+    #leadsmachine-ai-page .lm-route-node.is-budget strong {
+      color: #111111;
+    }
+
+    #leadsmachine-ai-page .lm-route-node span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 12px;
+    }
+
+    #leadsmachine-ai-page .lm-route-node strong {
+      display: block;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    #leadsmachine-ai-page .lm-route-node small {
+      display: block;
+      font-size: 12px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-summary div {
+      font-size: 12px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    #leadsmachine-ai-page .lm-benchmark-summary strong {
+      display: block;
+      margin-top: 5px;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    #leadsmachine-ai-page .lm-conversion-compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #leadsmachine-ai-page .lm-conversion-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px 16px;
+      align-items: end;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    #leadsmachine-ai-page .lm-conversion-card.is-ai {
+      background: rgba(159, 56, 38, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #leadsmachine-ai-page .lm-conversion-card span {
+      font-size: 12px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.64);
+    }
+
+    #leadsmachine-ai-page .lm-conversion-card strong {
+      display: block;
+      margin-top: 6px;
+      font-family: "Syne", "Public Sans", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    #leadsmachine-ai-page .lm-conversion-card small {
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: right;
+      color: rgba(255, 255, 255, 0.72);
     }
 
     #leadsmachine-ai-page .lm-package-grid {
@@ -1187,7 +1434,11 @@
 
       #leadsmachine-ai-page .lm-calc-cost-row,
       #leadsmachine-ai-page .lm-impact-grid,
-      #leadsmachine-ai-page .lm-impact-grid.is-four {
+      #leadsmachine-ai-page .lm-impact-grid.is-four,
+      #leadsmachine-ai-page .lm-growth-strip,
+      #leadsmachine-ai-page .lm-growth-route,
+      #leadsmachine-ai-page .lm-benchmark-summary,
+      #leadsmachine-ai-page .lm-conversion-compare {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -1239,8 +1490,16 @@
       #leadsmachine-ai-page .lm-calc-cost-row,
       #leadsmachine-ai-page .lm-compare-grid,
       #leadsmachine-ai-page .lm-impact-grid,
-      #leadsmachine-ai-page .lm-impact-grid.is-four {
+      #leadsmachine-ai-page .lm-impact-grid.is-four,
+      #leadsmachine-ai-page .lm-growth-strip,
+      #leadsmachine-ai-page .lm-growth-route,
+      #leadsmachine-ai-page .lm-benchmark-summary,
+      #leadsmachine-ai-page .lm-conversion-compare {
         grid-template-columns: 1fr;
+      }
+
+      #leadsmachine-ai-page .lm-industry-options {
+        grid-template-columns: 1fr 1fr;
       }
 
       #leadsmachine-ai-page .lm-impact-header {
@@ -1658,10 +1917,10 @@ body {
   <section class="lm-section" id="leadsmachine-calculator">
     <div class="lm-container">
       <div class="lm-center">
-        <div class="lm-eyebrow">PRIJS EN PROGNOSE</div>
-        <h2 class="lm-title">Bereken snel wat Leadsmachine AI kan opleveren.</h2>
+        <div class="lm-eyebrow">JOUW GROEIPAD</div>
+        <h2 class="lm-title">Van je huidige omzet naar je volgende groeidoel.</h2>
         <p class="lm-subtitle">
-          De calculator rekent niet plat van lead naar klant. We tonen eerst hoeveel afspraken je uit leads haalt, en daarna hoeveel klanten daaruit komen.
+          Vul in waar je nu staat en waar je naartoe wilt. Op basis van je branche berekenen we hoeveel nieuwe klanten en leads nodig zijn om dat omzetdoel te bereiken.
         </p>
       </div>
 
@@ -1669,47 +1928,38 @@ body {
         <div class="lm-calculator-layout">
           <div class="lm-calc-inputs">
             <div class="lm-field">
-              <label for="lmaPackage">Kies pakket</label>
-              <small>Prijs, advertentiebudget en AI uplift passen automatisch aan.</small>
-              <select id="lmaPackage">
-                <option value="start">Leadsmachine Start</option>
-                <option value="scale">Leadsmachine Scale</option>
-                <option value="premium">Leadsmachine Premium</option>
+              <label for="lmaCurrentRevenue">Hoeveel omzet draai je nu per maand?</label>
+              <small>Gebruik je gemiddelde maandelijkse omzet.</small>
+              <input id="lmaCurrentRevenue" type="number" min="0" step="1000" value="50000">
+            </div>
+
+            <div class="lm-field">
+              <label for="lmaTargetRevenue">Waar wil je per maand naartoe groeien?</label>
+              <small>Kies een ambitieus maar haalbaar omzetdoel.</small>
+              <input id="lmaTargetRevenue" type="number" min="0" step="1000" value="75000">
+            </div>
+
+            <div class="lm-field">
+              <label for="lmaIndustry">In welke branche zit je?</label>
+              <small>We gebruiken een indicatieve branchebenchmark voor klantwaarde, conversie en CPL.</small>
+              <select id="lmaIndustry">
+                <option value="business">Zakelijke dienstverlening</option>
+                <option value="construction">Bouw &amp; installatietechniek</option>
+                <option value="realestate">Vastgoed &amp; makelaardij</option>
+                <option value="automotive">Automotive</option>
+                <option value="clinics">Klinieken &amp; zorg</option>
+                <option value="hospitality">Horeca &amp; hospitality</option>
+                <option value="ecommerce">E-commerce &amp; retail</option>
+                <option value="local">Lokale dienstverlening</option>
               </select>
-            </div>
-
-            <div class="lm-field">
-              <label>Type benchmark</label>
-              <small>Kies of je rekent met een B2B of B2C funnel.</small>
-
-              <div class="lm-benchmark-toggle" role="group" aria-label="Benchmark type kiezen">
-                <button class="lm-benchmark-button is-active" type="button" data-benchmark="b2b">B2B</button>
-                <button class="lm-benchmark-button" type="button" data-benchmark="b2c">B2C</button>
-              </div>
-
-              <div id="lmaBenchmarkLabel" class="lm-benchmark-output">
-                B2B, gemiddeld 20% van leads wordt afspraak. Gemiddeld 25% van afspraken wordt klant.
-              </div>
-            </div>
-
-            <div class="lm-field">
-              <label for="lmaCpl">Gemiddelde kosten per lead</label>
-              <small>Gebruik je historische CPL of een realistische schatting.</small>
-              <input id="lmaCpl" type="number" min="1" value="30">
-            </div>
-
-            <div class="lm-field">
-              <label for="lmaMargin">Gemiddelde marge per klant</label>
-              <small>Gebruik marge, niet omzet, voor een eerlijkere prognose.</small>
-              <input id="lmaMargin" type="number" min="0" value="2500">
             </div>
 
             <details>
               <summary class="lm-field">
                 <div class="lm-click-row">
                   <div>
-                    <label>Gebruikskosten bekijken</label>
-                    <small>Inbound chat €0,02 per bericht, outbound chat €0,22 per bericht.</small>
+                    <label>Benchmark verfijnen</label>
+                    <small>Pas alleen aan als je je gemiddelde omzet per nieuwe klant kent.</small>
                   </div>
                   <span class="lm-plus">+</span>
                 </div>
@@ -1717,130 +1967,64 @@ body {
 
               <div class="lm-calc-inputs" style="margin-top:12px;">
                 <div class="lm-field">
-                  <label for="lmaInbound">Inbound chat berichten</label>
-                  <small>€0,02 per bericht.</small>
-                  <input id="lmaInbound" type="number" min="0" value="1000">
+                  <label for="lmaCustomerValue">Gemiddelde omzet per nieuwe klant</label>
+                  <small>De branchewaarde wordt automatisch ingevuld. Je kunt deze overschrijven.</small>
+                  <input id="lmaCustomerValue" type="number" min="1" step="50" value="3500">
                 </div>
-
-                <div class="lm-field">
-                  <label for="lmaOutbound">Outbound chat berichten</label>
-                  <small>€0,22 per bericht.</small>
-                  <input id="lmaOutbound" type="number" min="0" value="500">
-                </div>
-              </div>
-
-              <div class="lm-more">
-                Geschatte gebruikskosten: <strong id="lmaUsageInline">€0</strong>. Deze worden apart afgerekend op basis van werkelijk verbruik.
               </div>
             </details>
           </div>
 
           <div class="lm-calc-results">
-            <h3>Jouw simpele prognose</h3>
+            <h3>Jouw route naar groei</h3>
 
-            <div class="lm-calc-cost-row">
-              <div class="lm-cost-pill">
-                <span>Abonnement</span>
-                <strong id="lmaMonthly">€0</strong>
+            <div class="lm-growth-strip">
+              <div class="lm-growth-metric">
+                <span>Huidige maandomzet</span>
+                <strong id="lmaCurrentOutput">€0</strong>
               </div>
 
-              <div class="lm-cost-pill">
-                <span>Ads budget</span>
-                <strong id="lmaAdBudget">€0</strong>
+              <div class="lm-growth-metric">
+                <span>Gewenste maandomzet</span>
+                <strong id="lmaTargetOutput">€0</strong>
               </div>
 
-              <div class="lm-cost-pill">
-                <span>Leads</span>
-                <strong id="lmaEstimatedLeads">0</strong>
-              </div>
-
-              <div class="lm-cost-pill">
-                <span>Implementatie</span>
-                <strong id="lmaSetup">€0</strong>
+              <div class="lm-growth-metric">
+                <span>Benodigde groei</span>
+                <strong id="lmaRevenueGap">€0</strong>
               </div>
             </div>
 
-            <div class="lm-compare-grid">
-              <div class="lm-compare-card">
-                <h4>Zonder AI opvolging</h4>
-
-                <div class="lm-compare-metric">
-                  <span>Verwachte afspraken</span>
-                  <strong id="lmaAppointmentsNoAi">0</strong>
-                </div>
-
-                <div class="lm-compare-metric">
-                  <span>Verwachte klanten</span>
-                  <strong id="lmaCustomersNoAi">0</strong>
-                </div>
-
-                <div class="lm-compare-metric">
-                  <span>Potentiële marge</span>
-                  <strong id="lmaMarginNoAi" class="lm-smaller-result">€0</strong>
-                </div>
+            <div class="lm-growth-route">
+              <div class="lm-route-node">
+                <span>Nieuwe klanten nodig</span>
+                <strong id="lmaCustomersNeeded">0</strong>
+                <small>per maand om het omzetverschil te overbruggen</small>
               </div>
 
-              <div class="lm-compare-card is-ai">
-                <h4>Met AI opvolging</h4>
+              <div class="lm-route-node">
+                <span>Gekwalificeerde afspraken nodig</span>
+                <strong id="lmaAppointmentsNeeded">0</strong>
+                <small>met prospects die passen bij je aanbod</small>
+              </div>
 
-                <div class="lm-compare-metric">
-                  <span>Verwachte afspraken</span>
-                  <strong id="lmaAppointmentsWithAi">0</strong>
-                </div>
-
-                <div class="lm-compare-metric">
-                  <span>Verwachte klanten</span>
-                  <strong id="lmaCustomersWithAi">0</strong>
-                </div>
-
-                <div class="lm-compare-metric">
-                  <span>Potentiële marge</span>
-                  <strong id="lmaMarginWithAi" class="lm-smaller-result">€0</strong>
-                </div>
+              <div class="lm-route-node is-accent">
+                <span>Leads nodig met Autopilots</span>
+                <strong id="lmaLeadsNeeded">0</strong>
+                <small>direct opgevolgd, gekwalificeerd en richting afspraak gestuurd</small>
               </div>
             </div>
 
-            <div class="lm-impact-card">
-              <div class="lm-impact-header">
-                <div>
-                  <h4>Het verschil door AI</h4>
-                  <p>
-                    AI zorgt vooral voor snellere opvolging, meer afspraken en daardoor meer kansen om klanten te sluiten.
-                  </p>
-                </div>
-
-                <div class="lm-impact-badge">
-                  AI uplift: <strong id="lmaAiUplift">0%</strong>
-                </div>
-              </div>
-
-              <div class="lm-impact-grid is-four">
-                <div class="lm-impact-item">
-                  <span>Extra afspraken</span>
-                  <strong id="lmaExtraAppointments">0</strong>
-                </div>
-
-                <div class="lm-impact-item">
-                  <span>Extra klanten</span>
-                  <strong id="lmaExtraCustomers">0</strong>
-                </div>
-
-                <div class="lm-impact-item">
-                  <span>Extra marge</span>
-                  <strong id="lmaExtraMargin">€0</strong>
-                </div>
-
-                <div class="lm-impact-item">
-                  <span>Marge na abonnement + ads</span>
-                  <strong id="lmaNetMonthly">€0</strong>
-                </div>
-              </div>
+            <div class="lm-benchmark-summary">
+              <div>Branchebenchmark<strong id="lmaIndustryLabel">Zakelijke dienstverlening</strong></div>
+              <div>Indicatieve CPL<strong id="lmaCplOutput">€0 per lead</strong></div>
+              <div>Lead naar klant met AI<strong id="lmaConversionOutput">0%</strong></div>
             </div>
           </div>
         </div>
 
         <div class="lm-more" style="margin-top:16px;">
-          Deze calculator gebruikt een simpel funnelmodel: leads naar afspraken, daarna afspraken naar klanten. Gebruikskosten per bericht zijn niet meegenomen in de hoofdprognose.
+          Dit is een indicatieve groeiprognose op basis van branchebenchmarks. Tijdens de intake vervangen we deze aannames door jullie werkelijke data, aanbod en verkoopproces.
         </div>
       </div>
     </div>
@@ -2165,41 +2349,64 @@ body {
       const root = document.getElementById("leadsmachine-ai-page");
       if (!root) return;
 
-      const packages = {
-        start: {
-          monthly: 1850,
-          setup: 3950,
-          adBudget: 2500,
-          aiUplift: 0.25
+      const industryBenchmarks = {
+        business: {
+          label: "Zakelijke dienstverlening",
+          customerValue: 3500,
+          cpl: 75,
+          appointmentRate: 0.28,
+          closeRate: 0.28
         },
-        scale: {
-          monthly: 2795,
-          setup: 5590,
-          adBudget: 7500,
-          aiUplift: 0.35
+        construction: {
+          label: "Bouw & installatietechniek",
+          customerValue: 4500,
+          cpl: 55,
+          appointmentRate: 0.30,
+          closeRate: 0.30
         },
-        premium: {
-          monthly: 3999,
-          setup: 8599,
-          adBudget: 15000,
-          aiUplift: 0.50
+        realestate: {
+          label: "Vastgoed & makelaardij",
+          customerValue: 3000,
+          cpl: 45,
+          appointmentRate: 0.27,
+          closeRate: 0.25
+        },
+        automotive: {
+          label: "Automotive",
+          customerValue: 1800,
+          cpl: 35,
+          appointmentRate: 0.34,
+          closeRate: 0.32
+        },
+        clinics: {
+          label: "Klinieken & zorg",
+          customerValue: 1100,
+          cpl: 40,
+          appointmentRate: 0.36,
+          closeRate: 0.35
+        },
+        hospitality: {
+          label: "Horeca & hospitality",
+          customerValue: 450,
+          cpl: 22,
+          appointmentRate: 0.30,
+          closeRate: 0.30
+        },
+        ecommerce: {
+          label: "E-commerce & retail",
+          customerValue: 175,
+          cpl: 18,
+          appointmentRate: 0.24,
+          closeRate: 0.24
+        },
+        local: {
+          label: "Lokale dienstverlening",
+          customerValue: 2200,
+          cpl: 42,
+          appointmentRate: 0.32,
+          closeRate: 0.30
         }
       };
-
-      const benchmarkRates = {
-        b2b: {
-          appointmentRate: 0.20,
-          closeRate: 0.25,
-          label: "B2B, gemiddeld 20% van leads wordt afspraak. Gemiddeld 25% van afspraken wordt klant."
-        },
-        b2c: {
-          appointmentRate: 0.25,
-          closeRate: 0.30,
-          label: "B2C, gemiddeld 25% van leads wordt afspraak. Gemiddeld 30% van afspraken wordt klant."
-        }
-      };
-
-      let selectedBenchmark = "b2b";
 
       const topicContent = {
         top: {
@@ -2246,9 +2453,6 @@ body {
         }
       };
 
-      const inboundCost = 0.02;
-      const outboundCost = 0.22;
-
       function el(id) {
         return root.querySelector("#" + id);
       }
@@ -2259,13 +2463,6 @@ body {
 
         const value = parseFloat(field.value);
         return Number.isFinite(value) ? value : 0;
-      }
-
-      function getPackage() {
-        const field = el("lmaPackage");
-        if (!field) return packages.start;
-
-        return packages[field.value] || packages.start;
       }
 
       function formatEuro(value) {
@@ -2311,62 +2508,33 @@ body {
       }
 
       function calculate() {
-        const selectedPackage = getPackage();
-        const benchmark = benchmarkRates[selectedBenchmark] || benchmarkRates.b2b;
+        const industryField = el("lmaIndustry");
+        const industryKey = industryField ? industryField.value : "business";
+        const benchmark = industryBenchmarks[industryKey] || industryBenchmarks.business;
 
-        const cpl = Math.max(getNumber("lmaCpl"), 1);
-        const margin = getNumber("lmaMargin");
+        const currentRevenue = Math.max(getNumber("lmaCurrentRevenue"), 0);
+        const targetRevenue = Math.max(getNumber("lmaTargetRevenue"), 0);
+        const revenueGap = Math.max(targetRevenue - currentRevenue, 0);
+        const customerValue = Math.max(getNumber("lmaCustomerValue"), 1);
+        const aiConversionRate = benchmark.appointmentRate * benchmark.closeRate;
 
-        const inbound = getNumber("lmaInbound");
-        const outbound = getNumber("lmaOutbound");
+        const customersNeeded = revenueGap > 0 ? Math.ceil(revenueGap / customerValue) : 0;
+        const appointmentsNeeded = customersNeeded > 0
+          ? Math.ceil(customersNeeded / benchmark.closeRate)
+          : 0;
+        const leadsNeeded = customersNeeded > 0
+          ? Math.ceil(customersNeeded / aiConversionRate)
+          : 0;
 
-        const usage = inbound * inboundCost + outbound * outboundCost;
-
-        const monthly = selectedPackage.monthly;
-        const setup = selectedPackage.setup;
-        const adBudget = selectedPackage.adBudget;
-        const aiUplift = selectedPackage.aiUplift;
-
-        const estimatedLeads = adBudget / cpl;
-
-        const totalMonthly = monthly + adBudget;
-
-        const appointmentsNoAi = estimatedLeads * benchmark.appointmentRate;
-        const appointmentsWithAi = appointmentsNoAi * (1 + aiUplift);
-
-        const customersNoAi = appointmentsNoAi * benchmark.closeRate;
-        const customersWithAi = appointmentsWithAi * benchmark.closeRate;
-
-        const extraAppointments = appointmentsWithAi - appointmentsNoAi;
-        const extraCustomers = customersWithAi - customersNoAi;
-
-        const marginNoAi = customersNoAi * margin;
-        const marginWithAi = customersWithAi * margin;
-
-        const extraMargin = marginWithAi - marginNoAi;
-        const netMonthly = marginWithAi - totalMonthly;
-
-        setOutput("lmaMonthly", formatEuro(monthly));
-        setOutput("lmaAdBudget", formatEuro(adBudget));
-        setOutput("lmaEstimatedLeads", formatNumber(estimatedLeads));
-        setOutput("lmaSetup", formatEuro(setup));
-
-        setOutput("lmaAppointmentsNoAi", formatNumber(appointmentsNoAi));
-        setOutput("lmaCustomersNoAi", formatNumber(customersNoAi));
-        setOutput("lmaMarginNoAi", formatEuro(marginNoAi));
-
-        setOutput("lmaAppointmentsWithAi", formatNumber(appointmentsWithAi));
-        setOutput("lmaCustomersWithAi", formatNumber(customersWithAi));
-        setOutput("lmaMarginWithAi", formatEuro(marginWithAi));
-
-        setOutput("lmaExtraAppointments", formatNumber(extraAppointments));
-        setOutput("lmaExtraCustomers", formatNumber(extraCustomers));
-        setOutput("lmaExtraMargin", formatEuro(extraMargin));
-
-        setOutput("lmaNetMonthly", formatEuro(netMonthly));
-        setOutput("lmaAiUplift", formatPercent(aiUplift));
-        setOutput("lmaUsageInline", formatEuro(usage));
-        setOutput("lmaBenchmarkLabel", benchmark.label);
+        setOutput("lmaCurrentOutput", formatEuro(currentRevenue));
+        setOutput("lmaTargetOutput", formatEuro(targetRevenue));
+        setOutput("lmaRevenueGap", formatEuro(revenueGap));
+        setOutput("lmaCustomersNeeded", formatNumber(customersNeeded));
+        setOutput("lmaAppointmentsNeeded", formatNumber(appointmentsNeeded));
+        setOutput("lmaLeadsNeeded", formatNumber(leadsNeeded));
+        setOutput("lmaIndustryLabel", benchmark.label);
+        setOutput("lmaCplOutput", formatEuro(benchmark.cpl) + " per lead");
+        setOutput("lmaConversionOutput", formatPercent(aiConversionRate));
       }
 
       function setupTopicButtons() {
@@ -2396,33 +2564,10 @@ body {
         });
       }
 
-      function setupBenchmarkButtons() {
-        const buttons = root.querySelectorAll(".lm-benchmark-button");
-
-        buttons.forEach(function (button) {
-          button.addEventListener("click", function () {
-            const benchmark = button.getAttribute("data-benchmark");
-
-            if (!benchmarkRates[benchmark]) return;
-
-            selectedBenchmark = benchmark;
-
-            buttons.forEach(function (item) {
-              item.classList.remove("is-active");
-            });
-
-            button.classList.add("is-active");
-            calculate();
-          });
-        });
-      }
-
       [
-        "lmaPackage",
-        "lmaCpl",
-        "lmaMargin",
-        "lmaInbound",
-        "lmaOutbound"
+        "lmaCurrentRevenue",
+        "lmaTargetRevenue",
+        "lmaCustomerValue"
       ].forEach(function (id) {
         const input = el(id);
 
@@ -2432,8 +2577,21 @@ body {
         }
       });
 
+      const industryField = el("lmaIndustry");
+      if (industryField) {
+        industryField.addEventListener("change", function () {
+          const benchmark = industryBenchmarks[industryField.value] || industryBenchmarks.business;
+          const customerValueField = el("lmaCustomerValue");
+
+          if (customerValueField) {
+            customerValueField.value = benchmark.customerValue;
+          }
+
+          calculate();
+        });
+      }
+
       setupTopicButtons();
-      setupBenchmarkButtons();
       calculate();
     })();
   </script>

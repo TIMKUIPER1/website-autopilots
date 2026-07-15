@@ -5,7 +5,7 @@ import { knowledgeArticles } from "../content/knowledgeArticles";
 
 export const prerender = true;
 
-const staticRoutes = ["/", "/producten/", "/voor-wie/", "/proces/", "/crew/", "/kennisbank/", "/afspraak/", "/contact/", "/bestel-direct/", "/privacy/"];
+const staticRoutes = ["/", "/producten/", "/voor-wie/", "/proces/", "/crew/", "/kennisbank/", "/kennisbank/ai/", "/kennisbank/autopilots/", "/afspraak/", "/contact/", "/bestel-direct/", "/privacy/"];
 
 export const GET: APIRoute = ({ site }) => {
   const origin = site ?? new URL("https://auto-pilots.io");

@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
       <div class="ap-footer-brand"><div class="ap-kicker">Autopilots</div><h2>AI-medewerkers die klantcontact omzetten naar actie.</h2><p>Vijf vaste producten, ingericht op de processen, systemen en uitzonderingen van je branche.</p><div class="ap-footer-actions"><a class="ap-button ap-button-primary" href="/afspraak/">Plan een korte analyse</a><a href="/bestel-direct/">Bestel direct →</a></div></div>
       <nav class="ap-footer-column" aria-label="Producten in footer"><strong>Producten</strong>{products.map((product)=><a href={`/producten/${product.slug}/`}>{product.name}</a>)}</nav>
       <nav class="ap-footer-column" aria-label="Branches in footer"><strong>Branches</strong>{niches.slice(0,8).map((niche)=><a href={`/voor-wie/${niche.slug}/`}>{niche.name}</a>)}<a href="/voor-wie/">Alle branches</a></nav>
-      <nav class="ap-footer-column" aria-label="Bedrijf in footer"><strong>Autopilots</strong><a href="/proces/">Proces</a><a href="/crew/">Over Autopilots</a><a href="/kennisbank/">Kennisbank</a><a href="/contact/">Contact</a><a href="/bestel-direct/">Bestel direct</a><a href="/privacy/">Privacy</a><a href="/voorwaarden/">Voorwaarden bij bestelling</a></nav>
+      <nav class="ap-footer-column" aria-label="Bedrijf in footer"><strong>Autopilots</strong><a href="/proces/">Proces</a><a href="/crew/">Crew</a><a href="/kennisbank/">Kennisbank</a><a href="/contact/">Contact</a><a href="/bestel-direct/">Bestel direct</a><a href="/privacy/">Privacy</a><a href="/voorwaarden/">Voorwaarden bij bestelling</a></nav>
     </div>
     <p class="ap-footer-small">© {year} Autopilots. Gebouwd als systeem, niet als losse marketing.</p>
   </div>
