@@ -1151,6 +1151,15 @@
       color: rgba(255, 255, 255, 0.72);
     }
 
+    #leadsmachine-ai-page .lm-conversion-card small strong {
+      display: inline;
+      margin: 0;
+      font-family: "Public Sans", Arial, sans-serif;
+      font-size: 13px;
+      line-height: inherit;
+      color: #ffffff;
+    }
+
     #leadsmachine-ai-page .lm-package-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1940,18 +1949,39 @@ body {
             </div>
 
             <div class="lm-field">
-              <label for="lmaIndustry">In welke branche zit je?</label>
+              <label id="lmaIndustryLabelText">In welke branche zit je?</label>
               <small>We gebruiken een indicatieve branchebenchmark voor klantwaarde, conversie en CPL.</small>
-              <select id="lmaIndustry">
-                <option value="business">Zakelijke dienstverlening</option>
-                <option value="construction">Bouw &amp; installatietechniek</option>
-                <option value="realestate">Vastgoed &amp; makelaardij</option>
-                <option value="automotive">Automotive</option>
-                <option value="clinics">Klinieken &amp; zorg</option>
-                <option value="hospitality">Horeca &amp; hospitality</option>
-                <option value="ecommerce">E-commerce &amp; retail</option>
-                <option value="local">Lokale dienstverlening</option>
-              </select>
+              <details class="lm-industry-picker" id="lmaIndustryPicker">
+                <summary class="lm-industry-summary" aria-labelledby="lmaIndustryLabelText">
+                  <span id="lmaIndustrySelected">Dakdekkers</span>
+                  <span class="lm-industry-chevron" aria-hidden="true">&#8964;</span>
+                </summary>
+
+                <div class="lm-industry-options" role="listbox" aria-label="Kies je branche">
+                  <button class="lm-industry-option is-active" type="button" data-industry="roofers">Dakdekkers</button>
+                  <button class="lm-industry-option" type="button" data-industry="solar">Zonnepanelen</button>
+                  <button class="lm-industry-option" type="button" data-industry="frames">Kozijnen</button>
+                  <button class="lm-industry-option" type="button" data-industry="events">Evenementen</button>
+                  <button class="lm-industry-option" type="button" data-industry="dentists">Tandartsen</button>
+                  <button class="lm-industry-option" type="button" data-industry="realtors">Makelaars</button>
+                  <button class="lm-industry-option" type="button" data-industry="cosmetic">Cosmetische klinieken</button>
+                  <button class="lm-industry-option" type="button" data-industry="installation">Installatietechniek</button>
+                  <button class="lm-industry-option" type="button" data-industry="gardeners">Hoveniers</button>
+                  <button class="lm-industry-option" type="button" data-industry="flooring">Vloerenleggers</button>
+                  <button class="lm-industry-option" type="button" data-industry="glaziers">Glaszetters</button>
+                  <button class="lm-industry-option" type="button" data-industry="hotels">Hotels</button>
+                  <button class="lm-industry-option" type="button" data-industry="restaurants">Restaurants</button>
+                  <button class="lm-industry-option" type="button" data-industry="automotive">Autobedrijven</button>
+                  <button class="lm-industry-option" type="button" data-industry="property">Vastgoedbeheerders</button>
+                  <button class="lm-industry-option" type="button" data-industry="salons">Kapperszaken</button>
+                  <button class="lm-industry-option" type="button" data-industry="housing">Woningcorporaties</button>
+                  <button class="lm-industry-option" type="button" data-industry="insurance">Verzekeraars</button>
+                  <button class="lm-industry-option" type="button" data-industry="nonprofit">Non-profit</button>
+                  <button class="lm-industry-option" type="button" data-industry="animalcare">Dierenverzorging</button>
+                  <button class="lm-industry-option" type="button" data-industry="vets">Dierenartsen</button>
+                </div>
+              </details>
+              <input id="lmaIndustry" type="hidden" value="roofers">
             </div>
 
             <details>
@@ -1969,7 +1999,7 @@ body {
                 <div class="lm-field">
                   <label for="lmaCustomerValue">Gemiddelde omzet per nieuwe klant</label>
                   <small>De branchewaarde wordt automatisch ingevuld. Je kunt deze overschrijven.</small>
-                  <input id="lmaCustomerValue" type="number" min="1" step="50" value="3500">
+                  <input id="lmaCustomerValue" type="number" min="1" step="50" value="4500">
                 </div>
               </div>
             </details>
@@ -2013,12 +2043,36 @@ body {
                 <strong id="lmaLeadsNeeded">0</strong>
                 <small>direct opgevolgd, gekwalificeerd en richting afspraak gestuurd</small>
               </div>
+
+              <div class="lm-route-node is-budget">
+                <span>Benodigd advertentiebudget</span>
+                <strong id="lmaRequiredAdBudget">€0</strong>
+                <small>indicatief maandbudget op basis van de branche-CPL</small>
+              </div>
+            </div>
+
+            <div class="lm-conversion-compare">
+              <div class="lm-conversion-card">
+                <div>
+                  <span>Zonder AI opvolging</span>
+                  <strong id="lmaWithoutAiConversion">0%</strong>
+                </div>
+                <small><strong id="lmaLeadsWithoutAi">0</strong> leads nodig</small>
+              </div>
+
+              <div class="lm-conversion-card is-ai">
+                <div>
+                  <span>Met Autopilots AI</span>
+                  <strong id="lmaWithAiConversion">0%</strong>
+                </div>
+                <small><strong id="lmaLeadsWithAi">0</strong> leads nodig</small>
+              </div>
             </div>
 
             <div class="lm-benchmark-summary">
-              <div>Branchebenchmark<strong id="lmaIndustryLabel">Zakelijke dienstverlening</strong></div>
+              <div>Branchebenchmark<strong id="lmaIndustryLabel">Dakdekkers</strong></div>
               <div>Indicatieve CPL<strong id="lmaCplOutput">€0 per lead</strong></div>
-              <div>Lead naar klant met AI<strong id="lmaConversionOutput">0%</strong></div>
+              <div>Omzet per nieuwe klant<strong id="lmaCustomerValueOutput">€0</strong></div>
             </div>
           </div>
         </div>
@@ -2350,61 +2404,40 @@ body {
       if (!root) return;
 
       const industryBenchmarks = {
-        business: {
-          label: "Zakelijke dienstverlening",
-          customerValue: 3500,
-          cpl: 75,
-          appointmentRate: 0.28,
-          closeRate: 0.28
-        },
-        construction: {
-          label: "Bouw & installatietechniek",
-          customerValue: 4500,
-          cpl: 55,
-          appointmentRate: 0.30,
-          closeRate: 0.30
-        },
-        realestate: {
-          label: "Vastgoed & makelaardij",
-          customerValue: 3000,
-          cpl: 45,
-          appointmentRate: 0.27,
-          closeRate: 0.25
-        },
+        roofers: { label: "Dakdekkers", customerValue: 4500, cpl: 55, withoutAiRate: 0.06, withAiRate: 0.085, closeRate: 0.30 },
+        solar: { label: "Zonnepanelen", customerValue: 6500, cpl: 65, withoutAiRate: 0.05, withAiRate: 0.075, closeRate: 0.28 },
+        frames: { label: "Kozijnen", customerValue: 5500, cpl: 60, withoutAiRate: 0.055, withAiRate: 0.08, closeRate: 0.29 },
+        events: { label: "Evenementen", customerValue: 3500, cpl: 40, withoutAiRate: 0.07, withAiRate: 0.10, closeRate: 0.30 },
+        dentists: { label: "Tandartsen", customerValue: 700, cpl: 35, withoutAiRate: 0.10, withAiRate: 0.14, closeRate: 0.40 },
+        realtors: { label: "Makelaars", customerValue: 3500, cpl: 50, withoutAiRate: 0.06, withAiRate: 0.085, closeRate: 0.25 },
+        cosmetic: { label: "Cosmetische klinieken", customerValue: 1200, cpl: 45, withoutAiRate: 0.09, withAiRate: 0.13, closeRate: 0.35 },
+        installation: { label: "Installatietechniek", customerValue: 3000, cpl: 50, withoutAiRate: 0.07, withAiRate: 0.10, closeRate: 0.30 },
+        gardeners: { label: "Hoveniers", customerValue: 2500, cpl: 40, withoutAiRate: 0.08, withAiRate: 0.115, closeRate: 0.32 },
+        flooring: { label: "Vloerenleggers", customerValue: 3500, cpl: 45, withoutAiRate: 0.07, withAiRate: 0.10, closeRate: 0.30 },
+        glaziers: { label: "Glaszetters", customerValue: 2800, cpl: 45, withoutAiRate: 0.075, withAiRate: 0.105, closeRate: 0.30 },
+        hotels: { label: "Hotels", customerValue: 600, cpl: 28, withoutAiRate: 0.08, withAiRate: 0.11, closeRate: 0.32 },
+        restaurants: { label: "Restaurants", customerValue: 250, cpl: 20, withoutAiRate: 0.09, withAiRate: 0.12, closeRate: 0.30 },
         automotive: {
-          label: "Automotive",
+          label: "Autobedrijven",
           customerValue: 1800,
           cpl: 35,
-          appointmentRate: 0.34,
+          withoutAiRate: 0.09,
+          withAiRate: 0.125,
           closeRate: 0.32
         },
-        clinics: {
-          label: "Klinieken & zorg",
-          customerValue: 1100,
-          cpl: 40,
-          appointmentRate: 0.36,
+        property: { label: "Vastgoedbeheerders", customerValue: 2500, cpl: 45, withoutAiRate: 0.06, withAiRate: 0.085, closeRate: 0.25 },
+        salons: { label: "Kapperszaken", customerValue: 120, cpl: 15, withoutAiRate: 0.12, withAiRate: 0.16, closeRate: 0.40 },
+        housing: { label: "Woningcorporaties", customerValue: 12000, cpl: 110, withoutAiRate: 0.04, withAiRate: 0.06, closeRate: 0.20 },
+        insurance: { label: "Verzekeraars", customerValue: 900, cpl: 40, withoutAiRate: 0.07, withAiRate: 0.10, closeRate: 0.30 },
+        nonprofit: { label: "Non-profit", customerValue: 750, cpl: 30, withoutAiRate: 0.06, withAiRate: 0.085, closeRate: 0.25 },
+        animalcare: { label: "Dierenverzorging", customerValue: 300, cpl: 22, withoutAiRate: 0.10, withAiRate: 0.14, closeRate: 0.35 },
+        vets: {
+          label: "Dierenartsen",
+          customerValue: 350,
+          cpl: 25,
+          withoutAiRate: 0.11,
+          withAiRate: 0.15,
           closeRate: 0.35
-        },
-        hospitality: {
-          label: "Horeca & hospitality",
-          customerValue: 450,
-          cpl: 22,
-          appointmentRate: 0.30,
-          closeRate: 0.30
-        },
-        ecommerce: {
-          label: "E-commerce & retail",
-          customerValue: 175,
-          cpl: 18,
-          appointmentRate: 0.24,
-          closeRate: 0.24
-        },
-        local: {
-          label: "Lokale dienstverlening",
-          customerValue: 2200,
-          cpl: 42,
-          appointmentRate: 0.32,
-          closeRate: 0.30
         }
       };
 
@@ -2509,32 +2542,40 @@ body {
 
       function calculate() {
         const industryField = el("lmaIndustry");
-        const industryKey = industryField ? industryField.value : "business";
-        const benchmark = industryBenchmarks[industryKey] || industryBenchmarks.business;
+        const industryKey = industryField ? industryField.value : "roofers";
+        const benchmark = industryBenchmarks[industryKey] || industryBenchmarks.roofers;
 
         const currentRevenue = Math.max(getNumber("lmaCurrentRevenue"), 0);
         const targetRevenue = Math.max(getNumber("lmaTargetRevenue"), 0);
         const revenueGap = Math.max(targetRevenue - currentRevenue, 0);
         const customerValue = Math.max(getNumber("lmaCustomerValue"), 1);
-        const aiConversionRate = benchmark.appointmentRate * benchmark.closeRate;
 
         const customersNeeded = revenueGap > 0 ? Math.ceil(revenueGap / customerValue) : 0;
         const appointmentsNeeded = customersNeeded > 0
           ? Math.ceil(customersNeeded / benchmark.closeRate)
           : 0;
-        const leadsNeeded = customersNeeded > 0
-          ? Math.ceil(customersNeeded / aiConversionRate)
+        const leadsWithoutAi = customersNeeded > 0
+          ? Math.ceil(customersNeeded / benchmark.withoutAiRate)
           : 0;
+        const leadsWithAi = customersNeeded > 0
+          ? Math.ceil(customersNeeded / benchmark.withAiRate)
+          : 0;
+        const requiredAdBudget = leadsWithAi * benchmark.cpl;
 
         setOutput("lmaCurrentOutput", formatEuro(currentRevenue));
         setOutput("lmaTargetOutput", formatEuro(targetRevenue));
         setOutput("lmaRevenueGap", formatEuro(revenueGap));
         setOutput("lmaCustomersNeeded", formatNumber(customersNeeded));
         setOutput("lmaAppointmentsNeeded", formatNumber(appointmentsNeeded));
-        setOutput("lmaLeadsNeeded", formatNumber(leadsNeeded));
+        setOutput("lmaLeadsNeeded", formatNumber(leadsWithAi));
+        setOutput("lmaRequiredAdBudget", formatEuro(requiredAdBudget));
+        setOutput("lmaWithoutAiConversion", formatPercent(benchmark.withoutAiRate));
+        setOutput("lmaWithAiConversion", formatPercent(benchmark.withAiRate));
+        setOutput("lmaLeadsWithoutAi", formatNumber(leadsWithoutAi));
+        setOutput("lmaLeadsWithAi", formatNumber(leadsWithAi));
         setOutput("lmaIndustryLabel", benchmark.label);
         setOutput("lmaCplOutput", formatEuro(benchmark.cpl) + " per lead");
-        setOutput("lmaConversionOutput", formatPercent(aiConversionRate));
+        setOutput("lmaCustomerValueOutput", formatEuro(customerValue));
       }
 
       function setupTopicButtons() {
@@ -2578,18 +2619,38 @@ body {
       });
 
       const industryField = el("lmaIndustry");
-      if (industryField) {
-        industryField.addEventListener("change", function () {
-          const benchmark = industryBenchmarks[industryField.value] || industryBenchmarks.business;
+      const industryPicker = el("lmaIndustryPicker");
+      const industrySelected = el("lmaIndustrySelected");
+      const industryButtons = root.querySelectorAll(".lm-industry-option");
+
+      industryButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const industryKey = button.getAttribute("data-industry");
+          const benchmark = industryBenchmarks[industryKey];
+          if (!benchmark || !industryField) return;
+
+          industryField.value = industryKey;
           const customerValueField = el("lmaCustomerValue");
 
           if (customerValueField) {
             customerValueField.value = benchmark.customerValue;
           }
 
+          if (industrySelected) {
+            industrySelected.textContent = benchmark.label;
+          }
+
+          industryButtons.forEach(function (item) {
+            item.classList.toggle("is-active", item === button);
+          });
+
+          if (industryPicker) {
+            industryPicker.open = false;
+          }
+
           calculate();
         });
-      }
+      });
 
       setupTopicButtons();
       calculate();
