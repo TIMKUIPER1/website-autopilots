@@ -470,7 +470,7 @@ if (main) {
         <div class="ap-section-head">
           <div class="ap-kicker">ROI calculator</div>
           <h2 class="ap-section-title">${accentLastWords(service.roi.title, 2)}</h2>
-          <p class="ap-lead">Geen abstracte AI-belofte. Vul de schuiven in en zie hoeveel tijd, opvolging en extra klantwaarde deze dienst kan vrijspelen.</p>
+          <p class="ap-lead">Geen abstracte AI-belofte. Vul de schuiven in en zie hoeveel tijd, opvolging en extra klantwaarde dit product kan vrijspelen.</p>
         </div>
         <div class="ap-service-roi-grid" data-service-roi>
           <div class="ap-service-roi-inputs">

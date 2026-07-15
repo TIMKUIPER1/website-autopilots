@@ -152,7 +152,7 @@ h1 {
 }
 ```
 
-Gebruik de procespagina als maatlat voor desktop H1's. Voor normale pagina's, dienstenpagina's, procespagina's, nichepagina's, crew en afspraakpagina's is 54px de desktop bovengrens.
+Gebruik de procespagina als maatlat voor desktop H1's. Voor normale pagina's, productpagina's, procespagina's, nichepagina's, crew en afspraakpagina's is 54px de desktop bovengrens.
 
 ### **H2 desktop formaat**
 
@@ -238,21 +238,21 @@ Border radius: 999px
 Primary button: bruin met witte tekst  
 Secondary button: wit met zwarte tekst en border
 
-### **Diensticonen**
+### **Producticonen**
 
-Gebruik geen emoji's of losse symbolen als diensticoon.
+Gebruik geen emoji's of losse symbolen als producticoon.
 
-Diensticonen moeten voelen als high-end SaaS producticonen:
+Producticonen moeten voelen als high-end SaaS producticonen:
 
 - Witte rounded square als basis
 - Roestbruine custom lijniconen in dezelfde kleur als het AP-logo
 - Subtiele beweging of pulse mag
-- Duidelijk herkenbaar per dienst
+- Duidelijk herkenbaar per product
 - Geen smileys, standaard emoji's of willekeurige tekens
 
 Voor wie/niche-iconen volgen dezelfde stijl: witte achtergrond, roestbruin lijnicoon, logisch passend bij het onderwerp. Dus autobedrijven krijgen een auto/voorraad-signaal, tandartsen een tand, dakdekkers een dak, verzekeraars een schild, enzovoort.
 
-Autopilots CRM is de uitzondering: gebruik daar altijd het AP CRM-logo als trademark-icoon. Dit logo blijft wit met roestbruine AP-markering en wordt gebruikt in de CRM-pagina, het dienstenmenu, de dienstenconsole en alle CRM-kaarten.
+Autopilots CRM is de uitzondering: gebruik daar altijd het AP CRM-logo als trademark-icoon. Dit logo blijft wit met roestbruine AP-markering en wordt gebruikt in de CRM-pagina, het productenmenu, de productenconsole en alle CRM-kaarten.
 
 ### **Premium rode hoekaccenten**
 

@@ -21,7 +21,7 @@ const steps = [
   <section class="ap-section">
     <div class="ap-container">
       <div class="ap-kicker">Implementatieproces</div>
-      <h1>Van klantreis naar live AI medewerker.</h1>
+      <h1>Van klantreis naar een live <span class="ap-accent">AI-medewerker.</span></h1>
       <p class="ap-lead">Autopilots bouwt geen losse chatbot. We ontwerpen de klantreis, leggen het AI-brein vast, koppelen je systemen, testen scenario's en blijven na livegang optimaliseren tot het werkt in je operatie.</p>
       <div class="ap-actions">
         <a class="ap-button ap-button-primary" href="/afspraak/">Plan implementatiegesprek</a>
@@ -62,8 +62,8 @@ const steps = [
 <style>
   h1 {
     max-width: 960px;
-    font-size: clamp(46px, 6.2vw, 80px);
-    line-height: 1.04;
+    font-size: clamp(34px, calc(5vw - 12px), 54px);
+    line-height: 1.07;
     font-weight: 900;
   }
 
@@ -128,7 +128,8 @@ const steps = [
 
   @media (max-width: 980px) {
     .ap-process-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
+  @media (max-width: 560px) { .ap-process-grid { grid-template-columns: 1fr; } }
 </style>

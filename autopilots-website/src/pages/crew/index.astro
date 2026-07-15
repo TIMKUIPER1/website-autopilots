@@ -1,89 +1,33 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-
 const crew = [
-  ["Tim Kuiper", "Sales & Partnerships", "TK"],
-  ["Rohail Zuberi", "Head of Development", "RZ"],
-  ["Larissa Rosanna Pen", "Head of Operations", "LR"],
-  ["Pratt Olan", "AI Specialist", "PO"],
-  ["Mit Dong", "AI Specialist", "MD"],
-  ["Luca van der Meer", "Online Marketeer", "LM"]
+  ["Tim Kuiper","Sales & Partnerships","/team/tim-kuiper.png"],
+  ["Larissa Rosanna Pen","Head of Operations","/team/larissa-rosanna-pen.webp"],
+  ["Hasan Shabbir","Head of Development","/team/hasan-shabbir.png"],
+  ["Albert Verlinden","AI Consultant","/team/albert-verlinden.png"],
+  ["Pratt Olan","AI Specialist","/team/pratt-olan.webp"],
+  ["Luca van der Meer","Online Marketeer","/team/luca-van-der-meer.webp"],
+  ["Mit Dong","AI Specialist","/team/mit-dong.webp"],
+  ["Rohail Zuberi","AI Specialist","/team/rohail-zuberi.webp"]
 ];
+const inspirations=["Tony Robbins","Jim Rohn","Stephen R. Covey","Dale Carnegie","Napoleon Hill","Brian Tracy","Zig Ziglar","Les Brown","Robin Sharma","Dr. Joe Dispenza","Deepak Chopra","Eckhart Tolle","Wayne Dyer","Brendon Burchard","Jay Shetty","Mel Robbins","Simon Sinek","Grant Cardone","Gary Vaynerchuk","Tim Ferriss","James Clear","Mark Manson","Robert Greene","Jordan Peterson","David Goggins","Oprah Winfrey","Steven Bartlett","Brené Brown","Lewis Howes","Ed Mylett","Tom Bilyeu","Alex Hormozi","Naval Ravikant","Sadhguru"];
 ---
+<BaseLayout title="Crew | Autopilots" description="Maak kennis met de Autopilots crew achter AI medewerkers, CRM-koppelingen, workflows en optimalisatie." canonical="/crew/">
+  <main class="ap-crew-page"><section class="ap-section"><div class="ap-container">
+    <div class="ap-kicker">Crew</div><h1 class="ap-page-title">Autopilots maakt AI begrijpelijk, menselijk en <span class="ap-accent">bruikbaar in de praktijk.</span></h1>
+    <p class="ap-lead">AI gaat de manier waarop bedrijven werken blijvend veranderen. Autopilots is er om die verandering behapbaar te maken: voor ondernemers die vooruit willen, voor teams die ruimte nodig hebben en voor bedrijven die klantcommunicatie persoonlijker, slimmer en schaalbaarder willen organiseren.</p>
 
-<BaseLayout
-  title="Crew | Autopilots"
-  description="Maak kennis met de Autopilots crew achter AI medewerkers, CRM-koppelingen, workflows en optimalisatie."
-  canonical="/crew/"
->
-  <section class="ap-section">
-    <div class="ap-container">
-      <div class="ap-kicker">Crew</div>
-      <h1 class="ap-page-title">Een compact team voor strategie, bouw, operations en optimalisatie.</h1>
-      <p class="ap-lead">Autopilots blijft betrokken na livegang. We bouwen de AI medewerker, koppelen systemen, monitoren gesprekken en sturen bij op echte data.</p>
+    <section class="ap-crew-intro" aria-label="Waarom Autopilots"><article class="ap-crew-story"><div class="ap-kicker">Autopilots waarom?</div><h2>AI wordt pas waardevol als je team ermee kan werken.</h2><p>Autopilots vertaalt AI naar concrete processen: klantvragen, opvolging, planning, CRM en service. Praktisch, menselijk en passend bij het bedrijf.</p><div class="ap-crew-signal"><span><strong>01</strong>Begrijpen</span><span><strong>02</strong>Bouwen</span><span><strong>03</strong>Meegroeien</span></div></article><div class="ap-crew-values">{[["01","AI behapbaar maken","Heldere taal, duidelijke keuzes en een route die het team begrijpt."],["02","Vrijheid voor bedrijven","Minder herhaalwerk, snellere opvolging en meer ruimte voor menselijk contact."],["03","Een toekomstbestendige operatie","Elk contactmoment bouwt aan betere data, processen en klantrelaties."]].map(item=><article><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></article>)}</div></section>
 
-      <div class="ap-crew-grid">
-        {crew.map(([name, role, initials]) => (
-          <article class="ap-card ap-crew-card">
-            <div class="ap-avatar">{initials}</div>
-            <h2 class="ap-card-title">{name}</h2>
-            <p class="ap-text">{role}</p>
-          </article>
-        ))}
-      </div>
+    <section class="ap-crew-connection"><div class="ap-crew-connection-copy"><div class="ap-kicker">Oprechte verbinding</div><h2>We bouwen het liefst met bedrijven die vooruit willen.</h2><p>Autopilots hecht waarde aan oprechte connectie. Daarom werken we het liefst samen met ondernemers en teams met groeiambitie: bedrijven die vooruitstrevend zijn, een duidelijke visie hebben en durven bouwen aan een slimmere manier van werken.</p><p>In ons team draait ontwikkeling niet alleen om zakelijk succes, maar ook om persoonlijk succes. Naast een goede wifi verbinding blijft oprechte verbinding uitzonderlijk belangrijk. Dat voel je in hoe we communiceren, implementeren en langetermijnpartnerschappen bouwen.</p></div><div class="ap-crew-connection-cards">{[["01","Groeiambitie","We passen het best bij bedrijven die willen opschalen, verbeteren en niet blijven hangen in oude processen."],["02","Persoonlijke ontwikkeling","We geloven dat betere bedrijven ontstaan wanneer mensen blijven leren, reflecteren en verantwoordelijkheid nemen."],["03","Lange termijn","Geen snelle AI truc, maar een samenwerking waarin techniek, mensen en operatie samen volwassen worden."]].map(item=><article><span>{item[0]}</span><strong>{item[1]}</strong><p>{item[2]}</p></article>)}</div><div class="ap-inspiration-marquee"><div class="ap-kicker">Ons team persoonlijke inspiratiebronnen</div><div class="ap-inspiration-track">{[...inspirations,...inspirations].map((name,index)=><span aria-hidden={index>=inspirations.length?"true":undefined}>{name}</span>)}</div></div></section>
 
-      <div class="ap-dark-band ap-crew-band">
-        <div class="ap-kicker">Werkwijze</div>
-        <h2 class="ap-section-title">Geen losse chatbot. Een operationeel systeem.</h2>
-        <p class="ap-text">We ontwerpen de gesprekslogica, bouwen de agent, koppelen forms, calendars en CRM, testen scenario's en blijven na livegang optimaliseren.</p>
-      </div>
-    </div>
-  </section>
+    <section class="ap-section ap-team-inline"><div class="ap-section-head"><div class="ap-kicker">Meet the crew</div><h2 class="ap-section-title">Built by the <span class="ap-accent">Autopilots team.</span></h2><p class="ap-lead">Een compact team voor strategie, bouw, operations en optimalisatie. Autopilots blijft betrokken na livegang, zodat de AI beter wordt op basis van echte gesprekken.</p></div><div class="ap-team-shell"><div class="ap-team-slider" data-crew-slider>{crew.map(member=><article><img src={member[2]} alt={member[0]} loading="lazy" /><strong>{member[0]}</strong><span>{member[1]}</span></article>)}</div><div class="ap-team-controls"><span>Autopilots crew</span><div><button type="button" data-crew-prev aria-label="Vorige">←</button><button type="button" data-crew-next aria-label="Volgende">→</button></div></div></div></section>
+    <div class="ap-crew-band"><div class="ap-kicker">Waar we voor staan</div><h2>Vrijheid, groei en oprechte samenwerking.</h2><p>Autopilots bouwt AI die menselijk voelt en praktisch werkt. Vanuit vertrouwen, heldere communicatie en een samenwerking die blijft meegroeien.</p></div>
+  </div></section></main>
 </BaseLayout>
 
+<script is:inline>(()=>{const slider=document.querySelector('[data-crew-slider]');if(!slider)return;const move=direction=>slider.scrollBy({left:direction*(slider.clientWidth*.72),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});document.querySelector('[data-crew-prev]')?.addEventListener('click',()=>move(-1));document.querySelector('[data-crew-next]')?.addEventListener('click',()=>move(1))})();</script>
+
 <style>
-  .ap-crew-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
-    margin-top: 34px;
-  }
-
-  .ap-crew-card .ap-text {
-    margin-top: 8px;
-    font-size: 13px;
-    line-height: 1.45;
-    font-weight: 700;
-  }
-
-  .ap-avatar {
-    display: flex;
-    width: 76px;
-    height: 76px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    border-radius: 50%;
-    background: var(--ap-black);
-    color: var(--ap-white);
-    font-family: "Syne", "Public Sans", Arial, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .ap-crew-band {
-    margin-top: 22px;
-  }
-
-  @media (max-width: 900px) {
-    .ap-crew-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 560px) {
-    .ap-crew-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  .ap-crew-page .ap-lead{max-width:900px}.ap-crew-intro{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:18px;margin-top:56px}.ap-crew-story,.ap-crew-values article{border:1px solid var(--ap-line);border-radius:32px;box-shadow:0 16px 50px rgba(17,17,17,.055)}.ap-crew-story{background:#111;color:#fff;padding:36px}.ap-crew-story .ap-kicker{color:#e4a092}.ap-crew-story h2,.ap-crew-connection h2{font-size:clamp(30px,3.7vw,48px);line-height:1.08}.ap-crew-story p{margin-top:18px;color:rgba(255,255,255,.74);font-size:16px;line-height:1.7}.ap-crew-signal{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:28px}.ap-crew-signal span{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;font-size:12px;font-weight:800}.ap-crew-signal strong{display:block;margin-bottom:6px;color:#e4a092}.ap-crew-values{display:grid;gap:14px}.ap-crew-values article{background:#fff;padding:24px}.ap-crew-values span,.ap-crew-connection-cards span{display:grid;width:42px;height:42px;place-items:center;border-radius:15px;background:#111;color:#fff;font-family:"Syne",sans-serif;font-size:11px}.ap-crew-values h3{margin:18px 0 0;font-size:22px}.ap-crew-values p,.ap-crew-connection-cards p{margin:9px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}.ap-crew-connection{overflow:hidden;margin-top:28px;border:1px solid var(--ap-line);border-radius:34px;background:radial-gradient(circle at 92% 18%,rgba(159,56,38,.09),transparent 26%),#fff;padding:34px;box-shadow:0 16px 50px rgba(17,17,17,.055)}.ap-crew-connection-copy{max-width:880px}.ap-crew-connection-copy p{margin:18px 0 0;color:var(--ap-muted);font-size:17px;line-height:1.7}.ap-crew-connection-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}.ap-crew-connection-cards article{border:1px solid var(--ap-line);border-radius:24px;background:var(--ap-soft-2);padding:20px}.ap-crew-connection-cards strong{display:block;margin-top:16px;font-size:19px}.ap-inspiration-marquee{margin-top:28px;overflow:hidden;border-radius:26px;background:#111;padding:20px 0;color:#fff}.ap-inspiration-marquee .ap-kicker{margin:0 24px 14px;color:#e4a092}.ap-inspiration-track{display:flex;width:max-content;gap:10px;animation:crewMarquee 96s linear infinite}.ap-inspiration-track span{border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(255,255,255,.075);padding:10px 14px;font-size:13px;font-weight:700}@keyframes crewMarquee{to{transform:translateX(-50%)}}.ap-team-inline{padding-bottom:28px}.ap-team-shell{overflow:hidden;margin-top:32px;border:1px solid var(--ap-line);border-radius:34px;background:#fff;box-shadow:0 16px 50px rgba(17,17,17,.06)}.ap-team-slider{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px}.ap-team-slider::-webkit-scrollbar{display:none}.ap-team-slider article{flex:0 0 33.333%;scroll-snap-align:start;padding:10px}.ap-team-slider img{display:block;width:100%;aspect-ratio:1/1;border-radius:999px;object-fit:cover;background:#111}.ap-team-slider strong{display:block;margin-top:16px;font-size:21px}.ap-team-slider span{display:block;margin-top:6px;color:var(--ap-muted);font-size:13px;font-weight:700}.ap-team-controls{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--ap-line);padding:16px 20px}.ap-team-controls>span{color:var(--ap-muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px}.ap-team-controls button{width:42px;height:42px;margin-left:6px;border:1px solid var(--ap-line);border-radius:50%;background:#fff;cursor:pointer}.ap-crew-band{border-radius:30px;background:linear-gradient(135deg,#111,#151312 68%,#24130f);color:#fff;padding:32px}.ap-crew-band .ap-kicker{color:#e4a092}.ap-crew-band h2{font-size:clamp(26px,3.1vw,40px)}.ap-crew-band p{max-width:660px;margin-top:14px;color:rgba(255,255,255,.68);line-height:1.58}@media(max-width:900px){.ap-crew-intro{grid-template-columns:1fr}.ap-crew-connection-cards{grid-template-columns:1fr}.ap-team-slider article{flex-basis:50%}}@media(max-width:560px){.ap-crew-intro{margin-top:42px}.ap-crew-story,.ap-crew-values article,.ap-crew-connection{border-radius:24px;padding:22px}.ap-crew-signal{grid-template-columns:1fr}.ap-team-slider article{flex-basis:100%}.ap-team-shell{border-radius:26px}.ap-crew-band{padding:24px}}
 </style>

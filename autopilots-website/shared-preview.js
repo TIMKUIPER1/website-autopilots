@@ -35,12 +35,13 @@ const sharedSections = `
       <div class="ap-shared-team-shell">
         <div class="ap-shared-team-slider" data-ap-slider="team">
           <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/tim-kuiper.png" alt="Tim Kuiper"></div><strong>Tim Kuiper</strong><span>Sales & Partnerships</span></div>
-          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
           <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/larissa-rosanna-pen.webp" alt="Larissa Rosanna Pen"></div><strong>Larissa Rosanna Pen</strong><span>Head of Operations</span></div>
-          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
-          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
-          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
           <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/hasan-shabbir.png" alt="Hasan Shabbir"></div><strong>Hasan Shabbir</strong><span>Head of Development</span></div>
+          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/albert-verlinden.png" alt="Albert Verlinden"></div><strong>Albert Verlinden</strong><span>AI Consultant</span></div>
+          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/pratt-olan.webp" alt="Pratt Olan"></div><strong>Pratt Olan</strong><span>AI Specialist</span></div>
+          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/luca-van-der-meer.webp" alt="Luca van der Meer"></div><strong>Luca van der Meer</strong><span>Online Marketeer</span></div>
+          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/mit-dong.webp" alt="Mit Dong"></div><strong>Mit Dong</strong><span>AI Specialist</span></div>
+          <div class="ap-shared-team-card"><div class="ap-shared-team-photo"><img src="team/rohail-zuberi.webp" alt="Rohail Zuberi"></div><strong>Rohail Zuberi</strong><span>AI Specialist</span></div>
         </div>
         <div class="ap-shared-controls"><button class="ap-shared-control" type="button" data-ap-slide-prev="team" aria-label="Vorige">←</button><button class="ap-shared-control" type="button" data-ap-slide-next="team" aria-label="Volgende">→</button></div>
       </div>

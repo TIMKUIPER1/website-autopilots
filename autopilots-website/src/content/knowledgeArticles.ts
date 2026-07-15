@@ -352,7 +352,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         title: "AI voor offertes, terugbelverzoeken en opvolging",
         paragraphs: [
           "Veel omzet blijft liggen na het eerste contact. Een klant vraagt een offerte aan, krijgt een prijs, twijfelt, stelt nog een vraag en verdwijnt daarna uit beeld. Niet omdat er geen interesse is, maar omdat opvolging druk en handmatig is.",
-          "Follow-up AI kan open offertes slim opvolgen. Niet met een generieke reminder, maar met context: welke dienst, welke datum, welke vragen, welke bezwaren en welke vervolgstap. De AI kan vragen beantwoorden, een belmoment plannen of de lead warm terugzetten naar sales.",
+          "Follow-up AI kan open offertes slim opvolgen. Niet met een generieke reminder, maar met context: welk aanbod, welke datum, welke vragen, welke bezwaren en welke vervolgstap. De AI kan vragen beantwoorden, een belmoment plannen of de lead warm terugzetten naar sales.",
           "Voor installatiebedrijven en dakdekkers is dat waardevol omdat offertes vaak tijdsgevoelig zijn. Een lekkage, renovatie, verduurzaming of onderhoudsbeurt heeft momentum. Wie snel, duidelijk en netjes opvolgt, wint vaker."
         ]
       }

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Autopilots CRM">
+  <rect width="512" height="512" rx="112" fill="#ffffff"/>
+  <path fill="#9f3826" transform="translate(-31 0)" d="M185.2 166.8h46.5l86.6 178.4h-51.7l-15.3-34.3h-87.9l-15.2 34.3H99.5l85.7-178.4Zm47.2 103.4-24.7-55.6-24.5 55.6h49.2Zm90.5-103.4h83.2c43.1 0 69.5 22.4 69.5 59.9v.5c0 40.3-30.9 61.7-72.3 61.7h-31.6v56.3h-48.8V166.8Zm79.7 83.7c15.1 0 24.1-8.1 24.1-20.6v-.5c0-13.5-9-20.6-24.4-20.6h-30.6v41.7h30.9Z"/>
+</svg>

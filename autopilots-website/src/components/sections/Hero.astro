@@ -35,8 +35,8 @@ const {
         </h1>
         <p class="ap-lead">{text}</p>
         <div class="ap-actions">
-          <a class="ap-button ap-button-primary" href={primaryHref}>{primaryLabel}</a>
-          <a class="ap-button ap-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+          <a class="ap-button ap-button-primary" data-ap-event={primaryHref.startsWith("/afspraak") || primaryHref.startsWith("/contact") ? "appointment_cta_clicked" : undefined} href={primaryHref}>{primaryLabel}</a>
+          <a class="ap-button ap-button-secondary" data-ap-event={secondaryHref.startsWith("/bestel-direct") ? "direct_order_clicked" : undefined} href={secondaryHref}>{secondaryLabel}</a>
         </div>
         {chips.length > 0 && (
           <div class="ap-chip-row">
@@ -46,10 +46,10 @@ const {
       </div>
       <div class="ap-hero-panel" aria-label="Autopilots proces">
         <div class="ap-mini-flow">
-          <div class="ap-flow-row"><span>01</span><strong>Lead komt binnen</strong><em>Website, ads of telefoon</em></div>
-          <div class="ap-flow-row"><span>02</span><strong>AI kwalificeert</strong><em>Context, behoefte en timing</em></div>
-          <div class="ap-flow-row"><span>03</span><strong>Afspraak gepland</strong><em>Direct in agenda en CRM</em></div>
-          <div class="ap-flow-row"><span>04</span><strong>Opvolging loopt</strong><em>Geen kans blijft liggen</em></div>
+          <div class="ap-flow-row"><span>01</span><div><strong>Lead komt binnen</strong><em>Website, ads of telefoon</em></div></div>
+          <div class="ap-flow-row"><span>02</span><div><strong>AI kwalificeert</strong><em>Context, behoefte en timing</em></div></div>
+          <div class="ap-flow-row"><span>03</span><div><strong>Afspraak gepland</strong><em>Direct in agenda en CRM</em></div></div>
+          <div class="ap-flow-row"><span>04</span><div><strong>Opvolging loopt</strong><em>Geen kans blijft liggen</em></div></div>
         </div>
       </div>
     </div>

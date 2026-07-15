@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Pagina niet gevonden | Autopilots" description="Deze Autopilots-pagina bestaat niet of is verplaatst." canonical="/404/" noindex={true}>
+  <section class="ap-section">
+    <div class="ap-container ap-not-found">
+      <div class="ap-kicker">404 · Pagina niet gevonden</div>
+      <h1 class="ap-page-title">Deze route stopt hier. Kies een <span class="ap-accent">werkende vervolgstap.</span></h1>
+      <p class="ap-lead">De pagina bestaat niet, is verplaatst of de link bevat een fout.</p>
+      <div class="ap-actions"><a class="ap-button ap-button-primary" href="/producten/">Bekijk producten</a><a class="ap-button ap-button-secondary" href="/voor-wie/">Kies je branche</a><a class="ap-button ap-button-secondary" href="/afspraak/">Plan een afspraak</a></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>.ap-not-found{min-height:58vh;display:flex;flex-direction:column;justify-content:center}.ap-not-found .ap-lead{max-width:620px}</style>

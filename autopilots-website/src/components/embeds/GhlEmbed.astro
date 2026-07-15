@@ -5,6 +5,7 @@ interface Props {
   minHeight?: number;
   id?: string;
   note?: string;
+  loading?: "eager" | "lazy";
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   title,
   minHeight = 640,
   id = "ap-ghl-embed",
-  note = "De afspraakmodule wordt geladen. Werkt dit niet goed, neem direct contact op met Autopilots."
+  note = "Werkt de afspraakmodule niet goed? Gebruik dan de directe kalenderlink of stuur ons een e-mail.",
+  loading = "lazy"
 } = Astro.props;
 ---
 
@@ -21,11 +23,12 @@ const {
     id={id}
     src={src}
     title={title}
-    loading="lazy"
+    loading={loading}
+    referrerpolicy="strict-origin-when-cross-origin"
     scrolling="no"
     style={`min-height:${minHeight}px`}
   ></iframe>
-  <p>{note}</p>
+  <p>{note} <a href={src} target="_blank" rel="noopener noreferrer">Open de kalender</a> · <a href="mailto:info@auto-pilots.io">E-mail Autopilots</a></p>
 </div>
 
 <style>
@@ -52,6 +55,7 @@ const {
     line-height: 1.45;
     font-weight: 700;
   }
+  .ap-embed-card p a { color: var(--ap-brown); font-weight: 850; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (max-width: 720px) {
     .ap-embed-card {

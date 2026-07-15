@@ -26,9 +26,33 @@ html {
   scroll-behavior: smooth;
 }
 
+.ap-skip-link {
+  position: fixed;
+  left: 14px;
+  top: 10px;
+  z-index: 999;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 850;
+  transition: transform 160ms ease;
+}
+
+.ap-skip-link:focus { transform: translateY(0); }
+
 body {
   margin: 0;
   overflow-x: hidden;
+}
+body.ap-menu-open { overflow: hidden; }
+.ap-mobile-actionbar { display: none; }
+
+:focus-visible {
+  outline: 3px solid rgba(159, 56, 38, 0.32);
+  outline-offset: 3px;
 }
 
 a {
@@ -141,6 +165,7 @@ p {
 .ap-button:hover {
   transform: translateY(-1px);
 }
+.ap-button:focus-visible { outline-color: var(--ap-brown); }
 
 .ap-button-primary {
   background: var(--ap-brown);
@@ -165,6 +190,20 @@ p {
   background: var(--ap-card);
   box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
   padding: 28px;
+}
+
+@media (max-width: 520px) {
+  .ap-container { width: min(1120px, calc(100% - 28px)); }
+  input, select, textarea { font-size: 16px; }
+  body { padding-bottom: 76px; }
+  .ap-mobile-actionbar { position: fixed; z-index: 60; right: 10px; bottom: 10px; left: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 7px; border: 1px solid rgba(0,0,0,.1); border-radius: 999px; background: rgba(255,255,255,.94); box-shadow: 0 18px 50px rgba(17,17,17,.18); padding: 6px; backdrop-filter: blur(16px); }
+  .ap-mobile-actionbar a { display: flex; min-height: 46px; align-items: center; justify-content: center; border-radius: 999px; color: #111; font-size: 12px; font-weight: 850; }
+  .ap-mobile-actionbar a:last-child { background: var(--ap-brown); color: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
 .ap-grid-2,

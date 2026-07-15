@@ -1,91 +1,44 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-
-const products = [
-  ["AI Inboxmedewerker", "Eén medewerker voor mail, WhatsApp, chat en DM.", "Vragen worden begrepen, verrijkt en doorgezet naar afspraak, ticket, CRM-taak of menselijke overdracht."],
-  ["AI Leadopvolger", "Warme leads blijven bewegen tot er een duidelijke vervolgstap is.", "WhatsApp, SMS, mail en telefonie worden per niche afgestemd op de juiste timing en toon."],
-  ["AI Telefoniste", "Altijd opgenomen, altijd netjes gekwalificeerd.", "Inbound, outbound, triage, afspraken, urgentie en CRM-notities in één telefonische route."],
-  ["Autopilots CRM", "Je volledige funnel en klantdata in één systeem.", "Leads, afspraken, reviews, pipeline, automatisering en AI-opvolging komen samen."],
-  ["Leadsmachine AI", "Van klik naar intake, afspraak en klant.", "Advertentie, landingspagina, kwalificatie, opvolging en conversie worden één commerciële machine."]
+import { products } from "../../data/products";
+import { niches } from "../../data/niches";
+import VisualIcon from "../../components/ui/VisualIcon.astro";
+const explorer = [
+  ["Berichten en e-mails blijven liggen", "ai-inboxmedewerker"],
+  ["Leads en offertes worden te laat opgevolgd", "ai-leadopvolger"],
+  ["We missen telefoontjes tijdens drukte", "ai-telefoniste"],
+  ["Klantdata en opvolging staan verspreid", "autopilots-crm"],
+  ["We willen meer afspraken uit campagnes", "leadsmachine-ai"]
 ];
+const clientData = JSON.stringify(products).replaceAll("<", "\\u003c");
+const schema = { "@context":"https://schema.org", "@type":"CollectionPage", name:"Autopilots producten", description:"Vijf AI-producten voor klantcontact, opvolging, telefonie, CRM en acquisitie.", url:new URL("/producten/", Astro.site ?? Astro.url.origin).toString() };
 ---
 
-<BaseLayout
-  title="Producten | Autopilots AI medewerkers"
-  description="Bekijk de Autopilots producten: AI Inboxmedewerker, AI Leadopvolger, AI Telefoniste, Autopilots CRM en Leadsmachine AI."
-  canonical="/producten/"
->
-  <section class="ap-section">
-    <div class="ap-container">
-      <div class="ap-kicker">Autopilots producten</div>
-      <h1>AI producten die in je proces werken.</h1>
-      <p class="ap-lead">Elk product heeft een vaste basis, maar wordt per niche ingericht met eigen klantreis, koppelingen, scripts, AI-brein en systeemacties.</p>
-      <div class="ap-services-grid">
-        {products.map(([title, headline, text]) => (
-          <article class="ap-service-card">
-            <h2>{title}</h2>
-            <strong>{headline}</strong>
-            <p>{text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+<BaseLayout title="Vijf AI-producten voor klantcontact en groei | Autopilots" description="Vergelijk AI Inboxmedewerker, AI Leadopvolger, AI Telefoniste, Autopilots CRM en Leadsmachine AI en bekijk de inrichting per branche." canonical="/producten/" schema={schema}>
+  <article class="ap-ecosystem ap-products-overview" data-explorer-root>
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Producten</span></div></nav>
+    <section class="ap-eco-hero"><div class="ap-container ap-eco-hero-grid"><div class="ap-eco-copy"><div class="ap-kicker">Autopilots producten</div><h1>Vijf AI-medewerkers. Eén duidelijke route van contact naar <span class="ap-title-accent">actie.</span></h1><p class="ap-lead">Kies een gestandaardiseerd product dat we inrichten op jullie branche, vragen, agenda, systemen, uitzonderingen en tone of voice. Los inzetbaar of als gecombineerd systeem.</p><div class="ap-actions"><a class="ap-button ap-button-primary" href="#productverkenner">Vind je eerste product</a><a class="ap-button ap-button-secondary" href="/voor-wie/">Kies je branche</a></div></div><aside class="ap-product-visual"><div class="ap-visual-head"><span>Complete klantreis</span><strong>Vijf producten</strong></div><div class="ap-visual-route">{["Contact komt binnen","AI begrijpt en handelt","Opvolging blijft bewegen","CRM bewaart de context"].map((label,index)=><div class="ap-visual-node"><span>{String(index+1).padStart(2,"0")}</span><div><strong>{label}</strong><small>{index===3?"Afspraak, taak of klant":"Iedere stap heeft een eigenaar"}</small></div></div>)}</div><div class="ap-visual-status"><span></span>Los én gecombineerd inzetbaar</div></aside></div></section>
+
+    <section class="ap-section ap-dark-section" id="productverkenner"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">Interactieve productverkenner</div><h2>Waar loopt je klantreis nu vast?</h2><p>Kies het herkenbaarste probleem. We lichten het product uit dat je als eerste kunt onderzoeken.</p></div><div class="ap-demo-shell"><div class="ap-demo-tabs" role="tablist" aria-label="Kies een probleem">{explorer.map((item,index)=><button type="button" role="tab" aria-selected={index===0?"true":"false"} tabindex={index===0?0:-1} class:list={[{"is-active":index===0}]} data-explore={item[1]} data-explore-index={index}><span>{String(index+1).padStart(2,"0")}</span><strong>{item[0]}</strong></button>)}</div><article class="ap-demo-panel" role="tabpanel" aria-live="polite"><div class="ap-kicker" data-explore-kicker>{products[0].name}</div><h3 data-explore-title>{products[0].hero} {products[0].accent}</h3><p data-explore-text>{products[0].intro}</p><div class="ap-demo-output"><small>Passende eerste stap</small><strong data-explore-promise>{products[0].promise}</strong></div><div class="ap-actions"><a class="ap-button ap-button-primary" data-explore-link href={`/producten/${products[0].slug}/`}>Bekijk {products[0].name}</a></div></article></div></div></section>
+
+    <section class="ap-section"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">De vijf producten</div><h2>Kies een concrete rol, niet een <span class="ap-title-accent">generieke AI-tool.</span></h2></div><div class="ap-overview-product-grid">{products.map((product,index)=><a class={`ap-overview-product is-product-${index+1}`} href={`/producten/${product.slug}/`}><div class="ap-product-card-head"><VisualIcon type="product" name={product.slug} /><span>{String(index+1).padStart(2,"0")}</span></div><span>{product.eyebrow}</span><h3>{product.name}</h3><p>{product.promise}</p><ul>{product.core.slice(0,4).map((item)=><li>{item.title}</li>)}</ul><strong>Bekijk {product.name}</strong></a>)}</div></div></section>
+
+    <section class="ap-section ap-soft-section"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">Zo werken producten samen</div><h2>Van eerste signaal naar afspraak, taak of klant.</h2></div><ol class="ap-dark-workflow ap-light-workflow">{[
+      ["Aanvraag","Advertentie, mail, WhatsApp, formulier of oproep"], ["Contact","Inboxmedewerker of Telefoniste begrijpt de vraag"], ["Opvolging","Leadopvolger houdt de volgende stap actief"], ["Context","CRM bewaart gesprek, status en eigenaar"]
+    ].map((item,index)=><li><span>{String(index+1).padStart(2,"0")}</span><div><h3>{item[0]}</h3><p>{item[1]}</p></div></li>)}</ol></div></section>
+
+    <section class="ap-section"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">Kies je branche</div><h2>Dezelfde productbasis. Een andere <span class="ap-title-accent">dagelijkse praktijk.</span></h2><p>Open je branchepagina voor eigen intake, workflow, productadvies, systemen en FAQ.</p></div><div class="ap-branch-link-grid">{niches.map((niche)=><a href={`/voor-wie/${niche.slug}/`}><VisualIcon type="niche" name={niche.slug} size="small" /><div><h3>{niche.name}</h3><p>{niche.lead}</p></div><strong aria-hidden="true">→</strong></a>)}</div></div></section>
+
+    <section class="ap-section ap-final-section"><div class="ap-container ap-final-card"><div><div class="ap-kicker">Volgende stap</div><h2>Kies productadvies of start de bestelroute.</h2><p>Bij advies mappen we contactmomenten, systemen en uitzonderingen. Via bestellen kies je eerst het product en daarna je branche.</p></div><div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" href="/afspraak/">Plan productadvies</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" href="/bestel-direct/">Bestel direct</a></div></div></section>
+  </article>
+  <script id="ap-products-data" type="application/json" set:html={clientData}></script>
 </BaseLayout>
 
+<script is:inline>
+  (()=>{const root=document.querySelector("[data-explorer-root]");const node=document.getElementById("ap-products-data");if(!root||!node)return;const products=JSON.parse(node.textContent||"[]");const buttons=[...root.querySelectorAll("[data-explore]")];const show=button=>{const product=products.find(item=>item.slug===button.dataset.explore)||products[0];buttons.forEach(item=>{const active=item===button;item.classList.toggle("is-active",active);item.setAttribute("aria-selected",String(active));item.tabIndex=active?0:-1});const set=(selector,value)=>{const item=root.querySelector(selector);if(item)item.textContent=value};set("[data-explore-kicker]",product.name);set("[data-explore-title]",`${product.hero} ${product.accent}`);set("[data-explore-text]",product.intro);set("[data-explore-promise]",product.promise);const link=root.querySelector("[data-explore-link]");if(link){link.href=`/producten/${product.slug}/`;link.textContent=`Bekijk ${product.name}`}};buttons.forEach(button=>{button.addEventListener("click",()=>show(button));button.addEventListener("keydown",event=>{if(!["ArrowRight","ArrowDown","ArrowLeft","ArrowUp","Home","End"].includes(event.key))return;event.preventDefault();const current=Number(button.dataset.exploreIndex||0);const last=buttons.length-1;const next=event.key==="Home"?0:event.key==="End"?last:["ArrowRight","ArrowDown"].includes(event.key)?(current+1)%(last+1):(current-1+last+1)%(last+1);show(buttons[next]);buttons[next].focus({preventScroll:true})})})})();
+</script>
+
 <style>
-  h1 {
-    max-width: 960px;
-    font-size: clamp(34px, calc(5vw - 12px), 54px);
-    line-height: 1.07;
-    font-weight: 900;
-  }
-
-  .ap-lead {
-    max-width: 790px;
-    margin-top: 22px;
-    color: var(--ap-muted);
-    font-size: 19px;
-    line-height: 1.62;
-    font-weight: 500;
-  }
-
-  .ap-services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 36px;
-  }
-
-  .ap-service-card {
-    border: 1px solid var(--ap-line);
-    border-radius: 30px;
-    background: var(--ap-card);
-    padding: 28px;
-    box-shadow: 0 16px 50px rgba(17, 17, 17, 0.06);
-  }
-
-  .ap-service-card h2 {
-    font-size: 30px;
-    line-height: 1.08;
-  }
-
-  .ap-service-card strong {
-    display: block;
-    margin-top: 12px;
-    color: var(--ap-brown);
-  }
-
-  .ap-service-card p {
-    margin-top: 14px;
-    color: var(--ap-muted);
-    font-weight: 600;
-    line-height: 1.55;
-  }
-
-  @media (max-width: 760px) {
-    .ap-services-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  .ap-overview-product-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.ap-overview-product{position:relative;overflow:hidden;display:flex;min-height:390px;flex-direction:column;border:1px solid var(--ap-line);border-radius:27px;background:#fff;padding:22px}.ap-overview-product:nth-child(even){background:#111;color:#fff}.ap-overview-number{display:grid;width:46px;height:46px;place-items:center;margin-bottom:32px;border-radius:15px;background:#111;color:#fff;font-family:"Syne",sans-serif;font-size:11px;font-weight:700}.ap-overview-product:nth-child(even) .ap-overview-number{background:#fff;color:var(--ap-brown)}.ap-overview-product>span{color:var(--ap-brown);font-family:"Syne",sans-serif;font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase}.ap-overview-product:nth-child(even)>span{color:#e7a295}.ap-overview-product h3{margin:13px 0 0;font-size:22px;line-height:1.08}.ap-overview-product p{margin:12px 0 0;color:var(--ap-muted);font-size:13px;line-height:1.5}.ap-overview-product:nth-child(even) p{color:rgba(255,255,255,.62)}.ap-overview-product ul{display:grid;gap:7px;margin:22px 0;padding:0;list-style:none}.ap-overview-product li{font-size:12px;font-weight:750}.ap-overview-product li:before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;border-radius:50%;background:var(--ap-brown)}.ap-overview-product>strong{margin-top:auto;color:var(--ap-brown);font-size:12px}.ap-overview-product:nth-child(even)>strong{color:#e7a295}.ap-light-workflow li{border-color:var(--ap-line);background:#fff;color:#111}.ap-light-workflow p{color:var(--ap-muted)}.ap-branch-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ap-branch-link-grid>a{display:grid;grid-template-columns:48px 1fr auto;gap:13px;align-items:center;border:1px solid var(--ap-line);border-radius:22px;background:#fff;padding:16px}.ap-branch-link-grid>a>span{display:grid;width:48px;height:48px;place-items:center;border-radius:15px;background:#111;color:#fff;font-family:"Syne",sans-serif;font-size:10px;font-weight:700}.ap-branch-link-grid h3{margin:0;font-size:16px}.ap-branch-link-grid p{display:-webkit-box;overflow:hidden;margin:5px 0 0;color:var(--ap-muted);font-size:11px;line-height:1.35;-webkit-line-clamp:2;-webkit-box-orient:vertical}.ap-branch-link-grid>a>strong{color:var(--ap-brown);font-size:20px}@media(max-width:1100px){.ap-overview-product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:820px){.ap-branch-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.ap-overview-product-grid,.ap-branch-link-grid{grid-template-columns:1fr}.ap-overview-product{min-height:330px}}
+  .ap-product-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.ap-product-card-head>span{color:var(--ap-brown);font-family:"Syne",sans-serif;font-size:11px;font-weight:700}
 </style>

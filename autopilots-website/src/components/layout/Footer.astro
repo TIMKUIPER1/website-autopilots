@@ -1,79 +1,21 @@
 ---
+import { products } from "../../data/products";
+import { niches } from "../../data/niches";
 const year = new Date().getFullYear();
 ---
 
 <footer class="ap-footer">
   <div class="ap-container">
     <div class="ap-footer-box">
-      <div>
-        <div class="ap-kicker">Autopilots</div>
-        <h2 class="ap-section-title">AI medewerkers voor klantcontact, support en opvolging.</h2>
-      </div>
-      <div class="ap-footer-links">
-        <a href="/producten/">Producten</a>
-        <a href="/#branches">Branches</a>
-        <a href="/kennisbank/">Kennisbank</a>
-        <a href="/contact/">Contact</a>
-        <a href="/privacy/">Privacy</a>
-      </div>
+      <div class="ap-footer-brand"><div class="ap-kicker">Autopilots</div><h2>AI-medewerkers die klantcontact omzetten naar actie.</h2><p>Vijf vaste producten, ingericht op de processen, systemen en uitzonderingen van je branche.</p><div class="ap-footer-actions"><a class="ap-button ap-button-primary" href="/afspraak/">Plan een korte analyse</a><a href="/bestel-direct/">Bestel direct →</a></div></div>
+      <nav class="ap-footer-column" aria-label="Producten in footer"><strong>Producten</strong>{products.map((product)=><a href={`/producten/${product.slug}/`}>{product.name}</a>)}</nav>
+      <nav class="ap-footer-column" aria-label="Branches in footer"><strong>Branches</strong>{niches.slice(0,8).map((niche)=><a href={`/voor-wie/${niche.slug}/`}>{niche.name}</a>)}<a href="/voor-wie/">Alle branches</a></nav>
+      <nav class="ap-footer-column" aria-label="Bedrijf in footer"><strong>Autopilots</strong><a href="/proces/">Proces</a><a href="/crew/">Over Autopilots</a><a href="/kennisbank/">Kennisbank</a><a href="/contact/">Contact</a><a href="/bestel-direct/">Bestel direct</a><a href="/privacy/">Privacy</a><a href="/voorwaarden/">Voorwaarden bij bestelling</a></nav>
     </div>
     <p class="ap-footer-small">© {year} Autopilots. Gebouwd als systeem, niet als losse marketing.</p>
   </div>
 </footer>
 
 <style>
-  .ap-footer {
-    padding: 42px 0 34px;
-  }
-
-  .ap-footer-box {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 28px;
-    align-items: end;
-    border: 1px solid var(--ap-line);
-    border-radius: 34px;
-    background: var(--ap-black);
-    color: var(--ap-white);
-    padding: 42px;
-  }
-
-  .ap-footer-box .ap-kicker {
-    color: #e4a092;
-    margin-bottom: 16px;
-  }
-
-  .ap-footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  .ap-footer-links a {
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    padding: 11px 13px;
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 13px;
-    font-weight: 850;
-  }
-
-  .ap-footer-small {
-    margin-top: 18px;
-    color: var(--ap-muted);
-    font-size: 13px;
-    font-weight: 650;
-  }
-
-  @media (max-width: 760px) {
-    .ap-footer-box {
-      grid-template-columns: 1fr;
-      padding: 28px;
-    }
-
-    .ap-footer-links {
-      justify-content: flex-start;
-    }
-  }
+  .ap-footer{padding:42px 0 34px}.ap-footer-box{display:grid;grid-template-columns:minmax(280px,1.4fr) repeat(3,minmax(140px,.6fr));gap:34px;border:1px solid var(--ap-line);border-radius:34px;background:#111;color:#fff;padding:40px}.ap-footer-brand h2{max-width:440px;margin:0;font-size:30px;line-height:1.08}.ap-footer-brand>p{max-width:430px;margin:15px 0 22px;color:rgba(255,255,255,.65);font-size:14px;line-height:1.55}.ap-footer-brand .ap-kicker{color:#e4a092}.ap-footer-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}.ap-footer-actions>a:last-child{color:#fff;font-size:13px;font-weight:850}.ap-footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.ap-footer-column>strong{margin-bottom:6px;color:#e4a092;font-family:"Syne",sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase}.ap-footer-column a{color:rgba(255,255,255,.7);font-size:12px;font-weight:750}.ap-footer-column a:hover,.ap-footer-column a:focus-visible{color:#fff}.ap-footer-small{margin:17px 0 0;color:var(--ap-muted);font-size:12px;font-weight:650}@media(max-width:980px){.ap-footer-box{grid-template-columns:repeat(3,1fr)}.ap-footer-brand{grid-column:1/-1}}@media(max-width:640px){.ap-footer-box{grid-template-columns:1fr;border-radius:26px;padding:25px}.ap-footer-brand{grid-column:auto}.ap-footer-column{border-top:1px solid rgba(255,255,255,.12);padding-top:20px}}
 </style>

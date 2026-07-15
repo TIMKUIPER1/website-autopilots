@@ -1,0 +1,309 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { products, type Product } from "../../data/products";
+import { niches } from "../../data/niches";
+import VisualIcon from "../ui/VisualIcon.astro";
+
+interface Props { product: Product }
+const { product } = Astro.props;
+const selectedNiche = niches[0];
+const relatedProducts = products.filter((item) => item.slug !== product.slug);
+const clientData = JSON.stringify({ product, niches }).replaceAll("<", "\\u003c");
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.metaDescription,
+    url: new URL(`/producten/${product.slug}/`, Astro.site ?? Astro.url.origin).toString(),
+    brand: { "@type": "Brand", name: "Autopilots" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 2, name: "Producten", item: new URL("/producten/", Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 3, name: product.name, item: new URL(`/producten/${product.slug}/`, Astro.site ?? Astro.url.origin).toString() }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } }))
+  }
+];
+---
+
+<BaseLayout title={product.seoTitle} description={product.metaDescription} canonical={`/producten/${product.slug}/`} schema={schema}>
+  <article class:list={["ap-ecosystem", "ap-product-page", `is-${product.slug}`]} data-product-root data-product={product.slug}>
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel">
+      <div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/producten/">Producten</a><span aria-hidden="true">/</span><span aria-current="page">{product.name}</span></div>
+    </nav>
+
+    <section class="ap-eco-hero">
+      <div class="ap-container ap-eco-hero-grid">
+        <div class="ap-eco-copy">
+          <VisualIcon type="product" name={product.slug} size="large" label={`${product.name} icoon`} />
+          <div class="ap-kicker ap-icon-kicker">{product.name}</div>
+          <h1>{product.hero} <span class="ap-title-accent">{product.accent}</span></h1>
+          <p class="ap-lead">{product.intro}</p>
+          <div class="ap-actions">
+            <a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`/afspraak/?product=${product.slug}`}>Plan een afspraak</a>
+            <a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`/bestel-direct/?product=${product.slug}`}>Bestel direct</a>
+          </div>
+          <a class="ap-text-link" href="#interactieve-demo">Bekijk eerst de productdemo →</a>
+          <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>{product.promise}</span></p>
+        </div>
+        <aside class="ap-product-visual" aria-label={`${product.name} workflow`}>
+          <div class="ap-visual-head"><span>{product.eyebrow}</span><strong>Live productflow</strong></div>
+          <div class="ap-visual-route">
+            {product.workflow.map((step, index) => (
+              <div class="ap-visual-node"><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step.label}</strong><small>{step.title}</small></div></div>
+            ))}
+          </div>
+          <div class="ap-visual-status"><span></span>Systeemactie gereed</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container">
+        <div class="ap-section-head">
+          <div class="ap-kicker">Herkenbaar probleem</div>
+          <h2>{product.problemTitle}</h2>
+        </div>
+        <div class="ap-card-grid ap-card-grid-4">
+          {product.problems.map((problem, index) => (
+            <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{problem.title}</h3><p>{problem.text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section" id="branche-inrichting">
+      <div class="ap-container">
+        <div class="ap-section-head">
+          <div class="ap-kicker">Wat verandert per branche?</div>
+          <h2>De productbasis blijft gelijk. De praktijk bepaalt <span class="ap-title-accent">de inrichting.</span></h2>
+          <p>Kies een branche. Voorbeeldvragen, intakevelden, systemen, calculator en vervolglink veranderen direct mee.</p>
+        </div>
+        <div class="ap-niche-selector">
+          <div class="ap-niche-options" role="list" aria-label="Kies een branche">
+            {niches.map((niche, index) => (
+              <button type="button" class:list={[{ "is-active": index === 0 }]} data-niche={niche.slug} aria-pressed={index === 0 ? "true" : "false"}>
+                <span>{String(index + 1).padStart(2, "0")}</span>{niche.name}
+              </button>
+            ))}
+          </div>
+          <article class="ap-niche-result" aria-live="polite">
+            <div class="ap-kicker">{product.name} voor <span data-selected-name>{selectedNiche.name}</span></div>
+            <h3><span data-selected-heading>{product.name} voor {selectedNiche.name.toLowerCase()}.</span></h3>
+            <p data-selected-copy>Ingericht op {selectedNiche.intake.slice(0, 4).join(", ")} en gekoppeld aan {selectedNiche.systems.slice(0, 3).join(", ")}.</p>
+            <div class="ap-niche-detail-grid">
+              <div><small>Voorbeeldvraag</small><strong data-selected-question>{selectedNiche.conversation.customer}</strong></div>
+              <div><small>Belangrijke intake</small><strong data-selected-intake>{selectedNiche.intake.slice(0, 3).join(" · ")}</strong></div>
+              <div><small>Systemen</small><strong data-selected-systems>{selectedNiche.systems.slice(0, 3).join(" · ")}</strong></div>
+            </div>
+            <div class="ap-actions">
+              <a class="ap-button ap-button-primary" data-selected-link href={`/voor-wie/${selectedNiche.slug}/?product=${product.slug}#producten`}>Bekijk AI voor {selectedNiche.name.toLowerCase()}</a>
+              <a class="ap-button ap-button-dark-secondary" href="#interactieve-demo">Test de demo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-dark-section" id="interactieve-demo">
+      <div class="ap-container">
+        <div class="ap-section-head">
+          <div class="ap-kicker">Interactieve productdemo</div>
+          <h2>Van binnenkomst naar een concrete systeemactie.</h2>
+          <p>Klik door de stappen. De flow blijft begrijpelijk zonder technische achtergrond.</p>
+        </div>
+        <div class="ap-demo-shell">
+          <div class="ap-demo-tabs" role="tablist" aria-label={`${product.name} demostappen`}>
+            {product.workflow.map((step, index) => (
+              <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-demo-step={index}>
+                <span>{String(index + 1).padStart(2, "0")}</span><strong>{step.label}</strong>
+              </button>
+            ))}
+          </div>
+          <article class="ap-demo-panel" role="tabpanel" aria-live="polite">
+            <div class="ap-kicker" data-demo-label>{product.workflow[0].label}</div>
+            <h3 data-demo-title>{product.workflow[0].title}</h3>
+            <p data-demo-text>{product.workflow[0].text}</p>
+            <div class="ap-demo-output"><small>Output in je systeem</small><strong data-demo-output>{product.workflow[0].output}</strong></div>
+            <div class="ap-demo-context"><span>Geselecteerde branche</span><strong data-demo-niche>{selectedNiche.name}</strong></div>
+            <div class="ap-demo-controls"><button type="button" data-demo-previous>Vorige</button><button type="button" data-demo-reset>Opnieuw</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Wat doet het product altijd?</div><h2>Een vaste kern die tijdens onboarding <span class="ap-title-accent">wordt ingericht.</span></h2></div>
+        <div class="ap-card-grid ap-card-grid-4">
+          {product.core.map((item, index) => <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container ap-two-column">
+        <div>
+          <div class="ap-section-head"><div class="ap-kicker">Workflow</div><h2>De AI begrijpt, beslist binnen kaders en legt vast.</h2></div>
+          <ol class="ap-workflow-list">
+            {product.workflow.map((step, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}
+          </ol>
+        </div>
+        <aside class="ap-integration-card">
+          <div class="ap-kicker">Integratiecategorieën</div>
+          <h3>Werkt met de kanalen en systemen rond het proces.</h3>
+          <div class="ap-chip-grid">{product.integrations.map((item) => <span>{item}</span>)}</div>
+          <p>Koppelingen worden vooraf getoetst op beschikbare API’s, rechten en gewenste lees- of schrijfacties.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Impactscenario</div><h2>Bereken hoeveel handwerk de eerste route kan <span class="ap-title-accent">voorbereiden.</span></h2><p>Een indicatie op basis van je eigen invoer, geen gegarandeerd financieel resultaat.</p></div>
+        <div class="ap-calculator">
+          <div class="ap-calculator-inputs">
+            <label><span>{product.calculator.volumeLabel}</span><strong data-volume-value>{selectedNiche.metric.volume}</strong><input data-volume type="range" min="20" max="1000" step="10" value={selectedNiche.metric.volume} /></label>
+            <label><span>{product.calculator.minutesLabel}</span><strong data-minutes-value>{selectedNiche.metric.minutes}</strong><input data-minutes type="range" min="2" max="30" step="1" value={selectedNiche.metric.minutes} /></label>
+            <label><span>{product.calculator.automationLabel}</span><strong><span data-automation-value>{selectedNiche.metric.automation}</span>%</strong><input data-automation type="range" min="10" max="90" step="1" value={selectedNiche.metric.automation} /></label>
+          </div>
+          <div class="ap-calculator-output">
+            <span>{product.calculator.outputLabel}</span>
+            <strong><span data-hours>0</span> uur</strong>
+            <p><span data-actions>0</span> contactmomenten voorbereid per maand.</p>
+            <small>Exclusief implementatie, gebruikskosten en werk dat menselijke beoordeling vraagt.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-dark-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Heldere kaders</div><h2>Automatiseren waar het veilig en nuttig is.</h2></div>
+        <div class="ap-card-grid ap-card-grid-3">{product.boundaries.map((item) => <article class="ap-dark-card"><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Geschikt en minder geschikt</div><h2>Eerlijk bepalen welk systeem bij je situatie past.</h2></div>
+        <div class="ap-card-grid ap-card-grid-3">{product.fit.map((item) => <article class="ap-info-card"><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container ap-faq-layout">
+        <div class="ap-section-head"><div class="ap-kicker">Veelgestelde vragen</div><h2>Vragen voordat {product.name} live gaat.</h2></div>
+        <div class="ap-faq-list">{product.faq.map((item, index) => <details open={index === 0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Aanvullende producten</div><h2>Breid alleen uit wanneer de klantreis dat vraagt.</h2></div>
+        <div class="ap-related-grid">{relatedProducts.map((item) => <a href={`/producten/${item.slug}/`}><VisualIcon type="product" name={item.slug} /><span>{item.eyebrow}</span><h3>{item.name}</h3><p>{item.promise}</p><strong>Bekijk {item.name}</strong></a>)}</div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-final-section">
+      <div class="ap-container ap-final-card">
+        <div><div class="ap-kicker">Volgende stap</div><h2>Bekijk hoe {product.name} waarde levert in jouw branche.</h2><p>We bekijken je huidige situatie, bepalen waar dit product werk overneemt en welke koppelingen echt nodig zijn.</p></div>
+        <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`/afspraak/?product=${product.slug}`}>Plan productadvies</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`/bestel-direct/?product=${product.slug}`}>Bestel direct</a></div>
+      </div>
+    </section>
+  </article>
+
+  <script id="ap-product-data" type="application/json" set:html={clientData}></script>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-product-root]");
+    const dataNode = document.getElementById("ap-product-data");
+    if (!root || !dataNode) return;
+    const data = JSON.parse(dataNode.textContent || "{}");
+    let selected = data.niches[0];
+
+    const setText = (selector, value) => { const node = root.querySelector(selector); if (node) node.textContent = value; };
+    const setNiche = (slug, updateUrl = true) => {
+      selected = data.niches.find((item) => item.slug === slug) || data.niches[0];
+      root.querySelectorAll("[data-niche]").forEach((button) => {
+        const active = button.dataset.niche === selected.slug;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      setText("[data-selected-name]", selected.name);
+      setText("[data-selected-heading]", `${data.product.name} voor ${selected.name.toLowerCase()}.`);
+      setText("[data-selected-copy]", `Ingericht op ${selected.intake.slice(0, 4).join(", ")} en gekoppeld aan ${selected.systems.slice(0, 3).join(", ")}.`);
+      setText("[data-selected-question]", selected.conversation.customer);
+      setText("[data-selected-intake]", selected.intake.slice(0, 3).join(" · "));
+      setText("[data-selected-systems]", selected.systems.slice(0, 3).join(" · "));
+      setText("[data-demo-niche]", selected.name);
+      const link = root.querySelector("[data-selected-link]");
+      if (link) { link.href = `/voor-wie/${selected.slug}/?product=${data.product.slug}#producten`; link.textContent = `Bekijk AI voor ${selected.name.toLowerCase()}`; }
+      const finalLink = root.querySelector("[data-final-niche]");
+      if (finalLink) { finalLink.href = `/voor-wie/${selected.slug}/?product=${data.product.slug}#producten`; finalLink.textContent = `Bekijk ${selected.name}`; }
+      const values = [["[data-volume]", selected.metric.volume], ["[data-minutes]", selected.metric.minutes], ["[data-automation]", selected.metric.automation]];
+      values.forEach(([selector, value]) => { const input = root.querySelector(selector); if (input) input.value = value; });
+      updateCalculator();
+      try { sessionStorage.setItem("ap-selected-niche", selected.slug); } catch (_) {}
+      if (updateUrl) {
+        const url = new URL(location.href); url.searchParams.set("branche", selected.slug); history.replaceState({}, "", url);
+      }
+    };
+
+    const updateCalculator = () => {
+      const volume = Number(root.querySelector("[data-volume]")?.value || 0);
+      const minutes = Number(root.querySelector("[data-minutes]")?.value || 0);
+      const automation = Number(root.querySelector("[data-automation]")?.value || 0);
+      setText("[data-volume-value]", volume.toLocaleString("nl-NL"));
+      setText("[data-minutes-value]", minutes);
+      setText("[data-automation-value]", automation);
+      setText("[data-hours]", Math.round((volume * minutes * automation / 100) / 60).toLocaleString("nl-NL"));
+      setText("[data-actions]", Math.round(volume * automation / 100).toLocaleString("nl-NL"));
+    };
+
+    root.querySelectorAll("[data-niche]").forEach((button) => button.addEventListener("click", () => setNiche(button.dataset.niche)));
+    root.querySelectorAll("[data-volume],[data-minutes],[data-automation]").forEach((input) => input.addEventListener("input", updateCalculator));
+    const showDemoStep = (requestedIndex) => {
+      const buttons = [...root.querySelectorAll("[data-demo-step]")];
+      const button = buttons[Math.max(0, Math.min(requestedIndex, buttons.length - 1))];
+      if (!button) return;
+      const stepIndex = Number(button.dataset.demoStep || 0);
+      const step = data.product.workflow[stepIndex] || data.product.workflow[0];
+      root.querySelectorAll("[data-demo-step]").forEach((item) => { const active = item === button; item.classList.toggle("is-active", active); item.setAttribute("aria-selected", String(active)); item.tabIndex = active ? 0 : -1; });
+      setText("[data-demo-label]", step.label); setText("[data-demo-title]", step.title); setText("[data-demo-text]", step.text); setText("[data-demo-output]", step.output);
+      button.focus({ preventScroll: true });
+    };
+    root.querySelectorAll("[data-demo-step]").forEach((button) => button.addEventListener("click", () => showDemoStep(Number(button.dataset.demoStep || 0))));
+    root.querySelectorAll("[data-demo-step]").forEach((button) => button.addEventListener("keydown", (event) => {
+      if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const current = Number(button.dataset.demoStep || 0);
+      const last = data.product.workflow.length - 1;
+      const next = event.key === "Home" ? 0 : event.key === "End" ? last : ["ArrowRight", "ArrowDown"].includes(event.key) ? (current + 1) % (last + 1) : (current - 1 + last + 1) % (last + 1);
+      showDemoStep(next);
+    }));
+    root.querySelector("[data-demo-previous]")?.addEventListener("click", () => {
+      const current = Number(root.querySelector("[data-demo-step][aria-selected='true']")?.dataset.demoStep || 0);
+      showDemoStep(Math.max(0, current - 1));
+    });
+    root.querySelector("[data-demo-reset]")?.addEventListener("click", () => showDemoStep(0));
+
+    const params = new URLSearchParams(location.search);
+    let initial = params.get("branche");
+    if (!initial) { try { initial = sessionStorage.getItem("ap-selected-niche"); } catch (_) {} }
+    setNiche(initial || data.niches[0].slug, false);
+  })();
+</script>
+
+<style>.ap-icon-kicker{display:block;margin-top:24px}.ap-related-grid :global(.ap-visual-icon){margin-bottom:18px}</style>

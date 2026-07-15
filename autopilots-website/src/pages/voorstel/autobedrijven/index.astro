@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { productBySlug } from "../../../data/products";
+import { commerceByNiche, stripeKey } from "../../../data/commerce";
+
+const commerce = commerceByNiche.autobedrijven;
+const offers = Object.values(commerce.offers).filter(Boolean);
+const clientData = JSON.stringify(offers.map((offer) => offer.product)).replaceAll("<", "\\u003c");
+---
+
+<BaseLayout title="Voorstel AI-producten voor autobedrijven | Autopilots" description="Bekijk bevestigde configuraties en prijzen voor AI Inboxmedewerker, AI Telefoniste en AI Leadopvolger voor autobedrijven." canonical="/voorstel/autobedrijven/" noindex={true}>
+  <Fragment slot="head"><script async src="https://js.stripe.com/v3/buy-button.js"></script></Fragment>
+  <article class="ap-ecosystem ap-proposal-page" data-proposal-root>
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/voor-wie/autobedrijven/">Autobedrijven</a><span aria-hidden="true">/</span><span aria-current="page">Voorstel</span></div></nav>
+    <section class="ap-eco-hero">
+      <div class="ap-container ap-eco-copy">
+        <div class="ap-kicker">Bevestigd voorstel voor autobedrijven</div>
+        <h1>Kies de AI-medewerker die past bij je <span class="ap-title-accent">eerste proces.</span></h1>
+        <p class="ap-lead">Deze prijzen en betaalroutes zijn beschikbaar voor de drie bevestigde productconfiguraties. CRM en Leadsmachine AI vragen eerst een scopecheck.</p>
+        <div class="ap-actions"><a class="ap-button ap-button-primary" href="#voorstellen">Bekijk voorstellen</a><a class="ap-button ap-button-secondary" href="/afspraak/?branche=autobedrijven">Eerst overleggen</a></div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section" id="voorstellen">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Product en prijs</div><h2>Maandbedrag, implementatie en usage helder bij elkaar.</h2><p>Alle bedragen zijn exclusief btw. Controleer scope en voorwaarden in de Stripe-betaalomgeving voordat je bevestigt.</p></div>
+        <div class="ap-proposal-grid">
+          {offers.map((offer) => {
+            const product = productBySlug[offer.product];
+            return <article class="ap-proposal-card" data-proposal-card={offer.product}>
+              <div class="ap-kicker">{product.eyebrow}</div>
+              <h2>{product.name}</h2>
+              <p>{product.promise}</p>
+              <div class="ap-proposal-price"><strong>€{offer.monthly}</strong><span>per maand<br />Implementatie €{offer.implementation}</span></div>
+              <ul>{product.core.slice(0, 4).map((item) => <li>{item.title}</li>)}</ul>
+              <details><summary>Usage en voorwaarden<span aria-hidden="true">+</span></summary><p>{offer.usage} Maandelijks opzegbaar met een opzegtermijn van één maand. Definitieve product- en betaalvoorwaarden staan in de betaalomgeving.</p></details>
+              <div class="ap-stripe-shell">
+                <stripe-buy-button buy-button-id={offer.buyButtonId} publishable-key={stripeKey}></stripe-buy-button>
+              </div>
+            </article>;
+          })}
+          <article class="ap-proposal-card ap-proposal-fallback">
+            <div class="ap-kicker">Configuratie nodig</div><h2>Autopilots CRM of Leadsmachine AI</h2><p>Deze producten hangen sterker af van migratie, campagneomvang, koppelingen en inrichting. Daarom noemen we pas een prijs na een korte scopecheck.</p><a class="ap-button ap-button-primary" href="/afspraak/?route=bestellen&branche=autobedrijven">Vraag een passend voorstel aan</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container ap-two-column">
+        <div><div class="ap-section-head"><div class="ap-kicker">Na je bestelling</div><h2>Dit gebeurt voordat de AI-medewerker live gaat.</h2></div><ol class="ap-workflow-list">{["Je ontvangt de bestelbevestiging", "Je plant de implementatiecall", "We leggen scope, toegang en fallback vast", "De verwerkersovereenkomst wordt ondertekend", "We bouwen, testen en plannen de livegang"].map((step, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{step}</h3><p>{index === 4 ? "Doorgaans binnen twee tot vier weken na de implementatiecall, afhankelijk van toegang, koppelingen en feedback." : "Je krijgt voor iedere fase een duidelijke vervolgstap."}</p></div></li>)}</ol></div>
+        <aside class="ap-integration-card"><div class="ap-kicker">Juridisch en privacy</div><h3>Betaling is niet hetzelfde als directe livegang.</h3><p>Voor livegang controleren we rechten, gegevensbronnen, menselijke fallback en de verwerkersovereenkomst. Lees onze <a href="/privacy/">privacyinformatie</a> en <a href="/voorwaarden/">controlepunten bij bestelling</a>.</p><a class="ap-button ap-button-secondary" href="/contact/">Neem contact op</a></aside>
+      </div>
+    </section>
+  </article>
+  <script id="ap-proposal-data" type="application/json" set:html={clientData}></script>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-proposal-root]");
+    const node = document.getElementById("ap-proposal-data");
+    if (!root || !node) return;
+    const valid = new Set(JSON.parse(node.textContent || "[]"));
+    const requested = new URLSearchParams(location.search).get("product");
+    if (!valid.has(requested)) return;
+    const card = root.querySelector(`[data-proposal-card="${CSS.escape(requested)}"]`);
+    if (!card) return;
+    card.classList.add("is-selected");
+    requestAnimationFrame(() => card.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" }));
+  })();
+</script>
+
+<style>
+  .ap-proposal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ap-proposal-card{display:flex;min-width:0;flex-direction:column;border:1px solid var(--ap-line);border-radius:30px;background:#fff;padding:27px;box-shadow:0 16px 45px rgba(17,17,17,.045)}.ap-proposal-card.is-selected{border-color:var(--ap-brown);box-shadow:0 0 0 4px rgba(159,56,38,.12),0 18px 55px rgba(17,17,17,.08)}.ap-proposal-card h2{margin:0;font-size:29px;line-height:1.08}.ap-proposal-card>p{margin:12px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}.ap-proposal-price{display:flex;align-items:flex-end;gap:15px;margin-top:25px;border-radius:22px;background:#f5f5f2;padding:18px}.ap-proposal-price strong{font-family:"Syne",sans-serif;font-size:42px;line-height:1}.ap-proposal-price span{color:var(--ap-muted);font-size:12px;line-height:1.5;font-weight:750}.ap-proposal-card ul{display:grid;gap:9px;margin:24px 0;padding:0;list-style:none}.ap-proposal-card li{font-size:13px;font-weight:750}.ap-proposal-card li:before{content:"✓";margin-right:9px;color:var(--ap-brown);font-weight:900}.ap-proposal-card details{margin-top:auto;border:1px solid var(--ap-line);border-radius:18px;overflow:hidden}.ap-proposal-card summary{display:flex;justify-content:space-between;gap:12px;padding:15px;cursor:pointer;font-size:13px;font-weight:900;list-style:none}.ap-proposal-card details p{margin:0;padding:0 15px 15px;color:var(--ap-muted);font-size:12px;line-height:1.55}.ap-stripe-shell{min-height:84px;margin-top:16px;border:1px solid var(--ap-line);border-radius:20px;background:#fafaf8;padding:12px}.ap-stripe-shell stripe-buy-button{display:block;max-width:100%}.ap-proposal-fallback{justify-content:center;background:#111;color:#fff}.ap-proposal-fallback>p{color:rgba(255,255,255,.68)}.ap-proposal-fallback .ap-button{align-self:flex-start;margin-top:24px}.ap-integration-card a{color:var(--ap-brown);font-weight:850}.ap-integration-card .ap-button{margin-top:22px;color:#111}@media(max-width:760px){.ap-proposal-grid{grid-template-columns:1fr}.ap-proposal-card{border-radius:25px;padding:22px}.ap-proposal-price strong{font-size:36px}}
+  .ap-proposal-card.is-selected{order:-1}
+</style>

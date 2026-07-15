@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/check-built-site.mjs",
+    "check:site": "node scripts/check-built-site.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0"

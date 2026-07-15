@@ -1,38 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/sections/Hero.astro";
-
-const services = [
-  ["Chat AI", "Helpt websitebezoekers, beantwoordt vragen en plant direct een passende afspraak."],
-  ["Voice AI", "Neemt op, belt terug, volgt op en helpt klanten of leads sneller naar de juiste vervolgstap."],
-  ["AI Follow-up", "Zorgt dat offertes, aanvragen en open gesprekken niet stilvallen."],
-  ["Planning AI", "Plant afspraken slimmer en vermindert handwerk in agenda en routeplanning."],
-  ["Klantenmachine AI", "Verbindt chat, voice, follow-up, CRM en planning tot een full-funnel machine."],
-  ["Autopilots CRM", "Houdt gesprekken, leads, marketing, taken en opvolging op een plek."]
-];
-
-const niches = [
-  ["Makelaars", "/branches/makelaars/"],
-  ["Tandartsen", "/branches/tandartsen/"],
-  ["Hotels", "/branches/hotels/"],
-  ["Restaurants", "/branches/restaurants/"],
-  ["Installatietechniek", "/branches/installatietechniek/"],
-  ["Dakdekkers", "/branches/dakdekkers/"],
-  ["Glaszetters", "/branches/glaszetters/"],
-  ["Hoveniers", "/branches/hoveniers/"],
-  ["Kozijnen", "/branches/kozijnen/"],
-  ["Zonnepanelen", "/branches/zonnepanelen/"],
-  ["Vastgoedbeheerders", "/branches/vastgoedbeheerders/"],
-  ["Woningcorporaties", "/branches/woningcorporaties/"],
-  ["Verzekeraars", "/branches/verzekeraars/"],
-  ["Kapperszaken", "/branches/kapperszaken/"],
-  ["Cosmetische klinieken", "/branches/cosmetische-klinieken/"],
-  ["Evenementen", "/branches/evenementen/"],
-  ["Non-profit", "/branches/non-profit/"],
-  ["Dierenarts", "/branches/dierenarts/"],
-  ["Dierenverzorging", "/branches/dierenverzorging/"],
-  ["Vloerenleggers", "/branches/vloerenleggers/"]
-];
+import { products } from "../data/products";
+import { niches } from "../data/niches";
 ---
 
 <BaseLayout
@@ -41,10 +11,14 @@ const niches = [
 >
   <Hero
     eyebrow="Autopilots"
-    title="AI medewerkers voor klantcontact en operatie."
-    accent="24/7."
-    text="Autopilots bouwt AI medewerkers die gesprekken voeren, vragen beantwoorden, leads opvolgen, afspraken plannen en context vastleggen in je CRM. Niet als losse tool, maar als werkend systeem in je bedrijf."
-    chips={["Voice", "Chat", "Support", "Receptie", "Planning", "CRM"]}
+    title="AI-medewerkers die klantcontact omzetten naar"
+    accent="een concrete actie."
+    text="Autopilots bouwt vijf AI-producten voor inbox, leadopvolging, telefonie, CRM en acquisitie. Ze beantwoorden, vragen door, plannen, dragen over en leggen de uitkomst vast in je systemen."
+    primaryLabel="Plan een afspraak"
+    primaryHref="/afspraak/"
+    secondaryLabel="Bestel direct"
+    secondaryHref="/bestel-direct/"
+    chips={["AI Inboxmedewerker", "AI Leadopvolger", "AI Telefoniste", "Autopilots CRM", "Leadsmachine AI"]}
   />
 
   <section class="ap-section" id="producten">
@@ -52,14 +26,15 @@ const niches = [
       <div class="ap-section-head">
         <div class="ap-kicker">Producten</div>
         <h2 class="ap-section-title">Eén systeem voor alle momenten waarop klantcontact werk vraagt.</h2>
-        <p class="ap-text">Autopilots combineert AI medewerkers met duidelijke flows, CRM verwerking en menselijke overdracht. Het gaat om het hele klantcontactproces: support, receptie, planning, opvolging en commerciële aanvragen in hetzelfde systeem.</p>
+        <p class="ap-text">Vijf gestandaardiseerde AI-producten nemen een duidelijke rol over en worden ingericht op jullie branche, systemen, uitzonderingen en menselijke overdracht.</p>
       </div>
       <div class="ap-grid-3">
-        {services.map(([title, text]) => (
-          <article class="ap-card">
-            <h3 class="ap-card-title">{title}</h3>
-            <p class="ap-text">{text}</p>
-          </article>
+        {products.map((product) => (
+          <a class="ap-card" href={`/producten/${product.slug}/`}>
+            <h3 class="ap-card-title">{product.name}</h3>
+            <p class="ap-text">{product.promise}</p>
+            <strong>Bekijk {product.name}</strong>
+          </a>
         ))}
       </div>
     </div>
@@ -68,9 +43,9 @@ const niches = [
   <section class="ap-section" id="klantenmachine">
     <div class="ap-container">
       <div class="ap-dark-band">
-        <div class="ap-kicker">Klantenmachine AI</div>
+        <div class="ap-kicker">Producten werken samen</div>
         <h2 class="ap-section-title">Van eerste vraag naar juiste actie, zonder gaten in je proces.</h2>
-        <p class="ap-text">De meeste bedrijven verliezen tijd en kansen tussen website, telefoon, supportvraag, planning en CRM. Autopilots bouwt daar een werkend systeem tussen: klantcontact, AI afhandeling, afspraakplanning, overdracht en CRM-verwerking.</p>
+        <p class="ap-text">Inboxmedewerker, Telefoniste en Leadopvolger voeren het klantcontact uit. Autopilots CRM bewaart de context. Leadsmachine AI verbindt acquisitie met die route.</p>
         <div class="ap-grid-3 ap-dark-grid">
           <div>
             <span class="ap-step-number">01</span>
@@ -96,13 +71,13 @@ const niches = [
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-kicker">Branches</div>
-        <h2 class="ap-section-title">Landingspagina's per branche, met dezelfde sterke basis.</h2>
-        <p class="ap-text">Elke niche krijgt een eigen customer journey, eigen klantvragen en eigen business case. We bouwen per branche een pagina die past bij de dagelijkse praktijk en de commerciële route.</p>
+        <h2 class="ap-section-title">Een eigen klantreis voor de dagelijkse praktijk van iedere branche.</h2>
+        <p class="ap-text">Elke branchepagina gebruikt herkenbare vragen, intakevelden, planning, systemen, uitzonderingen en een passende productvolgorde.</p>
       </div>
       <div class="ap-niche-grid">
-        {niches.map(([label, href]) => (
-          <a class="ap-niche-link" href={href}>
-            <span>{label}</span>
+        {niches.map((niche) => (
+          <a class="ap-niche-link" href={`/voor-wie/${niche.slug}/`}>
+            <span>{niche.name}</span>
             <strong>Bekijk route</strong>
           </a>
         ))}
@@ -142,10 +117,10 @@ const niches = [
       <div class="ap-final-cta">
         <div>
           <div class="ap-kicker">Volgende stap</div>
-          <h2 class="ap-section-title">Klaar om AI proof te worden?</h2>
-          <p class="ap-text">We kijken waar klantcontact, opvolging en planning slimmer kunnen, en bouwen daarna een route die past bij jouw bedrijf.</p>
+          <h2 class="ap-section-title">Kies advies of start met een bevestigde productroute.</h2>
+          <p class="ap-text">Plan een gesprek als product, scope of koppelingen nog niet duidelijk zijn. Via bestellen zie je alleen configuraties waarvan prijs en route zijn bevestigd.</p>
         </div>
-        <a class="ap-button ap-button-primary" href="/contact/">Plan een afspraak</a>
+        <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" href="/afspraak/">Plan een afspraak</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" href="/bestel-direct/">Bestel direct</a></div>
       </div>
     </div>
   </section>

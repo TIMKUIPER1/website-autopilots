@@ -1418,7 +1418,6 @@ h1 {
   background: #111;
   padding: 20px 0;
   color: #fff;
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 
 .ap-inspiration-marquee .ap-kicker {
@@ -1430,7 +1429,7 @@ h1 {
   display: flex;
   width: max-content;
   gap: 10px;
-  animation: apInspirationSlide 58s linear infinite;
+  animation: apInspirationSlide 96s linear infinite;
 }
 
 .ap-inspiration-track span {

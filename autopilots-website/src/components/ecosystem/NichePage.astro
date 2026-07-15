@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { productBySlug, products } from "../../data/products";
+import { nicheBySlug, type Niche } from "../../data/niches";
+import { getOrderDestination, getDirectOffer } from "../../data/commerce";
+import VisualIcon from "../ui/VisualIcon.astro";
+
+interface Props { niche: Niche }
+const { niche } = Astro.props;
+const recommended = [...niche.primaryProducts, ...niche.optionalProducts].map((slug) => productBySlug[slug]);
+const related = niche.related.map((slug) => nicheBySlug[slug]).filter(Boolean);
+const clientData = JSON.stringify({ niche, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
+const firstProduct = recommended[0];
+const schema = [
+  {
+    "@context": "https://schema.org", "@type": "Service", name: `AI-medewerker voor ${niche.name}`,
+    serviceType: "AI klantcontact en procesautomatisering", description: niche.metaDescription,
+    provider: { "@type": "Organization", name: "Autopilots", url: "https://auto-pilots.io" },
+    areaServed: "Nederland", url: new URL(`/voor-wie/${niche.slug}/`, Astro.site ?? Astro.url.origin).toString()
+  },
+  {
+    "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 2, name: "Voor wie", item: new URL("/voor-wie/", Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 3, name: niche.name, item: new URL(`/voor-wie/${niche.slug}/`, Astro.site ?? Astro.url.origin).toString() }
+    ]
+  },
+  {
+    "@context": "https://schema.org", "@type": "FAQPage", mainEntity: niche.faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } }))
+  }
+];
+---
+
+<BaseLayout title={niche.seoTitle} description={niche.metaDescription} canonical={`/voor-wie/${niche.slug}/`} schema={schema}>
+  <article class="ap-ecosystem ap-niche-page" data-niche-root data-niche={niche.slug}>
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/voor-wie/">Voor wie</a><span aria-hidden="true">/</span><span aria-current="page">{niche.name}</span></div></nav>
+
+    <section class="ap-eco-hero ap-niche-hero">
+      <div class="ap-container ap-eco-hero-grid">
+        <div class="ap-eco-copy">
+          <VisualIcon type="niche" name={niche.slug} size="large" label={`${niche.name} icoon`} />
+          <div class="ap-kicker ap-icon-kicker">AI-medewerker voor {niche.name}</div>
+          <h1>{niche.hero} <span class="ap-title-accent">{niche.accent}</span></h1>
+          <p class="ap-lead">{niche.lead}</p>
+          <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een afspraak</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={`/bestel-direct/?product=${firstProduct.slug}`}>Bestel direct</a></div>
+          <a class="ap-text-link" href="#praktijkdemo">Bekijk eerst de klantreis →</a>
+          <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>Ingericht op de processen, systemen en uitzonderingen van een {niche.singular}.</span></p>
+        </div>
+        <aside class="ap-conversation-card" aria-label={`Voorbeeldgesprek voor ${niche.name}`}>
+          <div class="ap-conversation-head"><span>Live intake</span><strong>{niche.name}</strong></div>
+          <div class="ap-message is-customer">{niche.conversation.customer}</div>
+          <div class="ap-message is-ai">{niche.conversation.ai}</div>
+          <div class="ap-conversation-result"><small>Actie in systeem</small><strong>{niche.conversation.result}</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Een herkenbare werkdag</div><h2>Waar tijd, aandacht en kansen nu <span class="ap-title-accent">weglekken.</span></h2><p>Geen generieke AI-uitleg, maar de momenten waarop de dagelijkse praktijk vastloopt.</p></div>
+        <div class="ap-card-grid ap-card-grid-4">{niche.painPoints.map((item, index) => <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="ap-section" id="praktijkdemo">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Interactieve praktijkdemo</div><h2>Van vraag naar een complete <span class="ap-title-accent">vervolgactie.</span></h2><p>Klik door het gesprek en zie welke context het team ontvangt.</p></div>
+        <div class="ap-niche-demo">
+          <div class="ap-demo-tabs" role="tablist" aria-label={`Voorbeeldflow voor ${niche.name}`}>
+            {[
+              ["Vraag", "Klant neemt contact op"], ["Intake", "AI vraagt gericht door"], ["Antwoord", "Context wordt aangevuld"], ["Actie", "Systeem wordt bijgewerkt"]
+            ].map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-niche-step={index}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step[0]}</strong><small>{step[1]}</small></button>)}
+          </div>
+          <article class="ap-niche-demo-panel" role="tabpanel" aria-live="polite">
+            <div class="ap-demo-stage" data-niche-stage>Vraag komt binnen</div>
+            <div class="ap-message is-customer" data-niche-message>{niche.conversation.customer}</div>
+            <div class="ap-conversation-result"><small data-niche-result-label>Volgende stap</small><strong data-niche-result>De AI bepaalt welke informatie nog ontbreekt.</strong></div>
+            <div class="ap-demo-controls"><button type="button" data-niche-previous>Vorige</button><button type="button" data-niche-reset>Opnieuw</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-dark-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Een voorbeeld van de nieuwe klantreis</div><h2>De ideale workflow voor {niche.name.toLowerCase()}.</h2></div>
+        <ol class="ap-dark-workflow">{niche.workflow.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="ap-section" id="producten">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Aanbevolen Autopilots-systeem</div><h2>Begin met wat het meeste operationele <span class="ap-title-accent">verschil maakt.</span></h2><p>Niet ieder bedrijf heeft alle vijf producten nodig. Primair betekent logisch om als eerste te onderzoeken; aanvullend hangt af van je klantreis.</p></div>
+        <div class="ap-product-recommendations">
+          {recommended.map((product) => {
+            const primary = niche.primaryProducts.includes(product.slug);
+            const directOffer = getDirectOffer(niche.slug, product.slug);
+            const orderDestination = getOrderDestination(niche.slug, product.slug);
+            return <article class:list={["ap-recommendation-card", { "is-primary": primary }]} data-product-card={product.slug}>
+              <VisualIcon type="product" name={product.slug} /><span>{primary ? "Primair" : "Aanvullend"}</span><h3>{product.name}</h3><p>{product.promise}</p>
+              <div class="ap-recommendation-actions"><a href={`/producten/${product.slug}/?branche=${niche.slug}`}>Bekijk product</a><a class="is-order" data-ap-event={directOffer ? "proposal_opened" : "proposal_fallback_clicked"} data-ap-product={product.slug} data-ap-niche={niche.slug} href={orderDestination}>{directOffer ? "Open voorstel" : "Vraag voorstel aan"}</a></div>
+            </article>;
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container ap-two-column">
+        <div>
+          <div class="ap-section-head"><div class="ap-kicker">Branchespecifieke intake</div><h2>De velden die de praktijk echt nodig heeft.</h2></div>
+          <div class="ap-module-grid">{niche.intake.map((item, index) => <div><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></div>)}</div>
+        </div>
+        <aside class="ap-integration-card">
+          <div class="ap-kicker">Systemen en kanalen</div><h3>De route sluit aan op je bestaande werkomgeving.</h3>
+          <div class="ap-chip-grid">{niche.systems.map((item) => <span>{item}</span>)}</div>
+          <p>De exacte koppeling hangt af van API’s, rechten, datakwaliteit en de gewenste lees- of schrijfacties.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Impactscenario voor {niche.name}</div><h2>Maak tijd vrij zonder een resultaat <span class="ap-title-accent">te beloven.</span></h2><p>Vul je eigen aantallen in. De uitkomst is een indicatie van voorbereid handwerk.</p></div>
+        <div class="ap-calculator">
+          <div class="ap-calculator-inputs">
+            <label><span>{niche.metric.label} per maand</span><strong data-n-volume-value>{niche.metric.volume}</strong><input data-n-volume type="range" min="20" max="1000" step="10" value={niche.metric.volume} /></label>
+            <label><span>Minuten handwerk per contact</span><strong data-n-minutes-value>{niche.metric.minutes}</strong><input data-n-minutes type="range" min="2" max="30" value={niche.metric.minutes} /></label>
+            <label><span>Deel dat AI kan voorbereiden</span><strong><span data-n-automation-value>{niche.metric.automation}</span>%</strong><input data-n-automation type="range" min="10" max="90" value={niche.metric.automation} /></label>
+          </div>
+          <div class="ap-calculator-output"><span>Indicatieve tijd vrijgemaakt</span><strong><span data-n-hours>0</span> uur</strong><p><span data-n-actions>0</span> contactmomenten voorbereid per maand.</p><small>Exclusief implementatie, gebruikskosten en situaties die menselijke beoordeling vragen.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-dark-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Transparante kaders</div><h2>De AI handelt binnen afspraken. De mens houdt het oordeel.</h2></div>
+        <div class="ap-card-grid ap-card-grid-3">
+          <article class="ap-dark-card"><h3>Zelfstandig binnen de flow</h3><p>Vragen stellen, goedgekeurde informatie geven, samenvatten en een toegestane vervolgactie voorbereiden.</p></article>
+          <article class="ap-dark-card"><h3>Mens bij uitzondering</h3><p>Risico, emotie, medisch of financieel oordeel en situaties buiten de bekende regels worden overgedragen.</p></article>
+          <article class="ap-dark-card"><h3>Inrichting tijdens onboarding</h3><p>Intake, tone of voice, systemen, rechten, uitzonderingen, fallback en testscenario’s worden samen bepaald.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container ap-faq-layout">
+        <div class="ap-section-head"><div class="ap-kicker">Veelgestelde vragen</div><h2>Praktische vragen van {niche.name.toLowerCase()}.</h2></div>
+        <div class="ap-faq-list">
+          {niche.faq.map((item, index) => <details open={index === 0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}
+          <details><summary>Wat wordt tijdens onboarding ingericht?<span aria-hidden="true">+</span></summary><p>We bepalen vragen, tone of voice, urgentie, routes, systemen, rechten, menselijke fallback en de scenario’s die vóór livegang worden getest.</p></details>
+          <details><summary>Kan ieder bestaand systeem worden gekoppeld?<span aria-hidden="true">+</span></summary><p>Nee, niet automatisch. We toetsen API’s, rechten, datakwaliteit en de gewenste acties. Soms is aanvullende ontwikkeling of een andere route nodig.</p></details>
+        </div>
+      </div>
+    </section>
+
+    {related.length > 0 && <section class="ap-section"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">Vergelijkbare klantreizen</div><h2>Bekijk ook deze branches.</h2></div><div class="ap-related-grid">{related.map((item) => <a href={`/voor-wie/${item.slug}/`}><span>AI voor</span><h3>{item.name}</h3><p>{item.lead}</p><strong>Bekijk AI voor {item.name.toLowerCase()}</strong></a>)}</div></div></section>}
+
+    <section class="ap-section ap-final-section"><div class="ap-container ap-final-card"><div><div class="ap-kicker">Volgende stap voor {niche.name}</div><h2>Kies advies of start met het eerste passende product.</h2><p>Bij advies brengen we contactmomenten, systemen en uitzonderingen in kaart. Via bestellen zie je alleen prijzen die al officieel voor deze configuratie beschikbaar zijn.</p></div><div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een korte analyse</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={`/bestel-direct/?product=${firstProduct.slug}`}>Bestel direct</a></div></div></section>
+  </article>
+
+  <script id="ap-niche-data" type="application/json" set:html={clientData}></script>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-niche-root]");
+    const node = document.getElementById("ap-niche-data");
+    if (!root || !node) return;
+    const payload = JSON.parse(node.textContent || "{}");
+    const niche = payload.niche;
+    const steps = [
+      { stage: "Vraag komt binnen", message: niche.conversation.customer, label: "Volgende stap", result: "De AI bepaalt welke informatie nog ontbreekt." },
+      { stage: "Gerichte intake", message: niche.conversation.ai, label: "Waarom deze vraag", result: `De intake gebruikt velden zoals ${niche.intake.slice(0, 3).join(", ")}.` },
+      { stage: "Context aangevuld", message: niche.conversation.followup, label: "Beslismoment", result: "De AI kiest antwoord, planning, taak of menselijke overdracht." },
+      { stage: "Actie vastgelegd", message: niche.conversation.result, label: "Output in systeem", result: niche.conversation.result }
+    ];
+    const setText = (selector, value) => { const item = root.querySelector(selector); if (item) item.textContent = value; };
+    const showNicheStep = (requestedIndex, focus = false) => {
+      const buttons = [...root.querySelectorAll("[data-niche-step]")];
+      const index = Math.max(0, Math.min(requestedIndex, steps.length - 1));
+      const button = buttons[index]; const step = steps[index];
+      root.querySelectorAll("[data-niche-step]").forEach((item) => { const active = item === button; item.classList.toggle("is-active", active); item.setAttribute("aria-selected", String(active)); item.tabIndex = active ? 0 : -1; });
+      setText("[data-niche-stage]", step.stage); setText("[data-niche-message]", step.message); setText("[data-niche-result-label]", step.label); setText("[data-niche-result]", step.result);
+      if (focus) button?.focus({ preventScroll: true });
+    };
+    root.querySelectorAll("[data-niche-step]").forEach((button) => {
+      button.addEventListener("click", () => showNicheStep(Number(button.dataset.nicheStep || 0)));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const current = Number(button.dataset.nicheStep || 0); const last = steps.length - 1;
+        const next = event.key === "Home" ? 0 : event.key === "End" ? last : ["ArrowRight", "ArrowDown"].includes(event.key) ? (current + 1) % (last + 1) : (current - 1 + last + 1) % (last + 1);
+        showNicheStep(next, true);
+      });
+    });
+    root.querySelector("[data-niche-previous]")?.addEventListener("click", () => {
+      const current = Number(root.querySelector("[data-niche-step][aria-selected='true']")?.dataset.nicheStep || 0);
+      showNicheStep(Math.max(0, current - 1), true);
+    });
+    root.querySelector("[data-niche-reset]")?.addEventListener("click", () => showNicheStep(0, true));
+    const update = () => {
+      const volume = Number(root.querySelector("[data-n-volume]")?.value || 0); const minutes = Number(root.querySelector("[data-n-minutes]")?.value || 0); const automation = Number(root.querySelector("[data-n-automation]")?.value || 0);
+      setText("[data-n-volume-value]", volume.toLocaleString("nl-NL")); setText("[data-n-minutes-value]", minutes); setText("[data-n-automation-value]", automation);
+      setText("[data-n-hours]", Math.round((volume * minutes * automation / 100) / 60).toLocaleString("nl-NL")); setText("[data-n-actions]", Math.round(volume * automation / 100).toLocaleString("nl-NL"));
+    };
+    root.querySelectorAll("[data-n-volume],[data-n-minutes],[data-n-automation]").forEach((input) => input.addEventListener("input", update)); update();
+    const requestedProduct = new URLSearchParams(location.search).get("product");
+    if (payload.validProducts.includes(requestedProduct)) {
+      const selectedCard = root.querySelector(`[data-product-card="${CSS.escape(requestedProduct)}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add("is-selected");
+        selectedCard.setAttribute("aria-label", "Gekozen product");
+        if (location.hash === "#producten") requestAnimationFrame(() => document.getElementById("producten")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }));
+      }
+    }
+  })();
+</script>
+
+<style>.ap-icon-kicker{display:block;margin-top:24px}.ap-recommendation-card :global(.ap-visual-icon){margin-bottom:18px}</style>

@@ -1,0 +1,16 @@
+---
+export function getStaticPaths() {
+  const redirects: Record<string, string> = {
+    chat: "ai-inboxmedewerker", "chat-ai": "ai-inboxmedewerker",
+    voice: "ai-telefoniste", "voice-ai": "ai-telefoniste",
+    "follow-up": "ai-leadopvolger", "follow-up-ai": "ai-leadopvolger",
+    planning: "ai-telefoniste", "planning-ai": "ai-telefoniste",
+    support: "ai-inboxmedewerker", "support-ai": "ai-inboxmedewerker",
+    contact: "ai-inboxmedewerker", "autopilots-crm": "autopilots-crm",
+    "leadsmachine-ai": "leadsmachine-ai"
+  };
+  return Object.keys(redirects).map((slug) => ({ params: { slug }, props: { target: redirects[slug] } }));
+}
+const { target } = Astro.props;
+return Astro.redirect(`/producten/${target}/`, 301);
+---

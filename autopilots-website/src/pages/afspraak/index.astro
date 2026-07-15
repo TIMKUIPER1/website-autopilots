@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
+import { products } from "../../data/products";
+import { niches } from "../../data/niches";
+const contextData = JSON.stringify({ products: products.map(({ slug, name }) => ({ slug, name })), niches: niches.map(({ slug, name }) => ({ slug, name })) }).replaceAll("<", "\\u003c");
 ---
 
 <BaseLayout
@@ -12,13 +15,14 @@ import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
     <div class="ap-container ap-booking-grid">
       <aside class="ap-card ap-booking-copy">
         <div class="ap-kicker">Afspraak plannen</div>
-        <h1 class="ap-page-title">Bekijk waar AI direct werk overneemt.</h1>
-        <p class="ap-lead">Kies een moment. We bekijken je huidige klantcontact, planning, CRM en opvolging. Daarna krijg je een concrete route: Chat, Voice of allebei.</p>
+        <h1 class="ap-page-title">Bekijk waar AI direct <span class="ap-accent">werk overneemt.</span></h1>
+        <p class="ap-lead">Kies een moment. We bekijken je huidige situatie en bepalen welk AI product direct toegevoegde waarde kan leveren in klantcontact, planning, CRM of opvolging.</p>
+        <div class="ap-booking-context" data-booking-context hidden><span>Meegenomen in dit gesprek</span><strong data-booking-context-title></strong><a href="/producten/">Wijzig keuze</a></div>
         <div class="ap-booking-list">
-          <div>1. Huidige workflow in kaart brengen</div>
-          <div>2. Eerste AI medewerker kiezen</div>
-          <div>3. Forms, calendar en CRM-koppeling bepalen</div>
-          <div>4. Livegang en optimalisatie plannen</div>
+          <div>1. Huidige situatie bekijken</div>
+          <div>2. Ontdekken welk AI product waarde kan leveren</div>
+          <div>3. Samen de koppelingen bepalen</div>
+          <div>4. Onboarding inplannen</div>
         </div>
       </aside>
       <div class="ap-booking-frame">
@@ -26,12 +30,29 @@ import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
           src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
           title="Plan een afspraak met Autopilots"
           id="autopilots-afspraak-calendar"
+          loading="eager"
         />
-        <p class="ap-booking-note">Deze calendar is gekoppeld aan GoHighLevel. Afspraken blijven dus in het bestaande CRM/follow-up systeem binnenkomen.</p>
       </div>
     </div>
   </section>
+  <script id="ap-booking-data" type="application/json" set:html={contextData}></script>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const node = document.getElementById("ap-booking-data");
+    const card = document.querySelector("[data-booking-context]");
+    if (!node || !card) return;
+    const data = JSON.parse(node.textContent || "{}");
+    const params = new URLSearchParams(location.search);
+    const product = data.products.find((item) => item.slug === params.get("product"));
+    const niche = data.niches.find((item) => item.slug === params.get("branche"));
+    if (!product && !niche) return;
+    const parts = [product?.name, niche ? `voor ${niche.name.toLowerCase()}` : ""].filter(Boolean);
+    card.querySelector("[data-booking-context-title]").textContent = parts.join(" ");
+    card.hidden = false;
+  })();
+</script>
 
 <style>
   .ap-booking-grid {
@@ -41,9 +62,13 @@ import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
     align-items: start;
   }
 
-  .ap-booking-copy .ap-page-title {
-    font-size: clamp(42px, 5.8vw, 72px);
-  }
+  .ap-booking-copy .ap-page-title { font-size: clamp(34px, calc(5vw - 12px), 54px); }
+
+  .ap-booking-context { display: grid; gap: 7px; margin-top: 22px; border: 1px solid rgba(159,56,38,.2); border-radius: 19px; background: #fff7f4; padding: 15px; }
+  .ap-booking-context[hidden] { display: none; }
+  .ap-booking-context span { color: var(--ap-brown); font-family: "Syne", sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+  .ap-booking-context strong { font-size: 15px; }
+  .ap-booking-context a { color: var(--ap-brown); font-size: 12px; font-weight: 850; }
 
   .ap-booking-list {
     display: grid;

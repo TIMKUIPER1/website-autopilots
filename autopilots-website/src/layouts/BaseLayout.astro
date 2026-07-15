@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/ecosystem.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
@@ -8,13 +9,19 @@ interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  lang?: string;
+  noindex?: boolean;
+  schema?: object | object[];
 }
 
 const {
   title,
   description,
   canonical = Astro.url.pathname,
-  ogImage = "/og/autopilots-og.jpg"
+  ogImage = "/og/autopilots-og.svg",
+  lang = "nl",
+  noindex = false,
+  schema
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
@@ -22,12 +29,17 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
 ---
 
 <!doctype html>
-<html lang="nl">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f2" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -38,13 +50,48 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replaceAll("<", "\\u003c")} />}
     <slot name="head" />
   </head>
   <body>
+    <a class="ap-skip-link" href="#main-content">Ga naar de inhoud</a>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />
+    <nav class="ap-mobile-actionbar" aria-label="Snelle acties">
+      <a data-ap-event="appointment_cta_clicked" href="/afspraak/">Plan afspraak</a>
+      <a data-ap-event="direct_order_clicked" href="/bestel-direct/">Bestel direct</a>
+    </nav>
+    <script is:inline>
+      (() => {
+        const sent = new Set();
+        const emit = (name, detail = {}, onceKey = "") => {
+          const key = onceKey && `${name}:${onceKey}`;
+          if (key && sent.has(key)) return;
+          if (key) sent.add(key);
+          const safe = { event: name, page_path: location.pathname, ...detail };
+          window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail: safe }));
+          if (Array.isArray(window.dataLayer)) window.dataLayer.push(safe);
+        };
+        const productRoot = document.querySelector("[data-product-root]");
+        const nicheRoot = document.querySelector("[data-niche-root]");
+        if (productRoot) emit("product_viewed", { product: productRoot.dataset.product }, location.pathname);
+        if (nicheRoot) emit("niche_viewed", { niche: nicheRoot.dataset.niche }, location.pathname);
+        document.addEventListener("click", (event) => {
+          const target = event.target.closest("[data-ap-event]");
+          if (target) emit(target.dataset.apEvent, { product: target.dataset.apProduct || undefined, niche: target.dataset.apNiche || undefined });
+          const demo = event.target.closest("[data-demo-step],[data-niche-step]");
+          if (demo) {
+            const index = Number(demo.dataset.demoStep ?? demo.dataset.nicheStep ?? 0);
+            emit(index >= 3 ? "demo_completed" : "demo_started", { step: index + 1 }, index >= 3 ? location.pathname : `${location.pathname}:start`);
+          }
+        });
+        document.addEventListener("input", (event) => {
+          if (event.target.matches("[data-volume],[data-minutes],[data-automation],[data-n-volume],[data-n-minutes],[data-n-automation]")) emit("calculator_used", {}, location.pathname);
+        });
+      })();
+    </script>
   </body>
 </html>

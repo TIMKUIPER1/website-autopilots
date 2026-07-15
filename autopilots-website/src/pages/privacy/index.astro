@@ -2,18 +2,20 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout
-  title="Privacy | Autopilots"
-  description="Privacyinformatie van Autopilots."
-  canonical="/privacy/"
->
-  <section class="ap-section">
-    <div class="ap-container">
-      <div class="ap-section-head">
-        <div class="ap-kicker">Privacy</div>
-        <h1 class="ap-page-title">Privacy en gegevensverwerking.</h1>
-        <p class="ap-lead">Deze pagina wordt in de rebuild gekoppeld aan de bestaande privacy-inhoud en juridische tekst.</p>
-      </div>
-    </div>
-  </section>
+<BaseLayout title="Privacy en gegevensverwerking | Autopilots" description="Lees welke persoonsgegevens Autopilots via de website verwerkt, waarom dit gebeurt en welke keuzes en rechten je hebt." canonical="/privacy/">
+  <article class="ap-ecosystem ap-legal-page">
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Privacy</span></div></nav>
+    <section class="ap-eco-hero"><div class="ap-container ap-eco-copy"><div class="ap-kicker">Laatst bijgewerkt: 15 juli 2026</div><h1>Privacy en <span class="ap-title-accent">gegevensverwerking.</span></h1><p class="ap-lead">Hier leggen we in gewone taal uit welke gegevens via deze website kunnen worden verwerkt en welke externe diensten daarbij een rol spelen.</p></div></section>
+    <section class="ap-section ap-soft-section"><div class="ap-container ap-legal-layout"><aside class="ap-legal-nav"><strong>Op deze pagina</strong><a href="#welke-gegevens">Welke gegevens</a><a href="#waarom">Doeleinden</a><a href="#diensten">Externe diensten</a><a href="#bewaren">Bewaartermijnen</a><a href="#rechten">Jouw rechten</a></aside><div class="ap-legal-content">
+      <section id="welke-gegevens"><div class="ap-kicker">Welke gegevens</div><h2>Alleen wat nodig is voor contact, planning en uitvoering.</h2><p>Wanneer je een afspraak plant of contact opneemt, kunnen naam, zakelijke contactgegevens, bedrijfsinformatie, afspraakgegevens en de inhoud van je verzoek worden verwerkt. Bij een bestelling verwerkt de betaalprovider ook betaal- en transactiegegevens. Autopilots ontvangt niet automatisch je volledige betaalkaartgegevens.</p></section>
+      <section id="waarom"><div class="ap-kicker">Waarom</div><h2>Om te reageren, een afspraak te plannen en afspraken uit te voeren.</h2><p>We gebruiken gegevens om contact op te nemen, een aanvraag te beoordelen, een afspraak of bestelling af te handelen, de implementatie voor te bereiden, de website te beveiligen en aan wettelijke verplichtingen te voldoen. We gebruiken vrije tekst niet als analyticsdata.</p></section>
+      <section id="diensten"><div class="ap-kicker">Externe diensten</div><h2>Kalender, CRM en betaling hebben een eigen technische rol.</h2><p>De afspraakmodule wordt geleverd via LeadConnector/GoHighLevel. Bevestigde betaalroutes gebruiken Stripe. Deze partijen verwerken gegevens volgens hun eigen rol, beveiliging en voorwaarden. Voor een klantimplementatie leggen we afzonderlijk vast welke systemen, rechten en verwerkers nodig zijn.</p></section>
+      <section id="bewaren"><div class="ap-kicker">Bewaartermijnen</div><h2>Niet langer dan nodig voor het doel.</h2><p>Contact- en afspraakgegevens worden bewaard zolang dit nodig is voor opvolging, uitvoering en administratie, of zolang een wettelijke bewaarplicht geldt. Testdata en niet-relevante gegevens horen niet onnodig in productiesystemen te blijven staan.</p></section>
+      <section id="rechten"><div class="ap-kicker">Jouw rechten</div><h2>Je kunt vragen om inzicht, correctie of verwijdering.</h2><p>Je kunt ook bezwaar maken of vragen om beperking of overdracht wanneer dat wettelijk van toepassing is. Stuur je verzoek naar <a href="mailto:info@auto-pilots.io">info@auto-pilots.io</a>. We kunnen om redelijke verificatie vragen voordat we persoonsgegevens delen of wijzigen.</p><p>Heb je een klacht, neem dan eerst contact met ons op. Je behoudt het recht om een klacht in te dienen bij de bevoegde privacytoezichthouder.</p></section>
+    </div></div></section>
+  </article>
 </BaseLayout>
+
+<style>
+  .ap-legal-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:start}.ap-legal-nav{position:sticky;top:96px;display:grid;gap:8px;border:1px solid var(--ap-line);border-radius:24px;background:#fff;padding:18px}.ap-legal-nav strong{margin-bottom:7px;font-size:14px}.ap-legal-nav a{color:var(--ap-muted);font-size:13px;font-weight:750}.ap-legal-nav a:hover{color:var(--ap-brown)}.ap-legal-content{display:grid;gap:14px}.ap-legal-content section{scroll-margin-top:96px;border:1px solid var(--ap-line);border-radius:28px;background:#fff;padding:30px}.ap-legal-content h2{margin:0;font-size:30px;line-height:1.1}.ap-legal-content p{margin-top:16px;color:var(--ap-muted);font-size:16px;line-height:1.7}.ap-legal-content p a{color:var(--ap-brown);font-weight:850}@media(max-width:760px){.ap-legal-layout{grid-template-columns:1fr}.ap-legal-nav{position:static}.ap-legal-content section{border-radius:24px;padding:22px}.ap-legal-content h2{font-size:26px}}
+</style>

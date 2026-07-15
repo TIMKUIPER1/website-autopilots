@@ -1,767 +1,133 @@
 <!doctype html>
 <html lang="nl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Autopilots Branch Preview</title>
-    <meta name="description" content="Autopilots preview voor AI medewerkers per doelgroep met voorbeeldgesprek, calculator en afspraakroute." />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@500;600;700&display=swap");
-      :root{--ap-bg:#f5f5f2;--ap-card:#fff;--ap-text:#111;--ap-muted:#656565;--ap-line:rgba(0,0,0,.1);--ap-brown:#9f3826;--ap-brown-dark:#7d2a1d;--ap-black:#111;--ap-soft:#f8f8f5;--ap-soft-2:#eeeeea}
-      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ap-bg);color:var(--ap-text);font-family:"Public Sans",Arial,sans-serif}a{color:inherit;text-decoration:none}button,input{font:inherit}h1,h2,h3,p{margin:0}.ap-container{width:min(1120px,calc(100% - 36px));margin:0 auto}.ap-section{padding:76px 0}.ap-kicker,.ap-logo,.ap-metric strong{font-family:"Syne","Public Sans",Arial,sans-serif}.ap-kicker{display:inline-flex;margin-bottom:20px;color:var(--ap-brown);font-size:12px;font-weight:700;letter-spacing:2px;line-height:1.2;text-transform:uppercase}h1{max-width:960px;font-size:clamp(44px,6vw,78px);line-height:1.04;font-weight:900;letter-spacing:0}.ap-lead{max-width:790px;margin-top:22px;color:var(--ap-muted);font-size:19px;line-height:1.62;font-weight:500}.ap-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.ap-button{display:inline-flex;min-height:50px;align-items:center;justify-content:center;border-radius:999px;padding:15px 24px;border:1px solid var(--ap-line);font-size:15px;font-weight:800}.ap-button-primary{background:var(--ap-brown);color:#fff;border-color:var(--ap-brown)}.ap-button-secondary{background:#fff}.ap-top{position:sticky;top:0;z-index:10;padding:18px 0;border-bottom:1px solid var(--ap-line);background:rgba(245,245,242,.9);backdrop-filter:blur(14px)}.ap-top-inner{display:flex;justify-content:space-between;align-items:center;gap:14px}.ap-logo{font-size:13px;font-weight:700;letter-spacing:2px}.ap-small-link{font-size:13px;font-weight:850;color:var(--ap-muted)}.ap-hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}.ap-pill{display:inline-flex;align-items:center;border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:9px 13px;font-size:13px;font-weight:900}.ap-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}.ap-card{border:1px solid var(--ap-line);border-radius:30px;background:#fff;box-shadow:0 16px 50px rgba(17,17,17,.065);padding:28px}.ap-card h2{font-size:clamp(30px,4vw,48px);line-height:1.06;font-weight:900}.ap-card h3{font-size:22px;line-height:1.14;font-weight:900}.ap-card p{margin-top:12px;color:var(--ap-muted);font-size:15px;line-height:1.6;font-weight:550}.ap-chat{display:grid;gap:10px;margin-top:18px;border:1px solid var(--ap-line);border-radius:24px;background:var(--ap-soft);padding:16px}.ap-chat-meta{display:flex;justify-content:space-between;gap:10px;color:var(--ap-muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px}.ap-bubble{max-width:84%;border-radius:20px;padding:13px 14px;font-size:14px;line-height:1.48;font-weight:650}.ap-user{justify-self:start;background:#fff;border:1px solid var(--ap-line)}.ap-agent{justify-self:end;background:#111;color:#fff}.ap-result{border:1px solid rgba(159,56,38,.18);border-radius:20px;background:#fffaf8;padding:15px;color:var(--ap-text);font-size:14px;line-height:1.48;font-weight:750}.ap-result strong{display:block;margin-bottom:6px;color:var(--ap-brown);font-size:12px;text-transform:uppercase;letter-spacing:1px}.ap-steps{display:grid;gap:10px;margin-top:18px}.ap-step{display:grid;grid-template-columns:48px 1fr;gap:12px;border-radius:20px;background:var(--ap-soft);border:1px solid var(--ap-line);padding:14px}.ap-step span{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:16px;background:#111;color:#fff;font-family:"Syne";font-weight:700}.ap-step strong{display:block;font-size:15px;font-weight:900}.ap-step em{display:block;margin-top:4px;color:var(--ap-muted);font-style:normal;font-size:13px;font-weight:700}.ap-calculator-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:18px;align-items:stretch}.ap-slider-card{display:grid;gap:20px}.ap-range-label{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;color:var(--ap-muted);font-size:13px;font-weight:900}.ap-range-label strong{color:var(--ap-text);font-family:"Syne","Public Sans",Arial,sans-serif;font-size:24px;line-height:1}input[type=range]{width:100%;accent-color:var(--ap-brown);margin-top:10px}.ap-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ap-metric,.ap-insight{border:1px solid var(--ap-line);border-radius:22px;background:var(--ap-soft);padding:16px}.ap-metric span,.ap-insight span{display:block;color:var(--ap-muted);font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.ap-metric strong{display:block;margin-top:8px;font-size:34px;line-height:1;font-weight:700}.ap-metric em{display:block;margin-top:7px;color:var(--ap-muted);font-style:normal;font-size:12px;line-height:1.35;font-weight:700}.ap-insight{margin-top:10px;background:#111;color:#fff}.ap-insight span{color:#e4a092}.ap-insight strong{display:block;margin-top:8px;font-size:20px;line-height:1.25;font-weight:900}.ap-brain-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(360px,1.08fr);gap:18px;align-items:center}.ap-brain{position:relative;min-height:420px;border-radius:34px;background:#111;color:#fff;overflow:hidden;padding:28px}.ap-brain-core{position:absolute;left:50%;top:48%;width:156px;height:156px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#fff 0 18%,#9f3826 19% 40%,#111 41%);box-shadow:0 0 0 22px rgba(255,255,255,.06),0 0 70px rgba(159,56,38,.5);animation:apBrain 3s ease-in-out infinite}.ap-brain-chip{position:absolute;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(255,255,255,.09);padding:12px 14px;font-size:13px;font-weight:850}.ap-brain-chip:nth-child(2){left:28px;top:34px}.ap-brain-chip:nth-child(3){right:28px;top:70px}.ap-brain-chip:nth-child(4){left:54px;bottom:92px}.ap-brain-chip:nth-child(5){right:44px;bottom:78px}.ap-brain-data{position:absolute;left:28px;right:28px;bottom:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ap-brain-data div{border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.07);padding:11px}.ap-brain-data strong{display:block;font-size:12px;font-weight:900}.ap-brain-data span{display:block;margin-top:4px;color:rgba(255,255,255,.64);font-size:11px;line-height:1.3;font-weight:650}@keyframes apBrain{50%{transform:translate(-50%,-50%) scale(1.06)}}.ap-seo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.ap-seo-card{border:1px solid var(--ap-line);border-radius:24px;background:#fff;padding:22px}.ap-seo-card h3{font-size:18px;line-height:1.16;font-weight:900}.ap-seo-card p{margin-top:10px;color:var(--ap-muted);font-size:14px;line-height:1.56;font-weight:600}.ap-final-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:42px;box-shadow:0 16px 50px rgba(17,17,17,.065)}@media(max-width:900px){.ap-grid,.ap-calculator-grid,.ap-seo-grid,.ap-final-box,.ap-brain-grid{grid-template-columns:1fr}.ap-actions{flex-direction:column}.ap-button{width:100%}.ap-card{border-radius:26px;padding:24px}.ap-metrics{grid-template-columns:1fr}.ap-brain{border-radius:26px}}@media(max-width:560px){.ap-container{width:min(100% - 28px,1120px)}.ap-section{padding:58px 0}h1{font-size:clamp(42px,12vw,58px);line-height:1.06}.ap-lead{font-size:17px}.ap-bubble{max-width:100%}.ap-final-box{padding:24px;border-radius:26px}.ap-brain{min-height:470px}.ap-brain-data{grid-template-columns:1fr}}
-    </style>
-    <link rel="stylesheet" href="shared-preview.css" />
-    <style>
-      .ap-nav{display:flex;gap:8px;border:1px solid var(--ap-line);border-radius:999px;background:rgba(255,255,255,.72);padding:6px}.ap-nav a{border-radius:999px;padding:10px 12px;color:var(--ap-muted);font-size:13px;font-weight:850}.ap-nav a:hover{background:#fff;color:#111}.ap-top .ap-button{min-height:42px;padding:12px 18px;font-size:13px}.ap-calculator-grid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}.ap-agent-lang{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}.ap-agent-lang span{color:var(--ap-muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px}.ap-agent-lang button{border:1px solid var(--ap-line);border-radius:999px;background:#fff;color:var(--ap-muted);padding:8px 11px;font-size:12px;font-weight:900;cursor:pointer}.ap-agent-lang button.is-active{background:var(--ap-brown);border-color:var(--ap-brown);color:#fff}h1{font-size:clamp(34px,calc(5vw - 12px),54px);line-height:1.07}.ap-niche-split{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;align-items:stretch}.ap-dark-panel{position:relative;overflow:hidden;border-radius:34px;background:#111;color:#fff;padding:34px;box-shadow:0 22px 70px rgba(17,17,17,.16)}.ap-dark-panel:after{content:"";position:absolute;right:-70px;bottom:-95px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.52),rgba(159,56,38,0) 66%)}.ap-dark-panel h2{position:relative;z-index:1;font-size:clamp(28px,4vw,48px);line-height:1.06;font-weight:900}.ap-dark-panel p{position:relative;z-index:1;margin-top:18px;color:rgba(255,255,255,.72);font-size:16px;line-height:1.62;font-weight:650}.ap-pain-grid,.ap-value-grid,.ap-faq-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.ap-pain-card,.ap-value-card,.ap-faq-card,.ap-proof-card{border:1px solid var(--ap-line);border-radius:26px;background:#fff;padding:24px;box-shadow:0 14px 40px rgba(17,17,17,.055)}.ap-pain-card span,.ap-value-card span{display:inline-flex;margin-bottom:24px;color:var(--ap-brown);font-family:"Syne";font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase}.ap-pain-card h3,.ap-value-card h3,.ap-proof-card h3,.ap-faq-card h3{font-size:22px;line-height:1.12;font-weight:900}.ap-pain-card p,.ap-value-card p,.ap-proof-card p,.ap-faq-card p{margin-top:12px;color:var(--ap-muted);font-size:15px;line-height:1.58;font-weight:620}.ap-assistant-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.85fr);gap:18px;align-items:stretch;border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:28px;box-shadow:0 16px 50px rgba(17,17,17,.065)}.ap-assistant-visual{position:relative;min-height:330px;border-radius:30px;background:#111;overflow:hidden;color:#fff;padding:24px}.ap-assistant-phone{position:absolute;right:26px;top:28px;width:42%;min-width:180px;border:1px solid rgba(255,255,255,.18);border-radius:28px;background:linear-gradient(160deg,#1d1d1d,#111 50%,#371a14);padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.24)}.ap-assistant-phone div{border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(255,255,255,.08);padding:12px;margin-bottom:10px;font-size:12px;font-weight:850}.ap-assistant-wave{position:absolute;left:30px;bottom:34px;display:flex;gap:8px;align-items:center}.ap-assistant-wave i{display:block;width:8px;border-radius:999px;background:#d19b8f;animation:apWave 1.4s ease-in-out infinite}.ap-assistant-wave i:nth-child(1){height:34px}.ap-assistant-wave i:nth-child(2){height:58px;animation-delay:.12s}.ap-assistant-wave i:nth-child(3){height:82px;background:var(--ap-brown);animation-delay:.24s}.ap-assistant-wave i:nth-child(4){height:52px;animation-delay:.36s}.ap-assistant-wave i:nth-child(5){height:30px;animation-delay:.48s}@keyframes apWave{50%{transform:scaleY(.55);opacity:.72}}.ap-how-list{display:grid;gap:10px;margin-top:22px}.ap-how-row{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;border:1px solid var(--ap-line);border-radius:20px;background:var(--ap-soft);padding:14px}.ap-how-row strong:first-child{display:flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:15px;background:#111;color:#fff;font-family:"Syne";font-size:13px}.ap-how-row b{display:block;font-size:15px;font-weight:900}.ap-how-row span{display:block;margin-top:4px;color:var(--ap-muted);font-size:13px;line-height:1.42;font-weight:650}.ap-software-card{border:1px solid var(--ap-line);border-radius:34px;background:#fff;padding:30px;box-shadow:0 16px 50px rgba(17,17,17,.065)}.ap-logo-cloud{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:20px}.ap-logo-pill{display:flex;min-height:58px;align-items:center;justify-content:center;border:1px solid var(--ap-line);border-radius:18px;background:#fff;color:#111;font-size:14px;font-weight:900;text-align:center;filter:grayscale(1)}.ap-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}.ap-proof-card.is-dark{background:#111;color:#fff}.ap-proof-card.is-dark p{color:rgba(255,255,255,.72)}.ap-proof-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:20px}.ap-proof-metrics div{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:14px}.ap-proof-metrics strong{display:block;color:#fff;font-family:"Syne";font-size:24px}.ap-proof-metrics span{display:block;margin-top:5px;color:rgba(255,255,255,.64);font-size:12px;line-height:1.35;font-weight:700}.ap-quote{border-left:3px solid var(--ap-brown);padding-left:18px;color:var(--ap-muted);font-size:20px;line-height:1.45;font-weight:800}.ap-faq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ap-section-tight{padding-top:36px}@media(max-width:900px){.ap-niche-split,.ap-assistant-card,.ap-proof-grid{grid-template-columns:1fr}.ap-pain-grid,.ap-value-grid,.ap-faq-grid{grid-template-columns:1fr}.ap-logo-cloud{grid-template-columns:repeat(2,minmax(0,1fr))}.ap-assistant-phone{position:relative;right:auto;top:auto;width:100%;min-width:0}.ap-assistant-visual{min-height:auto}.ap-assistant-wave{position:relative;left:auto;bottom:auto;margin-top:24px}}@media(max-width:760px){.ap-top-inner{flex-wrap:wrap}.ap-nav{order:3;width:100%;overflow-x:auto}.ap-top .ap-button{display:none}}
-    </style>
-    <style>
-      #calculator .ap-calculator-grid{grid-template-columns:minmax(420px,.92fr) minmax(0,1.08fr);gap:28px;align-items:start}
-      #calculator .ap-slider-card{align-self:start;align-content:start;gap:34px;overflow:hidden}
-      #calculator .ap-slider-card>div{display:grid;min-width:0;gap:10px}
-      #calculator .ap-range-label{display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:18px;align-items:end;width:100%;min-width:0}
-      #calculator .ap-range-label span{min-width:0;line-height:1.18}
-      #calculator .ap-range-label strong{justify-self:end;white-space:nowrap;font-size:clamp(28px,3vw,34px)}
-      #calculator input[type=range]{display:block;width:100%;min-width:0;margin-top:0}
-      #calculator .ap-metrics{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
-      @media(max-width:980px){#calculator .ap-calculator-grid{grid-template-columns:1fr}#calculator .ap-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-      @media(max-width:620px){#calculator .ap-metrics{grid-template-columns:1fr}#calculator .ap-range-label{grid-template-columns:1fr;gap:8px}#calculator .ap-range-label strong{justify-self:start}}
-      .ap-brain{isolation:isolate}
-      .ap-brain:before{content:"";position:absolute;inset:38px;border:1px solid rgba(255,255,255,.08);border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));pointer-events:none}
-      .ap-brain-core{z-index:3;display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,#9f3826 0 40%,#111 41% 63%,rgba(159,56,38,.24) 64% 100%)}
-      .ap-brain-core:before{content:"AI";position:relative;z-index:2;color:#fff;font-family:"Public Sans",Arial,sans-serif;font-size:38px;font-weight:900;letter-spacing:-1px}
-      .ap-brain-core:after{content:"";position:absolute;inset:-42px;border:1px dashed rgba(255,255,255,.14);border-radius:50%;animation:apOrbit 12s linear infinite}
-      .ap-brain-chip{z-index:4;box-shadow:0 12px 32px rgba(0,0,0,.18);animation:apAbsorb 4.8s ease-in-out infinite}
-      .ap-brain-chip:nth-child(3){animation-delay:.45s}.ap-brain-chip:nth-child(4){animation-delay:.9s}.ap-brain-chip:nth-child(5){animation-delay:1.35s}
-      .ap-brain-data{z-index:4}
-      @keyframes apOrbit{to{transform:rotate(360deg)}}
-      @keyframes apAbsorb{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0);border-color:rgba(159,56,38,.42)}}
-      @media(max-width:560px){.ap-brain{display:grid;min-height:auto;gap:12px;padding:22px}.ap-brain:before{inset:14px;border-radius:22px}.ap-brain-core{position:relative;left:auto;top:auto;order:1;width:132px;height:132px;margin:8px auto 12px;transform:none;animation:none}.ap-brain-core:after{inset:-28px}.ap-brain-chip{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;order:2;text-align:center}.ap-brain-data{position:relative;left:auto;right:auto;bottom:auto;order:3;grid-template-columns:1fr}}
-      .ap-niche-split{grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);align-items:stretch}
-      .ap-pain-grid{grid-template-columns:1fr!important;gap:12px!important}
-      .ap-pain-card{position:relative;display:grid;grid-template-columns:58px minmax(0,1fr);gap:18px;align-items:center;min-height:124px;overflow:hidden;padding:22px 24px!important;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
-      .ap-pain-card:before{content:"";position:absolute;right:-86px;bottom:-92px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.18),rgba(159,56,38,0) 68%);opacity:.72;transition:opacity .25s ease,transform .25s ease}
-      .ap-pain-card:hover{transform:translateY(-3px);border-color:rgba(159,56,38,.28);box-shadow:0 18px 52px rgba(17,17,17,.08)}
-      .ap-pain-card:hover:before{opacity:1;transform:scale(1.08)}
-      .ap-pain-card span{position:relative;z-index:1;width:48px;height:48px;align-items:center;justify-content:center;margin:0!important;border:1px solid rgba(159,56,38,.18);border-radius:16px;background:#fff7f3;color:var(--ap-brown);font-size:12px}
-      .ap-pain-card h3,.ap-pain-card p{position:relative;z-index:1}
-      .ap-pain-card h3{font-size:clamp(20px,2vw,26px)!important}
-      .ap-pain-card p{max-width:500px;margin-top:7px!important;font-size:15px!important}
-      .ap-proof-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-      .ap-proof-card{position:relative;overflow:hidden}
-      .ap-proof-card:not(.is-dark):after{content:"";position:absolute;right:-80px;bottom:-100px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.12),rgba(159,56,38,0) 68%)}
-      .ap-proof-card>*{position:relative;z-index:1}
-      .ap-quote{border-left:0;padding-left:0;font-size:24px;line-height:1.25;color:var(--ap-text)}
-      @media(max-width:980px){
-        .ap-niche-split,.ap-proof-grid{grid-template-columns:1fr!important}
-        .ap-brain-grid{grid-template-columns:1fr!important;align-items:start}
-        .ap-brain-grid .ap-brain{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-height:auto!important;padding:22px!important;overflow:hidden}
-        .ap-brain-grid .ap-brain:before{inset:16px;border-radius:24px}
-        .ap-brain-grid .ap-brain-core{position:relative!important;left:auto!important;top:auto!important;grid-column:1/-1;order:1;width:154px!important;height:154px!important;margin:18px auto 24px!important;transform:none!important}
-        .ap-brain-grid .ap-brain-chip{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;order:2;min-width:0;width:100%;text-align:center;animation:none!important;transform:none!important}
-        .ap-brain-grid .ap-brain-data{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;grid-column:1/-1;order:3;grid-template-columns:repeat(3,minmax(0,1fr))!important;margin-top:6px}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Voor wie | Autopilots</title>
+  <style>
+    :root {
+      --ap-bg: #f5f5f2;
+      --ap-card: #ffffff;
+      --ap-text: #111111;
+      --ap-muted: #656565;
+      --ap-line: rgba(0, 0, 0, 0.1);
+      --ap-brown: #9f3826;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: var(--ap-bg);
+      color: var(--ap-text);
+      font-family: "Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(92vw, 760px);
+      padding: 56px;
+      border: 1px solid var(--ap-line);
+      border-radius: 32px;
+      background: var(--ap-card);
+      box-shadow: 0 26px 80px rgba(17, 17, 17, 0.08);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--ap-brown);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      max-width: 560px;
+      margin: 24px 0 0;
+      color: var(--ap-muted);
+      font-size: 20px;
+      font-weight: 750;
+      line-height: 1.55;
+    }
+
+    a {
+      display: inline-flex;
+      margin-top: 32px;
+      padding: 18px 28px;
+      border-radius: 999px;
+      background: var(--ap-brown);
+      color: #fff;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 18px 40px rgba(159, 56, 38, 0.2);
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 34px 24px;
+        border-radius: 24px;
       }
-      @media(max-width:620px){
-        .ap-pain-card{grid-template-columns:1fr;gap:12px;min-height:auto;padding:22px!important}
-        .ap-pain-card span{width:44px;height:44px}
-        .ap-brain-grid .ap-brain{grid-template-columns:1fr!important;border-radius:28px}
-        .ap-brain-grid .ap-brain-data{grid-template-columns:1fr!important}
+
+      p {
+        font-size: 17px;
       }
-      .ap-niche-split{grid-template-columns:minmax(0,1fr) minmax(390px,.82fr)!important;gap:22px!important}
-      .ap-pain-grid{display:grid!important;grid-template-columns:1fr!important;gap:14px!important;align-content:stretch}
-      .ap-pain-card{min-height:0!important;border-radius:28px!important;background:linear-gradient(135deg,#fff 0%,#fbfaf7 100%)!important}
-      .ap-pain-card span{box-shadow:0 12px 34px rgba(159,56,38,.08)}
-      .ap-pain-card h3{align-self:end}
-      .ap-pain-card p{max-width:560px}
-      .ap-proof-card.is-dark .ap-proof-metrics div{background:rgba(255,255,255,.055)}
-      .ap-proof-card:not(.is-dark){background:linear-gradient(135deg,#fff 0%,#fbfaf7 100%)}
-      @media(max-width:980px){
-        .ap-niche-split{grid-template-columns:1fr!important;gap:18px!important}
-        .ap-brain-grid{grid-template-columns:1fr!important}
-        .ap-brain-grid .ap-brain{
-          height:auto!important;
-          min-height:0!important;
-          display:grid!important;
-          grid-template-columns:repeat(2,minmax(0,1fr))!important;
-          gap:12px!important;
-          padding:22px!important;
-          overflow:hidden!important;
-          border-radius:30px!important;
-        }
-        .ap-brain-grid .ap-brain-core{
-          position:relative!important;
-          left:auto!important;
-          top:auto!important;
-          grid-column:1/-1!important;
-          width:150px!important;
-          height:150px!important;
-          margin:16px auto 22px!important;
-          transform:none!important;
-        }
-        .ap-brain-grid .ap-brain-chip{
-          position:relative!important;
-          left:auto!important;
-          right:auto!important;
-          top:auto!important;
-          bottom:auto!important;
-          width:100%!important;
-          min-width:0!important;
-          text-align:center!important;
-          animation:none!important;
-          transform:none!important;
-        }
-        .ap-brain-grid .ap-brain-data{
-          position:relative!important;
-          left:auto!important;
-          right:auto!important;
-          bottom:auto!important;
-          grid-column:1/-1!important;
-          grid-template-columns:repeat(3,minmax(0,1fr))!important;
-          margin-top:4px!important;
-        }
-      }
-      @media(max-width:620px){
-        .ap-pain-card{grid-template-columns:52px minmax(0,1fr)!important;padding:20px!important}
-        .ap-pain-card p{font-size:14px!important;line-height:1.48!important}
-        .ap-brain-grid .ap-brain{grid-template-columns:1fr!important;padding:18px!important}
-        .ap-brain-grid .ap-brain-core{width:132px!important;height:132px!important}
-        .ap-brain-grid .ap-brain-data{grid-template-columns:1fr!important}
-      }
-    </style>
-  </head>
-  <body>
-    <header class="ap-top">
-      <div class="ap-container ap-top-inner">
-        <a class="ap-logo" href="preview-homepage.html?v=8">AUTOPILOTS</a>
-        <nav class="ap-nav" aria-label="Hoofdnavigatie">
-          <a href="producten/index.html">Producten</a>
-          <a href="preview-homepage.html?v=8#branches">Voor wie</a>
-          <a href="process-preview.html">Proces</a>
-          <a href="crew-preview.html">Crew</a>
-          <a href="knowledge-preview.html">Kennisbank</a>
-        </nav>
-        <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
-      </div>
-    </header>
-    <main>
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-kicker" data-branch-kicker>AI voor autobedrijven</div>
-          <h1><span data-branch-title-main>AI medewerkers voor</span> <span class="ap-title-accent" data-branch-title-accent>autobedrijven.</span></h1>
-          <p class="ap-lead" data-branch-lead>Plan proefritten, volg leads op en werk CRM direct bij zonder dat verkoop achter de feiten aanloopt.</p>
-          <div class="ap-actions">
-            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan demo</a>
-            <a class="ap-button ap-button-secondary" href="#calculator">Bereken impact</a>
-          </div>
-          <div class="ap-hero-meta">
-            <span class="ap-pill" data-pill-1>24/7 leadopvolging</span>
-            <span class="ap-pill" data-pill-2>Direct in agenda</span>
-            <span class="ap-pill" data-pill-3>CRM bijgewerkt</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="ap-section ap-section-tight">
-        <div class="ap-container ap-niche-split">
-          <article class="ap-dark-panel">
-            <div class="ap-kicker" data-personal-kicker>Waarom deze route</div>
-            <h2 data-personal-title>Je klant verwacht snelheid, je team heeft rust nodig.</h2>
-            <p data-personal-copy>Autopilots bouwt een AI medewerker die de dagelijkse realiteit van deze branche begrijpt en direct doorpakt naar afspraak, ticket, intake of CRM.</p>
-          </article>
-          <div class="ap-pain-grid" data-pain-grid aria-label="Herkenbare pijnpunten"></div>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <article class="ap-assistant-card">
-            <div>
-              <div class="ap-kicker">De oplossing</div>
-              <h2 data-assistant-title>Maak kennis met je digitale assistent.</h2>
-              <p class="ap-lead" data-assistant-copy>Een AI medewerker die jouw regels, agenda, tone of voice en systemen kent. Niet als losse chatbot, maar als praktische extra kracht in je bedrijf.</p>
-              <div class="ap-how-list" data-how-list></div>
-            </div>
-            <div class="ap-assistant-visual" aria-label="Visuele AI assistent">
-              <div class="ap-kicker" style="color:#e4a092">Live route</div>
-              <h3 data-visual-title style="font-size:28px;line-height:1.05;font-weight:900;max-width:260px">Van vraag naar bevestigde actie.</h3>
-              <div class="ap-assistant-phone">
-                <div data-visual-step-1>Vraag komt binnen</div>
-                <div data-visual-step-2>AI stelt vervolgvragen</div>
-                <div data-visual-step-3>Afspraak of ticket staat klaar</div>
-              </div>
-              <div class="ap-assistant-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-kicker">Waarde voor je bedrijf</div>
-          <div class="ap-value-grid" data-value-grid></div>
-        </div>
-      </section>
-
-      <section class="ap-section" id="voorbeeld">
-        <div class="ap-container ap-grid">
-          <article class="ap-card">
-            <div class="ap-kicker">Voorbeeldgesprek</div>
-            <h2 data-example-title>Proefrit direct gepland.</h2>
-            <div class="ap-agent-lang" aria-label="Taalkeuze agent">
-              <span>Agent taal</span>
-              <button class="is-active" type="button" data-agent-lang="nl">NL</button>
-              <button type="button" data-agent-lang="en">EN</button>
-              <button type="button" data-agent-lang="de">DE</button>
-              <button type="button" data-agent-lang="fr">FR</button>
-              <button type="button" data-agent-lang="es">ES</button>
-            </div>
-            <div class="ap-chat">
-              <div class="ap-chat-meta"><span>Live intake</span><span>Chat of voice</span></div>
-              <div class="ap-bubble ap-user" data-line-1>Ik wil een proefrit plannen met de Volkswagen Golf.</div>
-              <div class="ap-bubble ap-agent" data-line-2>Ik help u direct. Wanneer wilt u komen en heeft u een geldig rijbewijs?</div>
-              <div class="ap-bubble ap-user" data-line-3>Donderdag 15:00. Ja, ik heb een rijbewijs.</div>
-              <div class="ap-bubble ap-agent" data-line-4>Prima. Ik plan de proefrit direct in en stuur de bevestiging.</div>
-              <div class="ap-result"><strong>Actie in systeem</strong><span data-result>Afspraak direct geboekt. CRM bijgewerkt. Follow-up mail naar klant gestuurd.</span></div>
-            </div>
-          </article>
-          <aside class="ap-card">
-            <div class="ap-kicker">Workflow</div>
-            <h3>Wat gebeurt er automatisch?</h3>
-            <p data-workflow-intro>De AI medewerker verwerkt het gesprek tot een duidelijke actie voor agenda, CRM en team.</p>
-            <div class="ap-steps">
-              <div class="ap-step"><span>01</span><div><strong data-step-title-1>Intake</strong><em data-step-1>AI verzamelt context en voorkeur.</em></div></div>
-              <div class="ap-step"><span>02</span><div><strong data-step-title-2>Planning</strong><em data-step-2>Afspraak wordt direct ingepland.</em></div></div>
-              <div class="ap-step"><span>03</span><div><strong data-step-title-3>CRM</strong><em data-step-3>Pipeline, notities en velden worden bijgewerkt.</em></div></div>
-              <div class="ap-step"><span>04</span><div><strong data-step-title-4>Follow-up</strong><em data-step-4>Klant ontvangt bevestiging en vervolginformatie.</em></div></div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <article class="ap-software-card">
-            <div class="ap-kicker">Koppelingen</div>
-            <h2 data-software-title>Past op de systemen die je team al gebruikt.</h2>
-            <p class="ap-lead" data-software-copy>We koppelen waar mogelijk met je agenda, CRM, formulieren, berichtenkanalen en branchespecifieke software. Jij hoeft niet technisch te zijn, wij richten de route mee in.</p>
-            <div class="ap-logo-cloud" data-software-list aria-label="Software koppelingen"></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="ap-section" id="ai-brein">
-        <div class="ap-container ap-brain-grid">
-          <div>
-            <div class="ap-kicker">Persoonlijk AI brein</div>
-            <h2 data-brain-title>Een AI brein voor deze branche.</h2>
-            <p class="ap-lead" data-brain-copy>Het brein neemt contactmomenten op: vragen, voorkeuren, afspraken, uitzonderingen en opvolging. Zo reageert de AI steeds persoonlijker zonder dat klanten opnieuw hoeven uit te leggen wie ze zijn.</p>
-            <p class="ap-lead" style="font-size:16px;margin-top:14px">Elke nieuwe vraag maakt het systeem slimmer. Niet kouder of technischer, maar juist menselijker: je team krijgt betere context en klanten voelen sneller dat ze begrepen worden.</p>
-          </div>
-          <div class="ap-brain">
-            <div class="ap-brain-core"></div>
-            <div class="ap-brain-chip" data-brain-1>Klantvragen</div>
-            <div class="ap-brain-chip" data-brain-2>Voorkeuren</div>
-            <div class="ap-brain-chip" data-brain-3>Afspraken</div>
-            <div class="ap-brain-chip" data-brain-4>Menselijke hulp</div>
-            <div class="ap-brain-data" aria-label="AI brein datalaag">
-              <div><strong>Gesprek</strong><span>Wat iemand vraagt, kiest of nodig heeft.</span></div>
-              <div><strong>Context</strong><span>Eerdere afspraken, voorkeuren en contactmomenten.</span></div>
-              <div><strong>Actie</strong><span>Boeken, opvolgen of warm doorzetten.</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container ap-proof-grid">
-          <article class="ap-proof-card is-dark">
-            <div class="ap-kicker" data-proof-kicker>Ideale situatie</div>
-            <h2 data-proof-title>Meer rust, sneller opvolgen.</h2>
-            <p data-proof-copy>Zo ziet de werkdag eruit wanneer klantcontact, planning en opvolging netjes ingericht zijn.</p>
-            <div class="ap-proof-metrics" data-proof-metrics></div>
-          </article>
-          <article class="ap-proof-card">
-            <div class="ap-kicker">Wat er dan gebeurt</div>
-            <p class="ap-quote" data-proof-quote>Klanten krijgen sneller antwoord en het team werkt met betere context.</p>
-            <p data-proof-note>De exacte inrichting verschilt per bedrijf, maar het principe blijft hetzelfde: sneller reageren, minder losse communicatie en meer overzicht in de operatie.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="ap-section" id="calculator">
-        <div class="ap-container">
-          <div class="ap-grid">
-            <div>
-              <div class="ap-kicker" data-calc-kicker>Calculator</div>
-              <h2 class="ap-card-title" data-calc-title>Wat levert snellere opvolging op?</h2>
-              <p class="ap-lead" data-calc-lead>Schuif met de waarden en zie hoeveel kansen, uren of capaciteit je terugwint met een AI medewerker die direct reageert.</p>
-            </div>
-            <div class="ap-card">
-              <h3 data-calc-summary-title>Reken met je eigen situatie.</h3>
-              <p data-calc-summary>Vul je eigen aantallen in en zie direct waar tijd, capaciteit en extra kansen kunnen ontstaan.</p>
-            </div>
-          </div>
-          <div class="ap-calculator-grid" style="margin-top:18px">
-            <article class="ap-card ap-slider-card">
-              <div>
-                <label class="ap-range-label" for="volumeRange"><span data-volume-label>Aanvragen per maand</span><strong data-volume-output>80</strong></label>
-                <input id="volumeRange" type="range" min="20" max="300" step="5" value="80" data-volume-range>
-              </div>
-              <div>
-                <label class="ap-range-label" for="minutesRange"><span data-minutes-label>Minuten handwerk per aanvraag</span><strong data-minutes-output>12</strong></label>
-                <input id="minutesRange" type="range" min="4" max="45" step="1" value="12" data-minutes-range>
-              </div>
-              <div>
-                <label class="ap-range-label" for="automationRange"><span data-automation-label>Deel dat AI kan afhandelen</span><strong data-automation-output>65%</strong></label>
-                <input id="automationRange" type="range" min="20" max="90" step="5" value="65" data-automation-range>
-              </div>
-              <div>
-                <label class="ap-range-label" for="marginRange"><span data-margin-label>Marge per extra klant</span><strong data-margin-output>€750</strong></label>
-                <input id="marginRange" type="range" min="100" max="5000" step="50" value="750" data-margin-range>
-              </div>
-            </article>
-            <article class="ap-card">
-              <div class="ap-metrics">
-                <div class="ap-metric"><span data-metric-1-label>Automatisch verwerkt</span><strong data-automated-output>52</strong><em data-metric-1-help>per maand</em></div>
-                <div class="ap-metric"><span data-metric-2-label>Uren teruggewonnen</span><strong data-hours-output>10</strong><em data-metric-2-help>voor team en planning</em></div>
-                <div class="ap-metric"><span data-metric-3-label>Waarde per maand</span><strong data-value-output>€450</strong><em data-metric-3-help>op basis van bespaarde tijd</em></div>
-                <div class="ap-metric"><span data-metric-4-label>Sneller opgevolgd</span><strong data-speed-output>52</strong><em data-metric-4-help>zonder wachttijd</em></div>
-                <div class="ap-metric"><span data-metric-5-label>Extra klanten</span><strong data-customers-output>3</strong><em data-metric-5-help>verwacht per maand</em></div>
-                <div class="ap-metric"><span data-metric-6-label>Extra marge</span><strong data-margin-value-output>€2.250</strong><em data-metric-6-help>op basis van extra klanten</em></div>
-              </div>
-              <div class="ap-insight">
-                <span>Businesscase</span>
-                <strong data-insight-output>Je wint ongeveer 10 uur per maand terug, laat 52 aanvragen direct verwerken en haalt naar verwachting 3 extra klanten binnen.</strong>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-kicker">Veelgestelde vragen</div>
-          <div class="ap-faq-grid" data-faq-grid></div>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-kicker">Ingericht voor jouw werkdag</div>
-          <div class="ap-seo-grid">
-            <article class="ap-seo-card"><h3 data-seo-1-title>Herkenning vanaf de eerste vraag</h3><p data-seo-1>Autopilots begint bij de contactmomenten die jouw team elke dag tijd, focus en opvolging kosten.</p></article>
-            <article class="ap-seo-card"><h3 data-seo-2-title>Gebouwd rond jullie ritme</h3><p data-seo-2>De AI sluit aan op jullie agenda, vragen, toon, uitzonderingen en momenten waarop klanten contact zoeken.</p></article>
-            <article class="ap-seo-card"><h3 data-seo-3-title>Van contact naar actie</h3><p data-seo-3>Elke vraag krijgt een duidelijke route: beantwoorden, boeken, doorzetten of opvolgen in het systeem.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="ap-section">
-        <div class="ap-container">
-          <div class="ap-final-box">
-            <div>
-              <div class="ap-kicker">Volgende stap</div>
-              <h2 class="ap-card-title" data-final-title>Klaar om AI proof te worden?</h2>
-              <p class="ap-lead" data-final-copy>Plan een korte afspraak. Dan kijken we welke chat, voice, CRM-flow of planningroute het meeste druk wegneemt in jouw bedrijf.</p>
-            </div>
-            <a class="ap-button ap-button-primary" href="afspraak-preview.html">Plan afspraak</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script>
-      (function(){
-        var branchData={
-          autobedrijven:{name:"autobedrijven",kicker:"AI voor autobedrijven",title:"AI medewerkers voor autobedrijven.",lead:"Plan proefritten, beantwoord voorraadvragen, volg leads op en werk CRM direct bij zonder dat verkoop achter de feiten aanloopt.",pills:["Proefritten direct gepland","Voorraadvragen beantwoord","CRM bijgewerkt"],exampleTitle:"Proefrit direct gepland.",lines:["Ik wil een proefrit plannen met de Volkswagen Golf.","Ik help u direct. Wanneer wilt u komen en heeft u een geldig rijbewijs?","Donderdag 15:00. Ja, ik heb een rijbewijs.","Prima. Ik plan de proefrit direct in en stuur de bevestiging."],result:"Afspraak direct geboekt. CRM bijgewerkt met voertuig, tijdstip en rijbewijscheck. Follow-up mail naar klant gestuurd.",steps:[["Lead intake","Model, budget, inruil en timing worden vastgelegd."],["Agenda","Proefrit of belafspraak wordt direct geboekt."],["CRM","Voertuig, interesse en leadstatus worden bijgewerkt."],["Follow-up","Klant krijgt bevestiging en verkoop krijgt context."]],calc:{title:"Wat leveren snellere proefritten en leadopvolging op?",lead:"Voor autobedrijven draait de calculator om gemiste leads, proefritten en handwerk in CRM.",summary:"Een lead die direct een proefrit boekt, heeft meer waarde dan een formulier dat blijft liggen.",volumeLabel:"Leads/proefritaanvragen per maand",minutesLabel:"Minuten opvolging per lead",automationLabel:"Leads die AI direct kan opvolgen",valuePerHour:55,marginLabel:"Gemiddelde marge per extra verkoop",extraCustomerRate:5,metric4:"Proefritten sneller opgevolgd",insight:"Je wint {hours} uur per maand terug en laat ongeveer {automated} leads direct opvolgen of inplannen."}},
-          makelaars:{name:"makelaars",kicker:"AI voor makelaars",title:"AI medewerkers voor makelaars.",lead:"Laat AI bezichtigingen plannen, kandidaten kwalificeren en woninginteresse direct vastleggen in je CRM.",pills:["Bezichtigingen gepland","Kandidaten gekwalificeerd","CRM schoon"],exampleTitle:"Bezichtiging direct geboekt.",lines:["Ik wil de woning aan de Lindenlaan 8 bezichtigen.","Ik help u direct. Koopt u voor eigen bewoning en heeft u financiering?","Ja, eigen bewoning. Tot 475.000 euro bevestigd.","Prima. Ik plan direct een bezichtiging en stuur de voorbereiding."],result:"Bezichtiging geboekt. CRM bijgewerkt met woning, koopmotief en financiering. Bevestiging naar kandidaat gestuurd.",steps:[["Woningvraag","Object, budget en koopmotief worden herkend."],["Kwalificatie","Financiering, timing en interesse worden gevraagd."],["Bezichtiging","Beschikbaar moment wordt direct geboekt."],["Dossier","Makelaar krijgt samenvatting en kandidaatstatus."]],calc:{title:"Wat levert automatische bezichtigingsplanning op?",lead:"Voor makelaars telt vooral minder telefoonwerk en sneller gekwalificeerde kandidaten.",summary:"Deze calculator laat zien hoeveel intakes en bezichtigingsverzoeken je niet meer handmatig hoeft te verwerken.",volumeLabel:"Bezichtigingsaanvragen per maand",minutesLabel:"Minuten intake per kandidaat",automationLabel:"Aanvragen die AI kan kwalificeren",valuePerHour:65,marginLabel:"Marge per extra opdracht",extraCustomerRate:3,metric4:"Kandidaten direct gekwalificeerd",insight:"Je wint {hours} uur per maand terug en kwalificeert ongeveer {automated} kandidaten zonder wachttijd."}},
-          tandartsen:{name:"tandartspraktijken",kicker:"AI voor tandartsen",title:"AI medewerkers voor tandartspraktijken.",lead:"Laat AI patientvragen triageren, afspraken plannen en spoedvragen netjes voorbereiden voor de praktijk.",pills:["Spoed triage","Afspraken gepland","Minder telefoondruk"],exampleTitle:"Spoedafspraak direct gepland.",lines:["Ik heb sinds vannacht hevige kiespijn.","Dat is vervelend. Heeft u zwelling, koorts of pijn bij dichtbijten?","Geen koorts, wel kloppende pijn en ik kan nauwelijks eten.","Dank u. Ik plan direct een spoedslot en stuur de bevestiging."],result:"Spoedafspraak geboekt. Patientkaart/CRM bijgewerkt met klacht en triage. Bevestiging naar patient gestuurd.",steps:[["Klacht","Pijn, urgentie en beschikbaarheid worden uitgevraagd."],["Triage","AI bepaalt of spoed, regulier of terugbel nodig is."],["Planning","Geschikt slot wordt direct geboekt."],["Overdracht","Praktijk krijgt klacht, context en bevestiging."]],calc:{title:"Hoeveel telefoondruk haalt AI uit de praktijk?",lead:"Voor tandartsen gaat de businesscase over triage, afspraken en minder receptiedruk.",summary:"Reken uit hoeveel patientvragen AI kan verwerken voordat het team hoeft in te springen.",volumeLabel:"Patientvragen per maand",minutesLabel:"Minuten receptietijd per vraag",automationLabel:"Vragen die AI kan afhandelen",valuePerHour:42,marginLabel:"Marge per extra behandeling",extraCustomerRate:4,metric4:"Patientvragen direct geholpen",insight:"Je wint {hours} uur receptietijd per maand terug en helpt ongeveer {automated} patientvragen direct."}},
-          installatietechniek:{name:"installatiebedrijven",kicker:"AI voor installatietechniek",title:"AI medewerkers voor installatietechniek.",lead:"Plan storingen, werkbonnen en klantvragen direct door naar planning, monteur en CRM.",pills:["Storingen gerouteerd","Werkbon klaar","Monteur krijgt context"],exampleTitle:"Servicemoment direct geboekt.",lines:["Mijn cv-ketel geeft storing E10 en we hebben geen warm water.","Ik help u direct. Werkt de verwarming nog en wat is het adres?","Verwarming doet het niet. Adres is Industrieweg 4.","Dank u. Ik plan direct een urgente servicemelding in."],result:"Servicemoment geboekt. Werkbon en CRM bijgewerkt. Bevestiging naar klant en taak naar monteur gestuurd.",steps:[["Storing","Code, adres en urgentie worden vastgelegd."],["Planning","Beschikbaarheid en type monteur worden gekoppeld."],["Werkbon","Taak wordt gevuld met context en prioriteit."],["Bevestiging","Klant en monteur krijgen dezelfde informatie."]],calc:{title:"Wat bespaar je op storingsintake en planning?",lead:"Voor installatie draait het om minder handmatige intake, snellere werkbonnen en betere planning.",summary:"Bereken hoeveel servicemeldingen AI kan voorbereiden voordat de planner hoeft te schakelen.",volumeLabel:"Storingen/servicevragen per maand",minutesLabel:"Minuten intake per melding",automationLabel:"Meldingen die AI kan voorbereiden",valuePerHour:58,marginLabel:"Marge per extra serviceklus",extraCustomerRate:5,metric4:"Werkbonnen voorbereid",insight:"Je wint {hours} uur planning per maand terug en laat ongeveer {automated} werkbonnen automatisch voorbereiden."}},
-          vastgoedbeheerders:{name:"vastgoedbeheerders",kicker:"AI voor vastgoedbeheerders",title:"AI medewerkers voor vastgoedbeheerders.",lead:"Laat AI huurdersvragen, reparatieverzoeken en tickets verzamelen, prioriteren en doorzetten naar het juiste team.",pills:["Tickets aangemaakt","Minder herhaalvragen","Leverancier krijgt context"],exampleTitle:"Reparatieverzoek direct als ticket.",lines:["Er is lekkage onder de gootsteen in appartement 3B.","Ik help u direct. Is er actieve waterschade en kunt u een foto toevoegen?","Het druppelt nog, foto is beschikbaar. Adres is bekend.","Dank u. Ik maak direct een urgent ticket aan en stuur de bevestiging."],result:"Ticket aangemaakt. CRM bijgewerkt met adres, urgentie en fotoverzoek. Follow-up mail naar huurder en taak naar beheer gestuurd.",steps:[["Melding","Adres, type probleem en urgentie worden herkend."],["Ticket","AI maakt een compleet ticket aan."],["Routing","Beheerder of leverancier krijgt de juiste taak."],["Status","Huurder krijgt bevestiging en vervolgstap."]],calc:{title:"Hoeveel tickets en personeelstijd bespaar je?",lead:"Voor vastgoedbeheer draait de calculator om tickets, herhaalvragen en tijd van beheerders.",summary:"Reken uit hoeveel meldingen AI kan voorbereiden zodat beheerders minder losse informatie hoeven op te vragen.",volumeLabel:"Huurdersmeldingen per maand",minutesLabel:"Minuten handwerk per ticket",automationLabel:"Tickets die AI kan voorbereiden",valuePerHour:48,marginLabel:"Waarde per voorkomen escalatie",extraCustomerRate:2,metric4:"Tickets compleet voorbereid",insight:"Je wint {hours} uur beheerderstijd per maand terug en laat ongeveer {automated} tickets compleet binnenkomen."}},
-          verzekeraars:{name:"verzekeraars",kicker:"AI voor verzekeraars",title:"AI medewerkers voor verzekeraars.",lead:"Laat AI schademeldingen, polisvragen en documentchecks voorbereiden met duidelijke routing naar schade, acceptatie of service.",pills:["Schade-intake","Documentcheck","Snellere routing"],exampleTitle:"Schademelding direct voorbereid.",lines:["Ik wil autoschade melden na een aanrijding.","Ik help u direct. Is iedereen veilig en heeft u foto's of een Europees schadeformulier?","Iedereen is veilig. Foto's heb ik, formulier nog niet.","Dank u. Ik maak de schademelding aan en stuur de uploadlink."],result:"Schadecase aangemaakt. CRM bijgewerkt met type schade, urgentie en ontbrekende documenten. Follow-up mail naar klant gestuurd.",steps:[["Schade of vraag","AI herkent polis, claimtype en urgentie."],["Documenten","Benodigde bewijsstukken worden opgevraagd."],["Routing","Case gaat naar schade, acceptatie of service."],["Follow-up","Klant krijgt bevestiging en duidelijke vervolgstap."]],calc:{title:"Wat levert snellere schade-intake op?",lead:"Voor verzekeraars telt vooral minder incomplete dossiers, minder wachttijd en betere routing.",summary:"Bereken hoeveel cases AI kan voorbereiden voordat een medewerker ze inhoudelijk oppakt.",volumeLabel:"Claims/polisvragen per maand",minutesLabel:"Minuten intake per case",automationLabel:"Cases die AI kan voorbereiden",valuePerHour:62,marginLabel:"Waarde per extra dossier",extraCustomerRate:3,metric4:"Cases sneller gerouteerd",insight:"Je wint {hours} uur dossierwerk per maand terug en laat ongeveer {automated} cases compleet voorbereiden."}}
-        };
-        var generic={
-          dakdekkers:["dakdekkers","Daklekkage direct als inspectie gepland.","Ik heb lekkage bij de dakkapel.","Ik help u direct. Is het actief lekkage en wat is het adres?","Ja, vooral bij regen. Adres staat in mijn aanvraag.","Ik plan direct een inspectie en stuur de bevestiging.","Inspectie geboekt. CRM bijgewerkt met urgentie, daktype en adres. Follow-up mail naar klant gestuurd.","Dakinspecties per maand","inspecties"],
-          glaszetters:["glaszetters","Glasschade direct opgevolgd.","Mijn ruit is gebarsten en moet vervangen worden.","Ik help u direct. Is het enkel of dubbel glas en is het veilig?","Dubbel glas, het zit nog vast maar is gebarsten.","Ik plan direct een opname en stuur de bevestiging.","Opname geboekt. CRM bijgewerkt met glastype, veiligheid en adres. Follow-up mail naar klant gestuurd.","Glasaanvragen per maand","opnames"],
-          hotels:["hotels","Gastvraag direct afgehandeld.","Kan ik een late check-in en kinderbedje regelen?","Ik help u direct. Op welke naam staat de reservering?","Kuiper, aankomst vrijdag rond 23:00.","Ik leg het direct vast en stuur de bevestiging.","Reservering bijgewerkt. CRM/PMS-notitie toegevoegd. Bevestiging naar gast gestuurd.","Gastvragen per maand","gastvragen"],
-          hoveniers:["hoveniers","Tuinintake direct gepland.","Ik wil een offerte voor tuinonderhoud.","Ik help u direct. Gaat het om eenmalig werk of periodiek onderhoud?","Periodiek, tuin is ongeveer 120 m2.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met tuinoppervlak, wens en timing. Follow-up mail naar klant gestuurd.","Tuinvragen per maand","intakes"],
-          kozijnen:["kozijnenbedrijven","Kozijnaanvraag direct gekwalificeerd.","Ik wil kunststof kozijnen laten plaatsen.","Ik help u direct. Om hoeveel ramen gaat het en is inmeten gewenst?","Ongeveer acht ramen, inmeten graag.","Ik plan direct een inmeetafspraak en stuur de bevestiging.","Inmeetafspraak geboekt. CRM bijgewerkt met aantal ramen en materiaalwens. Follow-up mail naar klant gestuurd.","Kozijnaanvragen per maand","inmeetafspraken"],
-          restaurants:["restaurants","Reservering direct bevestigd.","Kunnen we zaterdag met 8 personen reserveren?","Ik help u direct. Hoe laat wilt u komen en zijn er dieetwensen?","19:30, een persoon vegetarisch.","Ik boek de tafel direct en stuur de bevestiging.","Reservering geboekt. CRM bijgewerkt met groep, tijd en dieetwens. Bevestiging naar gast gestuurd.","Reserveringen per maand","reserveringen"],
-          zonnepanelen:["zonnepanelenbedrijven","Zonnepanelen-intake direct gepland.","Ik wil weten of mijn dak geschikt is voor zonnepanelen.","Ik help u direct. Wat is uw adres en weet u het jaarverbruik?","Adres is bekend, jaarverbruik rond 3.800 kWh.","Ik plan direct een adviesgesprek en stuur de bevestiging.","Adviesgesprek geboekt. CRM bijgewerkt met adres, verbruik en dakvraag. Follow-up mail naar klant gestuurd.","Zonnepanelenleads per maand","adviesgesprekken"],
-          woningcorporaties:["woningcorporaties","Bewonersmelding direct gerouteerd.","Ik wil een reparatie melden aan mijn voordeur.","Ik help u direct. Is de woning nog veilig afsluitbaar?","Nee, het slot klemt en sluit niet goed.","Ik maak direct een urgente melding en stuur bevestiging.","Ticket aangemaakt. CRM bijgewerkt met woning, urgentie en reparatietype. Taak naar onderhoud gestuurd.","Bewonersmeldingen per maand","meldingen"],
-          kapperszaken:["kapperszaken","Afspraak direct geboekt.","Kan ik vrijdag een knip- en kleurafspraak boeken?","Ik help u direct. Heeft u voorkeur voor een stylist of tijd?","Vrijdagmiddag, geen voorkeur.","Ik boek direct het passende slot en stuur de bevestiging.","Afspraak geboekt. CRM bijgewerkt met behandeling en voorkeur. Bevestiging naar klant gestuurd.","Afspraken per maand","afspraken"],
-          "cosmetische-klinieken":["cosmetische klinieken","Consult direct gepland.","Ik wil informatie over een huidbehandeling.","Ik help u direct. Gaat het om acne, pigment of huidverjonging?","Pigment en huidverbetering.","Ik plan direct een consult en stuur de voorbereiding.","Consult geboekt. CRM bijgewerkt met behandelwens en intake. Bevestiging naar klant gestuurd.","Consultaanvragen per maand","consulten"],
-          evenementen:["evenementenbedrijven","Eventaanvraag direct gekwalificeerd.","We zoeken catering en entertainment voor 120 gasten.","Ik help u direct. Wat is de datum, locatie en budgetrange?","12 september, Utrecht, ongeveer 8.000 euro.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met datum, gasten, budget en locatie. Follow-up mail gestuurd.","Eventaanvragen per maand","intakes"],
-          "non-profit":["non-profit organisaties","Donateurvraag direct opgevolgd.","Ik wil vrijwilliger worden bij jullie organisatie.","Ik help u direct. Voor welke regio en hoeveel tijd heeft u beschikbaar?","Regio Rotterdam, een dagdeel per week.","Ik plan direct een kennismaking en stuur de informatie.","Kennismaking geboekt. CRM bijgewerkt met regio, beschikbaarheid en motivatie. Follow-up mail gestuurd.","Aanvragen per maand","contactmomenten"],
-          dierenarts:["dierenartsen","Dierenartsafspraak direct beoordeeld.","Mijn hond eet niet en is erg sloom.","Ik help u direct. Hoe oud is uw hond en hoelang speelt dit?","Vier jaar, sinds gisterenavond.","Ik plan direct een passend consult en stuur de bevestiging.","Consult geboekt. CRM bijgewerkt met dier, klacht en urgentie. Bevestiging naar eigenaar gestuurd.","Patientvragen per maand","consulten"],
-          dierenverzorging:["dierenverzorging","Boeking direct gepland.","Ik zoek opvang voor mijn hond tijdens vakantie.","Ik help u direct. Welke periode en welk ras betreft het?","Twee weken in augustus, labrador.","Ik plan direct een intake en stuur de bevestiging.","Intake geboekt. CRM bijgewerkt met periode, dier en wensen. Bevestiging naar klant gestuurd.","Boekingsvragen per maand","boekingen"],
-          vloerenleggers:["vloerenleggers","Vloeropname direct gepland.","Ik wil een pvc vloer laten leggen in de woonkamer.","Ik help u direct. Hoeveel m2 en is egaliseren nodig?","Ongeveer 45 m2, dat weet ik niet zeker.","Ik plan direct een opname en stuur de bevestiging.","Opname geboekt. CRM bijgewerkt met m2, vloertype en vraag. Follow-up mail naar klant gestuurd.","Vloeraanvragen per maand","opnames"]
-        };
-        Object.keys(generic).forEach(function(slug){
-          var g=generic[slug];
-          branchData[slug]={name:g[0],kicker:"AI voor "+g[0],title:"AI medewerkers voor "+g[0]+".",lead:"Laat AI aanvragen, afspraken en klantvragen direct afhandelen, plannen en vastleggen in CRM.",pills:["Directe intake","Planning gekoppeld","Follow-up klaar"],exampleTitle:g[1],lines:[g[2],g[3],g[4],g[5]],result:g[6],steps:[["Aanvraag","AI verzamelt context, timing en contactgegevens."],["Kwalificatie","Urgentie, type werk en vervolgstap worden bepaald."],["Planning","Afspraak, ticket of intake wordt direct aangemaakt."],["CRM","Team krijgt samenvatting en klant krijgt bevestiging."]],calc:{title:"Wat levert automatische intake op voor "+g[0]+"?",lead:"Deze rekentool vertaalt klantvragen naar uren, capaciteit en directe opvolging.",summary:"Vul je eigen aantallen in en zie direct hoeveel rust, snelheid en extra kansen er kunnen ontstaan voor "+g[0]+".",volumeLabel:g[7],minutesLabel:"Minuten handwerk per aanvraag",automationLabel:"Aanvragen die AI kan afhandelen",valuePerHour:50,marginLabel:"Marge per extra klant",extraCustomerRate:4,metric4:g[8].charAt(0).toUpperCase()+g[8].slice(1)+" direct verwerkt",insight:"Je wint {hours} uur per maand terug en laat ongeveer {automated} "+g[8]+" direct verwerken."}};
-        });
-        var branchUpgrades={
-          autobedrijven:{lead:"Reageer sneller op proefritten, inruilvragen, voorraadchecks en financieringsvragen zonder dat verkoop achter formulieren en WhatsApp-berichten aanloopt.",pills:["Proefritten direct gepland","Inruilvragen uitgevraagd","Verkoop krijgt CRM-context"]},
-          makelaars:{lead:"Kwalificeer woningzoekers, plan bezichtigingen en leg koopmotief, budget en timing direct vast voordat de kandidaat afhaakt.",pills:["Bezichtigingen gepland","Kandidaten gekwalificeerd","Dossier compleet"]},
-          tandartsen:{lead:"Vang telefoondruk op, triageer pijnklachten en plan afspraken zonder dat de balie elke patientvraag handmatig hoeft uit te zoeken.",pills:["Spoed triage","Minder baliedruk","Patientcontext klaar"]},
-          installatietechniek:{lead:"Maak storingen, onderhoudsvragen, offerteaanvragen en werkbonnen direct compleet voor planning, monteur en administratie.",pills:["Storingen gerouteerd","Werkbon voorbereid","Planning houdt overzicht"]},
-          vastgoedbeheerders:{lead:"Zet huurdersmeldingen, reparatieverzoeken en statusvragen om naar complete tickets met adres, urgentie, foto en vervolgactie.",pills:["Tickets compleet","Bewoner krijgt update","Leverancier krijgt context"]},
-          verzekeraars:{lead:"Bereid claims, polisvragen en documentchecks voor met duidelijke routing naar schade, acceptatie of service.",pills:["Claims voorbereid","Documenten uitgevraagd","Snellere dossierroute"]},
-          dakdekkers:{lead:"Herken spoedlekkages, vraag foto's en daktype uit, plan inspecties en volg offertes op voordat een warme aanvraag koud wordt.",pills:["Spoed herkend","Inspectie gepland","Offerte opgevolgd"],steps:[["Spoedcheck","AI vraagt lekkage, daktype, foto's en adres uit."],["Inspectie","Beschikbare regio en planning worden gekoppeld."],["Offerte","Aanvraag en foto's komen compleet in CRM."],["Follow-up","Klant krijgt bevestiging en offerteopvolging."]]},
-          glaszetters:{lead:"Maak glasschade, glastype, maten, veiligheid en opname direct duidelijk zodat spoedroutes en offertes sneller lopen.",pills:["Glastype duidelijk","Spoedroute klaar","Opname gepland"],steps:[["Schade","AI vraagt veiligheid, glastype, foto en adres uit."],["Opname","Inmeten of noodherstel wordt gepland."],["Werkvoorbereiding","Maten, type glas en urgentie staan klaar."],["Terugkoppeling","Klant krijgt bevestiging en vervolgstap."]]},
-          hotels:{lead:"Beantwoord gastvragen, upsell verzoeken, reserveringswijzigingen en late check-ins zonder dat receptie continu uit de flow wordt gehaald.",pills:["Gastvragen beantwoord","Reservering bijgewerkt","Receptie houdt rust"],steps:[["Gastvraag","AI herkent reservering, datum en wens."],["PMS-notitie","Late check-in, voorkeur of extra service wordt vastgelegd."],["Bevestiging","Gast krijgt direct duidelijkheid."],["Teamcontext","Receptie ziet wat is afgesproken."]]},
-          hoveniers:{lead:"Kwalificeer tuinvragen, periodiek onderhoud, aanlegwensen en seizoensdruk direct naar een intake of offerteflow.",pills:["Tuinintake compleet","Onderhoud gepland","Offertekans warm"],steps:[["Wens","AI vraagt type tuin, oppervlak, foto's en timing uit."],["Route","Onderhoud, aanleg of advies krijgt eigen vervolg."],["Planning","Intake of opname wordt ingepland."],["Opvolging","Offerte en seizoensmoment blijven bewegen."]]},
-          kozijnen:{lead:"Vraag materiaal, aantal ramen, foto's, woningtype en inmeetmoment uit voordat verkoop of werkvoorbereiding tijd kwijt is.",pills:["Inmeetafspraak gepland","Materiaalwens duidelijk","Offerte sneller compleet"],steps:[["Aanvraag","AI vraagt kozijnsoort, aantal, foto's en locatie uit."],["Inmeten","Passend moment wordt voorgesteld."],["CRM","Materiaalwens en scope worden vastgelegd."],["Offerte","Klant krijgt bevestiging en volgende stap."]]},
-          restaurants:{lead:"Boek tafels, groepen, dieetwensen en aanbetalingen direct terwijl je team met gasten bezig blijft.",pills:["Tafels bevestigd","Groepen gekwalificeerd","No-shows lager"],steps:[["Reservering","AI vraagt datum, tijd, aantal en wensen uit."],["Beschikbaarheid","Tafel of groep wordt passend ingepland."],["Bevestiging","Gast ontvangt bevestiging en voorwaarden."],["Herinnering","No-show risico wordt kleiner."]]},
-          zonnepanelen:{lead:"Kwalificeer solar leads met adres, daktype, verbruik, beslismoment en adviesbehoefte voordat verkoop belt.",pills:["Dakdata verzameld","Adviesgesprek gepland","Leadscore duidelijk"],steps:[["Dakcheck","AI vraagt adres, verbruik en type dak uit."],["Fit","Budget, timing en beslisser worden helder."],["Advies","Gesprek of schouw wordt gepland."],["Follow-up","Lead blijft warm tot offerte."]]},
-          woningcorporaties:{lead:"Routeer bewonersmeldingen, reparaties, overlast en statusvragen met duidelijke urgentie en minder losse belmomenten.",pills:["Bewonersmelding compleet","Urgentie helder","Onderhoud krijgt taak"],steps:[["Melding","AI vraagt woning, probleem, veiligheid en foto's uit."],["Urgentie","Spoed, regulier of statusvraag wordt herkend."],["Ticket","Onderhoud of leverancier krijgt context."],["Update","Bewoner weet wat er gebeurt."]]},
-          kapperszaken:{lead:"Laat een AI-receptionist afspraken boeken, prijs- en behandeltijdvragen beantwoorden en WhatsApp/DM's opvangen terwijl jij met klanten bezig bent.",pills:["Salontelefoon rustiger","Agenda vult door","Toon van je salon"]},
-          "cosmetische-klinieken":{lead:"Beantwoord discrete behandelvragen, kwalificeer consultaanvragen en leg intakecontext vast zonder dat vertrouwen verloren gaat.",pills:["Consults gepland","Intake discreet","Specialist krijgt context"],steps:[["Behandelvraag","AI vraagt doel, klachtgebied en verwachting uit."],["Consultfit","Medische aandachtspunten en voorkeur worden voorbereid."],["Agenda","Consult of terugbelmoment wordt gepland."],["Overdracht","Specialist ziet context zonder ruis."]]},
-          evenementen:{lead:"Kwalificeer events met datum, gasten, locatie, budget en type aanvraag zodat sales sneller weet of het kansrijk is.",pills:["Budget helder","Datum gecheckt","Intake gepland"],steps:[["Aanvraag","AI vraagt datum, locatie, gasten en budget uit."],["Fit","Type event en urgentie worden bepaald."],["Intake","Salesgesprek of offerteflow wordt gestart."],["CRM","Alle context staat klaar."]]},
-          "non-profit":{lead:"Volg donateurs, vrijwilligers en samenwerkingsvragen warm op met persoonlijke communicatie en duidelijke vervolgstappen.",pills:["Vrijwilligersintake","Donateurrelatie warm","Impactdata vastgelegd"],steps:[["Intentie","AI herkent donatie, vrijwilliger of partneraanvraag."],["Context","Regio, motivatie en beschikbaarheid worden gevraagd."],["Vervolg","Kennismaking of taak wordt ingepland."],["Relatie","CRM krijgt warme context."]]},
-          dierenarts:{lead:"Triageer bezorgde baasjes, herken alarmsignalen en plan consulten zonder medisch advies te vervangen.",pills:["Urgentie ingeschat","Consult gepland","Balie minder druk"],steps:[["Klacht","AI vraagt dier, leeftijd, duur en symptomen uit."],["Urgentie","Alarmsignalen worden herkend."],["Consult","Passend slot of terugbel wordt gepland."],["Overdracht","Balie en dierenarts krijgen samenvatting."]]},
-          dierenverzorging:{lead:"Plan opvang, trimsalon, dagopvang of verzorgingsvragen met diergegevens, periode, gedrag en voorkeuren compleet.",pills:["Boeking voorbereid","Diergegevens compleet","WhatsApp rustiger"],steps:[["Periode","AI vraagt datum, duur en type verzorging uit."],["Dierprofiel","Ras, leeftijd, gedrag en medicatie worden vastgelegd."],["Planning","Intake of boeking wordt voorgesteld."],["Bevestiging","Klant krijgt voorwaarden en vervolg."]]},
-          vloerenleggers:{lead:"Vraag m2, vloertype, ondervloer, foto's en planning uit zodat opname en offerte sneller compleet zijn.",pills:["M2 helder","Opname gepland","Offerteflow sneller"],steps:[["Vloervraag","AI vraagt ruimte, m2, type vloer en foto's uit."],["Voorwerk","Ondervloer, egaliseren en plinten worden voorbereid."],["Opname","Moment wordt gepland."],["Offerte","CRM krijgt scope en vervolgactie."]]}
-        };
-        Object.keys(branchUpgrades).forEach(function(key){
-          if(!branchData[key])return;
-          branchData[key]=Object.assign({},branchData[key],branchUpgrades[key]);
-          if(branchUpgrades[key].steps)branchData[key].steps=branchUpgrades[key].steps;
-        });
-        var slug=new URLSearchParams(location.search).get("branche")||"autobedrijven";
-        var item=branchData[slug]||branchData.autobedrijven;
-        var currentCalc=item.calc;
-        var landingContent={
-          kapperszaken:{
-            heroMain:"Nooit meer een knipbeurt onderbreken voor de telefoon,",
-            heroAccent:"wel een vollopende agenda.",
-            heroLead:"Jouw slimme AI-receptionist boekt 24/7 afspraken, beantwoordt vragen over prijzen en appt met klanten in de toon van jouw salon.",
-            personalTitle:"Rust in de salon, zonder dat je agenda leger wordt.",
-            personalCopy:"Een kapper wil niet kiezen tussen volledige aandacht voor de klant in de stoel en bereikbaar blijven voor nieuwe afspraken. Autopilots vangt telefoontjes, WhatsAppjes en websitevragen op in de toon van je salon, ook na sluitingstijd.",
-            pains:[["Verf aan je handen","De telefoon gaat precies tijdens een balayage, kleuring of strakke fade. Opnemen geeft stress, laten rinkelen kost afspraken."],["Avondboekers","Klanten beslissen vaak om 21:30 dat ze nog geknipt willen worden. Als de route onduidelijk is, boeken ze bij een andere salon."],["App-terreur","Instagram DM's, WhatsAppjes en prijsvragen blijven na sluitingstijd doorlopen terwijl jij eigenlijk klaar bent."]],
-            assistantTitle:"Jouw virtuele salonreceptionist.",
-            assistantCopy:"Ze kent je prijslijst, behandeltijden, huisregels en agenda. Een knipbeurt, balayage of kleurcorrectie vraagt niet dezelfde tijd, dus de AI stelt eerst de juiste vragen en plant daarna pas.",
-            how:[["01","Salonsoftware koppelen","Agenda, beschikbare stylisten en behandelduur worden de basis."],["02","Prijslijst uploaden","Knippen, kleuren, toner, föhnen en consultregels worden vastgelegd."],["03","Live op WhatsApp en website","Klanten kunnen direct vragen stellen en boeken."],["04","Menselijke fallback","Bij complexe kleurcorrecties stuurt de AI netjes door naar je salon."]],
-            values:[["24/7 bereikbaar","Je agenda kan vollopen terwijl jij slaapt, knipt of vrij bent."],["Telefoonrust","Meer aandacht voor de klant in de stoel en minder onderbrekingen."],["Slim plannen","Geen te korte kleurslots of dubbele boekingen bij intensieve behandelingen."]],
-            software:["Salonized","Treatwell","MijnSalon","DaVinci","Phorest","Fresha"],
-            proofTitle:"Zo voelt een salon wanneer de route staat.",
-            proofCopy:"Telefoon, WhatsApp en websitevragen worden rustig opgevangen terwijl behandelingen doorgaan. Klanten weten direct waar ze aan toe zijn en je agenda blijft in beweging.",
-            proofMetrics:[["24/7","boekbaar"],["Minder","losse appjes"],["Meer","focus in de stoel"]],
-            quote:"Klanten boeken direct, het team werkt zonder onderbrekingen en iedere afspraak komt met de juiste context binnen.",
-            faq:[["Wat als iemand een ingewikkelde kleurcorrectie wil?","Dan plant de AI eerst een consult of stuurt de vraag door naar de salon, inclusief fotoverzoek en context."],["Snapt de AI behandeltijden?","Ja. De AI werkt met jouw behandeltijden en weet dat balayage iets anders vraagt dan alleen knippen."],["Praat de AI vriendelijk genoeg?","We trainen de toon op jouw salon: van informeel en warm tot netjes en rustig."],["Kan dit met WhatsApp?","Ja. WhatsApp, websitechat, formulieren en agenda kunnen samen in een duidelijke flow worden gezet."]],
-            finalTitle:"Klaar voor een vollere agenda zonder telefoonstress?",
-            finalCopy:"Plan een korte routecheck. We laten zien hoe AI jouw salon bereikbaar houdt zonder de rust in de stoel te verstoren."
-          },
-          autobedrijven:{
-            personalTitle:"Elke proefritaanvraag verdient directe opvolging.",
-            personalCopy:"Autokopers vergelijken snel. Wie pas uren later reageert, mist momentum. Autopilots helpt voorraadvragen beantwoorden, proefritten plannen, inruilvragen vastleggen en verkoop direct context geven.",
-            pains:[["Voorraadvragen blijven liggen","Een klant vraagt naar kilometerstand, afleverpakket of beschikbaarheid en verwacht direct duidelijkheid."],["Proefritten kosten afstemming","Verkoper, agenda, auto en rijbewijscheck moeten kloppen voordat de afspraak waarde heeft."],["CRM komt later","Na drukke dagen worden notities achteraf ingevuld, waardoor warme leads kouder worden."]],
-            assistantTitle:"Jouw digitale verkoopassistent.",
-            assistantCopy:"De AI kent voorraad, proefritregels, inruilvragen en follow-up. Hij helpt klanten door naar een afspraak en legt alles vast voor verkoop.",
-            how:[["01","Voorraad en aanbod koppelen","Model, uitvoering, beschikbaarheid en interesse worden herkenbaar."],["02","Proefritlogica instellen","Rijbewijscheck, tijden en vestiging worden meegenomen."],["03","Follow-up activeren","Mail, WhatsApp of belmoment loopt automatisch door."],["04","CRM bijwerken","Verkoop ziet direct leadstatus, auto en koopintentie."]],
-            values:[["Snellere proefritten","Meer aanvragen worden direct omgezet naar concrete afspraken."],["Betere verkoopcontext","Verkopers starten met model, budget, inruil en timing in beeld."],["Minder gemiste marge","Leads blijven warm door snelle reactie en automatische opvolging."]],
-            software:["AutoTrack","AutoScout24","Marktplaats","RDC","BOVAG","HubSpot"],
-            proofTitle:"Meer proefritten uit dezelfde leadstroom.",
-            proofCopy:"Wanneer voorraadvragen en proefritverzoeken direct worden opgevolgd, blijft de koopintentie warm en krijgt verkoop minder losse administratie.",
-            proofMetrics:[["+18","proefritten"],["-8 uur","CRM werk"],["+5","extra verkopen"]],
-            quote:"“De verkoper hoeft niet meer te zoeken wat de klant wilde. Alles staat al klaar.”",
-            faq:[["Kan AI voorraadvragen beantwoorden?","Ja, zolang de bron of voorraadlijst gekoppeld is en duidelijke regels zijn ingesteld."],["Kan een proefrit direct ingepland worden?","Ja. De AI kan beschikbaarheid controleren, vragen stellen en de afspraak bevestigen."],["Wat met inruilvragen?","De AI verzamelt kenteken, kilometerstand, foto's en verwachting zodat verkoop gericht kan opvolgen."],["Blijft de verkoper betrokken?","Ja. Bij serieuze koopintentie of uitzonderingen wordt het team direct geïnformeerd."]]
-          },
-          makelaars:{
-            personalTitle:"Minder losse bezichtigingsvragen, meer gekwalificeerde kandidaten.",
-            personalCopy:"Een makelaar krijgt veel interesse, maar niet iedere aanvraag is even concreet. Autopilots stelt de juiste vragen, plant bezichtigingen en legt koopmotief, budget en timing vast.",
-            pains:[["Veel herhaalvragen","Is de woning nog beschikbaar, wanneer kan ik kijken, wat zijn de servicekosten?"],["Ongekwalificeerde bezichtigingen","Niet iedere kandidaat heeft budget, financiering of duidelijke koopintentie."],["Avondaanvragen","Woningzoekers sturen vaak buiten kantooruren, precies wanneer snelle reactie verschil maakt."]],
-            assistantTitle:"Jouw digitale bezichtigingscoordinator.",
-            assistantCopy:"De AI kent objectinformatie, bezichtigingsslots, kwalificatievragen en overdracht naar de makelaar.",
-            how:[["01","Objectinformatie koppelen","Adres, prijs, beschikbaarheid en bezichtigingsregels worden gebruikt."],["02","Kandidaat kwalificeren","Koopmotief, financiering en timing worden uitgevraagd."],["03","Bezichtiging plannen","Alleen passende kandidaten krijgen een concreet moment."],["04","Dossier klaarzetten","Makelaar krijgt samenvatting en opvolgstap."]],
-            values:[["Betere kandidaten","Minder tijd kwijt aan vrijblijvende aanvragen."],["Sneller reageren","Interesse wordt direct opgevolgd, ook 's avonds."],["Compleet dossier","Meer context voordat de makelaar belt of rondleidt."]],
-            software:["Realworks","Funda","Kolibri","Move.nl","Pararius","NVM"],
-            proofTitle:"Meer bezichtigingen met betere context.",
-            proofCopy:"Door aanvragen eerst te kwalificeren, houdt het team meer tijd over voor kandidaten die echt kunnen en willen schakelen.",
-            proofMetrics:[["+22","bezichtigingen"],["-35%","loze intakes"],["24/7","reactie"]],
-            quote:"“We spreken minder mensen zonder budget en juist sneller met serieuze kandidaten.”",
-            faq:[["Kan AI kandidaten kwalificeren?","Ja. Budget, financiering, koopmotief en timing kunnen vooraf worden uitgevraagd."],["Kan dit per woning verschillen?","Ja. Per object kunnen eigen regels en beschikbaarheid worden ingesteld."],["Wat bij gevoelige vragen?","Dan geeft AI een nette overdracht aan de makelaar met de context erbij."],["Werkt dit ook voor verhuur?","Ja, met andere vragen over inkomen, beschikbaarheid, gezinssituatie en documenten."]]
-          },
-          tandartsen:{
-            personalTitle:"Spoed, agenda en patientvragen zonder overvolle telefoonlijn.",
-            personalCopy:"Een tandartspraktijk wil patienten snel helpen, maar de balie kan niet alles tegelijk. Autopilots triageert klachten, plant afspraken en bereidt de overdracht voor.",
-            pains:[["Spoeddruk aan de balie","Kiespijn, zwelling en afgebroken tanden vragen snelle inschatting."],["Veel standaardvragen","Openingstijden, prijzen, inschrijven en afspraak wijzigen kosten dagelijks tijd."],["Incomplete klachten","Zonder triage moet de praktijk terugbellen voor informatie die meteen gevraagd had kunnen worden."]],
-            assistantTitle:"Jouw digitale praktijkassistent.",
-            assistantCopy:"De AI stelt triagevragen, herkent urgentie en plant waar mogelijk direct een passend slot.",
-            how:[["01","Behandeltypes vastleggen","Controle, pijnklacht, spoed en mondhygiene krijgen eigen regels."],["02","Triagevragen instellen","Zwelling, koorts, pijnscore en duur worden gevraagd."],["03","Agenda koppelen","Spoedslots en reguliere afspraken worden apart behandeld."],["04","Balie fallback","Bij twijfel krijgt de praktijk direct context."]],
-            values:[["Minder telefoondruk","Balie houdt meer rust voor patienten in de praktijk."],["Betere spoedtriage","Urgentie wordt duidelijk voordat iemand lang moet wachten."],["Nettere overdracht","De tandarts ziet klacht, duur en risico's vooraf."]],
-            software:["Exquise","Simplex","DentAdmin","Vertimart","ZorgMail","DentalRules"],
-            proofTitle:"Meer rust aan de balie, snellere triage.",
-            proofCopy:"Patientvragen komen completer binnen en spoedklachten worden sneller herkend.",
-            proofMetrics:[["-42%","balievragen"],["+28","slots gevuld"],["100%","context"]],
-            quote:"“De balie krijgt minder herhaalvragen en spoed komt duidelijker binnen.”",
-            faq:[["Mag AI medisch advies geven?","Nee. De AI stelt intake- en triagevragen en verwijst volgens de afgesproken praktijkregels."],["Kan AI spoed herkennen?","Ja, op basis van ingestelde signalen zoals zwelling, koorts, pijnscore of trauma."],["Kan de praktijk altijd overnemen?","Ja. Bij twijfel of uitzonderingen wordt het team ingeschakeld."],["Kan dit met bestaande agenda's?","We kijken per praktijk welke agenda of route het beste koppelbaar is."]]
-          },
-          installatietechniek:{
-            personalTitle:"Storingen sneller compleet, monteurs beter voorbereid.",
-            personalCopy:"Bij installatiebedrijven gaat veel tijd verloren aan onvolledige meldingen. Autopilots vraagt door, bepaalt urgentie en zet werkbonnen klaar.",
-            pains:[["Incomplete storingen","Geen foutcode, adres, foto's of type installatie betekent terugbellen."],["Planning onder druk","Urgent, regulier en garantie lopen door elkaar heen."],["Monteur mist context","Zonder goede intake staat iemand op locatie met te weinig informatie."]],
-            assistantTitle:"Jouw digitale serviceplanner.",
-            assistantCopy:"De AI verzamelt storing, installatietype, urgentie, adres en beschikbaarheid voordat planning of monteur schakelt.",
-            how:[["01","Storingsregels vastleggen","CV, warmtepomp, elektra of lekkage krijgen eigen vragen."],["02","Werkbon voorbereiden","Foto's, foutcodes en klantgegevens worden toegevoegd."],["03","Planning afstemmen","Regio, urgentie en capaciteit worden meegenomen."],["04","Klant bevestigen","De klant weet wat er gebeurt en wanneer."]],
-            values:[["Minder terugbellen","Werkbonnen komen vollediger binnen."],["Betere planning","Urgente klussen krijgen sneller de juiste route."],["Meer eerste-keer-oplossing","Monteurs vertrekken met betere context."]],
-            software:["Syntess","Exact","Simpro","Teamleader","WerkbonApp","PlanGo"],
-            proofTitle:"Meer complete werkbonnen, minder planningstress.",
-            proofCopy:"Meldingen worden gestructureerd voordat ze bij planning komen.",
-            proofMetrics:[["+46","werkbonnen"],["-11 uur","intake"],["+18%","sneller gepland"]],
-            quote:"“De planner hoeft minder losse informatie op te vragen voordat een monteur kan rijden.”",
-            faq:[["Kan AI foutcodes uitvragen?","Ja, per installatietype kun je foutcodes, foto's en veiligheidsvragen laten uitvragen."],["Kan urgentie worden bepaald?","Ja, op basis van jouw regels voor veiligheid, warmte, water, stroom en klanttype."],["Werkt dit met werkbonsoftware?","We koppelen waar mogelijk of bouwen een praktische tussenroute."],["Kan de planner blijven controleren?","Ja. Je bepaalt welke meldingen automatisch door mogen en welke eerst langs planning gaan."]]
-          },
-          vastgoedbeheerders:{
-            personalTitle:"Huurdersmeldingen compleet binnen, minder losse tickets.",
-            personalCopy:"Vastgoedbeheer draait op overzicht. Autopilots vraagt adres, urgentie, foto's en categorie uit voordat een melding naar beheerder of leverancier gaat.",
-            pains:[["Te weinig informatie","Een melding zonder adres, foto of urgentie zorgt voor onnodige heen-en-weer communicatie."],["Veel statusvragen","Huurders vragen waar hun reparatie blijft terwijl het team al druk is."],["Verkeerde routing","Een lekkage, slotprobleem of VvE-vraag vraagt telkens een andere route."]],
-            assistantTitle:"Jouw digitale huurdersloket.",
-            assistantCopy:"De AI maakt meldingen compleet, routeert naar de juiste persoon en houdt bewoners netjes op de hoogte.",
-            how:[["01","Objectdata koppelen","Adres, complex, huurder en leverancier worden herkend."],["02","Ticketregels instellen","Lekkage, elektra, sloten en overlast krijgen eigen vragen."],["03","Leverancier aansturen","De juiste partij krijgt de complete melding."],["04","Status communiceren","Huurder ontvangt bevestiging en vervolgstap."]],
-            values:[["Minder ticketruis","Beheerders krijgen completere meldingen."],["Snellere opvolging","Urgente zaken worden eerder herkend."],["Betere bewonerervaring","Huurders hoeven minder te herhalen."]],
-            software:["Bloxs","Twinq","Zig","Informant","Vabi","Reasult"],
-            proofTitle:"Tickets komen completer binnen.",
-            proofCopy:"Door intake en routing te automatiseren, dalen statusvragen en losse correcties.",
-            proofMetrics:[["-38%","herhaalvragen"],["+71","tickets voorbereid"],["24/7","meldpunt"]],
-            quote:"“Bewoners krijgen sneller duidelijkheid en beheerders starten met betere informatie.”",
-            faq:[["Kan AI foto's opvragen?","Ja, de AI kan foto, locatie, urgentie en aanvullende gegevens uitvragen."],["Kan per complex andere routing gelden?","Ja. Regels kunnen verschillen per object, leverancier of type melding."],["Wat bij spoed?","Spoedmeldingen kunnen apart worden gemarkeerd en sneller worden doorgezet."],["Kan dit statusvragen verminderen?","Ja, omdat bevestiging en vervolgstappen direct duidelijker worden gecommuniceerd."]]
-          },
-          verzekeraars:{
-            personalTitle:"Claims en polisvragen zonder incomplete dossiers.",
-            personalCopy:"Een verzekeraar wint tijd wanneer documenten, context en urgentie meteen goed binnenkomen. Autopilots bereidt cases voor voordat een medewerker inhoudelijk aan de slag gaat.",
-            pains:[["Incomplete claims","Foto's, formulieren of polisgegevens ontbreken vaak."],["Verkeerde afdeling","Schade, acceptatie en servicevragen worden makkelijk verkeerd gerouteerd."],["Veel statusvragen","Klanten willen weten wat er nodig is en wanneer ze antwoord krijgen."]],
-            assistantTitle:"Jouw digitale dossierintake.",
-            assistantCopy:"De AI herkent claimtype, vraagt documenten uit en stuurt het dossier door naar de juiste route.",
-            how:[["01","Claimtypes vastleggen","Auto, woon, aansprakelijkheid en reis krijgen eigen logica."],["02","Documenten checken","Ontbrekende stukken worden direct opgevraagd."],["03","Routing bepalen","Schade, polis of service krijgt de juiste overdracht."],["04","Klant informeren","De klant krijgt duidelijke vervolgstappen."]],
-            values:[["Completere dossiers","Minder heen-en-weer over ontbrekende documenten."],["Snellere triage","Urgente en eenvoudige cases worden beter gescheiden."],["Meer vertrouwen","Klanten weten eerder wat er gebeurt."]],
-            software:["ANVA","CCS Level","DIAS","SIVI","Salesforce","Guidewire"],
-            proofTitle:"Meer complete dossiers bij eerste intake.",
-            proofCopy:"Schademeldingen komen gestructureerd binnen en worden sneller beoordeeld.",
-            proofMetrics:[["+54","cases voorbereid"],["-29%","statusvragen"],["+16 uur","bespaard"]],
-            quote:"“Medewerkers starten niet meer met zoeken, maar met beoordelen.”",
-            faq:[["Kan AI polisvragen beantwoorden?","Ja, binnen de ingestelde kennisbank en zonder buiten beleid te gaan."],["Kan AI documenten controleren?","De AI kan ontbrekende documenten signaleren en uploadlinks of instructies sturen."],["Wat bij complexe schade?","Dan wordt het dossier voorbereid en doorgezet naar een medewerker."],["Blijft compliance belangrijk?","Ja. Regels, disclaimers en menselijke fallback worden onderdeel van de flow."]]
-          }
-        };
-        var defaultProfiles={
-          dakdekkers:["Daklekkages direct goed uitgevraagd.","Dakdekkers verliezen veel tijd aan telefoontjes zonder foto's, adres of urgentie. Autopilots vraagt door en plant inspecties slimmer.",["Lekkage tijdens werk","Als het regent wil iedereen tegelijk bellen, maar niet iedere aanvraag is even urgent."],["Foto's ontbreken","Zonder beeld of daktype moet je alsnog terugbellen."],["Offertes blijven liggen","Warme aanvragen koelen af als inspectie of opvolging te lang duurt."],["Jouw digitale dakintake","De AI vraagt daktype, schade, foto's, veiligheid en adres uit voordat je team rijdt."],["Exact","Syntess","Teamleader","Simpro","WerkbonApp","Bouw7"]],
-          glaszetters:["Spoedbreuk en inmeten zonder chaos.","Glaszetters moeten snel weten of iets veilig is, welk glas nodig is en wanneer opname kan plaatsvinden.",["Spoed of regulier","Niet elke barst is nood, maar gevaarlijk glas moet direct door."],["Maten ontbreken","Zonder foto's, type glas of afmeting blijft de aanvraag hangen."],["Planning versnipperd","Inmeten, leveren en plaatsen lopen snel door elkaar."],["Jouw digitale glasintake","De AI vraagt veiligheid, glastype, foto's en maten uit en plant opname of noodroute."],["Exact","Syntess","WerkbonApp","Bouw7","PlanGo","Teamleader"]],
-          hotels:["Gastvragen direct oplossen zonder receptiedruk.","Hotels krijgen vragen over reserveringen, aankomst, ontbijt, parkeren en wijzigingen op elk moment van de dag.",["Late vragen","Gasten appen 's avonds over check-in, parkeren of extra bedden."],["Receptie onderbroken","Standaardvragen halen focus weg bij gasten aan de balie."],["Upsell blijft liggen","Extra ontbijt, late check-out of kamerwens wordt niet altijd benut."],["Jouw digitale guest assistant","De AI beantwoordt gastvragen en zet wensen netjes in PMS of overdracht."],["Mews","RoomRaccoon","Cloudbeds","Booking.com","SiteMinder","Lightspeed"]],
-          hoveniers:["Aanvragen en onderhoudsplanning beter gestructureerd.","Hoveniers krijgen veel brede vragen. Autopilots maakt van losse wensen een duidelijke intake.",["Onduidelijke aanvragen","Tuinrenovatie, onderhoud of snoeiwerk vraagt andere informatie."],["Seizoenspiek","In voorjaar en zomer komt alles tegelijk binnen."],["Offertes missen context","M2, foto's, timing en budget ontbreken vaak."],["Jouw digitale tuinintake","De AI vraagt tuinoppervlak, wens, foto's, timing en onderhoudstype uit."],["Teamleader","Exact","Simpro","WerkbonApp","Gripp","Monday"]],
-          kozijnen:["Inmeetafspraken zonder eindeloos heen-en-weer.","Kozijnenbedrijven hebben goede intake nodig: materiaal, aantal ramen, foto's, planning en budget.",["Te weinig informatie","Aantal ramen, maten, materiaal en foto's ontbreken vaak."],["Inmeten kost afstemming","Zonder goed moment blijft offertewerk hangen."],["Offertes opvolgen","Kansen blijven liggen als niemand op tijd opvolgt."],["Jouw digitale kozijnintake","De AI vraagt materiaal, aantal kozijnen, foto's en voorkeursmoment uit."],["Orgadata","Logikal","MatrixKozijn","Bouw7","Exact","Syntess"]],
-          restaurants:["Reserveringen en groepsaanvragen direct strak geregeld.","Restaurants willen volle tafels zonder dat telefoon en DM's service verstoren.",["Telefoon tijdens service","Reserveringsvragen komen precies tijdens lunch of diner."],["Groepen vragen aandacht","Dieetwensen, aanbetaling en tijdslot moeten helder zijn."],["No-shows","Bevestiging en herinnering maken direct verschil."],["Jouw digitale reserveringshulp","De AI boekt tafels, vraagt dieetwensen uit en stuurt bevestiging."],["Formitable","TheFork","Lightspeed","Resengo","Zenchef","SevenRooms"]],
-          zonnepanelen:["Zonnepanelenleads sneller kwalificeren.","Zonnepanelenbedrijven moeten weten of dak, verbruik, budget en timing passen voordat advies zinvol is.",["Veel oriëntatie","Niet iedere aanvraag is direct verkoopklaar."],["Dakdata mist","Adres, verbruik en type dak ontbreken vaak."],["Opvolging is tijdkritisch","Leads vergelijken meerdere aanbieders tegelijk."],["Jouw digitale solar intake","De AI vraagt adres, jaarverbruik, daktype en beslismoment uit."],["Solar Monkey","Solvari","Enphase","HubSpot","Teamleader","Monday"]],
-          woningcorporaties:["Bewonersmeldingen zonder overvolle lijnen.","Woningcorporaties krijgen veel reparaties, overlastvragen en statusverzoeken tegelijk.",["Veel meldingen","Bewoners willen direct bevestiging en duidelijkheid."],["Urgentie verschilt","Slot, lekkage, elektra en overlast vragen andere route."],["Statusdruk","Teams verliezen tijd aan updates die automatisch kunnen."],["Jouw digitale bewonersloket","De AI maakt meldingen compleet en routeert volgens corporatieregels."],["Tobias AX","Empire","Zig","ViewPoint","NCCW","Aareon"]],
-          "cosmetische-klinieken":["Consults en intake zonder koude tech.","Cosmetische klinieken verkopen vertrouwen. Autopilots helpt vragen beantwoorden, consults plannen en intake voorbereiden.",["Veel gevoelige vragen","Klanten willen discreet antwoord over behandelingen en verwachtingen."],["Consults moeten passen","Niet iedere vraag hoort direct in een behandelafspraak."],["DM's lopen door","Instagram en WhatsApp zijn vaak de echte intakekanalen."],["Jouw digitale clinic assistant","De AI vraagt behandelwens, medische aandachtspunten en consultvoorkeur uit."],["Clinicminds","Treatwell","Salonized","Fresha","Phorest","HubSpot"]],
-          evenementen:["Eventaanvragen direct kwalificeren.","Evenementenbedrijven moeten snel weten: datum, gasten, locatie, budget en type aanvraag.",["Aanvragen zijn breed","Catering, techniek, entertainment en locatie vragen andere routes."],["Budget ontbreekt","Zonder budgetrange is opvolging vaak inefficiënt."],["Snelheid wint","De partij die het snelst professioneel reageert heeft voordeel."],["Jouw digitale event intake","De AI vraagt datum, gasten, locatie, budget en wensen uit."],["Momice","Eventbrite","Ticket Tailor","HubSpot","Pipedrive","Monday"]],
-          "non-profit":["Donateurs en vrijwilligers persoonlijk opvolgen.","Non-profits draaien op betrokkenheid. Autopilots helpt donateursvragen, vrijwilligersintake en eventvragen warm opvolgen.",["Veel betrokken vragen","Mensen willen helpen, maar hebben duidelijke route nodig."],["Vrijwilligersintake kost tijd","Regio, beschikbaarheid en motivatie moeten helder zijn."],["Donateurrelatie is kwetsbaar","Communicatie moet warm en menselijk blijven."],["Jouw digitale impact assistent","De AI helpt aanvragen persoonlijk opvolgen en legt motivatie vast."],["Salesforce NPSP","AFAS","Exact","Mailchimp","Donorbox","Eventbrite"]],
-          dierenarts:["Urgente dierenvragen sneller triageren.","Dierenartsen moeten klachten snel inschatten zonder medisch advies te vervangen.",["Eigenaren zijn bezorgd","Sloomheid, pijn of niet eten vraagt snelle intake."],["Spoed of consult","Niet iedere klacht kan wachten, maar niet alles is spoed."],["Balie onder druk","Telefonie en balie lopen vaak tegelijk."],["Jouw digitale dierenartsassistent","De AI vraagt soort dier, leeftijd, klachtduur en alarmsignalen uit."],["Animana","Vetware","Provet Cloud","Digitail","Vetstoria","ZorgDomein"]],
-          dierenverzorging:["Boekingen en opvangvragen overzichtelijk binnen.","Dierenverzorging draait op vertrouwen, planning en duidelijke informatie over dier en periode.",["Veel periodevragen","Vakantieopvang, trimsalon of dagopvang vraagt telkens planning."],["Diergegevens missen","Ras, leeftijd, gedrag en medicatie zijn belangrijk."],["Klanten appen veel","Beschikbaarheid en voorwaarden komen vaak via WhatsApp."],["Jouw digitale verzorgingsassistent","De AI vraagt periode, diergegevens, gedrag en voorkeuren uit."],["PetManager","KennelCare","Pawfinity","Google Calendar","WhatsApp","Teamleader"]],
-          vloerenleggers:["Opnames en offertes sneller compleet.","Vloerenleggers hebben m2, ondervloer, type vloer, planning en foto's nodig voordat offerte of opname klopt.",["M2 ontbreekt","Zonder oppervlak en ruimtes blijft offerte vaag."],["Voorwerk onduidelijk","Egaliseren, plinten en oude vloer bepalen planning en prijs."],["Opvolging blijft liggen","Warme aanvragen moeten snel naar opname of offerte."],["Jouw digitale vloerintake","De AI vraagt m2, vloertype, foto's, ondervloer en planning uit."],["Exact","Bouw7","Teamleader","Syntess","WerkbonApp","Monday"]]
-        };
-        Object.keys(defaultProfiles).forEach(function(key){
-          if(landingContent[key])return;
-          var d=defaultProfiles[key];
-          var label=(branchData[key]&&branchData[key].name)||key;
-          landingContent[key]={personalTitle:d[0],personalCopy:d[1],pains:[[d[2][0],d[2][1]],[d[3][0],d[3][1]],[d[4][0],d[4][1]]],assistantTitle:d[5][0],assistantCopy:d[5][1],how:[["01","Kennis vastleggen","Veelvoorkomende vragen, uitzonderingen en overdracht worden ingericht."],["02","Kanalen koppelen","Website, WhatsApp, telefoon of formulier krijgt dezelfde route."],["03","Actie uitvoeren","Afspraak, ticket, intake of follow-up wordt klaargezet."],["04","Team krijgt context","Alles komt terug in CRM, agenda of werkproces."]],values:[["Minder handwerk","Het team hoeft minder informatie achteraf te verzamelen."],["Sneller reageren","Klanten krijgen sneller duidelijkheid en blijven warmer."],["Betere overdracht","Iedere aanvraag komt met context bij de juiste persoon terecht."]],software:d[6],proofTitle:"Meer grip op aanvragen voor "+label+".",proofCopy:"Door intake, planning en opvolging te structureren, blijven minder kansen liggen.",proofMetrics:[["+31","contacten verwerkt"],["-9 uur","handwerk"],["24/7","bereikbaar"]],quote:"“De aanvragen komen rustiger en completer binnen, waardoor het team sneller kan schakelen.”",faq:[["Kan dit met onze huidige werkwijze?","Ja. We bouwen de route om jullie proces heen en starten waar de meeste druk zit."],["Moet alles automatisch?","Nee. Jij bepaalt welke stappen automatisch gaan en wanneer een mens overneemt."],["Kan de toon persoonlijk blijven?","Ja. We trainen de AI op jullie manier van communiceren."],["Wat levert dit op?","Meestal minder handwerk, snellere opvolging en meer afspraken uit dezelfde vraagstroom."]]};
-        });
-        var landingUpgrades={
-          autobedrijven:{heroMain:"Elke proefrit sneller gepland,",heroAccent:"verkoop werkt vooruit.",personalTitle:"Autokopers wachten niet tot je tijd hebt.",personalCopy:"Voorraadvragen, inruil, proefritten en financiering komen binnen via telefoon, WhatsApp, formulieren en portalen. Autopilots maakt van elk contactmoment een verkoopkans met context.",pains:[["Leads na sluitingstijd","Veel kopers oriënteren 's avonds. Als opvolging wacht tot morgen, is de kans kouder."],["Inruil en voorraadvragen","Verkoop heeft model, budget, inruil en timing nodig om goed te reageren."],["CRM achteraf bijwerken","Gesprekken leveren pas waarde op als voertuig, interesse en status direct vastliggen."]],assistantTitle:"Jouw digitale verkoopassistent",assistantCopy:"De AI vraagt door op model, proefrit, inruil, financiering en beschikbaarheid en zet de juiste actie klaar voor verkoop.",values:[["Meer proefritten","Warme leads worden sneller naar een concreet moment gebracht."],["Scherpere opvolging","Verkoop ziet meteen wat de klant wil, zonder opnieuw te hoeven vragen."],["Betere leaddata","Bron, voertuig, timing en status landen in CRM voor opvolging en rapportage."]],finalTitle:"Klaar om meer proefritten uit dezelfde leads te halen?",finalCopy:"Plan een korte afspraak. We bekijken waar AI in jouw verkooproute direct sneller kan reageren, plannen en opvolgen."},
-          makelaars:{heroMain:"Meer bezichtigingen met minder belwerk,",heroAccent:"kandidaten beter gekwalificeerd.",personalTitle:"Een woningzoeker wil tempo en duidelijkheid.",personalCopy:"Bezichtigingsverzoeken, financieringsvragen en woninginteresse komen vaak tegelijk binnen. Autopilots kwalificeert kandidaten zonder dat de makelaar steeds dezelfde intake hoeft te doen.",pains:[["Bezichtigingsdruk","Populaire objecten leveren veel aanvragen op, maar niet iedere kandidaat is even passend."],["Financiering onbekend","Budget, koopmotief en timing bepalen of opvolging zinvol is."],["Dossier versnipperd","Mail, telefoon en WhatsApp maken het lastig om context netjes te bewaren."]],assistantTitle:"Jouw digitale kandidaatintake",assistantCopy:"De AI vraagt budget, financiering, koopmotief en beschikbaarheid uit en plant alleen passende vervolgstappen.",values:[["Minder ruis","Je team besteedt meer aandacht aan passende kandidaten."],["Snellere planning","Bezichtigingen worden direct bevestigd met de juiste voorbereiding."],["Sterker dossier","Elke kandidaat komt met context terug in CRM of makelaarssysteem."]],finalTitle:"Klaar om bezichtigingen slimmer te plannen?",finalCopy:"We laten zien waar AI in jouw makelaarsproces tijd terugwint en kandidaten beter voorbereidt."},
-          tandartsen:{heroMain:"Minder telefoondruk aan de balie,",heroAccent:"patienten sneller geholpen.",personalTitle:"De balie is vaak tegelijk receptioniste, planner en triagepunt.",personalCopy:"Patienten bellen met pijn, controles, verzetten, vragen over behandelingen en spoed. Autopilots helpt de eerste intake structureren zonder de menselijke zorg uit het proces te halen.",pains:[["Pijnklachten vragen rust","De juiste vragen bepalen of iets spoed, regulier of terugbel is."],["Afspraken verzetten kost tijd","Herhaalwerk blokkeert aandacht aan de balie."],["Context ontbreekt","De tandarts wil klacht, duur en urgentie zien voordat de patient binnenkomt."]],assistantTitle:"Jouw digitale praktijkassistent",assistantCopy:"De AI vraagt klacht, urgentie, beschikbaarheid en voorkeur uit en zet alleen passende afspraken of overdrachten klaar.",values:[["Balie krijgt lucht","Terugkerende afspraakvragen worden sneller opgevangen."],["Betere triage","Spoedvragen komen met context binnen."],["Persoonlijker contact","Patienten hoeven hun verhaal minder vaak te herhalen."]],finalTitle:"Klaar voor minder telefoondruk in de praktijk?",finalCopy:"Plan een korte intake. We bekijken waar voice, chat en planning jouw balie direct ontlasten."},
-          installatietechniek:{heroMain:"Elke storing sneller compleet,",heroAccent:"planning houdt controle.",personalTitle:"Installatiebedrijven verliezen tijd aan incomplete meldingen.",personalCopy:"Een klant zegt 'hij doet het niet', maar planning heeft storingstype, adres, urgentie, foto's, capaciteit en monteurslogica nodig. Autopilots maakt aanvragen direct bruikbaar.",pains:[["Storingen verstoren de dag","Spoed en regulier komen op dezelfde stapel als intake niet scherp is."],["Monteurs missen context","Zonder goede voorinformatie ontstaan extra belletjes en verkeerde routes."],["Offertes blijven liggen","Warme aanvragen voor onderhoud, warmtepompen of elektra moeten snel opgevolgd worden."]],assistantTitle:"Jouw digitale serviceplanner",assistantCopy:"De AI vraagt storing, adres, installatietype, urgentie en voorkeur uit en bereidt werkbon, afspraak of terugbelactie voor.",values:[["Werkbonnen compleet","Planning ziet direct wat er moet gebeuren."],["Minder afstemming","Klant, monteur en kantoor werken met dezelfde informatie."],["Meer grip op capaciteit","Urgentie en regio worden eerder duidelijk."]],finalTitle:"Klaar om serviceaanvragen slimmer te verwerken?",finalCopy:"We bekijken welke storingen, offertes en planningstappen AI direct kan voorbereiden."},
-          vastgoedbeheerders:{heroMain:"Huurdersmeldingen compleet binnen,",heroAccent:"beheer houdt overzicht.",personalTitle:"Vastgoedbeheer draait op tickets die meteen kloppen.",personalCopy:"Huurders melden lekkage, sloten, overlast en statusvragen via allerlei kanalen. Autopilots vraagt ontbrekende info uit en routeert meldingen met context.",pains:[["Tickets missen details","Adres, foto, urgentie of toegangsinformatie ontbreekt vaak."],["Bewoners vragen status","Zonder automatische updates blijft het team veel herhalen."],["Leveranciers krijgen ruis","Een incomplete melding vertraagt reparatie en verhoogt frustratie."]],assistantTitle:"Jouw digitale bewonersloket",assistantCopy:"De AI vraagt melding, adres, foto, urgentie en beschikbaarheid uit en maakt een ticket dat beheer of leverancier kan gebruiken.",values:[["Completere tickets","Minder terugbellen voor basisinformatie."],["Rustigere communicatie","Bewoners krijgen sneller bevestiging."],["Betere overdracht","Leveranciers en beheerders zien dezelfde context."]],finalTitle:"Klaar om meldingen slimmer te routeren?",finalCopy:"Plan een korte afspraak. We laten zien welke tickets AI voor jullie compleet kan voorbereiden."},
-          verzekeraars:{heroMain:"Claims sneller voorbereid,",heroAccent:"minder incomplete dossiers.",personalTitle:"Verzekeraars winnen tijd als de eerste intake klopt.",personalCopy:"Schadevragen, polisstatus, documenten en urgentie bepalen de route. Autopilots helpt klanten duidelijk door de eerste stappen en legt ontbrekende informatie vast.",pains:[["Documenten ontbreken","Foto's, formulieren en polisgegevens moeten vaak later alsnog worden opgevraagd."],["Verkeerde routing","Schade, acceptatie en service vragen andere opvolging."],["Klant wil duidelijkheid","Een bevestiging en vervolgstap voorkomt extra contactdruk."]],assistantTitle:"Jouw digitale schade-intake",assistantCopy:"De AI herkent claimtype, vraagt documenten uit, bepaalt urgentie en zet het dossier klaar voor de juiste afdeling.",values:[["Dossiers completer","Medewerkers starten met betere informatie."],["Snellere terugkoppeling","Klanten weten wat er nodig is en wat de volgende stap is."],["Minder herhaalvragen","Polis, schade en documenten worden direct gekoppeld."]],finalTitle:"Klaar voor slimmere schade-intake?",finalCopy:"We bekijken waar AI claims, polisvragen en documentchecks direct kan voorbereiden."},
-          dakdekkers:{heroMain:"Spoedlekkages direct herkend,",heroAccent:"inspecties sneller gepland.",personalTitle:"Dakdekkers hebben snelheid nodig zonder chaos.",personalCopy:"Bij lekkage wil de klant direct hulp. Tegelijk moet je weten of het spoed is, waar het dak zit, welk type dak het is en of foto's beschikbaar zijn.",how:[["01","Spoedregels vastleggen","Actieve lekkage, stormschade, daktype en regio krijgen eigen beslisregels."],["02","Kanalen koppelen","Telefoon, formulier en WhatsApp krijgen dezelfde snelle intake."],["03","Inspectie plannen","AI stelt een inspectie of terugbelmoment voor op basis van urgentie."],["04","Offerte opvolgen","CRM krijgt foto's, adres en follow-upactie."]],values:[["Minder gemiste spoed","Urgente lekkages worden direct herkend."],["Betere voorbereiding","Foto's, daktype en adres komen samen binnen."],["Meer offertewaarde","Warme aanvragen blijven in beweging."]],proofTitle:"Van paniekmelding naar geplande inspectie.",proofCopy:"Voor dakdekkers draait AI niet om een chatbot, maar om rust in spoed, planning en offerteopvolging.",proofMetrics:[["24/7","lekkage-intake"],["3 min","snelle kwalificatie"],["1 route","naar inspectie"]],quote:"“Een goede lekkage-intake voorkomt dat het team eerst drie keer moet terugbellen.”",faq:[["Kan AI spoed herkennen?","Ja. We richten regels in voor actieve lekkage, veiligheid, stormschade en regio."],["Kan de klant foto's toevoegen?","Ja. De AI kan om foto's vragen en die bij de aanvraag laten landen."],["Plant AI direct inspecties?","Dat kan als agenda en regio duidelijk gekoppeld zijn. Anders zet AI een terugbelactie klaar."],["Blijft offerteopvolging persoonlijk?","Ja. De AI houdt de aanvraag warm, maar het team bepaalt de inhoudelijke offerte."]],finalTitle:"Klaar om lekkage-aanvragen sneller op te pakken?",finalCopy:"Plan een korte routecheck. We laten zien hoe AI spoed, inspecties en offertes slimmer verwerkt."},
-          glaszetters:{heroMain:"Glasschade sneller veilig ingeschat,",heroAccent:"opname direct voorbereid.",personalTitle:"Bij glas telt veiligheid, maatvoering en timing.",personalCopy:"Een gebroken ruit vraagt andere intake dan HR++ vervanging. Autopilots vraagt veiligheid, glastype, foto's, maten en adres uit voordat planning schakelt.",values:[["Noodroute duidelijk","Spoedbreuk wordt apart behandeld."],["Opname compleet","Glastype, maten en foto's staan klaar."],["Minder wachttijd","Klant krijgt direct een logische vervolgstap."]],proofTitle:"Van glasschade naar bruikbare werkvoorbereiding.",proofCopy:"De AI haalt eerst de informatie op die een glaszetter nodig heeft om veilig en snel te plannen.",proofMetrics:[["Foto","direct gevraagd"],["Type glas","vastgelegd"],["Opname","gepland"]],quote:"“Een complete glasaanvraag voorkomt verkeerde verwachtingen en onnodige ritten.”",finalTitle:"Klaar om glasaanvragen sneller compleet te krijgen?",finalCopy:"We bekijken hoe AI spoedbreuk, opname en offerteopvolging voor jullie kan voorbereiden."},
-          hotels:{heroMain:"Gastvragen direct beantwoord,",heroAccent:"receptie houdt ruimte.",personalTitle:"Hotels worden beoordeeld op snelheid en duidelijkheid.",personalCopy:"Late check-in, kamerwensen, reserveringswijzigingen, ontbijt, parkeren en groepsvragen komen via mail, telefoon en chat. AI helpt zonder het gastgevoel te verliezen.",values:[["Minder receptiedruk","Veelgestelde vragen worden direct beantwoord."],["Betere gastdata","Voorkeuren en verzoeken worden vastgelegd."],["Meer upsellkansen","Extra services worden sneller aangeboden."]],proofTitle:"Van losse gastvraag naar nette PMS-notitie.",proofCopy:"Autopilots brengt hotelvragen terug naar reservering, voorkeur en actie.",proofMetrics:[["24/7","gastantwoord"],["PMS","notitie klaar"],["Meer","servicekansen"]],quote:"“Een gast wil niet wachten op antwoord over iets simpels als late check-in of parkeren.”",finalTitle:"Klaar om gastvragen slimmer op te vangen?",finalCopy:"Plan een korte afspraak. We kijken welke vragen AI voor receptie direct kan afhandelen."},
-          hoveniers:{heroMain:"Tuinvragen beter gekwalificeerd,",heroAccent:"planning blijft groen.",personalTitle:"Hoveniers krijgen veel brede aanvragen.",personalCopy:"Onderhoud, aanleg, renovatie en spoedklussen vragen andere informatie. AI vraagt oppervlak, foto's, wensen, budgetindicatie en timing uit.",values:[["Intakes scherper","Je weet eerder of het onderhoud, aanleg of advies is."],["Seizoensdruk lager","Veel vragen worden direct voorbereid."],["Offertes warmer","Aanvragen blijven niet hangen tussen drukke werkdagen."]],proofTitle:"Van tuinvraag naar passende intake.",proofCopy:"De AI maakt van brede vragen een duidelijke route voor opname, offerte of onderhoud.",proofMetrics:[["m2","uitgevraagd"],["Foto's","gevraagd"],["Intake","gepland"]],quote:"“Een hovenier wil niet pas op locatie ontdekken dat de vraag totaal anders is.”",finalTitle:"Klaar om tuinaanvragen slimmer te kwalificeren?",finalCopy:"We bekijken waar AI in jullie intake en planning direct rust brengt."},
-          kozijnen:{heroMain:"Kozijnaanvragen sneller compleet,",heroAccent:"inmeten zonder ruis.",personalTitle:"Kozijnen verkopen begint bij een scherpe intake.",personalCopy:"Materiaal, aantal ramen, woningtype, foto's, budget en inmeetmoment bepalen of verkoop snel kan schakelen.",values:[["Minder ruis","Aanvragen komen met materiaal en scope binnen."],["Sneller inmeten","Passende afspraken worden direct voorgesteld."],["Offerteflow sterker","Klantcontext blijft beschikbaar voor verkoop."]],proofTitle:"Van oriëntatie naar inmeetafspraak.",proofCopy:"De AI vraagt precies de info uit die kozijnenbedrijven nodig hebben voor een logische vervolgstap.",proofMetrics:[["8+","velden compleet"],["1","inmeetroute"],["CRM","klaar"]],quote:"“Hoe beter de intake, hoe minder offertewerk op aannames draait.”",finalTitle:"Klaar om kozijnleads sneller te verwerken?",finalCopy:"Plan een korte afspraak. We laten zien hoe AI inmeten, offertes en follow-up versnelt."},
-          restaurants:{heroMain:"Reserveringen blijven doorlopen,",heroAccent:"service blijft rustig.",personalTitle:"Tijdens service wil je geen telefoonchaos.",personalCopy:"Reserveringen, groepsaanvragen, dieetwensen en wijzigingen komen precies op drukke momenten. AI vangt de vraag op en boekt of bevestigt netjes.",values:[["Meer rust tijdens service","Team hoeft minder telefoon en DM's tussendoor te doen."],["Groepen beter voorbereid","Aantal, tijd, dieetwensen en voorwaarden staan vast."],["Minder no-shows","Bevestiging en herinnering houden reserveringen warm."]],proofTitle:"Van reserveringsvraag naar bevestigde tafel.",proofCopy:"Autopilots helpt restaurants snel reageren zonder gastvrijheid in te leveren.",proofMetrics:[["Direct","bevestigd"],["Dieet","vastgelegd"],["Reminder","klaar"]],quote:"“Een reservering is pas waardevol als die ook netjes bevestigd en voorbereid is.”",finalTitle:"Klaar om reserveringen slimmer te boeken?",finalCopy:"We bekijken hoe AI telefoon, chat en reserveringsvragen kan overnemen tijdens drukte."},
-          zonnepanelen:{heroMain:"Solar leads beter gekwalificeerd,",heroAccent:"advies sneller gepland.",personalTitle:"Zonnepanelenleads vergelijken snel.",personalCopy:"Adres, daktype, jaarverbruik, oriëntatie en beslismoment bepalen of een lead verkoopklaar is. AI vraagt dit uit voordat sales belt.",values:[["Meer focus op goede leads","Oriëntatievragen worden eerst gekwalificeerd."],["Sneller advies","Adres en verbruik staan klaar voor gesprek."],["Betere opvolging","Leads blijven warm via WhatsApp, mail of telefoon."]],proofTitle:"Van klik naar solar intake.",proofCopy:"AI maakt van brede interesse een bruikbare adviesroute.",proofMetrics:[["Adres","gecheckt"],["kWh","uitgevraagd"],["Lead","warm"]],quote:"“Wie solar leads sneller en beter opvolgt, haalt meer uit hetzelfde advertentiebudget.”",finalTitle:"Klaar om solar leads scherper op te volgen?",finalCopy:"Plan een korte routecheck. We laten zien waar AI intake en follow-up versnelt."},
-          woningcorporaties:{heroMain:"Bewonersmeldingen beter gerouteerd,",heroAccent:"teams houden overzicht.",personalTitle:"Bewoners willen duidelijkheid, teams willen complete meldingen.",personalCopy:"Reparaties, overlast, statusvragen en spoed lopen door elkaar. AI vraagt context uit en zet meldingen op de juiste route.",values:[["Completere meldingen","Adres, probleem, veiligheid en foto worden eerder duidelijk."],["Minder statusdruk","Bewoners krijgen sneller bevestiging."],["Betere leverancierroute","Onderhoud krijgt bruikbare context."]],proofTitle:"Van bewonersvraag naar duidelijke taak.",proofCopy:"Autopilots helpt corporaties meldingen menselijk en gestructureerd verwerken.",proofMetrics:[["Ticket","compleet"],["Update","verstuurd"],["Urgentie","helder"]],quote:"“Een bewoner voelt zich serieuzer genomen als de vervolgstap meteen duidelijk is.”",finalTitle:"Klaar om bewonersmeldingen beter te verwerken?",finalCopy:"We bekijken hoe AI meldingen, statusvragen en onderhoudsroutes kan ontlasten."},
-          "cosmetische-klinieken":{heroMain:"Consultvragen discreet opgevolgd,",heroAccent:"vertrouwen blijft centraal.",personalTitle:"In cosmetische zorg verkoopt vertrouwen, niet snelheid alleen.",personalCopy:"Klanten stellen gevoelige vragen via Instagram, WhatsApp en website. AI moet warm, discreet en duidelijk zijn, en op tijd naar een specialist schakelen.",values:[["Warmere intake","Behandelwens, verwachting en twijfel worden netjes gevraagd."],["Meer passende consults","Niet iedere vraag wordt blind ingepland."],["Specialist krijgt context","Het gesprek start met betere informatie."]],proofTitle:"Van DM naar professioneel consult.",proofCopy:"Autopilots helpt klinieken vragen beantwoorden zonder de menselijke nuance te verliezen.",proofMetrics:[["Discreet","antwoord"],["Consult","gepland"],["Context","klaar"]],quote:"“Een client wil zich begrepen voelen voordat er een consult wordt geboekt.”",faq:[["Kan AI medische claims doen?","Nee. We richten de AI in voor intake, informatie, planning en overdracht. Medische beoordeling blijft bij de specialist."],["Werkt dit met Instagram DM?","Ja, de flow kan worden ingericht voor social, website, WhatsApp en formulieren."],["Blijft de toon luxe en persoonlijk?","Ja. Tone of voice is onderdeel van het AI-brein."],["Wanneer neemt een mens over?","Bij twijfel, medische nuance, bezwaar of emotie schakelt de AI door."]],finalTitle:"Klaar om consultaanvragen professioneler op te volgen?",finalCopy:"Plan een korte afspraak. We bekijken welke vragen AI veilig en persoonlijk kan voorbereiden."},
-          evenementen:{heroMain:"Eventaanvragen sneller gekwalificeerd,",heroAccent:"sales weet meteen wat kansrijk is.",personalTitle:"Een eventaanvraag is pas bruikbaar met datum, locatie en budget.",personalCopy:"Catering, techniek, entertainment, locatie en planning vragen andere routes. AI verzamelt de basis zodat sales niet eerst alles hoeft uit te vragen.",values:[["Snellere kwalificatie","Datum, gasten, locatie en budget staan snel klaar."],["Minder offerteverlies","Warme aanvragen worden direct bevestigd."],["Betere planning","Team ziet urgentie en type event sneller."]],proofTitle:"Van brede aanvraag naar concrete intake.",proofCopy:"Autopilots helpt eventteams snelheid combineren met professionele opvolging.",proofMetrics:[["Datum","gecheckt"],["Budget","gevraagd"],["Intake","gepland"]],quote:"“De snelste professionele reactie wint vaak de aanvraag.”",finalTitle:"Klaar om eventaanvragen beter te kwalificeren?",finalCopy:"We kijken hoe AI jullie intake, offerteflow en follow-up kan versnellen."},
-          "non-profit":{heroMain:"Betrokken mensen warm opgevolgd,",heroAccent:"impact blijft persoonlijk.",personalTitle:"Vrijwilligers en donateurs willen voelen dat hun bijdrage telt.",personalCopy:"Non-profits krijgen vragen van mensen die willen helpen, geven of samenwerken. AI helpt structureren zonder de menselijke toon kwijt te raken.",values:[["Meer warme opvolging","Motivatie, regio en beschikbaarheid worden vastgelegd."],["Minder losse inboxen","Donatie, vrijwilliger en partneraanvraag krijgen eigen route."],["Betere relatiecontext","CRM onthoudt waarom iemand contact zoekt."]],proofTitle:"Van betrokken bericht naar passende route.",proofCopy:"Autopilots maakt impactcommunicatie praktischer en persoonlijker.",proofMetrics:[["Regio","vastgelegd"],["Motivatie","begrepen"],["Vervolg","gepland"]],quote:"“Iemand die wil bijdragen verdient sneller duidelijkheid dan een volle inbox.”",finalTitle:"Klaar om betrokken mensen beter op te volgen?",finalCopy:"Plan een korte afspraak. We laten zien hoe AI vrijwilligers, donateurs en partners warm kan begeleiden."},
-          dierenarts:{heroMain:"Bezorgde baasjes sneller geholpen,",heroAccent:"balie houdt lucht.",personalTitle:"Dierenartsen hebben triage nodig zonder koude automatisering.",personalCopy:"Eigenaren bellen met stress. AI vraagt soort dier, klachtduur, alarmsignalen en beschikbaarheid uit en schakelt bij twijfel altijd naar de praktijk.",values:[["Snellere triage","Alarmsignalen komen eerder naar voren."],["Minder baliedruk","Veel afspraak- en herhaalvragen worden voorbereid."],["Betere consultcontext","Dierenarts ziet klacht en duur vooraf."]],proofTitle:"Van bezorgde vraag naar passende vervolgstap.",proofCopy:"De AI ondersteunt intake en planning, maar neemt geen medische beoordeling over.",proofMetrics:[["Dier","vastgelegd"],["Urgentie","ingeschat"],["Consult","gepland"]],quote:"“Bij dierenvragen moet AI vooral rust, structuur en overdracht brengen.”",finalTitle:"Klaar om dierenvragen slimmer te triageren?",finalCopy:"We bekijken waar AI jullie balie ontlast en consulten beter voorbereidt."},
-          dierenverzorging:{heroMain:"Boekingen compleet binnen,",heroAccent:"verzorging blijft persoonlijk.",personalTitle:"Dierenverzorging draait op vertrouwen en duidelijke afspraken.",personalCopy:"Opvang, trimsalon, dagopvang of verzorging vraagt info over dier, periode, gedrag, medicatie en voorkeuren. AI verzamelt dit zonder afstandelijk te worden.",values:[["Betere boekingen","Periode, dierprofiel en wensen staan klaar."],["Minder WhatsApp-ruis","Veel beschikbaarheidsvragen krijgen direct antwoord."],["Veiliger overdracht","Gedrag en bijzonderheden worden niet vergeten."]],proofTitle:"Van boekingsvraag naar compleet dierprofiel.",proofCopy:"Autopilots helpt dierenverzorging persoonlijk en georganiseerd blijven.",proofMetrics:[["Periode","gepland"],["Dierprofiel","compleet"],["Voorwaarden","verstuurd"]],quote:"“Goede verzorging begint al bij een goede intake.”",finalTitle:"Klaar om boekingen rustiger te verwerken?",finalCopy:"Plan een korte afspraak. We bekijken waar AI intake en planning kan ontlasten."},
-          vloerenleggers:{heroMain:"Vloeraanvragen sneller compleet,",heroAccent:"opname en offerte scherper.",personalTitle:"Vloerenleggers hebben details nodig voordat de offerte klopt.",personalCopy:"M2, ondervloer, egaliseren, plinten, foto's en planning bepalen werk en prijs. AI vraagt dit uit voordat verkoop of planning schakelt.",values:[["Betere opname","M2, ruimte en vloertype zijn eerder duidelijk."],["Minder aannames","Ondervloer en voorwerk worden meegenomen."],["Snellere offerteflow","Aanvragen blijven niet liggen na drukke werkdagen."]],proofTitle:"Van vloervraag naar bruikbare opname.",proofCopy:"Autopilots helpt vloerenleggers aanvragen concreter maken voordat ze tijd kosten.",proofMetrics:[["m2","uitgevraagd"],["Foto's","gevraagd"],["Opname","gepland"]],quote:"“Een vloerlead zonder m2 en ondervloerinfo is nog geen offerteklare aanvraag.”",finalTitle:"Klaar om vloeraanvragen sneller offerte-klaar te maken?",finalCopy:"We laten zien hoe AI intake, opnameplanning en offerteopvolging kan versnellen."}
-        };
-        Object.keys(landingUpgrades).forEach(function(key){
-          if(!landingContent[key])landingContent[key]={};
-          landingContent[key]=Object.assign({},landingContent[key],landingUpgrades[key]);
-        });
-        var calculatorLabels={
-          autobedrijven:"Autobedrijf calculator",
-          makelaars:"Makelaar calculator",
-          tandartsen:"Tandarts calculator",
-          installatietechniek:"Installatie calculator",
-          vastgoedbeheerders:"Vastgoedbeheer calculator",
-          verzekeraars:"Verzekeraar calculator",
-          dakdekkers:"Dakdekker calculator",
-          glaszetters:"Glaszetter calculator",
-          hotels:"Hotel calculator",
-          hoveniers:"Hovenier calculator",
-          kozijnen:"Kozijnen calculator",
-          restaurants:"Restaurant calculator",
-          zonnepanelen:"Zonnepanelen calculator",
-          woningcorporaties:"Woningcorporatie calculator",
-          kapperszaken:"Kapperszaak calculator",
-          "cosmetische-klinieken":"Cosmetische kliniek calculator",
-          evenementen:"Evenementen calculator",
-          "non-profit":"Non-profit calculator",
-          dierenarts:"Dierenarts calculator",
-          dierenverzorging:"Dierenverzorging calculator",
-          vloerenleggers:"Vloerenlegger calculator"
-        };
-        var currentAgentLang="nl";
-        var agentLanguages={
-          nl:{label:"Nederlands",lines:null,result:null},
-          en:{label:"English",lines:["I would like to schedule this with your team.","I can help right away. What is the situation, preferred timing and contact detail?","This week works. Please send the confirmation by email.","Done. I scheduled it directly and sent the confirmation."],result:"Appointment booked. CRM updated with context, preference and next step. Follow-up email sent to the customer."},
-          de:{label:"Deutsch",lines:["Ich moechte das gerne mit Ihrem Team planen.","Ich helfe Ihnen direkt. Worum geht es, wann passt es und wie erreichen wir Sie?","Diese Woche passt. Bitte senden Sie die Bestaetigung per E-Mail.","Erledigt. Ich habe den Termin direkt geplant und die Bestaetigung gesendet."],result:"Termin gebucht. CRM mit Kontext, Wunsch und naechstem Schritt aktualisiert. Follow-up-Mail an den Kunden gesendet."},
-          fr:{label:"Francais",lines:["Je souhaite planifier cela avec votre equipe.","Je vous aide tout de suite. Quelle est la situation, le moment souhaite et vos coordonnees ?","Cette semaine me convient. Envoyez la confirmation par e-mail.","C'est fait. Le rendez-vous est planifie et la confirmation est envoyee."],result:"Rendez-vous planifie. CRM mis a jour avec le contexte, la preference et la prochaine etape. E-mail de suivi envoye au client."},
-          es:{label:"Espanol",lines:["Quiero planificar esto con vuestro equipo.","Le ayudo directamente. Cual es la situacion, el horario preferido y sus datos?","Esta semana me va bien. Envien la confirmacion por correo.","Listo. He planificado la cita y enviado la confirmacion."],result:"Cita planificada. CRM actualizado con contexto, preferencia y siguiente paso. Correo de seguimiento enviado al cliente."}
-        };
-        var brainProfiles={
-          autobedrijven:["AI brein voor autobedrijven.","Het brein slokt voorraadvragen, proefritten, inruilwensen, leadbron en aankoopfase op en zet dit om naar een duidelijke verkoopactie.",["Voorraad","Proefrit","Inruil","Verkoopactie"]],
-          makelaars:["AI brein voor makelaars.","Het brein verzamelt woonwens, budget, financiering, objectinteresse en kijkmomenten zodat de makelaar meteen met context start.",["Woonwens","Budget","Object","Bezichtiging"]],
-          tandartsen:["AI brein voor tandartspraktijken.","Het brein neemt klacht, pijnniveau, timing, behandelwens en afspraakvoorkeur op en schakelt bij spoed of twijfel naar de praktijk.",["Pijnklacht","Urgentie","Agenda","Balie hulp"]],
-          installatietechniek:["AI brein voor installatietechniek.","Het brein verwerkt storingstype, installatie, adres, urgentie, monteurroute en werkboninformatie tot een bruikbare planningactie.",["Storing","Installatie","Route","Werkbon"]],
-          vastgoedbeheerders:["AI brein voor vastgoedbeheer.","Het brein slokt bewonersmeldingen, adressen, foto's, urgentie en leveranciersregels op zodat tickets compleet en menselijk terugkomen.",["Melding","Adres","Foto","Leverancier"]],
-          verzekeraars:["AI brein voor verzekeraars.","Het brein verzamelt claimtype, poliscontext, documenten, schadeomvang en afdelingroute zodat dossiers minder incompleet starten.",["Claim","Polis","Document","Afdeling"]],
-          dakdekkers:["AI brein voor dakdekkers.","Het brein neemt lekkage, daktype, foto's, weersituatie, regio en inspectieregels op en bepaalt of het spoed, opname of offerte-opvolging wordt.",["Lekkage","Daktype","Foto's","Inspectie"]],
-          glaszetters:["AI brein voor glaszetters.","Het brein verzamelt veiligheid, glastype, afmetingen, foto's en plaatsingscontext zodat noodherstel, opname of offerte de juiste route krijgt.",["Veiligheid","Glastype","Maten","Opname"]],
-          hotels:["AI brein voor hotels.","Het brein onthoudt reservering, gastvoorkeur, aankomsttijd, kamerwens en servicevraag zodat receptie minder losse updates hoeft te doen.",["Reservering","Gastwens","Service","PMS-notitie"]],
-          hoveniers:["AI brein voor hoveniers.","Het brein slokt tuinwens, oppervlak, onderhoudstype, foto's, seizoen en budgetindicatie op en maakt er een passende intake van.",["Tuinwens","m2","Seizoen","Offerte"]],
-          kozijnen:["AI brein voor kozijnenbedrijven.","Het brein verzamelt materiaalwens, aantal ramen, foto's, woningtype en inmeetlogica zodat verkoop sneller weet wat er nodig is.",["Materiaal","Aantal","Foto's","Inmeten"]],
-          restaurants:["AI brein voor restaurants.","Het brein neemt datum, tijd, gezelschap, dieetwensen, aanbetaling en no-showregels op zodat reserveringen netjes bevestigd worden.",["Tafel","Groep","Dieet","Reminder"]],
-          zonnepanelen:["AI brein voor zonnepanelenbedrijven.","Het brein verzamelt adres, daktype, verbruik, beslismoment en adviesbehoefte zodat solar leads beter verkoopklaar worden.",["Adres","Dak","kWh","Advies"]],
-          woningcorporaties:["AI brein voor woningcorporaties.","Het brein neemt bewonersvraag, woning, probleemtype, veiligheid en statusregels op zodat meldingen sneller op de juiste route zitten.",["Bewoner","Woning","Urgentie","Onderhoud"]],
-          kapperszaken:["AI brein voor kapperszaken.","Het brein onthoudt behandelingen, behandeltijden, stylistvoorkeur, prijsvragen en salonregels zodat de agenda volloopt zonder telefoonstress.",["Behandeling","Stylist","Agenda","Salonregels"]],
-          "cosmetische-klinieken":["AI brein voor cosmetische klinieken.","Het brein verzamelt behandelwens, gevoeligheid, consultdoel, twijfel en specialistregels zonder medisch advies te automatiseren.",["Behandelwens","Consult","Discretie","Specialist"]],
-          evenementen:["AI brein voor evenementenbedrijven.","Het brein neemt datum, gasten, locatie, budget, type event en leveranciersvragen op en maakt van brede aanvragen een salesklare intake.",["Datum","Gasten","Budget","Salesroute"]],
-          "non-profit":["AI brein voor non-profits.","Het brein verzamelt motivatie, regio, beschikbaarheid, donatievraag en impactinteresse zodat betrokken mensen warmer worden opgevolgd.",["Motivatie","Regio","Donatie","Impact"]],
-          dierenarts:["AI brein voor dierenartsen.","Het brein neemt diersoort, leeftijd, klachtduur, alarmsignalen en consultvoorkeur op en schakelt bij twijfel naar de praktijk.",["Dier","Klacht","Urgentie","Consult"]],
-          dierenverzorging:["AI brein voor dierenverzorging.","Het brein verzamelt periode, dierprofiel, gedrag, medicatie en verzorgingswensen zodat boekingen veilig en persoonlijk binnenkomen.",["Periode","Dierprofiel","Gedrag","Boeking"]],
-          vloerenleggers:["AI brein voor vloerenleggers.","Het brein neemt m2, vloertype, ondervloer, foto's, voorwerk en planning op zodat opname en offerte scherper starten.",["m2","Vloertype","Ondervloer","Opname"]]
-        };
-        var brain=brainProfiles[slug]||["AI brein voor "+item.name+".","Het brein neemt klantvragen, voorkeuren, afspraken en uitzonderingen op en zet die om naar persoonlijke opvolging.",["Klantvragen","Voorkeuren","Afspraken","Menselijke hulp"]];
-        var landing=landingContent[slug]||landingContent.autobedrijven;
-        var seoProfile={
-          title:(item.kicker+" | intake, planning en opvolging").slice(0,68),
-          description:(item.lead+" Plan een korte routecheck met Autopilots.").slice(0,158),
-          cards:[
-            ["Herkenning vanaf de eerste vraag","Autopilots begint bij de contactmomenten die "+item.name+" elke dag tijd, focus en opvolging kosten."],
-            ["Gebouwd rond jullie ritme",(landing.pains&&landing.pains[0]?"We starten bij herkenbare druk: "+landing.pains[0][1]:"We richten de AI in op jullie vragen, agenda, kanalen en overdracht.")],
-            ["Van contact naar actie","Elke vraag krijgt een duidelijke route: beantwoorden, boeken, doorzetten of opvolgen in het systeem."]
-          ]
-        };
-        function setText(selector,value){var el=document.querySelector(selector);if(el)el.textContent=value;}
-        function renderCards(selector,items,template){
-          var wrap=document.querySelector(selector);
-          if(!wrap)return;
-          wrap.innerHTML=items.map(template).join("");
-        }
-        function escapeText(value){
-          return String(value).replace(/[&<>"']/g,function(char){
-            return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[char];
-          });
-        }
-        function renderAgentLanguage(){
-          var language=agentLanguages[currentAgentLang]||agentLanguages.nl;
-          var lines=language.lines||item.lines;
-          ["[data-line-1]","[data-line-2]","[data-line-3]","[data-line-4]"].forEach(function(selector,index){setText(selector,lines[index]);});
-          setText("[data-result]",language.result||item.result);
-          var meta=document.querySelector(".ap-chat-meta span:last-child");
-          if(meta)meta.textContent="Agent: "+language.label;
-          document.querySelectorAll("[data-agent-lang]").forEach(function(button){
-            button.classList.toggle("is-active",button.getAttribute("data-agent-lang")===currentAgentLang);
-          });
-        }
-        setText("[data-branch-kicker]",item.kicker);setText("[data-branch-title-main]",landing.heroMain||"AI medewerkers voor");setText("[data-branch-title-accent]",landing.heroAccent||item.name+".");setText("[data-branch-lead]",landing.heroLead||item.lead);
-        setText("[data-pill-1]",item.pills[0]);setText("[data-pill-2]",item.pills[1]);setText("[data-pill-3]",item.pills[2]);
-        setText("[data-personal-title]",landing.personalTitle);setText("[data-personal-copy]",landing.personalCopy);
-        renderCards("[data-pain-grid]",landing.pains,function(card,index){
-          return '<article class="ap-pain-card"><span>0'+(index+1)+'</span><h3>'+escapeText(card[0])+'</h3><p>'+escapeText(card[1])+'</p></article>';
-        });
-        setText("[data-assistant-title]",landing.assistantTitle);setText("[data-assistant-copy]",landing.assistantCopy);
-        renderCards("[data-how-list]",landing.how,function(row){
-          return '<div class="ap-how-row"><strong>'+escapeText(row[0])+'</strong><div><b>'+escapeText(row[1])+'</b><span>'+escapeText(row[2])+'</span></div></div>';
-        });
-        setText("[data-visual-title]",landing.assistantTitle.replace("Jouw ","Van vraag naar "));
-        if(landing.how[0])setText("[data-visual-step-1]",landing.how[0][1]);
-        if(landing.how[1])setText("[data-visual-step-2]",landing.how[1][1]);
-        if(landing.how[2])setText("[data-visual-step-3]",landing.how[2][1]);
-        renderCards("[data-value-grid]",landing.values,function(card){
-          return '<article class="ap-value-card"><span>Voordeel</span><h3>'+escapeText(card[0])+'</h3><p>'+escapeText(card[1])+'</p></article>';
-        });
-        setText("[data-example-title]",item.exampleTitle);
-        setText("[data-workflow-intro]","De AI medewerker verwerkt dit contactmoment tot een concrete actie voor "+item.name+".");
-        item.steps.forEach(function(step,index){setText("[data-step-title-"+(index+1)+"]",step[0]);setText("[data-step-"+(index+1)+"]",step[1]);});
-        setText("[data-brain-title]",brain[0]);setText("[data-brain-copy]",brain[1]);brain[2].forEach(function(label,index){setText("[data-brain-"+(index+1)+"]",label);});
-        setText("[data-software-title]","Koppelt met tools die "+item.name+" herkennen.");
-        setText("[data-software-copy]","Denk aan je agenda, CRM, website, WhatsApp en branchespecifieke software. De logo's hieronder zijn voorbeelden van systemen waar deze doelgroep vaak mee werkt.");
-        renderCards("[data-software-list]",landing.software,function(name){
-          return '<div class="ap-logo-pill">'+escapeText(name)+'</div>';
-        });
-        setText("[data-proof-kicker]","Ideale situatie");
-        setText("[data-proof-title]",landing.proofTitle);setText("[data-proof-copy]",landing.proofCopy);setText("[data-proof-quote]",landing.idealQuote||"Klanten krijgen sneller duidelijkheid en je team werkt met betere context.");setText("[data-proof-note]","Zo ziet de ideale situatie eruit na inrichting: minder losse vragen, sneller opvolgen en meer grip op ieder contactmoment.");
-        var idealMetrics=landing.idealMetrics||[[item.pills[0],"ingericht"],[item.pills[1],"actief"],[item.pills[2],"in systeem"]];
-        renderCards("[data-proof-metrics]",idealMetrics,function(metric){
-          return '<div><strong>'+escapeText(metric[0])+'</strong><span>'+escapeText(metric[1])+'</span></div>';
-        });
-        var calcFallback=item.name.charAt(0).toUpperCase()+item.name.slice(1)+" calculator";
-        setText("[data-calc-kicker]",calculatorLabels[slug]||calcFallback);setText("[data-calc-title]",calculatorLabels[slug]||calcFallback);setText("[data-calc-lead]",currentCalc.lead);setText("[data-calc-summary-title]","Reken met herkenbare situaties uit je werkdag.");setText("[data-calc-summary]",currentCalc.summary);
-        setText("[data-volume-label]",currentCalc.volumeLabel);setText("[data-minutes-label]",currentCalc.minutesLabel);setText("[data-automation-label]",currentCalc.automationLabel);setText("[data-margin-label]",currentCalc.marginLabel||"Marge per extra klant");setText("[data-metric-4-label]",currentCalc.metric4);
-        renderCards("[data-faq-grid]",landing.faq,function(card){
-          return '<article class="ap-faq-card"><h3>'+escapeText(card[0])+'</h3><p>'+escapeText(card[1])+'</p></article>';
-        });
-        setText("[data-seo-1-title]",seoProfile.cards[0][0]);setText("[data-seo-1]",seoProfile.cards[0][1]);
-        setText("[data-seo-2-title]",seoProfile.cards[1][0]);setText("[data-seo-2]",seoProfile.cards[1][1]);
-        setText("[data-seo-3-title]",seoProfile.cards[2][0]);setText("[data-seo-3]",seoProfile.cards[2][1]);
-        setText("[data-final-title]",landing.finalTitle||"Klaar om AI proof te worden?");
-        setText("[data-final-copy]",landing.finalCopy||"Plan een korte afspraak. Dan kijken we welke chat, voice, CRM-flow of planningroute het meeste druk wegneemt in jouw bedrijf.");
-        document.title=seoProfile.title;
-        document.querySelector("meta[name='description']").setAttribute("content",seoProfile.description);
-        function upsertJsonLd(id,data){
-          var script=document.getElementById(id);
-          if(!script){script=document.createElement("script");script.type="application/ld+json";script.id=id;document.head.appendChild(script);}
-          script.textContent=JSON.stringify(data);
-        }
-        upsertJsonLd("branch-schema",{"@context":"https://schema.org","@graph":[
-          {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Autopilots","item":"https://auto-pilots.io/"},{"@type":"ListItem","position":2,"name":"Voor wie","item":"https://auto-pilots.io/voor-wie"},{"@type":"ListItem","position":3,"name":item.kicker,"item":"https://auto-pilots.io/voor-wie/"+slug}]},
-          {"@type":"WebPage","name":seoProfile.title,"description":seoProfile.description,"url":"https://auto-pilots.io/voor-wie/"+slug,"inLanguage":"nl-NL","isPartOf":{"@type":"WebSite","name":"Autopilots","url":"https://auto-pilots.io/"}},
-          {"@type":"Service","name":item.kicker,"provider":{"@type":"Organization","name":"Autopilots"},"serviceType":"AI medewerker voor klantcontact, intake, planning en opvolging","areaServed":"International","audience":{"@type":"BusinessAudience","audienceType":item.name}},
-          {"@type":"FAQPage","mainEntity":(landing.faq||[]).map(function(faq){return {"@type":"Question","name":faq[0],"acceptedAnswer":{"@type":"Answer","text":faq[1]}};})}
-        ]});
-        document.querySelectorAll("[data-agent-lang]").forEach(function(button){
-          button.addEventListener("click",function(){
-            currentAgentLang=button.getAttribute("data-agent-lang")||"nl";
-            renderAgentLanguage();
-          });
-        });
-        var volume=document.querySelector("[data-volume-range]");
-        var minutes=document.querySelector("[data-minutes-range]");
-        var automation=document.querySelector("[data-automation-range]");
-        var margin=document.querySelector("[data-margin-range]");
-        function euros(number){return "€"+Math.round(number).toLocaleString("nl-NL");}
-        function renderCalc(){
-          var v=Number(volume.value),m=Number(minutes.value),a=Number(automation.value),gm=Number(margin.value);
-          var automated=Math.round(v*a/100);
-          var hours=Math.round((automated*m/60)*10)/10;
-          var value=hours*currentCalc.valuePerHour;
-          var extraCustomers=Math.max(1,Math.round(automated*((currentCalc.extraCustomerRate||6)/100)));
-          var extraMargin=extraCustomers*gm;
-          setText("[data-volume-output]",String(v));setText("[data-minutes-output]",String(m));setText("[data-automation-output]",a+"%");setText("[data-margin-output]",euros(gm));
-          setText("[data-automated-output]",String(automated));setText("[data-hours-output]",String(hours));setText("[data-value-output]",euros(value));setText("[data-speed-output]",String(automated));
-          setText("[data-customers-output]",String(extraCustomers));setText("[data-margin-value-output]",euros(extraMargin));
-          setText("[data-insight-output]",currentCalc.insight.replace("{hours}",String(hours)).replace("{automated}",String(automated))+" Verwacht extra: "+extraCustomers+" klanten en "+euros(extraMargin)+" marge per maand.");
-        }
-        [volume,minutes,automation,margin].forEach(function(input){if(input)input.addEventListener("input",renderCalc);});
-        renderAgentLanguage();
-        renderCalc();
-      })();
-    </script>
-    <script src="shared-preview.js"></script>
-  </body>
+    }
+  </style>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("branche") || "autobedrijven";
+    const aliases = {
+      dierenartsen: "dierenarts",
+      vastgoedbeheer: "vastgoedbeheerders"
+    };
+    const allowed = new Set([
+      "autobedrijven",
+      "cosmetische-klinieken",
+      "dakdekkers",
+      "dierenarts",
+      "dierenverzorging",
+      "evenementen",
+      "glaszetters",
+      "hotels",
+      "hoveniers",
+      "installatietechniek",
+      "kapperszaken",
+      "kozijnen",
+      "makelaars",
+      "non-profit",
+      "restaurants",
+      "tandartsen",
+      "vastgoedbeheerders",
+      "verzekeraars",
+      "vloerenleggers",
+      "woningcorporaties",
+      "zonnepanelen"
+    ]);
+    const slug = aliases[requested] || requested;
+    const target = `voor-wie/${allowed.has(slug) ? slug : "autobedrijven"}/`;
+    window.location.replace(target);
+  </script>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Nieuwe Voor wie-route</p>
+    <h1>Deze pagina is verhuisd naar de voorstelpagina.</h1>
+    <p>Je wordt automatisch doorgestuurd naar de nieuwe Autopilots landingspagina per niche.</p>
+    <a href="voor-wie/autobedrijven/">Bekijk voorstelpagina</a>
+  </main>
+</body>
 </html>

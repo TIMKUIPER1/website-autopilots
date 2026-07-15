@@ -799,20 +799,22 @@ function renderStyles() {
     .ap-product-card-metrics span{display:flex;gap:10px;align-items:center;border:1px solid var(--ap-line);border-radius:999px;background:var(--ap-soft-2);padding:11px 14px;color:var(--ap-muted);font-weight:800}
     .ap-product-card-metrics strong{font-family:"Syne","Public Sans",Arial,sans-serif;color:var(--ap-brown)}
     .ap-product-section-head{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;margin-bottom:30px}
-    .ap-product-selector-grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;align-items:stretch}
+    .ap-product-selector-grid{display:grid;grid-template-columns:330px minmax(0,760px);gap:18px;align-items:start;justify-content:center}
     .ap-product-niche-list{display:grid;max-height:620px;gap:9px;overflow:auto;border:1px solid var(--ap-line);border-radius:28px;background:#fff;padding:12px}
     .ap-product-niche-list button{display:flex;gap:12px;align-items:center;border:1px solid transparent;border-radius:18px;background:transparent;padding:13px 14px;color:var(--ap-muted);font:900 15px/1.15 "Public Sans",Arial,sans-serif;text-align:left;text-transform:capitalize;cursor:pointer}
     .ap-product-niche-list button span{font-family:"Syne","Public Sans",Arial,sans-serif;color:var(--ap-brown);font-size:12px;letter-spacing:1px}
     .ap-product-niche-list button.is-active,.ap-product-niche-list button:hover{border-color:rgba(159,56,38,.24);background:#fff7f4;color:#111}
-    .ap-product-niche-card{position:relative;overflow:hidden;border:1px solid rgba(159,56,38,.22);border-radius:34px;background:#111;color:#fff;padding:36px;min-height:420px;box-shadow:0 22px 70px rgba(17,17,17,.09)}
-    .ap-product-niche-card:before{content:"";position:absolute;right:-120px;bottom:-150px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.55),rgba(159,56,38,0) 68%)}
+    .ap-product-niche-card{position:relative;align-self:start;overflow:hidden;border:1px solid rgba(159,56,38,.22);border-radius:34px;background:#111;color:#fff;padding:30px;min-height:0;box-shadow:0 22px 70px rgba(17,17,17,.09)}
+    .ap-product-niche-card:before{content:"";position:absolute;right:-96px;bottom:-118px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.5),rgba(159,56,38,0) 68%)}
     .ap-product-niche-card>*{position:relative;z-index:1}
     .ap-product-niche-card .ap-kicker{color:#e7a295}
-    .ap-product-niche-card h3{max-width:720px;font-size:clamp(32px,4vw,54px);line-height:1.05;font-weight:900}
-    .ap-product-niche-card p{max-width:700px;margin-top:18px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.55;font-weight:650}
-    .ap-product-niche-pills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:30px}
-    .ap-product-niche-pills span{border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(255,255,255,.07);padding:16px;color:#fff;font-weight:850}
-    .ap-product-niche-card .ap-actions{margin-top:30px}
+    .ap-product-niche-card h3{max-width:620px;font-size:clamp(28px,3vw,42px);line-height:1.06;font-weight:900}
+    .ap-product-niche-card p{max-width:620px;margin-top:14px;color:rgba(255,255,255,.72);font-size:16px;line-height:1.45;font-weight:650}
+    .ap-product-niche-pills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+    .ap-product-niche-pills span{display:grid;gap:8px;min-height:92px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(255,255,255,.07);padding:14px;color:#fff;font-size:15px;line-height:1.18;font-weight:850}
+    .ap-product-niche-pills small{display:block;color:#e7a295;font-family:"Syne","Public Sans",Arial,sans-serif;font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}
+    .ap-product-niche-card .ap-actions{margin-top:24px}
+    .ap-product-niche-card .ap-button{padding:14px 18px}
     .ap-product-demo-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.9fr);gap:18px;align-items:stretch}
     .ap-product-demo-board{position:relative;overflow:hidden;min-height:560px;border-radius:34px;background:#111;color:#fff;padding:28px;box-shadow:0 24px 70px rgba(17,17,17,.12)}
     .ap-product-demo-board:before{content:"";position:absolute;inset:18%;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 68px rgba(159,56,38,.08),0 0 0 150px rgba(255,255,255,.04)}
@@ -877,7 +879,7 @@ function renderStyles() {
       .ap-product-subnav{border-radius:24px}
       .ap-product-hero-card,.ap-product-niche-card,.ap-product-demo-board,.ap-product-demo-detail,.ap-product-roi{border-radius:26px;padding:24px}
       .ap-product-niche-list,.ap-product-niche-pills,.ap-product-scope-grid,.ap-product-related-grid{grid-template-columns:1fr}
-      .ap-product-niche-card h3{font-size:34px}
+      .ap-product-niche-card h3{font-size:30px}
       .ap-product-demo-steps{grid-template-columns:1fr}
       .ap-product-demo-step{min-height:118px}
       .ap-product-demo-step strong{margin-top:18px}
@@ -898,15 +900,15 @@ function renderNiche() {
   });
   card.innerHTML = `
     <div class="ap-kicker">${product.nav} voor ${escapeHtml(currentNiche.label)}</div>
-    <h3>${product.nav} voor ${escapeHtml(currentNiche.label)}: van ${escapeHtml(currentNiche.route)} naar systeemactie.</h3>
-    <p>Je koopt geen losse demo, maar een vast productkader dat we aansluiten op ${escapeHtml(currentNiche.system)}. Zo blijft de scope helder, terwijl intake, planning, opvolging, velden en fallback passen bij de dagelijkse praktijk van ${escapeHtml(currentNiche.label)}.</p>
+    <h3>${product.nav} voor ${escapeHtml(currentNiche.label)}.</h3>
+    <p>Een vast productkader, ingericht op ${escapeHtml(currentNiche.system)}. Zo blijft de oplossing helder en past de AI medewerker bij de dagelijkse praktijk.</p>
     <div class="ap-product-niche-pills">
-      <span>Praktijk: ${escapeHtml(currentNiche.short)}</span>
-      <span>Productkader: ${escapeHtml(product.promise)}</span>
-      <span>Vervolg: volledige branchepagina</span>
+      <span><small>Praktijk</small>${escapeHtml(currentNiche.short)}</span>
+      <span><small>Product</small>${escapeHtml(product.promise)}</span>
+      <span><small>Route</small>Bekijk demo of volledige voorstelpagina.</span>
     </div>
     <div class="ap-actions">
-      <a class="ap-button ap-button-primary" href="${productAsset(`branch-preview.html?branche=${currentNiche.slug}`)}">Bekijk AI medewerker voor ${escapeHtml(currentNiche.label)}</a>
+      <a class="ap-button ap-button-primary" href="${productAsset(`voor-wie/${currentNiche.slug}/`)}">Bekijk voorstelpagina</a>
       <a class="ap-button ap-button-secondary" href="#product-demo">Bekijk demo</a>
     </div>
   `;
@@ -915,8 +917,8 @@ function renderNiche() {
     `Bekijk hoe ${product.nav} als product werkt voor ${currentNiche.label}: van ${currentNiche.route} naar ${currentNiche.system}.`;
   const branchLink = document.querySelector("[data-product-branch-link]");
   if (branchLink) {
-    branchLink.href = productAsset(`branch-preview.html?branche=${currentNiche.slug}`);
-    branchLink.textContent = `Bekijk AI medewerker voor ${currentNiche.label}`;
+    branchLink.href = productAsset(`voor-wie/${currentNiche.slug}/`);
+    branchLink.textContent = `Bekijk voorstelpagina`;
   }
   document.querySelectorAll("[data-product-href]").forEach((link) => {
     link.href = productHref(link.dataset.productHref);

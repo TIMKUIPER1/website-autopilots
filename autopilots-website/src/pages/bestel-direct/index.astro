@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { products } from "../../data/products";
+import { niches } from "../../data/niches";
+
+const clientData = JSON.stringify({ products, niches }).replaceAll("<", "\\u003c");
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Bestel een AI-product",
+  description: "Kies een Autopilots-product en je branche en ga verder naar het passende voorstel of een veilige aanvraagroute."
+};
+---
+
+<BaseLayout title="Bestel een AI-product | Autopilots" description="Kies je AI-product en bedrijfstype. We brengen je naar het passende branchevoorstel of vragen ontbrekende configuratie eerst veilig uit." canonical="/bestel-direct/" schema={schema}>
+  <article class="ap-ecosystem ap-order-page" data-order-root>
+    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Bestel direct</span></div></nav>
+
+    <section class="ap-eco-hero">
+      <div class="ap-container ap-eco-hero-grid">
+        <div class="ap-eco-copy">
+          <div class="ap-kicker">Directe bestelroute</div>
+          <h1>Kies je product en ga verder met de <span class="ap-title-accent">juiste branche-inrichting.</span></h1>
+          <p class="ap-lead">Je productkeuze blijft bewaard. Daarna controleer je op de branchepagina de praktijkinrichting en open je het beschikbare voorstel. Ontbreekt een vaste configuratie, dan vragen we die eerst uit.</p>
+          <div class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>Geen verzonnen prijzen: alleen bevestigde voorstellen kunnen direct worden afgerekend.</span></div>
+        </div>
+        <aside class="ap-order-summary" aria-live="polite">
+          <div class="ap-kicker">Jouw route</div>
+          <span>Gekozen product</span>
+          <strong data-order-product>AI Inboxmedewerker</strong>
+          <p data-order-promise>Een digitale collega voor binnenkomend klantcontact.</p>
+          <a class="ap-button ap-button-secondary" href="#kies-product">Wijzig product</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section" id="kies-product">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Stap 1</div><h2>Welk AI-product wil je laten inrichten?</h2><p>Kies één product. Je kunt later aanvullende producten toevoegen wanneer de klantreis dat vraagt.</p></div>
+        <div class="ap-order-products" role="radiogroup" aria-label="Kies een product">
+          {products.map((product, index) => <button type="button" role="radio" aria-checked={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-order-product-choice={product.slug} data-order-index={index}><span>{String(index + 1).padStart(2, "0")}</span><strong>{product.name}</strong><small>{product.promise}</small></button>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section" id="kies-branche">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Stap 2</div><h2>Kies je type bedrijf.</h2><p>Zo kom je direct uit bij de juiste intake, systemen, uitzonderingen en productsectie.</p></div>
+        <label class="ap-order-search"><span>Zoek je branche</span><input type="search" data-order-search placeholder="Bijvoorbeeld autobedrijf of tandarts" autocomplete="off" /></label>
+        <p class="ap-order-empty" data-order-empty hidden>Geen exacte branche gevonden. <a href="/afspraak/?route=bestellen">Plan een korte configuratiecheck</a>.</p>
+        <div class="ap-order-niches">
+          {niches.map((niche) => <a data-order-niche data-name={niche.name.toLowerCase()} data-slug={niche.slug} href={`/voor-wie/${niche.slug}/?product=${products[0].slug}#producten`}><span>{niche.name.slice(0, 2).toUpperCase()}</span><div><strong>{niche.name}</strong><small>{niche.lead}</small></div><b>Verder</b></a>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section ap-dark-section">
+      <div class="ap-container">
+        <div class="ap-section-head"><div class="ap-kicker">Na je keuze</div><h2>Van bestelling naar een gecontroleerde livegang.</h2></div>
+        <ol class="ap-dark-workflow">
+          {["Kies je type bedrijf", "Bestel je AI-product", "Plan de implementatiecall", "Teken de verwerkersovereenkomst", "Livegang na inrichting en tests"].map((step, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{step}</h3><p>{index === 4 ? "Doorgaans staat de AI-medewerker twee tot vier weken na de implementatiecall live. Dit hangt af van koppelingen, toegang en feedback." : "Je ontvangt steeds een duidelijke bevestiging en volgende stap."}</p></div></li>)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="ap-section ap-soft-section">
+      <div class="ap-container ap-faq-layout">
+        <div class="ap-section-head"><div class="ap-kicker">Voor je bestelt</div><h2>Transparant over prijs, privacy en afhankelijkheden.</h2><p>Alleen een bestaande, bevestigde combinatie toont een directe betaalroute.</p></div>
+        <div class="ap-faq-list">
+          <details open><summary>Wat als mijn branche nog geen vaste prijs heeft?<span aria-hidden="true">+</span></summary><p>Dan sturen we je naar een korte configuratiecheck. We noemen geen prijs voordat scope, koppelingen en productopzet zijn bevestigd.</p></details>
+          <details><summary>Wanneer start de implementatie?<span aria-hidden="true">+</span></summary><p>Na bestelling plan je de implementatiecall. De livegang volgt doorgaans binnen twee tot vier weken na die call, afhankelijk van toegang, koppelingen en feedback.</p></details>
+          <details><summary>Welke juridische documenten zijn nodig?<span aria-hidden="true">+</span></summary><p>Voor livegang worden de toepasselijke afspraken en verwerkersovereenkomst gedeeld en ondertekend. Bekijk onze <a href="/privacy/">privacyinformatie</a> en de <a href="/voorwaarden/">controlepunten bij bestelling</a>.</p></details>
+        </div>
+      </div>
+    </section>
+  </article>
+  <script id="ap-order-data" type="application/json" set:html={clientData}></script>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-order-root]");
+    const dataNode = document.getElementById("ap-order-data");
+    if (!root || !dataNode) return;
+    const data = JSON.parse(dataNode.textContent || "{}");
+    const valid = new Set(data.products.map((item) => item.slug));
+    const requested = new URLSearchParams(location.search).get("product");
+    let selected = data.products.find((item) => item.slug === requested) || data.products[0];
+    const render = () => {
+      root.querySelector("[data-order-product]").textContent = selected.name;
+      root.querySelector("[data-order-promise]").textContent = selected.promise;
+      root.querySelectorAll("[data-order-product-choice]").forEach((button) => {
+        const active = button.dataset.orderProductChoice === selected.slug;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-checked", String(active));
+        button.tabIndex = active ? 0 : -1;
+      });
+      root.querySelectorAll("[data-order-niche]").forEach((link) => {
+        link.href = `/voor-wie/${link.dataset.slug}/?product=${selected.slug}#producten`;
+      });
+      const url = new URL(location.href);
+      url.searchParams.set("product", selected.slug);
+      history.replaceState({}, "", url);
+      try { sessionStorage.setItem("ap-selected-product", selected.slug); } catch (_) {}
+    };
+    root.querySelectorAll("[data-order-product-choice]").forEach((button) => button.addEventListener("click", () => {
+      const product = data.products.find((item) => item.slug === button.dataset.orderProductChoice);
+      if (product) { selected = product; render(); }
+    }));
+    root.querySelectorAll("[data-order-product-choice]").forEach((button) => button.addEventListener("keydown", (event) => {
+      if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const buttons = [...root.querySelectorAll("[data-order-product-choice]")]; const current = Number(button.dataset.orderIndex || 0); const last = buttons.length - 1;
+      const next = event.key === "Home" ? 0 : event.key === "End" ? last : ["ArrowRight", "ArrowDown"].includes(event.key) ? (current + 1) % (last + 1) : (current - 1 + last + 1) % (last + 1);
+      buttons[next].click(); buttons[next].focus({ preventScroll: true });
+    }));
+    const search = root.querySelector("[data-order-search]");
+    search?.addEventListener("input", () => {
+      const query = search.value.trim().toLocaleLowerCase("nl");
+      let visible = 0;
+      root.querySelectorAll("[data-order-niche]").forEach((link) => {
+        const show = !query || link.dataset.name.includes(query);
+        link.hidden = !show;
+        if (show) visible += 1;
+      });
+      root.querySelector("[data-order-empty]").hidden = visible !== 0;
+    });
+    if (!valid.has(requested)) {
+      try { const saved = sessionStorage.getItem("ap-selected-product"); if (valid.has(saved)) selected = data.products.find((item) => item.slug === saved); } catch (_) {}
+    }
+    render();
+  })();
+</script>
+
+<style>
+  .ap-order-summary{border:1px solid var(--ap-line);border-radius:32px;background:#111;color:#fff;padding:30px}.ap-order-summary>span{display:block;color:#e7a295;font-family:"Syne",sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase}.ap-order-summary>strong{display:block;margin-top:14px;font-size:30px;line-height:1.08}.ap-order-summary>p{margin:14px 0 24px;color:rgba(255,255,255,.68);font-size:14px;line-height:1.55}.ap-order-products{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.ap-order-products button{display:flex;min-height:230px;flex-direction:column;align-items:flex-start;border:1px solid var(--ap-line);border-radius:25px;background:#fff;padding:21px;color:#111;text-align:left;cursor:pointer}.ap-order-products button>span{display:grid;width:42px;height:42px;place-items:center;border-radius:14px;background:#111;color:#fff;font-family:"Syne",sans-serif;font-size:10px}.ap-order-products button>strong{margin-top:28px;font-size:19px;line-height:1.12}.ap-order-products button>small{margin-top:12px;color:var(--ap-muted);font-size:12px;line-height:1.45}.ap-order-products button:hover,.ap-order-products button:focus-visible,.ap-order-products button.is-active{border-color:rgba(159,56,38,.4);background:#fff7f4;outline:2px solid transparent}.ap-order-products button.is-active>span{background:var(--ap-brown)}.ap-order-search{display:grid;gap:8px;max-width:520px;margin-bottom:22px;color:var(--ap-muted);font-size:13px;font-weight:850}.ap-order-search input{min-height:52px;border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:0 19px;color:#111;font:inherit}.ap-order-search input:focus{outline:3px solid rgba(159,56,38,.18);border-color:var(--ap-brown)}.ap-order-niches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ap-order-niches>a{display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;border:1px solid var(--ap-line);border-radius:21px;background:#fff;padding:15px}.ap-order-niches>a>span{display:grid;width:46px;height:46px;place-items:center;border-radius:14px;background:#111;color:#fff;font-family:"Syne",sans-serif;font-size:10px}.ap-order-niches strong,.ap-order-niches small{display:block}.ap-order-niches small{display:-webkit-box;overflow:hidden;margin-top:5px;color:var(--ap-muted);font-size:11px;line-height:1.3;-webkit-line-clamp:2;-webkit-box-orient:vertical}.ap-order-niches b{color:var(--ap-brown);font-size:12px}.ap-order-empty{margin:0 0 20px;border:1px solid rgba(159,56,38,.2);border-radius:18px;background:#fff7f4;padding:16px}.ap-order-empty a{color:var(--ap-brown);font-weight:850}.ap-order-page .ap-dark-workflow{grid-template-columns:repeat(5,minmax(0,1fr))}.ap-order-page .ap-dark-workflow li{min-height:260px}@media(max-width:1024px){.ap-order-products,.ap-order-page .ap-dark-workflow{grid-template-columns:repeat(3,minmax(0,1fr))}.ap-order-niches{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.ap-order-products,.ap-order-niches,.ap-order-page .ap-dark-workflow{grid-template-columns:1fr}.ap-order-products button{min-height:0}.ap-order-summary{border-radius:26px;padding:23px}}
+</style>

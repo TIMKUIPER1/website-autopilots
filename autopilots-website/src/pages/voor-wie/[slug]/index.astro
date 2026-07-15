@@ -1,0 +1,13 @@
+---
+import NichePage from "../../../components/ecosystem/NichePage.astro";
+import { niches, type Niche } from "../../../data/niches";
+
+export function getStaticPaths() {
+  return niches.map((niche) => ({ params: { slug: niche.slug }, props: { niche } }));
+}
+
+interface Props { niche: Niche }
+const { niche } = Astro.props;
+---
+
+<NichePage niche={niche} />

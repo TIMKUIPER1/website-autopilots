@@ -20,7 +20,7 @@ Doel:
 ## Eerste routes
 
 - `/` - homepage prototype
-- `/branches/autobedrijven/` - eerste SEO-nichepagina
+- `/voor-wie/autobedrijven/` - eerste SEO-nichepagina
 - `/contact/` - contact en booking
 - `/privacy/` - placeholder voor privacyinhoud
 
