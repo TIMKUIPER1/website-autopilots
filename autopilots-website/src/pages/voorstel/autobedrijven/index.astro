@@ -2,9 +2,12 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { productBySlug } from "../../../data/products";
 import { commerceByNiche, stripeKey } from "../../../data/commerce";
+import { nicheBySlug } from "../../../data/niches";
+import RoiCalculator from "../../../components/ecosystem/RoiCalculator.astro";
 
 const commerce = commerceByNiche.autobedrijven;
 const offers = Object.values(commerce.offers).filter(Boolean);
+const niche = nicheBySlug.autobedrijven;
 const clientData = JSON.stringify(offers.map((offer) => offer.product)).replaceAll("<", "\\u003c");
 ---
 
@@ -20,6 +23,8 @@ const clientData = JSON.stringify(offers.map((offer) => offer.product)).replaceA
         <div class="ap-actions"><a class="ap-button ap-button-primary" href="#voorstellen">Bekijk voorstellen</a><a class="ap-button ap-button-secondary" href="/afspraak/?branche=autobedrijven">Eerst overleggen</a></div>
       </div>
     </section>
+
+    <RoiCalculator niche={niche} />
 
     <section class="ap-section ap-soft-section" id="voorstellen">
       <div class="ap-container">
@@ -40,7 +45,7 @@ const clientData = JSON.stringify(offers.map((offer) => offer.product)).replaceA
             </article>;
           })}
           <article class="ap-proposal-card ap-proposal-fallback">
-            <div class="ap-kicker">Configuratie nodig</div><h2>Autopilots CRM of Leadsmachine AI</h2><p>Deze producten hangen sterker af van migratie, campagneomvang, koppelingen en inrichting. Daarom noemen we pas een prijs na een korte scopecheck.</p><a class="ap-button ap-button-primary" href="/afspraak/?route=bestellen&branche=autobedrijven">Vraag een passend voorstel aan</a>
+            <div class="ap-kicker">Maatwerk nodig?</div><h2>CRM of Leadsmachine AI op maat</h2><p>Deze producten hangen af van je bestaande data, campagneomvang en benodigde koppelingen. Daarom bepalen we de definitieve inrichting en prijs na een korte scopecheck.</p><div class="ap-custom-scope"><span>Migratie</span><span>Campagneomvang</span><span>Koppelingen</span></div><a class="ap-button ap-button-primary" href="/afspraak/?route=bestellen&branche=autobedrijven">Vraag een passend voorstel aan</a>
           </article>
         </div>
       </div>
@@ -72,6 +77,6 @@ const clientData = JSON.stringify(offers.map((offer) => offer.product)).replaceA
 </script>
 
 <style>
-  .ap-proposal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ap-proposal-card{display:flex;min-width:0;flex-direction:column;border:1px solid var(--ap-line);border-radius:30px;background:#fff;padding:27px;box-shadow:0 16px 45px rgba(17,17,17,.045)}.ap-proposal-card.is-selected{border-color:var(--ap-brown);box-shadow:0 0 0 4px rgba(159,56,38,.12),0 18px 55px rgba(17,17,17,.08)}.ap-proposal-card h2{margin:0;font-size:29px;line-height:1.08}.ap-proposal-card>p{margin:12px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}.ap-proposal-price{display:flex;align-items:flex-end;gap:15px;margin-top:25px;border-radius:22px;background:#f5f5f2;padding:18px}.ap-proposal-price strong{font-family:"Syne",sans-serif;font-size:42px;line-height:1}.ap-proposal-price span{color:var(--ap-muted);font-size:12px;line-height:1.5;font-weight:750}.ap-proposal-card ul{display:grid;gap:9px;margin:24px 0;padding:0;list-style:none}.ap-proposal-card li{font-size:13px;font-weight:750}.ap-proposal-card li:before{content:"✓";margin-right:9px;color:var(--ap-brown);font-weight:900}.ap-proposal-card details{margin-top:auto;border:1px solid var(--ap-line);border-radius:18px;overflow:hidden}.ap-proposal-card summary{display:flex;justify-content:space-between;gap:12px;padding:15px;cursor:pointer;font-size:13px;font-weight:900;list-style:none}.ap-proposal-card details p{margin:0;padding:0 15px 15px;color:var(--ap-muted);font-size:12px;line-height:1.55}.ap-stripe-shell{min-height:84px;margin-top:16px;border:1px solid var(--ap-line);border-radius:20px;background:#fafaf8;padding:12px}.ap-stripe-shell stripe-buy-button{display:block;max-width:100%}.ap-proposal-fallback{justify-content:center;background:#111;color:#fff}.ap-proposal-fallback>p{color:rgba(255,255,255,.68)}.ap-proposal-fallback .ap-button{align-self:flex-start;margin-top:24px}.ap-integration-card a{color:var(--ap-brown);font-weight:850}.ap-integration-card .ap-button{margin-top:22px;color:#111}@media(max-width:760px){.ap-proposal-grid{grid-template-columns:1fr}.ap-proposal-card{border-radius:25px;padding:22px}.ap-proposal-price strong{font-size:36px}}
+  .ap-proposal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}.ap-proposal-card{display:flex;min-width:0;flex-direction:column;border:1px solid var(--ap-line);border-radius:30px;background:#fff;padding:27px;box-shadow:0 16px 45px rgba(17,17,17,.045)}.ap-proposal-card.is-selected{border-color:var(--ap-brown);box-shadow:0 0 0 4px rgba(159,56,38,.12),0 18px 55px rgba(17,17,17,.08)}.ap-proposal-card h2{margin:0;font-size:29px;line-height:1.08}.ap-proposal-card>p{margin:12px 0 0;color:var(--ap-muted);font-size:14px;line-height:1.55}.ap-proposal-price{display:flex;align-items:flex-end;gap:15px;margin-top:25px;border-radius:22px;background:#f5f5f2;padding:18px}.ap-proposal-price strong{font-family:"Syne",sans-serif;font-size:42px;line-height:1}.ap-proposal-price span{color:var(--ap-muted);font-size:12px;line-height:1.5;font-weight:750}.ap-proposal-card ul{display:grid;gap:9px;margin:24px 0;padding:0;list-style:none}.ap-proposal-card li{font-size:13px;font-weight:750}.ap-proposal-card li:before{content:"✓";margin-right:9px;color:var(--ap-brown);font-weight:900}.ap-proposal-card details{margin-top:auto;border:1px solid var(--ap-line);border-radius:18px;overflow:hidden}.ap-proposal-card summary{display:flex;justify-content:space-between;gap:12px;padding:15px;cursor:pointer;font-size:13px;font-weight:900;list-style:none}.ap-proposal-card details p{margin:0;padding:0 15px 15px;color:var(--ap-muted);font-size:12px;line-height:1.55}.ap-stripe-shell{min-height:84px;margin-top:16px;border:1px solid var(--ap-line);border-radius:20px;background:#fafaf8;padding:12px}.ap-stripe-shell stripe-buy-button{display:block;max-width:100%}.ap-proposal-fallback{position:relative;overflow:hidden;align-self:start;justify-content:flex-start;border-color:rgba(231,162,149,.24);background:radial-gradient(circle at 100% 0,rgba(159,56,38,.3),transparent 34%),#111;color:#fff;padding:32px}.ap-proposal-fallback:after{content:"";position:absolute;right:-56px;bottom:-70px;width:170px;height:170px;border:1px solid rgba(231,162,149,.18);border-radius:50%}.ap-proposal-fallback>*{position:relative;z-index:1}.ap-proposal-fallback h2{max-width:520px;margin-top:18px}.ap-proposal-fallback>p{max-width:560px;margin-top:16px;color:rgba(255,255,255,.66)}.ap-custom-scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.ap-custom-scope span{border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.07);padding:8px 11px;color:rgba(255,255,255,.78);font-size:10px;font-weight:800}.ap-proposal-fallback .ap-button{align-self:flex-start;margin-top:26px}.ap-integration-card a{color:var(--ap-brown);font-weight:850}.ap-integration-card .ap-button{margin-top:22px;color:#111}@media(max-width:760px){.ap-proposal-grid{grid-template-columns:1fr}.ap-proposal-card{border-radius:25px;padding:22px}.ap-proposal-price strong{font-size:36px}.ap-proposal-fallback{padding:25px}}
   .ap-proposal-card.is-selected{order:-1}
 </style>

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "sourceLocale": "nl-NL",
+  "protected": ["Autopilots", "Autopilots CRM", "WhatsApp", "CRM", "API", "AVG", "GDPR", "AI Act"],
+  "terms": [
+    { "id":"ai-employee", "nl":"AI-medewerker", "en":"AI employee", "es":"empleado de IA", "de":"KI-Mitarbeiter", "it":"collaboratore AI", "fr":"collaborateur IA" },
+    { "id":"human-handoff", "nl":"menselijke overdracht", "en":"human handover", "es":"transferencia humana", "de":"menschliche Übergabe", "it":"passaggio umano", "fr":"transfert humain" },
+    { "id":"lead-follow-up", "nl":"leadopvolging", "en":"lead follow-up", "es":"seguimiento de leads", "de":"Lead-Nachverfolgung", "it":"follow-up dei lead", "fr":"suivi des leads" },
+    { "id":"customer-contact", "nl":"klantcontact", "en":"customer contact", "es":"atención al cliente", "de":"Kundenkontakt", "it":"contatto clienti", "fr":"relation client" },
+    { "id":"privacy-by-design", "nl":"privacy by design", "en":"privacy by design", "es":"privacidad desde el diseño", "de":"Privacy by Design", "it":"privacy by design", "fr":"confidentialité dès la conception" }
+  ]
+}

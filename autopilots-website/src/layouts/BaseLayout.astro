@@ -3,6 +3,10 @@ import "../styles/global.css";
 import "../styles/ecosystem.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import { contentIdFromPath, localizedAlternates } from "../i18n/routes";
+import { defaultLocale, getLocale, getLocaleFromPath, type SupportedLocale } from "../i18n/languages";
+import { localizedPath } from "../i18n/routes";
+import { uiCopy } from "../i18n/ui";
 
 interface Props {
   title: string;
@@ -12,6 +16,8 @@ interface Props {
   lang?: string;
   noindex?: boolean;
   schema?: object | object[];
+  locale?: SupportedLocale;
+  contentId?: string;
 }
 
 const {
@@ -19,17 +25,28 @@ const {
   description,
   canonical = Astro.url.pathname,
   ogImage = "/og/autopilots-og.svg",
-  lang = "nl",
+  lang,
   noindex = false,
-  schema
+  schema,
+  locale = getLocaleFromPath(Astro.url.pathname) ?? defaultLocale,
+  contentId = contentIdFromPath(Astro.url.pathname)
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
+const siteUrl = new URL("/", Astro.site ?? Astro.url.origin).toString();
+const localeConfig = getLocale(locale);
+const copy = uiCopy[locale];
+const alternates = contentId ? localizedAlternates(contentId) : [];
+const globalSchema = [
+  { "@context": "https://schema.org", "@type": "Organization", name: "Autopilots", url: siteUrl, logo: ogImageUrl },
+  { "@context": "https://schema.org", "@type": "WebSite", name: "Autopilots", url: siteUrl, inLanguage: localeConfig.tag }
+];
+const schemaItems = [...globalSchema, ...(schema ? (Array.isArray(schema) ? schema : [schema]) : [])];
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang ?? localeConfig.tag}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,23 +63,27 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={localeConfig.og} />
+    {alternates.filter((item) => item.locale !== locale).map((item) => <meta property="og:locale:alternate" content={getLocale(item.locale).og} />)}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replaceAll("<", "\\u003c")} />}
+    {alternates.map((item) => <link rel="alternate" hreflang={item.tag} href={new URL(item.href, Astro.site ?? Astro.url.origin).toString()} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site ?? Astro.url.origin).toString()} />}
+    <script type="application/ld+json" set:html={JSON.stringify(schemaItems).replaceAll("<", "\\u003c")} />
     <slot name="head" />
   </head>
   <body>
-    <a class="ap-skip-link" href="#main-content">Ga naar de inhoud</a>
-    <Header />
+    <a class="ap-skip-link" href="#main-content">{copy.navigation.menu}</a>
+    <Header locale={locale} contentId={contentId} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <nav class="ap-mobile-actionbar" aria-label="Snelle acties">
-      <a data-ap-event="appointment_cta_clicked" href="/afspraak/">Plan afspraak</a>
-      <a data-ap-event="direct_order_clicked" href="/bestel-direct/">Bestel direct</a>
+    <Footer locale={locale} />
+    <nav class="ap-mobile-actionbar" aria-label={copy.navigation.menu}>
+      <a data-ap-event="appointment_cta_clicked" href={localizedPath("page.appointment", locale)}>{copy.navigation.appointment}</a>
+      <a data-ap-event="direct_order_clicked" href={localizedPath("page.order", locale)}>{copy.navigation.order}</a>
     </nav>
     <script is:inline>
       (() => {
@@ -79,18 +100,45 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
         const nicheRoot = document.querySelector("[data-niche-root]");
         if (productRoot) emit("product_viewed", { product: productRoot.dataset.product }, location.pathname);
         if (nicheRoot) emit("niche_viewed", { niche: nicheRoot.dataset.niche }, location.pathname);
+        const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+        const campaign = new URLSearchParams(location.search);
+        if (campaignKeys.some((key) => campaign.has(key))) {
+          document.querySelectorAll('a[href^="/afspraak/"],a[href^="/bestel-direct/"],a[href^="/voorstel/"]').forEach((anchor) => {
+            const url = new URL(anchor.href, location.origin);
+            campaignKeys.forEach((key) => { if (campaign.has(key) && !url.searchParams.has(key)) url.searchParams.set(key, campaign.get(key)); });
+            anchor.href = `${url.pathname}${url.search}${url.hash}`;
+          });
+        }
+        const pricing = document.querySelector("[data-pricing-view]");
+        if (pricing && "IntersectionObserver" in window) {
+          const observer = new IntersectionObserver((entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            emit("pricing_viewed", { niche: nicheRoot?.dataset.niche }, location.pathname);
+            observer.disconnect();
+          }, { threshold: .22 });
+          observer.observe(pricing);
+        }
         document.addEventListener("click", (event) => {
           const target = event.target.closest("[data-ap-event]");
           if (target) emit(target.dataset.apEvent, { product: target.dataset.apProduct || undefined, niche: target.dataset.apNiche || undefined });
+          const productChoice = event.target.closest("[data-order-product-choice]");
+          if (productChoice) emit("product_selected", { product: productChoice.dataset.orderProductChoice });
+          const nicheChoice = event.target.closest("[data-niche]");
+          if (nicheChoice) emit("niche_selected", { niche: nicheChoice.dataset.niche, product: productRoot?.dataset.product });
           const demo = event.target.closest("[data-demo-step],[data-niche-step]");
           if (demo) {
             const index = Number(demo.dataset.demoStep ?? demo.dataset.nicheStep ?? 0);
             emit(index >= 3 ? "demo_completed" : "demo_started", { step: index + 1 }, index >= 3 ? location.pathname : `${location.pathname}:start`);
           }
         });
+        document.addEventListener("toggle", (event) => {
+          const detail = event.target;
+          if (detail.matches(".ap-faq-list details,.ap-blog-faq details") && detail.open) emit("faq_opened", { question: detail.querySelector("summary")?.textContent?.trim().slice(0, 120) });
+        }, true);
         document.addEventListener("input", (event) => {
           if (event.target.matches("[data-volume],[data-minutes],[data-automation],[data-n-volume],[data-n-minutes],[data-n-automation]")) emit("calculator_used", {}, location.pathname);
         });
+        window.addEventListener("autopilots:roi-updated", (event) => emit("roi_calculator_used", event.detail || {}, location.pathname));
       })();
     </script>
   </body>

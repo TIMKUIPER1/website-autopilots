@@ -5,14 +5,69 @@ import { nicheBySlug, type Niche } from "../../data/niches";
 import { getOrderDestination, getDirectOffer } from "../../data/commerce";
 import { getNicheProposalBlueprint } from "../../data/nicheProposals";
 import VisualIcon from "../ui/VisualIcon.astro";
+import NichePricing from "./NichePricing.astro";
+import RoiCalculator from "./RoiCalculator.astro";
 
 interface Props { niche: Niche }
 const { niche } = Astro.props;
 const recommended = [...niche.primaryProducts, ...niche.optionalProducts].map((slug) => productBySlug[slug]);
 const related = niche.related.map((slug) => nicheBySlug[slug]).filter(Boolean);
 const proposal = getNicheProposalBlueprint(niche);
-const clientData = JSON.stringify({ niche, proposal, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
+const demoConversations: Record<string, { customer: string; ai: string; followup: string }> = {
+  tandartsen: {
+    customer: "Hebben jullie morgen na 15:00 uur nog plek voor een controle?",
+    ai: "Zeker. Bent u al patiënt en gaat het om een reguliere controle of heeft u klachten?",
+    followup: "Ik ben al patiënt. Het gaat om een gewone controle."
+  }
+};
+const demoConfirmations: Record<string, string> = {
+  autobedrijven: "Geregeld. De proefrit staat zaterdag om 11:00 uur als optie klaar en sales heeft alle inruilgegevens ontvangen.",
+  dakdekkers: "Geregeld. De spoedmelding staat bovenaan bij de juiste ploeg; de klant ontvangt direct veiligheidsadvies en een tijdvak.",
+  hoveniers: "Geregeld. De schouw is voorbereid met oppervlak, foto's, budgetrichting en een logisch moment in de regio.",
+  installatietechniek: "Geregeld. De storing is veilig getrieerd en met foutcode, contractstatus en locatie naar de juiste monteur gestuurd.",
+  vastgoedbeheerders: "Geregeld. Het pand en dossier zijn herkend, de reparatie is toegewezen en de huurder krijgt automatisch statusupdates.",
+  kapperszaken: "Geregeld. De juiste behandeltijd is gevonden, de afspraak staat in de salonagenda en de klant heeft bevestiging.",
+  tandartsen: "Gevonden. Morgen om 15:40 uur is er ruimte; de controle staat in de agenda en de patiënt ontvangt direct bevestiging.",
+  makelaars: "Geregeld. De bezichtiging is als optie vastgelegd en de makelaar ontvangt woonwensen, financieringsstatus en contactgegevens.",
+  "cosmetische-klinieken": "Geregeld. De consultaanvraag staat bij de juiste behandelaar, inclusief hulpvraag, voorgeschiedenis en veilige overdracht.",
+  verzekeraars: "Geregeld. Polis en melding zijn gekoppeld, ontbrekende stukken zijn opgevraagd en het dossier heeft een eigenaar.",
+  glaszetters: "Geregeld. De veiligheidsmelding is geprioriteerd en maatvoering, foto's en locatie staan klaar voor planning.",
+  hotels: "Geregeld. Beschikbaarheid en voorwaarden zijn gecontroleerd en de gast ontvangt direct een passende reserveringsoptie.",
+  restaurants: "Geregeld. De tafel is gecontroleerd, dieetwensen zijn vastgelegd en de gast krijgt meteen bevestiging.",
+  evenementen: "Geregeld. Datum, capaciteit en wensen zijn gekwalificeerd en sales ontvangt een complete aanvraag met vervolgmoment.",
+  kozijnen: "Geregeld. Woningtype, maten en foto's staan klaar en de inmeetafspraak is als optie ingepland.",
+  zonnepanelen: "Geregeld. Verbruik, daktype en adres zijn gecontroleerd en een passend adviesmoment staat klaar.",
+  vloerenleggers: "Geregeld. Oppervlakte, ondervloer en vloerverwarming zijn bekend en de inmeetroute is ingepland.",
+  woningcorporaties: "Geregeld. De melding is aan woning en dossier gekoppeld, geprioriteerd en naar de juiste servicepartner gestuurd.",
+  "non-profit": "Geregeld. De vraag is aan het juiste programma gekoppeld en vrijwilliger of coördinator ontvangt een complete overdracht.",
+  dierenarts: "Geregeld. De urgentie is beoordeeld en de praktijk ontvangt dier, klachten, duur en eigenaar vóór het contactmoment.",
+  dierenverzorging: "Geregeld. Verzorging, ras, bijzonderheden en behandeltijd zijn bepaald en een passend moment is bevestigd."
+};
+const demoTimes: Record<string, string> = {
+  autobedrijven: "8,4 sec", dakdekkers: "11,2 sec", hoveniers: "9,7 sec", installatietechniek: "8,9 sec",
+  vastgoedbeheerders: "7,8 sec", kapperszaken: "6,6 sec", tandartsen: "9,8 sec", makelaars: "8,1 sec",
+  "cosmetische-klinieken": "10,4 sec", verzekeraars: "11,6 sec", glaszetters: "8,7 sec", hotels: "6,9 sec",
+  restaurants: "6,2 sec", evenementen: "9,5 sec", kozijnen: "9,1 sec", zonnepanelen: "8,8 sec",
+  vloerenleggers: "8,5 sec", woningcorporaties: "7,9 sec", "non-profit": "8,6 sec", dierenarts: "7,4 sec", dierenverzorging: "6,8 sec"
+};
+const demoConversation = demoConversations[niche.slug] ?? niche.conversation;
+const demoScenario = {
+  messages: [
+    { role: "customer", label: "Klant", text: demoConversation.customer },
+    { role: "ai", label: "AI-agent", text: demoConversation.ai },
+    { role: "customer", label: "Klant", text: demoConversation.followup },
+    { role: "ai", label: "AI-agent", text: demoConfirmations[niche.slug] ?? `Geregeld. ${niche.conversation.result}` }
+  ],
+  route: niche.workflow.slice(0, 4).map((item, index) => ({
+    label: item.title,
+    detail: index === 3 ? niche.conversation.result : (niche.intake[index] ?? item.text)
+  })),
+  result: demoConfirmations[niche.slug] ?? niche.conversation.result,
+  time: demoTimes[niche.slug] ?? "9,6 sec"
+};
+const clientData = JSON.stringify({ niche, proposal, demoScenario, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
 const firstProduct = recommended[0];
+const directNicheCheckout = niche.slug === "autobedrijven";
 const schema = [
   {
     "@context": "https://schema.org", "@type": "Service", name: `AI-medewerker voor ${niche.name}`,
@@ -44,7 +99,7 @@ const schema = [
           <div class="ap-kicker ap-icon-kicker">AI-medewerker voor {niche.name}</div>
           <h1>{niche.hero} <span class="ap-title-accent">{niche.accent}</span></h1>
           <p class="ap-lead">{niche.lead}</p>
-          <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een afspraak</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={`/bestel-direct/?product=${firstProduct.slug}`}>Bestel direct</a></div>
+          <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een afspraak</a><a class="ap-button ap-button-secondary" data-ap-event={directNicheCheckout ? "direct_order_clicked" : "pricing_viewed"} data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={directNicheCheckout ? `/bestel-direct/?product=${firstProduct.slug}` : "#tarieven"}>{directNicheCheckout ? "Bestel direct" : "Bekijk tarieven"}</a></div>
           <a class="ap-text-link" href="#praktijkdemo">Bekijk eerst de klantreis →</a>
           <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>Ingericht op de processen, systemen en uitzonderingen van een {niche.singular}.</span></p>
         </div>
@@ -66,7 +121,7 @@ const schema = [
 
     <section class="ap-section ap-proposal-value">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Waarom dit werkt voor {niche.name}</div><h2>Directe vragen en opvolging krijgen allebei de <span class="ap-title-accent">juiste route.</span></h2><p>Gebaseerd op de nieuwste branchespecifieke voorstelroute, maar vertaald naar een algemene oplossing voor bedrijven in deze branche.</p></div>
+        <div class="ap-section-head"><div class="ap-kicker">Waarom dit werkt voor {niche.name}</div><h2>Directe vragen en opvolging krijgen allebei de <span class="ap-title-accent">juiste route.</span></h2><p>De AI herkent wat er speelt, vraagt alleen door waar dat nodig is en zet iedere klant direct op de juiste vervolgstap.</p></div>
         <div class="ap-proposal-feature-grid">
           {proposal.valueCards.map((item, index) => <details class="ap-proposal-feature" open={index === 0}>
             <summary><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div><b aria-hidden="true">+</b></summary>
@@ -78,19 +133,38 @@ const schema = [
 
     <section class="ap-section" id="praktijkdemo">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Interactieve praktijkdemo</div><h2>Van vraag naar een complete <span class="ap-title-accent">vervolgactie.</span></h2><p>Klik door het gesprek en zie welke context het team ontvangt.</p></div>
-        <div class="ap-niche-demo">
-          <div class="ap-demo-tabs" role="tablist" aria-label={`Voorbeeldflow voor ${niche.name}`}>
-            {[
-              ["Vraag", "Klant neemt contact op"], ["Intake", "AI vraagt gericht door"], ["Antwoord", "Context wordt aangevuld"], ["Actie", "Systeem wordt bijgewerkt"]
-            ].map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-niche-step={index}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step[0]}</strong><small>{step[1]}</small></button>)}
+        <div class="ap-section-head"><div class="ap-kicker">AI-agent in actie</div><h2>Zie hoe de klant binnen seconden <span class="ap-title-accent">echt geholpen wordt.</span></h2><p>Volg het gesprek. Terwijl de AI-agent antwoordt, wordt op de achtergrond direct de juiste route door systemen en team opgebouwd.</p></div>
+        <div class="ap-agent-demo" data-agent-demo>
+          <header class="ap-agent-demo-head">
+            <div class="ap-agent-live"><i aria-hidden="true"></i><span>AI-agent actief</span><strong>{niche.name}</strong></div>
+            <div class="ap-agent-time"><span>Van vraag naar actie</span><strong data-agent-time>0,0 sec</strong></div>
+          </header>
+          <div class="ap-agent-demo-body">
+            <article class="ap-agent-chat" role="tabpanel" aria-live="polite">
+              <div class="ap-agent-chat-head"><div><span>Live gesprek</span><strong>Nieuwe klantvraag</strong></div><small data-agent-status>Bericht ontvangen</small></div>
+              <div class="ap-agent-messages">
+                {demoScenario.messages.map((message, index) => <div class:list={["ap-agent-message", `is-${message.role}`, { "is-visible": index === 0 }]} data-agent-message={index}><span>{message.label}</span><p>{message.text}</p></div>)}
+              </div>
+              <div class="ap-agent-controls">
+                <button class="is-previous" type="button" data-niche-previous aria-label="Vorige stap">←</button>
+                <button class="is-next" type="button" data-niche-next>Laat de AI verder werken <span>→</span></button>
+                <button class="is-reset" type="button" data-niche-reset>Opnieuw</button>
+              </div>
+            </article>
+            <aside class="ap-agent-route" aria-label="Route die de AI-agent opbouwt">
+              <div class="ap-agent-route-head"><span>Live route</span><strong>Wordt automatisch opgebouwd</strong></div>
+              <ol>
+                {demoScenario.route.map((item, index) => <li class:list={[{ "is-active": index === 0 }]} data-agent-route={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item.label}</strong><small>{item.detail}</small></div><i aria-hidden="true">✓</i></li>)}
+              </ol>
+              <div class="ap-agent-result" data-agent-result><span>Direct geregeld</span><strong>{demoScenario.result}</strong><small><i aria-hidden="true"></i> CRM, planning en opvolging zijn bijgewerkt</small></div>
+            </aside>
           </div>
-          <article class="ap-niche-demo-panel" role="tabpanel" aria-live="polite">
-            <div class="ap-demo-stage" data-niche-stage>Vraag komt binnen</div>
-            <div class="ap-message is-customer" data-niche-message>{niche.conversation.customer}</div>
-            <div class="ap-conversation-result"><small data-niche-result-label>Volgende stap</small><strong data-niche-result>De AI bepaalt welke informatie nog ontbreekt.</strong></div>
-            <div class="ap-demo-controls"><button type="button" data-niche-previous>Vorige</button><button type="button" data-niche-reset>Opnieuw</button></div>
-          </article>
+          <div class="ap-agent-progress"><i data-agent-progress></i></div>
+          <div class="ap-agent-steps" role="tablist" aria-label={`AI-demonstratie voor ${niche.name}`}>
+            {[
+              ["Klantvraag", "Contact komt binnen"], ["AI begrijpt", "Context wordt compleet"], ["Route ontstaat", "Systemen worden gekozen"], ["Direct geregeld", "Klant en team zijn klaar"]
+            ].map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-niche-step={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step[0]}</strong><small>{step[1]}</small></div></button>)}
+          </div>
         </div>
       </div>
     </section>
@@ -165,33 +239,9 @@ const schema = [
       </div>
     </section>
 
-    <section class="ap-section ap-soft-section">
-      <div class="ap-container ap-two-column">
-        <div>
-          <div class="ap-section-head"><div class="ap-kicker">Branchespecifieke intake</div><h2>De velden die de praktijk echt nodig heeft.</h2></div>
-          <div class="ap-module-grid">{niche.intake.map((item, index) => <div><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></div>)}</div>
-        </div>
-        <aside class="ap-integration-card">
-          <div class="ap-kicker">Systemen en kanalen</div><h3>De route sluit aan op je bestaande werkomgeving.</h3>
-          <div class="ap-chip-grid">{niche.systems.map((item) => <span>{item}</span>)}</div>
-          <p>De exacte koppeling hangt af van API’s, rechten, datakwaliteit en de gewenste lees- of schrijfacties.</p>
-        </aside>
-      </div>
-    </section>
+    <RoiCalculator niche={niche} />
 
-    <section class="ap-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Impactscenario voor {niche.name}</div><h2>Maak tijd vrij zonder een resultaat <span class="ap-title-accent">te beloven.</span></h2><p>Vul je eigen aantallen in. De uitkomst is een indicatie van voorbereid handwerk.</p></div>
-        <div class="ap-calculator">
-          <div class="ap-calculator-inputs">
-            <label><span>{niche.metric.label} per maand</span><strong data-n-volume-value>{niche.metric.volume}</strong><input data-n-volume type="range" min="20" max="1000" step="10" value={niche.metric.volume} /></label>
-            <label><span>Minuten handwerk per contact</span><strong data-n-minutes-value>{niche.metric.minutes}</strong><input data-n-minutes type="range" min="2" max="30" value={niche.metric.minutes} /></label>
-            <label><span>Deel dat AI kan voorbereiden</span><strong><span data-n-automation-value>{niche.metric.automation}</span>%</strong><input data-n-automation type="range" min="10" max="90" value={niche.metric.automation} /></label>
-          </div>
-          <div class="ap-calculator-output"><span>Indicatieve tijd vrijgemaakt</span><strong><span data-n-hours>0</span> uur</strong><p><span data-n-actions>0</span> contactmomenten voorbereid per maand.</p><small>Exclusief implementatie, gebruikskosten en situaties die menselijke beoordeling vragen.</small></div>
-        </div>
-      </div>
-    </section>
+    <NichePricing niche={niche} />
 
     <section class="ap-section ap-soft-section" id="implementatie">
       <div class="ap-container">
@@ -251,19 +301,25 @@ const schema = [
     const payload = JSON.parse(node.textContent || "{}");
     const niche = payload.niche;
     const proposal = payload.proposal;
-    const steps = [
-      { stage: "Vraag komt binnen", message: niche.conversation.customer, label: "Volgende stap", result: "De AI bepaalt welke informatie nog ontbreekt." },
-      { stage: "Gerichte intake", message: niche.conversation.ai, label: "Waarom deze vraag", result: `De intake gebruikt velden zoals ${niche.intake.slice(0, 3).join(", ")}.` },
-      { stage: "Context aangevuld", message: niche.conversation.followup, label: "Beslismoment", result: "De AI kiest antwoord, planning, taak of menselijke overdracht." },
-      { stage: "Actie vastgelegd", message: niche.conversation.result, label: "Output in systeem", result: niche.conversation.result }
-    ];
+    const demoScenario = payload.demoScenario;
+    const demoStatuses = ["Bericht ontvangen", "AI vraagt gericht door", "Route wordt opgebouwd", "Actie voltooid"];
+    const demoStageTimes = ["0,0 sec", "2,4 sec", "6,8 sec", demoScenario.time];
     const setText = (selector, value) => { const item = root.querySelector(selector); if (item) item.textContent = value; };
     const showNicheStep = (requestedIndex, focus = false) => {
       const buttons = [...root.querySelectorAll("[data-niche-step]")];
-      const index = Math.max(0, Math.min(requestedIndex, steps.length - 1));
-      const button = buttons[index]; const step = steps[index];
+      const index = Math.max(0, Math.min(requestedIndex, demoScenario.messages.length - 1));
+      const button = buttons[index];
       root.querySelectorAll("[data-niche-step]").forEach((item) => { const active = item === button; item.classList.toggle("is-active", active); item.setAttribute("aria-selected", String(active)); item.tabIndex = active ? 0 : -1; });
-      setText("[data-niche-stage]", step.stage); setText("[data-niche-message]", step.message); setText("[data-niche-result-label]", step.label); setText("[data-niche-result]", step.result);
+      root.querySelectorAll("[data-agent-message]").forEach((item) => item.classList.toggle("is-visible", Number(item.dataset.agentMessage) <= index));
+      root.querySelectorAll("[data-agent-route]").forEach((item) => item.classList.toggle("is-active", Number(item.dataset.agentRoute) <= index));
+      root.querySelector("[data-agent-result]")?.classList.toggle("is-visible", index === demoScenario.messages.length - 1);
+      const progress = root.querySelector("[data-agent-progress]");
+      if (progress) progress.style.width = `${((index + 1) / demoScenario.messages.length) * 100}%`;
+      setText("[data-agent-status]", demoStatuses[index]);
+      setText("[data-agent-time]", demoStageTimes[index]);
+      const nextButton = root.querySelector("[data-niche-next]");
+      if (nextButton) nextButton.innerHTML = index === demoScenario.messages.length - 1 ? "Bekijk opnieuw <span>↻</span>" : "Laat de AI verder werken <span>→</span>";
+      root.querySelector("[data-agent-demo]")?.setAttribute("data-demo-step", String(index));
       if (focus) button?.focus({ preventScroll: true });
     };
     root.querySelectorAll("[data-niche-step]").forEach((button) => {
@@ -271,16 +327,21 @@ const schema = [
       button.addEventListener("keydown", (event) => {
         if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) return;
         event.preventDefault();
-        const current = Number(button.dataset.nicheStep || 0); const last = steps.length - 1;
+        const current = Number(button.dataset.nicheStep || 0); const last = demoScenario.messages.length - 1;
         const next = event.key === "Home" ? 0 : event.key === "End" ? last : ["ArrowRight", "ArrowDown"].includes(event.key) ? (current + 1) % (last + 1) : (current - 1 + last + 1) % (last + 1);
         showNicheStep(next, true);
       });
+    });
+    root.querySelector("[data-niche-next]")?.addEventListener("click", () => {
+      const current = Number(root.querySelector("[data-niche-step][aria-selected='true']")?.dataset.nicheStep || 0);
+      showNicheStep(current >= demoScenario.messages.length - 1 ? 0 : current + 1);
     });
     root.querySelector("[data-niche-previous]")?.addEventListener("click", () => {
       const current = Number(root.querySelector("[data-niche-step][aria-selected='true']")?.dataset.nicheStep || 0);
       showNicheStep(Math.max(0, current - 1), true);
     });
     root.querySelector("[data-niche-reset]")?.addEventListener("click", () => showNicheStep(0, true));
+    showNicheStep(0);
     const showBrainStep = (requestedIndex, focus = false) => {
       const index = Math.max(0, Math.min(requestedIndex, proposal.brainSteps.length - 1));
       const step = proposal.brainSteps[index];
@@ -313,12 +374,6 @@ const schema = [
       root.querySelectorAll(".ap-route-line span").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex <= index));
       setText("[data-route-label]", item.label); setText("[data-route-title]", item.title); setText("[data-route-text]", item.text);
     }));
-    const update = () => {
-      const volume = Number(root.querySelector("[data-n-volume]")?.value || 0); const minutes = Number(root.querySelector("[data-n-minutes]")?.value || 0); const automation = Number(root.querySelector("[data-n-automation]")?.value || 0);
-      setText("[data-n-volume-value]", volume.toLocaleString("nl-NL")); setText("[data-n-minutes-value]", minutes); setText("[data-n-automation-value]", automation);
-      setText("[data-n-hours]", Math.round((volume * minutes * automation / 100) / 60).toLocaleString("nl-NL")); setText("[data-n-actions]", Math.round(volume * automation / 100).toLocaleString("nl-NL"));
-    };
-    root.querySelectorAll("[data-n-volume],[data-n-minutes],[data-n-automation]").forEach((input) => input.addEventListener("input", update)); update();
     const requestedProduct = new URLSearchParams(location.search).get("product");
     if (payload.validProducts.includes(requestedProduct)) {
       const selectedCard = root.querySelector(`[data-product-card="${CSS.escape(requestedProduct)}"]`);
@@ -345,6 +400,21 @@ const schema = [
   .ap-proposal-feature[open] summary>b,.ap-implementation-phase[open] summary>b{transform:rotate(45deg)}
   .ap-proposal-feature[open]{border-color:rgba(159,56,38,.24);background:linear-gradient(145deg,#fff,#faf1ed)}
   .ap-proposal-feature-more{margin:0 26px 26px;border-top:1px solid rgba(159,56,38,.14);padding:18px 0 0;color:var(--ap-muted);font-size:13px;line-height:1.55}
+
+  .ap-agent-demo{overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:36px;background:#111;color:#fff;box-shadow:0 30px 80px rgba(17,17,17,.14)}
+  .ap-agent-demo-head{display:flex;min-height:72px;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid rgba(255,255,255,.1);padding:16px 24px}
+  .ap-agent-live,.ap-agent-time{display:flex;align-items:center;gap:10px}.ap-agent-live i{width:9px;height:9px;border-radius:50%;background:#75cf87;box-shadow:0 0 0 7px rgba(117,207,135,.1);animation:apAgentPulse 2s ease-in-out infinite}.ap-agent-live span,.ap-agent-time span{color:rgba(255,255,255,.5);font:700 9px/1 "Syne",sans-serif;letter-spacing:1.25px;text-transform:uppercase}.ap-agent-live strong,.ap-agent-time strong{font-size:12px}.ap-agent-time{justify-content:flex-end}.ap-agent-time strong{min-width:72px;border-radius:999px;background:rgba(255,255,255,.08);padding:9px 11px;color:#fff;text-align:center}
+  .ap-agent-demo-body{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr);min-height:560px}
+  .ap-agent-chat{display:flex;min-width:0;flex-direction:column;border-right:1px solid rgba(255,255,255,.1);background:linear-gradient(145deg,#fdfdfb,#f4f0ec);padding:28px;color:#111}
+  .ap-agent-chat-head{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(17,17,17,.08);padding-bottom:18px}.ap-agent-chat-head span,.ap-agent-route-head>span,.ap-agent-result>span{display:block;color:var(--ap-brown);font:700 9px/1 "Syne",sans-serif;letter-spacing:1.35px;text-transform:uppercase}.ap-agent-chat-head strong,.ap-agent-route-head>strong{display:block;margin-top:7px;font-size:15px}.ap-agent-chat-head>small{border-radius:999px;background:#e8f5ea;padding:8px 10px;color:#347441;font-size:10px;font-weight:800}
+  .ap-agent-messages{display:flex;min-height:348px;flex-direction:column;gap:10px;padding:24px 0}
+  .ap-agent-message{display:none;max-width:78%;animation:apAgentMessage .35s ease both}.ap-agent-message.is-visible{display:block}.ap-agent-message>span{display:block;margin:0 8px 6px;color:#8a8986;font:700 9px/1 "Syne",sans-serif;letter-spacing:1px;text-transform:uppercase}.ap-agent-message>p{margin:0;border:1px solid var(--ap-line);border-radius:7px 22px 22px 22px;background:#fff;padding:14px 16px;font-size:13px;font-weight:750;line-height:1.48;box-shadow:0 10px 28px rgba(17,17,17,.05)}.ap-agent-message.is-customer{align-self:flex-start}.ap-agent-message.is-ai{align-self:flex-end}.ap-agent-message.is-ai>span{text-align:right}.ap-agent-message.is-ai>p{border-color:rgba(159,56,38,.32);border-radius:22px 7px 22px 22px;background:#111;color:#fff}.ap-agent-message.is-ai:last-child>p{background:linear-gradient(135deg,#8e301f,#b5412b);box-shadow:0 14px 34px rgba(159,56,38,.2)}
+  .ap-agent-controls{display:flex;align-items:center;gap:8px;margin-top:auto}.ap-agent-controls button{min-height:46px;border:1px solid var(--ap-line);border-radius:999px;background:#fff;padding:11px 16px;color:#111;font:850 11px/1 "Public Sans",sans-serif;cursor:pointer}.ap-agent-controls button:hover,.ap-agent-controls button:focus-visible{border-color:var(--ap-brown);outline:3px solid rgba(159,56,38,.12)}.ap-agent-controls .is-previous{width:46px;padding:0}.ap-agent-controls .is-next{display:flex;align-items:center;gap:18px;border-color:var(--ap-brown);background:var(--ap-brown);padding-inline:20px;color:#fff}.ap-agent-controls .is-next span{font-size:16px}.ap-agent-controls .is-reset{margin-left:auto;color:var(--ap-muted)}
+  .ap-agent-route{position:relative;overflow:hidden;padding:28px;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),radial-gradient(circle at 100% 100%,rgba(159,56,38,.3),transparent 42%);background-size:28px 28px,28px 28px,auto}.ap-agent-route-head>span{color:#e7a295}.ap-agent-route-head>strong{color:#fff}.ap-agent-route ol{display:grid;gap:0;margin:26px 0 0;padding:0;list-style:none}.ap-agent-route li{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr) 24px;gap:12px;align-items:center;min-height:84px;border-left:1px solid rgba(255,255,255,.13);padding:9px 0 9px 18px;color:rgba(255,255,255,.35);transition:.3s ease}.ap-agent-route li:before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;transform:translateY(-50%);border-radius:50%;background:#3b3938}.ap-agent-route li>span{display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.05);font:700 9px/1 "Syne",sans-serif}.ap-agent-route li strong,.ap-agent-route li small{display:block}.ap-agent-route li strong{font-size:12px}.ap-agent-route li small{overflow:hidden;margin-top:5px;font-size:9px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}.ap-agent-route li>i{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;background:rgba(255,255,255,.06);font-size:10px;font-style:normal}.ap-agent-route li.is-active{border-left-color:rgba(231,162,149,.58);color:#fff}.ap-agent-route li.is-active:before{background:#e7a295;box-shadow:0 0 0 6px rgba(231,162,149,.1)}.ap-agent-route li.is-active>span{border-color:rgba(231,162,149,.36);background:rgba(159,56,38,.32);color:#f5b5a9}.ap-agent-route li.is-active>i{background:#e7f3e8;color:#347441}
+  .ap-agent-result{visibility:hidden;transform:translateY(8px);border:1px solid rgba(231,162,149,.24);border-radius:20px;background:rgba(159,56,38,.18);padding:16px;opacity:0;transition:.35s ease}.ap-agent-result.is-visible{visibility:visible;transform:none;opacity:1}.ap-agent-result>span{color:#f0a697}.ap-agent-result>strong{display:block;margin-top:9px;font-size:11px;line-height:1.42}.ap-agent-result>small{display:flex;align-items:center;gap:7px;margin-top:12px;color:rgba(255,255,255,.55);font-size:9px;font-weight:700}.ap-agent-result>small i{width:6px;height:6px;border-radius:50%;background:#75cf87}
+  .ap-agent-progress{height:3px;background:rgba(255,255,255,.08)}.ap-agent-progress i{display:block;width:25%;height:100%;background:linear-gradient(90deg,var(--ap-brown),#e48d79);transition:width .35s ease}
+  .ap-agent-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:0 12px 12px}.ap-agent-steps button{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center;border:0;border-right:1px solid rgba(255,255,255,.08);background:transparent;padding:17px 14px;color:rgba(255,255,255,.42);font:inherit;text-align:left;cursor:pointer}.ap-agent-steps button:last-child{border-right:0}.ap-agent-steps button>span{font:700 9px/1 "Syne",sans-serif}.ap-agent-steps strong,.ap-agent-steps small{display:block}.ap-agent-steps strong{font-size:11px}.ap-agent-steps small{overflow:hidden;margin-top:4px;font-size:9px;text-overflow:ellipsis;white-space:nowrap}.ap-agent-steps button:hover,.ap-agent-steps button:focus-visible,.ap-agent-steps button.is-active{color:#fff;outline:none}.ap-agent-steps button.is-active>span{color:#e7a295}
+  @keyframes apAgentPulse{50%{box-shadow:0 0 0 10px rgba(117,207,135,0)}}@keyframes apAgentMessage{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
 
   .ap-branch-brain{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);overflow:hidden;border:1px solid var(--ap-line);border-radius:34px;background:#111;box-shadow:0 24px 70px rgba(17,17,17,.1)}
   .ap-branch-brain-visual{position:relative;overflow:hidden;padding:28px;background:linear-gradient(145deg,#111 0%,#1d1715 100%)}
@@ -376,6 +446,6 @@ const schema = [
   .ap-implementation-summary{position:sticky;top:96px;overflow:hidden;border-radius:30px;background:#111;color:#fff;padding:28px;box-shadow:0 20px 60px rgba(17,17,17,.11)}.ap-implementation-summary:after{content:"";position:absolute;right:-75px;bottom:-90px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(159,56,38,.48),transparent 70%)}.ap-implementation-summary>*{position:relative;z-index:1}.ap-implementation-summary .ap-kicker{color:#e7a295}.ap-implementation-summary h3{margin:0;font-size:32px}.ap-implementation-summary>p{margin:14px 0 0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.55}.ap-implementation-summary .ap-button{margin-top:22px}
   .ap-proof-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:22px}.ap-proof-metrics>div{border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(255,255,255,.07);padding:12px}.ap-proof-metrics span,.ap-proof-metrics strong{display:block}.ap-proof-metrics span{color:#e7a295;font:700 9px/1 "Syne",sans-serif}.ap-proof-metrics strong{margin-top:8px;font-size:11px;line-height:1.3}
 
-  @media(max-width:980px){.ap-proposal-feature-grid{grid-template-columns:1fr}.ap-proposal-feature summary{min-height:auto}.ap-branch-brain,.ap-route-planner,.ap-implementation-shell{grid-template-columns:1fr}.ap-implementation-summary{position:relative;top:auto}.ap-route-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.ap-route-steps button{grid-template-columns:1fr}.ap-route-steps button>span{width:38px;height:38px}}
-  @media(max-width:640px){.ap-proposal-feature summary{grid-template-columns:42px minmax(0,1fr) 26px;padding:21px 18px}.ap-proposal-feature summary>span{width:42px;height:42px}.ap-branch-brain-visual,.ap-branch-brain-copy{padding:18px}.ap-brain-orbit{min-height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:170px 12px 12px}.ap-brain-orbit:before,.ap-brain-orbit:after{display:none}.ap-brain-core{top:82px}.ap-brain-node{position:relative;inset:auto!important;min-width:0;justify-content:center}.ap-brain-node>strong{font-size:10px}.ap-brain-output-grid,.ap-proof-metrics{grid-template-columns:1fr}.ap-brain-panel{min-height:260px}.ap-route-planner{padding:12px}.ap-route-steps{grid-template-columns:1fr}.ap-route-steps button{grid-template-columns:44px 1fr}.ap-route-map{min-height:330px;padding:24px}.ap-route-line{grid-template-columns:repeat(4,1fr);gap:5px}.ap-route-line i{display:none}.ap-route-line span{text-align:center}.ap-implementation-phase summary{grid-template-columns:42px minmax(0,1fr) 28px;padding:17px}.ap-implementation-phase summary>span{width:42px;height:42px}.ap-phase-items{grid-template-columns:1fr}.ap-implementation-summary{padding:24px}}
+  @media(max-width:980px){.ap-proposal-feature-grid{grid-template-columns:1fr}.ap-proposal-feature summary{min-height:auto}.ap-agent-demo-body,.ap-branch-brain,.ap-route-planner,.ap-implementation-shell{grid-template-columns:1fr}.ap-agent-chat{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.ap-agent-route{min-height:500px}.ap-implementation-summary{position:relative;top:auto}.ap-route-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.ap-route-steps button{grid-template-columns:1fr}.ap-route-steps button>span{width:38px;height:38px}}
+  @media(max-width:640px){.ap-proposal-feature summary{grid-template-columns:42px minmax(0,1fr) 26px;padding:21px 18px}.ap-proposal-feature summary>span{width:42px;height:42px}.ap-agent-demo{border-radius:26px}.ap-agent-demo-head{min-height:64px;padding:14px 17px}.ap-agent-live span,.ap-agent-time span{display:none}.ap-agent-chat,.ap-agent-route{padding:20px}.ap-agent-messages{min-height:390px}.ap-agent-message{max-width:92%}.ap-agent-message>p{font-size:12px}.ap-agent-controls{flex-wrap:wrap}.ap-agent-controls .is-next{order:-1;width:100%;justify-content:space-between}.ap-agent-controls .is-reset{margin-left:0}.ap-agent-route{min-height:500px}.ap-agent-steps{grid-template-columns:repeat(2,minmax(0,1fr));padding:6px}.ap-agent-steps button{border-bottom:1px solid rgba(255,255,255,.08);padding:13px 10px}.ap-agent-steps button:nth-child(2){border-right:0}.ap-agent-steps button:nth-child(n+3){border-bottom:0}.ap-branch-brain-visual,.ap-branch-brain-copy{padding:18px}.ap-brain-orbit{min-height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:170px 12px 12px}.ap-brain-orbit:before,.ap-brain-orbit:after{display:none}.ap-brain-core{top:82px}.ap-brain-node{position:relative;inset:auto!important;min-width:0;justify-content:center}.ap-brain-node>strong{font-size:10px}.ap-brain-output-grid,.ap-proof-metrics{grid-template-columns:1fr}.ap-brain-panel{min-height:260px}.ap-route-planner{padding:12px}.ap-route-steps{grid-template-columns:1fr}.ap-route-steps button{grid-template-columns:44px 1fr}.ap-route-map{min-height:330px;padding:24px}.ap-route-line{grid-template-columns:repeat(4,1fr);gap:5px}.ap-route-line i{display:none}.ap-route-line span{text-align:center}.ap-implementation-phase summary{grid-template-columns:42px minmax(0,1fr) 28px;padding:17px}.ap-implementation-phase summary>span{width:42px;height:42px}.ap-phase-items{grid-template-columns:1fr}.ap-implementation-summary{padding:24px}}
 </style>

@@ -2,27 +2,24 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { knowledgeArticles } from "../../content/knowledgeArticles";
 
-const featured = knowledgeArticles[0];
+const sortedArticles = [...knowledgeArticles].sort((a, b) => b.modified.localeCompare(a.modified));
+const featured = sortedArticles[0];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Autopilots kennisbank",
+  description: "Kennisbank met AI kennis en Autopilots implementatiekennis voor bedrijven die AI praktisch willen toepassen.",
+  url: "https://auto-pilots.io/kennisbank/",
+  mainEntity: sortedArticles.map((article) => ({ "@type": "BlogPosting", headline: article.title, url: `https://auto-pilots.io/kennisbank/${article.slug}/`, description: article.description }))
+};
 ---
 
 <BaseLayout
   title="Autopilots kennisbank | AI kennis en implementatiekennis"
   description="Kies je route: AI kennis over tools, modellen en ontwikkelingen of Autopilots kennis over klantreizen, AI-breinen, CRM-acties en livegang."
   canonical="/kennisbank/"
+  schema={schema}
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Autopilots kennisbank",
-    "description": "Kennisbank met AI kennis en Autopilots implementatiekennis voor bedrijven die AI praktisch willen toepassen.",
-    "url": "https://auto-pilots.io/kennisbank/",
-    "mainEntity": knowledgeArticles.map((article) => ({
-      "@type": "BlogPosting",
-      "headline": article.title,
-      "url": `https://auto-pilots.io/kennisbank/${article.slug}/`,
-      "description": article.description
-    }))
-  })} />
 
   <section class="ap-section ap-knowledge-hero">
     <div class="ap-container">
@@ -94,7 +91,7 @@ const featured = knowledgeArticles[0];
       </div>
 
       <div class="ap-article-grid">
-        {knowledgeArticles.slice(1).map((article) => (
+        {sortedArticles.slice(1).map((article) => (
           <a class="ap-card ap-article-card" href={`/kennisbank/${article.slug}/`}>
             <span>{article.category}</span>
             <h3>{article.cardTitle}</h3>

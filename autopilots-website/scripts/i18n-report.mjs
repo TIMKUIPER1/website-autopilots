@@ -1,0 +1,11 @@
+import {existsSync,readdirSync,statSync} from "node:fs";
+import {join} from "node:path";
+const locales=["nl","en","es","de","it","fr"];
+const countHtml=dir=>existsSync(dir)?readdirSync(dir,{withFileTypes:true}).reduce((n,item)=>n+(item.isDirectory()?countHtml(join(dir,item.name)):item.name.endsWith(".html")?1:0),0):0;
+const counts=Object.fromEntries(locales.map(locale=>[locale,countHtml(join("dist",locale))]));
+const expectedPublished=39;
+const missingArticles=15*5;
+console.log("Autopilots i18n report");
+for(const locale of locales) console.log(`${locale}: ${counts[locale]} HTML-pagina's (${counts[locale]>=expectedPublished?"routebasis compleet":"onvolledig"})`);
+console.log(`Vertaalreview: ${missingArticles} niet-Nederlandse artikelvertalingen ontbreken; overige niet-Nederlandse pagina's vereisen native review.`);
+if(locales.some(locale=>counts[locale]<expectedPublished)) process.exitCode=1;

@@ -4,3 +4,6 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(self "https://js.stripe.com")
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+/lp/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Cache-Control: public, max-age=0, must-revalidate

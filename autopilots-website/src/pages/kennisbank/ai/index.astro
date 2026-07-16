@@ -1,6 +1,6 @@
 ---
 import KnowledgeLibrary from "../../../components/ecosystem/KnowledgeLibrary.astro";
 import { knowledgeArticles } from "../../../content/knowledgeArticles";
-const items=knowledgeArticles.map(article=>({title:article.cardTitle,description:article.excerpt,href:`/kennisbank/${article.slug}/`,category:article.category,label:`${article.label} · ${article.readTime}`,keywords:article.keywords}));
+const items=[...knowledgeArticles].sort((a,b)=>b.modified.localeCompare(a.modified)).map(article=>({title:article.cardTitle,description:article.excerpt,href:`/kennisbank/${article.slug}/`,category:article.category,cluster:article.contentCluster,label:`${article.label} · ${article.readTime}`,keywords:article.keywords,searchText:[...article.summary,...article.sections.flatMap(section=>[section.title,...section.paragraphs,...(section.bullets??[])])].join(" "),modified:article.modified,pillar:article.pillar}));
 ---
 <KnowledgeLibrary mode="ai" items={items} />

@@ -9,7 +9,10 @@
     "preview": "astro preview",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/check-built-site.mjs",
-    "check:site": "node scripts/check-built-site.mjs"
+    "check:site": "node scripts/check-built-site.mjs",
+    "i18n:report": "node scripts/i18n-report.mjs",
+    "i18n:validate": "node scripts/i18n-validate.mjs",
+    "i18n:validate:strict": "node scripts/i18n-validate.mjs --strict"
   },
   "dependencies": {
     "astro": "^5.0.0"

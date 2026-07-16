@@ -1,0 +1,28 @@
+---
+import CampaignLeadForm from "../../../../components/campaign/CampaignLeadForm.astro";
+import { autoDealerFunnel as funnel } from "../../../../data/marketingFunnels";
+import CampaignLayout from "../../../../layouts/CampaignLayout.astro";
+---
+
+<CampaignLayout title="Test de AI-medewerker voor autobedrijven | Autopilots" description="Test drie AI-medewerkers voor autobedrijven en bereken direct wat snellere opvolging kan opleveren." canonical="/lp/autobedrijven/ai-medewerker/" campaign={funnel.trackingContext}>
+  <div id="ap-campaign" class="ap-entry-page" data-funnel-page="landing">
+    <header class="ap-campaign-topbar ap-campaign-container"><span class="ap-campaign-brand">AUTOPILOTS</span><span class="ap-entry-badge"><i></i> Live test voor autobedrijven</span></header>
+    <main class="ap-entry-main ap-campaign-container">
+      <section class="ap-entry-copy" aria-labelledby="entry-title">
+        <p class="ap-entry-eyebrow">AI-MEDEWERKER VOOR AUTOBEDRIJVEN</p>
+        <h1 id="entry-title">Test de AI-medewerker en bereken <em>wat het oplevert.</em></h1>
+        <p>Test telefonie, inbox en leadopvolging in herkenbare autosituaties. Bereken daarna direct de mogelijke impact met je eigen cijfers.</p>
+        <div class="ap-entry-points"><span>3 live AI-demo’s</span><span>Eigen ROI-berekening</span><span>Direct toegang</span></div>
+      </section>
+      <section class="ap-entry-card" aria-label="Vraag toegang tot de test aan">
+        <div class="ap-entry-card-head"><span>Direct starten</span><strong>Test de AI-medewerker voor autobedrijven</strong></div>
+        <CampaignLeadForm config={funnel} experiencePath="/lp/autobedrijven/ai-medewerker/ervaring/" />
+      </section>
+    </main>
+    <footer class="ap-entry-footer ap-campaign-container"><span>Autopilots. Voor de bedrijven van de toekomst.</span><a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></footer>
+  </div>
+</CampaignLayout>
+
+<style>
+  .ap-entry-page{min-height:100vh}.ap-entry-badge{display:flex;align-items:center;gap:9px;color:#656565;font-size:10px;font-weight:800}.ap-entry-badge i{width:7px;height:7px;border-radius:50%;background:#65ad73;box-shadow:0 0 0 5px rgba(101,173,115,.11)}.ap-entry-main{display:grid;grid-template-columns:minmax(0,.93fr) minmax(430px,1.07fr);align-items:center;gap:68px;min-height:calc(100vh - 138px);padding-block:58px}.ap-entry-copy{max-width:560px}.ap-entry-eyebrow{margin:0 0 20px!important;color:#9f3826;font:700 10px/1.2 "Syne",sans-serif;letter-spacing:1.6px}.ap-entry-copy h1{margin:0;font-size:clamp(40px,4.7vw,54px)!important;line-height:1.07!important;letter-spacing:-.05em!important}.ap-entry-copy h1 em{display:block;color:#9f3826;font-style:italic}.ap-entry-copy>p:not(.ap-entry-eyebrow){max-width:530px;margin:24px 0 0!important;color:#656565;font-size:15px;line-height:1.65}.ap-entry-points{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}.ap-entry-points span{border:1px solid rgba(17,17,17,.1);border-radius:999px;background:#fff;padding:9px 11px;color:#555;font-size:9px;font-weight:850}.ap-entry-card{border:1px solid rgba(17,17,17,.1);border-radius:30px;background:#fff;padding:28px;box-shadow:0 26px 75px rgba(17,17,17,.09)}.ap-entry-card-head{border-bottom:1px solid rgba(17,17,17,.08);padding-bottom:20px}.ap-entry-card-head span,.ap-entry-card-head strong{display:block}.ap-entry-card-head span{color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.4px;text-transform:uppercase}.ap-entry-card-head strong{margin-top:9px;font-size:20px;line-height:1.25}.ap-entry-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px;border-top:1px solid rgba(17,17,17,.08);color:#808080;font-size:9px}.ap-entry-footer a{text-decoration:underline!important;text-underline-offset:3px}@media(max-width:850px){.ap-entry-main{grid-template-columns:1fr;gap:38px;min-height:0;padding-block:58px}.ap-entry-copy{max-width:650px}.ap-entry-card{max-width:650px}}@media(max-width:560px){.ap-entry-badge{font-size:0}.ap-entry-main{padding-block:46px}.ap-entry-copy h1{font-size:42px!important}.ap-entry-copy>p:not(.ap-entry-eyebrow){font-size:14px}.ap-entry-card{border-radius:25px;padding:21px}.ap-entry-card-head strong{font-size:17px}}
+</style>

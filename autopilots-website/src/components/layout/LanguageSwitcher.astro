@@ -1,0 +1,28 @@
+---
+import { supportedLocales, type SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { uiCopy } from "../../i18n/ui";
+
+interface Props { locale: SupportedLocale; contentId?: string }
+const { locale, contentId = "page.home" } = Astro.props;
+const current = supportedLocales.find((item) => item.code === locale)!;
+---
+
+<details class="ap-language-switcher">
+  <summary aria-label={uiCopy[locale].navigation.language}><span>{current.name}</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5"/></svg></summary>
+  <div role="list" aria-label={uiCopy[locale].navigation.language}>
+    {supportedLocales.map((item) => (
+      <a role="listitem" href={localizedPath(contentId, item.code)} hreflang={item.tag} lang={item.tag} aria-current={item.code === locale ? "page" : undefined} data-language-choice={item.code}>
+        <span>{item.name}</span><small>{item.tag}</small>
+      </a>
+    ))}
+  </div>
+</details>
+
+<style>
+  .ap-language-switcher{position:relative}.ap-language-switcher summary{display:flex;min-height:42px;align-items:center;gap:8px;border:1px solid var(--ap-line);border-radius:999px;background:rgba(255,255,255,.78);padding:9px 12px;color:var(--ap-muted);font-size:12px;font-weight:850;cursor:pointer;list-style:none}.ap-language-switcher summary::-webkit-details-marker{display:none}.ap-language-switcher summary svg{width:10px;fill:none;stroke:currentColor;stroke-width:1.6}.ap-language-switcher[open] summary,.ap-language-switcher summary:focus-visible{border-color:rgba(159,56,38,.35);color:#111;outline:3px solid rgba(159,56,38,.1);outline-offset:2px}.ap-language-switcher>div{position:absolute;top:calc(100% + 10px);right:0;z-index:60;display:grid;width:210px;border:1px solid var(--ap-line);border-radius:20px;background:#fff;box-shadow:0 20px 55px rgba(17,17,17,.14);padding:8px}.ap-language-switcher a{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:13px;padding:10px 11px;font-size:13px;font-weight:800}.ap-language-switcher a:hover,.ap-language-switcher a:focus-visible,.ap-language-switcher a[aria-current="page"]{background:var(--ap-soft-2);color:var(--ap-brown);outline:none}.ap-language-switcher small{color:var(--ap-muted);font-size:9px;font-weight:700}@media(max-width:820px){.ap-language-switcher{margin-left:auto}.ap-language-switcher summary{min-width:44px;justify-content:center}.ap-language-switcher summary span{display:none}}
+</style>
+
+<script is:inline>
+  document.addEventListener("click",(event)=>{const choice=event.target.closest("[data-language-choice]");if(choice)try{localStorage.setItem("autopilots_locale",choice.dataset.languageChoice)}catch{};document.querySelectorAll(".ap-language-switcher[open]").forEach((item)=>{if(!item.contains(event.target))item.removeAttribute("open")})});
+</script>

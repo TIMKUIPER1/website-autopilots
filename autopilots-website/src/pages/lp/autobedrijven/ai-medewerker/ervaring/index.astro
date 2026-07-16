@@ -1,0 +1,63 @@
+---
+import CampaignRoi from "../../../../../components/campaign/CampaignRoi.astro";
+import ElevenLabsAutoDemos from "../../../../../components/campaign/ElevenLabsAutoDemos.astro";
+import GhlEmbed from "../../../../../components/embeds/GhlEmbed.astro";
+import { autoDealerFunnel as funnel } from "../../../../../data/marketingFunnels";
+import CampaignLayout from "../../../../../layouts/CampaignLayout.astro";
+---
+
+<CampaignLayout title="Test drie AI-medewerkers voor autobedrijven | Autopilots" description="Test AI Telefoniste, AI Inboxmedewerker en AI Leadopvolger en bereken de mogelijke impact voor jouw autobedrijf." canonical="/lp/autobedrijven/ai-medewerker/ervaring/" campaign={funnel.trackingContext}>
+  <div id="ap-campaign" class="ap-experience-page" data-funnel-page="experience">
+    <header class="ap-campaign-topbar ap-campaign-container"><a class="ap-campaign-brand" href="#top">AUTOPILOTS</a><nav aria-label="Paginaonderdelen"><a href="#testen">Testen</a><a href="#berekenen">Berekenen</a><a href="#afspraak">Afspraak</a></nav></header>
+
+    <main id="top">
+      <section class="ap-experience-hero ap-campaign-container">
+        <p class="ap-page-eyebrow">LIVE ERVARING VOOR AUTOBEDRIJVEN</p>
+        <h1>Test drie AI-medewerkers en bereken <em>wat ze kunnen opleveren.</em></h1>
+        <p>Begin met de live demo’s. Vul daarna je eigen aantallen in. Zo zie je direct welke rol het beste aansluit op verkoop, werkplaats en leadopvolging.</p>
+        <div class="ap-hero-route" aria-label="Route op deze pagina"><span><b>01</b> Test de AI</span><i></i><span><b>02</b> Bereken impact</span><i></i><span><b>03</b> Bespreek inrichting</span></div>
+      </section>
+
+      <section id="testen" class="ap-page-section ap-campaign-container" aria-labelledby="demo-title">
+        <div class="ap-page-head"><div><p class="ap-page-eyebrow">LIVE DEMO</p><h2 id="demo-title">Kies de AI-medewerker die je wilt testen.</h2></div><p>Kies een product, lees wat je kunt proberen en open daarna de echte ElevenLabs-widget.</p></div>
+        <ElevenLabsAutoDemos />
+      </section>
+
+      <section class="ap-system-strip">
+        <div class="ap-campaign-container ap-system-content">
+          <div><span>Wat er achter het gesprek gebeurt</span><h2>Geen losse antwoorden. Een concrete vervolgstap.</h2></div>
+          <ol><li><b>01</b><strong>Vraag begrijpen</strong><p>Auto, kenteken, intentie en urgentie herkennen.</p></li><li><b>02</b><strong>Context ophalen</strong><p>Voorraad, agenda en bestaande klantdata controleren.</p></li><li><b>03</b><strong>Actie uitvoeren</strong><p>Proefrit, werkplaatsmoment, taak of opvolging klaarzetten.</p></li></ol>
+        </div>
+      </section>
+
+      <section id="berekenen" class="ap-page-section ap-campaign-container" aria-labelledby="roi-title">
+        <div class="ap-page-head"><div><p class="ap-page-eyebrow">ROI CALCULATOR</p><h2 id="roi-title">Bereken de mogelijke impact met je eigen cijfers.</h2></div><p>Geen ingewikkeld model. Vul je maandvolume en huidige opvolging in en bekijk het indicatieve verschil.</p></div>
+        <CampaignRoi config={funnel} />
+      </section>
+
+      <section class="ap-live-route">
+        <div class="ap-campaign-container ap-live-route-grid">
+          <div><p class="ap-page-eyebrow">VAN TEST NAAR LIVE</p><h2>Doorgaans binnen 2–4 weken ingericht.</h2><p>Wanneer benodigde informatie en toegangen op tijd zijn aangeleverd, richten we de eerste AI-medewerker gecontroleerd in rondom jullie bestaande proces.</p></div>
+          <ol><li><span>01</span><div><strong>Ontwerp</strong><p>Vragen, tone of voice, uitzonderingen en overdracht.</p></div></li><li><span>02</span><div><strong>Bouw en test</strong><p>Kennis, koppelingen en praktijkscenario’s.</p></div></li><li><span>03</span><div><strong>Livegang</strong><p>Goedkeuring, monitoring en optimalisatie.</p></div></li></ol>
+          <aside><span>Privacy en controle</span><strong>AVG-bewust en met menselijke fallback.</strong><p>We bepalen vooraf welke gegevens nodig zijn, wie toegang krijgt en wanneer de AI moet overdragen aan een medewerker.</p></aside>
+        </div>
+      </section>
+
+      <section id="afspraak" class="ap-booking ap-campaign-container" aria-labelledby="booking-title">
+        <div class="ap-booking-copy"><p class="ap-page-eyebrow">VOLGENDE STAP</p><h2 id="booking-title">Bekijk welke AI-medewerker bij jullie past.</h2><p>We bekijken je huidige situatie, bepalen waar een AI-rol waarde kan leveren en welke koppelingen daarvoor nodig zijn.</p></div>
+        <GhlEmbed src={funnel.ghl.calendar} title="Plan een afspraak met Autopilots" minHeight={660} note="Kies een beschikbaar moment. Werkt de module niet?" />
+      </section>
+    </main>
+
+    <footer class="ap-page-footer ap-campaign-container"><span>AUTOPILOTS</span><p>Voor de bedrijven van de toekomst.</p><a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></footer>
+  </div>
+</CampaignLayout>
+
+<style>
+  .ap-experience-page nav{display:flex;gap:22px;color:#666;font-size:10px;font-weight:800}.ap-experience-page nav a:hover{color:#9f3826}.ap-experience-hero{padding-block:76px 86px;text-align:center}.ap-page-eyebrow{margin:0 0 20px!important;color:#9f3826;font:700 10px/1.2 "Syne",sans-serif;letter-spacing:1.6px;text-transform:uppercase}.ap-experience-hero h1{max-width:900px;margin:0 auto;font-size:clamp(40px,5vw,54px)!important;line-height:1.07!important;letter-spacing:-.05em!important}.ap-experience-hero h1 em{display:block;color:#9f3826;font-style:italic}.ap-experience-hero>p:not(.ap-page-eyebrow){max-width:700px;margin:24px auto 0!important;color:#656565;font-size:16px;line-height:1.65}.ap-hero-route{display:flex;max-width:700px;align-items:center;justify-content:center;gap:14px;margin:34px auto 0}.ap-hero-route span{display:flex;align-items:center;gap:8px;color:#555;font-size:10px;font-weight:800}.ap-hero-route b{display:grid;width:27px;height:27px;place-items:center;border-radius:9px;background:#111;color:#fff;font:700 8px/1 "Syne",sans-serif}.ap-hero-route i{width:38px;height:1px;background:rgba(17,17,17,.14)}
+  .ap-page-section{padding-block:82px}.ap-page-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.55fr);align-items:end;gap:50px;margin-bottom:38px}.ap-page-head h2{margin:0;font-size:clamp(32px,4vw,52px)!important;line-height:1.07!important;letter-spacing:-.045em!important}.ap-page-head>p{margin:0!important;color:#696969;font-size:13px;line-height:1.65}
+  .ap-system-strip{background:#111;color:#fff}.ap-system-content{display:grid;grid-template-columns:minmax(0,.75fr) minmax(500px,1.25fr);gap:70px;align-items:center;padding-block:72px}.ap-system-content>div>span{color:#e6a096;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.3px;text-transform:uppercase}.ap-system-content h2{margin:18px 0 0;font-size:clamp(32px,3.7vw,48px)!important;line-height:1.07!important}.ap-system-content ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none}.ap-system-content li{border-left:1px solid rgba(255,255,255,.12);padding:8px 20px}.ap-system-content li b{color:#e6a096;font:700 8px/1 "Syne",sans-serif}.ap-system-content li strong{display:block;margin-top:18px;font-size:13px}.ap-system-content li p{margin:9px 0 0!important;color:rgba(255,255,255,.55);font-size:10px;line-height:1.5}
+  .ap-live-route{background:#e9e8e4}.ap-live-route-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(380px,1fr);gap:65px;padding-block:82px}.ap-live-route h2{margin:0;font-size:clamp(32px,4vw,52px)!important;line-height:1.07!important}.ap-live-route>div>div>p:last-child{max-width:570px;margin:24px 0 0!important;color:#656565;font-size:13px;line-height:1.65}.ap-live-route ol{position:relative;display:grid;margin:0;padding:0;list-style:none}.ap-live-route ol:before{position:absolute;top:22px;bottom:22px;left:21px;width:1px;background:#c7aea8;content:""}.ap-live-route li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:17px;padding-bottom:26px}.ap-live-route li>span{z-index:1;display:grid;width:44px;height:44px;place-items:center;border:7px solid #e9e8e4;border-radius:50%;background:#111;color:#fff;font:700 8px/1 "Syne",sans-serif}.ap-live-route li strong{font-size:14px}.ap-live-route li p{margin:6px 0 0!important;color:#6c6c6c;font-size:10px;line-height:1.45}.ap-live-route aside{grid-column:1/-1;display:grid;grid-template-columns:.42fr .8fr 1.1fr;align-items:center;gap:24px;border-top:1px solid rgba(17,17,17,.12);padding-top:27px}.ap-live-route aside span{color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.2px;text-transform:uppercase}.ap-live-route aside strong{font-size:18px}.ap-live-route aside p{margin:0!important;color:#656565;font-size:10px;line-height:1.55}
+  .ap-booking{display:grid;grid-template-columns:minmax(300px,.62fr) minmax(520px,1.38fr);gap:65px;align-items:start;padding-block:82px}.ap-booking-copy{position:sticky;top:30px}.ap-booking-copy h2{margin:0;font-size:clamp(32px,4vw,50px)!important;line-height:1.07!important}.ap-booking-copy>p:last-child{margin:23px 0 0!important;color:#656565;font-size:13px;line-height:1.65}.ap-booking :global(.ap-embed-card){box-shadow:0 20px 65px rgba(17,17,17,.07)}.ap-page-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:75px;border-top:1px solid rgba(17,17,17,.1);color:#777;font-size:9px}.ap-page-footer>span{font-family:"Syne",sans-serif;letter-spacing:2px;font-weight:700}.ap-page-footer a{text-decoration:underline!important;text-underline-offset:3px}
+  @media(max-width:900px){.ap-page-head,.ap-system-content,.ap-live-route-grid,.ap-booking{grid-template-columns:1fr}.ap-page-head{gap:16px}.ap-system-content{gap:40px}.ap-booking-copy{position:static}.ap-live-route aside{grid-template-columns:1fr}}@media(max-width:620px){.ap-experience-page nav{display:none}.ap-experience-hero{padding-block:58px}.ap-experience-hero h1{font-size:42px!important}.ap-hero-route{align-items:flex-start;flex-direction:column;margin-left:0}.ap-hero-route i{display:none}.ap-page-section{padding-block:60px}.ap-page-head h2{font-size:36px!important}.ap-system-content{padding-block:60px}.ap-system-content ol{grid-template-columns:1fr;gap:20px}.ap-live-route-grid,.ap-booking{gap:40px;padding-block:60px}.ap-booking{grid-template-columns:1fr}.ap-page-footer{align-items:flex-start;flex-direction:column;justify-content:center;padding-block:20px}}
+</style>

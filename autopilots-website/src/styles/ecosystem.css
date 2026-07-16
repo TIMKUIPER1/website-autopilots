@@ -156,8 +156,10 @@
 .ap-calculator-output p { margin: 15px 0 0; font-size: 15px; font-weight: 750; }
 .ap-calculator-output small { margin-top: 24px; color: rgba(255,255,255,.55); font-size: 11px; line-height: 1.45; }
 
-.ap-faq-layout { display: grid; grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr); gap: 32px; }
-.ap-faq-list { display: grid; gap: 10px; }
+.ap-faq-layout { display: grid; grid-template-columns: minmax(390px, .82fr) minmax(0, 1.18fr); gap: 52px; align-items: start; }
+.ap-faq-layout > .ap-section-head { min-width: 0; max-width: 100%; padding-right: 0; }
+.ap-faq-layout > .ap-section-head h2 { max-width: 520px; font-size: clamp(30px, 3vw, 38px); line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; overflow-wrap: normal; word-break: normal; hyphens: none; }
+.ap-faq-list { display: grid; min-width: 0; gap: 10px; }
 .ap-faq-list details { border: 1px solid var(--ap-line); border-radius: 20px; background: #fff; overflow: hidden; }
 .ap-faq-list summary { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 19px; cursor: pointer; list-style: none; font-size: 15px; font-weight: 900; }
 .ap-faq-list summary::-webkit-details-marker { display: none; }
@@ -168,9 +170,10 @@
 .ap-related-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .ap-related-grid a { display: flex; min-height: 250px; flex-direction: column; align-items: flex-start; border: 1px solid var(--ap-line); border-radius: 26px; background: #fff; padding: 23px; box-shadow: 0 14px 40px rgba(17,17,17,.04); transition: transform .18s ease, border-color .18s ease; }
 .ap-related-grid a:hover { transform: translateY(-3px); border-color: rgba(159,56,38,.3); }
+.ap-related-grid a:focus-visible { outline: 3px solid rgba(159,56,38,.18); outline-offset: 3px; border-color: rgba(159,56,38,.38); }
 .ap-related-grid a > span { color: var(--ap-brown); font-family: "Syne", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; }
-.ap-related-grid h3 { margin: 18px 0 0; font-size: 22px; line-height: 1.1; }
-.ap-related-grid p { margin: 12px 0 20px; color: var(--ap-muted); font-size: 13px; line-height: 1.5; }
+.ap-related-grid h3 { min-height: 49px; margin: 18px 0 0; font-size: 22px; line-height: 1.1; text-wrap: balance; overflow-wrap: anywhere; }
+.ap-related-grid p { flex: 1; margin: 12px 0 20px; color: var(--ap-muted); font-size: 13px; line-height: 1.5; }
 .ap-related-grid a > strong { margin-top: auto; color: var(--ap-brown); font-size: 12px; }
 
 .ap-final-section { padding-top: 34px; }
@@ -184,14 +187,14 @@
 .ap-dark-workflow h3 { margin: 34px 0 0; font-size: 20px; }
 .ap-dark-workflow p { margin: 12px 0 0; color: rgba(255,255,255,.65); font-size: 13px; line-height: 1.55; }
 
-.ap-product-recommendations { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 11px; }
-.ap-recommendation-card { display: flex; min-height: 280px; flex-direction: column; border: 1px solid var(--ap-line); border-radius: 25px; background: #fff; padding: 21px; }
+.ap-product-recommendations { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.ap-recommendation-card { display: flex; min-width: 0; min-height: 320px; flex-direction: column; border: 1px solid var(--ap-line); border-radius: 27px; background: #fff; padding: 24px; }
 .ap-recommendation-card > span { align-self: flex-start; border-radius: 999px; background: #efefeb; padding: 8px 10px; color: var(--ap-muted); font-family: "Syne", sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
 .ap-recommendation-card.is-primary { border-color: rgba(159,56,38,.3); background: #fff7f4; }
 .ap-recommendation-card.is-selected { border-color: var(--ap-brown); box-shadow: 0 0 0 4px rgba(159,56,38,.12); }
 .ap-recommendation-card.is-primary > span { background: var(--ap-brown); color: #fff; }
-.ap-recommendation-card h3 { margin: 25px 0 0; font-size: 20px; line-height: 1.1; }
-.ap-recommendation-card p { margin: 12px 0 20px; color: var(--ap-muted); font-size: 13px; line-height: 1.5; }
+.ap-recommendation-card h3 { min-height: 48px; margin: 25px 0 0; font-size: 20px; line-height: 1.14; text-wrap: pretty; overflow-wrap: normal; word-break: normal; hyphens: none; }
+.ap-recommendation-card p { flex: 1; margin: 12px 0 20px; color: var(--ap-muted); font-size: 13px; line-height: 1.5; }
 .ap-recommendation-actions { display: grid; gap: 7px; margin-top: auto; }
 .ap-recommendation-actions a { display: flex; min-height: 42px; align-items: center; justify-content: center; border: 1px solid var(--ap-line); border-radius: 999px; background: #fff; padding: 10px 12px; color: #111; font-size: 11px; font-weight: 850; text-align: center; }
 .ap-recommendation-actions a.is-order { border-color: var(--ap-brown); background: var(--ap-brown); color: #fff; }
@@ -211,6 +214,8 @@
   .ap-product-recommendations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ap-dark-workflow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ap-related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ap-faq-layout { grid-template-columns: 1fr; gap: 34px; }
+  .ap-faq-layout > .ap-section-head h2 { max-width: 760px; }
 }
 
 @media (max-width: 820px) {
@@ -228,6 +233,7 @@
   .ap-integration-card { position: static; }
   .ap-final-card { align-items: start; }
   .ap-final-card .ap-actions { justify-content: flex-start; }
+  .ap-product-recommendations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {
@@ -259,6 +265,8 @@
   .ap-calculator-output { min-height: 250px; }
   .ap-calculator-output > strong { font-size: 44px; }
   .ap-product-recommendations { display: grid; }
+  .ap-related-grid h3,
+  .ap-recommendation-card h3 { min-height: 0; }
 }
 
 @media (max-width: 390px) {

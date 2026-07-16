@@ -1,18 +1,27 @@
 ---
 import { products } from "../../data/products";
 import { niches } from "../../data/niches";
+import { defaultLocale, type SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { uiCopy } from "../../i18n/ui";
+interface Props { locale?: SupportedLocale }
+const { locale = defaultLocale } = Astro.props;
+const copy = uiCopy[locale];
+const productPath = (slug: string) => localizedPath(`product.${slug}`, locale);
+const nichePath = (slug: string) => localizedPath(`niche.${slug}`, locale);
+const nicheName = (slug: string, fallback: string) => locale === "nl" ? fallback : nichePath(slug).split("/").filter(Boolean).at(-1)!.replaceAll("-", " ").replace(/(^|\s)\p{L}/gu, (letter) => letter.toUpperCase());
 const year = new Date().getFullYear();
 ---
 
 <footer class="ap-footer">
   <div class="ap-container">
     <div class="ap-footer-box">
-      <div class="ap-footer-brand"><div class="ap-kicker">Autopilots</div><h2>AI-medewerkers die klantcontact omzetten naar actie.</h2><p>Vijf vaste producten, ingericht op de processen, systemen en uitzonderingen van je branche.</p><div class="ap-footer-actions"><a class="ap-button ap-button-primary" href="/afspraak/">Plan een korte analyse</a><a href="/bestel-direct/">Bestel direct →</a></div></div>
-      <nav class="ap-footer-column" aria-label="Producten in footer"><strong>Producten</strong>{products.map((product)=><a href={`/producten/${product.slug}/`}>{product.name}</a>)}</nav>
-      <nav class="ap-footer-column" aria-label="Branches in footer"><strong>Branches</strong>{niches.slice(0,8).map((niche)=><a href={`/voor-wie/${niche.slug}/`}>{niche.name}</a>)}<a href="/voor-wie/">Alle branches</a></nav>
-      <nav class="ap-footer-column" aria-label="Bedrijf in footer"><strong>Autopilots</strong><a href="/proces/">Proces</a><a href="/crew/">Crew</a><a href="/kennisbank/">Kennisbank</a><a href="/contact/">Contact</a><a href="/bestel-direct/">Bestel direct</a><a href="/privacy/">Privacy</a><a href="/voorwaarden/">Voorwaarden bij bestelling</a></nav>
+      <div class="ap-footer-brand"><div class="ap-kicker">Autopilots</div><h2>{copy.footer.title}</h2><p>{copy.footer.text}</p><div class="ap-footer-actions"><a class="ap-button ap-button-primary" href={localizedPath("page.appointment", locale)}>{copy.footer.analysis}</a><a href={localizedPath("page.order", locale)}>{copy.navigation.order} →</a></div></div>
+      <nav class="ap-footer-column" aria-label={copy.navigation.products}><strong>{copy.navigation.products}</strong>{products.map((product)=><a href={productPath(product.slug)}>{copy.products[product.slug]}</a>)}</nav>
+      <nav class="ap-footer-column" aria-label={copy.navigation.niches}><strong>{copy.navigation.niches}</strong>{niches.slice(0,8).map((niche)=><a href={nichePath(niche.slug)}>{nicheName(niche.slug, niche.name)}</a>)}<a href={localizedPath("page.niches", locale)}>{copy.footer.allNiches}</a></nav>
+      <nav class="ap-footer-column" aria-label={copy.footer.company}><strong>{copy.footer.company}</strong><a href={localizedPath("page.process", locale)}>{copy.navigation.process}</a><a href={localizedPath("page.crew", locale)}>{copy.navigation.crew}</a><a href={localizedPath("page.knowledge", locale)}>{copy.navigation.knowledge}</a><a href={localizedPath("page.contact", locale)}>Contact</a><a href={localizedPath("page.order", locale)}>{copy.navigation.order}</a><a href={localizedPath("page.privacy", locale)}>{copy.footer.privacy}</a><a href={localizedPath("page.terms", locale)}>{copy.footer.terms}</a></nav>
     </div>
-    <p class="ap-footer-small">© {year} Autopilots. Gebouwd als systeem, niet als losse marketing.</p>
+    <p class="ap-footer-small">© {year} Autopilots. {copy.footer.future}</p>
   </div>
 </footer>
 

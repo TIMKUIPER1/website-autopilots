@@ -22,7 +22,7 @@ export const commerceByNiche: Record<string, NicheCommerce> = {
       "ai-inboxmedewerker": {
         product: "ai-inboxmedewerker",
         monthly: 399,
-        implementation: 1895,
+        implementation: 1850,
         buyButtonId: "buy_btn_1TsqAzQbNJoBxwDUEQ168YOB",
         usage: "Inbound chat €0,02 per bericht en outbound chat €0,22 per bericht."
       },

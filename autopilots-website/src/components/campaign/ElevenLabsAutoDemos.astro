@@ -1,0 +1,47 @@
+---
+const products = [
+  { key:"telefoniste", number:"01", name:"AI Telefoniste", short:"Bel over verkoop of werkplaats.", agentId:"agent_8301kx8wzxzbfstr2mtyh74taamx", text:"Bel als klant over de Audi A4, een proefrit, APK, onderhoud, storing of banden.", instruction:"Probeer: ‘Ik bel over de Audi A4’ of ‘Ik wil APK plannen’." },
+  { key:"inbox", number:"02", name:"AI Inboxmedewerker", short:"Chat over verkoop of werkplaats.", agentId:"agent_0101kxernqytetz986yz5t9td6zh", text:"Chat als klant over een voorraadauto, inruil, proefrit of werkplaatsafspraak.", instruction:"Probeer: ‘Is de Audi A4 nog beschikbaar?’ of ‘Kan ik deze week APK plannen?’" },
+  { key:"leadopvolger", number:"03", name:"AI Leadopvolger", short:"Test opvolging van platformleads.", agentId:"agent_7901kxer6f80fctrxvg9vkx253x3", text:"Test hoe een nieuwe of openstaande lead wordt opgevolgd richting proefrit, offerte of terugbelmoment.", instruction:"Probeer: ‘Ik kom via Marktplaats en wil een proefrit’ of ‘Kunnen jullie mij terugbellen?’" }
+];
+const json = JSON.stringify(products).replaceAll("<","\\u003c");
+---
+
+<div class="ap-live-demos" data-elevenlabs-demos>
+  <div class="ap-demo-picker" role="tablist" aria-label="Kies een AI-medewerker">
+    {products.map((product,index)=><button class:list={[{"is-active":index===0}]} type="button" role="tab" aria-selected={index===0?"true":"false"} data-demo-product={product.key}><span>{product.number}</span><div><strong>{product.name}</strong><small>{product.short}</small></div></button>)}
+  </div>
+  <div class="ap-demo-experience">
+    <article class="ap-demo-copy">
+      <div class="ap-demo-label">Live praktijktest</div>
+      <h3 data-live-demo-title>{products[0].name}</h3>
+      <p data-live-demo-text>{products[0].text}</p>
+      <ol><li><span>01</span>Kies de AI-medewerker</li><li><span>02</span>Open de live widget</li><li><span>03</span>Praat of chat als klant</li></ol>
+    </article>
+    <div class="ap-widget-stage">
+      <div class="ap-widget-card">
+        <span data-live-demo-instruction>{products[0].instruction}</span>
+        <button type="button" data-live-demo-open data-funnel-event="elevenlabs_demo_opened" data-product={products[0].key}>Open {products[0].name} demo</button>
+        <div class="ap-widget-status" data-widget-status>De live widget wordt pas geladen nadat je klikt.</div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-live-demo-data set:html={json}></script>
+</div>
+
+<script>
+  document.querySelectorAll("[data-elevenlabs-demos]").forEach((root) => {
+    const products = JSON.parse(root.querySelector("[data-live-demo-data]")?.textContent || "[]");
+    const title=root.querySelector("[data-live-demo-title]"),text=root.querySelector("[data-live-demo-text]"),instruction=root.querySelector("[data-live-demo-instruction]"),open=root.querySelector("[data-live-demo-open]"),status=root.querySelector("[data-widget-status]");
+    let active=products[0], scriptPromise;
+    const loadScript=()=>{if(customElements.get("elevenlabs-convai"))return Promise.resolve();if(scriptPromise)return scriptPromise;scriptPromise=new Promise((resolve,reject)=>{const script=document.createElement("script");script.src="https://unpkg.com/@elevenlabs/convai-widget-embed";script.async=true;script.onload=resolve;script.onerror=reject;document.body.append(script)});return scriptPromise};
+    const select=(key)=>{active=products.find(item=>item.key===key)||products[0];title.textContent=active.name;text.textContent=active.text;instruction.textContent=active.instruction;open.textContent=`Open ${active.name} demo`;open.dataset.product=active.key;open.disabled=false;status.textContent="De live widget wordt pas geladen nadat je klikt.";root.querySelectorAll("[data-demo-product]").forEach(button=>{const selected=button.dataset.demoProduct===active.key;button.classList.toggle("is-active",selected);button.setAttribute("aria-selected",String(selected))})};
+    root.querySelectorAll("[data-demo-product]").forEach(button=>button.addEventListener("click",()=>select(button.dataset.demoProduct)));
+    open.addEventListener("click",()=>{document.querySelectorAll("elevenlabs-convai.ap-campaign-widget").forEach(widget=>widget.remove());const widget=document.createElement("elevenlabs-convai");widget.setAttribute("agent-id",active.agentId);widget.className="ap-campaign-widget";document.body.append(widget);open.disabled=true;open.textContent="Widget geopend";status.textContent="De demo opent rechtsonder in beeld.";loadScript().then(()=>customElements.whenDefined("elevenlabs-convai")).then(()=>{if(typeof widget.open==="function")widget.open();else widget.click()}).catch(()=>{open.disabled=false;open.textContent=`Open ${active.name} demo`;status.textContent="De widget kon niet worden geladen. Probeer het opnieuw."})});
+    select(products[0].key);
+  });
+</script>
+
+<style>
+  .ap-live-demos{overflow:hidden;border:1px solid rgba(17,17,17,.1);border-radius:32px;background:#fff;box-shadow:0 24px 70px rgba(17,17,17,.08)}.ap-demo-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid rgba(17,17,17,.09);padding:10px}.ap-demo-picker button{display:grid;grid-template-columns:40px minmax(0,1fr);gap:11px;align-items:center;border:0;border-right:1px solid rgba(17,17,17,.08);background:transparent;padding:16px;color:#777;text-align:left;cursor:pointer}.ap-demo-picker button:last-child{border-right:0}.ap-demo-picker button:hover,.ap-demo-picker button.is-active{border-radius:17px;background:#f3f1ed;color:#111}.ap-demo-picker button>span{display:grid;width:38px;height:38px;place-items:center;border-radius:12px;background:#111;color:#fff;font:700 9px/1 "Syne",sans-serif}.ap-demo-picker strong,.ap-demo-picker small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ap-demo-picker strong{font-size:12px}.ap-demo-picker small{margin-top:5px;font-size:9px}.ap-demo-experience{display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);min-height:480px}.ap-demo-copy{padding:36px}.ap-demo-label{color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.4px;text-transform:uppercase}.ap-demo-copy h3{margin:18px 0 0;font-size:36px;line-height:1.05;letter-spacing:-.045em}.ap-demo-copy>p{margin:16px 0 0!important;color:#686868;font-size:13px;line-height:1.6}.ap-demo-copy ol{display:grid;gap:0;margin:34px 0 0;padding:0;list-style:none}.ap-demo-copy li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;border-top:1px solid rgba(17,17,17,.09);padding:15px 0;font-size:11px;font-weight:800}.ap-demo-copy li span{color:#9f3826;font:700 8px/1 "Syne",sans-serif}.ap-widget-stage{display:grid;place-items:center;background:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px),radial-gradient(circle at 100% 100%,rgba(159,56,38,.38),transparent 38%),#111;background-size:30px 30px,30px 30px,auto;padding:34px}.ap-widget-card{width:min(440px,100%);border:1px solid rgba(255,255,255,.14);border-radius:27px;background:rgba(255,255,255,.08);padding:25px;color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.22)}.ap-widget-card>span{display:block;min-height:48px;color:rgba(255,255,255,.73);font-size:12px;line-height:1.55}.ap-widget-card button{width:100%;min-height:56px;margin-top:22px;border:0;border-radius:999px;background:#9f3826;color:#fff;font-size:13px;font-weight:900;cursor:pointer}.ap-widget-card button:hover{background:#7d2a1d}.ap-widget-card button:disabled{background:#383838;cursor:default}.ap-widget-status{margin-top:13px;color:rgba(255,255,255,.45);font-size:9px;text-align:center}@media(max-width:800px){.ap-demo-picker,.ap-demo-experience{grid-template-columns:1fr}.ap-demo-picker button{border-right:0;border-bottom:1px solid rgba(17,17,17,.08)}.ap-demo-picker button:last-child{border-bottom:0}.ap-demo-experience{min-height:0}.ap-widget-stage{min-height:390px}}@media(max-width:520px){.ap-live-demos{border-radius:25px}.ap-demo-copy,.ap-widget-stage{padding:22px}.ap-demo-copy h3{font-size:30px}}
+</style>

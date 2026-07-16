@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { knowledgeArticles, type KnowledgeArticle } from "../../../content/knowledgeArticles";
+import { products } from "../../../data/products";
+import { niches } from "../../../data/niches";
 
 export function getStaticPaths() {
   return knowledgeArticles.map((article) => ({
@@ -15,6 +17,14 @@ interface Props {
 
 const { article } = Astro.props;
 const canonical = `/kennisbank/${article.slug}/`;
+const absoluteCanonical = `https://auto-pilots.io${canonical}`;
+const relatedKnowledge = (article.relatedArticles ?? [])
+  .map((slug) => knowledgeArticles.find((candidate) => candidate.slug === slug))
+  .filter((candidate): candidate is KnowledgeArticle => Boolean(candidate))
+  .slice(0, 3);
+const relatedProductLinks = (article.relatedProducts ?? []).map((slug) => products.find((product) => product.slug === slug)).filter((product) => Boolean(product)).slice(0, 2);
+const relatedNicheLinks = (article.relatedNiches ?? []).map((slug) => niches.find((niche) => niche.slug === slug)).filter((niche) => Boolean(niche)).slice(0, 2);
+const formatDate = (date: string) => new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00Z`));
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -22,10 +32,15 @@ const articleSchema = {
   description: article.description,
   datePublished: article.published,
   dateModified: article.modified,
-  mainEntityOfPage: `https://auto-pilots.io${canonical}`,
+  mainEntityOfPage: absoluteCanonical,
+  url: absoluteCanonical,
+  image: "https://auto-pilots.io/og/autopilots-og.svg",
+  inLanguage: "nl-NL",
+  articleSection: article.contentCluster ?? article.category,
   author: {
     "@type": "Organization",
-    name: "Autopilots"
+    name: article.author ?? "Autopilots redactie",
+    url: "https://auto-pilots.io/crew/"
   },
   publisher: {
     "@type": "Organization",
@@ -33,6 +48,15 @@ const articleSchema = {
     url: "https://auto-pilots.io"
   },
   keywords: article.keywords.join(", ")
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Kennisbank", item: "https://auto-pilots.io/kennisbank/" },
+    { "@type": "ListItem", position: 2, name: "AI kennis", item: "https://auto-pilots.io/kennisbank/ai/" },
+    { "@type": "ListItem", position: 3, name: article.title, item: absoluteCanonical }
+  ]
 };
 const faqSchema = {
   "@context": "https://schema.org",
@@ -48,16 +72,14 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title={`${article.title} | Autopilots kennisbank`} description={article.description} canonical={canonical}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<BaseLayout title={`${article.cardTitle} | Autopilots`} description={article.description} canonical={canonical} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
 
   <section class="ap-section ap-blog-hero">
     <div class="ap-container">
       <nav class="ap-breadcrumb" aria-label="Breadcrumb">
         <a href="/kennisbank/">Kennisbank</a>
         <span>/</span>
-        <a href="/kennisbank/#laatste-kennis">AI kennis</a>
+        <a href="/kennisbank/ai/">AI kennis</a>
         <span>/</span>
         <strong>{article.category}</strong>
       </nav>
@@ -70,6 +92,12 @@ const faqSchema = {
             <span class="ap-accent">{article.accent}</span>
           </h1>
           <p class="ap-lead">{article.excerpt}</p>
+          <div class="ap-blog-meta" aria-label="Artikelgegevens">
+            <span>{article.author ?? "Autopilots redactie"}</span>
+            <span>Gepubliceerd {formatDate(article.published)}</span>
+            <span>Bijgewerkt {formatDate(article.modified)}</span>
+            <span>{article.readTime} leestijd</span>
+          </div>
           <div class="ap-actions">
             <a class="ap-button ap-button-primary" href="#kort-antwoord">Lees het antwoord</a>
             <a class="ap-button ap-button-secondary" href="/kennisbank/">Terug naar kennisbank</a>
@@ -120,7 +148,7 @@ const faqSchema = {
             <div class="ap-blog-example">
               {article.examples.map((example) => (
                 <div>
-                  <strong>{example.title}</strong>
+                  <h3>{example.title}</h3>
                   <p>{example.text}</p>
                 </div>
               ))}
@@ -170,7 +198,7 @@ const faqSchema = {
             <h2 class="ap-section-title">Wil je weten welke AI route voor jouw bedrijf logisch is?</h2>
             <p class="ap-lead">We kijken naar je klantcontact, bottlenecks, CRM, planning en opvolging. Daarna kiezen we de eerste flow die het snelst waarde oplevert.</p>
           </div>
-          <a class="ap-button ap-button-primary" href="/afspraak/">Plan afspraak</a>
+          <a class="ap-button ap-button-primary" data-ap-event="blog_to_appointment_clicked" href="/afspraak/">Plan afspraak</a>
         </div>
       </article>
 
@@ -182,7 +210,9 @@ const faqSchema = {
             {article.sections.map((section, index) => (
               <a href={`#${section.id}`}>{section.eyebrow} <span>{String(index + 2).padStart(2, "0")}</span></a>
             ))}
-            <a href="#faq">FAQ <span>{String(article.sections.length + 3).padStart(2, "0")}</span></a>
+            {article.examples && <a href="#praktijkvoorbeelden">Praktijk <span>{String(article.sections.length + 2).padStart(2, "0")}</span></a>}
+            <a href="#bronnen">Bronnen <span>{String(article.sections.length + 3).padStart(2, "0")}</span></a>
+            <a href="#faq">FAQ <span>{String(article.sections.length + (article.examples ? 4 : 3)).padStart(2, "0")}</span></a>
           </nav>
         </div>
 
@@ -191,7 +221,8 @@ const faqSchema = {
           <ul>
             <li>{article.label}</li>
             <li>{article.readTime} leestijd</li>
-            <li>Geupdate op 19 juni 2026</li>
+            <li>Door {article.author ?? "Autopilots redactie"}</li>
+            <li>Geüpdatet op {formatDate(article.modified)}</li>
             <li>Praktische voorbeelden en FAQ</li>
           </ul>
         </div>
@@ -203,14 +234,32 @@ const faqSchema = {
     <div class="ap-container">
       <div class="ap-kicker">Gerelateerde kennis</div>
       <h2 class="ap-section-title">Lees logisch verder.</h2>
+      {relatedKnowledge.length > 0 && (
+        <div class="ap-related-grid ap-related-knowledge-grid">
+          {relatedKnowledge.map((item) => (
+            <a class="ap-card" href={`/kennisbank/${item.slug}/`}>
+              <span>{item.contentCluster ?? item.category}</span>
+              <h3>{item.cardTitle}</h3>
+              <p>{item.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      )}
       <div class="ap-related-grid">
         {article.related.map((item) => (
-          <a class="ap-card" href={item.href}>
+          <a class="ap-card" data-ap-event={item.href.startsWith("/producten/") ? "blog_to_product_clicked" : undefined} href={item.href}>
             <span>{item.label}</span>
             <h3>{item.title}</h3>
           </a>
         ))}
       </div>
+      {(relatedProductLinks.length > 0 || relatedNicheLinks.length > 0) && (
+        <div class="ap-related-context" aria-label="Gerelateerde oplossingen en branches">
+          <strong>Sluit aan op</strong>
+          {relatedProductLinks.map((product) => <a href={`/producten/${product!.slug}/`}>{product!.name}</a>)}
+          {relatedNicheLinks.map((niche) => <a href={`/voor-wie/${niche!.slug}/`}>AI voor {niche!.name.toLowerCase()}</a>)}
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>

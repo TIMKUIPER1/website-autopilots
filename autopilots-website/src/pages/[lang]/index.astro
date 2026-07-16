@@ -1,13 +1,14 @@
 ---
 import { supportedLocales } from "../../i18n/languages";
-import Homepage from "../index.astro";
+import LocalizedHome from "../../components/i18n/LocalizedHome.astro";
 
 export function getStaticPaths() {
   return supportedLocales.map((locale) => ({ params: { lang: locale.code } }));
 }
 
 const { lang } = Astro.params;
-if (lang !== "nl") return Astro.redirect("/", 302);
+const locale = supportedLocales.find((item) => item.code === lang)?.code;
+if (!locale) return Astro.redirect("/", 302);
 ---
 
-<Homepage pageTitle="Autopilots Nederland | AI medewerkers voor klantcontact" canonical="/nl/" />
+<LocalizedHome locale={locale} />

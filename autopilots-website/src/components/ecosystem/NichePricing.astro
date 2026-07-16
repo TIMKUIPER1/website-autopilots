@@ -1,0 +1,47 @@
+---
+import type { Niche } from "../../data/niches";
+import { getNichePricing } from "../../data/pricing";
+
+interface Props { niche: Niche }
+const { niche } = Astro.props;
+const packages = getNichePricing(niche.slug);
+const format = (value: number) => new Intl.NumberFormat("nl-NL").format(value);
+---
+
+<section class="ap-section ap-pricing-section" id="tarieven" data-pricing-view>
+  <div class="ap-container">
+    <div class="ap-section-head"><div class="ap-kicker">Transparante tarieven</div><h2>Je weet vooraf wat de AI-medewerker <span class="ap-title-accent">kost.</span></h2><p>Vergelijk het maandbedrag, de eenmalige inrichting en eventuele gebruikskosten. Voor de start leggen we duidelijk vast welke kanalen, koppelingen en werkzaamheden zijn inbegrepen.</p></div>
+    <div class="ap-niche-pricing-grid">
+      {packages.map((item) => <article class:list={["ap-niche-price-card", { "is-featured": item.slug === "complete-ai-medewerker" }]}>
+        <div class="ap-price-card-main">
+          <span class="ap-price-badge">{item.badge}</span>
+          <h3>{item.name}</h3>
+          <div class="ap-price-amount"><strong>€{format(item.monthlyPrice)}</strong><span>per maand</span></div>
+          <p class="ap-setup-price">Eenmalige implementatie <strong>€{format(item.setupPrice)}</strong></p>
+          <ul>{item.included.map((included) => <li>{included}</li>)}</ul>
+        </div>
+        <details><summary>Gebruikskosten en voorwaarden <span aria-hidden="true">+</span></summary><p>{item.usagePricing} Maandelijks opzegbaar met een opzegtermijn van één maand. Voor de start spreken we af welke systemen worden gekoppeld en wat de AI-medewerker zelfstandig mag uitvoeren.</p></details>
+        <div class="ap-price-actions">
+          {item.directCheckoutAvailable && item.proposalUrl
+            ? <a class="ap-button ap-button-primary" data-ap-event="stripe_route_opened" data-ap-product={item.product} data-ap-niche={niche.slug} href={item.proposalUrl}>Bestel direct</a>
+            : <a class="ap-button ap-button-primary" data-ap-event="pricing_configuration_requested" data-ap-product={item.product} data-ap-niche={niche.slug} href={`/afspraak/?route=bestellen&branche=${niche.slug}${item.product ? `&product=${item.product}` : ""}`}>Plan de implementatie</a>}
+          {item.product && <a class="ap-price-product-link" href={`/producten/${item.product}/?branche=${niche.slug}`}>Bekijk {item.name}</a>}
+        </div>
+      </article>)}
+    </div>
+    <div class="ap-pricing-note"><strong>Goed om te weten</strong><p>Alle bedragen zijn exclusief btw. Extra maatwerk of aanvullende ontwikkeling bespreken en bevestigen we altijd vooraf.</p><a href="/voorwaarden/">Bekijk de voorwaarden</a></div>
+  </div>
+</section>
+
+<style>
+  .ap-pricing-section{background:#111;color:#fff}.ap-pricing-section .ap-kicker{color:#e7a295}.ap-pricing-section .ap-section-head p{color:rgba(255,255,255,.66)}
+  .ap-niche-pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+  .ap-niche-price-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.045));padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}.ap-niche-price-card.is-featured{border-color:rgba(231,162,149,.38);background:linear-gradient(145deg,#241815,#4a2019)}
+  .ap-price-card-main{display:flex;flex-direction:column}.ap-price-badge{align-self:flex-start;border-radius:999px;background:#fff;padding:8px 11px;color:var(--ap-brown);font:700 9px/1 "Syne",sans-serif;letter-spacing:1.1px;text-transform:uppercase}.ap-niche-price-card h3{margin:18px 0 0;font-size:26px;line-height:1.08;text-wrap:balance}
+  .ap-price-amount{display:flex;align-items:flex-end;gap:10px;margin-top:20px}.ap-price-amount strong{font:700 42px/1 "Syne",sans-serif}.ap-price-amount span{padding-bottom:4px;color:rgba(255,255,255,.64);font-size:12px}.ap-setup-price{margin:14px 0 0;color:rgba(255,255,255,.7);font-size:13px}.ap-setup-price strong{color:#fff}
+  .ap-niche-price-card ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin:20px 0;padding:0;list-style:none}.ap-niche-price-card li{font-size:12px;line-height:1.4;font-weight:750}.ap-niche-price-card li:before{content:"✓";margin-right:8px;color:#e7a295;font-weight:900}
+  .ap-niche-price-card details{margin-top:2px;border:1px solid rgba(255,255,255,.13);border-radius:17px}.ap-niche-price-card summary{display:flex;justify-content:space-between;gap:12px;padding:14px;cursor:pointer;list-style:none;font-size:12px;font-weight:850}.ap-niche-price-card summary::-webkit-details-marker{display:none}.ap-niche-price-card details p{margin:0;padding:0 14px 14px;color:rgba(255,255,255,.66);font-size:11px;line-height:1.55}
+  .ap-price-actions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:16px}.ap-price-actions .ap-button{min-height:44px;padding:12px 16px;font-size:12px}.ap-price-product-link{color:#e7a295;font-size:12px;font-weight:850}.ap-price-product-link:hover{text-decoration:underline;text-underline-offset:4px}
+  .ap-pricing-note{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:14px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(255,255,255,.05);padding:18px}.ap-pricing-note strong{color:#e7a295;font:700 10px/1 "Syne",sans-serif;letter-spacing:1.2px;text-transform:uppercase}.ap-pricing-note p{margin:0;color:rgba(255,255,255,.62);font-size:11px;line-height:1.5}.ap-pricing-note a{color:#fff;font-size:11px;font-weight:850}
+  @media(max-width:760px){.ap-niche-pricing-grid{grid-template-columns:1fr}.ap-niche-price-card{border-radius:25px;padding:22px}.ap-niche-price-card h3{min-height:0}.ap-niche-price-card ul{grid-template-columns:1fr}.ap-pricing-note{grid-template-columns:1fr}.ap-price-amount strong{font-size:36px}}
+</style>

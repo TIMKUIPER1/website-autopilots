@@ -417,7 +417,10 @@ p {
 }
 
 .ap-article-card h3 {
+  min-height: 90px;
   font-size: clamp(27px, 3.4vw, 42px);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .ap-feature-card p,
@@ -434,6 +437,21 @@ p {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.ap-article-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-article-card p {
+  flex: 1;
+}
+
+.ap-feature-card:focus-visible,
+.ap-article-card:focus-visible {
+  outline: 3px solid rgba(159, 56, 38, 0.18);
+  outline-offset: 3px;
 }
 
 .ap-article-card .ap-chip-row em {
@@ -474,6 +492,26 @@ p {
   grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
   gap: 26px;
   align-items: end;
+}
+
+.ap-blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 24px;
+}
+
+.ap-blog-meta span {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  border: 1px solid var(--ap-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 7px 11px;
+  color: var(--ap-muted);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .ap-blog-intent h2,
@@ -556,6 +594,7 @@ p {
 .ap-blog-article section {
   padding: 38px 0;
   border-top: 1px solid var(--ap-line);
+  scroll-margin-top: 112px;
 }
 
 .ap-blog-article section:first-of-type {
@@ -585,9 +624,10 @@ p {
   padding: 22px;
 }
 
-.ap-blog-example strong {
+.ap-blog-example h3 {
   display: block;
   font-size: 20px;
+  line-height: 1.2;
 }
 
 .ap-keyword-list,
@@ -712,6 +752,49 @@ p {
   font-size: 22px;
   line-height: 1.14;
   font-weight: 900;
+}
+
+.ap-related-knowledge-grid {
+  margin-bottom: 16px;
+}
+
+.ap-related-knowledge-grid a {
+  min-height: 255px;
+}
+
+.ap-related-knowledge-grid p {
+  margin-top: 14px;
+  color: var(--ap-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.ap-related-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.ap-related-context > strong,
+.ap-related-context > a {
+  border: 1px solid var(--ap-line);
+  border-radius: 999px;
+  padding: 10px 13px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.ap-related-context > strong {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.ap-related-context > a {
+  background: #fff;
+  color: var(--ap-brown);
 }
 
 @media (max-width: 900px) {

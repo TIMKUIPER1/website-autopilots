@@ -53,6 +53,24 @@ Gebruik in Astro:
 />
 ```
 
+### Besloten advertentiefunnel autobedrijven
+
+De routes `/lp/autobedrijven/ai-medewerker/` en `/lp/autobedrijven/ai-medewerker/ervaring/` staan los van de publieke navigatie en sitemap. De leadfunctie staat in `netlify/functions/funnel-lead.mjs` en gebruikt één van deze serverconfiguraties:
+
+```txt
+GHL_AUTOBEDRIJVEN_FUNNEL_WEBHOOK_URL
+```
+
+Of rechtstreeks via een HighLevel Private Integration:
+
+```txt
+GHL_PRIVATE_INTEGRATION_TOKEN
+GHL_LOCATION_ID
+GHL_FUNNEL_CONTEXT_FIELD_KEY       # optioneel
+```
+
+Zet deze waarden uitsluitend als beveiligde omgevingsvariabelen op de hosting en nooit in browsercode. De route `/api/funnel-lead` wordt door de serverfunctie afgehandeld.
+
 ## SEO volgorde
 
 Eerst bouwen:

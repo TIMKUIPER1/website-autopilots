@@ -2,5 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://auto-pilots.io/sitemap.xml
-
-Sitemap: https://auto-pilots.io/sitemap-index.xml

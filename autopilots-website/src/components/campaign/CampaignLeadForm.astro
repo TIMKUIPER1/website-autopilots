@@ -1,0 +1,58 @@
+---
+import type { MarketingFunnelConfig } from "../../data/marketingFunnels";
+interface Props { config: MarketingFunnelConfig; experiencePath: string }
+const { config, experiencePath } = Astro.props;
+---
+
+<form class="ap-entry-form" data-campaign-lead-form data-campaign-attribution data-experience-path={experiencePath} novalidate>
+  <input type="hidden" name="intent" value="demo" />
+  <input type="hidden" name="campaignName" value={config.campaignName} />
+  <input type="hidden" name="niche" value={config.niche} />
+  <div class="ap-entry-fields">
+    <label><span>Naam</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Voor- en achternaam" /></label>
+    <label><span>Autobedrijf</span><input name="company" autocomplete="organization" required maxlength="120" placeholder="Bedrijfsnaam" /></label>
+    <label class="is-wide"><span>Zakelijk e-mailadres</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="naam@autobedrijf.nl" /></label>
+  </div>
+  <label class="ap-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+  <label class="ap-entry-consent"><input name="consent" type="checkbox" required /><span>Ik ga akkoord met verwerking van mijn gegevens voor de test en eventuele opvolging. Lees de <a href="/privacy/" target="_blank" rel="noopener noreferrer">privacyinformatie</a>.</span></label>
+  <button class="ap-entry-submit" type="submit" data-submit-label>Test de AI-medewerker & bereken de impact <span aria-hidden="true">→</span></button>
+  <p class="ap-entry-note">Direct toegang · Geen aankoopverplichting · Geen generieke mailing</p>
+  <p class="ap-entry-status" data-form-status aria-live="polite"></p>
+</form>
+
+<script>
+  document.querySelectorAll("[data-campaign-lead-form]").forEach((form) => {
+    const submit = form.querySelector("[data-submit-label]");
+    const status = form.querySelector("[data-form-status]");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault(); status.textContent = "";
+      if (!form.reportValidity()) return;
+      submit.disabled = true; submit.setAttribute("aria-busy", "true");
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload.consent = form.elements.consent.checked;
+      const target = new URL(form.dataset.experiencePath, location.origin);
+      const attribution = window.apCampaign?.attribution || {};
+      ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"].forEach((key) => { if (attribution[key]) target.searchParams.set(key, attribution[key]); });
+      try {
+        window.apCampaign?.emit?.("lead_form_submitted", { intent: "combined" });
+        const response = await fetch("/api/funnel-lead", { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(payload) });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.message || "Versturen is nu niet gelukt.");
+        window.apCampaign?.emit?.("lead_form_succeeded", { intent: "combined" });
+        location.assign(`${target.pathname}${target.search}`);
+      } catch (error) {
+        if (["localhost", "127.0.0.1"].includes(location.hostname)) {
+          status.textContent = "Lokale preview: de ervaring wordt geopend zonder CRM-opslag.";
+          setTimeout(() => location.assign(`${target.pathname}${target.search}`), 500); return;
+        }
+        window.apCampaign?.emit?.("lead_form_failed", { intent: "combined" });
+        status.textContent = error.message || "Versturen is nu niet gelukt. Probeer het opnieuw.";
+        submit.disabled = false; submit.removeAttribute("aria-busy");
+      }
+    });
+  });
+</script>
+
+<style>
+  .ap-entry-form{margin-top:28px}.ap-entry-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.ap-entry-fields label{display:grid;gap:8px;color:#555;font-size:11px;font-weight:850}.ap-entry-fields .is-wide{grid-column:1/-1}.ap-entry-fields input{width:100%;min-height:54px;border:1px solid rgba(17,17,17,.12);border-radius:16px;background:#f8f8f5;padding:0 15px;color:#111;font-size:14px}.ap-entry-fields input:focus{border-color:#9f3826;outline:3px solid rgba(159,56,38,.11)}.ap-honeypot{position:absolute!important;left:-10000px!important}.ap-entry-consent{display:flex;align-items:flex-start;gap:10px;margin-top:16px;color:#6b6b6b;font-size:10px;line-height:1.5}.ap-entry-consent input{margin-top:2px;accent-color:#9f3826}.ap-entry-consent a{text-decoration:underline!important;text-underline-offset:2px}.ap-entry-submit{display:flex;width:100%;min-height:58px;align-items:center;justify-content:center;gap:22px;margin-top:18px;border:0;border-radius:999px;background:#9f3826;padding:14px 22px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 16px 38px rgba(159,56,38,.2);transition:.2s}.ap-entry-submit:hover{background:#7d2a1d;transform:translateY(-1px)}.ap-entry-submit:disabled{cursor:wait;opacity:.65}.ap-entry-note{margin:11px 0 0!important;color:#8a8a8a;font-size:9px;text-align:center}.ap-entry-status{min-height:18px;margin:7px 0 0!important;color:#9f3826;font-size:10px;font-weight:800;text-align:center}@media(max-width:560px){.ap-entry-fields{grid-template-columns:1fr}.ap-entry-fields .is-wide{grid-column:auto}.ap-entry-submit{font-size:12px}}
+</style>

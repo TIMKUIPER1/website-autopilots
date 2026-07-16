@@ -1,20 +1,4 @@
 import type { APIRoute } from "astro";
-import { products } from "../data/products";
-import { niches } from "../data/niches";
-import { knowledgeArticles } from "../content/knowledgeArticles";
-
-export const prerender = true;
-
-const staticRoutes = ["/", "/producten/", "/voor-wie/", "/proces/", "/crew/", "/kennisbank/", "/kennisbank/ai/", "/kennisbank/autopilots/", "/afspraak/", "/contact/", "/bestel-direct/", "/privacy/"];
-
-export const GET: APIRoute = ({ site }) => {
-  const origin = site ?? new URL("https://auto-pilots.io");
-  const routes = [
-    ...staticRoutes,
-    ...products.map((product) => `/producten/${product.slug}/`),
-    ...niches.map((niche) => `/voor-wie/${niche.slug}/`),
-    ...knowledgeArticles.map((article) => `/kennisbank/${article.slug}/`)
-  ];
-  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((route) => `  <url><loc>${new URL(route, origin).toString()}</loc></url>`).join("\n")}\n</urlset>`;
-  return new Response(body, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
-};
+import { supportedLocales } from "../i18n/languages";
+export const prerender=true;
+export const GET:APIRoute=({site})=>{const origin=site??new URL("https://auto-pilots.io");const body=`<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${supportedLocales.map(locale=>`  <sitemap><loc>${new URL(`/sitemap-${locale.code}.xml`,origin)}</loc></sitemap>`).join("\n")}\n</sitemapindex>`;return new Response(body,{headers:{"Content-Type":"application/xml; charset=utf-8"}})};

@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import "../styles/campaign.css";
+
+interface Props { title: string; description: string; canonical: string; campaign: string }
+const { title, description, canonical, campaign } = Astro.props;
+const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f2" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+    <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    <a class="ap-skip-link" href="#campaign-content">Ga naar de inhoud</a>
+    <main id="campaign-content"><slot /></main>
+    <script is:inline define:vars={{ campaign }}>
+      (()=>{
+        const keys=["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"];
+        const params=new URLSearchParams(location.search);
+        const current={};keys.forEach(key=>{if(params.has(key))current[key]=params.get(key)});
+        let stored={};try{stored=JSON.parse(sessionStorage.getItem("ap_campaign_attribution")||"{}")||{}}catch{}
+        const attribution={...stored,...current,landing_page:stored.landing_page||location.pathname,campaign};
+        try{sessionStorage.setItem("ap_campaign_attribution",JSON.stringify(attribution))}catch{}
+        const emit=(name,detail={})=>{const event={event:name,page_path:location.pathname,campaign,...attribution,...detail};window.dispatchEvent(new CustomEvent("autopilots:analytics",{detail:event}));if(Array.isArray(window.dataLayer))window.dataLayer.push(event)};
+        window.apCampaign={attribution,emit};
+        emit("funnel_page_viewed");
+        document.querySelectorAll("[data-campaign-attribution]").forEach(form=>{Object.entries(attribution).forEach(([key,value])=>{let input=form.querySelector(`[name="${CSS.escape(key)}"]`);if(!input){input=document.createElement("input");input.type="hidden";input.name=key;form.append(input)}input.value=String(value||"")})});
+        document.querySelectorAll('a[href^="/lp/"]').forEach(anchor=>{const url=new URL(anchor.href,location.origin);keys.forEach(key=>{if(attribution[key]&&!url.searchParams.has(key))url.searchParams.set(key,attribution[key])});anchor.href=`${url.pathname}${url.search}${url.hash}`});
+        document.addEventListener("click",event=>{const target=event.target.closest("[data-funnel-event]");if(target)emit(target.dataset.funnelEvent,{intent:target.dataset.intent,product:target.dataset.product})});
+      })();
+    </script>
+  </body>
+</html>

@@ -7,7 +7,7 @@ const walk = (directory) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) walk(path);
-    else if (entry.name.endsWith(".html")) htmlFiles.push(path);
+    else if (entry.name === "index.html" || entry.name === "404.html") htmlFiles.push(path);
   }
 };
 walk(root);

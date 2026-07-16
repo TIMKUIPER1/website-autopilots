@@ -1,3 +1,6 @@
+import { researchKnowledgeArticles } from "./researchKnowledgeArticles";
+import { strategicKnowledgeArticles } from "./strategicKnowledgeArticles";
+
 export type KnowledgeArticle = {
   slug: string;
   category: string;
@@ -14,6 +17,15 @@ export type KnowledgeArticle = {
   conversion: string;
   published: string;
   modified: string;
+  reviewed?: string;
+  author?: string;
+  primaryKeyword?: string;
+  searchIntent?: string;
+  contentCluster?: string;
+  pillar?: boolean;
+  relatedArticles?: string[];
+  relatedProducts?: string[];
+  relatedNiches?: string[];
   keywords: string[];
   summary: string[];
   sections: {
@@ -42,7 +54,7 @@ export type KnowledgeArticle = {
   }[];
 };
 
-export const knowledgeArticles: KnowledgeArticle[] = [
+export const legacyKnowledgeArticles: KnowledgeArticle[] = [
   {
     slug: "wat-betekenen-ai-agents-voor-klantcontact",
     category: "OpenAI agents",
@@ -727,8 +739,11 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       { label: "Google AI features en Search", href: "https://developers.google.com/search/docs/appearance/ai-features" },
       { label: "Anthropic Claude documentatie", href: "https://docs.anthropic.com/en/docs/about-claude/models/overview" }
     ]
-  }
+  },
+  ...researchKnowledgeArticles
 ];
+
+export const knowledgeArticles: KnowledgeArticle[] = strategicKnowledgeArticles;
 
 export const getKnowledgeArticle = (slug: string) =>
   knowledgeArticles.find((article) => article.slug === slug);

@@ -1,0 +1,29 @@
+# AI Kennis — kwalitatieve keywordmap
+
+Er zijn geen zoekvolumes of difficulty-scores gebruikt. “Kans” is een kwalitatieve beoordeling op zoekintentie, SERP-kwaliteit, commerciële aansluiting, clusterfunctie en actualiteit.
+
+| # | SEO-titel / slug | Primair keyword | Secundair en long-tail | Intentie / funnel | Cluster / rol | Product / niche | Content gap en kans | Review |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Wat is een AI-medewerker? `/wat-is-een-ai-medewerker/` | wat is een AI-medewerker | AI medewerker bedrijf, digitale medewerker, wat kan AI medewerker | Informatief / awareness | A / pillar | Alle producten; autobedrijven, installatie | SERP is commercieel en claimgericht; kans voor concrete neutrale definitie | Halfjaarlijks |
+| 2 | Wat is een AI-telefoniste? `/wat-is-een-ai-telefoniste/` | wat is een AI-telefoniste | automatische telefonie, AI telefoon aannemen, voice agent | Informatief-commercieel / consideration | A / supporting | AI Telefoniste; tandartsen, installatie, autobedrijven | Resultaten zijn vooral aanbieders; proces, grenzen en fallback ontbreken vaak | Halfjaarlijks |
+| 3 | Chatbot, voicebot of AI-medewerker `/chatbot-voicebot-ai-medewerker-verschil/` | chatbot voicebot verschil | AI medewerker vs chatbot, kanaalkeuze | Vergelijkend / consideration | A / supporting | Inbox, Telefoniste | Heldere beslismatrix en systeemactie vormen de gap | Jaarlijks |
+| 4 | Wat is AI-leadopvolging? `/wat-is-ai-leadopvolging/` | AI leadopvolging | leads automatisch opvolgen, AI sales opvolging | Informatief-commercieel / consideration | B / pillar | AI Leadopvolger; autobedrijven, makelaars | SERP bestaat grotendeels uit landingspagina’s met harde claims | Halfjaarlijks |
+| 5 | Hoe snel een lead opvolgen? `/hoe-snel-nieuwe-lead-opvolgen/` | hoe snel lead opvolgen | responstijd leads, nieuwe lead bellen, buiten openingstijd | Probleemgericht / consideration | B / supporting | Leadopvolger, Telefoniste; autobedrijven | Veel onbewezen universele minuutclaims; kans voor situationele aanpak | Jaarlijks |
+| 6 | ROI automatische leadopvolging `/roi-automatische-leadopvolging-berekenen/` | ROI leadopvolging berekenen | businesscase lead automation, gemiste leads berekenen | Reken-/beslisintentie / decision | B / supporting | Leadopvolger, CRM | Transparant rekenmodel met aannames ontbreekt vaak | Halfjaarlijks |
+| 7 | AI voor e-mail, WhatsApp en chat `/ai-email-whatsapp-websitechat/` | AI voor e-mail en WhatsApp | omnichannel AI inbox, websitechat automatiseren | Informatief-commercieel / consideration | C / pillar | AI Inboxmedewerker; vastgoedbeheer, kappers | SERP behandelt kanalen los; gezamenlijke context en overdracht zijn de gap | Halfjaarlijks |
+| 8 | Hoe AI en CRM samenwerken `/hoe-werken-ai-en-crm-samen/` | AI en CRM | AI CRM koppeling, gesprek naar CRM, AI pipeline | Informatief / consideration | C / supporting | Autopilots CRM; alle niches | Veel featurelijsten, weinig uitleg over rechten, velden en foutafhandeling | Halfjaarlijks |
+| 9 | Klantcontact veilig automatiseren `/klantcontactprocessen-veilig-automatiseren/` | klantcontact automatiseren met AI | processen automatiseren, AI workflow klantcontact | Praktisch / consideration | C / supporting | Alle producten | Beslisboom voor lezen, voorstellen, uitvoeren en overdragen ontbreekt | Jaarlijks |
+| 10 | AI-medewerker implementeren `/ai-medewerker-implementeren/` | AI medewerker implementeren | AI implementatie stappenplan, AI agent livegang | Praktisch / decision | D / pillar | Proces; alle niches | Veel algemene implementatiegidsen; klantcontactroute en productie-QA zijn onderscheidend | Halfjaarlijks |
+| 11 | Hallucinaties voorkomen `/verkeerde-ai-antwoorden-hallucinaties-voorkomen/` | AI hallucinaties voorkomen | betrouwbare AI antwoorden, RAG, AI guardrails | Risico-oplossing / consideration | D / supporting | Inbox, Telefoniste | Actuele primaire richtlijnen plus operationele testroute bieden sterke gap | Kwartaal |
+| 12 | Menselijke overdracht `/menselijke-overdracht-ai-klantcontact/` | AI gesprek medewerker overnemen | human in the loop, chatbot naar medewerker | Praktisch / consideration | D / supporting | Alle producten | Toezichthouders benadrukken mensroute; concrete contextoverdracht ontbreekt vaak | Halfjaarlijks |
+| 13 | AI en AVG klantcontact `/ai-avg-geautomatiseerd-klantcontact/` | AI AVG klantcontact | persoonsgegevens AI chatbot, DPIA AI, bewaartermijn transcript | Compliance / consideration | E / supporting | Alle producten; zorg, verzekeraars | Nederlandse toezichthouderbronnen en praktische datastroom in één gids | Kwartaal |
+| 14 | EU AI Act en AI-klantcontact `/ai-act-chatbot-melden-dat-het-ai-is/` | AI Act chatbot transparantie | artikel 50 AI Act, melden dat chatbot AI is | Compliance / consideration | E / supporting | Chat en Voice | Zeer actueel; onderscheid door datumgebonden, voorzichtige implementatieuitleg | Kwartaal tot stabilisatie |
+| 15 | Voice AI trends 2026 `/voice-ai-conversational-ai-ontwikkelingen-2026/` | voice AI ontwikkelingen 2026 | conversational AI trends, realtime voice, live vertaling | Actueel / awareness | E / supporting | AI Telefoniste; meertalige service | Releaseberichten zijn versnipperd; kans voor zakelijke selectiecriteria | Kwartaal |
+
+## Cannibalisatiegrenzen
+
+- Artikel 1 definieert de overkoepelende rol; artikel 2 behandelt uitsluitend telefonie; artikel 3 helpt kanalen kiezen.
+- Artikel 4 legt de workflow uit; artikel 5 behandelt timing en prioritering; artikel 6 uitsluitend het rekenmodel.
+- Artikel 7 behandelt kanaaloverstijgende inbox; artikel 8 de systeemlaag; artikel 9 de processelectie en risicoklassen.
+- Artikel 10 gaat over het implementatieprogramma; artikel 11 over antwoordkwaliteit; artikel 12 over overdracht.
+- Artikel 13 behandelt persoonsgegevens/AVG; artikel 14 AI Act-transparantie; artikel 15 technologieontwikkelingen.
