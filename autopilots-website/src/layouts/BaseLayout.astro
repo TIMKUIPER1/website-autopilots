@@ -1,11 +1,12 @@
 ---
 import "../styles/global.css";
 import "../styles/ecosystem.css";
+import "../styles/autoreviews-clean.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import { contentIdFromPath, localizedAlternates } from "../i18n/routes";
 import { defaultLocale, getLocale, getLocaleFromPath, type SupportedLocale } from "../i18n/languages";
-import { localizedPath } from "../i18n/routes";
+import ConsentManager from "../components/privacy/ConsentManager.astro";
 import { uiCopy } from "../i18n/ui";
 
 interface Props {
@@ -36,7 +37,12 @@ const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).toString();
 const siteUrl = new URL("/", Astro.site ?? Astro.url.origin).toString();
 const localeConfig = getLocale(locale);
-const copy = uiCopy[locale];
+const ui = uiCopy[locale];
+const legacyDutchRoute = locale === "nl" && Astro.url.pathname !== "/" && !Astro.url.pathname.startsWith("/nl/") && !Astro.url.pathname.startsWith("/lp/") && !Astro.url.pathname.startsWith("/voorstel/");
+const effectiveNoindex = noindex || legacyDutchRoute;
+// Route-family parity is explicit: every localized sibling is emitted so crawlers and
+// visitors can move between the same content family. Incomplete routes remain noindex
+// at page level until their full template is connected.
 const alternates = contentId ? localizedAlternates(contentId) : [];
 const globalSchema = [
   { "@context": "https://schema.org", "@type": "Organization", name: "Autopilots", url: siteUrl, logo: ogImageUrl },
@@ -52,11 +58,12 @@ const schemaItems = [...globalSchema, ...(schema ? (Array.isArray(schema) ? sche
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f5f5f2" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" href="/og/autopilots-og.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
+    <meta name="robots" content={effectiveNoindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -74,17 +81,14 @@ const schemaItems = [...globalSchema, ...(schema ? (Array.isArray(schema) ? sche
     <script type="application/ld+json" set:html={JSON.stringify(schemaItems).replaceAll("<", "\\u003c")} />
     <slot name="head" />
   </head>
-  <body>
-    <a class="ap-skip-link" href="#main-content">{copy.navigation.menu}</a>
+  <body class="ap-autoreviews-clean">
+    <a class="ap-skip-link" href="#main-content">{ui.system.skipToContent}</a>
     <Header locale={locale} contentId={contentId} />
     <main id="main-content">
       <slot />
     </main>
     <Footer locale={locale} />
-    <nav class="ap-mobile-actionbar" aria-label={copy.navigation.menu}>
-      <a data-ap-event="appointment_cta_clicked" href={localizedPath("page.appointment", locale)}>{copy.navigation.appointment}</a>
-      <a data-ap-event="direct_order_clicked" href={localizedPath("page.order", locale)}>{copy.navigation.order}</a>
-    </nav>
+    <ConsentManager locale={locale} />
     <script is:inline>
       (() => {
         const sent = new Set();
@@ -92,18 +96,23 @@ const schemaItems = [...globalSchema, ...(schema ? (Array.isArray(schema) ? sche
           const key = onceKey && `${name}:${onceKey}`;
           if (key && sent.has(key)) return;
           if (key) sent.add(key);
-          const safe = { event: name, page_path: location.pathname, ...detail };
+          const safe = { event: name, page_path: location.pathname, ...detail, _ap_origin: "layout" };
           window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail: safe }));
-          if (Array.isArray(window.dataLayer)) window.dataLayer.push(safe);
+          if (window.autopilotsConsent?.analytics && Array.isArray(window.dataLayer)) window.dataLayer.push(safe);
         };
+        window.addEventListener("autopilots:analytics", (event) => {
+          const detail = event.detail || {};
+          if (detail._ap_origin === "layout" || !detail.event) return;
+          if (window.autopilotsConsent?.analytics && Array.isArray(window.dataLayer)) window.dataLayer.push({ ...detail, page_path: detail.page_path || location.pathname });
+        });
         const productRoot = document.querySelector("[data-product-root]");
         const nicheRoot = document.querySelector("[data-niche-root]");
         if (productRoot) emit("product_viewed", { product: productRoot.dataset.product }, location.pathname);
         if (nicheRoot) emit("niche_viewed", { niche: nicheRoot.dataset.niche }, location.pathname);
-        const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+        const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "msclkid"];
         const campaign = new URLSearchParams(location.search);
         if (campaignKeys.some((key) => campaign.has(key))) {
-          document.querySelectorAll('a[href^="/afspraak/"],a[href^="/bestel-direct/"],a[href^="/voorstel/"]').forEach((anchor) => {
+          document.querySelectorAll('a[href^="/nl/afspraak/"],a[href^="/nl/bestel-direct/"],a[href^="/voorstel/"]').forEach((anchor) => {
             const url = new URL(anchor.href, location.origin);
             campaignKeys.forEach((key) => { if (campaign.has(key) && !url.searchParams.has(key)) url.searchParams.set(key, campaign.get(key)); });
             anchor.href = `${url.pathname}${url.search}${url.hash}`;

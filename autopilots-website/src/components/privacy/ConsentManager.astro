@@ -1,0 +1,56 @@
+---
+import { defaultLocale, type SupportedLocale } from "../../i18n/languages";
+import { uiCopy } from "../../i18n/ui";
+import { publicRuntime } from "../../config/publicRuntime";
+
+interface Props { locale?: SupportedLocale }
+const { locale = defaultLocale } = Astro.props;
+const copy = uiCopy[locale].system;
+---
+
+<div class="ap-consent" data-consent-banner hidden role="dialog" aria-modal="false" aria-labelledby="ap-consent-title">
+  <div>
+    <strong id="ap-consent-title">{copy.consentTitle}</strong>
+    <p>{copy.consentText}</p>
+  </div>
+  <div class="ap-consent-actions">
+    <button type="button" data-consent-reject>{copy.consentReject}</button>
+    <button type="button" class="is-primary" data-consent-accept>{copy.consentAccept}</button>
+  </div>
+</div>
+
+<script define:vars={{ provider: publicRuntime.analyticsProvider, siteId: publicRuntime.analyticsSiteId }} is:inline>
+  (() => {
+    const storageKey = "autopilots_consent_v1";
+    const banner = document.querySelector("[data-consent-banner]");
+    let state = { necessary: true, analytics: false, decided: false };
+    try {
+      const stored = JSON.parse(localStorage.getItem(storageKey) || "null");
+      if (stored && typeof stored.analytics === "boolean") state = { necessary: true, analytics: stored.analytics, decided: true };
+    } catch (_) {}
+
+    const publish = () => {
+      window.autopilotsConsent = { ...state };
+      window.dispatchEvent(new CustomEvent("autopilots:consent", { detail: { ...state } }));
+      if (state.analytics && provider !== "none" && siteId) {
+        // Providerconfiguratie is bewust losgekoppeld van toestemming. Een
+        // provideradapter mag hier pas na expliciete toestemming laden.
+        document.documentElement.dataset.analyticsProvider = provider;
+      }
+    };
+    const save = (analytics) => {
+      state = { necessary: true, analytics, decided: true };
+      try { localStorage.setItem(storageKey, JSON.stringify({ analytics, updatedAt: new Date().toISOString() })); } catch (_) {}
+      banner?.setAttribute("hidden", "");
+      publish();
+    };
+    banner?.querySelector("[data-consent-accept]")?.addEventListener("click", () => save(true));
+    banner?.querySelector("[data-consent-reject]")?.addEventListener("click", () => save(false));
+    if (!state.decided) banner?.removeAttribute("hidden");
+    publish();
+  })();
+</script>
+
+<style>
+  .ap-consent{position:fixed;right:18px;bottom:18px;z-index:1000;display:grid;width:min(620px,calc(100% - 36px));grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:#111;padding:20px;color:#fff;box-shadow:0 24px 70px rgba(0,0,0,.28)}.ap-consent[hidden]{display:none}.ap-consent strong{font-size:15px}.ap-consent p{max-width:430px;margin:7px 0 0;color:rgba(255,255,255,.66);font-size:12px;line-height:1.5}.ap-consent-actions{display:flex;gap:8px}.ap-consent button{min-height:42px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:transparent;padding:10px 14px;color:#fff;font:inherit;font-size:11px;font-weight:850;cursor:pointer}.ap-consent button.is-primary{border-color:var(--ap-brown);background:var(--ap-brown)}@media(max-width:680px){.ap-consent{grid-template-columns:1fr}.ap-consent-actions{flex-wrap:wrap}.ap-consent button{flex:1}}
+</style>

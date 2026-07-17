@@ -2,24 +2,32 @@
 import CampaignLeadForm from "../../../../components/campaign/CampaignLeadForm.astro";
 import { autoDealerFunnel as funnel } from "../../../../data/marketingFunnels";
 import CampaignLayout from "../../../../layouts/CampaignLayout.astro";
+import type { SupportedLocale } from "../../../../i18n/languages";
+import { campaignCopy } from "../../../../i18n/campaign";
+import { localizedPath } from "../../../../i18n/routes";
+interface Props { locale?: SupportedLocale }
+const { locale="nl" }=Astro.props;
+const c=campaignCopy[locale];
+const canonical=localizedPath("landing.autobedrijven-ai-medewerker",locale);
+const experiencePath=localizedPath("landing.autobedrijven-ai-medewerker-ervaring",locale);
 ---
 
-<CampaignLayout title="Test de AI-medewerker voor autobedrijven | Autopilots" description="Test drie AI-medewerkers voor autobedrijven en bereken direct wat snellere opvolging kan opleveren." canonical="/lp/autobedrijven/ai-medewerker/" campaign={funnel.trackingContext}>
+<CampaignLayout title={`${c.card} | Autopilots`} description={c.intro} canonical={canonical} campaign={funnel.trackingContext} locale={locale} contentId="landing.autobedrijven-ai-medewerker">
   <div id="ap-campaign" class="ap-entry-page" data-funnel-page="landing">
-    <header class="ap-campaign-topbar ap-campaign-container"><span class="ap-campaign-brand">AUTOPILOTS</span><span class="ap-entry-badge"><i></i> Live test voor autobedrijven</span></header>
-    <main class="ap-entry-main ap-campaign-container">
+    <header class="ap-campaign-topbar ap-campaign-container"><span class="ap-campaign-brand">AUTOPILOTS</span><span class="ap-entry-badge"><i></i> {c.badge}</span></header>
+    <div class="ap-entry-main ap-campaign-container">
       <section class="ap-entry-copy" aria-labelledby="entry-title">
-        <p class="ap-entry-eyebrow">AI-MEDEWERKER VOOR AUTOBEDRIJVEN</p>
-        <h1 id="entry-title">Test de AI-medewerker en bereken <em>wat het oplevert.</em></h1>
-        <p>Test telefonie, inbox en leadopvolging in herkenbare autosituaties. Bereken daarna direct de mogelijke impact met je eigen cijfers.</p>
-        <div class="ap-entry-points"><span>3 live AI-demo’s</span><span>Eigen ROI-berekening</span><span>Direct toegang</span></div>
+        <p class="ap-entry-eyebrow">{c.eyebrow}</p>
+        <h1 id="entry-title">{c.title} <em>{c.accent}</em></h1>
+        <p>{c.intro}</p>
+        <div class="ap-entry-points">{c.points.map(point=><span>{point}</span>)}</div>
       </section>
-      <section class="ap-entry-card" aria-label="Vraag toegang tot de test aan">
-        <div class="ap-entry-card-head"><span>Direct starten</span><strong>Test de AI-medewerker voor autobedrijven</strong></div>
-        <CampaignLeadForm config={funnel} experiencePath="/lp/autobedrijven/ai-medewerker/ervaring/" />
+      <section class="ap-entry-card" aria-label={c.access}>
+        <div class="ap-entry-card-head"><span>{c.start}</span><strong>{c.card}</strong></div>
+        <CampaignLeadForm config={funnel} experiencePath={experiencePath} locale={locale} />
       </section>
-    </main>
-    <footer class="ap-entry-footer ap-campaign-container"><span>Autopilots. Voor de bedrijven van de toekomst.</span><a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></footer>
+    </div>
+    <footer class="ap-entry-footer ap-campaign-container"><span>Autopilots. {c.footer}</span><a href={localizedPath("page.privacy",locale)} target="_blank" rel="noopener noreferrer">Privacy</a></footer>
   </div>
 </CampaignLayout>
 

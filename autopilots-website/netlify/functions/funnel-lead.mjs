@@ -1,41 +1,291 @@
-const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store", "X-Content-Type-Options":"nosniff" } });
-const text = (value, max) => String(value ?? "").trim().replace(/[\u0000-\u001f]/g, " ").slice(0, max);
-const emailOk = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 160;
-const splitName = (name) => { const parts=name.split(/\s+/).filter(Boolean); return { firstName:parts.shift() || name, lastName:parts.join(" ") }; };
+import { getStore } from "@netlify/blobs";
+import { randomUUID } from "node:crypto";
+import {
+  clean,
+  clientIp,
+  digest,
+  json,
+  normalizePhone,
+  splitName,
+  validEmail,
+} from "./_shared/security.mjs";
 
-export default async (request) => {
-  if (request.method !== "POST") return json({ ok:false, message:"Methode niet toegestaan." }, 405);
-  if (Number(request.headers.get("content-length") || 0) > 24000) return json({ ok:false, message:"Aanvraag is te groot." }, 413);
-  let input;
-  try { input = await request.json(); } catch { return json({ ok:false, message:"Ongeldige aanvraag." }, 400); }
-  if (text(input.website, 10)) return json({ ok:true });
-  const name=text(input.name,100), company=text(input.company,120), email=text(input.email,160).toLowerCase(), phone=text(input.phone,40);
-  const intent=["roi","demo"].includes(input.intent) ? input.intent : "demo";
-  if (!name || !company || !emailOk(email) || input.consent !== true) return json({ ok:false, message:"Controleer je naam, bedrijf, e-mailadres en toestemming." }, 422);
-  const attribution={};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid","landing_page"].forEach(key=>{const value=text(input[key],180);if(value)attribution[key]=value});
-  const context={campaign:text(input.campaignName,120),niche:text(input.niche,80),intent,attribution,submittedAt:new Date().toISOString()};
-  const tags=["LP Autobedrijven","AI-medewerker funnel","Advertentielead",intent==="roi"?"Intent ROI":"Intent Demo"];
-  const webhook=process.env.GHL_AUTOBEDRIJVEN_FUNNEL_WEBHOOK_URL;
-  const token=process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
-  const locationId=process.env.GHL_LOCATION_ID;
-  const customFieldKey=process.env.GHL_FUNNEL_CONTEXT_FIELD_KEY;
+const api = "https://services.leadconnectorhq.com";
+const ghlHeaders = (token, version = "2021-07-28") => ({
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  Authorization: `Bearer ${token}`,
+  Version: version,
+});
+const parseJson = async (response) => {
   try {
-    let response;
-    if (webhook) {
-      response=await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name,company,email,phone,intent,tags,source:"Autopilots advertentiefunnel autobedrijven",...attribution,context}),signal:AbortSignal.timeout(9000)});
-    } else if (token && locationId) {
-      const { firstName,lastName }=splitName(name);
-      const payload={firstName,lastName,name,email,phone:phone||undefined,companyName:company,locationId,source:"Autopilots advertentiefunnel autobedrijven",tags};
-      if(customFieldKey)payload.customFields=[{key:customFieldKey,fieldValue:JSON.stringify(context).slice(0,4000)}];
-      response=await fetch("https://services.leadconnectorhq.com/contacts/upsert",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json","Authorization":`Bearer ${token}`,"Version":"2021-04-15"},body:JSON.stringify(payload),signal:AbortSignal.timeout(9000)});
-    } else {
-      return json({ ok:false, message:"De persoonlijke toegang is nog niet gekoppeld. Neem contact op met Autopilots." }, 503);
-    }
-    if(!response.ok)return json({ok:false,message:"De aanvraag kon niet veilig worden verwerkt."},502);
-    return json({ok:true});
+    return await response.json();
   } catch {
-    return json({ok:false,message:"De verbinding met de afspraakomgeving reageert niet. Probeer het opnieuw."},502);
+    return {};
   }
 };
 
-export const config={path:"/api/funnel-lead",method:"POST"};
+const enforceRateLimit = async (store, request) => {
+  const bucket = Math.floor(Date.now() / 600000);
+  const key = `rate/${digest(`${clientIp(request)}:${bucket}`)}`;
+  const current = await store.get(key, { type: "json" }).catch(() => null);
+  const count = Number(current?.count || 0) + 1;
+  await store.setJSON(key, { count, expiresAt: Date.now() + 660000 });
+  return count <= 5;
+};
+
+const notifyFailure = async (correlationId) => {
+  if (!process.env.ALERT_WEBHOOK_URL) return;
+  await fetch(process.env.ALERT_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: "lead_processing_failed", correlationId }),
+    signal: AbortSignal.timeout(4000),
+  }).catch(() => {});
+};
+
+export default async (request) => {
+  const correlationId = randomUUID();
+  if (request.method !== "POST")
+    return json(
+      { ok: false, message: "Methode niet toegestaan." },
+      405,
+      correlationId,
+    );
+  if (Number(request.headers.get("content-length") || 0) > 24000)
+    return json(
+      { ok: false, message: "Aanvraag is te groot." },
+      413,
+      correlationId,
+    );
+  let input;
+  try {
+    input = await request.json();
+  } catch {
+    return json(
+      { ok: false, message: "Ongeldige aanvraag." },
+      400,
+      correlationId,
+    );
+  }
+  if (clean(input.website, 10)) return json({ ok: true }, 200, correlationId);
+
+  const name = clean(input.name, 100),
+    company = clean(input.company, 120),
+    email = clean(input.email, 160).toLowerCase(),
+    phone = normalizePhone(input.phone);
+  const intent = ["roi", "demo", "appointment", "order"].includes(input.intent)
+    ? input.intent
+    : "demo";
+  if (!name || !company || !validEmail(email) || input.consent !== true)
+    return json(
+      {
+        ok: false,
+        message: "Controleer je naam, bedrijf, e-mailadres en toestemming.",
+      },
+      422,
+      correlationId,
+    );
+
+  const attribution = {};
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+    "gclid",
+    "fbclid",
+    "msclkid",
+    "landing_page",
+  ].forEach((key) => {
+    const value = clean(input[key], 180);
+    if (value) attribution[key] = value;
+  });
+  const product = clean(input.product, 80),
+    niche = clean(input.niche, 80),
+    campaign = clean(input.campaignName, 120);
+  const context = {
+    campaign,
+    niche,
+    product,
+    intent,
+    attribution,
+    submittedAt: new Date().toISOString(),
+  };
+  const tags = [
+    "Website lead",
+    intent === "roi"
+      ? "Intent ROI"
+      : intent === "order"
+        ? "Intent bestelling"
+        : "Intent afspraak",
+    ...(niche ? [`Niche ${niche}`] : []),
+    ...(product ? [`Product ${product}`] : []),
+  ];
+  const fingerprint = digest(
+    `${email}|${phone}|${intent}|${niche}|${product}|${Math.floor(Date.now() / 86400000)}`,
+  );
+  const requestedKey = clean(request.headers.get("idempotency-key"), 100);
+  const idempotencyKey = digest(requestedKey || fingerprint);
+  const store = getStore("autopilots-lead-guard");
+
+  if (!(await enforceRateLimit(store, request)))
+    return json(
+      {
+        ok: false,
+        message: "Te veel aanvragen. Probeer het over enkele minuten opnieuw.",
+      },
+      429,
+      correlationId,
+    );
+  const existing = await store
+    .get(`submission/${idempotencyKey}`, { type: "json" })
+    .catch(() => null);
+  if (existing?.status === "complete" || existing?.status === "processing")
+    return json({ ok: true, duplicate: true }, 200, correlationId);
+  await store.setJSON(`submission/${idempotencyKey}`, {
+    status: "processing",
+    correlationId,
+    fingerprint,
+    context,
+    emailHash: digest(email),
+    createdAt: new Date().toISOString(),
+  });
+
+  const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
+  const locationId = process.env.GHL_LOCATION_ID;
+  const pipelineId = process.env.GHL_PIPELINE_ID;
+  const pipelineStageId = process.env.GHL_PIPELINE_STAGE_ID;
+  const customFieldKey = process.env.GHL_FUNNEL_CONTEXT_FIELD_KEY;
+  if (process.env.GHL_TEST_MODE === "true") {
+    await store.setJSON(`submission/${idempotencyKey}`, {
+      status: "complete",
+      correlationId,
+      mode: "dry-run",
+      context,
+      completedAt: new Date().toISOString(),
+    });
+    return json({ ok: true, mode: "dry-run" }, 200, correlationId);
+  }
+  if (
+    ![token, locationId, pipelineId, pipelineStageId, customFieldKey].every(
+      Boolean,
+    )
+  ) {
+    await store.setJSON(`submission/${idempotencyKey}`, {
+      status: "blocked",
+      correlationId,
+      context,
+    });
+    return json(
+      {
+        ok: false,
+        message:
+          "De persoonlijke toegang is nog niet gekoppeld. Neem contact op met Autopilots.",
+      },
+      503,
+      correlationId,
+    );
+  }
+
+  try {
+    const { firstName, lastName } = splitName(name);
+    const contactPayload = {
+      firstName,
+      lastName,
+      name,
+      email,
+      phone: phone || undefined,
+      companyName: company,
+      locationId,
+      source: "Autopilots website",
+      tags,
+      customFields: [
+        {
+          key: customFieldKey,
+          fieldValue: JSON.stringify(context).slice(0, 4000),
+        },
+      ],
+    };
+    const contactResponse = await fetch(`${api}/contacts/upsert`, {
+      method: "POST",
+      headers: ghlHeaders(token, "2021-04-15"),
+      body: JSON.stringify(contactPayload),
+      signal: AbortSignal.timeout(9000),
+    });
+    const contactBody = await parseJson(contactResponse);
+    if (!contactResponse.ok)
+      throw new Error(`contact:${contactResponse.status}`);
+    const contactId = contactBody.contact?.id || contactBody.id;
+    if (!contactId) throw new Error("contact:no-id");
+
+    const params = new URLSearchParams({
+      location_id: locationId,
+      pipeline_id: pipelineId,
+      contact_id: contactId,
+      status: "open",
+    });
+    const search = await fetch(`${api}/opportunities/search?${params}`, {
+      headers: ghlHeaders(token, "2021-07-28"),
+      signal: AbortSignal.timeout(9000),
+    });
+    const searchBody = await parseJson(search);
+    if (!search.ok) throw new Error(`opportunity-search:${search.status}`);
+    const opportunity = searchBody.opportunities?.[0];
+    const opportunityPayload = {
+      pipelineId,
+      pipelineStageId,
+      locationId,
+      contactId,
+      status: "open",
+      name: `${company} — ${product || intent}`,
+      source: "Autopilots website",
+    };
+    const opportunityResponse = await fetch(
+      opportunity
+        ? `${api}/opportunities/${opportunity.id}`
+        : `${api}/opportunities/`,
+      {
+        method: opportunity ? "PUT" : "POST",
+        headers: ghlHeaders(token, "2021-07-28"),
+        body: JSON.stringify(opportunityPayload),
+        signal: AbortSignal.timeout(9000),
+      },
+    );
+    if (!opportunityResponse.ok)
+      throw new Error(`opportunity:${opportunityResponse.status}`);
+
+    await store.setJSON(`submission/${idempotencyKey}`, {
+      status: "complete",
+      correlationId,
+      context,
+      contactId,
+      opportunityId:
+        opportunity?.id ||
+        (await parseJson(opportunityResponse)).opportunity?.id,
+      completedAt: new Date().toISOString(),
+    });
+    return json({ ok: true }, 200, correlationId);
+  } catch (error) {
+    await store.setJSON(`submission/${idempotencyKey}`, {
+      status: "failed",
+      correlationId,
+      context,
+      failure: clean(error?.message, 80),
+      failedAt: new Date().toISOString(),
+    });
+    await notifyFailure(correlationId);
+    return json(
+      {
+        ok: false,
+        message:
+          "De aanvraag is veilig opgeslagen, maar kon nog niet worden doorgezet. We pakken deze handmatig op.",
+      },
+      502,
+      correlationId,
+    );
+  }
+};
+
+export const config = { path: "/api/funnel-lead", method: "POST" };

@@ -2,7 +2,17 @@
 node_modules/
 .env
 .env.*
+!autopilots-website/.env.example
 *.log
 sales-dashboard/
 autopilots-website/.astro/
 autopilots-website/dist/
+.pnpm-store/v11/files/
+.pnpm-store/v11/*.db-shm
+.pnpm-store/v11/*.db-wal
+autopilots-website/.lighthouseci/
+autopilots-website/test-results/
+autopilots-website/playwright-report/
+
+# Local Netlify folder
+.netlify

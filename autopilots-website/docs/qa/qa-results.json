@@ -1,0 +1,32 @@
+{
+  "auditDate": "2026-07-16",
+  "baseline": { "score": 58, "status": "NOT READY" },
+  "status": "READY AFTER EXTERNAL CONFIGURATION",
+  "totalScore": 86,
+  "maximumScore": 100,
+  "categoryScores": {
+    "development": { "score": 22, "maximum": 25 },
+    "seo": { "score": 18, "maximum": 20 },
+    "ux": { "score": 18, "maximum": 20 },
+    "cro": { "score": 12, "maximum": 15 },
+    "performance": { "score": 8, "maximum": 10 },
+    "accessibility": { "score": 4, "maximum": 5 },
+    "launchReadiness": { "score": 4, "maximum": 5 }
+  },
+  "evidence": {
+    "htmlRoutes": 322,
+    "internalLinks": 12636,
+    "redirects": 48,
+    "unitIntegration": "4/4 pass",
+    "browser": "18/18 pass after test-selector correction",
+    "lighthouse": { "runs": 9, "performance": "72-99", "accessibility": 100, "seo": 100 },
+    "publicSafety": "pass",
+    "strictI18n": "pass"
+  },
+  "integrations": {
+    "ghl": "CONFIGURED_NOT_TESTED",
+    "stripe": "CONFIGURED_NOT_TESTED",
+    "bookingWebhook": "VERIFIED_WITH_MOCK",
+    "paymentWebhook": "VERIFIED_WITH_MOCK"
+  }
+}

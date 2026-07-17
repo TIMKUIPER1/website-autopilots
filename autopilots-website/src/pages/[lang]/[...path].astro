@@ -1,14 +1,15 @@
 ---
 import LocalizedRoutePage from "../../components/i18n/LocalizedRoutePage.astro";
+import LocalizedDutchRoute from "../../components/i18n/LocalizedDutchRoute.astro";
 import { supportedLocales, type SupportedLocale } from "../../i18n/languages";
 import { routeFamilies } from "../../i18n/routes";
 
 export function getStaticPaths() {
   return supportedLocales.flatMap(locale => routeFamilies
-    .filter(family => family.id !== "page.home" && family.type !== "article")
+    .filter(family => family.id !== "page.home")
     .map(family => ({ params:{ lang:locale.code, path:family.segments[locale.code] }, props:{ locale:locale.code, family } })));
 }
 interface Props { locale: SupportedLocale; family: (typeof routeFamilies)[number] }
 const { locale, family } = Astro.props;
 ---
-<LocalizedRoutePage locale={locale} family={family}/>
+{locale === "nl" ? <LocalizedDutchRoute family={family}/> : <LocalizedRoutePage locale={locale} family={family}/>}

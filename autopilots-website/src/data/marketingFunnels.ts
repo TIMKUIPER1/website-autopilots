@@ -94,10 +94,11 @@ export const autoDealerFunnel: MarketingFunnelConfig = {
     tags: ["LP Autobedrijven", "AI-medewerker funnel", "Advertentielead"],
     source: "Autopilots advertentiefunnel autobedrijven",
     pipelineContext: "Test of ROI voor AI-medewerker bij autobedrijf",
-    calendar: "https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
+    calendar: publicRuntime.ghlCalendarUrl
   },
   privacyText: "We gebruiken je gegevens alleen om de gekozen test, berekening en eventuele afspraak mogelijk te maken.",
   trackingContext: "lp_autobedrijven_ai_medewerker"
 };
 
 export const marketingFunnels = { autobedrijven: autoDealerFunnel } as const;
+import { publicRuntime } from "../config/publicRuntime";

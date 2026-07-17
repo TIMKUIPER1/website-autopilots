@@ -1,18 +1,47 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { productBySlug, products } from "../../data/products";
-import { nicheBySlug, type Niche } from "../../data/niches";
+import type { Niche } from "../../data/niches";
 import { getOrderDestination, getDirectOffer } from "../../data/commerce";
 import { getNicheProposalBlueprint } from "../../data/nicheProposals";
 import VisualIcon from "../ui/VisualIcon.astro";
 import NichePricing from "./NichePricing.astro";
 import RoiCalculator from "./RoiCalculator.astro";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { localizedNicheData } from "../../i18n/catalog";
+import { localizedProductData } from "../../i18n/productPage";
+import { uiCopy } from "../../i18n/ui";
+import { nichePageCopy } from "../../i18n/nichePage";
 
-interface Props { niche: Niche }
-const { niche } = Astro.props;
-const recommended = [...niche.primaryProducts, ...niche.optionalProducts].map((slug) => productBySlug[slug]);
-const related = niche.related.map((slug) => nicheBySlug[slug]).filter(Boolean);
-const proposal = getNicheProposalBlueprint(niche);
+interface Props { niche: Niche; locale?: SupportedLocale }
+const { niche: sourceNiche, locale = "nl" } = Astro.props;
+const niche = localizedNicheData(locale, sourceNiche);
+const c = nichePageCopy[locale];
+const ui = uiCopy[locale];
+const a11y={
+ nl:{home:"Home",icon:"icoon",conversation:"Voorbeeldgesprek voor",route:"Route die de AI-agent opbouwt",demo:"AI-demonstratie voor",brain:"AI-brein voor"},
+ en:{home:"Home",icon:"icon",conversation:"Example conversation for",route:"Route built by the AI agent",demo:"AI demonstration for",brain:"AI brain for"},
+ es:{home:"Inicio",icon:"icono",conversation:"Conversación de ejemplo para",route:"Ruta creada por el agente de IA",demo:"Demostración de IA para",brain:"Cerebro de IA para"},
+ de:{home:"Startseite",icon:"Symbol",conversation:"Beispielgespräch für",route:"Von der KI aufgebaute Route",demo:"KI-Demonstration für",brain:"KI-Gehirn für"},
+ it:{home:"Home",icon:"icona",conversation:"Conversazione di esempio per",route:"Percorso creato dall'agente AI",demo:"Dimostrazione AI per",brain:"Cervello AI per"},
+ fr:{home:"Accueil",icon:"icône",conversation:"Exemple de conversation pour",route:"Parcours construit par l'agent IA",demo:"Démonstration IA pour",brain:"Cerveau IA pour"}
+}[locale];
+const contentId = `niche.${sourceNiche.slug}`;
+const recommended = [...niche.primaryProducts, ...niche.optionalProducts].map((slug) => localizedProductData(locale, productBySlug[slug]));
+const productLabels = {
+  nl:{solves:"Dit lost het op",included:"Inbegrepen in de inrichting",result:"Operationeel resultaat"},
+  en:{solves:"What this solves",included:"Included in the setup",result:"Operational result"},
+  de:{solves:"Das wird gelöst",included:"In der Einrichtung enthalten",result:"Operatives Ergebnis"},
+  es:{solves:"Esto resuelve",included:"Incluido en la configuración",result:"Resultado operativo"},
+  it:{solves:"Cosa risolve",included:"Incluso nella configurazione",result:"Risultato operativo"},
+  fr:{solves:"Ce que cela résout",included:"Inclus dans la configuration",result:"Résultat opérationnel"}
+}[locale];
+const proposal = locale === "nl" ? getNicheProposalBlueprint(niche) : {
+  ...getNicheProposalBlueprint(niche),
+  handoff: c.team,
+  brainSteps: niche.workflow.slice(0, 4).map((step, index) => ({ key:`step-${index}`, label:step.title, title:step.title, text:step.text }))
+};
 const demoConversations: Record<string, { customer: string; ai: string; followup: string }> = {
   tandartsen: {
     customer: "Hebben jullie morgen na 15:00 uur nog plek voor een controle?",
@@ -50,36 +79,38 @@ const demoTimes: Record<string, string> = {
   restaurants: "6,2 sec", evenementen: "9,5 sec", kozijnen: "9,1 sec", zonnepanelen: "8,8 sec",
   vloerenleggers: "8,5 sec", woningcorporaties: "7,9 sec", "non-profit": "8,6 sec", dierenarts: "7,4 sec", dierenverzorging: "6,8 sec"
 };
-const demoConversation = demoConversations[niche.slug] ?? niche.conversation;
+const demoConversation = locale === "nl" ? (demoConversations[niche.slug] ?? niche.conversation) : niche.conversation;
+const confirmation = locale === "nl" ? (demoConfirmations[niche.slug] ?? `Geregeld. ${niche.conversation.result}`) : niche.conversation.result;
 const demoScenario = {
   messages: [
-    { role: "customer", label: "Klant", text: demoConversation.customer },
-    { role: "ai", label: "AI-agent", text: demoConversation.ai },
-    { role: "customer", label: "Klant", text: demoConversation.followup },
-    { role: "ai", label: "AI-agent", text: demoConfirmations[niche.slug] ?? `Geregeld. ${niche.conversation.result}` }
+    { role: "customer", label: c.customer, text: demoConversation.customer },
+    { role: "ai", label: c.ai, text: demoConversation.ai },
+    { role: "customer", label: c.customer, text: demoConversation.followup },
+    { role: "ai", label: c.ai, text: confirmation }
   ],
   route: niche.workflow.slice(0, 4).map((item, index) => ({
     label: item.title,
     detail: index === 3 ? niche.conversation.result : (niche.intake[index] ?? item.text)
   })),
-  result: demoConfirmations[niche.slug] ?? niche.conversation.result,
+  result: confirmation,
   time: demoTimes[niche.slug] ?? "9,6 sec"
 };
-const clientData = JSON.stringify({ niche, proposal, demoScenario, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
+const clientData = JSON.stringify({ niche, proposal, demoScenario, copy:{ statuses:c.statuses, replay:c.replay, continue:c.continue, selected:c.selected }, validProducts: recommended.map((item) => item.slug) }).replaceAll("<", "\\u003c");
 const firstProduct = recommended[0];
 const directNicheCheckout = niche.slug === "autobedrijven";
+const canonical = localizedPath(contentId, locale);
 const schema = [
   {
-    "@context": "https://schema.org", "@type": "Service", name: `AI-medewerker voor ${niche.name}`,
-    serviceType: "AI klantcontact en procesautomatisering", description: niche.metaDescription,
+    "@context": "https://schema.org", "@type": "Service", name: `${c.forIndustry} ${niche.name}`,
+    serviceType: c.forIndustry, description: niche.metaDescription,
     provider: { "@type": "Organization", name: "Autopilots", url: "https://auto-pilots.io" },
-    areaServed: "Nederland", url: new URL(`/voor-wie/${niche.slug}/`, Astro.site ?? Astro.url.origin).toString()
+    url: new URL(canonical, Astro.site ?? Astro.url.origin).toString()
   },
   {
     "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site ?? Astro.url.origin).toString() },
-      { "@type": "ListItem", position: 2, name: "Voor wie", item: new URL("/voor-wie/", Astro.site ?? Astro.url.origin).toString() },
-      { "@type": "ListItem", position: 3, name: niche.name, item: new URL(`/voor-wie/${niche.slug}/`, Astro.site ?? Astro.url.origin).toString() }
+      { "@type": "ListItem", position: 1, name: a11y.home, item: new URL(localizedPath("page.home", locale), Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 2, name: ui.navigation.niches, item: new URL(localizedPath("page.niches", locale), Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 3, name: niche.name, item: new URL(canonical, Astro.site ?? Astro.url.origin).toString() }
     ]
   },
   {
@@ -88,82 +119,68 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={niche.seoTitle} description={niche.metaDescription} canonical={`/voor-wie/${niche.slug}/`} schema={schema}>
+<BaseLayout title={niche.seoTitle} description={niche.metaDescription} canonical={canonical} locale={locale} contentId={contentId} schema={schema}>
   <article class="ap-ecosystem ap-niche-page" data-niche-root data-niche={niche.slug}>
-    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/voor-wie/">Voor wie</a><span aria-hidden="true">/</span><span aria-current="page">{niche.name}</span></div></nav>
+    <nav class="ap-breadcrumb" aria-label="Breadcrumb"><div class="ap-container"><a href={localizedPath("page.home",locale)}>{a11y.home}</a><span aria-hidden="true">/</span><a href={localizedPath("page.niches",locale)}>{ui.navigation.niches}</a><span aria-hidden="true">/</span><span aria-current="page">{niche.name}</span></div></nav>
 
     <section class="ap-eco-hero ap-niche-hero">
       <div class="ap-container ap-eco-hero-grid">
         <div class="ap-eco-copy">
-          <VisualIcon type="niche" name={niche.slug} size="large" label={`${niche.name} icoon`} />
-          <div class="ap-kicker ap-icon-kicker">AI-medewerker voor {niche.name}</div>
+          <VisualIcon type="niche" name={niche.slug} size="large" label={`${niche.name} ${a11y.icon}`} />
+          <div class="ap-kicker ap-icon-kicker">{c.forIndustry} {niche.name}</div>
           <h1>{niche.hero} <span class="ap-title-accent">{niche.accent}</span></h1>
           <p class="ap-lead">{niche.lead}</p>
-          <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een afspraak</a><a class="ap-button ap-button-secondary" data-ap-event={directNicheCheckout ? "direct_order_clicked" : "pricing_viewed"} data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={directNicheCheckout ? `/bestel-direct/?product=${firstProduct.slug}` : "#tarieven"}>{directNicheCheckout ? "Bestel direct" : "Bekijk tarieven"}</a></div>
-          <a class="ap-text-link" href="#praktijkdemo">Bekijk eerst de klantreis →</a>
-          <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>Ingericht op de processen, systemen en uitzonderingen van een {niche.singular}.</span></p>
+          <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`${localizedPath("page.appointment",locale)}?branche=${niche.slug}`}>{c.appointment}</a><a class="ap-text-link" data-ap-event={directNicheCheckout ? "direct_order_clicked" : "pricing_viewed"} data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={directNicheCheckout ? `${localizedPath("page.order",locale)}?product=${firstProduct.slug}` : "#tarieven"}>{directNicheCheckout ? c.order : c.pricing} →</a></div>
+          <a class="ap-text-link" href="#praktijkdemo">{c.journey} →</a>
+          <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>{c.configured} {niche.singular}.</span></p>
         </div>
-        <aside class="ap-conversation-card" aria-label={`Voorbeeldgesprek voor ${niche.name}`}>
-          <div class="ap-conversation-head"><span>Live intake</span><strong>{niche.name}</strong></div>
+        <aside class="ap-conversation-card" aria-label={`${a11y.conversation} ${niche.name}`}>
+          <div class="ap-conversation-head"><span>{c.liveIntake}</span><strong>{niche.name}</strong></div>
           <div class="ap-message is-customer">{niche.conversation.customer}</div>
           <div class="ap-message is-ai">{niche.conversation.ai}</div>
-          <div class="ap-conversation-result"><small>Actie in systeem</small><strong>{niche.conversation.result}</strong></div>
+          <div class="ap-conversation-result"><small>{c.systemAction}</small><strong>{niche.conversation.result}</strong></div>
         </aside>
       </div>
     </section>
 
     <section class="ap-section ap-soft-section">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Een herkenbare werkdag</div><h2>Waar tijd, aandacht en kansen nu <span class="ap-title-accent">weglekken.</span></h2><p>Geen generieke AI-uitleg, maar de momenten waarop de dagelijkse praktijk vastloopt.</p></div>
-        <div class="ap-card-grid ap-card-grid-4">{niche.painPoints.map((item, index) => <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
-      </div>
-    </section>
-
-    <section class="ap-section ap-proposal-value">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Waarom dit werkt voor {niche.name}</div><h2>Directe vragen en opvolging krijgen allebei de <span class="ap-title-accent">juiste route.</span></h2><p>De AI herkent wat er speelt, vraagt alleen door waar dat nodig is en zet iedere klant direct op de juiste vervolgstap.</p></div>
-        <div class="ap-proposal-feature-grid">
-          {proposal.valueCards.map((item, index) => <details class="ap-proposal-feature" open={index === 0}>
-            <summary><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div><b aria-hidden="true">+</b></summary>
-            <div class="ap-proposal-feature-more">{item.more}</div>
-          </details>)}
-        </div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.day}</div><h2>{c.leakTitle} <span class="ap-title-accent">{c.leakAccent}</span></h2></div>
+        <ol class="ap-niche-pain-list">{niche.painPoints.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>)}</ol>
       </div>
     </section>
 
     <section class="ap-section" id="praktijkdemo">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">AI-agent in actie</div><h2>Zie hoe de klant binnen seconden <span class="ap-title-accent">echt geholpen wordt.</span></h2><p>Volg het gesprek. Terwijl de AI-agent antwoordt, wordt op de achtergrond direct de juiste route door systemen en team opgebouwd.</p></div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.agentAction}</div><h2>{c.demoTitle} <span class="ap-title-accent">{c.demoAccent}</span></h2><p>{c.demoLead}</p></div>
         <div class="ap-agent-demo" data-agent-demo>
           <header class="ap-agent-demo-head">
-            <div class="ap-agent-live"><i aria-hidden="true"></i><span>AI-agent actief</span><strong>{niche.name}</strong></div>
-            <div class="ap-agent-time"><span>Van vraag naar actie</span><strong data-agent-time>0,0 sec</strong></div>
+            <div class="ap-agent-live"><i aria-hidden="true"></i><span>{c.agentActive}</span><strong>{niche.name}</strong></div>
+            <div class="ap-agent-time"><span>{c.questionToAction}</span><strong data-agent-time>0,0 sec</strong></div>
           </header>
           <div class="ap-agent-demo-body">
             <article class="ap-agent-chat" role="tabpanel" aria-live="polite">
-              <div class="ap-agent-chat-head"><div><span>Live gesprek</span><strong>Nieuwe klantvraag</strong></div><small data-agent-status>Bericht ontvangen</small></div>
+              <div class="ap-agent-chat-head"><div><span>{c.liveConversation}</span><strong>{c.newQuestion}</strong></div><small data-agent-status>{c.received}</small></div>
               <div class="ap-agent-messages">
                 {demoScenario.messages.map((message, index) => <div class:list={["ap-agent-message", `is-${message.role}`, { "is-visible": index === 0 }]} data-agent-message={index}><span>{message.label}</span><p>{message.text}</p></div>)}
               </div>
               <div class="ap-agent-controls">
-                <button class="is-previous" type="button" data-niche-previous aria-label="Vorige stap">←</button>
-                <button class="is-next" type="button" data-niche-next>Laat de AI verder werken <span>→</span></button>
-                <button class="is-reset" type="button" data-niche-reset>Opnieuw</button>
+                <button class="is-previous" type="button" data-niche-previous aria-label={c.previous}>←</button>
+                <button class="is-next" type="button" data-niche-next>{c.continue} <span>→</span></button>
+                <button class="is-reset" type="button" data-niche-reset>{c.reset}</button>
               </div>
             </article>
-            <aside class="ap-agent-route" aria-label="Route die de AI-agent opbouwt">
-              <div class="ap-agent-route-head"><span>Live route</span><strong>Wordt automatisch opgebouwd</strong></div>
+            <aside class="ap-agent-route" aria-label={a11y.route}>
+              <div class="ap-agent-route-head"><span>{c.liveRoute}</span><strong>{c.autoRoute}</strong></div>
               <ol>
                 {demoScenario.route.map((item, index) => <li class:list={[{ "is-active": index === 0 }]} data-agent-route={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item.label}</strong><small>{item.detail}</small></div><i aria-hidden="true">✓</i></li>)}
               </ol>
-              <div class="ap-agent-result" data-agent-result><span>Direct geregeld</span><strong>{demoScenario.result}</strong><small><i aria-hidden="true"></i> CRM, planning en opvolging zijn bijgewerkt</small></div>
+              <div class="ap-agent-result" data-agent-result><span>{c.arranged}</span><strong>{demoScenario.result}</strong><small><i aria-hidden="true"></i> {c.updated}</small></div>
             </aside>
           </div>
           <div class="ap-agent-progress"><i data-agent-progress></i></div>
-          <div class="ap-agent-steps" role="tablist" aria-label={`AI-demonstratie voor ${niche.name}`}>
-            {[
-              ["Klantvraag", "Contact komt binnen"], ["AI begrijpt", "Context wordt compleet"], ["Route ontstaat", "Systemen worden gekozen"], ["Direct geregeld", "Klant en team zijn klaar"]
-            ].map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-niche-step={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step[0]}</strong><small>{step[1]}</small></div></button>)}
+          <div class="ap-agent-steps" role="tablist" aria-label={`${a11y.demo} ${niche.name}`}>
+            {c.steps.map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} class:list={[{ "is-active": index === 0 }]} data-niche-step={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step[0]}</strong><small>{step[1]}</small></div></button>)}
           </div>
         </div>
       </div>
@@ -171,17 +188,17 @@ const schema = [
 
     <section class="ap-section ap-soft-section" id="ai-brein">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">AI-brein voor {niche.name}</div><h2>Zo denkt de AI voordat iets naar {proposal.handoff} gaat.</h2><p>Geen losse chatbot. De AI combineert intake, context, regels en systeemacties voordat hij antwoordt, plant of overdraagt.</p></div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.brainFor} {niche.name}</div><h2>{c.brainTitle}</h2><p>{c.brainLead}</p></div>
         <div class="ap-branch-brain" data-branch-brain>
           <div class="ap-branch-brain-visual">
-            <div class="ap-brain-ticket"><span>AI</span><div><strong>Nieuwe vraag</strong><p>{niche.conversation.customer}</p></div><small>live</small></div>
-            <div class="ap-brain-orbit" aria-label={`AI-brein voor ${niche.name}`}>
-              <div class="ap-brain-core"><span>AP</span><strong>Autopilots<br />AI-brein</strong></div>
+            <div class="ap-brain-ticket"><span>AI</span><div><strong>{c.newRequest}</strong><p>{niche.conversation.customer}</p></div><small>live</small></div>
+            <div class="ap-brain-orbit" aria-label={`${a11y.brain} ${niche.name}`}>
+              <div class="ap-brain-core"><span>AP</span><strong>Autopilots<br />{c.brain}</strong></div>
               {proposal.brainSteps.map((step, index) => <button class:list={["ap-brain-node", `is-node-${index + 1}`, { "is-active": index === 0 }]} type="button" data-branch-brain-step={index}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step.label}</strong></button>)}
             </div>
           </div>
           <div class="ap-branch-brain-copy">
-            <div class="ap-brain-tabs" role="tablist" aria-label="AI-brein stappen">
+            <div class="ap-brain-tabs" role="tablist" aria-label={c.brainSteps}>
               {proposal.brainSteps.map((step, index) => <button class:list={[{ "is-active": index === 0 }]} type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1} data-branch-brain-tab={index}>{index + 1}. {step.label}</button>)}
             </div>
             <article class="ap-brain-panel" role="tabpanel" aria-live="polite">
@@ -189,105 +206,67 @@ const schema = [
               <h3 data-branch-brain-title>{proposal.brainSteps[0].title}</h3>
               <p data-branch-brain-text>{proposal.brainSteps[0].text}</p>
             </article>
-            <div class="ap-brain-output-grid"><div><span>Voor het team</span><strong>Complete context en een duidelijke eigenaar.</strong></div><div><span>Voor de klant</span><strong>Direct antwoord of een concrete vervolgstap.</strong></div></div>
+            <div class="ap-brain-output-grid"><div><span>{c.forTeam}</span><strong>{c.teamOutput}</strong></div><div><span>{c.forCustomer}</span><strong>{c.customerOutput}</strong></div></div>
           </div>
         </div>
       </div>
     </section>
-
-    <section class="ap-section ap-dark-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">De nieuwe klantreis</div><h2>{proposal.journeyTitle}</h2><p>Iedere stap heeft een doel, een benodigde context en een zichtbare vervolgstap.</p></div>
-        <ol class="ap-dark-workflow">{niche.workflow.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>)}</ol>
-      </div>
-    </section>
-
-    {proposal.routePlanning && <section class="ap-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Route en buitendienst</div><h2>Slimmer plannen voor teams die <span class="ap-title-accent">onderweg zijn.</span></h2><p>De AI neemt niet alleen de aanvraag aan, maar zet locatie, urgentie, type werk en capaciteit klaar voor een bruikbare planning.</p></div>
-        <div class="ap-route-planner">
-          <div class="ap-route-steps">
-            {[
-              ["Aanvraag begrijpen", niche.workflow[0]?.text],
-              ["Route voorbereiden", `Regio, urgentie en capaciteit worden gecombineerd voor ${proposal.handoff}.`],
-              ["Overdracht klaarzetten", niche.conversation.result]
-            ].map((item, index) => <button class:list={[{ "is-active": index === 0 }]} type="button" data-route-step={index}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item[0]}</strong><small>{item[1]}</small></div></button>)}
-          </div>
-          <div class="ap-route-map">
-            <div class="ap-route-map-head"><span data-route-label>Nieuwe aanvraag</span><strong data-route-title>{niche.conversation.customer}</strong></div>
-            <div class="ap-route-line"><span class="is-active">Intake</span><i></i><span>Route</span><i></i><span>Team</span><i></i><span>CRM</span></div>
-            <p data-route-text>De belangrijkste gegevens worden compleet gemaakt voordat planning of buitendienst wordt belast.</p>
-          </div>
-        </div>
-      </div>
-    </section>}
 
     <section class="ap-section" id="producten">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Aanbevolen Autopilots-systeem</div><h2>Begin met wat het meeste operationele <span class="ap-title-accent">verschil maakt.</span></h2><p>Niet ieder bedrijf heeft alle vijf producten nodig. Primair betekent logisch om als eerste te onderzoeken; aanvullend hangt af van je klantreis.</p></div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.recommended}</div><h2>{c.productTitle} <span class="ap-title-accent">{c.productAccent}</span></h2><p>{c.productLead}</p></div>
         <div class="ap-product-recommendations">
-          {recommended.map((product) => {
+          {recommended.slice(0, 2).map((product) => {
             const primary = niche.primaryProducts.includes(product.slug);
             const directOffer = getDirectOffer(niche.slug, product.slug);
             const orderDestination = getOrderDestination(niche.slug, product.slug);
             return <article class:list={["ap-recommendation-card", { "is-primary": primary }]} data-product-card={product.slug}>
-              <VisualIcon type="product" name={product.slug} /><span>{primary ? "Primair" : "Aanvullend"}</span><h3>{product.name}</h3><p>{product.promise}</p>
-              <div class="ap-recommendation-actions"><a href={`/producten/${product.slug}/?branche=${niche.slug}`}>Bekijk product</a><a class="is-order" data-ap-event={directOffer ? "proposal_opened" : "proposal_fallback_clicked"} data-ap-product={product.slug} data-ap-niche={niche.slug} href={orderDestination}>{directOffer ? "Bekijk bestelroute" : "Bespreek dit product"}</a></div>
+              <div class="ap-recommendation-head"><VisualIcon type="product" name={product.slug} /><span>{primary ? c.primary : c.additional}</span></div>
+              <div class="ap-recommendation-title"><small>{product.eyebrow}</small><h3>{ui.products[product.slug] ?? product.name}</h3><p>{product.promise}</p></div>
+              <div class="ap-recommendation-scope"><div><span>{productLabels.solves}</span><ul>{product.problems.slice(0,2).map((item)=><li>{item.title}</li>)}</ul></div><div><span>{productLabels.included}</span><ul>{product.core.slice(0,3).map((item)=><li>{item.title}</li>)}</ul></div></div>
+              <div class="ap-recommendation-result"><span>{productLabels.result}</span><strong>{product.workflow.at(-1)?.output}</strong></div>
+              <div class="ap-recommendation-actions"><a href={`${localizedPath(`product.${product.slug}`,locale)}?branche=${niche.slug}`}>{c.viewProduct}</a><a class="is-order" data-ap-event={directOffer ? "proposal_opened" : "proposal_fallback_clicked"} data-ap-product={product.slug} data-ap-niche={niche.slug} href={locale === "nl" ? orderDestination : `${directOffer ? localizedPath("page.order",locale) : localizedPath("page.appointment",locale)}?branche=${niche.slug}&product=${product.slug}`}>{directOffer ? c.order : c.appointment}</a></div>
             </article>;
           })}
         </div>
+        {recommended.length > 2 && <a class="ap-text-link ap-more-products" href={localizedPath("page.products",locale)}>{c.allProducts} →</a>}
       </div>
     </section>
 
-    <RoiCalculator niche={niche} />
+    <RoiCalculator niche={niche} locale={locale} copy={c.roi} />
 
-    <NichePricing niche={niche} />
+    <NichePricing niche={niche} locale={locale} copy={c.prices} />
 
     <section class="ap-section ap-soft-section" id="implementatie">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Implementatieproces</div><h2>Van onboarding naar een live AI-medewerker voor <span class="ap-title-accent">{niche.name.toLowerCase()}.</span></h2><p>Scope, kennisbasis, koppelingen en testen worden in duidelijke fases opgeleverd. Zo blijft zichtbaar wat gereed is en wat nog input nodig heeft.</p></div>
-        <div class="ap-implementation-shell">
-          <div class="ap-implementation-roadmap">
-            {[
-              { title: "Ontwerp en inrichting", text: "We vertalen de bestaande werkwijze naar gesprekslogica, tone of voice, uitzonderingen en succescriteria.", items: ["Klantreis en kanalen", "Intake en overdracht", "Tone of voice en grenzen"] },
-              { title: "Bouw en testen", text: "We richten kennis, acties en koppelingen in en testen de belangrijkste branchescenario’s.", items: [niche.systems.slice(0, 2).join(" en "), niche.painPoints.slice(0, 2).map((item) => item.title).join(" en "), "Fallback en systeemoutput"] },
-              { title: "Review en livegang", text: "Het team controleert antwoorden, kwalificatie, planning en overdracht voordat de route live gaat.", items: ["Review met het team", "Feedback verwerken", "Gecontroleerde livegang"] },
-              { title: "Monitoring en optimalisatie", text: "Na livegang verbeteren we op basis van echte gesprekken, uitzonderingen en conversiemomenten.", items: ["Gesprekskwaliteit", "Proces- en routeringsfouten", "Nieuwe scenario’s en groei"] }
-            ].map((phase, index) => <details class="ap-implementation-phase" open={index === 0}>
+        <div class="ap-section-head"><div class="ap-kicker">{c.implementation}</div><h2>{c.implementationTitle} <span class="ap-title-accent">{niche.name.toLowerCase()}.</span></h2><p>{c.implementationLead}</p></div>
+        <div class="ap-implementation-roadmap">
+            {c.phases.map((phase, index) => <details class="ap-implementation-phase" open={index === 0}>
               <summary><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{phase.title}</h3><p>{phase.text}</p></div><b aria-hidden="true">+</b></summary>
               <div class="ap-phase-items">{phase.items.map((item) => <span>{item}</span>)}</div>
             </details>)}
-          </div>
-          <aside class="ap-implementation-summary"><div class="ap-kicker">Duidelijke fases</div><h3>Geen losse chaos.</h3><p>De doorlooptijd hangt af van product, scope, beschikbare systemen, aangeleverde input en feedbackmomenten.</p><div class="ap-proof-metrics"><div><span>01</span><strong>Reactie en bereikbaarheid</strong></div><div><span>02</span><strong>Complete intake</strong></div><div><span>03</span><strong>Correcte overdracht</strong></div><div><span>04</span><strong>Opvolging en resultaat</strong></div></div><a class="ap-button ap-button-primary" href={`/afspraak/?branche=${niche.slug}`}>Bespreek de implementatie</a></aside>
         </div>
       </div>
     </section>
 
     <section class="ap-section ap-dark-section">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Transparante kaders</div><h2>De AI handelt binnen afspraken. De mens houdt het oordeel.</h2></div>
-        <div class="ap-card-grid ap-card-grid-3">
-          <article class="ap-dark-card"><h3>Zelfstandig binnen de flow</h3><p>Vragen stellen, goedgekeurde informatie geven, samenvatten en een toegestane vervolgactie voorbereiden.</p></article>
-          <article class="ap-dark-card"><h3>Mens bij uitzondering</h3><p>Risico, emotie, medisch of financieel oordeel en situaties buiten de bekende regels worden overgedragen.</p></article>
-          <article class="ap-dark-card"><h3>Inrichting tijdens onboarding</h3><p>Intake, tone of voice, systemen, rechten, uitzonderingen, fallback en testscenario’s worden samen bepaald.</p></article>
-        </div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.boundaries}</div><h2>{c.boundariesTitle}</h2></div>
+        <div class="ap-niche-boundaries">{c.boundaryItems.map((item)=><article><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div>
       </div>
     </section>
 
     <section class="ap-section ap-soft-section">
       <div class="ap-container ap-faq-layout">
-        <div class="ap-section-head"><div class="ap-kicker">Veelgestelde vragen</div><h2>Praktische vragen van {niche.name.toLowerCase()}.</h2></div>
+        <div class="ap-section-head"><div class="ap-kicker">{c.faq}</div><h2>{c.faqTitle} {niche.name.toLowerCase()}.</h2></div>
         <div class="ap-faq-list">
           {niche.faq.map((item, index) => <details open={index === 0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}
-          <details><summary>Wat wordt tijdens onboarding ingericht?<span aria-hidden="true">+</span></summary><p>We bepalen vragen, tone of voice, urgentie, routes, systemen, rechten, menselijke fallback en de scenario’s die vóór livegang worden getest.</p></details>
-          <details><summary>Kan ieder bestaand systeem worden gekoppeld?<span aria-hidden="true">+</span></summary><p>Nee, niet automatisch. We toetsen API’s, rechten, datakwaliteit en de gewenste acties. Soms is aanvullende ontwikkeling of een andere route nodig.</p></details>
+          {c.extraFaq.map((item)=><details><summary>{item[0]}<span aria-hidden="true">+</span></summary><p>{item[1]}</p></details>)}
         </div>
       </div>
     </section>
 
-    {related.length > 0 && <section class="ap-section"><div class="ap-container"><div class="ap-section-head"><div class="ap-kicker">Vergelijkbare klantreizen</div><h2>Bekijk ook deze branches.</h2></div><div class="ap-related-grid">{related.map((item) => <a href={`/voor-wie/${item.slug}/`}><span>AI voor</span><h3>{item.name}</h3><p>{item.lead}</p><strong>Bekijk AI voor {item.name.toLowerCase()}</strong></a>)}</div></div></section>}
-
-    <section class="ap-section ap-final-section"><div class="ap-container ap-final-card"><div><div class="ap-kicker">Volgende stap voor {niche.name}</div><h2>Kies advies of start met het eerste passende product.</h2><p>Bij advies brengen we contactmomenten, systemen en uitzonderingen in kaart. Via bestellen zie je alleen prijzen die al officieel voor deze configuratie beschikbaar zijn.</p></div><div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`/afspraak/?branche=${niche.slug}`}>Plan een korte analyse</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={`/bestel-direct/?product=${firstProduct.slug}`}>Bestel direct</a></div></div></section>
+    <section class="ap-section ap-final-section"><div class="ap-container ap-final-card"><div><div class="ap-kicker">{c.next} {niche.name}</div><h2>{c.nextTitle}</h2><p>{c.nextLead}</p></div><div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-niche={niche.slug} href={`${localizedPath("page.appointment",locale)}?branche=${niche.slug}`}>{c.appointment}</a><a class="ap-text-link" data-ap-event="direct_order_clicked" data-ap-niche={niche.slug} data-ap-product={firstProduct.slug} href={`${localizedPath("page.order",locale)}?product=${firstProduct.slug}`}>{c.order} →</a></div></div></section>
   </article>
 
   <script id="ap-niche-data" type="application/json" set:html={clientData}></script>
@@ -302,7 +281,8 @@ const schema = [
     const niche = payload.niche;
     const proposal = payload.proposal;
     const demoScenario = payload.demoScenario;
-    const demoStatuses = ["Bericht ontvangen", "AI vraagt gericht door", "Route wordt opgebouwd", "Actie voltooid"];
+    const copy = payload.copy;
+    const demoStatuses = copy.statuses;
     const demoStageTimes = ["0,0 sec", "2,4 sec", "6,8 sec", demoScenario.time];
     const setText = (selector, value) => { const item = root.querySelector(selector); if (item) item.textContent = value; };
     const showNicheStep = (requestedIndex, focus = false) => {
@@ -318,7 +298,7 @@ const schema = [
       setText("[data-agent-status]", demoStatuses[index]);
       setText("[data-agent-time]", demoStageTimes[index]);
       const nextButton = root.querySelector("[data-niche-next]");
-      if (nextButton) nextButton.innerHTML = index === demoScenario.messages.length - 1 ? "Bekijk opnieuw <span>↻</span>" : "Laat de AI verder werken <span>→</span>";
+      if (nextButton) nextButton.innerHTML = index === demoScenario.messages.length - 1 ? `${copy.replay} <span>↻</span>` : `${copy.continue} <span>→</span>`;
       root.querySelector("[data-agent-demo]")?.setAttribute("data-demo-step", String(index));
       if (focus) button?.focus({ preventScroll: true });
     };
@@ -379,7 +359,7 @@ const schema = [
       const selectedCard = root.querySelector(`[data-product-card="${CSS.escape(requestedProduct)}"]`);
       if (selectedCard) {
         selectedCard.classList.add("is-selected");
-        selectedCard.setAttribute("aria-label", "Gekozen product");
+        selectedCard.setAttribute("aria-label", copy.selected);
         if (location.hash === "#producten") requestAnimationFrame(() => document.getElementById("producten")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }));
       }
     }
@@ -448,4 +428,8 @@ const schema = [
 
   @media(max-width:980px){.ap-proposal-feature-grid{grid-template-columns:1fr}.ap-proposal-feature summary{min-height:auto}.ap-agent-demo-body,.ap-branch-brain,.ap-route-planner,.ap-implementation-shell{grid-template-columns:1fr}.ap-agent-chat{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.ap-agent-route{min-height:500px}.ap-implementation-summary{position:relative;top:auto}.ap-route-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.ap-route-steps button{grid-template-columns:1fr}.ap-route-steps button>span{width:38px;height:38px}}
   @media(max-width:640px){.ap-proposal-feature summary{grid-template-columns:42px minmax(0,1fr) 26px;padding:21px 18px}.ap-proposal-feature summary>span{width:42px;height:42px}.ap-agent-demo{border-radius:26px}.ap-agent-demo-head{min-height:64px;padding:14px 17px}.ap-agent-live span,.ap-agent-time span{display:none}.ap-agent-chat,.ap-agent-route{padding:20px}.ap-agent-messages{min-height:390px}.ap-agent-message{max-width:92%}.ap-agent-message>p{font-size:12px}.ap-agent-controls{flex-wrap:wrap}.ap-agent-controls .is-next{order:-1;width:100%;justify-content:space-between}.ap-agent-controls .is-reset{margin-left:0}.ap-agent-route{min-height:500px}.ap-agent-steps{grid-template-columns:repeat(2,minmax(0,1fr));padding:6px}.ap-agent-steps button{border-bottom:1px solid rgba(255,255,255,.08);padding:13px 10px}.ap-agent-steps button:nth-child(2){border-right:0}.ap-agent-steps button:nth-child(n+3){border-bottom:0}.ap-branch-brain-visual,.ap-branch-brain-copy{padding:18px}.ap-brain-orbit{min-height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:170px 12px 12px}.ap-brain-orbit:before,.ap-brain-orbit:after{display:none}.ap-brain-core{top:82px}.ap-brain-node{position:relative;inset:auto!important;min-width:0;justify-content:center}.ap-brain-node>strong{font-size:10px}.ap-brain-output-grid,.ap-proof-metrics{grid-template-columns:1fr}.ap-brain-panel{min-height:260px}.ap-route-planner{padding:12px}.ap-route-steps{grid-template-columns:1fr}.ap-route-steps button{grid-template-columns:44px 1fr}.ap-route-map{min-height:330px;padding:24px}.ap-route-line{grid-template-columns:repeat(4,1fr);gap:5px}.ap-route-line i{display:none}.ap-route-line span{text-align:center}.ap-implementation-phase summary{grid-template-columns:42px minmax(0,1fr) 28px;padding:17px}.ap-implementation-phase summary>span{width:42px;height:42px}.ap-phase-items{grid-template-columns:1fr}.ap-implementation-summary{padding:24px}}
+</style>
+
+<style>
+  .ap-niche-pain-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;border-block:1px solid var(--ap-line);list-style:none}.ap-niche-pain-list li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;border-bottom:1px solid var(--ap-line);padding:22px 6px}.ap-niche-pain-list li:nth-child(odd){padding-right:28px}.ap-niche-pain-list li:nth-child(even){border-left:1px solid var(--ap-line);padding-left:28px}.ap-niche-pain-list li:nth-last-child(-n+2){border-bottom:0}.ap-niche-pain-list li>span{color:var(--ap-brown);font:700 9px "Syne",sans-serif}.ap-niche-pain-list h3{margin:0;font-size:17px}.ap-niche-pain-list p{margin:7px 0 0;color:var(--ap-muted);font-size:13px;line-height:1.55}.ap-more-products{display:inline-flex;margin-top:24px}.ap-niche-boundaries{border-block:1px solid rgba(255,255,255,.15)}.ap-niche-boundaries article{display:grid;grid-template-columns:minmax(220px,.45fr) minmax(0,1fr);gap:32px;border-bottom:1px solid rgba(255,255,255,.13);padding:20px 0}.ap-niche-boundaries article:last-child{border-bottom:0}.ap-niche-boundaries h3{margin:0;font-size:17px}.ap-niche-boundaries p{margin:0;color:rgba(255,255,255,.62);font-size:13px;line-height:1.55}.ap-implementation-roadmap{max-width:900px}.ap-implementation-phase{border-right:0;border-left:0;border-radius:0;background:transparent}.ap-phase-items span{border-left:1px solid rgba(159,56,38,.28);border-radius:0;background:transparent;padding:8px 12px}@media(max-width:680px){.ap-niche-pain-list{grid-template-columns:1fr}.ap-niche-pain-list li:nth-child(n){border-left:0;border-bottom:1px solid var(--ap-line);padding:18px 0}.ap-niche-pain-list li:last-child{border-bottom:0}.ap-niche-boundaries article{grid-template-columns:1fr;gap:8px}}
 </style>

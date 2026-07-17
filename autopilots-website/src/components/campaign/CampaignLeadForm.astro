@@ -1,22 +1,26 @@
 ---
 import type { MarketingFunnelConfig } from "../../data/marketingFunnels";
-interface Props { config: MarketingFunnelConfig; experiencePath: string }
-const { config, experiencePath } = Astro.props;
+import type { SupportedLocale } from "../../i18n/languages";
+import { campaignCopy } from "../../i18n/campaign";
+interface Props { config: MarketingFunnelConfig; experiencePath: string; locale?: SupportedLocale }
+const { config, experiencePath, locale = "nl" } = Astro.props;
+const c=campaignCopy[locale];
 ---
 
 <form class="ap-entry-form" data-campaign-lead-form data-campaign-attribution data-experience-path={experiencePath} novalidate>
   <input type="hidden" name="intent" value="demo" />
   <input type="hidden" name="campaignName" value={config.campaignName} />
   <input type="hidden" name="niche" value={config.niche} />
+  <input type="hidden" name="locale" value={locale} />
   <div class="ap-entry-fields">
-    <label><span>Naam</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Voor- en achternaam" /></label>
-    <label><span>Autobedrijf</span><input name="company" autocomplete="organization" required maxlength="120" placeholder="Bedrijfsnaam" /></label>
-    <label class="is-wide"><span>Zakelijk e-mailadres</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="naam@autobedrijf.nl" /></label>
+    <label><span>{c.name}</span><input name="name" autocomplete="name" required maxlength="100" placeholder={c.namePh} /></label>
+    <label><span>{c.company}</span><input name="company" autocomplete="organization" required maxlength="120" placeholder={c.companyPh} /></label>
+    <label class="is-wide"><span>{c.email}</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="name@company.com" /></label>
   </div>
   <label class="ap-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
-  <label class="ap-entry-consent"><input name="consent" type="checkbox" required /><span>Ik ga akkoord met verwerking van mijn gegevens voor de test en eventuele opvolging. Lees de <a href="/privacy/" target="_blank" rel="noopener noreferrer">privacyinformatie</a>.</span></label>
-  <button class="ap-entry-submit" type="submit" data-submit-label>Test de AI-medewerker & bereken de impact <span aria-hidden="true">→</span></button>
-  <p class="ap-entry-note">Direct toegang · Geen aankoopverplichting · Geen generieke mailing</p>
+  <label class="ap-entry-consent"><input name="consent" type="checkbox" required /><span>{c.consent} <a href={`/${locale}/${locale==="nl"?"privacy":locale==="es"?"privacidad":locale==="de"?"datenschutz":locale==="it"?"privacy":locale==="fr"?"confidentialite":"privacy"}/`} target="_blank" rel="noopener noreferrer">{c.privacy}</a>.</span></label>
+  <button class="ap-entry-submit" type="submit" data-submit-label data-error={c.error} data-local={c.local}>{c.submit} <span aria-hidden="true">→</span></button>
+  <p class="ap-entry-note">{c.note}</p>
   <p class="ap-entry-status" data-form-status aria-live="polite"></p>
 </form>
 
@@ -35,18 +39,19 @@ const { config, experiencePath } = Astro.props;
       ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"].forEach((key) => { if (attribution[key]) target.searchParams.set(key, attribution[key]); });
       try {
         window.apCampaign?.emit?.("lead_form_submitted", { intent: "combined" });
-        const response = await fetch("/api/funnel-lead", { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(payload) });
+        const idempotencyKey = crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        const response = await fetch("/api/funnel-lead", { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json","Idempotency-Key":idempotencyKey}, body:JSON.stringify(payload) });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok || !result.ok) throw new Error(result.message || "Versturen is nu niet gelukt.");
+        if (!response.ok || !result.ok) throw new Error(result.message || submit.dataset.error);
         window.apCampaign?.emit?.("lead_form_succeeded", { intent: "combined" });
         location.assign(`${target.pathname}${target.search}`);
       } catch (error) {
         if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-          status.textContent = "Lokale preview: de ervaring wordt geopend zonder CRM-opslag.";
+          status.textContent = submit.dataset.local;
           setTimeout(() => location.assign(`${target.pathname}${target.search}`), 500); return;
         }
         window.apCampaign?.emit?.("lead_form_failed", { intent: "combined" });
-        status.textContent = error.message || "Versturen is nu niet gelukt. Probeer het opnieuw.";
+        status.textContent = error.message || submit.dataset.error;
         submit.disabled = false; submit.removeAttribute("aria-busy");
       }
     });

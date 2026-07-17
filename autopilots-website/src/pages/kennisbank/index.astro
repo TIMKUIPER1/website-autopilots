@@ -1,68 +1,71 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { knowledgeArticles } from "../../content/knowledgeArticles";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { knowledgeOverviewCopy, localizedArticle } from "../../i18n/knowledgePage";
 
-const sortedArticles = [...knowledgeArticles].sort((a, b) => b.modified.localeCompare(a.modified));
+interface Props { locale?: SupportedLocale }
+const { locale = "nl" } = Astro.props;
+const copy=knowledgeOverviewCopy[locale];
+const sortedArticles = [...knowledgeArticles].sort((a, b) => b.modified.localeCompare(a.modified)).map(article=>localizedArticle(locale,article));
 const featured = sortedArticles[0];
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Autopilots kennisbank",
-  description: "Kennisbank met AI kennis en Autopilots implementatiekennis voor bedrijven die AI praktisch willen toepassen.",
-  url: "https://auto-pilots.io/kennisbank/",
-  mainEntity: sortedArticles.map((article) => ({ "@type": "BlogPosting", headline: article.title, url: `https://auto-pilots.io/kennisbank/${article.slug}/`, description: article.description }))
+  name: copy.title,
+  description: copy.description,
+  url: new URL(localizedPath("page.knowledge",locale),Astro.site??Astro.url.origin).toString(),
+  mainEntity: sortedArticles.map((article) => ({ "@type": "BlogPosting", headline: article.title, url: new URL(localizedPath(`article.${article.slug}`,locale),Astro.site??Astro.url.origin).toString(), description: article.description }))
 };
 ---
 
 <BaseLayout
-  title="Autopilots kennisbank | AI kennis en implementatiekennis"
-  description="Kies je route: AI kennis over tools, modellen en ontwikkelingen of Autopilots kennis over klantreizen, AI-breinen, CRM-acties en livegang."
-  canonical="/kennisbank/"
+  title={copy.title}
+  description={copy.description}
+  canonical={localizedPath("page.knowledge",locale)}
+  locale={locale}
+  contentId="page.knowledge"
   schema={schema}
 >
 
   <section class="ap-section ap-knowledge-hero">
     <div class="ap-container">
-      <div class="ap-kicker">Autopilots kennisbank</div>
-      <h1 class="ap-page-title">Je staat op de splitsing. Kies links AI kennis of rechts <span class="ap-accent">Autopilots kennis.</span></h1>
-      <p class="ap-lead">
-        Links vind je kennis over AI tools, modellen, OpenAI, Claude, AI nieuws en nichetoepassingen.
-        Rechts vind je hoe Autopilots AI omzet naar werkende systemen: klantreizen, AI-breinen, CRM-acties,
-        livegang, support en optimalisatie.
-      </p>
+      <div class="ap-kicker">{copy.kicker}</div>
+      <h1 class="ap-page-title">{copy.hero} <span class="ap-accent">{copy.accent}</span></h1>
+      <p class="ap-lead">{copy.lead}</p>
       <div class="ap-actions">
-        <a class="ap-button ap-button-primary" href="#kennisroutes">Kies kennisroute</a>
-        <a class="ap-button ap-button-secondary" href="/afspraak/">Bespreek je AI route</a>
+        <a class="ap-button ap-button-primary" href="#kennisroutes">{copy.choose}</a>
       </div>
     </div>
   </section>
 
-  <section class="ap-section ap-knowledge-routes" id="kennisroutes" aria-label="Kennisroutes">
+  <section class="ap-section ap-knowledge-routes" id="kennisroutes" aria-label={copy.aria}>
     <div class="ap-container">
-      <div class="ap-knowledge-roadmap" aria-label="Kies je kennisroute">
+      <div class="ap-knowledge-roadmap" aria-label={copy.roadAria}>
         <svg class="ap-road-highway" viewBox="0 0 1120 350" aria-hidden="true" focusable="false">
           <path class="ap-road-shadow" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-shadow" d="M560 318 C600 218 750 144 1110 214" />
           <path class="ap-road-edge" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-edge" d="M560 318 C600 218 750 144 1110 214" />
           <path class="ap-road-asphalt" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-asphalt" d="M560 318 C600 218 750 144 1110 214" />
           <path class="ap-road-lane" d="M560 318 C520 218 370 144 10 214" /><path class="ap-road-lane" d="M560 318 C600 218 750 144 1110 214" />
         </svg>
-        <a class="ap-road-sign ap-road-sign-left" href="/kennisbank/ai/"><strong>AI kennis</strong></a>
-        <a class="ap-road-sign ap-road-sign-right" href="/kennisbank/autopilots/"><strong>Autopilots kennis</strong></a>
+        <a class="ap-road-sign ap-road-sign-left" href={localizedPath("page.knowledge.ai",locale)}><strong>{copy.ai}</strong></a>
+        <a class="ap-road-sign ap-road-sign-right" href={localizedPath("page.knowledge.autopilots",locale)}><strong>{copy.ap}</strong></a>
       </div>
       <div class="ap-grid-2 ap-knowledge-route-cards">
       <article class="ap-card ap-route-card">
         <span id="ai-kennis" class="ap-anchor-target"></span>
-        <div class="ap-kicker">Route 01</div>
-        <h2>Ga naar AI kennis.</h2>
-        <p class="ap-text">Tools, modellen, OpenAI, Claude, AI nieuws, voice agents, chat agents en nichegerichte AI uitleg voor bedrijven die vooruit willen.</p>
-        <a class="ap-button ap-button-secondary" href="/kennisbank/ai/">Ga naar AI kennis</a>
+        <div class="ap-kicker">{copy.route} 01</div>
+        <h2>{copy.aiTitle}</h2>
+        <p class="ap-text">{copy.aiText}</p>
+        <a class="ap-button ap-button-secondary" href={localizedPath("page.knowledge.ai",locale)}>{copy.ai}</a>
       </article>
       <article class="ap-card ap-route-card ap-route-card-dark">
         <span id="autopilots-kennis" class="ap-anchor-target"></span>
-        <div class="ap-kicker">Route 02</div>
-        <h2>Ga naar Autopilots kennis.</h2>
-        <p class="ap-text">Onze AI-breinen, klantreizen, koppelingen, CRM-acties, livegang, monitoring en lessen uit echte implementaties.</p>
-        <a class="ap-button ap-button-primary" href="/kennisbank/autopilots/">Ga naar Autopilots kennis</a>
+        <div class="ap-kicker">{copy.route} 02</div>
+        <h2>{copy.apTitle}</h2>
+        <p class="ap-text">{copy.apText}</p>
+        <a class="ap-button ap-button-primary" href={localizedPath("page.knowledge.autopilots",locale)}>{copy.ap}</a>
       </article>
       </div>
     </div>
@@ -71,15 +74,13 @@ const schema = {
   <section class="ap-section" id="laatste-kennis">
     <div class="ap-container">
       <div class="ap-section-head">
-        <div class="ap-kicker">Laatste kennis</div>
-        <h2 class="ap-section-title">Laatste kennis voor ondernemers die AI praktisch willen toepassen.</h2>
-        <p class="ap-lead">
-          Lees praktische uitleg over tools, klantcontact, branches, implementatie en systemen die in de dagelijkse operatie blijven werken.
-        </p>
+        <div class="ap-kicker">{copy.latest}</div>
+        <h2 class="ap-section-title">{copy.latestTitle}</h2>
+        <p class="ap-lead">{copy.latestText}</p>
       </div>
 
       <div class="ap-article-feature">
-        <a class="ap-card ap-feature-card" href={`/kennisbank/${featured.slug}/`}>
+        <a class="ap-card ap-feature-card" href={localizedPath(`article.${featured.slug}`,locale)}>
           <span class="ap-feature-label">{featured.category}</span>
           <h3>{featured.cardTitle}</h3>
           <p>{featured.excerpt}</p>
@@ -92,7 +93,7 @@ const schema = {
 
       <div class="ap-article-grid">
         {sortedArticles.slice(1).map((article) => (
-          <a class="ap-card ap-article-card" href={`/kennisbank/${article.slug}/`}>
+          <a class="ap-card ap-article-card" href={localizedPath(`article.${article.slug}`,locale)}>
             <span>{article.category}</span>
             <h3>{article.cardTitle}</h3>
             <p>{article.excerpt}</p>

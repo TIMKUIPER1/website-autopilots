@@ -167,9 +167,9 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Product", title: "Bekijk Voice AI voor telefonische opvang.", href: "/producten/" },
-      { label: "Proces", title: "Zo bouwen we een AI-brein met regels en context.", href: "/proces/" },
-      { label: "Afspraak", title: "Bespreek welke klantreis geschikt is.", href: "/afspraak/" }
+      { label: "Product", title: "Bekijk Voice AI voor telefonische opvang.", href: "/nl/producten/" },
+      { label: "Proces", title: "Zo bouwen we een AI-brein met regels en context.", href: "/nl/proces/" },
+      { label: "Afspraak", title: "Bespreek welke klantreis geschikt is.", href: "/nl/afspraak/" }
     ],
     sources: [
       { label: "OpenAI Agents documentatie", href: "https://platform.openai.com/docs/guides/agents" },
@@ -282,9 +282,9 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
-      { label: "Producten", title: "Bekijk Chat AI, Voice AI en Follow-up AI.", href: "/producten/" },
-      { label: "Proces", title: "Ontwerp eerst de workflow.", href: "/proces/" }
+      { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/nl/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
+      { label: "Producten", title: "Bekijk Chat AI, Voice AI en Follow-up AI.", href: "/nl/producten/" },
+      { label: "Proces", title: "Ontwerp eerst de workflow.", href: "/nl/proces/" }
     ],
     sources: [
       { label: "OpenAI Agents documentatie", href: "https://platform.openai.com/docs/guides/agents" },
@@ -398,8 +398,8 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
     ],
     related: [
       { label: "Branches", title: "Bekijk hoe Autopilots branches opbouwt.", href: "/#branches" },
-      { label: "Producten", title: "Planning AI, Voice AI en Follow-up AI.", href: "/producten/" },
-      { label: "Afspraak", title: "Laat je serviceflow analyseren.", href: "/afspraak/" }
+      { label: "Producten", title: "Planning AI, Voice AI en Follow-up AI.", href: "/nl/producten/" },
+      { label: "Afspraak", title: "Laat je serviceflow analyseren.", href: "/nl/afspraak/" }
     ],
     sources: [
       { label: "Google helpful content richtlijnen", href: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content" },
@@ -507,9 +507,9 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Artikel", title: "Bekijk hoe een sterk kennisbankartikel is opgebouwd.", href: "/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
-      { label: "Proces", title: "Van kennis naar systeem.", href: "/proces/" },
-      { label: "Afspraak", title: "Bespreek je kennisbankroute.", href: "/afspraak/" }
+      { label: "Artikel", title: "Bekijk hoe een sterk kennisbankartikel is opgebouwd.", href: "/nl/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
+      { label: "Proces", title: "Van kennis naar systeem.", href: "/nl/proces/" },
+      { label: "Afspraak", title: "Bespreek je kennisbankroute.", href: "/nl/afspraak/" }
     ],
     sources: [
       { label: "Google AI features en Search", href: "https://developers.google.com/search/docs/appearance/ai-features" },
@@ -617,9 +617,9 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "Producten", title: "Bekijk Voice AI als AI medewerker.", href: "/producten/" },
-      { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
-      { label: "Afspraak", title: "Test je telefonische klantreis.", href: "/afspraak/" }
+      { label: "Producten", title: "Bekijk Voice AI als AI medewerker.", href: "/nl/producten/" },
+      { label: "Kennis", title: "Lees over AI agents voor klantcontact.", href: "/nl/kennisbank/wat-betekenen-ai-agents-voor-klantcontact/" },
+      { label: "Afspraak", title: "Test je telefonische klantreis.", href: "/nl/afspraak/" }
     ],
     sources: [
       { label: "OpenAI Realtime documentatie", href: "https://platform.openai.com/docs/guides/realtime" },
@@ -730,9 +730,9 @@ export const legacyKnowledgeArticles: KnowledgeArticle[] = [
       }
     ],
     related: [
-      { label: "SEO", title: "AI zoeken verandert je contentstrategie.", href: "/kennisbank/waarom-ai-zoekgedrag-je-seo-strategie-verandert/" },
-      { label: "Voice", title: "Wanneer Voice AI beter is dan een formulier.", href: "/kennisbank/wanneer-is-voice-ai-beter-dan-een-formulier/" },
-      { label: "Afspraak", title: "Kies een eerste AI route.", href: "/afspraak/" }
+      { label: "SEO", title: "AI zoeken verandert je contentstrategie.", href: "/nl/kennisbank/waarom-ai-zoekgedrag-je-seo-strategie-verandert/" },
+      { label: "Voice", title: "Wanneer Voice AI beter is dan een formulier.", href: "/nl/kennisbank/wanneer-is-voice-ai-beter-dan-een-formulier/" },
+      { label: "Afspraak", title: "Kies een eerste AI route.", href: "/nl/afspraak/" }
     ],
     sources: [
       { label: "OpenAI Agents documentatie", href: "https://platform.openai.com/docs/guides/agents" },

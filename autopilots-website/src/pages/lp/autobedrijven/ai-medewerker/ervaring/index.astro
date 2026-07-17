@@ -4,52 +4,58 @@ import ElevenLabsAutoDemos from "../../../../../components/campaign/ElevenLabsAu
 import GhlEmbed from "../../../../../components/embeds/GhlEmbed.astro";
 import { autoDealerFunnel as funnel } from "../../../../../data/marketingFunnels";
 import CampaignLayout from "../../../../../layouts/CampaignLayout.astro";
+import type { SupportedLocale } from "../../../../../i18n/languages";
+import { campaignCopy } from "../../../../../i18n/campaign";
+import { localizedPath } from "../../../../../i18n/routes";
+interface Props { locale?: SupportedLocale }
+const { locale="nl" }=Astro.props;
+const c=campaignCopy[locale];
 ---
 
-<CampaignLayout title="Test drie AI-medewerkers voor autobedrijven | Autopilots" description="Test AI Telefoniste, AI Inboxmedewerker en AI Leadopvolger en bereken de mogelijke impact voor jouw autobedrijf." canonical="/lp/autobedrijven/ai-medewerker/ervaring/" campaign={funnel.trackingContext}>
+<CampaignLayout title={`${c.experienceTitle} ${c.experienceAccent} | Autopilots`} description={c.experienceIntro} canonical={localizedPath("landing.autobedrijven-ai-medewerker-ervaring",locale)} campaign={funnel.trackingContext} locale={locale} contentId="landing.autobedrijven-ai-medewerker-ervaring">
   <div id="ap-campaign" class="ap-experience-page" data-funnel-page="experience">
-    <header class="ap-campaign-topbar ap-campaign-container"><a class="ap-campaign-brand" href="#top">AUTOPILOTS</a><nav aria-label="Paginaonderdelen"><a href="#testen">Testen</a><a href="#berekenen">Berekenen</a><a href="#afspraak">Afspraak</a></nav></header>
+    <header class="ap-campaign-topbar ap-campaign-container"><a class="ap-campaign-brand" href="#top">AUTOPILOTS</a><nav aria-label="Sections">{c.nav.map((item,index)=><a href={["#testen","#berekenen","#afspraak"][index]}>{item}</a>)}</nav></header>
 
-    <main id="top">
+    <div id="top">
       <section class="ap-experience-hero ap-campaign-container">
-        <p class="ap-page-eyebrow">LIVE ERVARING VOOR AUTOBEDRIJVEN</p>
-        <h1>Test drie AI-medewerkers en bereken <em>wat ze kunnen opleveren.</em></h1>
-        <p>Begin met de live demo’s. Vul daarna je eigen aantallen in. Zo zie je direct welke rol het beste aansluit op verkoop, werkplaats en leadopvolging.</p>
-        <div class="ap-hero-route" aria-label="Route op deze pagina"><span><b>01</b> Test de AI</span><i></i><span><b>02</b> Bereken impact</span><i></i><span><b>03</b> Bespreek inrichting</span></div>
+        <p class="ap-page-eyebrow">{c.live}</p>
+        <h1>{c.experienceTitle} <em>{c.experienceAccent}</em></h1>
+        <p>{c.experienceIntro}</p>
+        <div class="ap-hero-route" aria-label="Page route">{c.route.map((item,index)=><Fragment><span><b>{String(index+1).padStart(2,"0")}</b> {item}</span>{index<2&&<i></i>}</Fragment>)}</div>
       </section>
 
       <section id="testen" class="ap-page-section ap-campaign-container" aria-labelledby="demo-title">
-        <div class="ap-page-head"><div><p class="ap-page-eyebrow">LIVE DEMO</p><h2 id="demo-title">Kies de AI-medewerker die je wilt testen.</h2></div><p>Kies een product, lees wat je kunt proberen en open daarna de echte ElevenLabs-widget.</p></div>
-        <ElevenLabsAutoDemos />
+        <div class="ap-page-head"><div><p class="ap-page-eyebrow">LIVE DEMO</p><h2 id="demo-title">{c.demoTitle}</h2></div><p>{c.demoText}</p></div>
+        <ElevenLabsAutoDemos locale={locale} />
       </section>
 
       <section class="ap-system-strip">
         <div class="ap-campaign-container ap-system-content">
-          <div><span>Wat er achter het gesprek gebeurt</span><h2>Geen losse antwoorden. Een concrete vervolgstap.</h2></div>
-          <ol><li><b>01</b><strong>Vraag begrijpen</strong><p>Auto, kenteken, intentie en urgentie herkennen.</p></li><li><b>02</b><strong>Context ophalen</strong><p>Voorraad, agenda en bestaande klantdata controleren.</p></li><li><b>03</b><strong>Actie uitvoeren</strong><p>Proefrit, werkplaatsmoment, taak of opvolging klaarzetten.</p></li></ol>
+          <div><span>{c.behind}</span><h2>{c.systemTitle}</h2></div>
+          <ol>{c.system.map((step,index)=><li><b>{String(index+1).padStart(2,"0")}</b><strong>{step[0]}</strong><p>{step[1]}</p></li>)}</ol>
         </div>
       </section>
 
       <section id="berekenen" class="ap-page-section ap-campaign-container" aria-labelledby="roi-title">
-        <div class="ap-page-head"><div><p class="ap-page-eyebrow">ROI CALCULATOR</p><h2 id="roi-title">Bereken de mogelijke impact met je eigen cijfers.</h2></div><p>Geen ingewikkeld model. Vul je maandvolume en huidige opvolging in en bekijk het indicatieve verschil.</p></div>
-        <CampaignRoi config={funnel} />
+        <div class="ap-page-head"><div><p class="ap-page-eyebrow">ROI CALCULATOR</p><h2 id="roi-title">{c.roiTitle}</h2></div><p>{c.roiText}</p></div>
+        <CampaignRoi config={funnel} locale={locale} />
       </section>
 
       <section class="ap-live-route">
         <div class="ap-campaign-container ap-live-route-grid">
-          <div><p class="ap-page-eyebrow">VAN TEST NAAR LIVE</p><h2>Doorgaans binnen 2–4 weken ingericht.</h2><p>Wanneer benodigde informatie en toegangen op tijd zijn aangeleverd, richten we de eerste AI-medewerker gecontroleerd in rondom jullie bestaande proces.</p></div>
-          <ol><li><span>01</span><div><strong>Ontwerp</strong><p>Vragen, tone of voice, uitzonderingen en overdracht.</p></div></li><li><span>02</span><div><strong>Bouw en test</strong><p>Kennis, koppelingen en praktijkscenario’s.</p></div></li><li><span>03</span><div><strong>Livegang</strong><p>Goedkeuring, monitoring en optimalisatie.</p></div></li></ol>
-          <aside><span>Privacy en controle</span><strong>AVG-bewust en met menselijke fallback.</strong><p>We bepalen vooraf welke gegevens nodig zijn, wie toegang krijgt en wanneer de AI moet overdragen aan een medewerker.</p></aside>
+          <div><p class="ap-page-eyebrow">{c.toLive}</p><h2>{c.weeks}</h2><p>{c.weeksText}</p></div>
+          <ol>{c.journey.map((step,index)=><li><span>{String(index+1).padStart(2,"0")}</span><div><strong>{step[0]}</strong><p>{step[1]}</p></div></li>)}</ol>
+          <aside><span>{c.control}</span><strong>{c.controlTitle}</strong><p>{c.controlText}</p></aside>
         </div>
       </section>
 
       <section id="afspraak" class="ap-booking ap-campaign-container" aria-labelledby="booking-title">
-        <div class="ap-booking-copy"><p class="ap-page-eyebrow">VOLGENDE STAP</p><h2 id="booking-title">Bekijk welke AI-medewerker bij jullie past.</h2><p>We bekijken je huidige situatie, bepalen waar een AI-rol waarde kan leveren en welke koppelingen daarvoor nodig zijn.</p></div>
-        <GhlEmbed src={funnel.ghl.calendar} title="Plan een afspraak met Autopilots" minHeight={660} note="Kies een beschikbaar moment. Werkt de module niet?" />
+        <div class="ap-booking-copy"><p class="ap-page-eyebrow">{c.next}</p><h2 id="booking-title">{c.bookTitle}</h2><p>{c.bookText}</p></div>
+        <GhlEmbed src={funnel.ghl.calendar} title={c.book} minHeight={660} note={c.bookNote} locale={locale} />
       </section>
-    </main>
+    </div>
 
-    <footer class="ap-page-footer ap-campaign-container"><span>AUTOPILOTS</span><p>Voor de bedrijven van de toekomst.</p><a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></footer>
+    <footer class="ap-page-footer ap-campaign-container"><span>AUTOPILOTS</span><p>{c.footer}</p><a href={localizedPath("page.privacy",locale)} target="_blank" rel="noopener noreferrer">Privacy</a></footer>
   </div>
 </CampaignLayout>
 

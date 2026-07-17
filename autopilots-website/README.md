@@ -1,6 +1,6 @@
 # Autopilots Website
 
-Nieuwe code-first website voor Autopilots.
+Code-first website voor Autopilots. De productiearchitectuur is eenduidig: Astro static output op Netlify, met Netlify Functions en Netlify Blobs voor formulieren, webhooks, rate limiting en idempotency. Railway is geen impliciete dependency van deze website.
 
 Doel:
 
@@ -13,9 +13,25 @@ Doel:
 ## Stack
 
 - Astro voor de publieke website
-- GoHighLevel voor forms, calendars, CRM en opvolging
-- Railway voor backend, webhooks en API's
-- Cloudflare Pages of Vercel voor hosting
+- Netlify voor hosting, redirects en functions
+- Netlify Blobs voor duurzame requeststatus en deduplicatie
+- GoHighLevel voor kalender, CRM en opvolging
+- Stripe voor bevestigde checkoutconfiguraties
+
+## Lokaal controleren
+
+```bash
+pnpm install --frozen-lockfile
+pnpm run format:check
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+pnpm run build
+pnpm run test:qa
+pnpm run test:e2e
+```
+
+Productievariabelen staan zonder waarden in `.env.example`. Zie `docs/deployment/` voor deploy en rollback.
 
 ## Eerste routes
 

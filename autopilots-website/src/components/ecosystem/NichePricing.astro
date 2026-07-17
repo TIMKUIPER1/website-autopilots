@@ -1,35 +1,40 @@
 ---
 import type { Niche } from "../../data/niches";
 import { getNichePricing } from "../../data/pricing";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { uiCopy } from "../../i18n/ui";
+import { nichePageCopy } from "../../i18n/nichePage";
 
-interface Props { niche: Niche }
-const { niche } = Astro.props;
+interface Props { niche: Niche; locale?: SupportedLocale; copy?: (typeof nichePageCopy)[SupportedLocale]["prices"] }
+const { niche, locale = "nl", copy = nichePageCopy[locale].prices } = Astro.props;
+const ui = uiCopy[locale];
 const packages = getNichePricing(niche.slug);
-const format = (value: number) => new Intl.NumberFormat("nl-NL").format(value);
+const format = (value: number) => new Intl.NumberFormat(locale).format(value);
 ---
 
 <section class="ap-section ap-pricing-section" id="tarieven" data-pricing-view>
   <div class="ap-container">
-    <div class="ap-section-head"><div class="ap-kicker">Transparante tarieven</div><h2>Je weet vooraf wat de AI-medewerker <span class="ap-title-accent">kost.</span></h2><p>Vergelijk het maandbedrag, de eenmalige inrichting en eventuele gebruikskosten. Voor de start leggen we duidelijk vast welke kanalen, koppelingen en werkzaamheden zijn inbegrepen.</p></div>
+    <div class="ap-section-head"><div class="ap-kicker">{copy.kicker}</div><h2>{copy.title} <span class="ap-title-accent">{copy.accent}</span></h2><p>{copy.lead}</p></div>
     <div class="ap-niche-pricing-grid">
       {packages.map((item) => <article class:list={["ap-niche-price-card", { "is-featured": item.slug === "complete-ai-medewerker" }]}>
         <div class="ap-price-card-main">
-          <span class="ap-price-badge">{item.badge}</span>
-          <h3>{item.name}</h3>
-          <div class="ap-price-amount"><strong>€{format(item.monthlyPrice)}</strong><span>per maand</span></div>
-          <p class="ap-setup-price">Eenmalige implementatie <strong>€{format(item.setupPrice)}</strong></p>
-          <ul>{item.included.map((included) => <li>{included}</li>)}</ul>
+          <span class="ap-price-badge">{locale === "nl" ? item.badge : "Autopilots"}</span>
+          <h3>{item.product ? (ui.products[item.product] ?? item.name) : (locale === "nl" ? item.name : nichePageCopy[locale].roi.products[3][0])}</h3>
+          <div class="ap-price-amount"><strong>€{format(item.monthlyPrice)}</strong><span>{copy.month}</span></div>
+          <p class="ap-setup-price">{copy.setup} <strong>€{format(item.setupPrice)}</strong></p>
+          <ul>{(locale === "nl" ? item.included : niche.workflow.map((step)=>step.title)).map((included) => <li>{included}</li>)}</ul>
         </div>
-        <details><summary>Gebruikskosten en voorwaarden <span aria-hidden="true">+</span></summary><p>{item.usagePricing} Maandelijks opzegbaar met een opzegtermijn van één maand. Voor de start spreken we af welke systemen worden gekoppeld en wat de AI-medewerker zelfstandig mag uitvoeren.</p></details>
+        <details><summary>{copy.usage} <span aria-hidden="true">+</span></summary><p>{locale === "nl" ? item.usagePricing : ""} {copy.terms}</p></details>
         <div class="ap-price-actions">
           {item.directCheckoutAvailable && item.proposalUrl
-            ? <a class="ap-button ap-button-primary" data-ap-event="stripe_route_opened" data-ap-product={item.product} data-ap-niche={niche.slug} href={item.proposalUrl}>Bestel direct</a>
-            : <a class="ap-button ap-button-primary" data-ap-event="pricing_configuration_requested" data-ap-product={item.product} data-ap-niche={niche.slug} href={`/afspraak/?route=bestellen&branche=${niche.slug}${item.product ? `&product=${item.product}` : ""}`}>Plan de implementatie</a>}
-          {item.product && <a class="ap-price-product-link" href={`/producten/${item.product}/?branche=${niche.slug}`}>Bekijk {item.name}</a>}
+            ? <a class="ap-button ap-button-primary" data-ap-event="stripe_route_opened" data-ap-product={item.product} data-ap-niche={niche.slug} href={locale === "nl" ? item.proposalUrl : `${localizedPath("page.order",locale)}?product=${item.product}`}>{ui.navigation.order}</a>
+            : <a class="ap-button ap-button-primary" data-ap-event="pricing_configuration_requested" data-ap-product={item.product} data-ap-niche={niche.slug} href={`${localizedPath("page.appointment",locale)}?route=bestellen&branche=${niche.slug}${item.product ? `&product=${item.product}` : ""}`}>{copy.implement}</a>}
+          {item.product && <a class="ap-price-product-link" href={`${localizedPath(`product.${item.product}`,locale)}?branche=${niche.slug}`}>{ui.products[item.product] ?? item.name} →</a>}
         </div>
       </article>)}
     </div>
-    <div class="ap-pricing-note"><strong>Goed om te weten</strong><p>Alle bedragen zijn exclusief btw. Extra maatwerk of aanvullende ontwikkeling bespreken en bevestigen we altijd vooraf.</p><a href="/voorwaarden/">Bekijk de voorwaarden</a></div>
+    <div class="ap-pricing-note"><strong>{copy.good}</strong><p>{copy.note}</p><a href={localizedPath("page.terms",locale)}>{copy.viewTerms}</a></div>
   </div>
 </section>
 

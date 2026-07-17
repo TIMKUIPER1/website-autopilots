@@ -1,18 +1,20 @@
 ---
 import { supportedLocales, type SupportedLocale } from "../../i18n/languages";
-import { localizedPath } from "../../i18n/routes";
+import { localizedPath, routeFamily } from "../../i18n/routes";
 import { uiCopy } from "../../i18n/ui";
 
 interface Props { locale: SupportedLocale; contentId?: string }
 const { locale, contentId = "page.home" } = Astro.props;
 const current = supportedLocales.find((item) => item.code === locale)!;
+const family = routeFamily(contentId);
+const languageTarget = (targetLocale: SupportedLocale) => family?.type === "article" && targetLocale !== "nl" ? localizedPath("page.home", targetLocale) : localizedPath(contentId, targetLocale);
 ---
 
 <details class="ap-language-switcher">
   <summary aria-label={uiCopy[locale].navigation.language}><span>{current.name}</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5"/></svg></summary>
   <div role="list" aria-label={uiCopy[locale].navigation.language}>
     {supportedLocales.map((item) => (
-      <a role="listitem" href={localizedPath(contentId, item.code)} hreflang={item.tag} lang={item.tag} aria-current={item.code === locale ? "page" : undefined} data-language-choice={item.code}>
+      <a role="listitem" href={languageTarget(item.code)} hreflang={item.tag} lang={item.tag} aria-current={item.code === locale ? "page" : undefined} data-language-choice={item.code}>
         <span>{item.name}</span><small>{item.tag}</small>
       </a>
     ))}

@@ -1,8 +1,10 @@
 ---
 import type { Niche } from "../../data/niches";
+import type { SupportedLocale } from "../../i18n/languages";
+import { nichePageCopy } from "../../i18n/nichePage";
 
-interface Props { niche: Niche }
-const { niche } = Astro.props;
+interface Props { niche: Niche; locale?: SupportedLocale; copy?: (typeof nichePageCopy)[SupportedLocale]["roi"] }
+const { niche, locale = "nl", copy = nichePageCopy[locale].roi } = Astro.props;
 const valueDefaults: Record<string, number> = {
   autobedrijven: 2500, dakdekkers: 1800, hoveniers: 2200, installatietechniek: 1200, vastgoedbeheerders: 180,
   kapperszaken: 85, tandartsen: 180, makelaars: 3500, "cosmetische-klinieken": 450, verzekeraars: 220,
@@ -10,41 +12,41 @@ const valueDefaults: Record<string, number> = {
   vloerenleggers: 2100, woningcorporaties: 140, "non-profit": 100, dierenarts: 160, dierenverzorging: 95
 };
 const defaults = { volume: niche.metric.volume, issue: 35, peak: 15, appointment: 40, close: 30, value: valueDefaults[niche.slug] ?? 500 };
-const payload = JSON.stringify({ niche: niche.slug, defaults }).replaceAll("<", "\u003c");
+const payload = JSON.stringify({ niche: niche.slug, locale, defaults }).replaceAll("<", "\u003c");
 ---
 
 <section class="ap-section ap-roi-section" id="roi-calculator" data-roi-calculator>
   <div class="ap-container">
-    <div class="ap-section-head"><div class="ap-kicker">Mogelijke impact voor {niche.name}</div><h2>Bereken de mogelijke impact met <span class="ap-title-accent">je eigen cijfers.</span></h2><p>Vul je huidige aantallen en tijdsbesteding in. De uitkomst geeft een realistische indicatie en is geen garantie.</p></div>
+    <div class="ap-section-head"><div class="ap-kicker">{copy.kicker} {niche.name}</div><h2>{copy.title} <span class="ap-title-accent">{copy.accent}</span></h2><p>{copy.lead}</p></div>
     <div class="ap-roi-shell">
       <form class="ap-roi-inputs" data-roi-form>
         <fieldset class="ap-roi-product-picker">
-          <legend>Kies het product</legend>
-          <div role="radiogroup" aria-label="Kies het AI-product voor de berekening">
+          <legend>{copy.choose}</legend>
+          <div role="radiogroup" aria-label={copy.aria}>
             {[
-              ["inbox", "01", "AI Inboxmedewerker", "Mail, chat en WhatsApp"],
-              ["telefoniste", "02", "AI Telefoniste", "Oproepen en planning"],
-              ["leadopvolger", "03", "AI Leadopvolger", "Leads en vervolgstappen"],
-              ["complete", "04", "Volledige AI Medewerker", "Alle contactmomenten samen"]
+              ["inbox", "01", copy.products[0][0], copy.products[0][1]],
+              ["telefoniste", "02", copy.products[1][0], copy.products[1][1]],
+              ["leadopvolger", "03", copy.products[2][0], copy.products[2][1]],
+              ["complete", "04", copy.products[3][0], copy.products[3][1]]
             ].map((item, index) => <label class="ap-roi-product-option">
               <input type="radio" name="packageKey" value={item[0]} data-roi-package checked={index === 0} />
               <span>{item[1]}</span><div><strong>{item[2]}</strong><small>{item[3]}</small></div><i aria-hidden="true">✓</i>
             </label>)}
           </div>
         </fieldset>
-        <label><span>{niche.metric.label} per maand</span><input name="volume" data-roi-volume type="number" min="0" max="100000" step="10" value={defaults.volume} inputmode="numeric" /></label>
-        <label><span>Nu te laat of niet opgevolgd (%)</span><input name="issue" data-roi-issue type="number" min="0" max="100" step="1" value={defaults.issue} inputmode="decimal" /></label>
-        <label data-roi-peak-field hidden><span>Extra gemist tijdens piekdrukte (%)</span><input name="peak" data-roi-peak type="number" min="0" max="100" step="1" value={defaults.peak} inputmode="decimal" /></label>
-        <label><span>Naar afspraak of concrete actie (%)</span><input name="appointment" data-roi-appointment type="number" min="0" max="100" step="1" value={defaults.appointment} inputmode="decimal" /></label>
-        <label><span>Van actie naar klant of resultaat (%)</span><input name="close" data-roi-close type="number" min="0" max="100" step="1" value={defaults.close} inputmode="decimal" /></label>
-        <label><span>Gemiddelde waarde per klant/resultaat (€)</span><input name="value" data-roi-value type="number" min="0" max="1000000" step="50" value={defaults.value} inputmode="decimal" /></label>
-        <button class="ap-button ap-button-secondary" type="reset" data-roi-reset>Herstel voorbeeldwaarden</button>
+        <label><span>{niche.metric.label} {copy.perMonth}</span><input name="volume" data-roi-volume type="number" min="0" max="100000" step="10" value={defaults.volume} inputmode="numeric" /></label>
+        <label><span>{copy.late}</span><input name="issue" data-roi-issue type="number" min="0" max="100" step="1" value={defaults.issue} inputmode="decimal" /></label>
+        <label data-roi-peak-field hidden><span>{copy.peak}</span><input name="peak" data-roi-peak type="number" min="0" max="100" step="1" value={defaults.peak} inputmode="decimal" /></label>
+        <label><span>{copy.action}</span><input name="appointment" data-roi-appointment type="number" min="0" max="100" step="1" value={defaults.appointment} inputmode="decimal" /></label>
+        <label><span>{copy.result}</span><input name="close" data-roi-close type="number" min="0" max="100" step="1" value={defaults.close} inputmode="decimal" /></label>
+        <label><span>{copy.value}</span><input name="value" data-roi-value type="number" min="0" max="1000000" step="50" value={defaults.value} inputmode="decimal" /></label>
+        <button class="ap-button ap-button-secondary" type="reset" data-roi-reset>{copy.restore}</button>
       </form>
       <div class="ap-roi-results" aria-live="polite">
-        <div class="ap-kicker">Indicatief verschil per maand</div>
-        <div class="ap-roi-compare"><article><span>Zonder AI op tijd verwerkt</span><strong data-roi-manual>0</strong></article><article class="is-ai"><span>Met gekozen AI-product</span><strong data-roi-ai>0</strong></article></div>
-        <div class="ap-roi-primary"><span>Mogelijke extra waarde</span><strong data-roi-euro>€ 0</strong><p><b data-roi-extra>0</b> extra contactmomenten op tijd, <b data-roi-appointments>0</b> extra acties en <b data-roi-customers>0</b> extra resultaten.</p></div>
-        <details><summary>Zo wordt dit scenario berekend <span aria-hidden="true">+</span></summary><p>We nemen het gekozen contactvolume en het aandeel dat nu blijft liggen. Daarna passen we productdekking, bereikbaarheid, afspraakpercentage, resultaatpercentage en de door jou gekozen waarde toe. Percentages worden begrensd tussen 0 en 100; negatieve en ongeldige waarden tellen als nul.</p></details>
+        <div class="ap-kicker">{copy.difference}</div>
+        <div class="ap-roi-compare"><article><span>{copy.without}</span><strong data-roi-manual>0</strong></article><article class="is-ai"><span>{copy.with}</span><strong data-roi-ai>0</strong></article></div>
+        <div class="ap-roi-primary"><span>{copy.extraValue}</span><strong data-roi-euro>€ 0</strong><p><b data-roi-extra>0</b> {copy.sentence[0]} <b data-roi-appointments>0</b> {copy.sentence[1]} <b data-roi-customers>0</b> {copy.sentence[2]}</p></div>
+        <details><summary>{copy.calculation} <span aria-hidden="true">+</span></summary><p>{copy.calculationText}</p></details>
       </div>
     </div>
   </div>
@@ -57,8 +59,8 @@ const payload = JSON.stringify({ niche: niche.slug, defaults }).replaceAll("<", 
     const payload = JSON.parse(root.querySelector("[data-roi-payload]")?.textContent || "{}");
     const get = (selector) => root.querySelector(selector);
     const number = (selector) => Number.parseFloat(get(selector)?.value || "0");
-    const format = (value, digits = 1) => new Intl.NumberFormat("nl-NL", { maximumFractionDigits: digits }).format(Number.isFinite(value) ? value : 0);
-    const euro = (value) => new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
+    const format = (value, digits = 1) => new Intl.NumberFormat(payload.locale, { maximumFractionDigits: digits }).format(Number.isFinite(value) ? value : 0);
+    const euro = (value) => new Intl.NumberFormat(payload.locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
     const set = (selector, value) => { const node = get(selector); if (node) node.textContent = value; };
     const update = () => {
       const packageKey = get("[data-roi-package]:checked")?.value || "inbox";

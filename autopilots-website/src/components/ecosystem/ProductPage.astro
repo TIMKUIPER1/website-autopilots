@@ -1,30 +1,49 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { products, type Product } from "../../data/products";
+import type { Product } from "../../data/products";
 import { niches } from "../../data/niches";
 import VisualIcon from "../ui/VisualIcon.astro";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { localizedNicheData } from "../../i18n/catalog";
+import { localizedProductData, productPageCopy } from "../../i18n/productPage";
 
-interface Props { product: Product }
-const { product } = Astro.props;
-const selectedNiche = niches[0];
-const relatedProducts = products.filter((item) => item.slug !== product.slug);
-const clientData = JSON.stringify({ product, niches }).replaceAll("<", "\\u003c");
+interface Props { product: Product; locale?: SupportedLocale }
+const { product: sourceProduct, locale = "nl" } = Astro.props;
+const product = localizedProductData(locale, sourceProduct);
+const localizedNiches = niches.map((niche) => localizedNicheData(locale, niche));
+const selectedNiche = localizedNiches[0];
+const copy = productPageCopy[locale];
+const scopeLabels = {
+  nl:{scope:"Productspecificatie",included:"Dit zit in de inrichting",result:"Resultaat in de werkdag",rules:"Kennis, regels en overdracht"},
+  en:{scope:"Product specification",included:"Included in the setup",result:"Result in the working day",rules:"Knowledge, rules and handoff"},
+  de:{scope:"Produktspezifikation",included:"In der Einrichtung enthalten",result:"Ergebnis im Arbeitsalltag",rules:"Wissen, Regeln und Übergabe"},
+  es:{scope:"Especificación del producto",included:"Incluido en la configuración",result:"Resultado en la jornada",rules:"Conocimiento, reglas y transferencia"},
+  it:{scope:"Specifiche del prodotto",included:"Incluso nella configurazione",result:"Risultato nella giornata",rules:"Conoscenza, regole e passaggio"},
+  fr:{scope:"Spécification du produit",included:"Inclus dans la configuration",result:"Résultat au quotidien",rules:"Connaissances, règles et transfert"}
+}[locale];
+const productPath = localizedPath(`product.${sourceProduct.slug}`, locale);
+const productsPath = localizedPath("page.products", locale);
+const appointmentPath = localizedPath("page.appointment", locale);
+const orderPath = localizedPath("page.order", locale);
+const nicheRoutes = Object.fromEntries(niches.map((niche) => [niche.slug, localizedPath(`niche.${niche.slug}`, locale)]));
+const clientData = JSON.stringify({ product, niches: localizedNiches, locale, copy, nicheRoutes }).replaceAll("<", "\\u003c");
 const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.metaDescription,
-    url: new URL(`/producten/${product.slug}/`, Astro.site ?? Astro.url.origin).toString(),
+    url: new URL(productPath, Astro.site ?? Astro.url.origin).toString(),
     brand: { "@type": "Brand", name: "Autopilots" }
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site ?? Astro.url.origin).toString() },
-      { "@type": "ListItem", position: 2, name: "Producten", item: new URL("/producten/", Astro.site ?? Astro.url.origin).toString() },
-      { "@type": "ListItem", position: 3, name: product.name, item: new URL(`/producten/${product.slug}/`, Astro.site ?? Astro.url.origin).toString() }
+      { "@type": "ListItem", position: 1, name: copy.home, item: new URL(localizedPath("page.home", locale), Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 2, name: copy.products, item: new URL(productsPath, Astro.site ?? Astro.url.origin).toString() },
+      { "@type": "ListItem", position: 3, name: product.name, item: new URL(productPath, Astro.site ?? Astro.url.origin).toString() }
     ]
   },
   {
@@ -35,10 +54,10 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={product.seoTitle} description={product.metaDescription} canonical={`/producten/${product.slug}/`} schema={schema}>
+<BaseLayout title={product.seoTitle} description={product.metaDescription} canonical={productPath} schema={schema} locale={locale} contentId={`product.${sourceProduct.slug}`}>
   <article class:list={["ap-ecosystem", "ap-product-page", `is-${product.slug}`]} data-product-root data-product={product.slug}>
     <nav class="ap-breadcrumb" aria-label="Broodkruimel">
-      <div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/producten/">Producten</a><span aria-hidden="true">/</span><span aria-current="page">{product.name}</span></div>
+      <div class="ap-container"><a href={localizedPath("page.home", locale)}>{copy.home}</a><span aria-hidden="true">/</span><a href={productsPath}>{copy.products}</a><span aria-hidden="true">/</span><span aria-current="page">{product.name}</span></div>
     </nav>
 
     <section class="ap-eco-hero">
@@ -49,34 +68,33 @@ const schema = [
           <h1>{product.hero} <span class="ap-title-accent">{product.accent}</span></h1>
           <p class="ap-lead">{product.intro}</p>
           <div class="ap-actions">
-            <a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`/afspraak/?product=${product.slug}`}>Plan een afspraak</a>
-            <a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`/bestel-direct/?product=${product.slug}`}>Bestel direct</a>
+            <a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`${appointmentPath}?product=${product.slug}`}>{copy.appointment}</a>
+            <a class="ap-text-link" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`${orderPath}?product=${product.slug}`}>{copy.order} →</a>
           </div>
-          <a class="ap-text-link" href="#interactieve-demo">Bekijk eerst de productdemo →</a>
+          <a class="ap-text-link" href="#interactieve-demo">{copy.demoFirst} →</a>
           <p class="ap-inline-proof"><span class="ap-proof-dot" aria-hidden="true"></span><span>{product.promise}</span></p>
         </div>
         <aside class="ap-product-visual" aria-label={`${product.name} workflow`}>
-          <div class="ap-visual-head"><span>{product.eyebrow}</span><strong>Live productflow</strong></div>
+          <div class="ap-visual-head"><span>{product.eyebrow}</span><strong>{copy.liveFlow}</strong></div>
           <div class="ap-visual-route">
             {product.workflow.map((step, index) => (
               <div class="ap-visual-node"><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step.label}</strong><small>{step.title}</small></div></div>
             ))}
           </div>
-          <div class="ap-visual-status"><span></span>Systeemactie gereed</div>
+          <div class="ap-visual-status"><span></span>{copy.ready}</div>
         </aside>
       </div>
     </section>
 
-    <section class="ap-section ap-soft-section">
+    <section class="ap-section ap-soft-section ap-product-scope-section">
       <div class="ap-container">
-        <div class="ap-section-head">
-          <div class="ap-kicker">Herkenbaar probleem</div>
-          <h2>{product.problemTitle}</h2>
-        </div>
-        <div class="ap-card-grid ap-card-grid-4">
-          {product.problems.map((problem, index) => (
-            <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{problem.title}</h3><p>{problem.text}</p></article>
-          ))}
+        <div class="ap-section-head"><div class="ap-kicker">{scopeLabels.scope}</div><h2>{product.problemTitle}</h2><p>{copy.problemIntro}</p></div>
+        <div class="ap-product-scope-shell">
+          <div class="ap-product-scope-top"><div><span>{scopeLabels.result}</span><strong>{product.workflow.at(-1)?.output}</strong></div><div><span>{scopeLabels.rules}</span><strong>{product.promise}</strong></div></div>
+          <div class="ap-clarity-columns">
+            <div><h3>{copy.stuck}</h3><ol>{product.problems.map((problem, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{problem.title}</strong><p>{problem.text}</p></div></li>)}</ol></div>
+            <div><h3>{scopeLabels.included}</h3><ol>{product.core.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item.title}</strong><p>{item.text}</p></div></li>)}</ol></div>
+          </div>
         </div>
       </div>
     </section>
@@ -84,30 +102,30 @@ const schema = [
     <section class="ap-section" id="branche-inrichting">
       <div class="ap-container">
         <div class="ap-section-head">
-          <div class="ap-kicker">Wat verandert per branche?</div>
-          <h2>De productbasis blijft gelijk. De praktijk bepaalt <span class="ap-title-accent">de inrichting.</span></h2>
-          <p>Kies een branche. Voorbeeldvragen, intakevelden, systemen, calculator en vervolglink veranderen direct mee.</p>
+          <div class="ap-kicker">{copy.branch}</div>
+          <h2>{copy.branchTitle}</h2>
+          <p>{copy.branchIntro}</p>
         </div>
         <div class="ap-niche-selector">
-          <div class="ap-niche-options" role="list" aria-label="Kies een branche">
-            {niches.map((niche, index) => (
+          <div class="ap-niche-options" role="list" aria-label={copy.chooseBranch}>
+            {localizedNiches.map((niche, index) => (
               <button type="button" class:list={[{ "is-active": index === 0 }]} data-niche={niche.slug} aria-pressed={index === 0 ? "true" : "false"}>
                 <span>{String(index + 1).padStart(2, "0")}</span>{niche.name}
               </button>
             ))}
           </div>
           <article class="ap-niche-result" aria-live="polite">
-            <div class="ap-kicker">{product.name} voor <span data-selected-name>{selectedNiche.name}</span></div>
-            <h3><span data-selected-heading>{product.name} voor {selectedNiche.name.toLowerCase()}.</span></h3>
-            <p data-selected-copy>Ingericht op {selectedNiche.intake.slice(0, 4).join(", ")} en gekoppeld aan {selectedNiche.systems.slice(0, 3).join(", ")}.</p>
+            <div class="ap-kicker">{product.name} — <span data-selected-name>{selectedNiche.name}</span></div>
+            <h3><span data-selected-heading>{product.name} — {selectedNiche.name}.</span></h3>
+            <p data-selected-copy>{copy.configured} {selectedNiche.intake.slice(0, 4).join(", ")} {copy.connected} {selectedNiche.systems.slice(0, 3).join(", ")}.</p>
             <div class="ap-niche-detail-grid">
-              <div><small>Voorbeeldvraag</small><strong data-selected-question>{selectedNiche.conversation.customer}</strong></div>
-              <div><small>Belangrijke intake</small><strong data-selected-intake>{selectedNiche.intake.slice(0, 3).join(" · ")}</strong></div>
-              <div><small>Systemen</small><strong data-selected-systems>{selectedNiche.systems.slice(0, 3).join(" · ")}</strong></div>
+              <div><small>{copy.example}</small><strong data-selected-question>{selectedNiche.conversation.customer}</strong></div>
+              <div><small>{copy.intake}</small><strong data-selected-intake>{selectedNiche.intake.slice(0, 3).join(" · ")}</strong></div>
+              <div><small>{copy.systems}</small><strong data-selected-systems>{selectedNiche.systems.slice(0, 3).join(" · ")}</strong></div>
             </div>
             <div class="ap-actions">
-              <a class="ap-button ap-button-primary" data-selected-link href={`/voor-wie/${selectedNiche.slug}/?product=${product.slug}#producten`}>Bekijk AI voor {selectedNiche.name.toLowerCase()}</a>
-              <a class="ap-button ap-button-dark-secondary" href="#interactieve-demo">Test de demo</a>
+              <a class="ap-button ap-button-primary" data-selected-link href={`${nicheRoutes[selectedNiche.slug]}?product=${product.slug}#producten`}>{copy.viewAI} {selectedNiche.name.toLowerCase()}</a>
+              <a class="ap-text-link ap-on-dark" href="#interactieve-demo">{copy.testDemo} →</a>
             </div>
           </article>
         </div>
@@ -117,9 +135,9 @@ const schema = [
     <section class="ap-section ap-dark-section" id="interactieve-demo">
       <div class="ap-container">
         <div class="ap-section-head">
-          <div class="ap-kicker">Interactieve productdemo</div>
-          <h2>Van binnenkomst naar een concrete systeemactie.</h2>
-          <p>Klik door de stappen. De flow blijft begrijpelijk zonder technische achtergrond.</p>
+          <div class="ap-kicker">{copy.interactive}</div>
+          <h2>{copy.demoTitle}</h2>
+          <p>{copy.demoIntro}</p>
         </div>
         <div class="ap-demo-shell">
           <div class="ap-demo-tabs" role="tablist" aria-label={`${product.name} demostappen`}>
@@ -133,9 +151,9 @@ const schema = [
             <div class="ap-kicker" data-demo-label>{product.workflow[0].label}</div>
             <h3 data-demo-title>{product.workflow[0].title}</h3>
             <p data-demo-text>{product.workflow[0].text}</p>
-            <div class="ap-demo-output"><small>Output in je systeem</small><strong data-demo-output>{product.workflow[0].output}</strong></div>
-            <div class="ap-demo-context"><span>Geselecteerde branche</span><strong data-demo-niche>{selectedNiche.name}</strong></div>
-            <div class="ap-demo-controls"><button type="button" data-demo-previous>Vorige</button><button type="button" data-demo-reset>Opnieuw</button></div>
+            <div class="ap-demo-output"><small>{copy.output}</small><strong data-demo-output>{product.workflow[0].output}</strong></div>
+            <div class="ap-demo-context"><span>{copy.selected}</span><strong data-demo-niche>{selectedNiche.name}</strong></div>
+            <div class="ap-demo-controls"><button type="button" data-demo-previous>{copy.previous}</button><button type="button" data-demo-reset>{copy.again}</button></div>
           </article>
         </div>
       </div>
@@ -143,33 +161,7 @@ const schema = [
 
     <section class="ap-section">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Wat doet het product altijd?</div><h2>Een vaste kern die tijdens onboarding <span class="ap-title-accent">wordt ingericht.</span></h2></div>
-        <div class="ap-card-grid ap-card-grid-4">
-          {product.core.map((item, index) => <article class="ap-info-card"><span>{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section ap-soft-section">
-      <div class="ap-container ap-two-column">
-        <div>
-          <div class="ap-section-head"><div class="ap-kicker">Workflow</div><h2>De AI begrijpt, beslist binnen kaders en legt vast.</h2></div>
-          <ol class="ap-workflow-list">
-            {product.workflow.map((step, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}
-          </ol>
-        </div>
-        <aside class="ap-integration-card">
-          <div class="ap-kicker">Integratiecategorieën</div>
-          <h3>Werkt met de kanalen en systemen rond het proces.</h3>
-          <div class="ap-chip-grid">{product.integrations.map((item) => <span>{item}</span>)}</div>
-          <p>Koppelingen worden vooraf getoetst op beschikbare API’s, rechten en gewenste lees- of schrijfacties.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section class="ap-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Impactscenario</div><h2>Bereken hoeveel handwerk de eerste route kan <span class="ap-title-accent">voorbereiden.</span></h2><p>Een indicatie op basis van je eigen invoer, geen gegarandeerd financieel resultaat.</p></div>
+        <div class="ap-section-head"><div class="ap-kicker">{copy.impact}</div><h2>{copy.impactTitle}</h2><p>{copy.impactIntro}</p></div>
         <div class="ap-calculator">
           <div class="ap-calculator-inputs">
             <label><span>{product.calculator.volumeLabel}</span><strong data-volume-value>{selectedNiche.metric.volume}</strong><input data-volume type="range" min="20" max="1000" step="10" value={selectedNiche.metric.volume} /></label>
@@ -179,8 +171,8 @@ const schema = [
           <div class="ap-calculator-output">
             <span>{product.calculator.outputLabel}</span>
             <strong><span data-hours>0</span> uur</strong>
-            <p><span data-actions>0</span> contactmomenten voorbereid per maand.</p>
-            <small>Exclusief implementatie, gebruikskosten en werk dat menselijke beoordeling vraagt.</small>
+            <p><span data-actions>0</span> {copy.contacts}</p>
+            <small>{copy.disclaimer}</small>
           </div>
         </div>
       </div>
@@ -188,36 +180,23 @@ const schema = [
 
     <section class="ap-section ap-dark-section">
       <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Heldere kaders</div><h2>Automatiseren waar het veilig en nuttig is.</h2></div>
-        <div class="ap-card-grid ap-card-grid-3">{product.boundaries.map((item) => <article class="ap-dark-card"><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
-      </div>
-    </section>
-
-    <section class="ap-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Geschikt en minder geschikt</div><h2>Eerlijk bepalen welk systeem bij je situatie past.</h2></div>
-        <div class="ap-card-grid ap-card-grid-3">{product.fit.map((item) => <article class="ap-info-card"><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+        <div class="ap-section-head"><div class="ap-kicker">{copy.boundaries}</div><h2>{copy.boundariesTitle}</h2><p>{copy.boundariesIntro}</p></div>
+        <div class="ap-boundary-columns"><div><h3>{copy.agreements}</h3>{product.boundaries.map((item) => <article><strong>{item.title}</strong><p>{item.text}</p></article>)}</div><div><h3>{copy.fit}</h3>{product.fit.map((item) => <article><strong>{item.title}</strong><p>{item.text}</p></article>)}</div></div>
+        <details class="ap-integration-details"><summary>{copy.integrations} <span aria-hidden="true">+</span></summary><div>{product.integrations.map((item) => <span>{item}</span>)}</div><p>{copy.integrationNote}</p></details>
       </div>
     </section>
 
     <section class="ap-section ap-soft-section">
       <div class="ap-container ap-faq-layout">
-        <div class="ap-section-head"><div class="ap-kicker">Veelgestelde vragen</div><h2>Vragen voordat {product.name} live gaat.</h2></div>
+        <div class="ap-section-head"><div class="ap-kicker">{copy.faq}</div><h2>{copy.faqTitle}</h2></div>
         <div class="ap-faq-list">{product.faq.map((item, index) => <details open={index === 0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
-      </div>
-    </section>
-
-    <section class="ap-section">
-      <div class="ap-container">
-        <div class="ap-section-head"><div class="ap-kicker">Aanvullende producten</div><h2>Breid alleen uit wanneer de klantreis dat vraagt.</h2></div>
-        <div class="ap-related-grid">{relatedProducts.map((item) => <a href={`/producten/${item.slug}/`}><VisualIcon type="product" name={item.slug} /><span>{item.eyebrow}</span><h3>{item.name}</h3><p>{item.promise}</p><strong>Bekijk {item.name}</strong></a>)}</div>
       </div>
     </section>
 
     <section class="ap-section ap-final-section">
       <div class="ap-container ap-final-card">
-        <div><div class="ap-kicker">Volgende stap</div><h2>Bekijk hoe {product.name} waarde levert in jouw branche.</h2><p>We bekijken je huidige situatie, bepalen waar dit product werk overneemt en welke koppelingen echt nodig zijn.</p></div>
-        <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`/afspraak/?product=${product.slug}`}>Plan productadvies</a><a class="ap-button ap-button-secondary" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`/bestel-direct/?product=${product.slug}`}>Bestel direct</a></div>
+        <div><div class="ap-kicker">{copy.next}</div><h2>{copy.nextTitle}</h2><p>{copy.nextText}</p></div>
+        <div class="ap-actions"><a class="ap-button ap-button-primary" data-ap-event="appointment_cta_clicked" data-ap-product={product.slug} href={`${appointmentPath}?product=${product.slug}`}>{copy.appointment}</a><a class="ap-text-link" data-ap-event="direct_order_clicked" data-ap-product={product.slug} href={`${orderPath}?product=${product.slug}`}>{copy.order} →</a></div>
       </div>
     </section>
   </article>
@@ -242,16 +221,16 @@ const schema = [
         button.setAttribute("aria-pressed", String(active));
       });
       setText("[data-selected-name]", selected.name);
-      setText("[data-selected-heading]", `${data.product.name} voor ${selected.name.toLowerCase()}.`);
-      setText("[data-selected-copy]", `Ingericht op ${selected.intake.slice(0, 4).join(", ")} en gekoppeld aan ${selected.systems.slice(0, 3).join(", ")}.`);
+      setText("[data-selected-heading]", `${data.product.name} — ${selected.name}.`);
+      setText("[data-selected-copy]", `${data.copy.configured} ${selected.intake.slice(0, 4).join(", ")} ${data.copy.connected} ${selected.systems.slice(0, 3).join(", ")}.`);
       setText("[data-selected-question]", selected.conversation.customer);
       setText("[data-selected-intake]", selected.intake.slice(0, 3).join(" · "));
       setText("[data-selected-systems]", selected.systems.slice(0, 3).join(" · "));
       setText("[data-demo-niche]", selected.name);
       const link = root.querySelector("[data-selected-link]");
-      if (link) { link.href = `/voor-wie/${selected.slug}/?product=${data.product.slug}#producten`; link.textContent = `Bekijk AI voor ${selected.name.toLowerCase()}`; }
+      if (link) { link.href = `${data.nicheRoutes[selected.slug]}?product=${data.product.slug}#producten`; link.textContent = `${data.copy.viewAI} ${selected.name}`; }
       const finalLink = root.querySelector("[data-final-niche]");
-      if (finalLink) { finalLink.href = `/voor-wie/${selected.slug}/?product=${data.product.slug}#producten`; finalLink.textContent = `Bekijk ${selected.name}`; }
+      if (finalLink) { finalLink.href = `${data.nicheRoutes[selected.slug]}?product=${data.product.slug}#producten`; finalLink.textContent = `${data.copy.viewAI} ${selected.name}`; }
       const values = [["[data-volume]", selected.metric.volume], ["[data-minutes]", selected.metric.minutes], ["[data-automation]", selected.metric.automation]];
       values.forEach(([selector, value]) => { const input = root.querySelector(selector); if (input) input.value = value; });
       updateCalculator();
@@ -265,11 +244,12 @@ const schema = [
       const volume = Number(root.querySelector("[data-volume]")?.value || 0);
       const minutes = Number(root.querySelector("[data-minutes]")?.value || 0);
       const automation = Number(root.querySelector("[data-automation]")?.value || 0);
-      setText("[data-volume-value]", volume.toLocaleString("nl-NL"));
+      const localeTag = {nl:"nl-NL",en:"en-US",de:"de-DE",es:"es-ES",it:"it-IT",fr:"fr-FR"}[data.locale] || data.locale;
+      setText("[data-volume-value]", volume.toLocaleString(localeTag));
       setText("[data-minutes-value]", minutes);
       setText("[data-automation-value]", automation);
-      setText("[data-hours]", Math.round((volume * minutes * automation / 100) / 60).toLocaleString("nl-NL"));
-      setText("[data-actions]", Math.round(volume * automation / 100).toLocaleString("nl-NL"));
+      setText("[data-hours]", Math.round((volume * minutes * automation / 100) / 60).toLocaleString(localeTag));
+      setText("[data-actions]", Math.round(volume * automation / 100).toLocaleString(localeTag));
     };
 
     root.querySelectorAll("[data-niche]").forEach((button) => button.addEventListener("click", () => setNiche(button.dataset.niche)));
@@ -306,4 +286,6 @@ const schema = [
   })();
 </script>
 
-<style>.ap-icon-kicker{display:block;margin-top:24px}.ap-related-grid :global(.ap-visual-icon){margin-bottom:18px}</style>
+<style>
+  .ap-icon-kicker{display:block;margin-top:24px}.ap-on-dark{color:#fff}.ap-product-page :global(.ap-product-visual),.ap-product-page :global(.ap-dark-section){background-color:#071d33;background-image:radial-gradient(circle at 100% 100%,rgba(159,56,38,.3),transparent 34%),linear-gradient(145deg,#071d33,#0d3151)}.ap-product-scope-section{background:#f2f5f7}.ap-product-scope-shell{overflow:hidden;border:1px solid rgba(8,35,60,.14);border-radius:30px;background:#fff;box-shadow:0 28px 70px rgba(8,35,60,.08)}.ap-product-scope-top{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.12);color:#fff}.ap-product-scope-top>div{min-height:130px;background:linear-gradient(145deg,#071d33,#0d3151);padding:25px}.ap-product-scope-top>div:last-child{background:radial-gradient(circle at 100% 100%,rgba(159,56,38,.3),transparent 45%),linear-gradient(145deg,#0b2945,#123958)}.ap-product-scope-top span{color:#efaa9c;font:700 9px/1.2 "Syne",sans-serif;letter-spacing:1.2px;text-transform:uppercase}.ap-product-scope-top strong{display:block;max-width:470px;margin-top:12px;font-size:15px;line-height:1.48}.ap-clarity-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,6vw,80px);padding:8px 28px}.ap-clarity-columns>div{padding:26px 0}.ap-clarity-columns>div+div{border-left:1px solid var(--ap-line);padding-left:clamp(24px,5vw,56px)}.ap-clarity-columns h3{margin:0 0 14px;color:#315068;font:700 11px/1.2 "Syne",sans-serif;letter-spacing:1px;text-transform:uppercase}.ap-clarity-columns ol{margin:0;padding:0;list-style:none}.ap-clarity-columns li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;border-top:1px solid var(--ap-line);padding:17px 0}.ap-clarity-columns li>span{color:var(--ap-brown);font:700 9px "Syne",sans-serif}.ap-clarity-columns strong{font-size:14px}.ap-clarity-columns p{margin:7px 0 0;color:var(--ap-muted);font-size:12px;line-height:1.55}.ap-boundary-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,7vw,92px);border-block:1px solid rgba(255,255,255,.15);padding:26px 0}.ap-boundary-columns>div+div{border-left:1px solid rgba(255,255,255,.14);padding-left:clamp(24px,5vw,56px)}.ap-boundary-columns h3{margin:0 0 10px;color:#e7a295;font-size:14px;text-transform:uppercase;letter-spacing:1px}.ap-boundary-columns article{border-top:1px solid rgba(255,255,255,.13);padding:17px 0}.ap-boundary-columns strong{font-size:15px}.ap-boundary-columns p{margin:7px 0 0;color:rgba(255,255,255,.62);font-size:12px;line-height:1.55}.ap-integration-details{margin-top:26px;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15)}.ap-integration-details summary{display:flex;justify-content:space-between;padding:18px 0;cursor:pointer;font-weight:850;list-style:none}.ap-integration-details summary::-webkit-details-marker{display:none}.ap-integration-details>div{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:15px}.ap-integration-details>div>span{border-left:1px solid #e7a295;padding-left:10px;color:rgba(255,255,255,.75);font-size:12px}.ap-integration-details>p{padding-bottom:18px;color:rgba(255,255,255,.55);font-size:11px}@media(max-width:720px){.ap-product-scope-top,.ap-clarity-columns,.ap-boundary-columns{grid-template-columns:1fr}.ap-clarity-columns{padding:6px 22px}.ap-clarity-columns>div+div,.ap-boundary-columns>div+div{border-top:1px solid var(--ap-line);border-left:0;padding-left:0}.ap-boundary-columns>div+div{border-color:rgba(255,255,255,.14)}}
+</style>

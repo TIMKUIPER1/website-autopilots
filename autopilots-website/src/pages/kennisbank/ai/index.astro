@@ -1,6 +1,11 @@
 ---
 import KnowledgeLibrary from "../../../components/ecosystem/KnowledgeLibrary.astro";
 import { knowledgeArticles } from "../../../content/knowledgeArticles";
-const items=[...knowledgeArticles].sort((a,b)=>b.modified.localeCompare(a.modified)).map(article=>({title:article.cardTitle,description:article.excerpt,href:`/kennisbank/${article.slug}/`,category:article.category,cluster:article.contentCluster,label:`${article.label} · ${article.readTime}`,keywords:article.keywords,searchText:[...article.summary,...article.sections.flatMap(section=>[section.title,...section.paragraphs,...(section.bullets??[])])].join(" "),modified:article.modified,pillar:article.pillar}));
+import type { SupportedLocale } from "../../../i18n/languages";
+import { localizedPath } from "../../../i18n/routes";
+import { localizedArticle } from "../../../i18n/knowledgePage";
+interface Props { locale?:SupportedLocale }
+const {locale="nl"}=Astro.props;
+const items=[...knowledgeArticles].sort((a,b)=>b.modified.localeCompare(a.modified)).map(source=>localizedArticle(locale,source)).map(article=>({title:article.cardTitle,description:article.excerpt,href:localizedPath(`article.${article.slug}`,locale),category:article.category,cluster:article.contentCluster,label:`${article.label} · ${article.readTime}`,keywords:article.keywords,searchText:[...article.summary,...article.sections.flatMap(section=>[section.title,...section.paragraphs,...(section.bullets??[])])].join(" "),modified:article.modified,pillar:article.pillar}));
 ---
-<KnowledgeLibrary mode="ai" items={items} />
+<KnowledgeLibrary mode="ai" items={items} locale={locale} />

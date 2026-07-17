@@ -2,36 +2,47 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../components/sections/Hero.astro";
 import GhlEmbed from "../../components/embeds/GhlEmbed.astro";
+import { publicRuntime } from "../../config/publicRuntime";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { contactCopy } from "../../i18n/conversionPage";
+interface Props { locale?: SupportedLocale }
+const { locale = "nl" } = Astro.props;
+const copy = contactCopy[locale];
 ---
 
 <BaseLayout
-  title="Contact | Autopilots"
-  description="Plan een afspraak met Autopilots en ontdek waar AI medewerkers werk kunnen overnemen in klantcontact, support, planning en opvolging."
-  canonical="/contact/"
+  title={copy.title}
+  description={copy.description}
+  canonical={localizedPath("page.contact",locale)}
+  locale={locale}
+  contentId="page.contact"
 >
   <Hero
-    eyebrow="Contact Autopilots"
-    title="Laten we kijken waar AI in jouw proces"
-    accent="direct werk overneemt."
-    text="Plan een korte kennismaking. We bekijken je huidige workflow en laten zien welke AI medewerker logisch is als eerste stap."
-    primaryLabel="Plan afspraak"
+    eyebrow={copy.kicker}
+    title={copy.hero}
+    accent={copy.accent}
+    text={copy.lead}
+    primaryLabel={copy.appointment}
     primaryHref="#calendar"
-    secondaryLabel="Bekijk producten"
-    secondaryHref="/producten/"
-    chips={["Demo", "Advies", "Workflow", "CRM", "Livegang"]}
+    secondaryLabel={copy.products}
+    secondaryHref={localizedPath("page.products",locale)}
+    chips={[...copy.chips]}
+    locale={locale}
   />
 
   <section class="ap-section" id="calendar">
     <div class="ap-container">
       <div class="ap-section-head">
-        <div class="ap-kicker">Afspraak plannen</div>
-        <h2 class="ap-section-title">Kies direct een moment in de agenda.</h2>
-        <p class="ap-text">We kijken naar je huidige situatie en bepalen welk AI product als eerste logisch waarde toevoegt.</p>
+        <div class="ap-kicker">{copy.plan}</div>
+        <h2 class="ap-section-title">{copy.calendarTitle}</h2>
+        <p class="ap-text">{copy.calendarText}</p>
       </div>
       <GhlEmbed
-        src="https://api.leadconnectorhq.com/widget/booking/UaWTV0sdETiXy0refclQ"
-        title="Plan een afspraak met Autopilots"
+        src={publicRuntime.ghlCalendarUrl}
+        title={copy.calendar}
         id="autopilots-contact-calendar"
+        locale={locale}
       />
     </div>
   </section>
