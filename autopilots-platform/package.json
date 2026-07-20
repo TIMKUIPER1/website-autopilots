@@ -1,0 +1,14 @@
+{
+  "name": "autopilots-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Veilig fundament voor de Autopilots implementatiemachine.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js",
+    "check": "node --check src/server.js && node --check src/domain/lifecycle.js && node --check src/domain/store.js && npm test"
+  }
+}

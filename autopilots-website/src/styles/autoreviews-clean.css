@@ -488,9 +488,13 @@ body.ap-autoreviews-clean .ap-footer .ap-button-primary {
   }
 
   body.ap-autoreviews-clean .ap-nav {
+    z-index: 50;
     border: 1px solid var(--ap-line);
     border-radius: 16px;
+    background:
+      linear-gradient(145deg, #ffffff 0%, #ffffff 68%, #f8ece9 100%);
     padding: 8px;
+    box-shadow: 0 24px 60px rgba(16, 32, 51, 0.14);
   }
 
   body.ap-autoreviews-clean .ap-eco-hero {
