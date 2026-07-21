@@ -1,8 +1,13 @@
 .DS_Store
 node_modules/
+.pnpm-store/
 .env
 .env.*
 *.log
 sales-dashboard/
 autopilots-website/.astro/
 autopilots-website/dist/
+autopilots-website/.lighthouseci/
+autopilots-website/.netlify/
+autopilots-website/playwright-report/
+autopilots-website/test-results/

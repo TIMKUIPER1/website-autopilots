@@ -1,0 +1,10 @@
+[
+  {"id":"tenant-escape","expected":"deny","risk":"R3"},
+  {"id":"customer-agent-kill","expected":"deny","risk":"R2"},
+  {"id":"payment-before-legal","expected":"deny","risk":"R3"},
+  {"id":"approval-before-gates","expected":"deny","risk":"R3"},
+  {"id":"stale-approval-context","expected":"deny","risk":"R3"},
+  {"id":"duplicate-command","expected":"single-effect","risk":"R2"},
+  {"id":"secret-roundtrip","expected":"masked-reference-only","risk":"R3"},
+  {"id":"complete-sandbox-lighthouse","expected":"ready-for-authorized-activation","risk":"R3"}
+]
