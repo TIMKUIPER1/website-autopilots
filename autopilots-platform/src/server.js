@@ -15,6 +15,13 @@ const host = process.env.HOST || "127.0.0.1";
 const sessionTtlMs = 8 * 60 * 60 * 1000;
 const loginWindowMs = 15 * 60 * 1000;
 const loginLimit = 8;
+const companyCatalog = [
+  { id: "autopilots", name: "Autopilots", code: "AP", status: "active" },
+  { id: "autoreviews", name: "Autoreviews", code: "AR", status: "setup" },
+  { id: "autoplanner", name: "Autoplanner", code: "PL", status: "setup" },
+  { id: "autowebsites", name: "Autowebsites", code: "AW", status: "setup" },
+  { id: "autosupport", name: "Autosupport", code: "AS", status: "setup" }
+];
 
 const demoUsers = [
   {
@@ -23,7 +30,8 @@ const demoUsers = [
     code: process.env.DEMO_CUSTOMER_CODE || "autopilots-demo",
     role: "customer",
     organizationId: "org_curacao_auto",
-    name: "Curaçao Auto Center"
+    name: "Curaçao Auto Center",
+    companyIds: ["autopilots"]
   },
   {
     id: "usr_internal_demo",
@@ -31,7 +39,8 @@ const demoUsers = [
     code: process.env.DEMO_INTERNAL_CODE || "autopilots-internal",
     role: "internal",
     organizationId: "org_curacao_auto",
-    name: "Autopilots Operator"
+    name: "Autopilots Operator",
+    companyIds: ["autopilots", "autoreviews", "autoplanner", "autowebsites", "autosupport"]
   }
 ];
 
@@ -68,11 +77,15 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/v1/demo" && req.method === "GET") {
       const session = requireSession(req);
-      return json(res, 200, store.snapshotFor(session));
+      const company = requireCompany(session, url.searchParams.get("company"));
+      if (company.id !== "autopilots") return json(res, 200, emptyCompanySnapshot(session, company));
+      return json(res, 200, { ...store.snapshotFor(session), company });
     }
 
     if (url.pathname === "/api/v1/demo/command" && req.method === "POST") {
       const session = requireSession(req);
+      const company = requireCompany(session, url.searchParams.get("company"));
+      if (company.id !== "autopilots") throw new HttpError(409, "Deze bedrijfsomgeving heeft nog geen actieve workflow");
       const body = await parseBody(req);
       const idempotencyKey = String(req.headers["idempotency-key"] || "");
       return json(res, 200, store.command(idempotencyKey, body.action, body.payload, session));
@@ -86,6 +99,9 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname !== "/login") {
       const session = sessionFromRequest(req);
       if (!session) return redirect(res, "/login");
+      if (session.role === "internal" && customerRoutes.has(url.pathname)) {
+        return redirect(res, "/control-center");
+      }
       if (!routeAllowed(session.role, url.pathname)) throw new HttpError(403, "Geen toegang tot deze omgeving");
     }
     return serveFile(res, path.resolve(root, "workspace.html"));
@@ -145,12 +161,33 @@ function requireSession(req) {
 }
 
 function publicUser(user) {
+  const companyIds = user.companyIds || user.companies?.map((company) => company.id) || ["autopilots"];
   return {
     id: user.id,
     email: user.email,
     role: user.role,
     organizationId: user.organizationId,
-    name: user.name
+    name: user.name,
+    companyIds,
+    companies: companyCatalog.filter((company) => companyIds.includes(company.id))
+  };
+}
+
+function requireCompany(session, requestedId) {
+  const companyId = String(requestedId || "autopilots");
+  const company = companyCatalog.find((candidate) => candidate.id === companyId);
+  if (!company || !session.companyIds?.includes(companyId)) throw new HttpError(403, "Geen toegang tot deze bedrijfsomgeving");
+  return company;
+}
+
+function emptyCompanySnapshot(session, company) {
+  return {
+    empty: true,
+    demoMode: true,
+    company,
+    viewer: publicUser(session),
+    metrics: { customers: 0, implementations: 0, humanAttention: 0, totalCostCents: 0 },
+    source: "isolated_empty_workspace"
   };
 }
 

@@ -1,0 +1,29 @@
+---
+import CampaignLayout from "../../../../../layouts/CampaignLayout.astro";
+---
+
+<CampaignLayout title="Afspraak bevestigd | Autopilots" description="Je afspraak met Autopilots is bevestigd." canonical="/lp/autobedrijven/ai-medewerker/afspraak-bevestigd/" campaign="Autobedrijven AI-medewerker funnel">
+  <main id="ap-campaign" class="ap-confirmation">
+    <section class="ap-confirmation__card">
+      <a class="ap-confirmation__brand" href="https://auto-pilots.io/">AUTOPILOTS</a>
+      <span class="ap-confirmation__status">AFSPRAAK BEVESTIGD</span>
+      <h1>Je afspraak staat.</h1>
+      <p>We bekijken samen waar een AI-medewerker direct waarde kan leveren voor je autobedrijf. Je ontvangt de bevestiging en afspraakdetails per e-mail.</p>
+      <div class="ap-confirmation__route"><span>01</span><strong>Huidige situatie</strong><i></i><span>02</span><strong>Passende AI-rol</strong><i></i><span>03</span><strong>Route naar live</strong></div>
+      <a class="ap-confirmation__button" href="/lp/autobedrijven/ai-medewerker/ervaring/">Terug naar de AI-preview</a>
+    </section>
+  </main>
+  <script is:inline>window.apCampaign?.emit?.("appointment_scheduled",{calendar:"autobedrijven_ai_medewerker"});</script>
+</CampaignLayout>
+
+<style>
+  .ap-confirmation{display:grid;min-height:100vh;place-items:center;background:radial-gradient(circle at 82% 18%,rgba(57,105,151,.27),transparent 28%),radial-gradient(circle at 92% 92%,rgba(159,56,38,.28),transparent 32%),linear-gradient(135deg,#081624 0%,#0d243a 52%,#0b1929 100%)!important;padding:28px;color:#fff}
+  .ap-confirmation__card{width:min(780px,100%);border:1px solid rgba(255,255,255,.12);border-radius:34px;background:rgba(9,29,46,.82);padding:clamp(32px,7vw,72px);box-shadow:0 35px 100px rgba(0,0,0,.3);text-align:center;backdrop-filter:blur(20px)}
+  .ap-confirmation__brand{display:inline-block;margin-bottom:46px;color:#fff!important;font:700 14px/1 "Syne",sans-serif;letter-spacing:3px}
+  .ap-confirmation__status{display:block;margin-bottom:20px;color:#f0afa5;font:700 10px/1.2 "Syne",sans-serif;letter-spacing:1.7px}
+  .ap-confirmation h1{margin:0;color:#fff;font-size:clamp(42px,8vw,72px)!important;line-height:1!important;letter-spacing:-.05em!important}
+  .ap-confirmation p{max-width:600px;margin:26px auto 0!important;color:rgba(255,255,255,.68);font-size:17px;line-height:1.65}
+  .ap-confirmation__route{display:flex;align-items:center;justify-content:center;gap:10px;margin:38px 0;color:rgba(255,255,255,.7);font-size:10px}.ap-confirmation__route span{display:grid;width:30px;height:30px;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(255,255,255,.08);font:700 8px/1 "Syne",sans-serif}.ap-confirmation__route i{width:20px;height:1px;background:rgba(255,255,255,.16)}
+  .ap-confirmation__button{display:inline-flex;min-height:54px;align-items:center;border-radius:999px;background:#9f3826;padding:0 24px;color:#fff!important;font-weight:850}
+  @media(max-width:620px){.ap-confirmation{padding:14px}.ap-confirmation__card{border-radius:25px;padding:34px 20px}.ap-confirmation__brand{margin-bottom:34px}.ap-confirmation p{font-size:15px}.ap-confirmation__route{display:grid;grid-template-columns:30px 1fr;justify-items:start;text-align:left}.ap-confirmation__route i{display:none}}
+</style>

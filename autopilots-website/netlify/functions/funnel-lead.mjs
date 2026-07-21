@@ -23,16 +23,23 @@ export default async (request) => {
   const webhook=process.env.GHL_AUTOBEDRIJVEN_FUNNEL_WEBHOOK_URL;
   const token=process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
   const locationId=process.env.GHL_LOCATION_ID;
+  const pipelineId=process.env.GHL_META_PIPELINE_ID;
+  const pipelineStageId=process.env.GHL_META_NEW_LEAD_STAGE_ID;
   const customFieldKey=process.env.GHL_FUNNEL_CONTEXT_FIELD_KEY;
   try {
     let response;
     if (webhook) {
       response=await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name,company,email,phone,intent,tags,source:"Autopilots advertentiefunnel autobedrijven",funnelAnswers,...attribution,context}),signal:AbortSignal.timeout(9000)});
-    } else if (token && locationId) {
+    } else if (token && locationId && pipelineId && pipelineStageId) {
       const { firstName,lastName }=splitName(name);
       const payload={firstName,lastName,name,email,phone:phone||undefined,companyName:company,locationId,source:"Autopilots advertentiefunnel autobedrijven",tags};
       if(customFieldKey)payload.customFields=[{key:customFieldKey,fieldValue:JSON.stringify(context).slice(0,4000)}];
       response=await fetch("https://services.leadconnectorhq.com/contacts/upsert",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json","Authorization":`Bearer ${token}`,"Version":"2021-04-15"},body:JSON.stringify(payload),signal:AbortSignal.timeout(9000)});
+      if(!response.ok)return json({ok:false,message:"De aanvraag kon niet veilig worden verwerkt."},502);
+      const contactResult=await response.json().catch(()=>({}));
+      const contactId=text(contactResult?.contact?.id??contactResult?.id,80);
+      if(!contactId)return json({ok:false,message:"De aanvraag is ontvangen, maar kon niet aan de juiste contactkaart worden gekoppeld."},502);
+      response=await fetch("https://services.leadconnectorhq.com/opportunities/",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json","Authorization":`Bearer ${token}`,"Version":"2023-02-21"},body:JSON.stringify({pipelineId,pipelineStageId,locationId,contactId,name:`${company} — ${name}`,status:"open",source:"Marketing | META Campaign — AI-medewerker autobedrijven"}),signal:AbortSignal.timeout(9000)});
     } else {
       return json({ ok:false, message:"De persoonlijke toegang is nog niet gekoppeld. Neem contact op met Autopilots." }, 503);
     }

@@ -5,6 +5,7 @@ import "../styles/campaign.css";
 interface Props { title: string; description: string; canonical: string; campaign: string }
 const { title, description, canonical, campaign } = Astro.props;
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
+const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID ?? "1715813002902335";
 ---
 <!doctype html>
 <html lang="nl">
@@ -24,7 +25,17 @@ const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString
   <body>
     <a class="ap-skip-link" href="#campaign-content">Ga naar de inhoud</a>
     <main id="campaign-content"><slot /></main>
-    <script is:inline define:vars={{ campaign }}>
+    <aside class="ap-campaign-consent" data-campaign-consent hidden aria-label="Cookievoorkeuren">
+      <div>
+        <strong>Meten om de funnel beter te maken</strong>
+        <p>Met jouw toestemming gebruiken we de Meta Pixel om advertentieresultaten en funnelstappen te meten. <a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacyinformatie</a></p>
+      </div>
+      <div class="ap-campaign-consent__actions">
+        <button type="button" data-consent-reject>Alleen noodzakelijk</button>
+        <button type="button" data-consent-accept>Akkoord</button>
+      </div>
+    </aside>
+    <script is:inline define:vars={{ campaign, metaPixelId }}>
       (()=>{
         const keys=["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"];
         const params=new URLSearchParams(location.search);
@@ -32,13 +43,49 @@ const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString
         let stored={};try{stored=JSON.parse(sessionStorage.getItem("ap_campaign_attribution")||"{}")||{}}catch{}
         const attribution={...stored,...current,landing_page:stored.landing_page||location.pathname,campaign};
         try{sessionStorage.setItem("ap_campaign_attribution",JSON.stringify(attribution))}catch{}
-        const emit=(name,detail={})=>{const event={event:name,page_path:location.pathname,campaign,...attribution,...detail};window.dispatchEvent(new CustomEvent("autopilots:analytics",{detail:event}));if(Array.isArray(window.dataLayer))window.dataLayer.push(event)};
+        let metaReady=false;
+        const metaEventId=(name)=>`${name}-${Date.now()}-${crypto.getRandomValues(new Uint32Array(1))[0].toString(16)}`;
+        const trackMeta=(name,detail={})=>{
+          if(!metaReady||typeof window.fbq!=="function")return;
+          const shared={content_name:campaign,page_path:location.pathname};
+          if(name==="lead_form_succeeded")window.fbq("track","Lead",{...shared,content_category:"autobedrijven_ai_funnel"},{eventID:metaEventId("lead")});
+          else if(name==="elevenlabs_demo_opened")window.fbq("trackCustom","DemoStarted",{...shared,product:detail.product||""},{eventID:metaEventId("demo")});
+          else if(name==="roi_calculated"&&detail.interaction)window.fbq("trackCustom","RoiCalculated",{...shared,product:detail.product||""},{eventID:metaEventId("roi")});
+          else if(name==="funnel_diagnosis_completed")window.fbq("trackCustom","FunnelCompleted",shared,{eventID:metaEventId("funnel")});
+          else if(name==="appointment_scheduled")window.fbq("track","Schedule",{...shared,content_category:"autobedrijven_ai_funnel",calendar:detail.calendar||""},{eventID:metaEventId("schedule")});
+        };
+        const emit=(name,detail={})=>{const event={event:name,page_path:location.pathname,campaign,...attribution,...detail};window.dispatchEvent(new CustomEvent("autopilots:analytics",{detail:event}));if(Array.isArray(window.dataLayer))window.dataLayer.push(event);trackMeta(name,detail)};
         window.apCampaign={attribution,emit};
+        const loadMeta=()=>{
+          if(metaReady||!/^\d{10,20}$/.test(String(metaPixelId)))return;
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+          window.fbq("init",String(metaPixelId));
+          metaReady=true;
+          window.fbq("track","PageView",{}, {eventID:metaEventId("page")});
+          window.fbq("track","ViewContent",{content_name:campaign,page_path:location.pathname},{eventID:metaEventId("view")});
+        };
+        const consent=document.querySelector("[data-campaign-consent]");
+        let consentChoice="";try{consentChoice=localStorage.getItem("ap_marketing_consent")||""}catch{}
+        if(consentChoice==="granted")loadMeta();
+        else if(!consentChoice)consent.hidden=false;
+        consent?.querySelector("[data-consent-accept]")?.addEventListener("click",()=>{try{localStorage.setItem("ap_marketing_consent","granted")}catch{}consent.hidden=true;loadMeta()});
+        consent?.querySelector("[data-consent-reject]")?.addEventListener("click",()=>{try{localStorage.setItem("ap_marketing_consent","denied")}catch{}consent.hidden=true});
         emit("funnel_page_viewed");
         document.querySelectorAll("[data-campaign-attribution]").forEach(form=>{Object.entries(attribution).forEach(([key,value])=>{let input=form.querySelector(`[name="${CSS.escape(key)}"]`);if(!input){input=document.createElement("input");input.type="hidden";input.name=key;form.append(input)}input.value=String(value||"")})});
         document.querySelectorAll('a[href^="/lp/"]').forEach(anchor=>{const url=new URL(anchor.href,location.origin);keys.forEach(key=>{if(attribution[key]&&!url.searchParams.has(key))url.searchParams.set(key,attribution[key])});anchor.href=`${url.pathname}${url.search}${url.hash}`});
         document.addEventListener("click",event=>{const target=event.target.closest("[data-funnel-event]");if(target)emit(target.dataset.funnelEvent,{intent:target.dataset.intent,product:target.dataset.product})});
       })();
     </script>
+    <style is:global>
+      .ap-campaign-consent{position:fixed;z-index:9999;right:18px;bottom:18px;left:18px;display:flex;max-width:760px;align-items:center;justify-content:space-between;gap:22px;margin:auto;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:rgba(7,22,35,.96);padding:18px 20px;color:#fff;box-shadow:0 24px 70px rgba(0,0,0,.34);backdrop-filter:blur(18px)}
+      .ap-campaign-consent[hidden]{display:none}
+      .ap-campaign-consent strong{display:block;font-size:14px;line-height:1.3}
+      .ap-campaign-consent p{max-width:490px;margin:6px 0 0;color:rgba(255,255,255,.64);font-size:11px;line-height:1.55}
+      .ap-campaign-consent a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+      .ap-campaign-consent__actions{display:flex;flex:0 0 auto;gap:8px}
+      .ap-campaign-consent button{min-height:42px;border:1px solid rgba(255,255,255,.15);border-radius:999px;background:rgba(255,255,255,.08);padding:0 16px;color:#fff;font:800 10px/1 "Public Sans",sans-serif;cursor:pointer}
+      .ap-campaign-consent button[data-consent-accept]{border-color:#9f3826;background:#9f3826}
+      @media(max-width:640px){.ap-campaign-consent{right:10px;bottom:10px;left:10px;align-items:stretch;flex-direction:column;gap:14px;border-radius:19px;padding:17px}.ap-campaign-consent strong{font-size:16px}.ap-campaign-consent p{font-size:13px}.ap-campaign-consent__actions{display:grid;grid-template-columns:1fr 1fr}.ap-campaign-consent button{padding:0 12px;font-size:11px}}
+    </style>
   </body>
 </html>

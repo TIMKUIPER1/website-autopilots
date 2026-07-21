@@ -54,7 +54,7 @@ export function assertCommandAuthorized(context, action) {
 export function routeAllowed(role, pathname) {
   if (pathname === "/login") return true;
   if (pathname.startsWith("/control-center")) return role === "internal";
-  return role === "customer" || role === "internal";
+  return role === "customer";
 }
 
 function forbidden(message) {

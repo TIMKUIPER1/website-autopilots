@@ -56,6 +56,10 @@ test("server dwingt sessies, rollen en securityheaders af", async () => {
     );
     const customerData = await fetch(`${base}/api/v1/demo`, { headers: { Cookie: customerCookie } }).then((response) => response.json());
     assert.equal("agents" in customerData, false);
+    assert.equal(
+      (await fetch(`${base}/api/v1/demo?company=autoreviews`, { headers: { Cookie: customerCookie } })).status,
+      403
+    );
 
     const forbiddenCommand = await fetch(`${base}/api/v1/demo/command`, {
       method: "POST",
@@ -68,8 +72,34 @@ test("server dwingt sessies, rollen en securityheaders af", async () => {
     for (const route of internalRoutes) {
       assert.equal((await fetch(base + route, { headers: { Cookie: internalCookie } })).status, 200, route);
     }
+    for (const route of customerRoutes) {
+      const internalCustomerPage = await fetch(base + route, {
+        headers: { Cookie: internalCookie },
+        redirect: "manual"
+      });
+      assert.equal(internalCustomerPage.status, 302, route);
+      assert.equal(internalCustomerPage.headers.get("location"), "/control-center", route);
+    }
     const internalData = await fetch(`${base}/api/v1/demo`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
     assert.equal(Array.isArray(internalData.approvals), true);
+    const internalSession = await fetch(`${base}/api/v1/session`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
+    assert.deepEqual(internalSession.user.companies.map((company) => company.id), [
+      "autopilots", "autoreviews", "autoplanner", "autowebsites", "autosupport"
+    ]);
+    for (const companyId of ["autoreviews", "autoplanner", "autowebsites", "autosupport"]) {
+      const companyData = await fetch(`${base}/api/v1/demo?company=${companyId}`, {
+        headers: { Cookie: internalCookie }
+      }).then((response) => response.json());
+      assert.equal(companyData.empty, true, companyId);
+      assert.equal(companyData.company.id, companyId);
+      assert.equal("organization" in companyData, false, companyId);
+    }
+    const autoreviewsCommand = await fetch(`${base}/api/v1/demo/command?company=autoreviews`, {
+      method: "POST",
+      headers: { Cookie: internalCookie, "Content-Type": "application/json", "Idempotency-Key": "company-isolation" },
+      body: JSON.stringify({ action: "demo.reset", payload: {} })
+    });
+    assert.equal(autoreviewsCommand.status, 409);
 
     const logout = await fetch(`${base}/api/v1/session/logout`, {
       method: "POST",
