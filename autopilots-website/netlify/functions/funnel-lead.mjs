@@ -13,7 +13,12 @@ export default async (request) => {
   const intent=["roi","demo"].includes(input.intent) ? input.intent : "demo";
   if (!name || !company || !emailOk(email) || input.consent !== true) return json({ ok:false, message:"Controleer je naam, bedrijf, e-mailadres en toestemming." }, 422);
   const attribution={};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid","landing_page"].forEach(key=>{const value=text(input[key],180);if(value)attribution[key]=value});
-  const context={campaign:text(input.campaignName,120),niche:text(input.niche,80),intent,attribution,submittedAt:new Date().toISOString()};
+  let funnelAnswers={};
+  try {
+    const parsed=typeof input.funnelAnswers==="string" ? JSON.parse(input.funnelAnswers) : input.funnelAnswers;
+    if(parsed&&typeof parsed==="object"&&!Array.isArray(parsed))Object.entries(parsed).slice(0,12).forEach(([key,item])=>{const safeKey=text(key,40),value=text(item?.value??item,80),label=text(item?.label,120);if(safeKey&&value)funnelAnswers[safeKey]={value,label}});
+  } catch {}
+  const context={campaign:text(input.campaignName,120),niche:text(input.niche,80),intent,funnelAnswers,attribution,submittedAt:new Date().toISOString()};
   const tags=["LP Autobedrijven","AI-medewerker funnel","Advertentielead",intent==="roi"?"Intent ROI":"Intent Demo"];
   const webhook=process.env.GHL_AUTOBEDRIJVEN_FUNNEL_WEBHOOK_URL;
   const token=process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
@@ -22,7 +27,7 @@ export default async (request) => {
   try {
     let response;
     if (webhook) {
-      response=await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name,company,email,phone,intent,tags,source:"Autopilots advertentiefunnel autobedrijven",...attribution,context}),signal:AbortSignal.timeout(9000)});
+      response=await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name,company,email,phone,intent,tags,source:"Autopilots advertentiefunnel autobedrijven",funnelAnswers,...attribution,context}),signal:AbortSignal.timeout(9000)});
     } else if (token && locationId) {
       const { firstName,lastName }=splitName(name);
       const payload={firstName,lastName,name,email,phone:phone||undefined,companyName:company,locationId,source:"Autopilots advertentiefunnel autobedrijven",tags};

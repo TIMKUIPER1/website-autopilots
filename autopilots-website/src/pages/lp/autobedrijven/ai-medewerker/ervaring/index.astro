@@ -12,14 +12,14 @@ import CampaignLayout from "../../../../../layouts/CampaignLayout.astro";
 
     <main id="top">
       <section class="ap-experience-hero ap-campaign-container">
-        <p class="ap-page-eyebrow">LIVE ERVARING VOOR AUTOBEDRIJVEN</p>
-        <h1>Test drie AI-medewerkers en bereken <em>wat ze kunnen opleveren.</em></h1>
-        <p>Begin met de live demo’s. Vul daarna je eigen aantallen in. Zo zie je direct welke rol het beste aansluit op verkoop, werkplaats en leadopvolging.</p>
+        <p class="ap-page-eyebrow">JOUW PERSOONLIJKE AI-PREVIEW</p>
+        <h1>Test hier de <span class="ap-no-break">AI&#8209;medewerker</span> en ontdek <em>wat die voor je autobedrijf doet.</em></h1>
+        <p>Kies een rol, start de echte AI-medewerker en praat zoals een klant dat zou doen. Daarna bereken je direct de mogelijke impact op verkoop, werkplaats en opvolging.</p>
         <div class="ap-hero-route" aria-label="Route op deze pagina"><span><b>01</b> Test de AI</span><i></i><span><b>02</b> Bereken impact</span><i></i><span><b>03</b> Bespreek inrichting</span></div>
       </section>
 
       <section id="testen" class="ap-page-section ap-campaign-container" aria-labelledby="demo-title">
-        <div class="ap-page-head"><div><p class="ap-page-eyebrow">LIVE DEMO</p><h2 id="demo-title">Kies de AI-medewerker die je wilt testen.</h2></div><p>Kies een product, lees wat je kunt proberen en open daarna de echte ElevenLabs-widget.</p></div>
+        <div class="ap-page-head"><div><p class="ap-page-eyebrow">LIVE AI-ERVARING</p><h2 id="demo-title">Test hier de AI-medewerker.</h2></div><p>Kies een rol en start direct een echt gesprek. De Autopilots live agent opent zodra je de test start.</p></div>
         <ElevenLabsAutoDemos />
       </section>
 
@@ -60,4 +60,87 @@ import CampaignLayout from "../../../../../layouts/CampaignLayout.astro";
   .ap-live-route{background:#e9e8e4}.ap-live-route-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(380px,1fr);gap:65px;padding-block:82px}.ap-live-route h2{margin:0;font-size:clamp(32px,4vw,52px)!important;line-height:1.07!important}.ap-live-route>div>div>p:last-child{max-width:570px;margin:24px 0 0!important;color:#656565;font-size:13px;line-height:1.65}.ap-live-route ol{position:relative;display:grid;margin:0;padding:0;list-style:none}.ap-live-route ol:before{position:absolute;top:22px;bottom:22px;left:21px;width:1px;background:#c7aea8;content:""}.ap-live-route li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:17px;padding-bottom:26px}.ap-live-route li>span{z-index:1;display:grid;width:44px;height:44px;place-items:center;border:7px solid #e9e8e4;border-radius:50%;background:#111;color:#fff;font:700 8px/1 "Syne",sans-serif}.ap-live-route li strong{font-size:14px}.ap-live-route li p{margin:6px 0 0!important;color:#6c6c6c;font-size:10px;line-height:1.45}.ap-live-route aside{grid-column:1/-1;display:grid;grid-template-columns:.42fr .8fr 1.1fr;align-items:center;gap:24px;border-top:1px solid rgba(17,17,17,.12);padding-top:27px}.ap-live-route aside span{color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.2px;text-transform:uppercase}.ap-live-route aside strong{font-size:18px}.ap-live-route aside p{margin:0!important;color:#656565;font-size:10px;line-height:1.55}
   .ap-booking{display:grid;grid-template-columns:minmax(300px,.62fr) minmax(520px,1.38fr);gap:65px;align-items:start;padding-block:82px}.ap-booking-copy{position:sticky;top:30px}.ap-booking-copy h2{margin:0;font-size:clamp(32px,4vw,50px)!important;line-height:1.07!important}.ap-booking-copy>p:last-child{margin:23px 0 0!important;color:#656565;font-size:13px;line-height:1.65}.ap-booking :global(.ap-embed-card){box-shadow:0 20px 65px rgba(17,17,17,.07)}.ap-page-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:75px;border-top:1px solid rgba(17,17,17,.1);color:#777;font-size:9px}.ap-page-footer>span{font-family:"Syne",sans-serif;letter-spacing:2px;font-weight:700}.ap-page-footer a{text-decoration:underline!important;text-underline-offset:3px}
   @media(max-width:900px){.ap-page-head,.ap-system-content,.ap-live-route-grid,.ap-booking{grid-template-columns:1fr}.ap-page-head{gap:16px}.ap-system-content{gap:40px}.ap-booking-copy{position:static}.ap-live-route aside{grid-template-columns:1fr}}@media(max-width:620px){.ap-experience-page nav{display:none}.ap-experience-hero{padding-block:58px}.ap-experience-hero h1{font-size:42px!important}.ap-hero-route{align-items:flex-start;flex-direction:column;margin-left:0}.ap-hero-route i{display:none}.ap-page-section{padding-block:60px}.ap-page-head h2{font-size:36px!important}.ap-system-content{padding-block:60px}.ap-system-content ol{grid-template-columns:1fr;gap:20px}.ap-live-route-grid,.ap-booking{gap:40px;padding-block:60px}.ap-booking{grid-template-columns:1fr}.ap-page-footer{align-items:flex-start;flex-direction:column;justify-content:center;padding-block:20px}}
+</style>
+
+<style>
+  #ap-campaign.ap-experience-page{--experience-navy:#081624;--experience-blue:#0d243a;--experience-blue-soft:#1c5a8e;min-height:100vh;background:radial-gradient(circle at 82% 18%,rgba(57,105,151,.27),transparent 28%),radial-gradient(circle at 92% 92%,rgba(159,56,38,.28),transparent 32%),linear-gradient(135deg,#081624 0%,#0d243a 52%,#0b1929 100%)!important;color:#fff;isolation:isolate}
+  #ap-campaign.ap-experience-page:before{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 72%);content:"";pointer-events:none}
+  .ap-experience-page .ap-campaign-topbar{border-color:rgba(255,255,255,.1)}
+  .ap-experience-page .ap-campaign-brand{color:#fff;letter-spacing:3.5px}
+  .ap-experience-page nav{color:rgba(255,255,255,.58)}
+  .ap-experience-page nav a:hover{color:#fff}
+  .ap-experience-page .ap-experience-hero{position:relative;padding-block:88px 96px}
+  .ap-experience-page .ap-experience-hero:after{position:absolute;right:-100px;bottom:-80px;width:280px;height:280px;border:1px solid rgba(78,155,216,.17);border-radius:50%;box-shadow:0 0 0 46px rgba(78,155,216,.035);content:"";pointer-events:none}
+  .ap-experience-page .ap-page-eyebrow{display:inline-flex;width:max-content;align-items:center;border:1px solid rgba(231,162,149,.2);border-radius:999px;background:rgba(159,56,38,.13);padding:9px 13px;color:#f0afa5!important;backdrop-filter:blur(14px)}
+  .ap-experience-page .ap-experience-hero .ap-page-eyebrow{margin-inline:auto!important}
+  .ap-experience-page .ap-experience-hero h1{max-width:940px;margin-inline:auto!important;color:#fff;text-wrap:balance}
+  #ap-campaign.ap-experience-page .ap-no-break{white-space:nowrap!important}
+  .ap-experience-page .ap-experience-hero h1 em{color:#cf634e;text-shadow:0 12px 42px rgba(159,56,38,.22)}
+  .ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){color:rgba(255,255,255,.67)}
+  .ap-experience-page .ap-hero-route span{color:rgba(255,255,255,.62)}
+  .ap-experience-page .ap-hero-route b{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.09);box-shadow:inset 0 1px rgba(255,255,255,.1)}
+  .ap-experience-page .ap-hero-route i{background:linear-gradient(90deg,rgba(55,132,190,.35),rgba(231,150,137,.55))}
+  .ap-experience-page .ap-page-section{position:relative}
+  .ap-experience-page .ap-page-head h2{color:#fff;text-wrap:balance}
+  .ap-experience-page .ap-page-head>p{color:rgba(255,255,255,.58)}
+  .ap-experience-page #testen{padding-top:46px}
+  .ap-experience-page .ap-system-strip{border-block:1px solid rgba(255,255,255,.08);background:rgba(2,11,19,.48);backdrop-filter:blur(18px)}
+  .ap-experience-page .ap-system-content li{border-color:rgba(88,157,210,.2)}
+  .ap-experience-page #berekenen{padding-top:100px}
+  .ap-experience-page .ap-live-route{border-block:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg,rgba(14,46,72,.86),rgba(5,18,30,.94))}
+  .ap-experience-page .ap-live-route h2,.ap-experience-page .ap-live-route strong{color:#fff}
+  .ap-experience-page .ap-live-route>div>div>p:last-child,.ap-experience-page .ap-live-route li p,.ap-experience-page .ap-live-route aside p{color:rgba(255,255,255,.58)}
+  .ap-experience-page .ap-live-route ol:before{background:linear-gradient(#3984bc,#d48678)}
+  .ap-experience-page .ap-live-route li>span{border-color:#0b2338;background:#fff;color:#123b60}
+  .ap-experience-page .ap-live-route aside{border-color:rgba(255,255,255,.12)}
+  .ap-experience-page .ap-booking-copy h2{color:#fff}
+  .ap-experience-page .ap-booking-copy>p:last-child{color:rgba(255,255,255,.58)}
+  .ap-experience-page .ap-booking :global(.ap-embed-card){border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.96);box-shadow:0 30px 90px rgba(0,0,0,.28)}
+  .ap-experience-page .ap-page-footer{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+  @media(max-width:620px){
+    .ap-experience-page .ap-campaign-container{width:min(100% - 28px,1120px)}
+    .ap-experience-page .ap-campaign-topbar{min-height:58px}
+    .ap-experience-page .ap-campaign-brand{font-size:13px;letter-spacing:2.7px}
+    .ap-experience-page .ap-experience-hero{padding-block:36px 40px}
+    .ap-experience-page .ap-experience-hero:after{right:-155px;bottom:-60px;width:235px;height:235px;box-shadow:0 0 0 34px rgba(78,155,216,.025)}
+    .ap-experience-page .ap-experience-hero h1{max-width:350px;font-size:clamp(33px,9vw,37px)!important;line-height:1.09!important;letter-spacing:-.042em!important}
+    .ap-experience-page .ap-experience-hero .ap-no-break{display:block}
+    .ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){max-width:365px;margin-top:20px!important;font-size:15px;line-height:1.58}
+    .ap-experience-page .ap-page-eyebrow{font-size:11px;padding:10px 13px;letter-spacing:1.35px}
+    .ap-experience-page .ap-hero-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;justify-items:center;gap:10px;width:min(100%,390px);margin:28px auto 0}
+    .ap-experience-page .ap-hero-route span{display:flex;min-width:0;align-items:center;justify-content:center;gap:7px;font-size:12px;line-height:1.25;text-align:center;white-space:normal}
+    .ap-experience-page .ap-hero-route b{flex:0 0 auto;width:30px;height:30px;border-radius:9px;font-size:8px}
+    .ap-experience-page .ap-hero-route i{display:none}
+    .ap-experience-page #testen{padding-block:44px 50px}
+    .ap-experience-page #testen .ap-page-head{justify-items:center;gap:18px;margin-bottom:38px;text-align:center}
+    .ap-experience-page #testen .ap-page-head .ap-page-eyebrow{margin-inline:auto!important}
+    .ap-experience-page #testen .ap-page-head>p{margin-inline:auto!important}
+    .ap-experience-page .ap-page-head h2{max-width:330px;font-size:clamp(28px,7.9vw,32px)!important;line-height:1.1!important;letter-spacing:-.035em!important}
+    .ap-experience-page .ap-page-head>p{max-width:380px;font-size:16px;line-height:1.6}
+    .ap-experience-page .ap-system-content{gap:30px;padding-block:50px}
+    .ap-experience-page .ap-system-content h2{font-size:30px!important;line-height:1.1!important}
+    .ap-experience-page .ap-system-content ol{gap:0}
+    .ap-experience-page .ap-system-content li{padding:17px 0 17px 15px}
+    .ap-experience-page .ap-system-content li b{font-size:10px}
+    .ap-experience-page .ap-system-content li strong{font-size:16px}
+    .ap-experience-page .ap-system-content li p{font-size:14px;line-height:1.55}
+    .ap-experience-page #berekenen{padding-block:54px}
+    .ap-experience-page .ap-live-route-grid,.ap-experience-page .ap-booking{gap:32px;padding-block:54px}
+    .ap-experience-page .ap-live-route h2,.ap-experience-page .ap-booking-copy h2{font-size:30px!important;line-height:1.1!important}
+    .ap-experience-page .ap-live-route aside{gap:12px;padding-top:22px}
+    .ap-experience-page .ap-live-route>div>div>p:last-child,.ap-experience-page .ap-live-route li p,.ap-experience-page .ap-live-route aside p,.ap-experience-page .ap-booking-copy>p:last-child{font-size:15px;line-height:1.6}
+    .ap-experience-page .ap-live-route li strong{font-size:16px}
+    .ap-experience-page .ap-live-route aside span{font-size:11px}
+    .ap-experience-page .ap-live-route aside strong{font-size:20px;line-height:1.3}
+    .ap-experience-page .ap-page-footer{min-height:0;padding-block:24px}
+    .ap-experience-page .ap-page-footer{font-size:12px}
+  }
+  @media(max-width:350px){
+    .ap-experience-page .ap-experience-hero h1{font-size:31px!important}
+    .ap-experience-page .ap-page-eyebrow{white-space:normal;text-align:center}
+    .ap-experience-page .ap-hero-route{gap:4px}
+    .ap-experience-page .ap-hero-route span{gap:4px;font-size:8px}
+    .ap-experience-page .ap-hero-route b{width:26px;height:26px}
+    .ap-experience-page .ap-page-head h2{font-size:28px!important}
+  }
 </style>

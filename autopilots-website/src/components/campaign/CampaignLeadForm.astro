@@ -4,55 +4,137 @@ interface Props { config: MarketingFunnelConfig; experiencePath: string }
 const { config, experiencePath } = Astro.props;
 ---
 
-<form class="ap-entry-form" data-campaign-lead-form data-campaign-attribution data-experience-path={experiencePath} novalidate>
+<form class="ap-funnel" data-campaign-lead-form data-campaign-attribution data-experience-path={experiencePath} novalidate>
   <input type="hidden" name="intent" value="demo" />
   <input type="hidden" name="campaignName" value={config.campaignName} />
   <input type="hidden" name="niche" value={config.niche} />
-  <div class="ap-entry-fields">
-    <label><span>Naam</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Voor- en achternaam" /></label>
-    <label><span>Autobedrijf</span><input name="company" autocomplete="organization" required maxlength="120" placeholder="Bedrijfsnaam" /></label>
-    <label class="is-wide"><span>Zakelijk e-mailadres</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="naam@autobedrijf.nl" /></label>
+  <input type="hidden" name="funnelAnswers" value="" />
+  <div class="ap-funnel-progress" aria-label="Voortgang"><div><span data-progress-fill></span></div><p><b data-progress-label>Vraag 1 van 5</b><span data-progress-percent>17%</span></p></div>
+
+  <div class="ap-funnel-stage is-active" data-stage="0">
+    <p class="ap-funnel-kicker">Eerst een snelle inschatting</p><h2>Hoeveel klantvragen komen er ongeveer per maand binnen?</h2><p class="ap-funnel-help">Denk aan telefoontjes, WhatsApp, e-mail en platformleads samen.</p>
+    <div class="ap-answer-grid">
+      <label><input type="radio" name="volume" value="75" data-label="Minder dan 100" /><span><b>Minder dan 100</b><small>Rustig contactvolume</small></span></label>
+      <label><input type="radio" name="volume" value="175" data-label="100–250" /><span><b>100–250</b><small>Dagelijks nieuwe vragen</small></span></label>
+      <label><input type="radio" name="volume" value="375" data-label="250–500" /><span><b>250–500</b><small>Meerdere kanalen actief</small></span></label>
+      <label><input type="radio" name="volume" value="650" data-label="Meer dan 500" /><span><b>Meer dan 500</b><small>Hoog contactvolume</small></span></label>
+    </div>
   </div>
-  <label class="ap-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
-  <label class="ap-entry-consent"><input name="consent" type="checkbox" required /><span>Ik ga akkoord met verwerking van mijn gegevens voor de test en eventuele opvolging. Lees de <a href="/privacy/" target="_blank" rel="noopener noreferrer">privacyinformatie</a>.</span></label>
-  <button class="ap-entry-submit" type="submit" data-submit-label>Test de AI-medewerker & bereken de impact <span aria-hidden="true">→</span></button>
-  <p class="ap-entry-note">Direct toegang · Geen aankoopverplichting · Geen generieke mailing</p>
-  <p class="ap-entry-status" data-form-status aria-live="polite"></p>
+  <div class="ap-funnel-stage" data-stage="1" hidden>
+    <p class="ap-funnel-kicker">Jullie klantcontact</p><h2>Waar komen de meeste vragen binnen?</h2><p class="ap-funnel-help">Dit bepaalt welke AI-medewerker je als eerste te zien krijgt.</p>
+    <div class="ap-answer-grid">
+      <label><input type="radio" name="channel" value="phone" data-label="Vooral telefonisch" /><span><b>Vooral telefonisch</b><small>Werkplaats, voorraad en afspraken</small></span></label>
+      <label><input type="radio" name="channel" value="messages" data-label="Vooral berichten" /><span><b>Vooral berichten</b><small>E-mail, WhatsApp en portals</small></span></label>
+      <label><input type="radio" name="channel" value="leads" data-label="Vooral advertentieleads" /><span><b>Vooral advertentieleads</b><small>Website en voertuigplatforms</small></span></label>
+      <label><input type="radio" name="channel" value="mixed" data-label="Een mix van alles" /><span><b>Een mix van alles</b><small>Telefonie, berichten en leads</small></span></label>
+    </div>
+  </div>
+  <div class="ap-funnel-stage" data-stage="2" hidden>
+    <p class="ap-funnel-kicker">Opvolging</p><h2>Hoeveel contacten worden nu te laat of niet opgevolgd?</h2><p class="ap-funnel-help">Een eerlijke schatting is voldoende.</p>
+    <div class="ap-answer-grid">
+      <label><input type="radio" name="missed" value="10" data-label="Minder dan 10%" /><span><b>Minder dan 10%</b><small>Vrijwel alles wordt opgepakt</small></span></label>
+      <label><input type="radio" name="missed" value="20" data-label="Ongeveer 10–25%" /><span><b>Ongeveer 10–25%</b><small>Soms blijft contact liggen</small></span></label>
+      <label><input type="radio" name="missed" value="38" data-label="Ongeveer 25–50%" /><span><b>Ongeveer 25–50%</b><small>Drukte kost aantoonbaar kansen</small></span></label>
+      <label><input type="radio" name="missed" value="60" data-label="Meer dan de helft" /><span><b>Meer dan de helft</b><small>Veel contact krijgt geen vervolg</small></span></label>
+    </div>
+  </div>
+  <div class="ap-funnel-stage" data-stage="3" hidden>
+    <p class="ap-funnel-kicker">Reactiesnelheid</p><h2>Hoe snel krijgt een nieuwe vraag gemiddeld antwoord?</h2><p class="ap-funnel-help">Ook buiten openingstijden en tijdens piekmomenten.</p>
+    <div class="ap-answer-grid">
+      <label><input type="radio" name="responseTime" value="under-5" data-label="Binnen 5 minuten" /><span><b>Binnen 5 minuten</b><small>Bijna altijd direct</small></span></label>
+      <label><input type="radio" name="responseTime" value="under-60" data-label="Binnen één uur" /><span><b>Binnen één uur</b><small>Meestal dezelfde werkperiode</small></span></label>
+      <label><input type="radio" name="responseTime" value="same-day" data-label="Later op dezelfde dag" /><span><b>Later op dezelfde dag</b><small>Afhankelijk van de drukte</small></span></label>
+      <label><input type="radio" name="responseTime" value="next-day" data-label="Vaak pas de volgende dag" /><span><b>Vaak pas de volgende dag</b><small>Opvolging loopt regelmatig achter</small></span></label>
+    </div>
+  </div>
+  <div class="ap-funnel-stage" data-stage="4" hidden>
+    <p class="ap-funnel-kicker">Gewenste resultaat</p><h2>Waar moet een AI-medewerker vooral ruimte maken?</h2><p class="ap-funnel-help">Je krijgt straks een test die hierbij aansluit.</p>
+    <div class="ap-answer-grid">
+      <label><input type="radio" name="goal" value="appointments" data-label="Meer afspraken" /><span><b>Meer afspraken</b><small>Van vraag naar proefrit of werkplaats</small></span></label>
+      <label><input type="radio" name="goal" value="speed" data-label="Snellere opvolging" /><span><b>Snellere opvolging</b><small>Iedere lead direct een volgende stap</small></span></label>
+      <label><input type="radio" name="goal" value="workload" data-label="Minder druk op het team" /><span><b>Minder druk op het team</b><small>Herhaalwerk en intake overnemen</small></span></label>
+      <label><input type="radio" name="goal" value="all" data-label="Alles combineren" /><span><b>Alles combineren</b><small>Eén route voor het hele klantcontact</small></span></label>
+    </div>
+  </div>
+  <div class="ap-funnel-stage ap-contact-stage" data-stage="5" hidden>
+    <div class="ap-result-preview"><span>Jouw eerste indicatie</span><strong><b data-opportunity>0</b> contacten per maand</strong><p>kunnen mogelijk sneller of consistenter worden opgevolgd. Test nu welke AI-medewerker daarbij past.</p></div>
+    <p class="ap-funnel-kicker">Ontgrendel de live test</p><h2>Waar mogen we jouw testresultaat aan koppelen?</h2>
+    <div class="ap-entry-fields">
+      <label><span>Naam</span><input name="name" autocomplete="name" required maxlength="100" placeholder="Voor- en achternaam" /></label>
+      <label><span>Autobedrijf</span><input name="company" autocomplete="organization" required maxlength="120" placeholder="Bedrijfsnaam" /></label>
+      <label><span>Zakelijk e-mailadres</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="naam@autobedrijf.nl" /></label>
+      <label><span>Telefoonnummer</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="40" placeholder="06 12 34 56 78" /></label>
+    </div>
+    <label class="ap-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+    <label class="ap-entry-consent"><input name="consent" type="checkbox" required /><span>Ik ga akkoord met verwerking van mijn gegevens voor de test en eventuele opvolging. Lees de <a href="/privacy/" target="_blank" rel="noopener noreferrer">privacyinformatie</a>.</span></label>
+    <button class="ap-entry-submit" type="submit" data-submit-label>Bekijk mijn resultaat & test de AI <span aria-hidden="true">→</span></button>
+    <p class="ap-entry-note">Direct toegang · Geen aankoopverplichting · Geen generieke mailing</p><p class="ap-entry-status" data-form-status aria-live="polite"></p>
+  </div>
+  <div class="ap-funnel-controls"><button type="button" class="ap-funnel-back" data-back hidden>← Vorige</button><span>± 60 seconden</span></div>
 </form>
 
 <script>
   document.querySelectorAll("[data-campaign-lead-form]").forEach((form) => {
-    const submit = form.querySelector("[data-submit-label]");
-    const status = form.querySelector("[data-form-status]");
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault(); status.textContent = "";
-      if (!form.reportValidity()) return;
-      submit.disabled = true; submit.setAttribute("aria-busy", "true");
-      const payload = Object.fromEntries(new FormData(form).entries());
-      payload.consent = form.elements.consent.checked;
-      const target = new URL(form.dataset.experiencePath, location.origin);
-      const attribution = window.apCampaign?.attribution || {};
-      ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"].forEach((key) => { if (attribution[key]) target.searchParams.set(key, attribution[key]); });
-      try {
-        window.apCampaign?.emit?.("lead_form_submitted", { intent: "combined" });
-        const response = await fetch("/api/funnel-lead", { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(payload) });
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || !result.ok) throw new Error(result.message || "Versturen is nu niet gelukt.");
-        window.apCampaign?.emit?.("lead_form_succeeded", { intent: "combined" });
-        location.assign(`${target.pathname}${target.search}`);
-      } catch (error) {
-        if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-          status.textContent = "Lokale preview: de ervaring wordt geopend zonder CRM-opslag.";
-          setTimeout(() => location.assign(`${target.pathname}${target.search}`), 500); return;
-        }
-        window.apCampaign?.emit?.("lead_form_failed", { intent: "combined" });
-        status.textContent = error.message || "Versturen is nu niet gelukt. Probeer het opnieuw.";
-        submit.disabled = false; submit.removeAttribute("aria-busy");
-      }
-    });
+    const stages=[...form.querySelectorAll("[data-stage]")],back=form.querySelector("[data-back]"),fill=form.querySelector("[data-progress-fill]"),progressLabel=form.querySelector("[data-progress-label]"),progressPercent=form.querySelector("[data-progress-percent]"),submit=form.querySelector("[data-submit-label]"),status=form.querySelector("[data-form-status]");let active=0;const answers={};
+    const show=(index)=>{active=Math.max(0,Math.min(index,stages.length-1));stages.forEach((stage,i)=>{stage.hidden=i!==active;stage.classList.toggle("is-active",i===active)});const percent=Math.round(((active+1)/stages.length)*100);fill.style.width=`${percent}%`;progressPercent.textContent=`${percent}%`;progressLabel.textContent=active<5?`Vraag ${active+1} van 5`:"Je resultaat is klaar";back.hidden=active===0;if(active===5){const opportunity=Math.round(Number(answers.volume?.value||0)*Number(answers.missed?.value||0)/100);form.querySelector("[data-opportunity]").textContent=new Intl.NumberFormat("nl-NL").format(opportunity);form.elements.funnelAnswers.value=JSON.stringify(answers);window.apCampaign?.emit?.("funnel_diagnosis_completed",{volume:answers.volume?.value,missed:answers.missed?.value,channel:answers.channel?.value,goal:answers.goal?.value})}stages[active].querySelector("h2")?.focus?.({preventScroll:true})};
+    form.querySelectorAll('.ap-answer-grid input[type="radio"]').forEach(input=>input.addEventListener("change",()=>{answers[input.name]={value:input.value,label:input.dataset.label};window.apCampaign?.emit?.("funnel_question_answered",{question:input.name,answer:input.value,step:active+1});setTimeout(()=>show(active+1),180)}));back.addEventListener("click",()=>show(active-1));show(0);
+    form.addEventListener("submit",async(event)=>{event.preventDefault();status.textContent="";if(!form.reportValidity())return;submit.disabled=true;submit.setAttribute("aria-busy","true");const payload=Object.fromEntries(new FormData(form).entries());payload.consent=form.elements.consent.checked;const target=new URL(form.dataset.experiencePath,location.origin);target.searchParams.set("volume",String(answers.volume?.value||180));target.searchParams.set("issue",String(answers.missed?.value||32));target.searchParams.set("channel",String(answers.channel?.value||"mixed"));const attribution=window.apCampaign?.attribution||{};["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"].forEach(key=>{if(attribution[key])target.searchParams.set(key,attribution[key])});try{window.apCampaign?.emit?.("lead_form_submitted",{intent:"combined"});const response=await fetch("/api/funnel-lead",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.message||"Versturen is nu niet gelukt.");window.apCampaign?.emit?.("lead_form_succeeded",{intent:"combined"});location.assign(`${target.pathname}${target.search}`)}catch(error){if(["localhost","127.0.0.1"].includes(location.hostname)){status.textContent="Lokale preview: de ervaring wordt geopend zonder CRM-opslag.";setTimeout(()=>location.assign(`${target.pathname}${target.search}`),500);return}window.apCampaign?.emit?.("lead_form_failed",{intent:"combined"});status.textContent=error.message||"Versturen is nu niet gelukt. Probeer het opnieuw.";submit.disabled=false;submit.removeAttribute("aria-busy")}});
   });
 </script>
 
 <style>
-  .ap-entry-form{margin-top:28px}.ap-entry-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.ap-entry-fields label{display:grid;gap:8px;color:#555;font-size:11px;font-weight:850}.ap-entry-fields .is-wide{grid-column:1/-1}.ap-entry-fields input{width:100%;min-height:54px;border:1px solid rgba(17,17,17,.12);border-radius:16px;background:#f8f8f5;padding:0 15px;color:#111;font-size:14px}.ap-entry-fields input:focus{border-color:#9f3826;outline:3px solid rgba(159,56,38,.11)}.ap-honeypot{position:absolute!important;left:-10000px!important}.ap-entry-consent{display:flex;align-items:flex-start;gap:10px;margin-top:16px;color:#6b6b6b;font-size:10px;line-height:1.5}.ap-entry-consent input{margin-top:2px;accent-color:#9f3826}.ap-entry-consent a{text-decoration:underline!important;text-underline-offset:2px}.ap-entry-submit{display:flex;width:100%;min-height:58px;align-items:center;justify-content:center;gap:22px;margin-top:18px;border:0;border-radius:999px;background:#9f3826;padding:14px 22px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 16px 38px rgba(159,56,38,.2);transition:.2s}.ap-entry-submit:hover{background:#7d2a1d;transform:translateY(-1px)}.ap-entry-submit:disabled{cursor:wait;opacity:.65}.ap-entry-note{margin:11px 0 0!important;color:#8a8a8a;font-size:9px;text-align:center}.ap-entry-status{min-height:18px;margin:7px 0 0!important;color:#9f3826;font-size:10px;font-weight:800;text-align:center}@media(max-width:560px){.ap-entry-fields{grid-template-columns:1fr}.ap-entry-fields .is-wide{grid-column:auto}.ap-entry-submit{font-size:12px}}
+  .ap-funnel{min-height:540px}.ap-funnel-progress{margin-bottom:34px}.ap-funnel-progress>div{overflow:hidden;height:5px;border-radius:999px;background:#ecece8}.ap-funnel-progress>div span{display:block;width:17%;height:100%;border-radius:inherit;background:#9f3826;transition:width .35s ease}.ap-funnel-progress p{display:flex;justify-content:space-between;margin-top:10px!important;color:#777;font:700 9px/1 "Syne",sans-serif;letter-spacing:.5px}.ap-funnel-stage{animation:stage-in .28s ease}.ap-funnel-stage h2{max-width:670px!important;font-size:clamp(27px,3vw,39px)!important;line-height:1.1!important;letter-spacing:-.04em!important}.ap-funnel-kicker{margin-bottom:15px!important;color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.5px;text-transform:uppercase}.ap-funnel-help{margin:15px 0 0!important;color:#6a6a6a;font-size:13px;line-height:1.55}.ap-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:28px}.ap-answer-grid label{position:relative;cursor:pointer}.ap-answer-grid input{position:absolute;opacity:0;pointer-events:none}.ap-answer-grid label>span{display:flex;min-height:84px;flex-direction:column;justify-content:center;border:1px solid rgba(17,17,17,.1);border-radius:20px;background:#f8f8f5;padding:17px 18px;transition:.18s}.ap-answer-grid label:hover>span,.ap-answer-grid input:focus-visible+span{border-color:rgba(159,56,38,.45);background:#fff7f4;transform:translateY(-1px);box-shadow:0 12px 25px rgba(17,17,17,.05)}.ap-answer-grid b{font-size:14px}.ap-answer-grid small{margin-top:6px;color:#777;font-size:10px;line-height:1.35}.ap-funnel-controls{display:flex;align-items:center;justify-content:space-between;margin-top:25px;color:#8a8a8a;font-size:9px}.ap-funnel-back{border:0;background:transparent;padding:6px 0;color:#555;font-size:10px;font-weight:800;cursor:pointer}.ap-result-preview{margin-bottom:27px;border-radius:23px;background:radial-gradient(circle at 100% 100%,rgba(159,56,38,.5),transparent 46%),#111;padding:24px;color:#fff}.ap-result-preview>span{color:#e7a295;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.3px;text-transform:uppercase}.ap-result-preview strong{display:block;margin-top:12px;font-size:22px;line-height:1.2}.ap-result-preview strong b{font:700 31px/1 "Syne",sans-serif}.ap-result-preview p{max-width:560px;margin-top:9px!important;color:rgba(255,255,255,.68);font-size:11px;line-height:1.5}.ap-entry-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}.ap-entry-fields label{display:grid;gap:7px;color:#555;font-size:10px;font-weight:850}.ap-entry-fields input{width:100%;min-height:52px;border:1px solid rgba(17,17,17,.12);border-radius:15px;background:#f8f8f5;padding:0 14px;color:#111;font-size:13px}.ap-entry-fields input:focus{border-color:#9f3826;outline:3px solid rgba(159,56,38,.11)}.ap-honeypot{position:absolute!important;left:-10000px!important}.ap-entry-consent{display:flex;align-items:flex-start;gap:10px;margin-top:15px;color:#6b6b6b;font-size:9px;line-height:1.5}.ap-entry-consent input{margin-top:2px;accent-color:#9f3826}.ap-entry-consent a{text-decoration:underline!important;text-underline-offset:2px}.ap-entry-submit{display:flex;width:100%;min-height:57px;align-items:center;justify-content:center;gap:20px;margin-top:17px;border:0;border-radius:999px;background:#9f3826;padding:14px 20px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 15px 34px rgba(159,56,38,.2);transition:.2s}.ap-entry-submit:hover{background:#7d2a1d;transform:translateY(-1px)}.ap-entry-submit:disabled{cursor:wait;opacity:.65}.ap-entry-note{margin:10px 0 0!important;color:#8a8a8a;font-size:8px;text-align:center}.ap-entry-status{min-height:17px;margin:7px 0 0!important;color:#9f3826;font-size:9px;font-weight:800;text-align:center}@keyframes stage-in{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}@media(max-width:580px){.ap-funnel{min-height:590px}.ap-answer-grid,.ap-entry-fields{grid-template-columns:1fr}.ap-answer-grid{gap:8px;margin-top:22px}.ap-answer-grid label>span{min-height:70px;border-radius:17px;padding:14px 15px}.ap-funnel-stage h2{font-size:29px!important}.ap-result-preview{padding:20px}.ap-entry-submit{font-size:11px}}
+</style>
+
+<style>
+  .ap-funnel .ap-funnel-progress>div{background:rgba(255,255,255,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+  .ap-funnel .ap-funnel-progress>div span{background:linear-gradient(90deg,#b54531,#e07864);box-shadow:0 0 22px rgba(224,120,100,.35)}
+  .ap-funnel .ap-funnel-progress p{color:rgba(255,255,255,.46)}
+  .ap-funnel .ap-funnel-progress p b{color:rgba(255,255,255,.76)}
+  .ap-funnel .ap-funnel-kicker{color:#e7a295}
+  .ap-funnel .ap-funnel-stage h2{max-width:620px!important;color:#fff;font-weight:850;text-wrap:balance}
+  .ap-funnel .ap-funnel-help{color:rgba(255,255,255,.57)}
+  .ap-funnel .ap-answer-grid label>span{border-color:rgba(255,255,255,.1);background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.035));box-shadow:inset 0 1px rgba(255,255,255,.045)}
+  .ap-funnel .ap-answer-grid label:hover>span,.ap-funnel .ap-answer-grid input:focus-visible+span,.ap-funnel .ap-answer-grid input:checked+span{border-color:rgba(231,162,149,.45);background:linear-gradient(135deg,rgba(159,56,38,.23),rgba(255,255,255,.055));box-shadow:0 16px 35px rgba(0,0,0,.15),inset 0 1px rgba(255,255,255,.08)}
+  .ap-funnel .ap-answer-grid b{color:#fff;font-weight:750}
+  .ap-funnel .ap-answer-grid small{color:rgba(255,255,255,.48)}
+  .ap-funnel .ap-funnel-controls{color:rgba(255,255,255,.34)}
+  .ap-funnel .ap-funnel-back{color:rgba(255,255,255,.7)}
+  .ap-funnel .ap-result-preview{border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at 100% 100%,rgba(159,56,38,.46),transparent 47%),linear-gradient(135deg,rgba(6,17,29,.9),rgba(13,36,58,.82));box-shadow:inset 0 1px rgba(255,255,255,.06)}
+  .ap-funnel .ap-result-preview>span{color:#e7a295}
+  .ap-funnel .ap-result-preview strong{color:#fff}
+  .ap-funnel .ap-result-preview p{color:rgba(255,255,255,.58)}
+  .ap-funnel .ap-entry-fields label{color:rgba(255,255,255,.68)}
+  .ap-funnel .ap-entry-fields input{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.04)}
+  .ap-funnel .ap-entry-fields input::placeholder{color:rgba(255,255,255,.33)}
+  .ap-funnel .ap-entry-fields input:focus{border-color:rgba(231,162,149,.7);outline-color:rgba(159,56,38,.23);background:rgba(255,255,255,.1)}
+  .ap-funnel .ap-entry-consent{color:rgba(255,255,255,.5)}
+  .ap-funnel .ap-entry-submit{background:linear-gradient(135deg,#a83e2b,#873022);box-shadow:0 18px 40px rgba(159,56,38,.28),inset 0 1px rgba(255,255,255,.16)}
+  .ap-funnel .ap-entry-submit:hover{background:linear-gradient(135deg,#bd4934,#933325);box-shadow:0 22px 48px rgba(159,56,38,.35)}
+  .ap-funnel .ap-entry-note{color:rgba(255,255,255,.35)}
+  .ap-funnel .ap-entry-status{color:#e7a295}
+  @media(max-width:580px){
+    .ap-funnel.ap-funnel{min-height:0}
+    .ap-funnel .ap-funnel-progress{margin-bottom:25px}
+    .ap-funnel .ap-funnel-progress p{margin-top:10px!important;font-size:11px}
+    .ap-funnel .ap-funnel-kicker{margin-bottom:13px!important;font-size:11px;letter-spacing:1.25px}
+    .ap-funnel .ap-funnel-stage h2{font-size:clamp(24px,7.2vw,28px)!important;line-height:1.12!important;letter-spacing:-.035em!important}
+    .ap-funnel .ap-funnel-help{margin-top:14px!important;font-size:14px;line-height:1.55}
+    .ap-funnel .ap-answer-grid{gap:7px;margin-top:18px}
+    .ap-funnel .ap-answer-grid label>span{min-height:72px;border-radius:15px;padding:13px 14px}
+    .ap-funnel .ap-answer-grid b{font-size:15px}
+    .ap-funnel .ap-answer-grid small{margin-top:5px;font-size:12px;line-height:1.4}
+    .ap-funnel .ap-funnel-controls{margin-top:18px;font-size:11px}
+    .ap-funnel .ap-funnel-back{min-height:44px;padding-inline:0;font-size:12px}
+    .ap-funnel .ap-result-preview{padding:16px;border-radius:17px}
+    .ap-funnel .ap-result-preview>span{font-size:10px}
+    .ap-funnel .ap-result-preview strong{font-size:22px}
+    .ap-funnel .ap-result-preview p{font-size:13px;line-height:1.55}
+    .ap-funnel .ap-entry-fields{gap:9px;margin-top:18px}
+    .ap-funnel .ap-entry-fields label{gap:7px;font-size:12px}
+    .ap-funnel.ap-funnel .ap-entry-fields input{min-height:49px;border-radius:13px;font-size:16px!important}
+    .ap-funnel .ap-entry-consent{margin-top:14px;font-size:12px;line-height:1.55}
+    .ap-funnel .ap-entry-submit{min-height:56px;margin-top:16px;padding:13px 15px;font-size:13px;line-height:1.3}
+    .ap-funnel .ap-entry-note,.ap-funnel .ap-entry-status{font-size:11px;line-height:1.45}
+  }
 </style>
