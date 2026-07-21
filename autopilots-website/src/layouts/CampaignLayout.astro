@@ -4,11 +4,12 @@ import "../styles/campaign.css";
 
 import { getLocale, type SupportedLocale } from "../i18n/languages";
 import { localizedAlternates } from "../i18n/routes";
-interface Props { title: string; description: string; canonical: string; campaign: string; locale?: SupportedLocale; contentId: string }
+interface Props { title: string; description: string; canonical: string; campaign: string; locale?: SupportedLocale; contentId?: string }
 const { title, description, canonical, campaign, locale = "nl", contentId } = Astro.props;
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
 const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID ?? "1715813002902335";
-const alternates=localizedAlternates(contentId);
+const alternates=contentId?localizedAlternates(contentId):[];
+const defaultAlternate=alternates.find(item=>item.locale==="nl");
 const localeTag=getLocale(locale).tag;
 ---
 <!doctype html>
@@ -26,7 +27,7 @@ const localeTag=getLocale(locale).tag;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     {alternates.map(item=><link rel="alternate" hreflang={item.tag} href={new URL(item.href,Astro.site??Astro.url.origin).toString()} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(alternates.find(item=>item.locale==="nl")!.href,Astro.site??Astro.url.origin).toString()} />
+    {defaultAlternate&&<link rel="alternate" hreflang="x-default" href={new URL(defaultAlternate.href,Astro.site??Astro.url.origin).toString()} />}
   </head>
   <body>
     <a class="ap-skip-link" href="#campaign-content">{({nl:"Ga naar de inhoud",en:"Skip to content",es:"Ir al contenido",de:"Zum Inhalt",it:"Vai al contenuto",fr:"Aller au contenu"})[locale]}</a>
