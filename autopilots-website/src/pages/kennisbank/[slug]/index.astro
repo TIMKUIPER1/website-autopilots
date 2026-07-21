@@ -1,8 +1,10 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { knowledgeArticles, type KnowledgeArticle } from "../../../content/knowledgeArticles";
-import { products } from "../../../data/products";
-import { niches } from "../../../data/niches";
+import type { SupportedLocale } from "../../../i18n/languages";
+import { getLocale } from "../../../i18n/languages";
+import { localizedPath } from "../../../i18n/routes";
+import { localizedArticle } from "../../../i18n/knowledgePage";
 
 export function getStaticPaths() {
   return knowledgeArticles.map((article) => ({
@@ -13,18 +15,26 @@ export function getStaticPaths() {
 
 interface Props {
   article: KnowledgeArticle;
+  locale?: SupportedLocale;
 }
 
-const { article } = Astro.props;
-const canonical = `/kennisbank/${article.slug}/`;
+const { article:sourceArticle, locale="nl" } = Astro.props;
+const article=localizedArticle(locale,sourceArticle);
+const canonical = localizedPath(`article.${article.slug}`,locale);
 const absoluteCanonical = `https://auto-pilots.io${canonical}`;
 const relatedKnowledge = (article.relatedArticles ?? [])
   .map((slug) => knowledgeArticles.find((candidate) => candidate.slug === slug))
   .filter((candidate): candidate is KnowledgeArticle => Boolean(candidate))
-  .slice(0, 3);
-const relatedProductLinks = (article.relatedProducts ?? []).map((slug) => products.find((product) => product.slug === slug)).filter((product) => Boolean(product)).slice(0, 2);
-const relatedNicheLinks = (article.relatedNiches ?? []).map((slug) => niches.find((niche) => niche.slug === slug)).filter((niche) => Boolean(niche)).slice(0, 2);
-const formatDate = (date: string) => new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00Z`));
+  .slice(0, 3).map(item=>localizedArticle(locale,item));
+const formatDate = (date: string) => new Intl.DateTimeFormat(getLocale(locale).tag, { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00Z`));
+const c={
+ nl:{knowledge:"Kennisbank",ai:"AI kennis",meta:"Artikelgegevens",published:"Gepubliceerd",updated:"Bijgewerkt",read:"leestijd",answer:"Lees het antwoord",back:"Terug naar kennisbank",short:"Kort antwoord",practice:"Praktijk",examples:"Voorbeelden uit echte klantreizen.",research:"Onderzoek",sources:"Bronnen en richtinggevende documentatie.",sourceText:"De tekst is gebaseerd op actuele documentatie en praktijkervaring, vertaald naar concrete keuzes voor Nederlandse bedrijven.",faq:"Veelgestelde vragen.",next:"Volgende stap",nextTitle:"Wil je weten welke AI-route voor jouw bedrijf logisch is?",nextText:"We kijken naar klantcontact, bottlenecks, CRM, planning en opvolging en kiezen de eerste flow die waarde levert.",appointment:"Plan afspraak",contents:"Inhoud.",related:"Gerelateerde kennis",continue:"Lees logisch verder.",all:"Bekijk alle kennis"},
+ en:{knowledge:"Knowledge",ai:"AI knowledge",meta:"Article details",published:"Published",updated:"Updated",read:"read",answer:"Read the answer",back:"Back to knowledge",short:"Short answer",practice:"Practice",examples:"Examples from real customer journeys.",research:"Research",sources:"Sources and guiding documentation.",sourceText:"This article combines current documentation and practical experience into concrete choices for companies.",faq:"Frequently asked questions.",next:"Next step",nextTitle:"Want to know which AI route makes sense for your company?",nextText:"We review customer contact, bottlenecks, CRM, planning and follow-up and select the first route that creates value.",appointment:"Book a call",contents:"Contents.",related:"Related knowledge",continue:"Continue with the next guide.",all:"View all knowledge"},
+ es:{knowledge:"Conocimientos",ai:"Conocimientos de IA",meta:"Datos del artículo",published:"Publicado",updated:"Actualizado",read:"de lectura",answer:"Leer la respuesta",back:"Volver a conocimientos",short:"Respuesta breve",practice:"Práctica",examples:"Ejemplos de recorridos reales.",research:"Investigación",sources:"Fuentes y documentación de referencia.",sourceText:"Este artículo combina documentación actual y experiencia práctica en decisiones concretas para empresas.",faq:"Preguntas frecuentes.",next:"Siguiente paso",nextTitle:"¿Quieres saber qué ruta de IA tiene sentido para tu empresa?",nextText:"Revisamos atención, cuellos de botella, CRM, agenda y seguimiento y elegimos la primera ruta de valor.",appointment:"Reservar llamada",contents:"Contenido.",related:"Conocimientos relacionados",continue:"Sigue con la siguiente guía.",all:"Ver todos los conocimientos"},
+ de:{knowledge:"Wissen",ai:"KI-Wissen",meta:"Artikeldaten",published:"Veröffentlicht",updated:"Aktualisiert",read:"Lesezeit",answer:"Antwort lesen",back:"Zurück zum Wissen",short:"Kurze Antwort",practice:"Praxis",examples:"Beispiele aus echten Kundenreisen.",research:"Recherche",sources:"Quellen und maßgebliche Dokumentation.",sourceText:"Dieser Artikel verbindet aktuelle Dokumentation und Praxiserfahrung mit konkreten Entscheidungen für Unternehmen.",faq:"Häufige Fragen.",next:"Nächster Schritt",nextTitle:"Welche KI-Route passt zu Ihrem Unternehmen?",nextText:"Wir betrachten Kundenkontakt, Engpässe, CRM, Planung und Nachverfolgung und wählen die erste wertschaffende Route.",appointment:"Termin vereinbaren",contents:"Inhalt.",related:"Verwandtes Wissen",continue:"Sinnvoll weiterlesen.",all:"Gesamtes Wissen ansehen"},
+ it:{knowledge:"Conoscenza",ai:"Conoscenza AI",meta:"Dati dell'articolo",published:"Pubblicato",updated:"Aggiornato",read:"di lettura",answer:"Leggi la risposta",back:"Torna alla conoscenza",short:"Risposta breve",practice:"Pratica",examples:"Esempi da customer journey reali.",research:"Ricerca",sources:"Fonti e documentazione di riferimento.",sourceText:"L'articolo combina documentazione attuale ed esperienza pratica in scelte concrete per le aziende.",faq:"Domande frequenti.",next:"Prossimo passo",nextTitle:"Vuoi sapere quale percorso AI è adatto alla tua azienda?",nextText:"Analizziamo contatto, colli di bottiglia, CRM, agenda e follow-up e scegliamo la prima rotta di valore.",appointment:"Prenota una call",contents:"Contenuto.",related:"Conoscenza correlata",continue:"Continua con la guida successiva.",all:"Vedi tutta la conoscenza"},
+ fr:{knowledge:"Connaissances",ai:"Connaissances IA",meta:"Détails de l'article",published:"Publié",updated:"Mis à jour",read:"de lecture",answer:"Lire la réponse",back:"Retour aux connaissances",short:"Réponse courte",practice:"Pratique",examples:"Exemples de parcours clients réels.",research:"Recherche",sources:"Sources et documentation de référence.",sourceText:"Cet article associe documentation actuelle et expérience pratique pour proposer des choix concrets aux entreprises.",faq:"Questions fréquentes.",next:"Prochaine étape",nextTitle:"Quel parcours IA est pertinent pour votre entreprise ?",nextText:"Nous analysons relation client, blocages, CRM, planning et suivi, puis choisissons le premier parcours créateur de valeur.",appointment:"Planifier un appel",contents:"Sommaire.",related:"Connaissances associées",continue:"Poursuivez avec le guide suivant.",all:"Voir toutes les connaissances"}
+}[locale];
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -35,12 +45,12 @@ const articleSchema = {
   mainEntityOfPage: absoluteCanonical,
   url: absoluteCanonical,
   image: "https://auto-pilots.io/og/autopilots-og.svg",
-  inLanguage: "nl-NL",
+  inLanguage: getLocale(locale).tag,
   articleSection: article.contentCluster ?? article.category,
   author: {
     "@type": "Organization",
     name: article.author ?? "Autopilots redactie",
-    url: "https://auto-pilots.io/crew/"
+    url: `https://auto-pilots.io${localizedPath("page.crew",locale)}`
   },
   publisher: {
     "@type": "Organization",
@@ -53,8 +63,8 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Kennisbank", item: "https://auto-pilots.io/kennisbank/" },
-    { "@type": "ListItem", position: 2, name: "AI kennis", item: "https://auto-pilots.io/kennisbank/ai/" },
+    { "@type": "ListItem", position: 1, name: c.knowledge, item: `https://auto-pilots.io${localizedPath("page.knowledge",locale)}` },
+    { "@type": "ListItem", position: 2, name: c.ai, item: `https://auto-pilots.io${localizedPath("page.knowledge.ai",locale)}` },
     { "@type": "ListItem", position: 3, name: article.title, item: absoluteCanonical }
   ]
 };
@@ -72,14 +82,14 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title={`${article.cardTitle} | Autopilots`} description={article.description} canonical={canonical} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
+<BaseLayout title={`${article.cardTitle} | Autopilots`} description={article.description} canonical={canonical} locale={locale} contentId={`article.${article.slug}`} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
 
   <section class="ap-section ap-blog-hero">
     <div class="ap-container">
       <nav class="ap-breadcrumb" aria-label="Breadcrumb">
-        <a href="/kennisbank/">Kennisbank</a>
+        <a href={localizedPath("page.knowledge",locale)}>{c.knowledge}</a>
         <span>/</span>
-        <a href="/kennisbank/ai/">AI kennis</a>
+        <a href={localizedPath("page.knowledge.ai",locale)}>{c.ai}</a>
         <span>/</span>
         <strong>{article.category}</strong>
       </nav>
@@ -92,27 +102,14 @@ const faqSchema = {
             <span class="ap-accent">{article.accent}</span>
           </h1>
           <p class="ap-lead">{article.excerpt}</p>
-          <div class="ap-blog-meta" aria-label="Artikelgegevens">
-            <span>{article.author ?? "Autopilots redactie"}</span>
-            <span>Gepubliceerd {formatDate(article.published)}</span>
-            <span>Bijgewerkt {formatDate(article.modified)}</span>
-            <span>{article.readTime} leestijd</span>
+          <div class="ap-blog-meta" aria-label={c.meta}>
+            <span>{article.author ?? "Autopilots"}</span>
+            <span>{c.published} {formatDate(article.published)}</span>
+            <span>{c.updated} {formatDate(article.modified)}</span>
+            <span>{article.readTime} {c.read}</span>
           </div>
-          <div class="ap-actions">
-            <a class="ap-button ap-button-primary" href="#kort-antwoord">Lees het antwoord</a>
-            <a class="ap-button ap-button-secondary" href="/kennisbank/">Terug naar kennisbank</a>
-          </div>
+          <div class="ap-actions"><a class="ap-button ap-button-primary" href="#kort-antwoord">{c.answer}</a><a class="ap-text-link" href={localizedPath("page.knowledge",locale)}>{c.back} →</a></div>
         </div>
-
-        <aside class="ap-card ap-blog-intent" aria-label="Leesroute">
-          <h2>Leesroute.</h2>
-          <dl>
-            <div><dt>Vraag</dt><dd>{article.intent}</dd></div>
-            <div><dt>Doelgroep</dt><dd>{article.audience}</dd></div>
-            <div><dt>Belofte</dt><dd>{article.promise}</dd></div>
-            <div><dt>Vervolgstap</dt><dd>{article.conversion}</dd></div>
-          </dl>
-        </aside>
       </div>
     </div>
   </section>
@@ -121,7 +118,7 @@ const faqSchema = {
     <div class="ap-container ap-blog-layout">
       <article class="ap-blog-article">
         <div class="ap-blog-summary">
-          <div class="ap-kicker">Kort antwoord</div>
+          <div class="ap-kicker">{c.short}</div>
           <h2>{article.title}</h2>
           <ul>
             {article.summary.map((item) => <li>{item}</li>)}
@@ -143,8 +140,8 @@ const faqSchema = {
 
         {article.examples && (
           <section id="praktijkvoorbeelden">
-            <div class="ap-kicker">Praktijk</div>
-            <h2>Voorbeelden uit echte klantreizen.</h2>
+            <div class="ap-kicker">{c.practice}</div>
+            <h2>{c.examples}</h2>
             <div class="ap-blog-example">
               {article.examples.map((example) => (
                 <div>
@@ -156,34 +153,20 @@ const faqSchema = {
           </section>
         )}
 
-        <section id="praktische-context">
-          <div class="ap-kicker">Praktijk</div>
-          <h2>Wanneer dit onderwerp relevant wordt.</h2>
-          <p>
-            Herken je een van deze situaties, dan is dit onderwerp waarschijnlijk nu al relevant voor je bedrijf.
-            Gebruik de begrippen hieronder als snelle route naar de juiste vervolgstap.
-          </p>
-          <div class="ap-keyword-list">
-            {article.keywords.map((keyword) => <span>{keyword}</span>)}
-          </div>
-        </section>
-
         <section id="bronnen">
-          <div class="ap-kicker">Onderzoek</div>
-          <h2>Bronnen en richtinggevende documentatie.</h2>
-          <p>
-            De tekst is gebaseerd op actuele documentatie en praktijkervaring, vertaald naar concrete keuzes voor Nederlandse bedrijven.
-          </p>
+          <div class="ap-kicker">{c.research}</div>
+          <h2>{c.sources}</h2>
+          <p>{c.sourceText}</p>
           <div class="ap-source-list">
             {article.sources.map((source) => (
-              <a href={source.href} target="_blank" rel="noopener noreferrer">{source.label}</a>
+              <a href={source.href} target="_blank" rel="noopener noreferrer">{new URL(source.href).hostname.replace("www.","")}</a>
             ))}
           </div>
         </section>
 
         <section id="faq" class="ap-blog-faq">
           <div class="ap-kicker">FAQ</div>
-          <h2>Veelgestelde vragen.</h2>
+          <h2>{c.faq}</h2>
           {article.faq.map((item, index) => (
             <details open={index === 0}>
               <summary>{item.question}</summary>
@@ -194,50 +177,40 @@ const faqSchema = {
 
         <div class="ap-blog-cta">
           <div>
-            <div class="ap-kicker">Volgende stap</div>
-            <h2 class="ap-section-title">Wil je weten welke AI route voor jouw bedrijf logisch is?</h2>
-            <p class="ap-lead">We kijken naar je klantcontact, bottlenecks, CRM, planning en opvolging. Daarna kiezen we de eerste flow die het snelst waarde oplevert.</p>
+            <div class="ap-kicker">{c.next}</div>
+            <h2 class="ap-section-title">{c.nextTitle}</h2>
+            <p class="ap-lead">{c.nextText}</p>
           </div>
-          <a class="ap-button ap-button-primary" data-ap-event="blog_to_appointment_clicked" href="/afspraak/">Plan afspraak</a>
+          <a class="ap-button ap-button-primary" data-ap-event="blog_to_appointment_clicked" href={localizedPath("page.appointment",locale)}>{c.appointment}</a>
         </div>
       </article>
 
       <aside class="ap-blog-sidebar">
-        <div class="ap-card ap-blog-sidebar-card">
-          <h2>Inhoud.</h2>
-          <nav class="ap-blog-toc" aria-label="Inhoudsopgave">
-            <a href="#kort-antwoord">Kort antwoord <span>01</span></a>
+        <div class="ap-blog-sidebar-card">
+          <h2>{c.contents}</h2>
+          <nav class="ap-blog-toc" aria-label={c.contents}>
+            <a href="#kort-antwoord">{c.short} <span>01</span></a>
             {article.sections.map((section, index) => (
               <a href={`#${section.id}`}>{section.eyebrow} <span>{String(index + 2).padStart(2, "0")}</span></a>
             ))}
-            {article.examples && <a href="#praktijkvoorbeelden">Praktijk <span>{String(article.sections.length + 2).padStart(2, "0")}</span></a>}
-            <a href="#bronnen">Bronnen <span>{String(article.sections.length + 3).padStart(2, "0")}</span></a>
+            {article.examples && <a href="#praktijkvoorbeelden">{c.practice} <span>{String(article.sections.length + 2).padStart(2, "0")}</span></a>}
+            <a href="#bronnen">{c.research} <span>{String(article.sections.length + 3).padStart(2, "0")}</span></a>
             <a href="#faq">FAQ <span>{String(article.sections.length + (article.examples ? 4 : 3)).padStart(2, "0")}</span></a>
           </nav>
         </div>
 
-        <div class="ap-card ap-blog-sidebar-card">
-          <h2>Pagina details.</h2>
-          <ul>
-            <li>{article.label}</li>
-            <li>{article.readTime} leestijd</li>
-            <li>Door {article.author ?? "Autopilots redactie"}</li>
-            <li>Geüpdatet op {formatDate(article.modified)}</li>
-            <li>Praktische voorbeelden en FAQ</li>
-          </ul>
-        </div>
       </aside>
     </div>
   </section>
 
   <section class="ap-section">
     <div class="ap-container">
-      <div class="ap-kicker">Gerelateerde kennis</div>
-      <h2 class="ap-section-title">Lees logisch verder.</h2>
+      <div class="ap-kicker">{c.related}</div>
+      <h2 class="ap-section-title">{c.continue}</h2>
       {relatedKnowledge.length > 0 && (
         <div class="ap-related-grid ap-related-knowledge-grid">
           {relatedKnowledge.map((item) => (
-            <a class="ap-card" href={`/kennisbank/${item.slug}/`}>
+            <a class="ap-card" href={localizedPath(`article.${item.slug}`,locale)}>
               <span>{item.contentCluster ?? item.category}</span>
               <h3>{item.cardTitle}</h3>
               <p>{item.excerpt}</p>
@@ -245,21 +218,7 @@ const faqSchema = {
           ))}
         </div>
       )}
-      <div class="ap-related-grid">
-        {article.related.map((item) => (
-          <a class="ap-card" data-ap-event={item.href.startsWith("/producten/") ? "blog_to_product_clicked" : undefined} href={item.href}>
-            <span>{item.label}</span>
-            <h3>{item.title}</h3>
-          </a>
-        ))}
-      </div>
-      {(relatedProductLinks.length > 0 || relatedNicheLinks.length > 0) && (
-        <div class="ap-related-context" aria-label="Gerelateerde oplossingen en branches">
-          <strong>Sluit aan op</strong>
-          {relatedProductLinks.map((product) => <a href={`/producten/${product!.slug}/`}>{product!.name}</a>)}
-          {relatedNicheLinks.map((niche) => <a href={`/voor-wie/${niche!.slug}/`}>AI voor {niche!.name.toLowerCase()}</a>)}
-        </div>
-      )}
+      <a class="ap-text-link" href={localizedPath("page.knowledge",locale)}>{c.all} →</a>
     </div>
   </section>
 </BaseLayout>

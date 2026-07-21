@@ -3,6 +3,7 @@ node_modules/
 .pnpm-store/
 .env
 .env.*
+!autopilots-website/.env.example
 *.log
 sales-dashboard/
 autopilots-website/.astro/
@@ -11,3 +12,4 @@ autopilots-website/.lighthouseci/
 autopilots-website/.netlify/
 autopilots-website/playwright-report/
 autopilots-website/test-results/
+.netlify/

@@ -12,5 +12,5 @@ export function getStaticPaths() {
   return Object.keys(redirects).map((slug) => ({ params: { slug }, props: { target: redirects[slug] } }));
 }
 const { target } = Astro.props;
-return Astro.redirect(`/producten/${target}/`, 301);
+return Astro.redirect(`/nl/producten/${target}/`, 301);
 ---

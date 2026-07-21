@@ -1,4 +1,5 @@
 ---
+import type { SupportedLocale } from "../../i18n/languages";
 interface Props {
   eyebrow: string;
   title: string;
@@ -9,6 +10,9 @@ interface Props {
   secondaryLabel?: string;
   secondaryHref?: string;
   chips?: string[];
+  panelLabel?: string;
+  flowRows?: Array<[string, string]>;
+  locale?: SupportedLocale;
 }
 
 const {
@@ -20,8 +24,21 @@ const {
   primaryHref = "/contact/",
   secondaryLabel = "Bekijk hoe het werkt",
   secondaryHref = "#systeem",
-  chips = []
+  chips = [],
+  panelLabel,
+  flowRows,
+  locale="nl"
 } = Astro.props;
+const flowCopy={
+ nl:{label:"Autopilots proces",rows:[["Lead komt binnen","Website, ads of telefoon"],["AI kwalificeert","Context, behoefte en timing"],["Afspraak gepland","Direct in agenda en CRM"],["Opvolging loopt","Geen kans blijft liggen"]]},
+ en:{label:"Autopilots process",rows:[["Lead arrives","Website, ads or phone"],["AI qualifies","Context, need and timing"],["Appointment booked","Directly in calendar and CRM"],["Follow-up continues","No opportunity is left behind"]]},
+ es:{label:"Proceso Autopilots",rows:[["Llega el lead","Web, anuncios o teléfono"],["La IA cualifica","Contexto, necesidad y momento"],["Cita programada","Directamente en agenda y CRM"],["Seguimiento activo","Ninguna oportunidad se pierde"]]},
+ de:{label:"Autopilots Prozess",rows:[["Lead geht ein","Website, Anzeigen oder Telefon"],["KI qualifiziert","Kontext, Bedarf und Zeitpunkt"],["Termin geplant","Direkt in Kalender und CRM"],["Nachverfolgung läuft","Keine Chance bleibt liegen"]]},
+ it:{label:"Processo Autopilots",rows:[["Arriva il lead","Sito, annunci o telefono"],["L'AI qualifica","Contesto, esigenza e tempistica"],["Appuntamento fissato","Direttamente in agenda e CRM"],["Follow-up attivo","Nessuna opportunità viene persa"]]},
+ fr:{label:"Processus Autopilots",rows:[["Le lead arrive","Site, publicités ou téléphone"],["L'IA qualifie","Contexte, besoin et calendrier"],["Rendez-vous planifié","Directement dans l'agenda et le CRM"],["Le suivi continue","Aucune opportunité n'est perdue"]]}
+}[locale];
+const resolvedPanelLabel=panelLabel??flowCopy.label;
+const resolvedFlowRows=flowRows??flowCopy.rows;
 ---
 
 <section class="ap-hero">
@@ -36,20 +53,13 @@ const {
         <p class="ap-lead">{text}</p>
         <div class="ap-actions">
           <a class="ap-button ap-button-primary" data-ap-event={primaryHref.startsWith("/afspraak") || primaryHref.startsWith("/contact") ? "appointment_cta_clicked" : undefined} href={primaryHref}>{primaryLabel}</a>
-          <a class="ap-button ap-button-secondary" data-ap-event={secondaryHref.startsWith("/bestel-direct") ? "direct_order_clicked" : undefined} href={secondaryHref}>{secondaryLabel}</a>
+          <a class="ap-text-link ap-hero-secondary" data-ap-event={secondaryHref.includes("/bestel-direct") ? "direct_order_clicked" : undefined} href={secondaryHref}>{secondaryLabel} →</a>
         </div>
-        {chips.length > 0 && (
-          <div class="ap-chip-row">
-            {chips.map((chip) => <span class="ap-chip">{chip}</span>)}
-          </div>
-        )}
+        {chips.length > 0 && <p class="ap-hero-products">{chips.join(" · ")}</p>}
       </div>
-      <div class="ap-hero-panel" aria-label="Autopilots proces">
+      <div class="ap-hero-panel" aria-label={resolvedPanelLabel}>
         <div class="ap-mini-flow">
-          <div class="ap-flow-row"><span>01</span><div><strong>Lead komt binnen</strong><em>Website, ads of telefoon</em></div></div>
-          <div class="ap-flow-row"><span>02</span><div><strong>AI kwalificeert</strong><em>Context, behoefte en timing</em></div></div>
-          <div class="ap-flow-row"><span>03</span><div><strong>Afspraak gepland</strong><em>Direct in agenda en CRM</em></div></div>
-          <div class="ap-flow-row"><span>04</span><div><strong>Opvolging loopt</strong><em>Geen kans blijft liggen</em></div></div>
+          {resolvedFlowRows.map((row, index) => <div class="ap-flow-row"><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{row[0]}</strong><em>{row[1]}</em></div></div>)}
         </div>
       </div>
     </div>
@@ -71,6 +81,9 @@ const {
   .ap-hero-copy {
     padding-top: 28px;
   }
+
+  .ap-hero-secondary { align-self: center; }
+  .ap-hero-products { max-width: 720px; margin: 26px 0 0; color: var(--ap-muted); font-size: 12px; font-weight: 750; line-height: 1.6; }
 
   .ap-hero-panel {
     position: relative;

@@ -5,19 +5,42 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/validate-env.mjs && astro build",
     "preview": "astro preview",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/check-built-site.mjs",
+    "format": "prettier --write package.json scripts netlify/functions tests playwright.config.ts eslint.config.js",
+    "format:check": "prettier --check package.json scripts netlify/functions tests playwright.config.ts eslint.config.js",
+    "lint": "eslint scripts netlify/functions tests playwright.config.ts eslint.config.js",
+    "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
+    "test:e2e": "playwright test",
+    "test:qa": "node scripts/check-public-safety.mjs && node scripts/check-built-site.mjs && node scripts/check-redirects.mjs && node scripts/i18n-validate.mjs --strict && node scripts/audit-visible-language.mjs fr",
     "check:site": "node scripts/check-built-site.mjs",
+    "check:public": "node scripts/check-public-safety.mjs",
+    "check:redirects": "node scripts/check-redirects.mjs",
+    "validate:env": "node scripts/validate-env.mjs",
     "i18n:report": "node scripts/i18n-report.mjs",
+    "i18n:audit:fr": "node scripts/audit-visible-language.mjs fr",
+    "i18n:audit:layout": "node scripts/audit-layout-parity.mjs",
+    "i18n:audit:full": "node scripts/i18n-full-audit.mjs",
+    "i18n:coverage": "node scripts/i18n-full-audit.mjs",
     "i18n:validate": "node scripts/i18n-validate.mjs",
-    "i18n:validate:strict": "node scripts/i18n-validate.mjs --strict"
+    "i18n:validate:strict": "node scripts/i18n-validate.mjs --strict",
+    "i18n:strict": "pnpm run build && pnpm run i18n:audit:full && pnpm run i18n:audit:layout && pnpm run i18n:validate:strict"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.9",
     "astro": "^5.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "@axe-core/playwright": "^4.12.1",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.61.1",
+    "eslint": "^10.7.0",
+    "eslint-plugin-astro": "^3.0.1",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.5",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.64.0"
   }
 }

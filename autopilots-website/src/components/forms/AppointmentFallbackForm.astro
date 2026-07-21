@@ -1,0 +1,70 @@
+---
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { fallbackFormCopy } from "../../i18n/conversionPage";
+interface Props { locale?: SupportedLocale }
+const { locale = "nl" } = Astro.props;
+const copy = fallbackFormCopy[locale];
+const clientCopy = JSON.stringify({sending:copy.sending,success:copy.success,error:copy.error}).replaceAll("<","\\u003c");
+---
+<form class="ap-fallback-form" data-appointment-fallback data-copy={clientCopy} novalidate>
+  <div class="ap-kicker">{copy.kicker}</div>
+  <h2>{copy.title}</h2>
+  <p>{copy.text}</p>
+  <div class="ap-fallback-fields">
+    <label><span>{copy.name}</span><input name="name" autocomplete="name" required maxlength="100" /></label>
+    <label><span>{copy.company}</span><input name="company" autocomplete="organization" required maxlength="120" /></label>
+    <label><span>{copy.email}</span><input name="email" type="email" autocomplete="email" required maxlength="160" /></label>
+    <label><span>{copy.phone} <small>{copy.optional}</small></span><input name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
+  </div>
+  <label class="ap-fallback-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+  <label class="ap-fallback-consent"><input name="consent" type="checkbox" required /><span>{copy.consent} <a href={localizedPath("page.privacy",locale)}>{copy.privacy}</a>.</span></label>
+  <button class="ap-button ap-button-primary" type="submit">{copy.submit}</button>
+  <p class="ap-fallback-status" data-fallback-status aria-live="polite"></p>
+  <p class="ap-fallback-mail">{copy.mail} <a href="mailto:info@auto-pilots.io?subject=Autopilots%20appointment">info@auto-pilots.io</a></p>
+</form>
+
+<script>
+  const form = document.querySelector("[data-appointment-fallback]");
+  if (form instanceof HTMLFormElement) {
+    const copy = JSON.parse(form.dataset.copy || "{}");
+    const status = form.querySelector("[data-fallback-status]");
+    const button = form.querySelector("button[type='submit']");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form).entries());
+      const params = new URLSearchParams(location.search);
+      data.intent = "appointment";
+      data.consent = form.elements.namedItem("consent")?.checked === true;
+      data.product = params.get("product") || "";
+      data.niche = params.get("branche") || "";
+      data.campaignName = params.get("utm_campaign") || "website-afspraak";
+      data.landing_page = location.pathname;
+      ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid","msclkid"].forEach((key) => { if (params.has(key)) data[key] = params.get(key); });
+      const idempotencyKey = crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      button?.setAttribute("disabled", "");
+      button?.setAttribute("aria-busy", "true");
+      status.textContent = copy.sending;
+      window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail: { event:"appointment_fallback_submitted", page_path:location.pathname } }));
+      try {
+        const response = await fetch("/api/funnel-lead", { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json", "Idempotency-Key":idempotencyKey }, body:JSON.stringify(data) });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.message || "Versturen is nu niet gelukt.");
+        form.reset();
+        status.textContent = copy.success;
+        window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail: { event:"appointment_fallback_completed", page_path:location.pathname } }));
+      } catch (error) {
+        status.textContent = error instanceof Error && error.message ? error.message : copy.error;
+        window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail: { event:"appointment_fallback_failed", page_path:location.pathname } }));
+      } finally {
+        button?.removeAttribute("disabled");
+        button?.removeAttribute("aria-busy");
+      }
+    });
+  }
+</script>
+
+<style>
+  .ap-fallback-form{display:grid;gap:16px;margin-top:18px;border:1px solid var(--ap-line);border-radius:28px;background:#fff;padding:28px}.ap-fallback-form h2{margin:0;font-size:28px}.ap-fallback-form>p{margin:0;color:var(--ap-muted);line-height:1.55}.ap-fallback-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ap-fallback-fields label{display:grid;gap:7px;color:var(--ap-muted);font-size:12px;font-weight:800}.ap-fallback-fields input{min-height:50px;border:1px solid var(--ap-line);border-radius:16px;background:var(--ap-soft-2);padding:0 14px;font:inherit}.ap-fallback-fields input:focus{border-color:var(--ap-brown);outline:3px solid rgba(159,56,38,.12)}.ap-fallback-honeypot{position:absolute!important;left:-10000px!important}.ap-fallback-consent{display:flex;align-items:flex-start;gap:9px;color:var(--ap-muted);font-size:11px;line-height:1.5}.ap-fallback-consent input{margin-top:2px;accent-color:var(--ap-brown)}.ap-fallback-consent a,.ap-fallback-mail a{color:var(--ap-brown);font-weight:850;text-decoration:underline;text-underline-offset:3px}.ap-fallback-status{min-height:20px;color:var(--ap-brown)!important;font-size:12px;font-weight:800}.ap-fallback-mail{font-size:11px}@media(max-width:620px){.ap-fallback-form{border-radius:24px;padding:22px}.ap-fallback-fields{grid-template-columns:1fr}}
+</style>

@@ -2,13 +2,17 @@
 import "../styles/global.css";
 import "../styles/campaign.css";
 
-interface Props { title: string; description: string; canonical: string; campaign: string }
-const { title, description, canonical, campaign } = Astro.props;
+import { getLocale, type SupportedLocale } from "../i18n/languages";
+import { localizedAlternates } from "../i18n/routes";
+interface Props { title: string; description: string; canonical: string; campaign: string; locale?: SupportedLocale; contentId: string }
+const { title, description, canonical, campaign, locale = "nl", contentId } = Astro.props;
 const canonicalUrl = new URL(canonical, Astro.site ?? Astro.url.origin).toString();
 const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID ?? "1715813002902335";
+const alternates=localizedAlternates(contentId);
+const localeTag=getLocale(locale).tag;
 ---
 <!doctype html>
-<html lang="nl">
+<html lang={localeTag}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,9 +25,11 @@ const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID ?? "1715813002902335";
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {alternates.map(item=><link rel="alternate" hreflang={item.tag} href={new URL(item.href,Astro.site??Astro.url.origin).toString()} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates.find(item=>item.locale==="nl")!.href,Astro.site??Astro.url.origin).toString()} />
   </head>
   <body>
-    <a class="ap-skip-link" href="#campaign-content">Ga naar de inhoud</a>
+    <a class="ap-skip-link" href="#campaign-content">{({nl:"Ga naar de inhoud",en:"Skip to content",es:"Ir al contenido",de:"Zum Inhalt",it:"Vai al contenuto",fr:"Aller au contenu"})[locale]}</a>
     <main id="campaign-content"><slot /></main>
     <aside class="ap-campaign-consent" data-campaign-consent hidden aria-label="Cookievoorkeuren">
       <div>

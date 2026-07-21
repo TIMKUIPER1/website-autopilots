@@ -1,28 +1,34 @@
 ---
+import type { SupportedLocale } from "../../i18n/languages";
+interface Props { locale?: SupportedLocale }
+const { locale="nl" }=Astro.props;
+const ui={nl:["Kies een AI-medewerker","Live praktijktest","Kies de AI-medewerker","Open de live widget","Praat of chat als klant","Open","demo","De live widget wordt pas geladen nadat je klikt.","Widget geopend","De demo opent rechtsonder in beeld.","De widget kon niet worden geladen. Probeer het opnieuw."],en:["Choose an AI employee","Live practical test","Choose the AI employee","Open the live widget","Speak or chat as a customer","Open","demo","The live widget only loads after you click.","Widget opened","The demo opens at the bottom right.","The widget could not be loaded. Please try again."],es:["Elige un empleado de IA","Prueba práctica en vivo","Elige el empleado de IA","Abre el widget en vivo","Habla o chatea como cliente","Abrir","demo","El widget en vivo se carga al hacer clic.","Widget abierto","La demo se abre abajo a la derecha.","No se ha podido cargar el widget. Inténtalo de nuevo."],de:["KI-Mitarbeiter wählen","Live-Praxistest","KI-Mitarbeiter wählen","Live-Widget öffnen","Als Kunde sprechen oder chatten","Öffnen","Demo","Das Live-Widget wird erst nach dem Klick geladen.","Widget geöffnet","Die Demo öffnet sich unten rechts.","Das Widget konnte nicht geladen werden. Bitte erneut versuchen."],it:["Scegli un collaboratore AI","Test pratico live","Scegli il collaboratore AI","Apri il widget live","Parla o chatta come cliente","Apri","demo","Il widget live si carica dopo il clic.","Widget aperto","La demo si apre in basso a destra.","Impossibile caricare il widget. Riprova."],fr:["Choisissez un collaborateur IA","Test pratique en direct","Choisissez le collaborateur IA","Ouvrez le widget en direct","Parlez ou échangez comme un client","Ouvrir","démo","Le widget se charge après votre clic.","Widget ouvert","La démo s'ouvre en bas à droite.","Impossible de charger le widget. Veuillez réessayer."]}[locale];
 const products = [
   { key:"telefoniste", number:"01", name:"AI Telefoniste", short:"Bel over verkoop of werkplaats.", agentId:"agent_8301kx8wzxzbfstr2mtyh74taamx", text:"Bel als klant over de Audi A4, een proefrit, APK, onderhoud, storing of banden.", instruction:"Probeer: ‘Ik bel over de Audi A4’ of ‘Ik wil APK plannen’." },
   { key:"inbox", number:"02", name:"AI Inboxmedewerker", short:"Chat over verkoop of werkplaats.", agentId:"agent_0101kxernqytetz986yz5t9td6zh", text:"Chat als klant over een voorraadauto, inruil, proefrit of werkplaatsafspraak.", instruction:"Probeer: ‘Is de Audi A4 nog beschikbaar?’ of ‘Kan ik deze week APK plannen?’" },
   { key:"leadopvolger", number:"03", name:"AI Leadopvolger", short:"Test opvolging van platformleads.", agentId:"agent_7901kxer6f80fctrxvg9vkx253x3", text:"Test hoe een nieuwe of openstaande lead wordt opgevolgd richting proefrit, offerte of terugbelmoment.", instruction:"Probeer: ‘Ik kom via Marktplaats en wil een proefrit’ of ‘Kunnen jullie mij terugbellen?’" }
 ];
-const json = JSON.stringify(products).replaceAll("<","\\u003c");
+const names={en:{telefoniste:"AI Receptionist",inbox:"AI Inbox Agent",leadopvolger:"AI Lead Follow-up"},es:{telefoniste:"Recepcionista IA",inbox:"Agente de bandeja IA",leadopvolger:"Seguimiento de leads IA"},de:{telefoniste:"KI-Telefonassistent",inbox:"KI-Postfachassistent",leadopvolger:"KI-Lead-Nachverfolgung"},it:{telefoniste:"Receptionist AI",inbox:"Assistente inbox AI",leadopvolger:"Follow-up lead AI"},fr:{telefoniste:"Standardiste IA",inbox:"Assistant messagerie IA",leadopvolger:"Suivi des prospects IA"}};
+const localized=products.map(product=>locale==="nl"?product:{...product,name:names[locale][product.key],short:{en:"Test sales or workshop contact.",es:"Prueba ventas o taller.",de:"Verkauf oder Werkstatt testen.",it:"Prova vendita o officina.",fr:"Testez vente ou atelier."}[locale],text:{en:"Act as a customer with a stock, trade-in, test drive or workshop question.",es:"Actúa como cliente con una consulta de stock, tasación, prueba o taller.",de:"Testen Sie als Kunde eine Bestands-, Inzahlungnahme-, Probefahrt- oder Werkstattanfrage.",it:"Agisci come cliente con una domanda su stock, permuta, test drive o officina.",fr:"Jouez un client avec une demande de stock, reprise, essai ou atelier."}[locale],instruction:{en:"Try a stock, test-drive or workshop question.",es:"Prueba una pregunta de stock, prueba o taller.",de:"Probieren Sie eine Bestands-, Probefahrt- oder Werkstattfrage.",it:"Prova una domanda su stock, test drive o officina.",fr:"Essayez une question de stock, d'essai ou d'atelier."}[locale]});
+const json = JSON.stringify({products:localized,ui}).replaceAll("<","\\u003c");
 ---
 
 <div class="ap-live-demos" data-elevenlabs-demos>
-  <div class="ap-demo-picker" role="tablist" aria-label="Kies een AI-medewerker">
-    {products.map((product,index)=><button class:list={[{"is-active":index===0}]} type="button" role="tab" aria-selected={index===0?"true":"false"} data-demo-product={product.key}><span>{product.number}</span><div><strong>{product.name}</strong><small>{product.short}</small></div></button>)}
+  <div class="ap-demo-picker" role="tablist" aria-label={ui[0]}>
+    {localized.map((product,index)=><button class:list={[{"is-active":index===0}]} type="button" role="tab" aria-selected={index===0?"true":"false"} data-demo-product={product.key}><span>{product.number}</span><div><strong>{product.name}</strong><small>{product.short}</small></div></button>)}
   </div>
   <div class="ap-demo-experience">
     <article class="ap-demo-copy">
-      <div class="ap-demo-label">Test hier de AI-medewerker</div>
-      <h3 data-live-demo-title>{products[0].name}</h3>
-      <p data-live-demo-text>{products[0].text}</p>
-      <ol><li><span>01</span>Kies de AI-medewerker</li><li><span>02</span>Open de live widget</li><li><span>03</span>Praat of chat als klant</li></ol>
+      <div class="ap-demo-label">{ui[1]}</div>
+      <h3 data-live-demo-title>{localized[0].name}</h3>
+      <p data-live-demo-text>{localized[0].text}</p>
+      <ol>{ui.slice(2,5).map((step,index)=><li><span>{String(index+1).padStart(2,"0")}</span>{step}</li>)}</ol>
     </article>
     <div class="ap-widget-stage">
       <div class="ap-widget-card">
-        <span data-live-demo-instruction>{products[0].instruction}</span>
-        <button type="button" data-live-demo-open data-funnel-event="elevenlabs_demo_opened" data-product={products[0].key}>Start gesprek met {products[0].name}</button>
-        <div class="ap-widget-status" data-widget-status>De live widget wordt pas geladen nadat je klikt.</div>
+        <span data-live-demo-instruction>{localized[0].instruction}</span>
+        <button type="button" data-live-demo-open data-funnel-event="elevenlabs_demo_opened" data-product={localized[0].key}>{ui[5]} {localized[0].name} {ui[6]}</button>
+        <div class="ap-widget-status" data-widget-status>{ui[7]}</div>
       </div>
     </div>
   </div>
@@ -31,72 +37,17 @@ const json = JSON.stringify(products).replaceAll("<","\\u003c");
 
 <script>
   document.querySelectorAll("[data-elevenlabs-demos]").forEach((root) => {
-    const products = JSON.parse(root.querySelector("[data-live-demo-data]")?.textContent || "[]");
+    const data = JSON.parse(root.querySelector("[data-live-demo-data]")?.textContent || "{}"); const products=data.products||[],ui=data.ui||[];
     const title=root.querySelector("[data-live-demo-title]"),text=root.querySelector("[data-live-demo-text]"),instruction=root.querySelector("[data-live-demo-instruction]"),open=root.querySelector("[data-live-demo-open]"),status=root.querySelector("[data-widget-status]");
     let active=products[0], scriptPromise;
     const loadScript=()=>{if(customElements.get("elevenlabs-convai"))return Promise.resolve();if(scriptPromise)return scriptPromise;scriptPromise=new Promise((resolve,reject)=>{const script=document.createElement("script");script.src="https://unpkg.com/@elevenlabs/convai-widget-embed";script.async=true;script.onload=resolve;script.onerror=reject;document.body.append(script)});return scriptPromise};
-    const select=(key)=>{active=products.find(item=>item.key===key)||products[0];title.textContent=active.name;text.textContent=active.text;instruction.textContent=active.instruction;open.textContent=`Start gesprek met ${active.name}`;open.dataset.product=active.key;open.disabled=false;status.textContent="De Autopilots live agent wordt geladen zodra je het gesprek start.";root.querySelectorAll("[data-demo-product]").forEach(button=>{const selected=button.dataset.demoProduct===active.key;button.classList.toggle("is-active",selected);button.setAttribute("aria-selected",String(selected))})};
+    const select=(key)=>{active=products.find(item=>item.key===key)||products[0];title.textContent=active.name;text.textContent=active.text;instruction.textContent=active.instruction;open.textContent=`${ui[5]} ${active.name} ${ui[6]}`;open.dataset.product=active.key;open.disabled=false;status.textContent=ui[7];root.querySelectorAll("[data-demo-product]").forEach(button=>{const selected=button.dataset.demoProduct===active.key;button.classList.toggle("is-active",selected);button.setAttribute("aria-selected",String(selected))})};
     root.querySelectorAll("[data-demo-product]").forEach(button=>button.addEventListener("click",()=>select(button.dataset.demoProduct)));
-    open.addEventListener("click",()=>{document.querySelectorAll("elevenlabs-convai.ap-campaign-widget").forEach(widget=>widget.remove());const widget=document.createElement("elevenlabs-convai");widget.setAttribute("agent-id",active.agentId);widget.className="ap-campaign-widget";document.body.append(widget);open.disabled=true;open.textContent="AI-medewerker wordt geopend…";status.textContent="De gesprekstest verschijnt rechtsonder in beeld.";loadScript().then(()=>customElements.whenDefined("elevenlabs-convai")).then(()=>{if(typeof widget.open==="function")widget.open();else widget.click();open.textContent="Gesprek gestart"}).catch(()=>{open.disabled=false;open.textContent=`Start gesprek met ${active.name}`;status.textContent="De widget kon niet worden geladen. Probeer het opnieuw."})});
+    open.addEventListener("click",()=>{document.querySelectorAll("elevenlabs-convai.ap-campaign-widget").forEach(widget=>widget.remove());const widget=document.createElement("elevenlabs-convai");widget.setAttribute("agent-id",active.agentId);widget.className="ap-campaign-widget";document.body.append(widget);open.disabled=true;open.textContent=ui[8];status.textContent=ui[9];loadScript().then(()=>customElements.whenDefined("elevenlabs-convai")).then(()=>{if(typeof widget.open==="function")widget.open();else widget.click()}).catch(()=>{open.disabled=false;open.textContent=`${ui[5]} ${active.name} ${ui[6]}`;status.textContent=ui[10]})});
     select(products[0].key);
   });
 </script>
 
 <style>
   .ap-live-demos{overflow:hidden;border:1px solid rgba(17,17,17,.1);border-radius:32px;background:#fff;box-shadow:0 24px 70px rgba(17,17,17,.08)}.ap-demo-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid rgba(17,17,17,.09);padding:10px}.ap-demo-picker button{display:grid;grid-template-columns:40px minmax(0,1fr);gap:11px;align-items:center;border:0;border-right:1px solid rgba(17,17,17,.08);background:transparent;padding:16px;color:#777;text-align:left;cursor:pointer}.ap-demo-picker button:last-child{border-right:0}.ap-demo-picker button:hover,.ap-demo-picker button.is-active{border-radius:17px;background:#f3f1ed;color:#111}.ap-demo-picker button>span{display:grid;width:38px;height:38px;place-items:center;border-radius:12px;background:#111;color:#fff;font:700 9px/1 "Syne",sans-serif}.ap-demo-picker strong,.ap-demo-picker small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ap-demo-picker strong{font-size:12px}.ap-demo-picker small{margin-top:5px;font-size:9px}.ap-demo-experience{display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);min-height:480px}.ap-demo-copy{padding:36px}.ap-demo-label{color:#9f3826;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.4px;text-transform:uppercase}.ap-demo-copy h3{margin:18px 0 0;font-size:36px;line-height:1.05;letter-spacing:-.045em}.ap-demo-copy>p{margin:16px 0 0!important;color:#686868;font-size:13px;line-height:1.6}.ap-demo-copy ol{display:grid;gap:0;margin:34px 0 0;padding:0;list-style:none}.ap-demo-copy li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;border-top:1px solid rgba(17,17,17,.09);padding:15px 0;font-size:11px;font-weight:800}.ap-demo-copy li span{color:#9f3826;font:700 8px/1 "Syne",sans-serif}.ap-widget-stage{display:grid;place-items:center;background:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px),radial-gradient(circle at 100% 100%,rgba(159,56,38,.38),transparent 38%),#111;background-size:30px 30px,30px 30px,auto;padding:34px}.ap-widget-card{width:min(440px,100%);border:1px solid rgba(255,255,255,.14);border-radius:27px;background:rgba(255,255,255,.08);padding:25px;color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.22)}.ap-widget-card>span{display:block;min-height:48px;color:rgba(255,255,255,.73);font-size:12px;line-height:1.55}.ap-widget-card button{width:100%;min-height:56px;margin-top:22px;border:0;border-radius:999px;background:#9f3826;color:#fff;font-size:13px;font-weight:900;cursor:pointer}.ap-widget-card button:hover{background:#7d2a1d}.ap-widget-card button:disabled{background:#383838;cursor:default}.ap-widget-status{margin-top:13px;color:rgba(255,255,255,.45);font-size:9px;text-align:center}@media(max-width:800px){.ap-demo-picker,.ap-demo-experience{grid-template-columns:1fr}.ap-demo-picker button{border-right:0;border-bottom:1px solid rgba(17,17,17,.08)}.ap-demo-picker button:last-child{border-bottom:0}.ap-demo-experience{min-height:0}.ap-widget-stage{min-height:390px}}@media(max-width:520px){.ap-live-demos{border-radius:25px}.ap-demo-copy,.ap-widget-stage{padding:22px}.ap-demo-copy h3{font-size:30px}}
-</style>
-
-<style>
-  .ap-live-demos.ap-live-demos{border-color:rgba(103,174,226,.2);background:linear-gradient(145deg,rgba(19,53,80,.9),rgba(7,22,35,.96));box-shadow:0 30px 90px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.06);backdrop-filter:blur(22px)}
-  .ap-live-demos .ap-demo-picker{border-color:rgba(255,255,255,.09);background:rgba(2,12,21,.24)}
-  .ap-live-demos .ap-demo-picker button{border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.5);transition:background .2s,color .2s,transform .2s}
-  .ap-live-demos .ap-demo-picker button:hover,.ap-live-demos .ap-demo-picker button.is-active{background:linear-gradient(135deg,rgba(41,111,162,.34),rgba(159,56,38,.13));color:#fff;transform:translateY(-1px)}
-  .ap-live-demos .ap-demo-picker button>span{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.09);box-shadow:inset 0 1px rgba(255,255,255,.12)}
-  .ap-live-demos .ap-demo-picker button.is-active>span{background:linear-gradient(145deg,#2f79b1,#17496f)}
-  .ap-live-demos .ap-demo-picker small{color:rgba(255,255,255,.45)}
-  .ap-live-demos .ap-demo-copy{display:flex;flex-direction:column;justify-content:center;padding:44px;color:#fff}
-  .ap-live-demos .ap-demo-label{color:#eda89c}
-  .ap-live-demos .ap-demo-copy h3{color:#fff}
-  .ap-live-demos .ap-demo-copy>p{color:rgba(255,255,255,.62)}
-  .ap-live-demos .ap-demo-copy li{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.82)}
-  .ap-live-demos .ap-demo-copy li span{color:#75b4e3}
-  .ap-live-demos .ap-widget-stage{position:relative;overflow:hidden;background:radial-gradient(circle at 78% 28%,rgba(56,139,201,.34),transparent 28%),radial-gradient(circle at 100% 100%,rgba(159,56,38,.34),transparent 38%),linear-gradient(145deg,#07131f,#0d2941);background-size:auto;padding:44px}
-  .ap-live-demos .ap-widget-stage:before{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:30px 30px;content:"";pointer-events:none}
-  .ap-live-demos .ap-widget-stage:after{position:absolute;right:-70px;bottom:-90px;width:250px;height:250px;border:1px solid rgba(231,150,137,.18);border-radius:50%;box-shadow:0 0 0 42px rgba(231,150,137,.035);content:"";pointer-events:none}
-  .ap-live-demos .ap-widget-card{position:relative;z-index:1;border-color:rgba(113,182,233,.25);background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));padding:30px;box-shadow:0 30px 70px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.12);backdrop-filter:blur(20px)}
-  .ap-live-demos .ap-widget-card:before{display:block;margin-bottom:18px;color:#79b9e8;font:700 9px/1 "Syne",sans-serif;letter-spacing:1.5px;text-transform:uppercase;content:"Autopilots live agent"}
-  .ap-live-demos .ap-widget-card>span{color:rgba(255,255,255,.76)}
-  .ap-live-demos .ap-widget-card button{background:linear-gradient(135deg,#b44530,#8f3021);box-shadow:0 16px 40px rgba(159,56,38,.3);transition:transform .2s,box-shadow .2s}
-  .ap-live-demos .ap-widget-card button:hover{background:linear-gradient(135deg,#c04b34,#963323);box-shadow:0 20px 46px rgba(159,56,38,.4);transform:translateY(-2px)}
-  .ap-live-demos .ap-widget-status{color:rgba(255,255,255,.48)}
-  @media(max-width:800px){.ap-live-demos .ap-demo-picker button{border-right:0;border-bottom-color:rgba(255,255,255,.08)}.ap-live-demos .ap-widget-stage{min-height:360px}}
-  .ap-live-demos .ap-demo-copy h3{margin-top:30px!important}
-  @media(max-width:520px){
-    .ap-live-demos .ap-demo-picker{padding:8px}
-    .ap-live-demos .ap-demo-picker button{grid-template-columns:42px minmax(0,1fr);gap:12px;padding:15px 14px}
-    .ap-live-demos .ap-demo-picker button>span{width:40px;height:40px;border-radius:12px;font-size:9px}
-    .ap-live-demos .ap-demo-picker strong{font-size:14px}
-    .ap-live-demos .ap-demo-picker small{margin-top:6px;font-size:11px;line-height:1.35}
-    .ap-live-demos .ap-demo-copy,.ap-live-demos .ap-widget-stage{padding:30px 24px}
-    .ap-live-demos .ap-demo-label{font-size:11px;line-height:1.35}
-    .ap-live-demos .ap-demo-copy h3{margin-top:28px!important;font-size:31px;line-height:1.08}
-    .ap-live-demos .ap-demo-copy>p{margin-top:16px!important;font-size:14px;line-height:1.6}
-    .ap-live-demos .ap-demo-copy ol{margin-top:28px}
-    .ap-live-demos .ap-demo-copy li{padding:17px 0;font-size:14px}
-    .ap-live-demos .ap-demo-copy li span{font-size:10px}
-    .ap-live-demos .ap-widget-stage{min-height:330px}
-    .ap-live-demos .ap-widget-card{padding:22px;border-radius:22px}
-    .ap-live-demos .ap-widget-card>span{min-height:0;font-size:13px;line-height:1.55}
-    .ap-live-demos .ap-widget-card button{min-height:54px;margin-top:20px;padding-inline:14px;font-size:13px}
-    .ap-live-demos .ap-widget-status{font-size:12px;line-height:1.5}
-  }
-  @media(max-width:350px){
-    .ap-live-demos .ap-demo-picker button{grid-template-columns:36px minmax(0,1fr);padding:12px 10px}
-    .ap-live-demos .ap-demo-picker button>span{width:34px;height:34px}
-    .ap-live-demos .ap-demo-picker strong{font-size:12px}
-    .ap-live-demos .ap-demo-picker small{font-size:10px}
-    .ap-live-demos .ap-demo-copy,.ap-live-demos .ap-widget-stage{padding-inline:18px}
-    .ap-live-demos .ap-demo-copy h3{font-size:28px}
-    .ap-live-demos .ap-widget-card button{font-size:12px}
-  }
 </style>

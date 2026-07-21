@@ -1,4 +1,5 @@
 ---
+import type { SupportedLocale } from "../../i18n/languages";
 interface Props {
   src: string;
   title: string;
@@ -6,6 +7,7 @@ interface Props {
   id?: string;
   note?: string;
   loading?: "eager" | "lazy";
+  locale?: SupportedLocale;
 }
 
 const {
@@ -13,32 +15,72 @@ const {
   title,
   minHeight = 640,
   id = "ap-ghl-embed",
-  note = "Werkt de afspraakmodule niet goed? Gebruik dan de directe kalenderlink of stuur ons een e-mail.",
-  loading = "lazy"
+  note,
+  loading = "lazy",
+  locale = "nl"
 } = Astro.props;
+const copy = {
+  nl:{note:"Werkt de afspraakmodule niet goed? Gebruik dan de directe kalenderlink of stuur ons een e-mail.",loading:"Agenda wordt geladen…",error:"De agenda reageert niet.",errorText:"Probeer opnieuw of open de kalender in een nieuw venster.",retry:"Opnieuw laden",open:"Open de kalender",email:"E-mail Autopilots"},
+  en:{note:"Is the booking module not working? Use the direct calendar link or send us an email.",loading:"Loading calendar…",error:"The calendar is not responding.",errorText:"Try again or open the calendar in a new window.",retry:"Reload",open:"Open calendar",email:"Email Autopilots"},
+  es:{note:"¿No funciona el módulo de reservas? Usa el enlace directo al calendario o envíanos un email.",loading:"Cargando agenda…",error:"La agenda no responde.",errorText:"Inténtalo de nuevo o abre la agenda en otra ventana.",retry:"Volver a cargar",open:"Abrir agenda",email:"Enviar email a Autopilots"},
+  de:{note:"Funktioniert die Terminbuchung nicht? Nutzen Sie den direkten Kalenderlink oder schreiben Sie uns eine E-Mail.",loading:"Kalender wird geladen…",error:"Der Kalender antwortet nicht.",errorText:"Versuchen Sie es erneut oder öffnen Sie den Kalender in einem neuen Fenster.",retry:"Neu laden",open:"Kalender öffnen",email:"E-Mail an Autopilots"},
+  it:{note:"Il modulo di prenotazione non funziona? Usa il link diretto al calendario o inviaci un'email.",loading:"Caricamento calendario…",error:"Il calendario non risponde.",errorText:"Riprova oppure apri il calendario in una nuova finestra.",retry:"Ricarica",open:"Apri il calendario",email:"Invia un'email ad Autopilots"},
+  fr:{note:"Le module de réservation ne fonctionne pas ? Utilisez le lien direct vers l'agenda ou envoyez-nous un e-mail.",loading:"Chargement de l'agenda…",error:"L'agenda ne répond pas.",errorText:"Réessayez ou ouvrez l'agenda dans une nouvelle fenêtre.",retry:"Recharger",open:"Ouvrir l'agenda",email:"Envoyer un e-mail à Autopilots"}
+}[locale];
+const resolvedNote = note ?? copy.note;
 ---
 
-<div class="ap-embed-card">
+<div class="ap-embed-card" data-ghl-embed data-calendar-origin={new URL(src).origin}>
+  <div class="ap-embed-state" data-embed-loading role="status"><span aria-hidden="true"></span>{copy.loading}</div>
+  <div class="ap-embed-state ap-embed-error" data-embed-error role="alert" hidden><strong>{copy.error}</strong><span>{copy.errorText}</span><button type="button" data-embed-retry>{copy.retry}</button></div>
   <iframe
     id={id}
     src={src}
     title={title}
     loading={loading}
     referrerpolicy="strict-origin-when-cross-origin"
-    scrolling="no"
+    scrolling="yes"
     style={`min-height:${minHeight}px`}
   ></iframe>
-  <p>{note} <a href={src} target="_blank" rel="noopener noreferrer">Open de kalender</a> · <a href="mailto:info@auto-pilots.io">E-mail Autopilots</a></p>
+  <p>{resolvedNote} <a data-ap-event="appointment_booking_started" href={src} target="_blank" rel="noopener noreferrer">{copy.open}</a> · <a href="mailto:info@auto-pilots.io">{copy.email}</a></p>
 </div>
+
+<script>
+  document.querySelectorAll("[data-ghl-embed]").forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    const iframe = root.querySelector("iframe");
+    const loading = root.querySelector("[data-embed-loading]");
+    const error = root.querySelector("[data-embed-error]");
+    const retry = root.querySelector("[data-embed-retry]");
+    if (!(iframe instanceof HTMLIFrameElement)) return;
+    let completed = false;
+    const emit = (event) => window.dispatchEvent(new CustomEvent("autopilots:analytics", { detail:{ event, page_path:location.pathname } }));
+    let timer;
+    const armTimeout = () => { clearTimeout(timer); timer = window.setTimeout(() => { if (!completed) { loading?.setAttribute("hidden", ""); error?.removeAttribute("hidden"); emit("appointment_calendar_error"); } }, 12000); };
+    armTimeout();
+    iframe.addEventListener("load", () => { completed = true; clearTimeout(timer); loading?.setAttribute("hidden", ""); error?.setAttribute("hidden", ""); emit("appointment_calendar_loaded"); });
+    iframe.addEventListener("error", () => { completed = true; clearTimeout(timer); loading?.setAttribute("hidden", ""); error?.removeAttribute("hidden"); emit("appointment_calendar_error"); });
+    retry?.addEventListener("click", () => { completed = false; error?.setAttribute("hidden", ""); loading?.removeAttribute("hidden"); iframe.src = iframe.src; armTimeout(); emit("appointment_calendar_retry"); });
+    window.addEventListener("message", (message) => {
+      if (message.origin !== root.dataset.calendarOrigin) return;
+      const serialized = typeof message.data === "string" ? message.data : JSON.stringify(message.data ?? {});
+      if (/appointment.*(?:booked|confirmed|complete)|booking.*(?:confirmed|complete)/i.test(serialized)) emit("appointment_booking_completed");
+      else if (/appointment.*(?:start|select)|booking.*(?:start|select)/i.test(serialized)) emit("appointment_booking_started");
+    });
+  });
+</script>
 
 <style>
   .ap-embed-card {
+    position: relative;
     overflow: hidden;
     border: 1px solid var(--ap-line);
     border-radius: 30px;
     background: var(--ap-card);
     box-shadow: 0 16px 50px rgba(17, 17, 17, 0.065);
   }
+
+  .ap-embed-state{display:flex;min-height:88px;align-items:center;justify-content:center;gap:10px;padding:18px;color:var(--ap-muted);font-size:13px;font-weight:800}.ap-embed-state[hidden]{display:none}.ap-embed-state>span:first-child{width:18px;height:18px;border:2px solid var(--ap-line);border-top-color:var(--ap-brown);border-radius:50%;animation:apEmbedSpin .8s linear infinite}.ap-embed-error{align-items:flex-start;flex-direction:column;border-bottom:1px solid var(--ap-line);background:#fff7f4}.ap-embed-error strong{color:var(--ap-text)}.ap-embed-error button{border:1px solid rgba(159,56,38,.25);border-radius:999px;background:#fff;padding:9px 13px;color:var(--ap-brown);font:800 12px "Public Sans",sans-serif;cursor:pointer}@keyframes apEmbedSpin{to{transform:rotate(360deg)}}
 
   .ap-embed-card iframe {
     display: block;

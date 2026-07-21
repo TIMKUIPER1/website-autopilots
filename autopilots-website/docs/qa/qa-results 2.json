@@ -1,0 +1,75 @@
+{
+  "auditDate": "2026-07-16",
+  "status": "NOT READY",
+  "totalScore": 58,
+  "maximumScore": 100,
+  "categoryScores": {
+    "development": { "score": 15, "maximum": 25 },
+    "seo": { "score": 10, "maximum": 20 },
+    "ux": { "score": 13, "maximum": 20 },
+    "cro": { "score": 8, "maximum": 15 },
+    "performance": { "score": 7, "maximum": 10 },
+    "accessibility": { "score": 3, "maximum": 5 },
+    "launchReadiness": { "score": 2, "maximum": 5 }
+  },
+  "pageScores": [
+    { "route": "/voor-wie/autobedrijven/", "score": 87 },
+    { "route": "/producten/ai-inboxmedewerker/", "score": 86 },
+    { "route": "/kennisbank/wat-is-een-ai-medewerker/", "score": 84 },
+    { "route": "/producten/", "score": 84 },
+    { "route": "/proces/", "score": 81 },
+    { "route": "/crew/", "score": 79 },
+    { "route": "/bestel-direct/", "score": 79 },
+    { "route": "/voorstel/autobedrijven/", "score": 74 },
+    { "route": "/afspraak/", "score": 70 },
+    { "route": "/nl/", "score": 70 },
+    { "route": "/lp/autobedrijven/ai-medewerker/ervaring/", "score": 65 },
+    { "route": "/lp/autobedrijven/ai-medewerker/", "score": 61 },
+    { "route": "/", "score": 65 },
+    { "route": "/nl/producten/ai-inboxmedewerker/", "score": 55 },
+    { "route": "/nl/voor-wie/autobedrijven/", "score": 53 },
+    { "route": "/nl/afspraak/", "score": 45 },
+    { "route": "/nl/bestel-direct/", "score": 44 }
+  ],
+  "findings": {
+    "blockers": 7,
+    "p0": 7,
+    "p1": 9,
+    "p2": 7,
+    "p3": 1,
+    "tickets": 24
+  },
+  "buildStatus": {
+    "status": "PASS_WITH_ENV_NOTE",
+    "astroPages": 307,
+    "htmlDocuments": 308,
+    "typecheck": "PASS",
+    "note": "De build slaagt met ASTRO_TELEMETRY_DISABLED=1; zonder die variabele blokkeerde alleen de sandbox het schrijven van Astro-telemetrievoorkeuren."
+  },
+  "linkStatus": {
+    "status": "PASS_WITH_REDIRECT_RISK",
+    "htmlPagesChecked": 307,
+    "internalLinksChecked": 9943,
+    "brokenInternalLinks": 0,
+    "redirectIssue": "Een self-loop 301-regel staat in public/_redirects voor het AI Act-artikel."
+  },
+  "routeAudit": {
+    "htmlDocuments": 308,
+    "indexable": 287,
+    "noindex": 21,
+    "withForms": 24,
+    "withIframes": 3,
+    "missingAltRoutes": 0,
+    "duplicateIdRoutes": 0,
+    "invalidJsonLdRoutes": 0,
+    "h1IssueRoutes": 15
+  },
+  "integrations": {
+    "ghlCalendar": "CONFIGURED_NOT_TESTED",
+    "ghlLeadDelivery": "NOT_OPERATIONAL_WITHOUT_ENV",
+    "stripe": "CONFIGURED_NOT_TESTED",
+    "elevenLabs": "CONFIGURED_NOT_TESTED",
+    "analytics": "INCOMPLETE"
+  },
+  "launchAdvice": "Niet live zetten. Verwijder eerst het publieke vertrouwelijke voorstelbestand, herstel de primaire Nederlandse afspraak- en besteljourneys, maak hosting en leadverwerking aantoonbaar operationeel, los de redirect-loop op en voer daarna een volledige integratie-, toegankelijkheids- en release-hertest uit."
+}

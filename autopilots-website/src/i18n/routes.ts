@@ -1,10 +1,11 @@
 import { supportedLocales, type SupportedLocale } from "./languages";
 
-export type ContentType = "page" | "product" | "niche" | "article";
+export type ContentType = "page" | "product" | "niche" | "article" | "landing";
 export type LocalizedSegments = Record<SupportedLocale, string>;
 export type RouteFamily = { id: string; type: ContentType; segments: LocalizedSegments; indexable?: boolean };
 
 const page = (id: string, segments: LocalizedSegments, indexable = true): RouteFamily => ({ id, type: "page", segments, indexable });
+const landing = (id: string, segments: LocalizedSegments): RouteFamily => ({ id, type: "landing", segments, indexable: false });
 const entity = (type: Exclude<ContentType, "page">, id: string, segments: LocalizedSegments): RouteFamily => ({ id: `${type}.${id}`, type, segments, indexable: true });
 
 const generalRoutes: RouteFamily[] = [
@@ -21,6 +22,12 @@ const generalRoutes: RouteFamily[] = [
   page("page.contact", { nl: "contact", en: "contact", es: "contacto", de: "kontakt", it: "contatti", fr: "contact" }),
   page("page.privacy", { nl: "privacy", en: "privacy", es: "privacidad", de: "datenschutz", it: "privacy", fr: "confidentialite" }),
   page("page.terms", { nl: "voorwaarden", en: "terms", es: "condiciones", de: "bedingungen", it: "condizioni", fr: "conditions" })
+];
+
+const landingRoutes: RouteFamily[] = [
+  landing("landing.autobedrijven-ai-medewerker", { nl:"lp/autobedrijven/ai-medewerker", en:"lp/car-dealerships/ai-employee", es:"lp/concesionarios-automoviles/empleado-ia", de:"lp/autohaeuser/ki-mitarbeiter", it:"lp/concessionarie-auto/collaboratore-ai", fr:"lp/concessions-automobiles/collaborateur-ia" }),
+  landing("landing.autobedrijven-ai-medewerker-ervaring", { nl:"lp/autobedrijven/ai-medewerker/ervaring", en:"lp/car-dealerships/ai-employee/experience", es:"lp/concesionarios-automoviles/empleado-ia/experiencia", de:"lp/autohaeuser/ki-mitarbeiter/erlebnis", it:"lp/concessionarie-auto/collaboratore-ai/esperienza", fr:"lp/concessions-automobiles/collaborateur-ia/experience" }),
+  landing("landing.autobedrijven-voorstel", { nl:"voorstel/autobedrijven", en:"proposal/car-dealerships", es:"propuesta/concesionarios-automoviles", de:"angebot/autohaeuser", it:"proposta/concessionarie-auto", fr:"proposition/concessions-automobiles" })
 ];
 
 const productRoutes: RouteFamily[] = [
@@ -79,7 +86,7 @@ const articleSegments: Record<string, LocalizedSegments> = {
 const knowledgePrefixes: Record<SupportedLocale, string> = { nl: "kennisbank", en: "knowledge", es: "conocimientos", de: "wissen", it: "conoscenza", fr: "connaissances" };
 const articleRoutes = Object.entries(articleSegments).map(([id, slugs]) => entity("article", id, Object.fromEntries(supportedLocales.map(({ code }) => [code, `${knowledgePrefixes[code]}/${slugs[code]}`])) as LocalizedSegments));
 
-export const routeFamilies: RouteFamily[] = [...generalRoutes, ...productRoutes, ...nicheRoutes, ...articleRoutes];
+export const routeFamilies: RouteFamily[] = [...generalRoutes, ...landingRoutes, ...productRoutes, ...nicheRoutes, ...articleRoutes];
 
 export function localizedPath(contentId: string, locale: SupportedLocale): string {
   const family = routeFamilies.find((item) => item.id === contentId);

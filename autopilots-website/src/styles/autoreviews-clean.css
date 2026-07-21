@@ -1,0 +1,546 @@
+/*
+ * Clean SaaS-laag, afgeleid van het AutoReviews-project.
+ * De Autopilots-identiteit en alle interactieve componenten blijven intact;
+ * alleen ritme, oppervlakken, randen, radii en visuele hiërarchie worden verfijnd.
+ */
+
+body.ap-autoreviews-clean {
+  --ap-navy: #071b2e;
+  --ap-blue: #173b5b;
+  --ap-blue-soft: #eaf1f6;
+  --ap-black: #071b2e;
+  --ap-dark-gradient:
+    radial-gradient(circle at 94% 104%, rgba(159, 56, 38, 0.56), transparent 38%),
+    linear-gradient(145deg, #123e61 0%, #0a2943 34%, #071b2e 72%, #061522 100%);
+  --ap-dark-gradient-soft:
+    radial-gradient(circle at 100% 100%, rgba(159, 56, 38, 0.36), transparent 42%),
+    linear-gradient(145deg, #103754 0%, #071b2e 76%);
+  --ap-bg: #ffffff;
+  --ap-card: #ffffff;
+  --ap-soft: #f4f6f7;
+  --ap-soft-2: #faf8f7;
+  --ap-line: rgba(16, 32, 51, 0.12);
+  --ap-muted: #66717b;
+  background: #fff;
+  color: #111820;
+}
+
+body.ap-autoreviews-clean .ap-container {
+  width: min(1160px, calc(100% - 40px));
+}
+
+body.ap-autoreviews-clean .ap-section {
+  padding: 94px 0;
+}
+
+body.ap-autoreviews-clean .ap-page-title,
+body.ap-autoreviews-clean .ap-section-title,
+body.ap-autoreviews-clean .ap-eco-copy h1,
+body.ap-autoreviews-clean .ap-section-head h2 {
+  letter-spacing: -0.045em;
+  font-weight: 850;
+  text-wrap: balance;
+}
+
+body.ap-autoreviews-clean .ap-lead {
+  max-width: 680px;
+  margin-top: 24px;
+  color: var(--ap-muted);
+  font-size: 18px;
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+body.ap-autoreviews-clean .ap-eyebrow,
+body.ap-autoreviews-clean .ap-kicker {
+  width: fit-content;
+  min-height: 30px;
+  align-items: center;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  background: #f6eae7;
+  padding: 8px 12px;
+  color: var(--ap-brown) !important;
+  font-size: 10px;
+  letter-spacing: 0.075em;
+}
+
+body.ap-autoreviews-clean :is(
+  .ap-dark-section,
+  .ap-dark-band,
+  .ap-locale-flow,
+  .ap-process-stage,
+  .ap-architecture-map,
+  .ap-crew-console,
+  .ap-inspiration-marquee,
+  .ap-crew-band,
+  .ap-footer-box,
+  .ap-library-pillars
+) .ap-kicker,
+body.ap-autoreviews-clean :is(.ap-dark-section, .ap-dark-band) .ap-eyebrow {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f3b8ac !important;
+}
+
+body.ap-autoreviews-clean .ap-button {
+  min-height: 48px;
+  border-radius: 12px;
+  padding: 14px 20px;
+  box-shadow: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+body.ap-autoreviews-clean .ap-button:hover {
+  transform: translateY(-1px);
+}
+
+body.ap-autoreviews-clean .ap-button-primary {
+  box-shadow: 0 10px 24px rgba(159, 56, 38, 0.18);
+}
+
+body.ap-autoreviews-clean .ap-card {
+  border-color: var(--ap-line);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(16, 32, 51, 0.045);
+}
+
+body.ap-autoreviews-clean .ap-soft-section {
+  background: #f4f6f7;
+}
+
+body.ap-autoreviews-clean .ap-dark-section {
+  background: var(--ap-dark-gradient);
+}
+
+/* Dezelfde rustige, witte navigatiebalk als het AutoReviews-product. */
+body.ap-autoreviews-clean .ap-header {
+  border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 22px rgba(16, 32, 51, 0.025);
+}
+
+body.ap-autoreviews-clean .ap-header-inner {
+  min-height: 76px;
+}
+
+body.ap-autoreviews-clean .ap-nav {
+  gap: 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+body.ap-autoreviews-clean .ap-nav > a,
+body.ap-autoreviews-clean .ap-menu-trigger {
+  min-height: 36px;
+  border-radius: 9px;
+  padding: 9px 6px;
+  color: #384654;
+  font-size: 14px;
+  line-height: 1;
+}
+
+body.ap-autoreviews-clean .ap-nav > a:hover,
+body.ap-autoreviews-clean .ap-nav > a:focus-visible,
+body.ap-autoreviews-clean .ap-menu-shell:hover .ap-menu-trigger,
+body.ap-autoreviews-clean .ap-menu-trigger:focus-visible,
+body.ap-autoreviews-clean .ap-nav > a[aria-current="page"],
+body.ap-autoreviews-clean .ap-menu-trigger[aria-current="page"] {
+  background: transparent;
+  color: var(--ap-brown);
+  box-shadow: none;
+}
+
+body.ap-autoreviews-clean .ap-header-cta {
+  border-radius: 12px;
+}
+
+body.ap-autoreviews-clean .ap-mega {
+  top: 86px;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(16, 32, 51, 0.12);
+}
+
+body.ap-autoreviews-clean .ap-mega-link,
+body.ap-autoreviews-clean .ap-mega-icon {
+  border-radius: 12px;
+}
+
+/* Warme, rustige hero: herkenbaar uit AutoReviews, in Autopilots-kleuren. */
+body.ap-autoreviews-clean .ap-eco-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 82px 0 92px;
+  background:
+    radial-gradient(circle at 91% 8%, rgba(159, 56, 38, 0.12), transparent 31%),
+    linear-gradient(180deg, #fcf8f6 0%, #ffffff 82%);
+}
+
+body.ap-autoreviews-clean .ap-eco-hero-grid {
+  gap: 64px;
+}
+
+body.ap-autoreviews-clean .ap-inline-proof {
+  margin-top: 25px;
+  color: #5f6d79;
+  font-size: 12px;
+}
+
+body.ap-autoreviews-clean .ap-product-visual,
+body.ap-autoreviews-clean .ap-conversation-card {
+  border-radius: 22px;
+  border-color: rgba(159, 56, 38, 0.18);
+  padding: 24px;
+  box-shadow: 0 28px 70px rgba(16, 32, 51, 0.16);
+}
+
+body.ap-autoreviews-clean :is(
+  .ap-product-visual,
+  .ap-conversation-card,
+  .ap-niche-result,
+  .ap-niche-demo,
+  .ap-calculator-output,
+  .ap-route-card-dark,
+  .ap-route-story,
+  .ap-locale-flow,
+  .ap-system-panel,
+  .ap-process-stage,
+  .ap-architecture-map,
+  .ap-crew-console,
+  .ap-inspiration-marquee,
+  .ap-crew-band,
+  .ap-collaboration-system,
+  .ap-library-pillars,
+  .ap-pricing-section,
+  .ap-agent-demo,
+  .ap-branch-brain,
+  .ap-branch-brain-visual,
+  .ap-route-planner,
+  .ap-implementation-summary,
+  .ap-roi-results,
+  .ap-proposal-fallback,
+  .ap-campaign-dark,
+  .ap-campaign-demo,
+  .ap-system-strip,
+  .ap-campaign-roi > aside,
+  .ap-order-summary,
+  .ap-widget-stage,
+  .ap-consent
+) {
+  background: var(--ap-dark-gradient);
+  border-color: rgba(118, 165, 199, 0.2);
+  box-shadow: 0 24px 64px rgba(7, 27, 46, 0.16);
+}
+
+/* Ook de kleinere voorheen zwarte bedieningselementen volgen dezelfde blauwe taal. */
+body.ap-autoreviews-clean :is(
+  .ap-info-card > span,
+  .ap-workflow-list li > span,
+  .ap-dark-workflow li > span,
+  .ap-module-grid span,
+  .ap-process-dot span,
+  .ap-proposal-feature summary > span,
+  .ap-implementation-phase summary > span,
+  .ap-roi-product-option > span,
+  .ap-demo-picker button > span,
+  .ap-hero-route b,
+  .ap-live-route li > span,
+  .ap-mega-icon
+) {
+  background: linear-gradient(145deg, #174a70, var(--ap-navy));
+  color: #fff;
+}
+
+body.ap-autoreviews-clean .ap-agent-message.is-ai > p,
+body.ap-autoreviews-clean .ap-niche-demo-panel .ap-message {
+  background: var(--ap-dark-gradient-soft);
+}
+
+body.ap-autoreviews-clean .ap-visual-node,
+body.ap-autoreviews-clean .ap-message,
+body.ap-autoreviews-clean .ap-conversation-result {
+  border-radius: 13px;
+}
+
+body.ap-autoreviews-clean .ap-visual-node > span {
+  border-radius: 11px;
+}
+
+body.ap-autoreviews-clean .ap-section-head {
+  margin-bottom: 48px;
+}
+
+body.ap-autoreviews-clean .ap-section-head p {
+  margin-top: 20px;
+  color: var(--ap-muted);
+  line-height: 1.65;
+}
+
+body.ap-autoreviews-clean .ap-card-grid {
+  gap: 20px;
+}
+
+body.ap-autoreviews-clean .ap-info-card,
+body.ap-autoreviews-clean .ap-dark-card,
+body.ap-autoreviews-clean .ap-recommendation-card {
+  border-radius: 18px;
+  padding: 27px;
+  box-shadow: 0 10px 30px rgba(16, 32, 51, 0.045);
+}
+
+body.ap-autoreviews-clean .ap-feature-card {
+  border-color: rgba(23, 59, 91, 0.16);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #ffffff, #f1f5f8);
+}
+
+body.ap-autoreviews-clean .ap-article-card {
+  border-radius: 16px;
+}
+
+body.ap-autoreviews-clean .ap-feature-card:hover,
+body.ap-autoreviews-clean .ap-article-card:hover {
+  border-color: rgba(23, 59, 91, 0.34);
+  box-shadow: 0 18px 42px rgba(7, 27, 46, 0.09);
+}
+
+body.ap-autoreviews-clean .ap-info-card > span,
+body.ap-autoreviews-clean .ap-dark-workflow li > span,
+body.ap-autoreviews-clean .ap-module-grid span {
+  border-radius: 11px;
+}
+
+body.ap-autoreviews-clean .ap-info-card h2,
+body.ap-autoreviews-clean .ap-info-card h3,
+body.ap-autoreviews-clean .ap-card-title {
+  letter-spacing: -0.025em;
+}
+
+/* Interactieve modules blijven volledig werken, maar ogen rustiger en preciezer. */
+body.ap-autoreviews-clean .ap-niche-options,
+body.ap-autoreviews-clean .ap-niche-result,
+body.ap-autoreviews-clean .ap-niche-demo,
+body.ap-autoreviews-clean .ap-demo-panel,
+body.ap-autoreviews-clean .ap-niche-demo-panel,
+body.ap-autoreviews-clean .ap-calculator,
+body.ap-autoreviews-clean .ap-calculator-output,
+body.ap-autoreviews-clean .ap-integration-card {
+  border-radius: 20px;
+}
+
+body.ap-autoreviews-clean .ap-niche-options {
+  padding: 8px;
+  box-shadow: 0 14px 38px rgba(16, 32, 51, 0.055);
+}
+
+body.ap-autoreviews-clean .ap-niche-options button,
+body.ap-autoreviews-clean .ap-demo-tabs button,
+body.ap-autoreviews-clean .ap-demo-output,
+body.ap-autoreviews-clean .ap-chip-grid span,
+body.ap-autoreviews-clean .ap-module-grid div {
+  border-radius: 12px;
+}
+
+body.ap-autoreviews-clean .ap-demo-tabs button > span {
+  border-radius: 10px;
+}
+
+body.ap-autoreviews-clean .ap-niche-detail-grid div {
+  border-radius: 13px;
+}
+
+body.ap-autoreviews-clean .ap-calculator {
+  padding: 12px;
+  box-shadow: 0 18px 50px rgba(16, 32, 51, 0.08);
+}
+
+body.ap-autoreviews-clean .ap-calculator-inputs {
+  padding: 24px;
+}
+
+/* AutoReviews gebruikt bij uitleg en FAQ heldere rijen in plaats van losse wolken. */
+body.ap-autoreviews-clean .ap-workflow-list {
+  gap: 0;
+  border-top: 1px solid var(--ap-line);
+}
+
+body.ap-autoreviews-clean .ap-workflow-list li {
+  border: 0;
+  border-bottom: 1px solid var(--ap-line);
+  border-radius: 0;
+  background: transparent;
+  padding: 22px 4px;
+}
+
+body.ap-autoreviews-clean .ap-workflow-list li > span {
+  border-radius: 11px;
+}
+
+body.ap-autoreviews-clean .ap-faq-list {
+  gap: 0;
+  border-top: 1px solid var(--ap-line);
+}
+
+body.ap-autoreviews-clean .ap-faq-list details,
+body.ap-autoreviews-clean .ap-accordion details {
+  border: 0;
+  border-bottom: 1px solid var(--ap-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+body.ap-autoreviews-clean .ap-faq-list summary {
+  padding: 21px 4px;
+}
+
+body.ap-autoreviews-clean .ap-faq-list details p {
+  padding: 0 4px 22px;
+}
+
+body.ap-autoreviews-clean .ap-dark-workflow {
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.ap-autoreviews-clean .ap-dark-workflow li {
+  min-height: 220px;
+  border: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  background: transparent;
+  padding: 28px 24px;
+}
+
+body.ap-autoreviews-clean .ap-dark-workflow li:last-child {
+  border-right: 0;
+}
+
+body.ap-autoreviews-clean .ap-recommendation-card.is-selected {
+  box-shadow: 0 14px 34px rgba(159, 56, 38, 0.12);
+}
+
+body.ap-autoreviews-clean .ap-recommendation-actions a {
+  border-radius: 10px;
+}
+
+body.ap-autoreviews-clean .ap-chip,
+body.ap-autoreviews-clean .ap-recommendation-card > span {
+  border-radius: 8px;
+}
+
+body.ap-autoreviews-clean .ap-chip {
+  border-color: rgba(23, 59, 91, 0.12);
+  background: var(--ap-blue-soft);
+  color: var(--ap-blue);
+}
+
+body.ap-autoreviews-clean .ap-dark-band {
+  border-radius: 24px;
+  background: var(--ap-dark-gradient);
+  box-shadow: 0 24px 60px rgba(7, 27, 46, 0.12);
+}
+
+/* Kennisbank: dezelfde rechthoekige taal als de routekaarten eronder. */
+body.ap-autoreviews-clean .ap-knowledge-roadmap {
+  border-radius: 20px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 86px 100%,
+    radial-gradient(circle at 50% 108%, rgba(159,56,38,.30), transparent 31%),
+    linear-gradient(180deg, #12324e, var(--ap-navy) 58%, #061522);
+  box-shadow: 0 24px 64px rgba(7, 27, 46, 0.18);
+}
+
+body.ap-autoreviews-clean .ap-road-sign {
+  min-height: 82px;
+  border-radius: 14px;
+  box-shadow: 0 18px 46px rgba(7, 27, 46, 0.16);
+}
+
+body.ap-autoreviews-clean .ap-road-sign-right {
+  border-color: rgba(23, 59, 91, 0.22);
+  background: linear-gradient(145deg, #ffffff, var(--ap-blue-soft));
+}
+
+body.ap-autoreviews-clean .ap-route-card {
+  min-height: 340px;
+  border-radius: 16px;
+}
+
+body.ap-autoreviews-clean .ap-route-card-dark {
+  background: var(--ap-dark-gradient);
+}
+
+body.ap-autoreviews-clean .ap-footer .ap-button-primary {
+  box-shadow: 0 10px 26px rgba(159, 56, 38, 0.24);
+}
+
+@media (max-width: 920px) {
+  body.ap-autoreviews-clean .ap-nav {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 820px) {
+  body.ap-autoreviews-clean .ap-header-inner {
+    min-height: 66px;
+  }
+
+  body.ap-autoreviews-clean .ap-nav {
+    z-index: 50;
+    border: 1px solid var(--ap-line);
+    border-radius: 16px;
+    background:
+      linear-gradient(145deg, #ffffff 0%, #ffffff 68%, #f8ece9 100%);
+    padding: 8px;
+    box-shadow: 0 24px 60px rgba(16, 32, 51, 0.14);
+  }
+
+  body.ap-autoreviews-clean .ap-eco-hero {
+    padding: 62px 0 70px;
+  }
+
+  body.ap-autoreviews-clean .ap-eco-hero-grid {
+    gap: 38px;
+  }
+}
+
+@media (max-width: 640px) {
+  body.ap-autoreviews-clean .ap-container {
+    width: min(1160px, calc(100% - 28px));
+  }
+
+  body.ap-autoreviews-clean .ap-section,
+  body.ap-autoreviews-clean .ap-ecosystem .ap-section {
+    padding: 66px 0;
+  }
+
+  body.ap-autoreviews-clean .ap-lead {
+    font-size: 16px;
+  }
+
+  body.ap-autoreviews-clean .ap-product-visual,
+  body.ap-autoreviews-clean .ap-conversation-card,
+  body.ap-autoreviews-clean .ap-niche-result,
+  body.ap-autoreviews-clean .ap-niche-demo,
+  body.ap-autoreviews-clean .ap-demo-panel,
+  body.ap-autoreviews-clean .ap-niche-demo-panel,
+  body.ap-autoreviews-clean .ap-calculator,
+  body.ap-autoreviews-clean .ap-integration-card,
+  body.ap-autoreviews-clean .ap-dark-band {
+    border-radius: 17px;
+  }
+
+  body.ap-autoreviews-clean .ap-dark-workflow {
+    border-top: 0;
+  }
+
+  body.ap-autoreviews-clean .ap-dark-workflow li,
+  body.ap-autoreviews-clean .ap-dark-workflow li:last-child {
+    min-height: 0;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 24px 4px;
+  }
+}

@@ -1,4 +1,5 @@
 import type { ProductSlug } from "./products";
+import { publicRuntime } from "../config/publicRuntime";
 
 export interface DirectOffer {
   product: ProductSlug;
@@ -12,8 +13,6 @@ export interface NicheCommerce {
   proposalPath: string;
   offers: Partial<Record<ProductSlug, DirectOffer>>;
 }
-
-const stripePublishableKey = "pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB";
 
 export const commerceByNiche: Record<string, NicheCommerce> = {
   autobedrijven: {
@@ -49,7 +48,7 @@ export const getDirectOffer = (niche: string, product: ProductSlug) => commerceB
 export const getOrderDestination = (niche: string, product: ProductSlug) => {
   const commerce = commerceByNiche[niche];
   if (commerce?.offers[product]) return `${commerce.proposalPath}?product=${product}`;
-  return `/afspraak/?route=bestellen&branche=${encodeURIComponent(niche)}&product=${encodeURIComponent(product)}`;
+  return `/nl/afspraak/?route=bestellen&branche=${encodeURIComponent(niche)}&product=${encodeURIComponent(product)}`;
 };
 
-export const stripeKey = stripePublishableKey;
+export const stripeKey = publicRuntime.stripePublishableKey;

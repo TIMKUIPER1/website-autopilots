@@ -1,18 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { SupportedLocale } from "../../i18n/languages";
+import { localizedPath } from "../../i18n/routes";
+import { getTermCards, termsPageCopy } from "../../i18n/legalPage";
+interface Props { locale?: SupportedLocale }
+const { locale = "nl" } = Astro.props;
+const copy = termsPageCopy[locale];
+const cards = getTermCards(locale);
 ---
 
-<BaseLayout title="Voorwaarden bij directe bestelling | Autopilots" description="Lees welke onderdelen je vóór een directe bestelling controleert en welke voorwaarden in het definitieve voorstel en de betaalomgeving staan." canonical="/voorwaarden/" noindex={true}>
+<BaseLayout title={copy.title} description={copy.description} canonical={localizedPath("page.terms",locale)} locale={locale} contentId="page.terms" noindex={true}>
   <article class="ap-ecosystem ap-legal-page">
-    <nav class="ap-breadcrumb" aria-label="Broodkruimel"><div class="ap-container"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Voorwaarden bij bestelling</span></div></nav>
-    <section class="ap-eco-hero"><div class="ap-container ap-eco-copy"><div class="ap-kicker">Voor je bevestigt</div><h1>Controleer scope, usage en <span class="ap-title-accent">implementatie.</span></h1><p class="ap-lead">Deze pagina is een praktische controlelijst. De definitieve commerciële en juridische voorwaarden staan in het specifieke voorstel, de betaalomgeving en de documenten die vóór livegang worden gedeeld.</p></div></section>
+    <nav class="ap-breadcrumb" aria-label="Breadcrumb"><div class="ap-container"><a href={localizedPath("page.home",locale)}>{copy.home}</a><span aria-hidden="true">/</span><span aria-current="page">{copy.name}</span></div></nav>
+    <section class="ap-eco-hero"><div class="ap-container ap-eco-copy"><div class="ap-kicker">{copy.kicker}</div><h1>{copy.hero} <span class="ap-title-accent">{copy.accent}</span></h1><p class="ap-lead">{copy.lead}</p></div></section>
     <section class="ap-section ap-soft-section"><div class="ap-container"><div class="ap-card-grid ap-card-grid-3">
-      <article class="ap-info-card"><span>01</span><h2>Productscope</h2><p>Controleer welke kanalen, afdeling, intake, acties en menselijke fallback bij het gekozen product horen.</p></article>
-      <article class="ap-info-card"><span>02</span><h2>Prijs en usage</h2><p>Maandbedrag, implementatiekosten, btw en eventuele bericht- of belkosten moeten zichtbaar zijn vóór bevestiging.</p></article>
-      <article class="ap-info-card"><span>03</span><h2>Technische toegang</h2><p>Livegang hangt af van beschikbare API’s, rechten, gegevenskwaliteit, telefoon- of kanaaltoegang en tijdige feedback.</p></article>
-      <article class="ap-info-card"><span>04</span><h2>Planning</h2><p>De gebruikelijke livegang is twee tot vier weken na de implementatiecall. Dit is geen absolute garantie bij externe afhankelijkheden.</p></article>
-      <article class="ap-info-card"><span>05</span><h2>Privacy</h2><p>Voor livegang leggen we de gegevensstromen, rollen en verwerkersovereenkomst vast. Lees ook de privacyinformatie.</p></article>
-      <article class="ap-info-card"><span>06</span><h2>Vragen</h2><p>Is iets niet duidelijk of ontbreekt een vaste configuratie? Bestel dan niet blind, maar plan eerst een scopecheck.</p></article>
-    </div><div class="ap-actions"><a class="ap-button ap-button-primary" href="/bestel-direct/">Terug naar bestellen</a><a class="ap-button ap-button-secondary" href="/privacy/">Bekijk privacy</a><a class="ap-button ap-button-secondary" href="/afspraak/">Plan een scopecheck</a></div></div></section>
+      {cards.map(([title,text],index)=><article class="ap-info-card"><span>{String(index+1).padStart(2,"0")}</span><h2>{title}</h2><p>{text}</p></article>)}
+    </div><div class="ap-actions"><a class="ap-button ap-button-primary" href={localizedPath("page.order",locale)}>{copy.order}</a><a class="ap-button ap-button-secondary" href={localizedPath("page.privacy",locale)}>{copy.privacy}</a><a class="ap-button ap-button-secondary" href={localizedPath("page.appointment",locale)}>{copy.check}</a></div></div></section>
   </article>
 </BaseLayout>

@@ -4,16 +4,18 @@ import { niches } from "../../data/niches";
 import { defaultLocale, type SupportedLocale } from "../../i18n/languages";
 import { localizedPath } from "../../i18n/routes";
 import { uiCopy } from "../../i18n/ui";
+import { localizedNiche } from "../../i18n/catalog";
 interface Props { locale?: SupportedLocale }
 const { locale = defaultLocale } = Astro.props;
 const copy = uiCopy[locale];
 const productPath = (slug: string) => localizedPath(`product.${slug}`, locale);
 const nichePath = (slug: string) => localizedPath(`niche.${slug}`, locale);
-const nicheName = (slug: string, fallback: string) => locale === "nl" ? fallback : nichePath(slug).split("/").filter(Boolean).at(-1)!.replaceAll("-", " ").replace(/(^|\s)\p{L}/gu, (letter) => letter.toUpperCase());
+const routeNicheName = (slug: string, fallback: string) => locale === "nl" ? fallback : nichePath(slug).split("/").filter(Boolean).at(-1)!.replaceAll("-", " ").replace(/(^|\s)\p{L}/gu, (letter) => letter.toUpperCase());
+const nicheName = (slug: string, fallback: string) => localizedNiche(locale, slug, routeNicheName(slug, fallback)).name;
 const year = new Date().getFullYear();
 ---
 
-<footer class="ap-footer">
+<footer class="ap-footer" id="footer">
   <div class="ap-container">
     <div class="ap-footer-box">
       <div class="ap-footer-brand"><div class="ap-kicker">Autopilots</div><h2>{copy.footer.title}</h2><p>{copy.footer.text}</p><div class="ap-footer-actions"><a class="ap-button ap-button-primary" href={localizedPath("page.appointment", locale)}>{copy.footer.analysis}</a><a href={localizedPath("page.order", locale)}>{copy.navigation.order} →</a></div></div>
@@ -21,10 +23,10 @@ const year = new Date().getFullYear();
       <nav class="ap-footer-column" aria-label={copy.navigation.niches}><strong>{copy.navigation.niches}</strong>{niches.slice(0,8).map((niche)=><a href={nichePath(niche.slug)}>{nicheName(niche.slug, niche.name)}</a>)}<a href={localizedPath("page.niches", locale)}>{copy.footer.allNiches}</a></nav>
       <nav class="ap-footer-column" aria-label={copy.footer.company}><strong>{copy.footer.company}</strong><a href={localizedPath("page.process", locale)}>{copy.navigation.process}</a><a href={localizedPath("page.crew", locale)}>{copy.navigation.crew}</a><a href={localizedPath("page.knowledge", locale)}>{copy.navigation.knowledge}</a><a href={localizedPath("page.contact", locale)}>Contact</a><a href={localizedPath("page.order", locale)}>{copy.navigation.order}</a><a href={localizedPath("page.privacy", locale)}>{copy.footer.privacy}</a><a href={localizedPath("page.terms", locale)}>{copy.footer.terms}</a></nav>
     </div>
-    <p class="ap-footer-small">© {year} Autopilots. {copy.footer.future}</p>
+    <div class="ap-footer-bottom"><p class="ap-footer-small">© {year} Autopilots. {copy.footer.future}</p><span>{copy.system.footerTagline}</span></div>
   </div>
 </footer>
 
 <style>
-  .ap-footer{padding:42px 0 34px}.ap-footer-box{display:grid;grid-template-columns:minmax(280px,1.4fr) repeat(3,minmax(140px,.6fr));gap:34px;border:1px solid var(--ap-line);border-radius:34px;background:#111;color:#fff;padding:40px}.ap-footer-brand h2{max-width:440px;margin:0;font-size:30px;line-height:1.08}.ap-footer-brand>p{max-width:430px;margin:15px 0 22px;color:rgba(255,255,255,.65);font-size:14px;line-height:1.55}.ap-footer-brand .ap-kicker{color:#e4a092}.ap-footer-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}.ap-footer-actions>a:last-child{color:#fff;font-size:13px;font-weight:850}.ap-footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.ap-footer-column>strong{margin-bottom:6px;color:#e4a092;font-family:"Syne",sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase}.ap-footer-column a{color:rgba(255,255,255,.7);font-size:12px;font-weight:750}.ap-footer-column a:hover,.ap-footer-column a:focus-visible{color:#fff}.ap-footer-small{margin:17px 0 0;color:var(--ap-muted);font-size:12px;font-weight:650}@media(max-width:980px){.ap-footer-box{grid-template-columns:repeat(3,1fr)}.ap-footer-brand{grid-column:1/-1}}@media(max-width:640px){.ap-footer-box{grid-template-columns:1fr;border-radius:26px;padding:25px}.ap-footer-brand{grid-column:auto}.ap-footer-column{border-top:1px solid rgba(255,255,255,.12);padding-top:20px}}
+  .ap-footer{margin-top:42px;background:#071b2e;color:#fff;padding:64px 0 26px}.ap-footer-box{display:grid;grid-template-columns:minmax(280px,1.4fr) repeat(3,minmax(140px,.6fr));gap:48px;border:0;border-radius:0;background:transparent;color:#fff;padding:0 0 48px}.ap-footer-brand h2{max-width:440px;margin:0;font-size:30px;line-height:1.08}.ap-footer-brand>p{max-width:430px;margin:15px 0 22px;color:rgba(255,255,255,.67);font-size:14px;line-height:1.55}.ap-footer-brand .ap-kicker{color:#b7d3e5}.ap-footer-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}.ap-footer-actions>a:last-child{color:#fff;font-size:13px;font-weight:850}.ap-footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.ap-footer-column>strong{margin-bottom:6px;color:#b7d3e5;font-family:"Syne",sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase}.ap-footer-column a{color:rgba(255,255,255,.72);font-size:12px;font-weight:750}.ap-footer-column a:hover,.ap-footer-column a:focus-visible{color:#fff}.ap-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;color:rgba(255,255,255,.5);font-size:11px}.ap-footer-small{margin:0;color:inherit;font-size:11px;font-weight:650}.ap-footer-bottom>span{font-weight:650}@media(max-width:980px){.ap-footer-box{grid-template-columns:repeat(3,1fr)}.ap-footer-brand{grid-column:1/-1}}@media(max-width:640px){.ap-footer{margin-top:24px;padding-top:44px}.ap-footer-box{grid-template-columns:1fr;gap:26px;padding-bottom:34px}.ap-footer-brand{grid-column:auto}.ap-footer-column{border-top:1px solid rgba(255,255,255,.12);padding-top:20px}.ap-footer-bottom{align-items:flex-start;flex-direction:column;gap:8px}}
 </style>

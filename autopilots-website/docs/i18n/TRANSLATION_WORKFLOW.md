@@ -2,7 +2,7 @@
 
 1. Wijzig de Nederlandse bron en verhoog de bronversie.
 2. Genereer een nieuw `sourceHash`; afwijkende bestaande vertalingen worden `stale`.
-3. Vertaal met `I18N_PROVIDER=deepl` of `I18N_PROVIDER=openai`. Sleutels komen alleen uit omgevingsvariabelen.
+3. Vertaal standaard met OpenAI via `I18N_PROVIDER=openai` en `OPENAI_TRANSLATION_MODEL=gpt-5.6-terra`. Sleutels komen alleen uit lokale of beveiligde Netlify-omgevingsvariabelen en worden nooit gecommit.
 4. Bescherm termen en placeholders via `content/i18n/glossary.json`.
 5. Zet nieuwe vertalingen op `review-required`.
 6. Laat een native reviewer inhoud, commerciële claims, lokale terminologie, SEO en CTA's controleren.
