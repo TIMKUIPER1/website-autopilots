@@ -9,3 +9,6 @@
 | 2026-07-21 | Keep external writes off | No production credentials or authority were provided for this core | Accepted |
 | 2026-07-21 | Use append-only usage entries | Historical economics must remain reconstructable | Accepted |
 | 2026-07-21 | Require versioned human approval for activation | Prevent stale or autonomous R3 decisions | Accepted |
+| 2026-07-21 | Separate legal entity, operating brand and customer account IDs | A generic company filter cannot enforce financial or operational scope | Accepted |
+| 2026-07-21 | Build AutoReviews read-only before provider writes | Data quality and mappings must be proven before autonomy | Accepted |
+| 2026-07-21 | Unknown finance values remain null, never synthetic zero | Prevent false margin and revenue confidence | Accepted |

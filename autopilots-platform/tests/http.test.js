@@ -7,7 +7,7 @@ const customerRoutes = [
   "/betaling-geslaagd", "/onboarding", "/secure-data-room", "/integraties", "/testen", "/activiteit"
 ];
 const internalRoutes = [
-  "/control-center", "/control-center/implementaties/impl_001", "/control-center/tasks",
+  "/control-center", "/control-center/portfolio", "/control-center/implementaties/impl_001", "/control-center/tasks",
   "/control-center/approvals", "/control-center/agents"
 ];
 
@@ -86,6 +86,13 @@ test("server dwingt sessies, rollen en securityheaders af", async () => {
     assert.deepEqual(internalSession.user.companies.map((company) => company.id), [
       "autopilots", "autoreviews", "autoplanner", "autowebsites", "autosupport"
     ]);
+    const portfolio = await fetch(`${base}/api/v1/os/portfolio`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
+    assert.equal(portfolio.scope.type, "portfolio");
+    assert.equal(portfolio.brands.length, 5);
+    const autoreviewsTwin = await fetch(`${base}/api/v1/os/brands/autoreviews`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
+    assert.equal(autoreviewsTwin.brand.id, "brand_autoreviews");
+    assert.equal(autoreviewsTwin.finance.revenueCents, null);
+    assert.equal((await fetch(`${base}/api/v1/os/portfolio`, { headers: { Cookie: customerCookie } })).status, 403);
     for (const companyId of ["autoreviews", "autoplanner", "autowebsites", "autosupport"]) {
       const companyData = await fetch(`${base}/api/v1/demo?company=${companyId}`, {
         headers: { Cookie: internalCookie }

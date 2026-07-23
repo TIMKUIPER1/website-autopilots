@@ -48,11 +48,19 @@ Intern demoaccount:
 
 ## Intern
 
+- `/control-center/portfolio`
 - `/control-center`
 - `/control-center/implementaties/impl_001`
 - `/control-center/tasks`
 - `/control-center/approvals`
 - `/control-center/agents`
+
+## Canonieke OS API
+
+- `GET /api/v1/os/portfolio` — legal entity, operating brands, owner exceptions en brongezondheid.
+- `GET /api/v1/os/brands/:slug` — read-only Brand Digital Twin binnen server-afgedwongen brand scope.
+
+De API gebruikt expliciete `legalEntityId`, `brandId` en `customerId` velden. Onbekende financiële waarden zijn `null`, niet synthetisch nul. AutoReviews-bronnen blijven geblokkeerd totdat echte sandboxverbindingen en externe mappings zijn gevalideerd.
 
 ## Veiligheidsgrens
 

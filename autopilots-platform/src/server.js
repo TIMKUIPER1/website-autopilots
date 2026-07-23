@@ -4,10 +4,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { DemoStore } from "./demo-store.js";
+import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
+import { OperatingSystemStore, osCatalog } from "./os-store.js";
 import { routeAllowed } from "./policy.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../public");
 const store = new DemoStore();
+const osStore = new OperatingSystemStore();
 const sessions = new Map();
 const loginAttempts = new Map();
 const port = Number(process.env.PORT || 4310);
@@ -15,13 +18,14 @@ const host = process.env.HOST || "127.0.0.1";
 const sessionTtlMs = 8 * 60 * 60 * 1000;
 const loginWindowMs = 15 * 60 * 1000;
 const loginLimit = 8;
-const companyCatalog = [
-  { id: "autopilots", name: "Autopilots", code: "AP", status: "active" },
-  { id: "autoreviews", name: "Autoreviews", code: "AR", status: "setup" },
-  { id: "autoplanner", name: "Autoplanner", code: "PL", status: "setup" },
-  { id: "autowebsites", name: "Autowebsites", code: "AW", status: "setup" },
-  { id: "autosupport", name: "Autosupport", code: "AS", status: "setup" }
-];
+const companyCatalog = osCatalog.brands.map((brand) => ({
+  id: brand.slug,
+  operatingBrandId: brand.id,
+  legalEntityId: brand.legalEntityId,
+  name: brand.name,
+  code: brand.code,
+  status: brand.status === "active" ? "active" : "setup"
+}));
 
 const demoUsers = [
   {
@@ -49,7 +53,7 @@ const customerRoutes = new Set([
   "/betaling-geslaagd", "/onboarding", "/secure-data-room", "/integraties", "/testen", "/activiteit"
 ]);
 const internalRoutes = new Set([
-  "/control-center", "/control-center/tasks", "/control-center/agents", "/control-center/approvals",
+  "/control-center", "/control-center/portfolio", "/control-center/tasks", "/control-center/agents", "/control-center/approvals",
   "/control-center/implementaties/impl_001"
 ]);
 const assets = new Set(["/workspace.html", "/workspace.js", "/workspace.css", "/app.css", "/ap-logo.svg"]);
@@ -73,6 +77,17 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/api/v1/session" && req.method === "GET") {
       const session = requireSession(req);
       return json(res, 200, { user: publicUser(session) });
+    }
+
+    if (url.pathname === "/api/v1/os/portfolio" && req.method === "GET") {
+      return json(res, 200, osStore.portfolio(requireSession(req)));
+    }
+
+    if (url.pathname.startsWith("/api/v1/os/brands/") && req.method === "GET") {
+      const slug = decodeURIComponent(url.pathname.slice("/api/v1/os/brands/".length));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const operations = slug === "autoreviews" ? await fetchAutoreviewsSnapshot() : null;
+      return json(res, 200, osStore.brandTwin(requireSession(req), slug, operations));
     }
 
     if (url.pathname === "/api/v1/demo" && req.method === "GET") {

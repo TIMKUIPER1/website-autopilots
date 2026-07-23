@@ -12,3 +12,6 @@
 | Provider outage/rate limit | High | No provider calls in core | Integrations: queues, backoff, health |
 | Overbroad agent autonomy | High | Server allowlist, risk policy, kill switch | AI Ops: evals and earned autonomy |
 | Legal evidence incomplete | High | Version/hash fixture only | Legal: approve documents/retention |
+| Operating-brand metrics mistaken for live | Critical | Demo environment, source quality and unavailable values shown explicitly | Data: require successful sync and reconciliation before promotion |
+| Brand/customer identifier collision | Critical | Immutable prefixed IDs and server membership checks | Data: preserve IDs in PostgreSQL migration |
+| Missing AutoReviews mappings | High | Four external sources fail closed as blocked | Integrations: configure sandbox IDs and reconciliation |

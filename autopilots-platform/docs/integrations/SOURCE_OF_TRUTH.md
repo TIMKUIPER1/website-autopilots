@@ -11,3 +11,17 @@
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
 
 Rules: one authority per field; store provider IDs and sync cursors; raw provider payloads are evidence, normalized records drive products; reconciliation never silently overwrites financial history; corrections append adjustment records.
+
+## AutoReviews lighthouse matrix
+
+| Data class | Authority | Internal projection | Freshness | Conflict and reconciliation | Sensitivity / retention |
+| --- | --- | --- | --- | --- | --- |
+| Leads and opportunities | GoHighLevel | Customer/brand lifecycle projection via explicit external mapping | 15 min | GHL wins; conflict event and operator review | Personal / contract + 90 days |
+| Meetings | Connected calendar | Meeting projection with provider event ID | 15 min | Calendar wins; cancelled source event supersedes queued work | Personal / contract + 90 days |
+| Orders, subscriptions, payments | Stripe | Financial projection and brand/customer dimensions | Webhook + daily | Stripe wins for payment objects; append reconciliation differences | Financial / 7 years |
+| Review conversations | Approved messaging provider | Conversation/result projection | 5 min | Provider event wins; cooldown and deduplication required | Personal / approved policy |
+| Goals, policies, workflows and mappings | Autopilots OS | Canonical internal records | Direct | Version conflict fails closed | Internal / policy controlled |
+
+Current local status: the AutoReviews backend aggregate export is connected. GoHighLevel/calendar configuration awaits first reconciliation; Stripe and WhatsApp remain `blocked_missing_connection`. No revenue, cost or margin claim may be shown until Stripe and the OS ledger reconcile.
+
+The server-side adapter accepts only `autoreviews.os-snapshot.v1` with classification `aggregate_no_pii`. It never consumes the AutoReviews admin API, raw SQLite rows, contact identities or provider credentials.
