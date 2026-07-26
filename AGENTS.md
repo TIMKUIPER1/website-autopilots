@@ -24,5 +24,13 @@ This file is the source of truth for the Autopilots brand style, visual system, 
 - Before publishing website changes, run the complete website release gate.
 - Production must only be published from a reviewed pull request whose commit is
   an up-to-date descendant of the current protected `main`.
+- For every website task that includes pushing, publishing, finishing, or making
+  changes live, Codex owns the complete safe-live workflow: branch, checks,
+  pull request, merge into protected `main`, Netlify production deployment, and
+  live release-identity verification.
+- A branch push or deploy preview is never "live". Do not report completion
+  until `https://auto-pilots.io/.well-known/autopilots-release.json` identifies
+  the merged `main` commit. If any gate or deployment fails, keep the previous
+  production version live and report the failure instead.
 - GitHub Pages is legacy embed hosting, not the production path for
   `auto-pilots.io`, and must never deploy automatically from an ordinary push.
