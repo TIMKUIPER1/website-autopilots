@@ -1,0 +1,50 @@
+{
+  "requiredSourceFiles": [
+    "astro.config.mjs",
+    "netlify.toml",
+    "public/_headers",
+    "public/_redirects",
+    "scripts/check-built-site.mjs",
+    "scripts/check-production-release.mjs",
+    "scripts/check-public-safety.mjs",
+    "scripts/validate-env.mjs",
+    "src/layouts/BaseLayout.astro",
+    "src/pages/index.astro",
+    "src/pages/[lang]/index.astro",
+    "src/pages/afspraak/index.astro",
+    "src/pages/bestel-direct/index.astro",
+    "src/pages/contact/index.astro",
+    "src/pages/kennisbank/index.astro",
+    "src/pages/lp/autobedrijven/ai-medewerker/index.astro",
+    "src/pages/lp/autobedrijven/ai-medewerker/ervaring/index.astro",
+    "src/pages/privacy/index.astro",
+    "src/pages/producten/index.astro",
+    "src/pages/sitemap.xml.ts",
+    "src/pages/voor-wie/index.astro"
+  ],
+  "requiredBuiltFiles": [
+    "dist/index.html",
+    "dist/nl/index.html",
+    "dist/nl/afspraak/index.html",
+    "dist/nl/producten/index.html",
+    "dist/nl/voor-wie/autobedrijven/index.html",
+    "dist/kennisbank/index.html",
+    "dist/lp/autobedrijven/ai-medewerker/index.html",
+    "dist/lp/autobedrijven/ai-medewerker/ervaring/index.html",
+    "dist/privacy/index.html",
+    "dist/sitemap.xml",
+    "dist/.well-known/autopilots-release.json"
+  ],
+  "protectedPaths": [
+    ".github/workflows/website-quality.yml",
+    "autopilots-website/config/production-release-manifest.json",
+    "autopilots-website/netlify.toml",
+    "autopilots-website/package.json",
+    "autopilots-website/public/_headers",
+    "autopilots-website/public/_redirects",
+    "autopilots-website/scripts/check-production-release.mjs",
+    "autopilots-website/scripts/validate-env.mjs"
+  ],
+  "maximumDeletedFiles": 40,
+  "maximumDeletedLines": 12000
+}

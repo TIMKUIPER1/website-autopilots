@@ -6,6 +6,27 @@ Status labels: `verified`, `inferred`, `proposed`, `blocked`.
 
 The Phase 0–3 sandbox lighthouse is implemented in `autopilots-platform`: personalized AI employee preview → requirements/legal gates → sandbox payment → Secure Data Room → internal workflow → versioned human approval. Server sessions, role policy, tenant scope, audit, execution evidence, kill switches, idempotency and an append-only demo cost ledger are verified by automated tests.
 
+## Website release safety checkpoint — 2026-07-26
+
+Status: `verified` locally, external enforcement pending.
+
+- `autopilots-website` is documented as the only source of truth for
+  `auto-pilots.io`.
+- The website quality workflow lives in the active root GitHub workflow folder.
+- Ordinary pushes no longer trigger the legacy GitHub Pages deployment.
+- The release contract blocks stale branch bases, protected-file deletion,
+  excessive rollback-sized deletions, missing critical routes and artifacts
+  without a commit identity.
+- Local Netlify production deploys are break-glass only and require a clean
+  `main` exactly equal to `origin/main`.
+- The full French visible-language audit remains `blocked`: the existing
+  campaign components contain Dutch copy on two French funnel routes. The
+  production release gate still enforces route, canonical, hreflang,
+  placeholder, public-safety and link integrity checks while that separate
+  localization repair is pending.
+- GitHub ruleset and Netlify deploy permissions remain `blocked` until applied
+  and verified with authenticated production administration.
+
 ## Phase gates
 
 - [x] Phase 0: inventory, baseline, risk containment and explicit demo boundary.

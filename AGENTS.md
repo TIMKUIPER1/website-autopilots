@@ -15,3 +15,14 @@ This file is the source of truth for the Autopilots brand style, visual system, 
 - R3 actions require a human approval with a current context version. Keep external activation blocked in the local demo.
 - Run platform checks with `node --test tests/*.test.js` from `autopilots-platform`.
 - Continue from `PLANS.md`; update decisions, risks, source truth, and runbooks when boundaries change.
+
+## Website production safety
+
+- Treat `autopilots-website` as the only source of truth for `auto-pilots.io`.
+- Never work directly on `main`; create a current branch from `origin/main`.
+- Never force-push `main` or use a local Netlify production deploy during normal work.
+- Before publishing website changes, run the complete website release gate.
+- Production must only be published from a reviewed pull request whose commit is
+  an up-to-date descendant of the current protected `main`.
+- GitHub Pages is legacy embed hosting, not the production path for
+  `auto-pilots.io`, and must never deploy automatically from an ordinary push.
