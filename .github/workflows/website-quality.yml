@@ -48,11 +48,11 @@ jobs:
           RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
       - run: pnpm run format:check
       - run: pnpm run lint
-      - run: pnpm run typecheck
-      - run: pnpm run test
       - run: pnpm run build
         env:
           AUTOPILOTS_RELEASE_SHA: ${{ github.sha }}
           AUTOPILOTS_RELEASE_RUN_ID: ${{ github.run_id }}
+      - run: pnpm run typecheck
+      - run: pnpm run test
       - run: pnpm run test:release
       - run: pnpm run test:e2e

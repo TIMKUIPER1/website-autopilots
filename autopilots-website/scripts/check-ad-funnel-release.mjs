@@ -5,7 +5,9 @@ const mode = process.argv[2];
 const root = process.cwd();
 
 if (!["source", "dist"].includes(mode)) {
-  throw new Error("Gebruik: node scripts/check-ad-funnel-release.mjs source|dist");
+  throw new Error(
+    "Gebruik: node scripts/check-ad-funnel-release.mjs source|dist",
+  );
 }
 
 const files =
@@ -34,12 +36,14 @@ const contents = await Promise.all(
 
 const combined = contents.join("\n");
 const requiredMarkers = [
-  "SLIMME AI-SCAN VOOR AUTOBEDRIJVEN",
-  "Ontdek hoeveel klantcontact een AI-medewerker",
-  "direct kan overnemen.",
+  "AI-MEDEWERKER VOOR AUTOBEDRIJVEN",
+  "Test de AI-medewerker en bereken",
+  "wat het oplevert.",
   "jouw persoonlijke impactberekening",
   "Stuur mij de AI-test, mijn berekening en praktische opvolging over AI voor autobedrijven.",
   "1715813002902335",
+  "ap_funnel_session_id",
+  "/api/funnel-event",
 ];
 const forbiddenMarkers = [
   "Open mijn persoonlijke test",

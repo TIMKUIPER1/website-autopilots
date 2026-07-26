@@ -50,6 +50,7 @@ const localeTag=getLocale(locale).tag;
         let stored={};try{stored=JSON.parse(sessionStorage.getItem("ap_campaign_attribution")||"{}")||{}}catch{}
         const attribution={...stored,...current,landing_page:stored.landing_page||location.pathname,campaign};
         try{sessionStorage.setItem("ap_campaign_attribution",JSON.stringify(attribution))}catch{}
+        let sessionId="";try{sessionId=sessionStorage.getItem("ap_funnel_session_id")||"";if(!sessionId){sessionId=crypto.randomUUID().replaceAll("-","");sessionStorage.setItem("ap_funnel_session_id",sessionId)}}catch{sessionId=crypto.randomUUID().replaceAll("-","")}
         let metaReady=false;
         const metaEventId=(name)=>`${name}-${Date.now()}-${crypto.getRandomValues(new Uint32Array(1))[0].toString(16)}`;
         const trackMeta=(name,detail={})=>{
@@ -61,8 +62,10 @@ const localeTag=getLocale(locale).tag;
           else if(name==="funnel_diagnosis_completed")window.fbq("trackCustom","FunnelCompleted",shared,{eventID:metaEventId("funnel")});
           else if(name==="appointment_scheduled")window.fbq("track","Schedule",{...shared,content_category:"autobedrijven_ai_funnel",calendar:detail.calendar||""},{eventID:metaEventId("schedule")});
         };
-        const emit=(name,detail={})=>{const event={event:name,page_path:location.pathname,campaign,...attribution,...detail};window.dispatchEvent(new CustomEvent("autopilots:analytics",{detail:event}));if(Array.isArray(window.dataLayer))window.dataLayer.push(event);trackMeta(name,detail)};
-        window.apCampaign={attribution,emit};
+        const backendEventNames={funnel_page_viewed:location.pathname.includes("/ervaring/")?"demo_page_view":"page_view",funnel_started:"funnel_started",funnel_question_answered:"funnel_question_answered",funnel_diagnosis_completed:"funnel_diagnosis_completed",lead_form_submitted:"lead_form_submitted",lead_form_succeeded:"lead_form_succeeded",lead_form_failed:"lead_form_failed",elevenlabs_demo_opened:"demo_widget_opened",demo_role_selected:"demo_role_selected",roi_calculated:"roi_completed",appointment_scheduled:"booking_clicked"};
+        const trackBackend=(name,detail={})=>{const event=backendEventNames[name];if(!event)return;const properties={campaign,...attribution,...detail};const body=JSON.stringify({sessionId,event,page:location.pathname,properties});if(navigator.sendBeacon){navigator.sendBeacon("/api/funnel-event",new Blob([body],{type:"application/json"}));return}fetch("/api/funnel-event",{method:"POST",headers:{"Content-Type":"application/json"},body,keepalive:true}).catch(()=>{})};
+        const emit=(name,detail={})=>{const event={event:name,page_path:location.pathname,campaign,...attribution,...detail};window.dispatchEvent(new CustomEvent("autopilots:analytics",{detail:event}));if(Array.isArray(window.dataLayer))window.dataLayer.push(event);trackBackend(name,detail);trackMeta(name,detail)};
+        window.apCampaign={attribution,sessionId,emit};
         const loadMeta=()=>{
           if(metaReady||!/^\d{10,20}$/.test(String(metaPixelId)))return;
           !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
