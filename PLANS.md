@@ -8,7 +8,7 @@ The Phase 0–3 sandbox lighthouse is implemented in `autopilots-platform`: pers
 
 ## Website release safety checkpoint — 2026-07-26
 
-Status: `verified` locally, external enforcement pending.
+Status: `verified` locally and externally enforced.
 
 - `autopilots-website` is documented as the only source of truth for
   `auto-pilots.io`.
@@ -19,13 +19,19 @@ Status: `verified` locally, external enforcement pending.
   without a commit identity.
 - Local Netlify production deploys are break-glass only and require a clean
   `main` exactly equal to `origin/main`.
+- GitHub protects `main` with a pull-request requirement, a strict required
+  `Verify complete website release` status check, and deletion/force-push
+  protection without bypass.
+- Netlify is linked to `TIMKUIPER1/website-autopilots`, publishes only `main`,
+  runs `npm run build && npm run release:verify`, and automatically publishes
+  only after a checked pull request reaches protected `main`.
+- Codex must finish every requested website publication by verifying that the
+  live release identity matches the merged `main` commit.
 - The full French visible-language audit remains `blocked`: the existing
   campaign components contain Dutch copy on two French funnel routes. The
   production release gate still enforces route, canonical, hreflang,
   placeholder, public-safety and link integrity checks while that separate
   localization repair is pending.
-- GitHub ruleset and Netlify deploy permissions remain `blocked` until applied
-  and verified with authenticated production administration.
 
 ## Phase gates
 

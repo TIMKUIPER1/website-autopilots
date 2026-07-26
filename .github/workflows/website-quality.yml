@@ -2,16 +2,8 @@ name: Website release gate
 
 on:
   pull_request:
-    paths:
-      - "autopilots-website/**"
-      - ".github/workflows/website-quality.yml"
-      - ".github/workflows/pages.yml"
   push:
     branches: [main]
-    paths:
-      - "autopilots-website/**"
-      - ".github/workflows/website-quality.yml"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
