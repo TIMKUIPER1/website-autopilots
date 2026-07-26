@@ -1,6 +1,10 @@
 # Autopilots Website
 
-Code-first website voor Autopilots. De productiearchitectuur is eenduidig: Astro static output op Netlify, met Netlify Functions en Netlify Blobs voor formulieren, webhooks, rate limiting en idempotency. Railway is geen impliciete dependency van deze website.
+Code-first website voor Autopilots. Deze map is de enige bron van waarheid voor
+`auto-pilots.io`. De productiearchitectuur is eenduidig: Astro static output op
+Netlify, met Netlify Functions en Netlify Blobs voor formulieren, webhooks, rate
+limiting en idempotency. Railway en GitHub Pages zijn geen impliciete dependency
+van deze website.
 
 Doel:
 
@@ -32,6 +36,16 @@ pnpm run test:e2e
 ```
 
 Productievariabelen staan zonder waarden in `.env.example`. Zie `docs/deployment/` voor deploy en rollback.
+
+## Veilig wijzigen en publiceren
+
+- Werk nooit rechtstreeks op `main`.
+- Laat Codex voor iedere wijziging een aparte branch gebruiken.
+- Publiceer alleen via een pull request met de verplichte `Website release gate`.
+- Gebruik `release:production` niet voor normale releases. Dit is uitsluitend een
+  expliciet goedgekeurde break-glassprocedure.
+- De releasecontrole blokkeert verouderde branchbasissen, kritieke verwijderingen,
+  ontbrekende routes en builds zonder verifieerbare commit-SHA.
 
 ## Eerste routes
 

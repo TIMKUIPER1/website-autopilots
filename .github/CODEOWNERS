@@ -1,0 +1,7 @@
+# Release-critical configuration requires explicit review.
+/.github/workflows/ @TIMKUIPER1
+/autopilots-website/netlify.toml @TIMKUIPER1
+/autopilots-website/package.json @TIMKUIPER1
+/autopilots-website/config/production-release-manifest.json @TIMKUIPER1
+/autopilots-website/scripts/check-production-release.mjs @TIMKUIPER1
+/autopilots-website/scripts/deploy-production.mjs @TIMKUIPER1

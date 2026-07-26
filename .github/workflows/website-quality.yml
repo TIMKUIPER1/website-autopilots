@@ -1,0 +1,58 @@
+name: Website release gate
+
+on:
+  pull_request:
+    paths:
+      - "autopilots-website/**"
+      - ".github/workflows/website-quality.yml"
+      - ".github/workflows/pages.yml"
+  push:
+    branches: [main]
+    paths:
+      - "autopilots-website/**"
+      - ".github/workflows/website-quality.yml"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify complete website release
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: autopilots-website
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: autopilots-website/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Reject stale or destructive release
+        run: pnpm run release:guard
+        env:
+          RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+      - run: pnpm run format:check
+      - run: pnpm run lint
+      - run: pnpm run build
+        env:
+          AUTOPILOTS_RELEASE_SHA: ${{ github.sha }}
+          AUTOPILOTS_RELEASE_RUN_ID: ${{ github.run_id }}
+      - run: pnpm run typecheck
+      - run: pnpm run test
+      - run: pnpm run test:release
+      - run: pnpm run test:e2e

@@ -37,9 +37,20 @@ for (const locale of locales) {
       errors.push(
         `${file}: publiceerbare NL-pagina mist nl-NL of x-default hreflang`,
       );
-    if (!noindex && (!hreflangs.includes(`${locale}-${locale === "en" ? "GB" : locale.toUpperCase()}`) || !hreflangs.includes("x-default")))
-      errors.push(`${file}: indexeerbare pagina mist eigen locale of x-default hreflang`);
-    if (/\b(TRANSLATION_MISSING|LOREM IPSUM)\b/i.test(html) || /\bTODO\s*:/i.test(html))
+    if (
+      !noindex &&
+      (!hreflangs.includes(
+        `${locale}-${locale === "en" ? "GB" : locale.toUpperCase()}`,
+      ) ||
+        !hreflangs.includes("x-default"))
+    )
+      errors.push(
+        `${file}: indexeerbare pagina mist eigen locale of x-default hreflang`,
+      );
+    if (
+      /\b(TRANSLATION_MISSING|LOREM IPSUM)\b/i.test(html) ||
+      /\bTODO\s*:/i.test(html)
+    )
       errors.push(`${file}: zichtbare placeholder`);
   }
 }
@@ -54,9 +65,7 @@ if (strict) {
   for (const locale of locales) {
     const sitemap = readFileSync(join("dist", `sitemap-${locale}.xml`), "utf8");
     if (!/<url>/.test(sitemap))
-      errors.push(
-        `sitemap-${locale}.xml: bevat geen publiceerbare URL's`,
-      );
+      errors.push(`sitemap-${locale}.xml: bevat geen publiceerbare URL's`);
   }
   if (errors.length) {
     console.error(errors.join("\n"));

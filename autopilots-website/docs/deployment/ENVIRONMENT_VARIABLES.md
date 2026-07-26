@@ -18,5 +18,7 @@
 | `GHL_TEST_MODE` | runtime | nee | preview | dry-run zonder CRM-mutatie |
 | `GHL_TEST_CONTACT_PREFIX` | runtime | nee | nee | herkenbare testrecords |
 | `ALERT_WEBHOOK_URL` | runtime | ja | nee | foutmelding zonder PII |
+| `FUNNEL_ADMIN_USER` | runtime | ja | nee | gebruikersnaam afgeschermd funneloverzicht |
+| `FUNNEL_ADMIN_PASSWORD` | runtime | ja | nee | sterk uniek wachtwoord afgeschermd funneloverzicht |
 
 Secrets staan uitsluitend in Netlify environment variables. De build faalt in `CONTEXT=production` wanneer kritieke waarden ontbreken.

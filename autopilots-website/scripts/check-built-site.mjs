@@ -41,7 +41,9 @@ for (const file of htmlFiles) {
     errors.push(`${page}: canonical ontbreekt`);
   if (!redirect && !noindex) {
     if (title && seenTitles.has(titleKey))
-      errors.push(`${page}: dubbele title binnen ${lang} met ${seenTitles.get(titleKey)}`);
+      errors.push(
+        `${page}: dubbele title binnen ${lang} met ${seenTitles.get(titleKey)}`,
+      );
     if (canonical && seenCanonicals.has(canonical))
       errors.push(
         `${page}: dubbele canonical met ${seenCanonicals.get(canonical)}`,

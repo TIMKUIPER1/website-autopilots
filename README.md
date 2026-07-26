@@ -1,14 +1,19 @@
-# Autopilots Website Embeds
+# Autopilots website en embeds
 
-Deze repository bevat de statische Autopilots landingspagina's en GHL embedpagina's.
+`autopilots-website` is de enige bron van waarheid voor de hoofdwebsite op
+`https://auto-pilots.io`. Netlify publiceert de hoofdwebsite uitsluitend vanuit
+die map.
+
+De statische pagina's in de repositoryroot zijn legacy GHL-embeds. GitHub Pages
+publiceert deze nooit meer automatisch bij een gewone push.
 
 ## Werkwijze
 
-1. Pas de pagina aan in Codex.
-2. Controleer lokaal de HTML-pagina.
-3. Commit en push naar GitHub.
-4. GitHub Pages publiceert automatisch de nieuwste versie.
-5. In GoHighLevel gebruik je alleen nog een iframe naar de gepubliceerde pagina.
+1. Vraag Codex om de wijziging uit te voeren.
+2. Codex werkt op een aparte branch, niet rechtstreeks op `main`.
+3. Codex controleert de volledige website en opent een pull request.
+4. Merge uitsluitend wanneer de verplichte releasecheck groen is.
+5. Netlify publiceert daarna `autopilots-website` vanaf de beschermde `main`.
 
 ## Belangrijkste mappen
 
@@ -18,9 +23,11 @@ Deze repository bevat de statische Autopilots landingspagina's en GHL embedpagin
 - `agent-service-pages/` - servicepagina's voor losse AI agents.
 - `shared-sections/` - gedeelde secties zoals team, systemen en megamenu's.
 
-## GitHub Pages
+## GitHub Pages legacy embeds
 
-Publiceer vanuit de `main` branch met root als Pages source.
+GitHub Pages is alleen voor bestaande legacy embeds. Publicatie kan uitsluitend
+handmatig vanaf de actuele `main`-branch en staat los van `auto-pilots.io`.
+Nieuwe hoofdwebsitepagina's mogen hier niet worden toegevoegd.
 
 Voorbeeld URL:
 
