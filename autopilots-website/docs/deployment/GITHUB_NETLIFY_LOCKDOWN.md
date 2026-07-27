@@ -15,6 +15,7 @@ Stel één actieve branch ruleset in voor `main`:
 - dismiss stale approvals;
 - require conversation resolution;
 - require status check `Verify complete website release`;
+- require status check `Protect production funnel`;
 - require branches to be up to date before merging;
 - require review from Code Owners;
 - do not allow bypass voor normale beheeraccounts.
@@ -37,6 +38,11 @@ een formeel incident.
 - Laat productievariabelen alleen in de production context bestaan.
 - Schakel ongebruikte build hooks uit.
 - Verplicht MFA voor alle teamleden met productie-toegang.
+- Stel in de production-context
+  `AUTOPILOTS_FUNNEL_RELEASE_ID=autodealer-ai-scan-2026-07-21-v2` in.
+- Schakel automatische kredietherlading of een ruim kredietpakket in, zodat een
+  noodzakelijke veiligheidsrelease niet door een leeg creditsaldo wordt
+  tegengehouden.
 
 ## GitHub Pages
 
@@ -54,3 +60,8 @@ De lockdown is pas compleet wanneer:
 3. een force-push wordt geweigerd;
 4. Netlify alleen `main` uit de gekoppelde repository als productie accepteert;
 5. de live release-JSON dezelfde commit meldt als de goedgekeurde pull request.
+6. een PR die een vergrendeld funnelbestand wijzigt faalt op
+   `Protect production funnel`;
+7. een PR die funnel en funnelbewaking tegelijk wijzigt wordt geweigerd;
+8. een Netlify-productiebuild met een verkeerde externe funnel-release-ID wordt
+   geweigerd.

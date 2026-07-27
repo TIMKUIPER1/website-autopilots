@@ -2,9 +2,11 @@
   "requiredSourceFiles": [
     "astro.config.mjs",
     "netlify.toml",
+    "config/autodealer-funnel-lock.json",
     "public/_headers",
     "public/_redirects",
     "scripts/check-built-site.mjs",
+    "scripts/check-ad-funnel-release.mjs",
     "scripts/check-production-release.mjs",
     "scripts/check-public-safety.mjs",
     "scripts/validate-env.mjs",
@@ -37,12 +39,15 @@
   ],
   "protectedPaths": [
     ".github/workflows/website-quality.yml",
+    ".github/workflows/funnel-integrity.yml",
+    "autopilots-website/config/autodealer-funnel-lock.json",
     "autopilots-website/config/production-release-manifest.json",
     "autopilots-website/netlify.toml",
     "autopilots-website/package.json",
     "autopilots-website/public/_headers",
     "autopilots-website/public/_redirects",
     "autopilots-website/scripts/check-production-release.mjs",
+    "autopilots-website/scripts/check-ad-funnel-release.mjs",
     "autopilots-website/scripts/validate-env.mjs"
   ],
   "maximumDeletedFiles": 40,

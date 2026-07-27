@@ -1,0 +1,30 @@
+{
+  "releaseId": "autodealer-ai-scan-2026-07-21-v2",
+  "route": "/lp/autobedrijven/ai-medewerker/",
+  "requiredMarkers": [
+    "SLIMME AI-SCAN VOOR AUTOBEDRIJVEN",
+    "Ontdek hoeveel klantcontact een AI-medewerker",
+    "direct kan overnemen.",
+    "Beantwoord vijf korte vragen.",
+    "jouw persoonlijke impactberekening",
+    "Stuur mij de AI-test, mijn berekening en praktische opvolging over AI voor autobedrijven.",
+    "1715813002902335"
+  ],
+  "forbiddenMarkers": [
+    "AI-MEDEWERKER VOOR AUTOBEDRIJVEN",
+    "Test de AI-medewerker en bereken",
+    "wat het oplevert.",
+    "Open mijn persoonlijke test",
+    "PERSOONLIJKE TOEGANG",
+    "Ontvang direct de praktijktest en berekening"
+  ],
+  "sha256": {
+    "autopilots-website/src/pages/lp/autobedrijven/ai-medewerker/index.astro": "bbda60ccba77afbae490b867e6ae7f422edc03c86a095370178b8d13b6c4a70b",
+    "autopilots-website/src/pages/lp/autobedrijven/ai-medewerker/ervaring/index.astro": "4c115afa5d68588717455a0668210c727430fc6bdb8720aa966d87e9fd2bc88e",
+    "autopilots-website/src/components/campaign/CampaignLeadForm.astro": "330b88b5729d9523bddc95096cd042bf37644f89c06b1875dbb1ca83432f3fae",
+    "autopilots-website/src/components/campaign/CampaignRoi.astro": "47d704224eb8f3c12917220993f713cefa63a51a70568c91cb62c96f1fb0839b",
+    "autopilots-website/src/components/campaign/ElevenLabsAutoDemos.astro": "fde56bef0be625caa200bc6745fd765304ab80d3c32f6b606806dad65c81638d",
+    "autopilots-website/src/i18n/campaign.ts": "4f18226dcd5c1a7025246a59e757d2f40ccda383a803a7517691c43a6aa766b4",
+    "autopilots-website/netlify/functions/funnel-lead.mjs": "7db673f955344624565941ec3a67b30d8df6be443180ff10306583b434056f14"
+  }
+}

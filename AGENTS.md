@@ -34,3 +34,8 @@ This file is the source of truth for the Autopilots brand style, visual system, 
   production version live and report the failure instead.
 - GitHub Pages is legacy embed hosting, not the production path for
   `auto-pilots.io`, and must never deploy automatically from an ordinary push.
+- Treat the autobedrijven campaign funnel as release-locked. Never change any
+  path listed in `autopilots-website/config/autodealer-funnel-lock.json` in the
+  same pull request as that contract, its integrity workflow, or its release
+  guard. Follow the two-step procedure in
+  `docs/deployment/AUTODEALER_FUNNEL_INCIDENT_2026-07-27.md`.
