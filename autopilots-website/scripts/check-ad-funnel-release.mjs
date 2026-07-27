@@ -1,13 +1,56 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { createHash } from "node:crypto";
 
 const mode = process.argv[2];
 const root = process.cwd();
+const contract = JSON.parse(
+  await readFile(resolve(root, "config/autodealer-funnel-lock.json"), "utf8"),
+);
 
 if (!["source", "dist"].includes(mode)) {
   throw new Error(
     "Gebruik: node scripts/check-ad-funnel-release.mjs source|dist",
   );
+}
+
+if (process.env.CONTEXT === "production") {
+  const externalReleaseId = String(
+    process.env.AUTOPILOTS_FUNNEL_RELEASE_ID ?? "",
+  ).trim();
+  if (externalReleaseId !== contract.releaseId) {
+    throw new Error(
+      `Advertentiefunnel geblokkeerd: Netlify verwacht release “${externalReleaseId || "niet ingesteld"}”, maar de bron bevat “${contract.releaseId}”.`,
+    );
+  }
+}
+
+if (mode === "source") {
+  for (const [repositoryPath, expectedHash] of Object.entries(
+    contract.sha256,
+  )) {
+    const projectPrefix = "autopilots-website/";
+    if (!repositoryPath.startsWith(projectPrefix)) {
+      throw new Error(
+        `Advertentiefunnel geblokkeerd: ongeldig contractpad ${repositoryPath}.`,
+      );
+    }
+    const projectPath = repositoryPath.slice(projectPrefix.length);
+    let content;
+    try {
+      content = await readFile(resolve(root, projectPath));
+    } catch {
+      throw new Error(
+        `Advertentiefunnel geblokkeerd: vergrendeld bestand ontbreekt: ${projectPath}.`,
+      );
+    }
+    const actualHash = createHash("sha256").update(content).digest("hex");
+    if (actualHash !== expectedHash) {
+      throw new Error(
+        `Advertentiefunnel geblokkeerd: ${projectPath} wijkt af van contract ${contract.releaseId}.`,
+      );
+    }
+  }
 }
 
 const files =
@@ -36,21 +79,11 @@ const contents = await Promise.all(
 
 const combined = contents.join("\n");
 const requiredMarkers = [
-  "SLIMME AI-SCAN VOOR AUTOBEDRIJVEN",
-  "Ontdek hoeveel klantcontact een AI-medewerker",
-  "direct kan overnemen.",
-  "Beantwoord vijf korte vragen.",
-  "jouw persoonlijke impactberekening",
-  "Stuur mij de AI-test, mijn berekening en praktische opvolging over AI voor autobedrijven.",
-  "1715813002902335",
+  ...contract.requiredMarkers,
   "ap_funnel_session_id",
   "/api/funnel-event",
 ];
-const forbiddenMarkers = [
-  "Open mijn persoonlijke test",
-  "PERSOONLIJKE TOEGANG",
-  "Ontvang direct de praktijktest en berekening",
-];
+const forbiddenMarkers = contract.forbiddenMarkers;
 
 for (const marker of requiredMarkers) {
   if (!combined.includes(marker)) {
