@@ -36,9 +36,10 @@ const contents = await Promise.all(
 
 const combined = contents.join("\n");
 const requiredMarkers = [
-  "AI-MEDEWERKER VOOR AUTOBEDRIJVEN",
-  "Test de AI-medewerker en bereken",
-  "wat het oplevert.",
+  "SLIMME AI-SCAN VOOR AUTOBEDRIJVEN",
+  "Ontdek hoeveel klantcontact een AI-medewerker",
+  "direct kan overnemen.",
+  "Beantwoord vijf korte vragen.",
   "jouw persoonlijke impactberekening",
   "Stuur mij de AI-test, mijn berekening en praktische opvolging over AI voor autobedrijven.",
   "1715813002902335",
