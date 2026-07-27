@@ -40,6 +40,15 @@ jobs:
           RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
       - run: pnpm run format:check
       - run: pnpm run lint
+      - name: Validate contract-only changes against the trusted base funnel
+        if: >-
+          github.event_name == 'pull_request' &&
+          contains(github.event.pull_request.labels.*.name, 'funnel-contract-change')
+        working-directory: .
+        run: >-
+          git show
+          "${{ github.event.pull_request.base.sha }}:autopilots-website/config/autodealer-funnel-lock.json"
+          > autopilots-website/config/autodealer-funnel-lock.json
       - run: pnpm run build
         env:
           AUTOPILOTS_RELEASE_SHA: ${{ github.sha }}
