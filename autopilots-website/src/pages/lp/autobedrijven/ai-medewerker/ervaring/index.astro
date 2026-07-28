@@ -20,7 +20,7 @@ const isDutch=locale==="nl";
     <div id="top">
       <section class="ap-experience-hero ap-campaign-container">
         <p class="ap-page-eyebrow">{isDutch?"JOUW PERSOONLIJKE AI-PREVIEW":c.live}</p>
-        <h1>{isDutch?"Test hier de AI-medewerker en ontdek":c.experienceTitle} <em>{isDutch?"wat die voor je autobedrijf doet.":c.experienceAccent}</em></h1>
+        <h1>{isDutch?<Fragment>Test hier de <span class="ap-no-break">AI&#8209;medewerker</span> en ontdek</Fragment>:c.experienceTitle} <em>{isDutch?"wat die voor je autobedrijf doet.":c.experienceAccent}</em></h1>
         <p>{isDutch?"Kies een rol, start de echte AI-medewerker en praat zoals een klant dat zou doen. Daarna bereken je direct de mogelijke impact op verkoop, werkplaats en opvolging.":c.experienceIntro}</p>
         <div class="ap-hero-route" aria-label="Page route">{c.route.map((item,index)=><Fragment><span><b>{String(index+1).padStart(2,"0")}</b> {item}</span>{index<2&&<i></i>}</Fragment>)}</div>
       </section>
@@ -70,7 +70,7 @@ const isDutch=locale==="nl";
 </style>
 
 <style>
-  #ap-campaign.ap-experience-page{--experience-navy:#071522;--experience-blue:#123b60;position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 8% 12%,rgba(32,106,165,.38),transparent 29%),radial-gradient(circle at 92% 31%,rgba(159,56,38,.22),transparent 27%),linear-gradient(145deg,#07131f 0%,#0b2135 48%,#071522 100%)!important;color:#fff;isolation:isolate}
+  #ap-campaign.ap-experience-page{--experience-navy:#081624;--experience-blue:#0d243a;--experience-blue-soft:#1c5a8e;position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 82% 18%,rgba(57,105,151,.27),transparent 28%),radial-gradient(circle at 92% 92%,rgba(159,56,38,.28),transparent 32%),linear-gradient(135deg,#081624 0%,#0d243a 52%,#0b1929 100%)!important;color:#fff;isolation:isolate}
   #ap-campaign.ap-experience-page:before{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 72%);content:"";pointer-events:none}
   .ap-experience-page .ap-campaign-topbar{border-color:rgba(255,255,255,.1)}
   .ap-experience-page .ap-campaign-brand{color:#fff;letter-spacing:3.5px}
@@ -80,28 +80,73 @@ const isDutch=locale==="nl";
   .ap-experience-page .ap-experience-hero:after{position:absolute;right:-100px;bottom:-80px;width:280px;height:280px;border:1px solid rgba(78,155,216,.17);border-radius:50%;box-shadow:0 0 0 46px rgba(78,155,216,.035);content:"";pointer-events:none}
   .ap-experience-page .ap-page-eyebrow{display:inline-flex;width:max-content;align-items:center;border:1px solid rgba(231,162,149,.2);border-radius:999px;background:rgba(159,56,38,.13);padding:9px 13px;color:#f0afa5!important;backdrop-filter:blur(14px)}
   .ap-experience-page .ap-experience-hero .ap-page-eyebrow{margin-inline:auto!important}
-  .ap-experience-page .ap-experience-hero h1{max-width:940px;color:#fff;text-wrap:balance}
-  .ap-experience-page .ap-experience-hero h1 em{color:#a63d2b}
-  .ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){color:rgba(255,255,255,.72)}
-  .ap-experience-page .ap-hero-route span{color:rgba(255,255,255,.68)}
+  .ap-experience-page .ap-experience-hero h1{max-width:940px;margin-inline:auto!important;color:#fff;text-wrap:balance}
+  #ap-campaign.ap-experience-page .ap-no-break{white-space:nowrap!important}
+  .ap-experience-page .ap-experience-hero h1 em{color:#cf634e;text-shadow:0 12px 42px rgba(159,56,38,.22)}
+  .ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){color:rgba(255,255,255,.67)}
+  .ap-experience-page .ap-hero-route span{color:rgba(255,255,255,.62)}
   .ap-experience-page .ap-hero-route b{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.09);box-shadow:inset 0 1px rgba(255,255,255,.1)}
-  .ap-experience-page .ap-hero-route i{background:linear-gradient(90deg,rgba(55,132,190,.35),rgba(166,61,43,.7))}
+  .ap-experience-page .ap-hero-route i{background:linear-gradient(90deg,rgba(55,132,190,.35),rgba(231,150,137,.55))}
   .ap-experience-page .ap-page-section{position:relative}
   .ap-experience-page .ap-page-head h2{color:#fff;text-wrap:balance}
-  .ap-experience-page .ap-page-head>p{color:rgba(255,255,255,.65)}
+  .ap-experience-page .ap-page-head>p{color:rgba(255,255,255,.58)}
   .ap-experience-page #testen{padding-top:46px}
   .ap-experience-page .ap-system-strip{border-block:1px solid rgba(255,255,255,.08);background:rgba(2,11,19,.48);backdrop-filter:blur(18px)}
   .ap-experience-page .ap-system-content li{border-color:rgba(88,157,210,.2)}
   .ap-experience-page #berekenen{padding-top:100px}
   .ap-experience-page .ap-live-route{border-block:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg,rgba(14,46,72,.86),rgba(5,18,30,.94))}
   .ap-experience-page .ap-live-route h2,.ap-experience-page .ap-live-route strong{color:#fff}
-  .ap-experience-page .ap-live-route>div>div>p:last-child,.ap-experience-page .ap-live-route li p,.ap-experience-page .ap-live-route aside p{color:rgba(255,255,255,.65)}
-  .ap-experience-page .ap-live-route ol:before{background:linear-gradient(#3984bc,#a63d2b)}
+  .ap-experience-page .ap-live-route>div>div>p:last-child,.ap-experience-page .ap-live-route li p,.ap-experience-page .ap-live-route aside p{color:rgba(255,255,255,.58)}
+  .ap-experience-page .ap-live-route ol:before{background:linear-gradient(#3984bc,#d48678)}
   .ap-experience-page .ap-live-route li>span{border-color:#0b2338;background:#fff;color:#123b60}
   .ap-experience-page .ap-live-route aside{border-color:rgba(255,255,255,.12)}
   .ap-experience-page .ap-booking-copy h2{color:#fff}
-  .ap-experience-page .ap-booking-copy>p:last-child{color:rgba(255,255,255,.65)}
+  .ap-experience-page .ap-booking-copy>p:last-child{color:rgba(255,255,255,.58)}
   .ap-experience-page .ap-booking :global(.ap-embed-card){border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.96);box-shadow:0 30px 90px rgba(0,0,0,.28)}
-  .ap-experience-page .ap-page-footer{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.55)}
-  @media(max-width:620px){.ap-experience-page .ap-experience-hero{padding-block:62px 72px}.ap-experience-page .ap-experience-hero h1{font-size:clamp(38px,11vw,46px)!important}.ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){font-size:17px;line-height:1.6}.ap-experience-page #testen{padding-top:30px}.ap-experience-page #berekenen{padding-top:70px}}
+  .ap-experience-page .ap-page-footer{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+  @media(max-width:620px){
+    .ap-experience-page .ap-campaign-container{width:min(100% - 28px,1120px)}
+    .ap-experience-page .ap-campaign-topbar{min-height:58px}
+    .ap-experience-page .ap-campaign-brand{font-size:13px;letter-spacing:2.7px}
+    .ap-experience-page .ap-experience-hero{padding-block:36px 40px}
+    .ap-experience-page .ap-experience-hero:after{right:-155px;bottom:-60px;width:235px;height:235px;box-shadow:0 0 0 34px rgba(78,155,216,.025)}
+    .ap-experience-page .ap-experience-hero h1{max-width:350px;font-size:clamp(33px,9vw,37px)!important;line-height:1.09!important;letter-spacing:-.042em!important}
+    .ap-experience-page .ap-experience-hero .ap-no-break{display:block}
+    .ap-experience-page .ap-experience-hero>p:not(.ap-page-eyebrow){max-width:365px;margin-top:20px!important;font-size:15px;line-height:1.58}
+    .ap-experience-page .ap-page-eyebrow{font-size:11px;padding:10px 13px;letter-spacing:1.35px}
+    .ap-experience-page .ap-hero-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;justify-items:center;gap:10px;width:min(100%,390px);margin:28px auto 0}
+    .ap-experience-page .ap-hero-route span{display:flex;min-width:0;align-items:center;justify-content:center;gap:7px;font-size:12px;line-height:1.25;text-align:center;white-space:normal}
+    .ap-experience-page .ap-hero-route b{flex:0 0 auto;width:30px;height:30px;border-radius:9px;font-size:8px}
+    .ap-experience-page .ap-hero-route i{display:none}
+    .ap-experience-page #testen{padding-block:44px 50px}
+    .ap-experience-page #testen .ap-page-head{justify-items:center;gap:18px;margin-bottom:38px;text-align:center}
+    .ap-experience-page #testen .ap-page-head .ap-page-eyebrow{margin-inline:auto!important}
+    .ap-experience-page #testen .ap-page-head>p{margin-inline:auto!important}
+    .ap-experience-page .ap-page-head h2{max-width:330px;font-size:clamp(28px,7.9vw,32px)!important;line-height:1.1!important;letter-spacing:-.035em!important}
+    .ap-experience-page .ap-page-head>p{max-width:380px;font-size:16px;line-height:1.6}
+    .ap-experience-page .ap-system-content{gap:30px;padding-block:50px}
+    .ap-experience-page .ap-system-content h2{font-size:30px!important;line-height:1.1!important}
+    .ap-experience-page .ap-system-content ol{gap:0}
+    .ap-experience-page .ap-system-content li{padding:17px 0 17px 15px}
+    .ap-experience-page .ap-system-content li b{font-size:10px}
+    .ap-experience-page .ap-system-content li strong{font-size:16px}
+    .ap-experience-page .ap-system-content li p{font-size:14px;line-height:1.55}
+    .ap-experience-page #berekenen{padding-block:54px}
+    .ap-experience-page .ap-live-route-grid,.ap-experience-page .ap-booking{gap:32px;padding-block:54px}
+    .ap-experience-page .ap-live-route h2,.ap-experience-page .ap-booking-copy h2{font-size:30px!important;line-height:1.1!important}
+    .ap-experience-page .ap-live-route aside{gap:12px;padding-top:22px}
+    .ap-experience-page .ap-live-route>div>div>p:last-child,.ap-experience-page .ap-live-route li p,.ap-experience-page .ap-live-route aside p,.ap-experience-page .ap-booking-copy>p:last-child{font-size:15px;line-height:1.6}
+    .ap-experience-page .ap-live-route li strong{font-size:16px}
+    .ap-experience-page .ap-live-route aside span{font-size:11px}
+    .ap-experience-page .ap-live-route aside strong{font-size:20px;line-height:1.3}
+    .ap-experience-page .ap-page-footer{min-height:0;padding-block:24px;font-size:12px}
+  }
+  @media(max-width:350px){
+    .ap-experience-page .ap-experience-hero h1{font-size:31px!important}
+    .ap-experience-page .ap-page-eyebrow{white-space:normal;text-align:center}
+    .ap-experience-page .ap-hero-route{gap:4px}
+    .ap-experience-page .ap-hero-route span{gap:4px;font-size:8px}
+    .ap-experience-page .ap-hero-route b{width:26px;height:26px}
+    .ap-experience-page .ap-page-head h2{font-size:28px!important}
+  }
 </style>
