@@ -1,5 +1,5 @@
 {
-  "releaseId": "autodealer-ai-scan-2026-07-27-experience-v3",
+  "releaseId": "autodealer-ai-scan-2026-07-27-experience-final-v4",
   "route": "/lp/autobedrijven/ai-medewerker/",
   "requiredMarkers": [
     "SLIMME AI-SCAN VOOR AUTOBEDRIJVEN",
@@ -20,10 +20,10 @@
   ],
   "sha256": {
     "autopilots-website/src/pages/lp/autobedrijven/ai-medewerker/index.astro": "bbda60ccba77afbae490b867e6ae7f422edc03c86a095370178b8d13b6c4a70b",
-    "autopilots-website/src/pages/lp/autobedrijven/ai-medewerker/ervaring/index.astro": "2258d8a185c4b9c492c684cde8bee1f4790c93992355ad7201c197a8427b180d",
+    "autopilots-website/src/pages/lp/autobedrijven/ai-medewerker/ervaring/index.astro": "f8574400a6766693b965ef75686ccd8564ba874cab7c20df16b07b5fb7c31982",
     "autopilots-website/src/components/campaign/CampaignLeadForm.astro": "330b88b5729d9523bddc95096cd042bf37644f89c06b1875dbb1ca83432f3fae",
     "autopilots-website/src/components/campaign/CampaignRoi.astro": "47d704224eb8f3c12917220993f713cefa63a51a70568c91cb62c96f1fb0839b",
-    "autopilots-website/src/components/campaign/ElevenLabsAutoDemos.astro": "fde56bef0be625caa200bc6745fd765304ab80d3c32f6b606806dad65c81638d",
+    "autopilots-website/src/components/campaign/ElevenLabsAutoDemos.astro": "0a75034adebe75a00293cf54f49d1bf1525fda49f2d63f85e24cbb5f61476e42",
     "autopilots-website/src/i18n/campaign.ts": "4f18226dcd5c1a7025246a59e757d2f40ccda383a803a7517691c43a6aa766b4",
     "autopilots-website/netlify/functions/funnel-lead.mjs": "7db673f955344624565941ec3a67b30d8df6be443180ff10306583b434056f14"
   }
