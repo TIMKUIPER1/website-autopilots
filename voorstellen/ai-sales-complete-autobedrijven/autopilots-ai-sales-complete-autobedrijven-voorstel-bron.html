@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <div id="ap-sales-complete-proposal">
 
   <style>
@@ -786,6 +787,101 @@
       grid-template-columns: 1fr;
       gap: 14px;
       align-items: stretch;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer {
+      width: min(100%, 620px);
+      margin: 24px auto 18px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      color: var(--white);
+      text-align: center;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.16), transparent 28%),
+        linear-gradient(135deg, #111111 0%, #351612 48%, #8f3324 100%);
+      box-shadow: 0 10px 28px rgba(17, 17, 17, 0.1);
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-copy {
+      max-width: 700px;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-label {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      background: rgba(248, 248, 245, 0.96);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-facts {
+      display: grid;
+      gap: 10px;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-fact {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 82px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--offwhite);
+      color: var(--brown);
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-fact strong,
+    #ap-sales-complete-proposal .ap-bundle-offer-fact span {
+      display: block;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-fact strong {
+      margin-bottom: 3px;
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    #ap-sales-complete-proposal .ap-bundle-offer-fact span {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     #ap-sales-complete-proposal .ap-package {
@@ -2040,6 +2136,10 @@
         grid-template-columns: 1fr;
       }
 
+      #ap-sales-complete-proposal .ap-bundle-offer {
+        grid-template-columns: 1fr;
+      }
+
       #ap-sales-complete-proposal .ap-brain-shell {
         grid-template-columns: 1fr;
       }
@@ -2129,6 +2229,27 @@
       #ap-sales-complete-proposal .ap-roadmap-card {
         border-radius: 24px;
         padding: 16px;
+      }
+
+      #ap-sales-complete-proposal .ap-bundle-offer {
+        margin-top: 20px;
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+
+      #ap-sales-complete-proposal .ap-bundle-offer h3 {
+        font-size: 15px;
+      }
+
+      #ap-sales-complete-proposal .ap-bundle-offer-fact {
+        grid-template-columns: 38px 1fr;
+        min-height: 76px;
+        padding: 12px;
+      }
+
+      #ap-sales-complete-proposal .ap-bundle-offer-icon {
+        width: 38px;
+        height: 38px;
       }
 
       #ap-sales-complete-proposal .ap-toggle,
@@ -2873,8 +2994,12 @@ body {
         <div class="ap-eyebrow">PRODUCTEN</div>
         <h2 class="ap-title">Kies het AI product voor jullie autobedrijf.</h2>
         <p class="ap-subtitle">
-          Start met inbox, telefonie of leadopvolging. Bij elk product kiezen jullie een focus: Werkplaats of Verkoop. De volledige AI Medewerker combineert de meeste functies binnen die gekozen focus met duidelijke bundelkorting.
+          Start met inbox, telefonie of leadopvolging. Bij de Inboxmedewerker, AI Telefoniste en Volledige AI Medewerker kiezen jullie één focus: Werkplaats of Verkoop.
         </p>
+      </div>
+
+      <div class="ap-bundle-offer">
+        <h3>Combineer 2 producten en ontvang 25% bundelkorting op de totaalprijs.</h3>
       </div>
 
       <div class="ap-package-grid">
@@ -2891,6 +3016,7 @@ body {
 
             <ul class="ap-list">
               <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+              <li><span class="ap-check">&#10003;</span><span>Werkplaats + Verkoop samen: eenmalige uitbreiding &euro;695</span></li>
               <li><span class="ap-check">&#10003;</span><span>Rechtstreekse WhatsApp, e-mail en websitevragen</span></li>
               <li><span class="ap-check">&#10003;</span><span>Werkplaats: APK, onderhoud, storing en planning</span></li>
               <li><span class="ap-check">&#10003;</span><span>Verkoop: voorraad, proefrit, inruil en offerte</span></li>
@@ -2907,6 +3033,26 @@ body {
               <div class="ap-stripe-box">
                 <stripe-buy-button
                   buy-button-id="buy_btn_1TsqAzQbNJoBxwDUEQ168YOB"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met leadopvolger <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzI1wQbNJoBxwDUfWK0Vrfc"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met telefoniste <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzHrzQbNJoBxwDUfgBTOA2P"
                   publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
                 </stripe-buy-button>
               </div>
@@ -2941,7 +3087,7 @@ body {
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">+</span><span>Werkplaats én Verkoop samen valt onder uitbreiding of Volledige AI Medewerker.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>Het product bevat één gekozen focus: Werkplaats of Verkoop. De tweede focus toevoegen kost eenmalig &euro;695.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>CRM- of pipeline-updates alleen als koppeling en velden zijn afgesproken.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Maatwerk per vestiging, merk, afdeling of uitzonderingsflow stemmen we apart af.</span></li>
                 </ul>
@@ -2983,6 +3129,7 @@ body {
 
             <ul class="ap-list">
               <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+              <li><span class="ap-check">&#10003;</span><span>Werkplaats + Verkoop samen: eenmalige uitbreiding &euro;695</span></li>
               <li><span class="ap-check">&#10003;</span><span>Inkomende oproepen opnemen</span></li>
               <li><span class="ap-check">&#10003;</span><span>Werkplaats: APK, onderhoud, storing en terugbelverzoek</span></li>
               <li><span class="ap-check">&#10003;</span><span>Verkoop: voorraadvraag, proefrit, inruil en terugbelverzoek</span></li>
@@ -2999,6 +3146,26 @@ body {
               <div class="ap-stripe-box">
                 <stripe-buy-button
                   buy-button-id="buy_btn_1Tsq86QbNJoBxwDUM4eEvgeu"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met leadopvolger <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzHmUQbNJoBxwDUkARghtoF"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met inboxmedewerker <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzI0yQbNJoBxwDUa5knMr6A"
                   publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
                 </stripe-buy-button>
               </div>
@@ -3033,6 +3200,7 @@ body {
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
+                  <li><span class="ap-scope-icon no">+</span><span>Het product bevat één gekozen focus: Werkplaats of Verkoop. De tweede focus toevoegen kost eenmalig &euro;695.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Actief uitbellen naar leads hoort bij Leadopvolger of Volledige AI Medewerker.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Definitief boeken in agenda kan alleen met kalenderkoppeling en afspraakregels.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Meerdere vestigingen, afdelingen of doorschakelroutes stemmen we apart af.</span></li>
@@ -3091,6 +3259,26 @@ body {
               <div class="ap-stripe-box">
                 <stripe-buy-button
                   buy-button-id="buy_btn_1Tsq9aQbNJoBxwDUEdDfap6f"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met telefoniste <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzHhpQbNJoBxwDUPk2vjUJW"
+                  publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
+                </stripe-buy-button>
+              </div>
+            </div>
+
+            <div class="ap-stripe-order">
+              <div class="ap-stripe-label">Bundel met inboxmedewerker <span>25% bundelkorting</span></div>
+              <div class="ap-stripe-box">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TzHz9QbNJoBxwDU2YxDkcHN"
                   publishable-key="pk_live_51RrdTyQbNJoBxwDUkgIihINoKNKPcYcrETp0hnwXAglonZyKA7VrueuOATpnh8amdiA1sGk85OAFTqhn0r6lZ6Jm00AKmAX8aB">
                 </stripe-buy-button>
               </div>
@@ -3177,6 +3365,7 @@ body {
 
             <ul class="ap-list">
               <li><span class="ap-check">&#10003;</span><span>Keuze tussen Werkplaats of Verkoop</span></li>
+              <li><span class="ap-check">&#10003;</span><span>Werkplaats + Verkoop samen: eenmalige uitbreiding &euro;999</span></li>
               <li><span class="ap-check">&#10003;</span><span>Telefonie, WhatsApp, e-mail en platformleads</span></li>
               <li><span class="ap-check">&#10003;</span><span>Agenda, CRM en overdracht</span></li>
               <li><span class="ap-check">&#10003;</span><span>Menselijke fallback waar nodig</span></li>
@@ -3227,7 +3416,7 @@ body {
               <div class="ap-scope-card">
                 <h4>Alleen bij uitbreiding</h4>
                 <ul>
-                  <li><span class="ap-scope-icon no">+</span><span>Werkplaats én Verkoop tegelijk, extra merken of meerdere vestigingen vragen extra inrichting.</span></li>
+                  <li><span class="ap-scope-icon no">+</span><span>De Volledige AI Medewerker bevat één gekozen focus: Werkplaats of Verkoop. De tweede focus toevoegen kost eenmalig &euro;999.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Maatwerk CRM-integraties, rapportages of voorraadlogica stemmen we apart af.</span></li>
                   <li><span class="ap-scope-icon no">+</span><span>Meertaligheid, extra tone of voice varianten of complexe escalaties vallen buiten standaard scope.</span></li>
                 </ul>
@@ -3394,7 +3583,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Kies Volledige AI Medewerker wanneer jullie binnen Werkplaats of Verkoop inbox, telefonie, leadopvolging, agenda, CRM, overdracht, menselijke fallback, monitoring en optimalisatie willen combineren. Ook dit blijft een product: extra afdelingen, complexe uitzonderingen of maatwerkflows stemmen we apart af.</p>
+            <p class="ap-road-preview">Kies Volledige AI Medewerker wanneer jullie inbox, telefonie, leadopvolging, agenda, CRM, overdracht, menselijke fallback, monitoring en optimalisatie willen combineren binnen één gekozen focus: Werkplaats of Verkoop. De andere focus toevoegen kost eenmalig &euro;999. Complexe uitzonderingen en maatwerkflows stemmen we apart af.</p>
           </div>
         </details>
 
@@ -3404,7 +3593,7 @@ body {
             <span class="ap-plus">+</span>
           </summary>
           <div class="ap-road-content">
-            <p class="ap-road-preview">Ja. Jullie kunnen starten met één product en later uitbreiden naar een andere focus of de Volledige AI Medewerker. Nieuwe kanalen, extra afdelingen of maatwerklogica beoordelen we apart, zodat de scope helder blijft.</p>
+            <p class="ap-road-preview">Ja. Jullie kunnen starten met één product en later uitbreiden naar Werkplaats + Verkoop. De eenmalige uitbreiding kost &euro;695 bij de AI Inboxmedewerker en AI Telefoniste, en &euro;999 bij de Volledige AI Medewerker. Voor AI Leadopvolging is deze uitbreiding niet van toepassing. Nemen jullie twee producten af, dan ontvangen jullie 25% bundelkorting op de totaalprijs: zowel op de gecombineerde implementatie als op het gecombineerde maandbedrag. Vraag jullie accountmanager naar de exacte bundelprijs. Usagekosten vallen buiten deze korting.</p>
           </div>
         </details>
       </div>
