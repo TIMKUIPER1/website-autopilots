@@ -341,6 +341,22 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async monitoringHistory(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_monitoring_history", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "De monitoringhistorie kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.monitoring-history.v1" || !Array.isArray(data.runs)
+      || !data.summary || data.automaticRemediationEnabled !== false
+      || data.notificationDeliveryEnabled !== false || data.externalWritesEnabled !== false) {
+      throw httpError(503, "De monitoringhistorie heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async accessRoster(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

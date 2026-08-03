@@ -158,6 +158,13 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await controlPlaneRepository.operationsQueue(session.id, session.organizationId));
     }
 
+    if (url.pathname === "/api/v1/monitoring/history" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed monitoringhistorie is niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.monitoringHistory(session.id, session.organizationId));
+    }
+
     if (url.pathname.startsWith("/api/v1/agents/brands/") && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed agentregistry is niet actief");
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/agents/brands/".length));

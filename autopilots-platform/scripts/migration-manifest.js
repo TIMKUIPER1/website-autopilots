@@ -30,5 +30,7 @@ export const APPLIED_MIGRATIONS = Object.freeze({
   "20260804073000_organization_approval_queue.sql": "4a49b6d15eafe0ab40d256196efb7d128eb2568d160f375d0ec6d091c90e88a1",
   "20260804080000_organization_operations_queue.sql": "34a26f185be53a84390a7b78797895d2e82b40b594b2aa8d01a73a8cc9648e5e",
   "20260804083000_agent_registry_read_model.sql": "de780e14e6edbee2092aac013088894df66820fee707c933e90141bbca079cd8",
-  "20260804084000_agent_registry_service_read.sql": "1ccac4ecf392b51a03dd03090fedd9e918797f29dde6976b699d0314d4fd1e85"
+  "20260804084000_agent_registry_service_read.sql": "1ccac4ecf392b51a03dd03090fedd9e918797f29dde6976b699d0314d4fd1e85",
+  "20260804085000_organization_monitoring_history.sql": "eb309784dfc58af707d79be815920d1451084b1ec4909efbd1fb52e0002a88cf",
+  "20260804090000_monitoring_history_attention_fix.sql": "bbe26854af7707207f20290abbadfa00963ebd4c0171c491e53a4bcc414996e0"
 });

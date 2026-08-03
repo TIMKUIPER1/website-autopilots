@@ -199,3 +199,13 @@ function. The fresh linter result is 0 errors, 2 unchanged warnings and 33
 information items. The new information item is intentional: browser roles have
 no table privilege or policy, while the server RPC enforces profile and
 operating-brand membership.
+
+Migration `20260804085000_organization_monitoring_history.sql` adds only one
+stable, service-role-only organization read function. The freshly rerun linter
+remains at 0 errors, 2 unchanged warnings and 33 information items. It adds no
+table, policy or browser grant.
+
+Forward correction `20260804090000_monitoring_history_attention_fix.sql`
+replaces only that read function so scheduler execution failures and degraded,
+unavailable or failed product signals are counted separately. Advisor counts
+remain 0 errors, 2 warnings and 33 information items.

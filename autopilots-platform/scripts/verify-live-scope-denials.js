@@ -33,6 +33,9 @@ const denialCases = [
   ["agent-registry-unknown-profile", "autopilots_agent_registry", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
+  ["monitoring-history-unknown-profile", "autopilots_monitoring_history", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -75,7 +78,37 @@ evidence.push({
   externalWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+const validMonitoringHistory = await callRpc("autopilots_monitoring_history", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
+}, serviceRoleKey);
+if (validMonitoringHistory.status !== 200
+  || validMonitoringHistory.payload?.contract !== "autopilots.monitoring-history.v1"
+  || !Array.isArray(validMonitoringHistory.payload?.runs)
+  || !Number.isInteger(validMonitoringHistory.payload?.summary?.schedulerSucceeded24h)
+  || !Number.isInteger(validMonitoringHistory.payload?.summary?.runFailures24h)
+  || !Number.isInteger(validMonitoringHistory.payload?.summary?.attention24h)
+  || validMonitoringHistory.payload?.automaticRemediationEnabled !== false
+  || validMonitoringHistory.payload?.notificationDeliveryEnabled !== false
+  || validMonitoringHistory.payload?.externalWritesEnabled !== false) {
+  fail("MONITORING_HISTORY_SERVICE_ROLE_READ_FAILED", {
+    status: validMonitoringHistory.status,
+    errorCode: safeCode(validMonitoringHistory.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-monitoring-history-read",
+  allowed: true,
+  status: validMonitoringHistory.status,
+  runs: validMonitoringHistory.payload.runs.length,
+  attention24h: validMonitoringHistory.payload.summary?.attention24h || 0,
+  schedulerSucceeded24h: validMonitoringHistory.payload.summary?.schedulerSucceeded24h || 0,
+  runFailures24h: validMonitoringHistory.payload.summary?.runFailures24h || 0,
+  automaticRemediationEnabled: false,
+  notificationDeliveryEnabled: false,
+  externalWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"

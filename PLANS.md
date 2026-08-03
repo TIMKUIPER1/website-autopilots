@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 32 immutable migration checksums,
+  syntax, foundation contracts, all 34 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -241,6 +241,14 @@ disposable-target restore rehearsal proves recoverability.
   available only to the separate customer/demo journey, so internal operators
   cannot receive demo agents, demo workflows or process-memory actions even as
   unused browser state or through a manual API call.
+- Portfolio now exposes organization-scoped durable monitoring history from
+  Supabase instead of relying only on the current runtime snapshot. The latest
+  20 runs include safe outcome, counts, timing, error code and lease-recovery
+  evidence without holder/profile identifiers. Scheduler execution and product
+  signals are separate truths: live acceptance returned 16 technically
+  successful runs, 0 execution failures and 16 runs containing degraded or
+  unavailable product signals. Automatic remediation, notification delivery
+  and external writes remain false.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -287,9 +295,9 @@ Status: `verified` locally and externally enforced.
 2. After owner TOTP, repeat the authenticated UI/API flow end to end. The live
    rollback two-tenant matrix, concurrency checks and backup inventory now
    pass; the separately authorized disposable-target restore remains pending.
-3. After real owner TOTP enrollment, visually verify the durable Overview and
-   Implementatie screens plus the fail-closed Agent Control Room, incidents and
-   access roster; then execute one intentional human acknowledgement end to
+3. After real owner TOTP enrollment, visually verify the durable Overview,
+   Implementatie and portfolio monitoring history plus the fail-closed Agent
+   Control Room, incidents and access roster; then execute one intentional human acknowledgement end to
    end. Do not stage a real colleague until their role and scope are approved.
 4. Visually verify the new connector staging and decision controls after owner
    TOTP. Do not stage a real connector request until the intended provider,

@@ -17,6 +17,7 @@
   "autopilots_heartbeat_monitoring_run_v2": "service_role",
   "autopilots_complete_monitoring_run_v2": "service_role",
   "autopilots_monitoring_freshness_v2": "service_role",
+  "autopilots_monitoring_history": "service_role",
   "autopilots_access_roster": "service_role",
   "autopilots_stage_access_request": "service_role",
   "autopilots_decide_access_request": "service_role",

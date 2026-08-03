@@ -364,6 +364,27 @@ test("monitoring freshness requires its versioned safe contract", async () => {
   });
 });
 
+test("monitoring history requires organization scope and permanent no-effect evidence", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.monitoring-history.v1", summary: {}, runs: [],
+      automaticRemediationEnabled: false, notificationDeliveryEnabled: false,
+      externalWritesEnabled: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.monitoringHistory(profileId, legalEntityId);
+  assert.equal(result.externalWritesEnabled, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_monitoring_history",
+    args: { p_profile_id: profileId, p_legal_entity_id: legalEntityId }
+  });
+});
+
 test("access roster is explicitly profile and organization scoped", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
