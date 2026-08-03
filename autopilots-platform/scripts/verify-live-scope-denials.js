@@ -30,6 +30,9 @@ const denialCases = [
   ["brand-twin-unknown-profile", "autopilots_brand_twin", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
+  ["agent-registry-unknown-profile", "autopilots_agent_registry", "42501", {
+    p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -50,8 +53,30 @@ for (const [name, rpc, expectedCode, body] of denialCases) {
   evidence.push({ case: name, denied: true, status: response.status, errorCode: expectedCode });
 }
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
-  const body = rpc === "autopilots_brand_twin"
+const validAgentRegistry = await callRpc("autopilots_agent_registry", {
+  p_profile_id: ownerProfileId, p_brand_slug: "autopilots"
+}, serviceRoleKey);
+if (validAgentRegistry.status !== 200
+  || validAgentRegistry.payload?.contract !== "autopilots.agent-registry.v1"
+  || !Array.isArray(validAgentRegistry.payload?.agents)
+  || validAgentRegistry.payload?.genericAgentActionEnabled !== false
+  || validAgentRegistry.payload?.externalWritesEnabled !== false) {
+  fail("AGENT_REGISTRY_SERVICE_ROLE_READ_FAILED", {
+    status: validAgentRegistry.status,
+    errorCode: safeCode(validAgentRegistry.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-agent-registry-read",
+  allowed: true,
+  status: validAgentRegistry.status,
+  agents: validAgentRegistry.payload.agents.length,
+  genericAgentActionEnabled: false,
+  externalWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+  const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"
       ? { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId, p_brand_slug: null }

@@ -33,9 +33,10 @@ test("managed implementation reports durable onboarding truth without simulation
 
 test("managed agent room fails closed until a durable registry exists", () => {
   const body = functionBody("managedAgents", "accessManagement");
-  assert.match(body, /Duurzame agentregistry[\s\S]*NIET GEKOPPELD/);
-  assert.match(body, /Demo-agents[\s\S]*UITGESLOTEN/);
-  assert.match(body, /geen betrouwbare agenttelling/);
+  assert.match(body, /agentRegistryData/);
+  assert.match(body, /De duurzame agentregistry kon niet veilig worden geladen/);
+  assert.match(body, /De duurzame registry is actief, maar bevat nog geen agentrecords/);
+  assert.match(body, /Agentbediening[\s\S]*UIT/);
   assert.doesNotMatch(body, /data\.agents|data-action=|Kill switch|Pauzeren|Hervatten/);
 });
 

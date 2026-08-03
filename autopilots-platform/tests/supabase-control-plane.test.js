@@ -232,6 +232,26 @@ test("brand twin read passes explicit profile and brand scope", async () => {
   });
 });
 
+test("agent registry read passes explicit profile and brand scope", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.agent-registry.v1",
+      brand: { slug: "autoplanner" },
+      summary: { registeredAgents: 0, observedAgents: 0, activeControls: 0 },
+      agents: [], registryAvailable: true, genericAgentActionEnabled: false,
+      externalWritesEnabled: false, demoMode: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  await repository.agentRegistry("40000000-0000-4000-8000-000000000001", "autoplanner");
+  assert.deepEqual(calls[0], {
+    name: "autopilots_agent_registry",
+    args: { p_profile_id: "40000000-0000-4000-8000-000000000001", p_brand_slug: "autoplanner" }
+  });
+});
+
 test("invalid scope fails before service-role access", async () => {
   const repository = new SupabaseControlPlaneRepository({ client: { rpc: async () => assert.fail("RPC must not run") } });
   await assert.rejects(() => repository.brandOnboarding("bad", "../other"), (error) => error.status === 404);

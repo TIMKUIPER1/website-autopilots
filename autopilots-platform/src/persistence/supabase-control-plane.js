@@ -128,6 +128,24 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async agentRegistry(profileId, brandSlug) {
+    assertProfileId(profileId);
+    assertBrandSlug(brandSlug);
+    const { data, error } = await this.client.rpc("autopilots_agent_registry", {
+      p_profile_id: profileId,
+      p_brand_slug: brandSlug
+    });
+    throwMapped(error, "De agentregistry kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.agent-registry.v1" || data.brand?.slug !== brandSlug
+      || !Array.isArray(data.agents) || !data.summary || data.registryAvailable !== true
+      || data.genericAgentActionEnabled !== false || data.externalWritesEnabled !== false
+      || data.demoMode !== false
+      || data.agents.some((agent) => agent.controlEnabled !== false || agent.externalWritesEnabled !== false)) {
+      throw httpError(503, "De agentregistry heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async stageBrandLaunchRequest(profileId, legalEntityId, request, idempotencyKey) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

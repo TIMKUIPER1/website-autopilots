@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 30 immutable migration checksums,
+  syntax, foundation contracts, all 32 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -231,6 +231,11 @@ disposable-target restore rehearsal proves recoverability.
   Control Room fails closed until a scoped durable agent registry exists. Demo
   lifecycle simulation, agent counts, pause controls and kill switches are not
   presented as live authority.
+- Agent Control Room now reads a durable, operating-brand-scoped Supabase
+  registry. Live state is intentionally empty: 0 registered agents, 0 observed
+  agents and 0 controls. Runtime status requires timestamped source evidence;
+  generic controls and external writes are constrained false and no demo agent
+  was copied into the registry.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -299,6 +304,9 @@ Status: `verified` locally and externally enforced.
 10. Move remaining governed command creation behind the durable repository
    without changing the legacy dashboard; portfolio and operating-brand reads
    are complete.
+11. Select one real Autopilots agent identity and its authoritative runtime
+   source before registering it. Add read-only observation ingestion first;
+   keep pause, kill and external execution in separately approved workflows.
 
 ## Genuine blockers
 

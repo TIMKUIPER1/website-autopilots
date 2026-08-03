@@ -28,5 +28,6 @@
   "autopilots_approval_queue": "service_role",
   "autopilots_operations_queue": "service_role",
   "autopilots_portfolio_snapshot": "service_role",
-  "autopilots_brand_twin": "service_role"
+  "autopilots_brand_twin": "service_role",
+  "autopilots_agent_registry": "service_role"
 }

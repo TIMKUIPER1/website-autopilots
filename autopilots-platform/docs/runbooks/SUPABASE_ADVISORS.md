@@ -192,3 +192,10 @@ Advisor counts remain 0 errors, 2 warnings and 32 information items.
 Migration `20260804080000_organization_operations_queue.sql` adds only one
 stable, service-role-only read function. It adds no table, policy or browser
 grant, so Advisor counts remain 0 errors, 2 warnings and 32 information items.
+
+Migration `20260804083000_agent_registry_read_model.sql` adds one RLS-enabled,
+policy-free and browser-revoked server table plus one service-role-only read
+function. The fresh linter result is 0 errors, 2 unchanged warnings and 33
+information items. The new information item is intentional: browser roles have
+no table privilege or policy, while the server RPC enforces profile and
+operating-brand membership.
