@@ -94,6 +94,11 @@ and restore tests pass.
   original command, creates its own idempotent command, usage and audit
   evidence, and still applies no identity, membership, provider invitation or
   external write. Live rollback-safe acceptance left no synthetic records.
+- The owner access screen now exposes those bounded approve/reject decisions,
+  sends the current context version with a fresh idempotency key and refreshes
+  the authoritative roster. Its confirmation and result copy explicitly keep
+  accounts, memberships, provider invitations and external activation blocked;
+  real-owner visual acceptance remains pending TOTP enrollment.
 
 ## Website release safety checkpoint — 2026-07-26
 
