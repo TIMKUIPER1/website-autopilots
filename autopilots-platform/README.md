@@ -32,6 +32,11 @@ Valideer lokaal met:
 pnpm check
 ```
 
+Diezelfde credential-vrije gate draait voor iedere platformwijziging in GitHub.
+Hij controleert syntax, de funderingscontracten, alle immutable
+migrationchecksums, bekende secretpatronen en de volledige testsuite. Een
+databaseverbinding of productiecredential is daarvoor niet nodig.
+
 Een database-migratie is fail-closed en vereist expliciet
 `ALLOW_DATABASE_MIGRATIONS=true`, een wijzigingsnummer en een doel-URL. Zie
 `docs/runbooks/DATABASE_FOUNDATION.md`.

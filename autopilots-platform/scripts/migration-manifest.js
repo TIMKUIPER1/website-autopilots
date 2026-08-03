@@ -1,0 +1,16 @@
+export const APPLIED_MIGRATIONS = Object.freeze({
+  "20260803090000_os_foundation.sql": "710ba6a44dba8c4ec7fd15a18591f2a4e1d9c295f963e8aa2544938707026890",
+  "20260803162000_owner_bootstrap.sql": "7918bb047c95762e503556fd024f0ceff84f6fcfee3291fe80186cdfb691b024",
+  "20260803174500_authenticated_session_context.sql": "a8ca71efe5ef3b5c58cc549064aa72401bc73c7e68059b5c0dc86ada7f0a656c",
+  "20260803193000_durable_app_sessions.sql": "0c76bb2cdf96a6ce32bff2e30c489b94070e0881e3eeef70fa1c3dfeef3b7952",
+  "20260803203000_product_onboarding_registry.sql": "0821a71f4feee3452406546fd4db231b8d11b3deaf8bd17df9ddea928532a292",
+  "20260803220000_governed_health_incidents.sql": "6eb5c65706f54b1a6a4d01083d5646b3fadd0de26be88990930d121bc0d6e904",
+  "20260803230000_scoped_incident_snapshot.sql": "fa2193ef059f9b28951c4de91242bc7d1676e47739a29e491883d193a28661c7",
+  "20260803231500_incident_stale_context_error.sql": "e4c24bf20dc9eabfb24bb3cffd8cddc57d6e04f225d4364959ffc8872e47ec0a",
+  "20260803233000_durable_monitoring_leases.sql": "5e2b7bb1e04f50dc6cf9ec8a8445d233dd4c4e626773766e755a54cc5f6d135d",
+  "20260803234500_monitoring_service_principal.sql": "84eeb0a50dfbe90da52814e0843817c1b3faec400b4f229895e0cb1c2f13bad9",
+  "20260803235500_access_governance.sql": "9e7852fc07bae0d4f4501e77f082538bc0871f4df82b32588e19b9ed21638bf0",
+  "20260803235800_access_roster_legal_name_fix.sql": "1bec6dd59d53fa279f8fabd91c3e97701962d74d4284a7a73aa80636faa7e0e1",
+  "20260803235900_access_request_decisions.sql": "efca51b27f09aa7c07d8dc95d66b55d293bc2877e3023f8f6b35be862a975889",
+  "20260804000500_audit_approved_result.sql": "9d804753fdd0e8f6eda5b4716f74c50547971491e836f9341e43dcd6bd22baae"
+});

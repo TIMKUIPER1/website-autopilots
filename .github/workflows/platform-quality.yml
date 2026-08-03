@@ -1,0 +1,44 @@
+name: Autopilots OS quality gate
+
+on:
+  pull_request:
+    paths:
+      - "autopilots-platform/**"
+      - "PLANS.md"
+      - ".github/workflows/platform-quality.yml"
+  push:
+    branches: [main]
+    paths:
+      - "autopilots-platform/**"
+      - "PLANS.md"
+      - ".github/workflows/platform-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: autopilots-os-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify governed Autopilots OS
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: autopilots-platform
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: autopilots-platform/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check

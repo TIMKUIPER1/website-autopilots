@@ -99,6 +99,11 @@ and restore tests pass.
   the authoritative roster. Its confirmation and result copy explicitly keep
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
+- A credential-free Autopilots OS release gate now verifies server and browser
+  syntax, foundation contracts, all 14 immutable migration checksums,
+  transaction wrappers, tracked-file secret patterns and the complete test
+  suite on every platform pull request and protected-main push. It performs no
+  migration or provider call.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -157,9 +162,7 @@ Status: `verified` locally and externally enforced.
    writes disabled.
 7. Move remaining portfolio reads and governed command creation behind the
    durable repository without changing the legacy dashboard.
-8. Add CI gates for migration validation, tests, secret scanning and
-   architecture fitness checks.
-9. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
+8. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.
 

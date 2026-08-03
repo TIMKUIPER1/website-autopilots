@@ -36,3 +36,5 @@
 | 2026-08-03 | Correct deployed IAM contracts with an immutable follow-up migration | Registered migration checksums remain trustworthy and production history is never rewritten after activation | Accepted |
 | 2026-08-03 | Separate access decision from access application | Human approval must be auditable without silently creating an identity, membership or provider invitation | Accepted |
 | 2026-08-03 | Treat `approved` as an explicit audit result | Approval is distinct from successful application and must not be mislabeled as an executed external effect | Accepted |
+| 2026-08-03 | Pin every applied migration by filename and SHA-256 in the release gate | Deployed database history must remain immutable; corrections are always new migrations | Accepted |
+| 2026-08-03 | Run one credential-free OS quality gate for every platform change | Syntax, migration integrity, secret patterns, architecture contracts and tests must fail before merge without production access | Accepted |
