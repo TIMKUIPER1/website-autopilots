@@ -107,6 +107,15 @@ export function normalizeContext(context) {
   if (!context.profileId || !context.email || !context.role || !context.legalEntityId || !brands.length) {
     throw new SupabaseAuthError("INVALID_SESSION_CONTEXT", "De accountrechten zijn onvolledig.", 403);
   }
+  const validRoles = new Set(["owner", "admin", "operator", "finance", "auditor", "viewer"]);
+  const validAssurance = new Set(["aal1", "aal2"]);
+  const slugs = brands.map((brand) => String(brand?.slug || ""));
+  if (!validRoles.has(context.role) || !validAssurance.has(context.assuranceLevel || "aal1")
+    || slugs.some((slug) => !/^[a-z][a-z0-9-]{1,62}$/.test(slug))
+    || new Set(slugs).size !== slugs.length
+    || brands.some((brand) => brand.legalEntityId !== context.legalEntityId)) {
+    throw new SupabaseAuthError("INVALID_SESSION_CONTEXT", "De accountscope is ongeldig.", 403);
+  }
   return {
     id: context.profileId,
     authUserId: context.authUserId,
@@ -115,7 +124,7 @@ export function normalizeContext(context) {
     iamRole: context.role,
     organizationId: context.legalEntityId,
     name: context.displayName || context.email,
-    companyIds: brands.map((brand) => brand.slug),
+    companyIds: slugs,
     assuranceLevel: context.assuranceLevel || "aal1",
     mfaRequired: context.mfaRequired === true,
     authProvider: "supabase"

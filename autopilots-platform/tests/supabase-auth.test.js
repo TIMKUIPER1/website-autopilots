@@ -12,10 +12,10 @@ const base = {
   mfaRequired: true,
   assuranceLevel: "aal1",
   brands: [
-    { slug: "autopilots" },
-    { slug: "autoreviews" },
-    { slug: "autoplanner" },
-    { slug: "roofplanner" }
+    { slug: "autopilots", legalEntityId: "entity-1" },
+    { slug: "autoreviews", legalEntityId: "entity-1" },
+    { slug: "autoplanner", legalEntityId: "entity-1" },
+    { slug: "roofplanner", legalEntityId: "entity-1" }
   ]
 };
 
@@ -32,6 +32,14 @@ test("Supabase context becomes a scoped internal owner session", () => {
 test("incomplete or unscoped contexts fail closed", () => {
   assert.throws(
     () => normalizeContext({ ...base, brands: [] }),
+    (error) => error instanceof SupabaseAuthError && error.code === "INVALID_SESSION_CONTEXT"
+  );
+  assert.throws(
+    () => normalizeContext({ ...base, brands: [...base.brands, { slug: "outside", legalEntityId: "entity-2" }] }),
+    (error) => error instanceof SupabaseAuthError && error.code === "INVALID_SESSION_CONTEXT"
+  );
+  assert.throws(
+    () => normalizeContext({ ...base, brands: [base.brands[0], base.brands[0]] }),
     (error) => error instanceof SupabaseAuthError && error.code === "INVALID_SESSION_CONTEXT"
   );
 });

@@ -243,6 +243,33 @@ for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "au
   evidence.push({ case: `anonymous-${rpc}`, denied: true, status: response.status, errorCode: safeCode(response.payload?.code) });
 }
 
+const impossibleSessionHash = "0".repeat(64);
+const missingSession = await callRpc("autopilots_resolve_app_session", {
+  p_token_hash: impossibleSessionHash
+}, serviceRoleKey);
+if (missingSession.status !== 200 || missingSession.payload !== null) {
+  fail("SESSION_RESOLVER_SERVICE_ROLE_CONTRACT_FAILED", {
+    status: missingSession.status,
+    errorCode: safeCode(missingSession.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-session-resolver-miss", allowed: true,
+  status: missingSession.status, sessionFound: false, persistentWrites: false
+});
+
+const anonymousSessionResolver = await callRpc("autopilots_resolve_app_session", {
+  p_token_hash: impossibleSessionHash
+}, anonKey);
+if (anonymousSessionResolver.status < 400) {
+  fail("ANONYMOUS_SESSION_RESOLVER_ACCESSIBLE", { status: anonymousSessionResolver.status });
+}
+evidence.push({
+  case: "anonymous-autopilots_resolve_app_session", denied: true,
+  status: anonymousSessionResolver.status,
+  errorCode: safeCode(anonymousSessionResolver.payload?.code)
+});
+
 const legacyIncident = await callRpc("autopilots_incident_snapshot", {
   p_profile_id: ownerProfileId, p_brand_slug: null
 }, serviceRoleKey);

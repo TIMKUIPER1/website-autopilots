@@ -231,3 +231,9 @@ Migration `20260804110000_organization_audit_timeline.sql` adds only one stable,
 service-role-only organization read function over the append-only audit ledger.
 It adds no table, policy or browser grant. The freshly rerun linter remains at
 0 errors, 2 known warnings and 35 information items.
+
+Migration `20260804113000_session_scope_and_activity.sql` replaces only the
+existing server-only durable session resolver. It scopes brands through one
+primary organization and throttles `last_seen_at` updates to five minutes. It
+adds no table, policy or browser grant. The freshly rerun linter remains at
+0 errors, 2 known warnings and 35 information items.

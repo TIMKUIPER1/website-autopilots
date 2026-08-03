@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 38 immutable migration checksums,
+  syntax, foundation contracts, all 39 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -271,6 +271,12 @@ disposable-target restore rehearsal proves recoverability.
   including 0 failed and 0 blocked events. Actor IDs, reasons, before/after
   payloads and evidence contents remain hidden; the page has no replay,
   mutation or provider action.
+- Durable session restoration now selects exactly the same deterministic
+  primary organization as the authenticated login bootstrap. A rollback-only
+  adversarial acceptance attached a second organization and brand to the owner,
+  proved that the foreign brand never entered the restored session, verified a
+  five-minute activity-touch throttle and left 0 rows of residue. The server
+  independently rejects duplicate, malformed or mixed-organization brand scope.
 
 ## Website release safety checkpoint — 2026-07-26
 

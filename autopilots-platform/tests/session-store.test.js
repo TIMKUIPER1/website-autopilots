@@ -14,7 +14,7 @@ const context = {
   legalEntityId: "entity-1",
   mfaRequired: true,
   assuranceLevel: "aal2",
-  brands: [{ slug: "autopilots" }]
+  brands: [{ slug: "autopilots", legalEntityId: "entity-1" }]
 };
 
 test("session store sends only token hashes to service-role RPCs", async () => {
