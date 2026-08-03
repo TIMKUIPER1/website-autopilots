@@ -103,3 +103,18 @@ may approve them.
 Writes are a separate command contract and remain disabled until a connector
 has passed authentication, scope, reconciliation, rate-limit, rollback and
 incident tests. R3 commands always require a current human approval.
+
+## Activation readiness policy
+
+Local implementation is not activation readiness. The deterministic
+`autopilots.product-connection-readiness.v1` policy requires twelve current
+pieces of evidence: verified project identity, an owned HTTPS endpoint, a vault
+secret reference, successful contract/privacy/freshness probes, reconciliation,
+revocation, rate-limit and failure-mode tests, independent review and an R3
+human approval matching the current context version. Every item expires; the
+approval expires after 15 minutes. Missing, malformed, future, stale or
+overlong evidence fails closed with a stable blocker code.
+
+Even a fully green evaluation does not activate anything. The evaluator always
+returns data connection, provider authorization and external writes as disabled;
+activation remains a separate governed workflow outside Werktoestemming A.
