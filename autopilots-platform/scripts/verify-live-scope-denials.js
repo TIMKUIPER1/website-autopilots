@@ -36,6 +36,9 @@ const denialCases = [
   ["monitoring-history-unknown-profile", "autopilots_monitoring_history", "42501", {
     p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
   }],
+  ["error-runbooks-unknown-profile", "autopilots_error_runbooks", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -108,7 +111,28 @@ evidence.push({
   externalWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+const validErrorRunbooks = await callRpc("autopilots_error_runbooks", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
+}, serviceRoleKey);
+if (validErrorRunbooks.status !== 200
+  || validErrorRunbooks.payload?.contract !== "autopilots.error-runbooks.v1"
+  || !Array.isArray(validErrorRunbooks.payload?.runbooks)
+  || validErrorRunbooks.payload?.automaticRemediationEnabled !== false
+  || validErrorRunbooks.payload?.notificationDeliveryEnabled !== false
+  || validErrorRunbooks.payload?.providerWritesEnabled !== false) {
+  fail("ERROR_RUNBOOKS_SERVICE_ROLE_READ_FAILED", {
+    status: validErrorRunbooks.status,
+    errorCode: safeCode(validErrorRunbooks.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-error-runbooks-read", allowed: true,
+  status: validErrorRunbooks.status, runbooks: validErrorRunbooks.payload.runbooks.length,
+  automaticRemediationEnabled: false, notificationDeliveryEnabled: false,
+  providerWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"

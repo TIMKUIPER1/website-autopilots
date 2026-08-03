@@ -209,3 +209,9 @@ Forward correction `20260804090000_monitoring_history_attention_fix.sql`
 replaces only that read function so scheduler execution failures and degraded,
 unavailable or failed product signals are counted separately. Advisor counts
 remain 0 errors, 2 warnings and 33 information items.
+
+Migration `20260804093000_error_runbook_catalog.sql` adds one RLS-enabled,
+policy-free and browser-revoked server table plus one service-role-only read
+function. The freshly rerun linter reports 0 errors, 2 unchanged warnings and
+34 information items. The additional information item is the intentional
+deny-all browser posture of the server-owned catalog.

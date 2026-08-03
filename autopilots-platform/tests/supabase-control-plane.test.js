@@ -194,6 +194,23 @@ test("operations queue is scoped durable and disables generic actions", async ()
   } });
 });
 
+test("error runbooks are organization scoped and permanently guidance-only", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.error-runbooks.v1", runbooks: [],
+      automaticRemediationEnabled: false, notificationDeliveryEnabled: false,
+      providerWritesEnabled: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  await repository.errorRunbooks(profileId, legalEntityId);
+  assert.deepEqual(calls[0], { name: "autopilots_error_runbooks", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

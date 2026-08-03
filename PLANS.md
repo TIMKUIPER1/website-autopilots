@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 34 immutable migration checksums,
+  syntax, foundation contracts, all 35 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -249,6 +249,11 @@ disposable-target restore rehearsal proves recoverability.
   successful runs, 0 execution failures and 16 runs containing degraded or
   unavailable product signals. Automatic remediation, notification delivery
   and external writes remain false.
+- Human Task Inbox now matches exact operating-brand/error-code pairs to seven
+  versioned, durable first-response runbooks. Guidance covers current
+  AutoReviews, AutoPlanner and RoofPlanner source/dependency failures and shows
+  a named escalation owner. Unknown codes fail closed to human triage; restarts,
+  notifications, configuration changes and provider writes remain impossible.
 
 ## Website release safety checkpoint — 2026-07-26
 

@@ -28,6 +28,7 @@
   "autopilots_decide_brand_launch_request": "service_role",
   "autopilots_approval_queue": "service_role",
   "autopilots_operations_queue": "service_role",
+  "autopilots_error_runbooks": "service_role",
   "autopilots_portfolio_snapshot": "service_role",
   "autopilots_brand_twin": "service_role",
   "autopilots_agent_registry": "service_role"

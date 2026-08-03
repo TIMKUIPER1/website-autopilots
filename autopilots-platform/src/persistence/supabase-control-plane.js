@@ -128,6 +128,22 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async errorRunbooks(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_error_runbooks", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "De foutrunbooks konden niet veilig worden geladen");
+    if (data?.contract !== "autopilots.error-runbooks.v1" || !Array.isArray(data.runbooks)
+      || data.automaticRemediationEnabled !== false || data.notificationDeliveryEnabled !== false
+      || data.providerWritesEnabled !== false) {
+      throw httpError(503, "De foutrunbooks hebben een ongeldig contract");
+    }
+    return data;
+  }
+
   async agentRegistry(profileId, brandSlug) {
     assertProfileId(profileId);
     assertBrandSlug(brandSlug);
