@@ -13,6 +13,7 @@ const requiredArtifacts = [
   "docs/runbooks/TENANT_ISOLATION.md",
   "docs/runbooks/SUPABASE_ADVISORS.md",
   "docs/runbooks/LEGACY_PUBLIC_SURFACE.md",
+  "docs/runbooks/GIFT_PUBLIC_SURFACE.md",
   "docs/DECISION_REGISTER.md",
   "docs/RISK_REGISTER.md",
   "evals/lighthouse-cases.json"

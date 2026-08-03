@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 22 immutable migration checksums,
+  syntax, foundation contracts, all 23 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -183,6 +183,12 @@ disposable-target restore rehearsal proves recoverability.
   `pg_catalog, public` resolution while preserving its body and four Gift
   triggers. Advisor now reports 0 errors, 14 warnings and 30 information items;
   Gift GraphQL grants remain unchanged pending their own dependency inventory.
+- The Gift dependency inventory found six RLS tables, zero policies, 20 records,
+  no local or Edge Function caller, no observed eight-day PostgREST traffic and
+  last stored activity on 2026-06-22. Browser grants are now revoked while
+  service-role counts remain 2/2/5/10/1/0. Advisor reports 0 errors, 2 warnings
+  and 30 information items; the remaining warnings are the intentional bounded
+  session bootstrap and the separately governed leaked-password Auth setting.
 
 ## Website release safety checkpoint — 2026-07-26
 

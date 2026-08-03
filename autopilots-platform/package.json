@@ -12,6 +12,7 @@
     "security:check": "node scripts/validate-platform.js",
     "security:verify-live": "node scripts/verify-live-scope-denials.js",
     "security:verify-legacy-live": "node scripts/verify-live-legacy-surface.js",
+    "security:verify-gift-live": "node scripts/verify-live-gift-surface.js",
     "backup:verify": "node scripts/verify-supabase-backups.js",
     "db:migrate": "node scripts/migrate.js"
   },

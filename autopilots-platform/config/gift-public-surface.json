@@ -1,0 +1,12 @@
+{
+  "contract": "autopilots.gift-public-surface.v1",
+  "owner": "legacy-gift",
+  "tables": [
+    { "name": "gift_conversations", "sensitivity": "critical" },
+    { "name": "gift_dealerships", "sensitivity": "critical" },
+    { "name": "gift_knowledge_items", "sensitivity": "high" },
+    { "name": "gift_messages", "sensitivity": "critical" },
+    { "name": "gift_service_requests", "sensitivity": "critical" },
+    { "name": "gift_vehicle_notes", "sensitivity": "critical" }
+  ]
+}

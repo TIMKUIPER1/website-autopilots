@@ -120,6 +120,32 @@ temporary-table trigger proved identical behavior with search path
 `20260804040000_fix_legacy_updated_at_search_path.sql` then set only that
 configuration; the body and four triggers were preserved.
 
-The fresh Advisor result is 0 errors, 14 warnings and 30 information items. The
-mutable-search-path warning is gone. Gift GraphQL authority remains unchanged
-pending a separate runtime inventory.
+The fresh Advisor result was 0 errors, 14 warnings and 30 information items. The
+mutable-search-path warning was gone. The subsequent Gift inventory and grant
+remediation are recorded below.
+
+## Gift GraphQL surface — verified 2026-08-03
+
+Six RLS-enabled Gift tables had zero policies but retained full browser grants,
+which exposed their schema without permitting browser data access. The separate
+inventory found 20 rows, no local caller, no deployed Edge Function, no Gift
+PostgREST event in the available eight-day window and latest stored activity on
+2026-06-22. Sensitive fields include access codes, webhook URLs, contact data,
+license plates, messages and service requests.
+
+Migration `20260804043000_protect_gift_graphql_surface.sql` revoked only
+`public`, `anon` and `authenticated` table privileges. A rollback-only preflight
+proved all six RLS states and service-role counts, then restored all grants.
+Live acceptance now reports HTTP 401 for every browser probe and unchanged
+service-role counts of 2/2/5/10/1/0.
+
+| Level | Before Gift group | After Gift group | Result |
+| --- | ---: | ---: | --- |
+| Error | 0 | 0 | unchanged |
+| Warning | 14 | 2 | all twelve Gift GraphQL exposures removed |
+| Info | 30 | 30 | unchanged |
+
+The two remaining warnings are exact and understood: authenticated execution of
+the bounded `public.autopilots_session_context_v2()` login bootstrap is
+intentional, while leaked-password protection requires an identity-policy
+decision and real-owner login acceptance beyond this migration.
