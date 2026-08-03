@@ -4,8 +4,9 @@
 
 This is the compatibility gate between governed `autopilots-platform` and the
 legacy `sales-dashboard`. It covers the 18 `public.*` tables reported by
-Supabase Security Advisor with RLS disabled. Inventory is read-only; it does not
-authorize a grant, policy, table or runtime change.
+Supabase Security Advisor with RLS disabled. Work Permission A authorized the
+first non-destructive compatibility group after the runtime inventory and a
+rollback-only acceptance had passed.
 
 The machine-readable source is `config/legacy-public-surface.json`. Tests compare
 it with the actual `sales-dashboard` server calls and its Supabase probe.
@@ -37,15 +38,41 @@ The other fourteen tables have no runtime database call in the current source:
 The word `contacts` in dashboard payloads refers to data fetched from
 GoHighLevel and is not a read from `public.contacts`.
 
+A live service-role count probe against the exact Autopilots project confirmed
+that all fourteen no-caller tables contain zero rows. The four active mirrors
+contained 17 audit rows, 3 health rows, 59 sales-invoice rows and 59 raw import
+rows at the observation time. The probe performed no write and returned no row
+content.
+
+## First compatibility group activated — 2026-08-03
+
+Migration `20260804030000_protect_unused_legacy_tables.sql` enabled RLS and
+revoked `public`, `anon` and `authenticated` privileges on exactly the fourteen
+no-caller tables. It did not add policies, alter data, touch the four active
+mirrors or change service-role authority.
+
+Before activation, the exact migration ran inside a transaction with assertions
+and rolled back. After activation, `pnpm security:verify-legacy-live` proved:
+
+- all fourteen protected tables remain empty and service-role-readable;
+- every anonymous probe is denied with HTTP 401;
+- active mirror counts remain 17, 3, 59 and 59;
+- the migration registry contains the exact immutable checksum;
+- no persistent probe write or external provider write occurred.
+
+The Supabase Advisor rerun reduced errors from 18 to 4 and warnings from 51 to
+23. The four errors are exactly the active mirror tables. The 26 information
+items include the fourteen protected tables with RLS intentionally enabled and
+no browser policy.
+
 ## Safe remediation sequence
 
-1. Revoke `anon` and `authenticated` access and enable RLS first on the fourteen
-   no-caller tables in one rollback-capable migration. Add denial checks for
-   both browser roles and verify the service-role probe remains unchanged.
+1. The fourteen-table no-caller group is complete and continuously verified by
+   `pnpm security:verify-legacy-live`.
 2. Treat the four active mirror tables separately. Preserve their existing
    service-role insert/upsert shapes, unique-conflict behavior and best-effort
    failure semantics. Add a rolled-back write contract before changing RLS.
-3. Rerun Security Advisor and export the result after each group. Never infer
+3. Rerun Security Advisor after each group. Never infer
    safety from warning counts alone; run the sales-dashboard tests and a bounded
    Supabase mirror acceptance.
 4. Do not migrate these records into governed OS tables until ownership,

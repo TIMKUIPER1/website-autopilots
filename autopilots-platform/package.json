@@ -11,6 +11,7 @@
     "db:validate": "node scripts/validate-foundation.js && node scripts/validate-platform.js",
     "security:check": "node scripts/validate-platform.js",
     "security:verify-live": "node scripts/verify-live-scope-denials.js",
+    "security:verify-legacy-live": "node scripts/verify-live-legacy-surface.js",
     "backup:verify": "node scripts/verify-supabase-backups.js",
     "db:migrate": "node scripts/migrate.js"
   },

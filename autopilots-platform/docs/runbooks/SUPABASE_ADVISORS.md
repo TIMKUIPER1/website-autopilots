@@ -73,4 +73,21 @@ For each public table, document current callers, anonymous/authenticated grants,
 tenant key, expected policies, migration rollback and an end-to-end regression
 test. Remediate in small groups; begin with the most sensitive exposed tables
 (`sales_login_sessions`, transcripts, invoices, documents and audit records).
-No legacy change is authorized merely by this inventory.
+## First legacy compatibility group — verified 2026-08-03
+
+After tracing the live call graph, fourteen legacy tables had no runtime caller
+and zero rows. Migration `20260804030000_protect_unused_legacy_tables.sql`
+enabled RLS and revoked browser-role privileges on exactly that group. A
+rollback-only preflight and a post-activation service-role/anonymous probe both
+passed.
+
+| Level | Before group | After group | Result |
+| --- | ---: | ---: | --- |
+| Error | 18 | 4 | only `audit_log`, `integration_health`, `invoices_sales` and `raw_imports` remain |
+| Warning | 51 | 23 | 28 legacy GraphQL exposures removed |
+| Info | 12 | 26 | fourteen intentionally policy-free protected tables added |
+
+The four remaining errors belong to active service-role best-effort mirrors.
+They require a separate rolled-back write-contract acceptance before their
+grants or RLS state may change. Advisor counts are evidence, not authorization
+for that second group.
