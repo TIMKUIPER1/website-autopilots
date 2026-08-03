@@ -237,3 +237,11 @@ existing server-only durable session resolver. It scopes brands through one
 primary organization and throttles `last_seen_at` updates to five minutes. It
 adds no table, policy or browser grant. The freshly rerun linter remains at
 0 errors, 2 known warnings and 35 information items.
+
+Migration `20260804120000_product_health_incident_consistency.sql` adds nine
+rows to the existing browser-denied runbook catalog and replaces the existing
+service-role-only health recording function. It adds no table, policy or
+browser grant. The freshly rerun linter remains at 0 errors, 2 known warnings
+and 35 information items. Live scope verification returned 16 runbooks and
+three active incidents, each with an exact runbook; notifications, remediation
+and provider writes remain disabled.

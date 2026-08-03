@@ -16,6 +16,45 @@ test("AutoPlanner readiness cannot hide missing durable dependencies", async () 
   assert.equal(result.externalWrites, false);
 });
 
+test("AutoPlanner transport failures use bounded product-specific codes", async () => {
+  const unreachable = await fetchProductHealth("autoplanner", {
+    fetchImpl: async () => { throw new Error("private network detail"); }
+  });
+  assert.equal(unreachable.status, "unavailable");
+  assert.equal(unreachable.errorCode, "AUTOPLANNER_API_UNREACHABLE");
+  assert.equal(JSON.stringify(unreachable).includes("private network detail"), false);
+
+  const accessDenied = await fetchProductHealth("autoplanner", {
+    fetchImpl: async (url) => url.endsWith("/health")
+      ? response({}, 403)
+      : response({ ready: true, checks: {} })
+  });
+  assert.equal(accessDenied.errorCode, "AUTOPLANNER_API_ACCESS_DENIED");
+
+  const readinessUnavailable = await fetchProductHealth("autoplanner", {
+    fetchImpl: async (url) => url.endsWith("/health")
+      ? response({ status: "ok" })
+      : response({}, 503)
+  });
+  assert.equal(readinessUnavailable.status, "degraded");
+  assert.equal(readinessUnavailable.errorCode, "AUTOPLANNER_READINESS_UNAVAILABLE");
+});
+
+test("AutoPlanner malformed contracts identify the failing endpoint", async () => {
+  const invalid = (body) => ({ ok: true, status: 200, text: async () => body });
+  const health = await fetchProductHealth("autoplanner", {
+    fetchImpl: async () => invalid("not-json")
+  });
+  assert.equal(health.errorCode, "AUTOPLANNER_HEALTH_CONTRACT_INVALID");
+
+  const readiness = await fetchProductHealth("autoplanner", {
+    fetchImpl: async (url) => url.endsWith("/health")
+      ? response({ status: "ok" })
+      : invalid("not-json")
+  });
+  assert.equal(readiness.errorCode, "AUTOPLANNER_READINESS_CONTRACT_INVALID");
+});
+
 test("RoofPlanner offline becomes a stable safe error code", async () => {
   const result = await fetchProductHealth("roofplanner", { fetchImpl: async () => { throw new Error("private network detail"); } });
   assert.equal(result.status, "unavailable");

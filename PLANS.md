@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 39 immutable migration checksums,
+  syntax, foundation contracts, all 40 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -249,15 +249,22 @@ disposable-target restore rehearsal proves recoverability.
   successful runs, 0 execution failures and 16 runs containing degraded or
   unavailable product signals. Automatic remediation, notification delivery
   and external writes remain false.
-- Human Task Inbox now matches exact operating-brand/error-code pairs to seven
-  versioned, durable first-response runbooks. Guidance covers current
-  AutoReviews, AutoPlanner and RoofPlanner source/dependency failures and shows
-  a named escalation owner. Unknown codes fail closed to human triage; restarts,
+- Human Task Inbox now matches exact operating-brand/error-code pairs to 16
+  versioned, durable first-response runbooks. Every bounded AutoReviews,
+  AutoPlanner and RoofPlanner adapter outcome now has named, read-only guidance.
+  AutoPlanner transport and contract failures no longer enter the database as
+  generic codes. Unknown codes still fail closed to human triage; restarts,
   notifications, configuration changes and provider writes remain impossible.
+- Product-health incidents now represent the newest observation per connector.
+  A changed error code resolves the superseded incident with evidence instead
+  of leaving two contradictory active problems. Live correction normalized the
+  prior AutoPlanner `UNREACHABLE` code, preserved history and reduced active
+  incidents from four to three: exactly one each for AutoReviews, AutoPlanner
+  and RoofPlanner, all with an exact runbook.
 - Alert governance now evaluates active incidents against four durable severity
   policies. Repeated observations remain deduplicated in one incident; minimum
   occurrences, age and suppression windows produce only an internal operator
-  recommendation. Live truth is 3 candidates and 3 escalation-due advisories,
+  recommendation. Live truth is 3 candidates and 2 escalation-due advisories,
   with exactly 0 notification attempts, 0 deliveries and no remediation or
   provider authority.
 - Security Control now exposes one privacy-limited, organization-scoped session
@@ -267,7 +274,7 @@ disposable-target restore rehearsal proves recoverability.
   session evidence remain distinct, and generic session revocation is disabled.
   Anonymous access and an unknown profile are denied.
 - Audit Trail now exposes the latest 50 append-only events as bounded
-  organization evidence. Live acceptance returned 117 events in 24 hours,
+  organization evidence. Live acceptance returned 128 events in 24 hours,
   including 0 failed and 0 blocked events. Actor IDs, reasons, before/after
   payloads and evidence contents remain hidden; the page has no replay,
   mutation or provider action.

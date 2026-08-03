@@ -63,8 +63,17 @@ async function probeAutoplanner({
     safeJson(connectorUrl(safeBaseUrl, "/health"), fetchImpl, timeoutMs),
     safeJson(connectorUrl(safeBaseUrl, "/health/ready"), fetchImpl, timeoutMs)
   ]);
-  if (!health.ok) return envelope("autoplanner", "unavailable", health.errorCode, observedAt, { healthHttpStatus: health.status });
-  if (!readiness.ok) return envelope("autoplanner", "degraded", readiness.errorCode, observedAt, { health: health.data, readyHttpStatus: readiness.status });
+  if (!health.ok) {
+    return envelope("autoplanner", "unavailable", autoplannerFailureCode("health", health), observedAt, {
+      healthHttpStatus: health.status
+    });
+  }
+  if (!readiness.ok) {
+    return envelope("autoplanner", "degraded", autoplannerFailureCode("readiness", readiness), observedAt, {
+      health: health.data,
+      readyHttpStatus: readiness.status
+    });
+  }
   const checks = readiness.data?.checks || health.data?.checks || {};
   const missing = Object.entries(checks).filter(([, value]) => value?.status === "missing").map(([key]) => key);
   if (readiness.data?.ready !== true || missing.length) {
@@ -133,4 +142,16 @@ function envelope(product, status, errorCode, observedAt, details) {
 
 function normalizeCode(prefix, code) {
   return `${prefix}_${String(code).replace(/[^a-z0-9]+/gi, "_").toUpperCase()}`;
+}
+
+function autoplannerFailureCode(endpoint, result) {
+  if (result.status === 401 || result.status === 403) return "AUTOPLANNER_API_ACCESS_DENIED";
+  if (["INVALID_JSON", "RESPONSE_TOO_LARGE"].includes(result.errorCode)) {
+    return endpoint === "health"
+      ? "AUTOPLANNER_HEALTH_CONTRACT_INVALID"
+      : "AUTOPLANNER_READINESS_CONTRACT_INVALID";
+  }
+  return endpoint === "health"
+    ? "AUTOPLANNER_API_UNREACHABLE"
+    : "AUTOPLANNER_READINESS_UNAVAILABLE";
 }
