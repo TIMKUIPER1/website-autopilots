@@ -106,8 +106,20 @@ browser privileges without changing service-role grants or records.
 | Warning | 23 | 15 | all eight active-mirror GraphQL exposures removed |
 | Info | 26 | 30 | four intentionally policy-free protected tables added |
 
-The remaining warnings are outside the governed and legacy sales surfaces: the
-legacy `public.set_updated_at` search path, legacy Gift GraphQL exposure, the
-intentional bounded signed-in session RPC and the project leaked-password
-setting. Each requires its own owner and compatibility decision; zero errors is
-not the same as production readiness.
+The remaining warnings are outside the governed and legacy sales surfaces:
+legacy Gift GraphQL exposure, the intentional bounded signed-in session RPC and
+the project leaked-password setting. Each requires its own owner and
+compatibility decision; zero errors is not the same as production readiness.
+
+## Legacy trigger search path — verified 2026-08-03
+
+`public.set_updated_at()` is a security-invoker trigger that only assigns
+`new.updated_at = now()`. Four Gift tables depend on it. A rollback-only
+temporary-table trigger proved identical behavior with search path
+`pg_catalog, public` and left no table or function-config residue. Migration
+`20260804040000_fix_legacy_updated_at_search_path.sql` then set only that
+configuration; the body and four triggers were preserved.
+
+The fresh Advisor result is 0 errors, 14 warnings and 30 information items. The
+mutable-search-path warning is gone. Gift GraphQL authority remains unchanged
+pending a separate runtime inventory.

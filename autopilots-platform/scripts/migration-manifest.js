@@ -19,5 +19,6 @@ export const APPLIED_MIGRATIONS = Object.freeze({
   "20260804020000_scoped_incident_snapshot_v2.sql": "26a2630c9848cade05a6284f5a48e6369a0be80dc713f1b43764693a7cac0a5a",
   "20260804023000_minimal_authenticated_surface.sql": "c0e353cee589136f13fa59b109c72afdb5699c21a60b68554963da79ed55aafa",
   "20260804030000_protect_unused_legacy_tables.sql": "691be68c0741d53c3e3381652fa2e58782815255661c4879dbbc375c4fc17e0c",
-  "20260804033000_protect_active_legacy_mirrors.sql": "0259adb16fed695b7d0150451d061b1f4d8e0d2cfa76cb8aa1704a2cbfd38b99"
+  "20260804033000_protect_active_legacy_mirrors.sql": "0259adb16fed695b7d0150451d061b1f4d8e0d2cfa76cb8aa1704a2cbfd38b99",
+  "20260804040000_fix_legacy_updated_at_search_path.sql": "1a4b2fc7994c292a927c4a1df7ae0046449e642f76b062999d736eec5e54de60"
 });
