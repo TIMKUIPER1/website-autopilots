@@ -45,3 +45,11 @@ test("managed brand twin reads durable Supabase authority instead of the fixture
   assert.match(source, /return json\(res, 200, \{ \.\.\.twin, operations \}\)/);
   assert.match(source, /return json\(res, 200, osStore\.brandTwin\(session, slug, operations\)\)/);
 });
+
+test("managed control plane cannot report in-memory demo commands as durable success", async () => {
+  const server = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
+  const browser = await fs.readFile(new URL("../public/workspace.js", import.meta.url), "utf8");
+  assert.match(server, /if \(controlPlaneRepository\) \{[\s\S]*MANAGED_COMMAND_ROUTE_REQUIRED[\s\S]*\}[\s\S]*store\.command/);
+  assert.match(server, /controlPlaneMode: controlPlaneRepository \? "managed" : "demo"/);
+  assert.match(browser, /data\.controlPlaneMode==='managed'[\s\S]*specifieke duurzame beheeractie/);
+});

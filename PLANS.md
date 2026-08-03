@@ -125,6 +125,10 @@ and restore tests pass.
   goal, lifecycle, revenue and margin projections remain empty or null. Live
   acceptance passed for all four brands, while anonymous and unknown-profile
   access failed closed.
+- Supabase mode now rejects the generic in-memory `/api/v1/demo/command` route
+  with `MANAGED_COMMAND_ROUTE_REQUIRED`, and the browser preflights the same
+  boundary. Only dedicated durable actions—monitoring probes, incident
+  acknowledgement and access governance—may report managed success.
 
 ## Website release safety checkpoint — 2026-07-26
 

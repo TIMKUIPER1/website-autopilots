@@ -99,9 +99,10 @@ const assets = new Set(["/workspace.html", "/workspace.js", "/workspace.css", "/
 const sessionCookieName = runtimeConfig.authProvider === "supabase" ? "ap_session" : "ap_demo_session";
 
 class HttpError extends Error {
-  constructor(status, message) {
+  constructor(status, message, code = undefined) {
     super(message);
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -269,13 +270,18 @@ const server = http.createServer(async (req, res) => {
       const session = await requireSession(req);
       const company = requireCompany(session, url.searchParams.get("company"));
       if (company.id !== "autopilots") return json(res, 200, emptyCompanySnapshot(session, company));
-      return json(res, 200, { ...store.snapshotFor(session), company });
+      return json(res, 200, { ...store.snapshotFor(session), company, controlPlaneMode: controlPlaneRepository ? "managed" : "demo" });
     }
 
     if (url.pathname === "/api/v1/demo/command" && req.method === "POST") {
       const session = await requireSession(req);
       requireManagedMfa(session);
       const company = requireCompany(session, url.searchParams.get("company"));
+      if (controlPlaneRepository) {
+        throw new HttpError(409,
+          "Deze demoactie is niet beschikbaar in het managed control plane; gebruik de specifieke duurzame beheerroute.",
+          "MANAGED_COMMAND_ROUTE_REQUIRED");
+      }
       if (company.id !== "autopilots") throw new HttpError(409, "Deze bedrijfsomgeving heeft nog geen actieve workflow");
       const body = await parseBody(req);
       const idempotencyKey = String(req.headers["idempotency-key"] || "");
@@ -459,6 +465,7 @@ function emptyCompanySnapshot(session, company) {
     empty: true,
     demoMode: true,
     company,
+    controlPlaneMode: controlPlaneRepository ? "managed" : "demo",
     viewer: publicUser(session),
     metrics: { customers: 0, implementations: 0, humanAttention: 0, totalCostCents: 0 },
     source: "isolated_empty_workspace"
