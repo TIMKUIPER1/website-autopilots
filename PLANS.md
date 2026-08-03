@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 24 immutable migration checksums,
+  syntax, foundation contracts, all 25 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -195,6 +195,11 @@ disposable-target restore rehearsal proves recoverability.
   keep OAuth, provider-account connection, discovery, credential storage and
   external writes false. Rollback acceptance left zero residue; the live table
   remains empty and all four brands expose onboarding v2 through service role.
+- Owners/admins can now approve or reject that internal intent with locked
+  current context. The decision preserves the request risk class, closes the
+  original pending command and approval, and creates a separate idempotent
+  zero-cost decision command plus audit evidence. All five provider-effect flags
+  remain false, and live acceptance left zero request or decision rows.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -244,9 +249,9 @@ Status: `verified` locally and externally enforced.
 3. After real owner TOTP enrollment, visually verify incidents and the new
    access roster, then execute one intentional human acknowledgement end to
    end. Do not stage a real colleague until their role and scope are approved.
-4. Visually verify the new connector staging control after owner TOTP. Do not
-   stage a real connector request until the intended provider, brand and scope
-   have been explicitly selected.
+4. Visually verify the new connector staging and decision controls after owner
+   TOTP. Do not stage a real connector request until the intended provider,
+   brand and scope have been explicitly selected.
 5. Add a separately authorized apply step for approved access. It must retain
    the no-provider boundary and may create an internal membership only after
    owner acceptance, recovery design and explicit scope review.

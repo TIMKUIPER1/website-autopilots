@@ -51,6 +51,34 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async decideConnectorRequest(profileId, brandSlug, requestId, decision, contextVersion, idempotencyKey) {
+    assertProfileId(profileId);
+    assertBrandSlug(brandSlug);
+    assertUuid(requestId, "Connectorverzoek niet gevonden");
+    if (!new Set(["approved", "rejected"]).has(decision)) throw httpError(400, "Ongeldige connectorbeslissing");
+    if (!Number.isSafeInteger(contextVersion) || contextVersion < 1) throw httpError(400, "Ongeldige connectorcontext");
+    assertIdempotencyKey(idempotencyKey);
+    const { data, error } = await this.client.rpc("autopilots_decide_connector_request", {
+      p_profile_id: profileId,
+      p_brand_slug: brandSlug,
+      p_request_id: requestId,
+      p_decision: decision,
+      p_context_version: contextVersion,
+      p_idempotency_key: idempotencyKey
+    });
+    if (error?.code === "P0001" && /stale connector request context/i.test(String(error.message || ""))) {
+      throw httpError(409, "De connectorcontext is gewijzigd; ververs eerst het actuele verzoek");
+    }
+    throwMapped(error, "De connectorbeslissing kon niet veilig worden vastgelegd");
+    if (data?.contract !== "autopilots.connector-decision.v1" || !uuid(data.requestId)
+      || !uuid(data.decisionCommandId) || data.providerAuthorizationStarted !== false
+      || data.providerAccountConnected !== false || data.discoveryStarted !== false
+      || data.credentialsStored !== false || data.externalWrites !== false) {
+      throw httpError(503, "De connectorbeslissing heeft een ongeldig bewijscontract");
+    }
+    return data;
+  }
+
   async portfolio(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

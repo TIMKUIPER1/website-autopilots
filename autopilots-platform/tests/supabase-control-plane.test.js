@@ -60,6 +60,38 @@ test("connector staging rejects unbounded input before service-role access", asy
   ), (error) => error.status === 400);
 });
 
+test("connector decision carries brand, current context and permanent no-effect evidence", async () => {
+  const calls = [];
+  const requestId = "52000000-0000-4000-8000-000000000001";
+  const decisionCommandId = "52000000-0000-4000-8000-000000000002";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.connector-decision.v1", requestId, decisionCommandId,
+      status: "approved", riskClass: "R3", contextVersion: 2, replayed: false,
+      providerAuthorizationStarted: false, providerAccountConnected: false,
+      discoveryStarted: false, credentialsStored: false, externalWrites: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const result = await repository.decideConnectorRequest(
+    "40000000-0000-4000-8000-000000000001", "autoplanner", requestId,
+    "approved", 1, "connector_decide_12345678"
+  );
+  assert.equal(result.providerAuthorizationStarted, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_decide_connector_request",
+    args: {
+      p_profile_id: "40000000-0000-4000-8000-000000000001",
+      p_brand_slug: "autoplanner",
+      p_request_id: requestId,
+      p_decision: "approved",
+      p_context_version: 1,
+      p_idempotency_key: "connector_decide_12345678"
+    }
+  });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

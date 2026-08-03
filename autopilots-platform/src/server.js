@@ -171,6 +171,32 @@ const server = http.createServer(async (req, res) => {
       return json(res, result.replayed ? 200 : 201, result);
     }
 
+    if (url.pathname.startsWith("/api/v1/onboarding/brands/")
+      && url.pathname.endsWith("/decision") && url.pathname.includes("/connector-requests/")
+      && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed onboarding is niet actief");
+      const decisionPath = url.pathname.slice(
+        "/api/v1/onboarding/brands/".length,
+        -"/decision".length
+      );
+      const decisionParts = decisionPath.split("/connector-requests/");
+      if (decisionParts.length !== 2) throw new HttpError(404, "Connectorverzoek niet gevonden");
+      const slug = decodeURIComponent(decisionParts[0]);
+      const requestId = decodeURIComponent(decisionParts[1]);
+      if (!slug || slug.includes("/") || !requestId || requestId.includes("/")) {
+        throw new HttpError(404, "Connectorverzoek niet gevonden");
+      }
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      requireCompany(session, slug);
+      const body = await parseBody(req);
+      return json(res, 200, await controlPlaneRepository.decideConnectorRequest(
+        session.id, slug, requestId, String(body.decision || ""),
+        Number(body.contextVersion), String(req.headers["idempotency-key"] || "")
+      ));
+    }
+
     if (url.pathname.startsWith("/api/v1/health/brands/") && req.method === "GET") {
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/health/brands/".length));
       if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");

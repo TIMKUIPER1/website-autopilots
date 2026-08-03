@@ -163,3 +163,10 @@ rejection, R3 pending approval, zero-cost usage and audit evidence with zero
 residue. Live acceptance found zero connector requests. OAuth, provider account
 connection, discovery, credential storage and external writes are all constrained
 to `false` in the database.
+
+Migration `20260804053000_connector_request_decisions.sql` adds only a
+service-role decision RPC and no table or browser grant. Advisor counts remain
+0 errors, 2 warnings and 31 information items. Its rollback-only acceptance
+proved current-context approval, exact replay, divergent-key and stale-context
+rejection, risk preservation, zero-cost evidence and zero residue. The live
+request table remains empty.
