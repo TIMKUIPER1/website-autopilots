@@ -14,6 +14,20 @@ The chain preserves separate registry change IDs:
 2. `AP-INT-20260803-011` — governed evidence recording;
 3. `AP-INT-20260803-012` — atomic three-proof snapshot recording.
 
+## Recommended controlled release
+
+On the authorized macOS workstation, run
+`pnpm run db:release:product-readiness`. The release helper asks Keychain for
+the existing `Supabase CLI` credential and keeps it only in process memory. Do
+not paste a token into a shell, file, chat or runbook. After the one-time macOS
+**Allow** action, the helper runs the exact apply gate, independent read-only
+posture verification and rollback-only behavioral acceptance in that order.
+It stops at the first failure and never skips forward.
+
+The lower-level commands below remain documented for diagnosis, but a normal
+release should use the single controlled command so no acceptance step is
+forgotten.
+
 ## Default preflight
 
 `pnpm run db:preflight:product-readiness` is read-only. It requires a temporary

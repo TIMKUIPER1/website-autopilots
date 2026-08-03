@@ -384,7 +384,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 352 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 355 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
@@ -411,6 +411,10 @@ Status: `verified read-only foundation`.
   profile/organization, derived/stale/wrong-source evidence, append-only
   mutation denial and third-record failure. It runs the read-only posture proof
   both before and after its transaction; zero persistent residue is mandatory.
+- A single macOS Keychain-backed release command now holds the exact operational
+  order: apply the pinned 45→48 transaction, verify the independent 48/40
+  posture, then execute and postcheck rollback-only behavior. It never prints
+  or persists the Supabase credential and stops on the first failed stage.
 - `docs/CONTROL_PLANE_COMPLETION_AUDIT.md` now maps the complete user objective
   to authoritative evidence. It keeps owner AAL2, access application, hosted
   product connectors, live 48/40 acceptance and restore rehearsal explicitly

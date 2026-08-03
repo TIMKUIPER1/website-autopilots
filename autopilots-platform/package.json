@@ -18,7 +18,8 @@
     "db:preflight:product-readiness": "node scripts/apply-product-readiness-chain.js",
     "db:apply:product-readiness": "node scripts/apply-product-readiness-chain.js --apply",
     "db:verify:product-readiness": "node scripts/verify-live-product-readiness.js",
-    "db:accept:product-readiness": "node scripts/accept-live-product-readiness.js"
+    "db:accept:product-readiness": "node scripts/accept-live-product-readiness.js",
+    "db:release:product-readiness": "node scripts/release-product-readiness.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",
