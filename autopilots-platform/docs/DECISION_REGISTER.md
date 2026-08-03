@@ -12,3 +12,9 @@
 | 2026-07-21 | Separate legal entity, operating brand and customer account IDs | A generic company filter cannot enforce financial or operational scope | Accepted |
 | 2026-07-21 | Build AutoReviews read-only before provider writes | Data quality and mappings must be proven before autonomy | Accepted |
 | 2026-07-21 | Unknown finance values remain null, never synthetic zero | Prevent false margin and revenue confidence | Accepted |
+| 2026-08-03 | Use one central Autopilots control plane with product-owned data planes | One login and one governance layer without coupling every product's operational schema | Accepted |
+| 2026-08-03 | Store credentials in a managed vault, never in control-plane rows | Limit breach impact and make rotation independently auditable | Accepted |
+| 2026-08-03 | Introduce new product connections as read-only discovery first | Prove scope, identity mapping and source quality before commands or provider writes | Accepted |
+| 2026-08-03 | Use passwordless Supabase Auth plus a server-owned HttpOnly session | One login without shared passwords or browser-persisted provider tokens | Accepted |
+| 2026-08-03 | Allow AAL1 read-only access but require AAL2 for every managed command | Owners can inspect state while privileged action remains MFA-gated | Accepted |
+| 2026-08-03 | Keep the existing Supabase Site URL and add the control-plane callback to the allowlist | Avoid breaking an existing localhost consumer while enabling the governed OS login | Accepted |

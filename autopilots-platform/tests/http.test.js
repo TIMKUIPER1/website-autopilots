@@ -42,6 +42,12 @@ test("server dwingt sessies, rollen en securityheaders af", async () => {
 
     assert.equal((await fetch(`${base}/login`)).status, 200);
     assert.equal((await fetch(`${base}/api/v1/demo`)).status, 401);
+    assert.equal((await fetch(`${base}/api/v1/session/exchange`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accessToken: "invalid" })
+    })).status, 404);
+    assert.equal((await fetch(`${base}/health`)).status, 200);
     const protectedPage = await fetch(`${base}/`, { redirect: "manual" });
     assert.equal(protectedPage.status, 302);
     assert.equal(protectedPage.headers.get("location"), "/login");
@@ -84,16 +90,16 @@ test("server dwingt sessies, rollen en securityheaders af", async () => {
     assert.equal(Array.isArray(internalData.approvals), true);
     const internalSession = await fetch(`${base}/api/v1/session`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
     assert.deepEqual(internalSession.user.companies.map((company) => company.id), [
-      "autopilots", "autoreviews", "autoplanner", "autowebsites", "autosupport"
+      "autopilots", "autoreviews", "autoplanner", "roofplanner"
     ]);
     const portfolio = await fetch(`${base}/api/v1/os/portfolio`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
     assert.equal(portfolio.scope.type, "portfolio");
-    assert.equal(portfolio.brands.length, 5);
+    assert.equal(portfolio.brands.length, 4);
     const autoreviewsTwin = await fetch(`${base}/api/v1/os/brands/autoreviews`, { headers: { Cookie: internalCookie } }).then((response) => response.json());
     assert.equal(autoreviewsTwin.brand.id, "brand_autoreviews");
     assert.equal(autoreviewsTwin.finance.revenueCents, null);
     assert.equal((await fetch(`${base}/api/v1/os/portfolio`, { headers: { Cookie: customerCookie } })).status, 403);
-    for (const companyId of ["autoreviews", "autoplanner", "autowebsites", "autosupport"]) {
+    for (const companyId of ["autoreviews", "autoplanner", "roofplanner"]) {
       const companyData = await fetch(`${base}/api/v1/demo?company=${companyId}`, {
         headers: { Cookie: internalCookie }
       }).then((response) => response.json());

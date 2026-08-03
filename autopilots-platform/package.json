@@ -1,1 +1,20 @@
-{"name":"autopilots-platform","version":"0.1.0","private":true,"type":"module","scripts":{"start":"node src/server.js","test":"node --test tests/*.test.js"},"engines":{"node":">=20"}}
+{
+  "name": "autopilots-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js",
+    "check": "node --check src/server.js && node scripts/validate-foundation.js && node --test tests/*.test.js",
+    "db:validate": "node scripts/validate-foundation.js",
+    "db:migrate": "node scripts/migrate.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.111.0",
+    "postgres": "^3.4.9"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

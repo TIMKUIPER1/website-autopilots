@@ -12,6 +12,44 @@ Dit is de **governed OS core in sandboxmodus**, niet het boekhoud- of producties
 
 Zie `../PLANS.md` en `docs/architecture/CURRENT_TARGET.md` voor de actuele grens en vervolgstappen.
 
+## Duurzame databasefundering
+
+De eerste PostgreSQL/Supabase-fundering staat in
+`supabase/migrations/20260803090000_os_foundation.sql` en is op 3 augustus 2026
+toegepast op het bestaande Supabase-project **Autopilots**
+(`wurycoodzcybaxcgqxps`). Externe writes en live productconnectoren blijven
+uitgeschakeld totdat identity, tenant-isolatie en herstel ook via de runtime
+zijn getest.
+
+De centrale laag bewaart identiteit, bedrijven, connectoren, brongezondheid,
+workflows, approvals, audit en gebruikskosten. Productdata blijft eigendom van
+AutoPlanner, AutoReviews en RoofPlanner en wordt via versievaste connectoren
+samengevat. Secrets worden alleen als `vault://`-referentie bewaard.
+
+Valideer lokaal met:
+
+```bash
+pnpm check
+```
+
+Een database-migratie is fail-closed en vereist expliciet
+`ALLOW_DATABASE_MIGRATIONS=true`, een wijzigingsnummer en een doel-URL. Zie
+`docs/runbooks/DATABASE_FOUNDATION.md`.
+
+## Centrale Supabase-login
+
+De sandbox kan met `AUTH_PROVIDER=supabase` één passwordless login gebruiken.
+De server valideert het Supabase access token, haalt profiel, IAM-rol en
+bedrijfsscope via een RLS-beveiligde databasefunctie op en zet daarna alleen
+een eigen `HttpOnly` sessiecookie. Access- en refresh-tokens worden niet in de
+browseropslag of applicatiesessie bewaard.
+
+Het eerste owner-account is `admin@auto-pilots.io`, met legal-entity-scope
+voor Autopilots, AutoReviews, AutoPlanner en RoofPlanner. MFA is verplicht voor
+acties. De callback begeleidt een nieuwe owner door TOTP-inrichting of vraagt
+bij een bestaand device om de actuele authenticatorcode. Pas nadat Supabase
+`aal2` bevestigt, wordt de Autopilots-sessie aangemaakt.
+
 ## Starten
 
 ```bash
@@ -64,7 +102,7 @@ De API gebruikt expliciete `legalEntityId`, `brandId` en `customerId` velden. On
 
 ## Veiligheidsgrens
 
-De demo kan geen echte calls, e-mails, betalingen of externe writes uitvoeren. Integraties en betalingen zijn gesimuleerd; approvals worden wel door serverbeleid en contextversies afgedwongen. Voor productie zijn minimaal managed authentication, PostgreSQL met row-level security, een secrets vault, duurzame workflows en externe auditopslag nodig.
+De productdemo kan geen echte calls, betalingen of externe providerwrites uitvoeren. In Supabase-authmodus kan uitsluitend een echte beveiligde inlogmail worden verstuurd; productintegraties en betalingen blijven gesimuleerd. Approvals worden door serverbeleid en contextversies afgedwongen. Voor productie zijn daarnaast een secrets vault, duurzame workflows, hersteltests en externe auditopslag nodig.
 
 ## Preview naar activatie
 

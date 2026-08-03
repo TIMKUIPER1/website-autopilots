@@ -4,18 +4,33 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { DemoStore } from "./demo-store.js";
+import { SupabaseAuthGateway } from "./auth/supabase.js";
 import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
+import { loadRuntimeConfig } from "./config.js";
 import { OperatingSystemStore, osCatalog } from "./os-store.js";
 import { routeAllowed } from "./policy.js";
+import { createPostgresConnection, FoundationRepository } from "./persistence/postgres.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../public");
+const runtimeConfig = loadRuntimeConfig();
+const authGateway = runtimeConfig.authProvider === "supabase" ? new SupabaseAuthGateway({
+  url: runtimeConfig.supabaseUrl,
+  publishableKey: runtimeConfig.supabasePublishableKey
+}) : null;
+const database = runtimeConfig.databaseUrl ? await createPostgresConnection({
+  databaseUrl: runtimeConfig.databaseUrl,
+  max: runtimeConfig.databasePoolMax
+}) : null;
+const foundationRepository = database ? new FoundationRepository(database) : null;
+const databaseHealth = foundationRepository ? await foundationRepository.health() : null;
 const store = new DemoStore();
 const osStore = new OperatingSystemStore();
 const sessions = new Map();
 const loginAttempts = new Map();
-const port = Number(process.env.PORT || 4310);
-const host = process.env.HOST || "127.0.0.1";
+const port = runtimeConfig.port;
+const host = runtimeConfig.host;
 const sessionTtlMs = 8 * 60 * 60 * 1000;
+const managedSessionTtlMs = 55 * 60 * 1000;
 const loginWindowMs = 15 * 60 * 1000;
 const loginLimit = 8;
 const companyCatalog = osCatalog.brands.map((brand) => ({
@@ -44,7 +59,7 @@ const demoUsers = [
     role: "internal",
     organizationId: "org_curacao_auto",
     name: "Autopilots Operator",
-    companyIds: ["autopilots", "autoreviews", "autoplanner", "autowebsites", "autosupport"]
+    companyIds: ["autopilots", "autoreviews", "autoplanner", "roofplanner"]
   }
 ];
 
@@ -57,6 +72,7 @@ const internalRoutes = new Set([
   "/control-center/implementaties/impl_001"
 ]);
 const assets = new Set(["/workspace.html", "/workspace.js", "/workspace.css", "/app.css", "/ap-logo.svg"]);
+const sessionCookieName = runtimeConfig.authProvider === "supabase" ? "ap_session" : "ap_demo_session";
 
 class HttpError extends Error {
   constructor(status, message) {
@@ -69,10 +85,24 @@ const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
     if (url.pathname === "/health" && req.method === "GET") {
-      return json(res, 200, { ok: true, service: "autopilots-platform", demoMode: true, auth: "server_session" });
+      return json(res, 200, {
+        ok: true,
+        service: "autopilots-platform",
+        mode: runtimeConfig.mode,
+        demoMode: runtimeConfig.mode === "demo",
+        auth: runtimeConfig.authProvider === "demo" ? "server_demo_session" : runtimeConfig.authProvider,
+        persistence: databaseHealth?.foundation_installed ? "postgres_foundation" : "memory_demo",
+        externalWritesEnabled: runtimeConfig.externalWritesEnabled
+      });
     }
 
-    if (url.pathname === "/api/v1/session/login" && req.method === "POST") return login(req, res);
+    if (url.pathname === "/api/v1/session/capabilities" && req.method === "GET") {
+      return json(res, 200, { provider: runtimeConfig.authProvider, magicLink: runtimeConfig.authProvider === "supabase" });
+    }
+    if (url.pathname === "/api/v1/session/login" && req.method === "POST") return await login(req, res);
+    if (url.pathname === "/api/v1/session/exchange" && req.method === "POST") return await exchangeManagedSession(req, res);
+    if (url.pathname === "/api/v1/session/mfa/prepare" && req.method === "POST") return await prepareManagedMfa(req, res);
+    if (url.pathname === "/api/v1/session/mfa/verify" && req.method === "POST") return await verifyManagedMfa(req, res);
     if (url.pathname === "/api/v1/session/logout" && req.method === "POST") return logout(req, res);
     if (url.pathname === "/api/v1/session" && req.method === "GET") {
       const session = requireSession(req);
@@ -99,6 +129,7 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/v1/demo/command" && req.method === "POST") {
       const session = requireSession(req);
+      requireManagedMfa(session);
       const company = requireCompany(session, url.searchParams.get("company"));
       if (company.id !== "autopilots") throw new HttpError(409, "Deze bedrijfsomgeving heeft nog geen actieve workflow");
       const body = await parseBody(req);
@@ -107,11 +138,11 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname.startsWith("/api/")) throw new HttpError(405, "Methode of API-route niet toegestaan");
-    if (assets.has(url.pathname)) return serveFile(res, path.resolve(root, url.pathname.slice(1)));
+    if (assets.has(url.pathname)) return await serveFile(res, path.resolve(root, url.pathname.slice(1)));
 
-    const isApp = url.pathname === "/login" || customerRoutes.has(url.pathname) || internalRoutes.has(url.pathname);
+    const isApp = url.pathname === "/login" || url.pathname === "/auth/callback" || customerRoutes.has(url.pathname) || internalRoutes.has(url.pathname);
     if (!isApp) throw new HttpError(404, "Pagina niet gevonden");
-    if (url.pathname !== "/login") {
+    if (url.pathname !== "/login" && url.pathname !== "/auth/callback") {
       const session = sessionFromRequest(req);
       if (!session) return redirect(res, "/login");
       if (session.role === "internal" && customerRoutes.has(url.pathname)) {
@@ -119,10 +150,14 @@ const server = http.createServer(async (req, res) => {
       }
       if (!routeAllowed(session.role, url.pathname)) throw new HttpError(403, "Geen toegang tot deze omgeving");
     }
-    return serveFile(res, path.resolve(root, "workspace.html"));
+    return await serveFile(res, path.resolve(root, "workspace.html"));
   } catch (error) {
     const status = error instanceof HttpError ? error.status : Number(error?.status) || (error?.code === "ENOENT" ? 404 : 400);
-    return json(res, status, { error: status === 404 ? "Pagina niet gevonden" : error.message, demoMode: true });
+    return json(res, status, {
+      error: status === 404 ? "Pagina niet gevonden" : error.message,
+      code: error?.code || undefined,
+      demoMode: runtimeConfig.mode === "demo"
+    });
   }
 });
 
@@ -133,6 +168,17 @@ async function login(req, res) {
   if (recent.length >= loginLimit) throw new HttpError(429, "Te veel inlogpogingen. Probeer later opnieuw.");
 
   const body = await parseBody(req);
+  if (runtimeConfig.authProvider === "supabase") {
+    const email = String(body.email || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+      recent.push(Date.now());
+      loginAttempts.set(key, recent);
+      throw new HttpError(400, "Vul een geldig e-mailadres in.");
+    }
+    await authGateway.sendMagicLink(email, runtimeConfig.authRedirectUrl);
+    loginAttempts.delete(key);
+    return json(res, 202, { pending: true, message: "Als dit account toegang heeft, ontvangt het een beveiligde inloglink." });
+  }
   const user = demoUsers.find((candidate) =>
     candidate.role === body.role &&
     safeEqual(candidate.email.toLowerCase(), String(body.email || "").trim().toLowerCase()) &&
@@ -145,25 +191,71 @@ async function login(req, res) {
   }
 
   loginAttempts.delete(key);
+  return establishSession(res, user, sessionTtlMs);
+}
+
+async function exchangeManagedSession(req, res) {
+  if (!authGateway) throw new HttpError(404, "Managed identity is niet actief.");
+  const body = await parseBody(req);
+  const user = await authGateway.verifyAndLoadContext(String(body.accessToken || ""));
+  if (user.mfaRequired && user.assuranceLevel !== "aal2") {
+    return json(res, 409, { mfaRequired: true, code: "MFA_REQUIRED", message: "Rond tweestapsverificatie af om verder te gaan." });
+  }
+  return establishSession(res, user, managedSessionTtlMs);
+}
+
+async function prepareManagedMfa(req, res) {
+  if (!authGateway) throw new HttpError(404, "Managed identity is niet actief.");
+  const body = await parseBody(req);
+  const result = await authGateway.prepareMfa(String(body.accessToken || ""), String(body.refreshToken || ""));
+  if (result.mode === "complete") return establishSession(res, result.context, managedSessionTtlMs);
+  return json(res, 200, result);
+}
+
+async function verifyManagedMfa(req, res) {
+  if (!authGateway) throw new HttpError(404, "Managed identity is niet actief.");
+  const key = `mfa:${requestIp(req)}`;
+  const attempts = (loginAttempts.get(key) || []).filter((timestamp) => Date.now() - timestamp < loginWindowMs);
+  if (attempts.length >= loginLimit) throw new HttpError(429, "Te veel MFA-pogingen. Vraag later een nieuwe inloglink aan.");
+  const body = await parseBody(req);
+  try {
+    const user = await authGateway.verifyMfa(
+      String(body.accessToken || ""),
+      String(body.refreshToken || ""),
+      String(body.factorId || ""),
+      String(body.code || "")
+    );
+    loginAttempts.delete(key);
+    return establishSession(res, user, managedSessionTtlMs);
+  } catch (error) {
+    attempts.push(Date.now());
+    loginAttempts.set(key, attempts);
+    throw error;
+  }
+}
+
+function establishSession(res, user, ttlMs) {
   const token = crypto.randomBytes(32).toString("hex");
-  sessions.set(token, { ...publicUser(user), expiresAt: Date.now() + sessionTtlMs });
+  const digest = sessionDigest(token);
+  sessions.set(digest, { ...publicUser(user), expiresAt: Date.now() + ttlMs });
   return json(res, 200, { user: publicUser(user) }, {
-    "Set-Cookie": `ap_demo_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.floor(sessionTtlMs / 1000)}`
+    "Set-Cookie": `${sessionCookieName}=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.floor(ttlMs / 1000)}${runtimeConfig.isProduction ? "; Secure" : ""}`
   });
 }
 
 function logout(req, res) {
-  const token = cookieValue(req, "ap_demo_session");
-  if (token) sessions.delete(token);
-  return json(res, 200, { ok: true }, { "Set-Cookie": "ap_demo_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0" });
+  const token = cookieValue(req, sessionCookieName);
+  if (token) sessions.delete(sessionDigest(token));
+  return json(res, 200, { ok: true }, { "Set-Cookie": `${sessionCookieName}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0${runtimeConfig.isProduction ? "; Secure" : ""}` });
 }
 
 function sessionFromRequest(req) {
-  const token = cookieValue(req, "ap_demo_session");
-  const session = token ? sessions.get(token) : null;
+  const token = cookieValue(req, sessionCookieName);
+  const digest = token ? sessionDigest(token) : "";
+  const session = digest ? sessions.get(digest) : null;
   if (!session) return null;
   if (session.expiresAt <= Date.now()) {
-    sessions.delete(token);
+    sessions.delete(digest);
     return null;
   }
   return session;
@@ -184,8 +276,19 @@ function publicUser(user) {
     organizationId: user.organizationId,
     name: user.name,
     companyIds,
-    companies: companyCatalog.filter((company) => companyIds.includes(company.id))
+    companies: companyCatalog.filter((company) => companyIds.includes(company.id)),
+    iamRole: user.iamRole || null,
+    assuranceLevel: user.assuranceLevel || (runtimeConfig.authProvider === "demo" ? "demo" : "aal1"),
+    mfaRequired: user.mfaRequired === true,
+    mfaSatisfied: user.mfaRequired !== true || user.assuranceLevel === "aal2",
+    authProvider: user.authProvider || runtimeConfig.authProvider
   };
+}
+
+function requireManagedMfa(session) {
+  if (session.authProvider === "supabase" && session.mfaRequired && session.assuranceLevel !== "aal2") {
+    throw new HttpError(428, "Activeer en bevestig eerst tweestapsverificatie voor acties.");
+  }
 }
 
 function requireCompany(session, requestedId) {
@@ -210,6 +313,10 @@ function safeEqual(left, right) {
   const leftBuffer = Buffer.from(String(left));
   const rightBuffer = Buffer.from(String(right));
   return leftBuffer.length === rightBuffer.length && crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function sessionDigest(token) {
+  return crypto.createHmac("sha256", runtimeConfig.sessionSecret || "isolated-demo-session").update(token).digest("hex");
 }
 
 function cookieValue(req, name) {

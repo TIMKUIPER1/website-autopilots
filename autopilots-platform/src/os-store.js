@@ -18,8 +18,7 @@ const brands = [
   ["brand_autopilots", "autopilots", "Autopilots", "AP", "active"],
   ["brand_autoreviews", "autoreviews", "AutoReviews", "AR", "foundation"],
   ["brand_autoplanner", "autoplanner", "AutoPlanner", "PL", "foundation"],
-  ["brand_autowebsites", "autowebsites", "AutoWebsites", "AW", "foundation"],
-  ["brand_autosupport", "autosupport", "AutoSupport", "AS", "foundation"]
+  ["brand_roofplanner", "roofplanner", "RoofPlanner", "RP", "foundation"]
 ].map(([id, slug, name, code, status]) => ({
   id,
   legalEntityId: "le_autopilots_ai_agency_llc",
