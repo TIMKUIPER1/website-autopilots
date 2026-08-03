@@ -54,8 +54,11 @@ test("requires small cells to be suppressed without retaining their value", () =
   unsafe.aggregates.organizations_count = { value: 4, sampleSize: 4, suppressed: false };
   assert.equal(validateProductSnapshot(unsafe, { expectedProduct: "autoplanner", now }).errorCode, "INVALID_AGGREGATE_CELL");
 
-  unsafe.aggregates.organizations_count = { value: null, sampleSize: 4, suppressed: true };
+  unsafe.aggregates.organizations_count = { value: null, sampleSize: null, suppressed: true };
   assert.equal(validateProductSnapshot(unsafe, { expectedProduct: "autoplanner", now }).ok, true);
+
+  unsafe.aggregates.organizations_count = { value: null, sampleSize: 4, suppressed: true };
+  assert.equal(validateProductSnapshot(unsafe, { expectedProduct: "autoplanner", now }).errorCode, "INVALID_AGGREGATE_CELL");
 });
 
 test("rejects stale, future and unparseable observations", () => {

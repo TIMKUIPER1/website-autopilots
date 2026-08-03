@@ -97,12 +97,10 @@ function validAggregate(value) {
 
 function validCell(value) {
   if (!isRecord(value) || !exactKeys(value, CELL_KEYS)) return false;
-  if (!Number.isInteger(value.sampleSize) || value.sampleSize < 0 || value.sampleSize > 1000000000) return false;
   if (typeof value.suppressed !== "boolean") return false;
-  if (value.sampleSize > 0 && value.sampleSize < MINIMUM_GROUP_SIZE) {
-    return value.suppressed === true && value.value === null;
-  }
-  if (value.suppressed) return value.value === null;
+  if (value.suppressed) return value.value === null && value.sampleSize === null;
+  if (!Number.isInteger(value.sampleSize) || value.sampleSize < 0 || value.sampleSize > 1000000000) return false;
+  if (value.sampleSize > 0 && value.sampleSize < MINIMUM_GROUP_SIZE) return false;
   if (typeof value.value !== "number" || !Number.isFinite(value.value) || value.value < 0) return false;
   return value.sampleSize !== 0 || value.value === 0;
 }

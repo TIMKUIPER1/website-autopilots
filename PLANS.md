@@ -327,8 +327,10 @@ Status: `verified read-only foundation`.
   connection is active.
 - A transport-independent validator now enforces the exact per-product
   allowlists, complete envelopes, 15-minute freshness, five-record small-cell
-  suppression, bounded segment names and finite non-negative metrics before a
-  future connector payload can be accepted. It is not wired to a live endpoint.
+  suppression of both value and exact group size, bounded segment names and
+  finite non-negative metrics before a future connector payload can be
+  accepted. AutoPlanner now has a local producer route, but no live transport,
+  credential or central ingestion is active.
 - Migration inventory is 45 immutable files and the governed RPC surface is 37.
   The full gate passes 305 tests.
 

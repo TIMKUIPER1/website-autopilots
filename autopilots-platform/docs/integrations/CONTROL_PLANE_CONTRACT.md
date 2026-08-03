@@ -17,7 +17,7 @@ The initial contract name is `autopilots.product-snapshot.v1`.
     "organizations_count": { "value": 12, "sampleSize": 12, "suppressed": false },
     "leads_by_status": {
       "active": { "value": 28, "sampleSize": 28, "suppressed": false },
-      "lost": { "value": null, "sampleSize": 3, "suppressed": true }
+      "lost": { "value": null, "sampleSize": null, "suppressed": true }
     },
     "appointments_by_status": { "planned": { "value": 9, "sampleSize": 9, "suppressed": false } },
     "conversations_by_state": { "open": { "value": 7, "sampleSize": 7, "suppressed": false } },
@@ -42,7 +42,8 @@ The initial contract name is `autopilots.product-snapshot.v1`.
 Every allowlisted aggregate must be present. Each aggregate is either one
 numeric cell or a bounded map of safe segment names to numeric cells. Unknown
 or suppressed values are `null`, never invented zeroes. A non-zero group below
-five must be `suppressed=true` with `value=null`. `sourceQuality` is either
+five must be `suppressed=true` with both `value=null` and `sampleSize=null`, so
+even its exact size is not disclosed. `sourceQuality` is either
 `product_aggregate` or `provider_verified_aggregate`; the second value requires
 separate provider evidence. The snapshot contains only portfolio-level
 aggregates; raw customer PII, secrets and product-specific records are rejected.
