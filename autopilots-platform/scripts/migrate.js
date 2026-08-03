@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createPostgresConnection } from "../src/persistence/postgres.js";
+import { assertAutopilotsMigrationTarget } from "./migration-target.js";
 
 const allow = process.env.ALLOW_DATABASE_MIGRATIONS === "true";
 const databaseUrl = String(process.env.DATABASE_URL || "").trim();
@@ -9,6 +10,11 @@ const changeId = String(process.env.MIGRATION_CHANGE_ID || "").trim();
 if (!allow) fail("Databasewijzigingen zijn geblokkeerd. Zet ALLOW_DATABASE_MIGRATIONS=true na review en back-up.");
 if (!databaseUrl) fail("DATABASE_URL ontbreekt.");
 if (!changeId || !/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-[0-9]+$/.test(changeId)) fail("Een traceerbare MIGRATION_CHANGE_ID zoals OS-101 is verplicht.");
+try {
+  assertAutopilotsMigrationTarget(databaseUrl);
+} catch (error) {
+  fail(error.message);
+}
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const directory = path.join(root, "supabase", "migrations");

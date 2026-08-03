@@ -104,6 +104,10 @@ and restore tests pass.
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
+- The migration runner now resolves the Supabase project reference from either
+  a direct database host or pooler username and accepts only the existing
+  Autopilots project `wurycoodzcybaxcgqxps`. Wrong, ambiguous and non-Postgres
+  targets fail before opening a connection and errors never echo credentials.
 
 ## Website release safety checkpoint — 2026-07-26
 

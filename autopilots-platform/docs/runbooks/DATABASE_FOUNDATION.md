@@ -1,7 +1,9 @@
 # Database foundation runbook
 
-The migration is not a live deployment instruction. It must first run against
-a disposable Supabase sandbox owned by Autopilots.
+The migration is not a live deployment instruction. Under the current
+authorization it can target only the existing Autopilots Supabase project
+`wurycoodzcybaxcgqxps`; all other direct and pooler URLs fail before a network
+connection is created.
 
 ## Before applying
 
@@ -20,8 +22,11 @@ DATABASE_URL='postgresql://…' \
 pnpm db:migrate
 ```
 
-The runner records a checksum and refuses duplicate or changed migrations.
-Do not put the database URL in source control, screenshots or tickets.
+The runner derives the project reference from the direct database hostname or
+the Supabase pooler username. It records a checksum and refuses duplicate or
+changed migrations. Do not put the database URL in source control, screenshots
+or tickets. Never weaken or bypass the project-reference check for a one-off
+run; a different project requires a separately reviewed authorization change.
 
 ## Acceptance gate
 
