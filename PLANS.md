@@ -376,12 +376,20 @@ Status: `verified read-only foundation`.
   human approval. Every accepted record is an idempotent R1 command with audit
   and zero-cost usage evidence; activation, provider authorization and external
   writes remain false.
-- Local migration inventory is 47 immutable files and the governed RPC surface
-  is 39. The full gate passes 332 tests. Live inventory remains 45 migrations
+- A managed MFA-gated verification route now converts one server-fetched,
+  revalidated product snapshot into exactly three domain-separated hashes for
+  contract, privacy and freshness. The browser supplies no evidence payload.
+  One atomic database wrapper records all three or rolls back all three; its
+  response cannot claim connection, provider authorization or writes. No UI
+  control is exposed and current unconfigured products still fail before any
+  evidence write.
+- Local migration inventory is 48 immutable files and the governed RPC surface
+  is 40. The full gate passes 339 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
-  `20260804153000_product_connection_evidence_recording.sql` are applied and
-  accepted separately.
+  `20260804153000_product_connection_evidence_recording.sql` and
+  `20260804160000_atomic_product_snapshot_evidence.sql` are applied and accepted
+  separately.
 
 ## Website release safety checkpoint — 2026-07-26
 

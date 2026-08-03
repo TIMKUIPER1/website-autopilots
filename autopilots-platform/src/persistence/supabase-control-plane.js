@@ -178,6 +178,39 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async recordProductSnapshotEvidence(profileId, legalEntityId, candidate, idempotencyKey) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    assertIdempotencyKey(idempotencyKey);
+    assertProductSnapshotEvidenceCandidate(candidate);
+    const byGate = Object.fromEntries(candidate.evidence.map((item) => [item.gateKey, item]));
+    const { data, error } = await this.client.rpc("autopilots_record_product_snapshot_evidence", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId,
+      p_brand_slug: candidate.product,
+      p_contract_sha256: byGate.contract_probe.evidenceSha256,
+      p_privacy_sha256: byGate.privacy_probe.evidenceSha256,
+      p_freshness_sha256: byGate.freshness_probe.evidenceSha256,
+      p_observed_at: byGate.contract_probe.observedAt,
+      p_idempotency_key: idempotencyKey
+    });
+    throwMapped(error, "Het productsnapshotbewijs kon niet veilig worden vastgelegd");
+    if (data?.contract !== "autopilots.product-snapshot-evidence-recorded.v1"
+      || data.brand !== candidate.product || data.riskClass !== "R1" || data.atomic !== true
+      || !Array.isArray(data.records) || data.records.length !== 3
+      || typeof data.replayed !== "boolean"
+      || data.dataConnectionEnabled !== false || data.providerAuthorizationEnabled !== false
+      || data.externalWritesEnabled !== false
+      || data.records.some((record, index) => record?.contract !== "autopilots.product-connection-evidence-recorded.v1"
+        || !uuid(record.evidenceId) || record.brand !== candidate.product
+        || record.gateKey !== PRODUCT_SNAPSHOT_EVIDENCE_GATES[index] || record.result !== "passed"
+        || record.riskClass !== "R1" || record.dataConnectionEnabled !== false
+        || record.providerAuthorizationEnabled !== false || record.externalWritesEnabled !== false)) {
+      throw httpError(503, "Het productsnapshotbewijs heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async errorRunbooks(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");
@@ -674,6 +707,27 @@ const PRODUCT_CONNECTION_GATE_KEYS = Object.freeze([
   "revocation_test", "rate_limit_test", "failure_mode_test",
   "independent_review", "current_human_approval"
 ]);
+
+const PRODUCT_SNAPSHOT_EVIDENCE_GATES = Object.freeze([
+  "contract_probe", "privacy_probe", "freshness_probe"
+]);
+
+function assertProductSnapshotEvidenceCandidate(value) {
+  if (value?.contract !== "autopilots.product-snapshot-evidence-candidate.v1"
+    || !/^(autoreviews|autoplanner|roofplanner)$/.test(String(value.product || ""))
+    || !Array.isArray(value.evidence) || value.evidence.length !== PRODUCT_SNAPSHOT_EVIDENCE_GATES.length
+    || value.containsRawPayload !== false || value.dataConnectionEnabled !== false
+    || value.providerAuthorizationEnabled !== false || value.externalWritesEnabled !== false
+    || value.evidence.some((item, index) => item?.gateKey !== PRODUCT_SNAPSHOT_EVIDENCE_GATES[index]
+      || item.result !== "passed" || !/^[0-9a-f]{64}$/.test(String(item.evidenceSha256 || ""))
+      || item.sourceCategory !== "contract_validator"
+      || !Number.isFinite(Date.parse(item.observedAt)))) {
+    throw httpError(400, "Alleen opnieuw gevalideerd productsnapshotbewijs kan worden vastgelegd");
+  }
+  if (new Set(value.evidence.map((item) => item.observedAt)).size !== 1) {
+    throw httpError(400, "Productsnapshotbewijs moet één waarneming vertegenwoordigen");
+  }
+}
 
 function validProductConnectionReadiness(value) {
   if (!value?.brand || typeof value.brand.slug !== "string" || typeof value.brand.name !== "string"

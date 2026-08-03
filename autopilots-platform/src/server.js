@@ -9,7 +9,8 @@ import { SupabaseSessionStore } from "./auth/session-store.js";
 import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
 import { connectorPosture } from "./adapters/connector-posture.js";
 import { fetchPortfolioHealth, fetchProductHealth } from "./adapters/product-health.js";
-import { fetchProductSnapshotPortfolio } from "./adapters/product-snapshot-portfolio.js";
+import { fetchConfiguredProductSnapshot, fetchProductSnapshotPortfolio } from "./adapters/product-snapshot-portfolio.js";
+import { deriveProductSnapshotEvidence, snapshotEvidenceIdempotencyKey } from "./adapters/product-snapshot-evidence.js";
 import { loadRuntimeConfig } from "./config.js";
 import { MonitoringScheduler } from "./monitoring/scheduler.js";
 import { OperatingSystemStore, osCatalog } from "./os-store.js";
@@ -200,6 +201,47 @@ const server = http.createServer(async (req, res) => {
       const session = await requireSession(req);
       requireInternal(session);
       return json(res, 200, await fetchProductSnapshotPortfolio(session.companyIds));
+    }
+
+    if (url.pathname.startsWith("/api/v1/data-planes/snapshots/brands/")
+      && url.pathname.endsWith("/verify") && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed productbewijs is niet actief");
+      const slug = decodeURIComponent(url.pathname.slice(
+        "/api/v1/data-planes/snapshots/brands/".length,
+        -"/verify".length
+      ));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      requireCompany(session, slug);
+      const body = await parseBody(req);
+      if (!body || typeof body !== "object" || Array.isArray(body) || Object.keys(body).length) {
+        throw new HttpError(400, "Productsnapshotverificatie accepteert geen browserpayload");
+      }
+      const idempotencyKey = snapshotEvidenceIdempotencyKey(String(req.headers["idempotency-key"] || ""));
+      const result = await fetchConfiguredProductSnapshot(slug);
+      if (result.status !== "connected") {
+        throw new HttpError(424, "Het product leverde geen geldig actueel snapshotbewijs", result.errorCode);
+      }
+      const candidate = deriveProductSnapshotEvidence(slug, result.snapshot);
+      const evidence = await controlPlaneRepository.recordProductSnapshotEvidence(
+        session.id, session.organizationId, candidate, idempotencyKey
+      );
+      return json(res, evidence.replayed ? 200 : 201, {
+        contract: "autopilots.product-snapshot-verification.v1",
+        snapshot: {
+          product: slug,
+          status: "validated",
+          observedAt: result.snapshot.observedAt,
+          sourceQuality: result.snapshot.sourceQuality,
+          externalWrites: false
+        },
+        evidence,
+        dataConnectionEnabled: false,
+        providerAuthorizationEnabled: false,
+        externalWritesEnabled: false
+      });
     }
 
     if (url.pathname === "/api/v1/monitoring/history" && req.method === "GET") {

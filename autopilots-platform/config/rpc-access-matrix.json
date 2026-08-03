@@ -37,5 +37,6 @@
   "autopilots_agent_registry": "service_role",
   "autopilots_data_plane_registry": "service_role",
   "autopilots_product_connection_readiness": "service_role",
-  "autopilots_record_product_connection_evidence": "service_role"
+  "autopilots_record_product_connection_evidence": "service_role",
+  "autopilots_record_product_snapshot_evidence": "service_role"
 }

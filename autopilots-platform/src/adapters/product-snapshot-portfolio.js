@@ -36,15 +36,8 @@ export async function fetchProductSnapshotPortfolio(slugs, {
   const allowed = new Set(Array.isArray(slugs) ? slugs.map(String) : []);
   const selected = PRODUCTS.filter((product) => allowed.has(product));
   const products = await Promise.all(selected.map(async (product) => {
-    const definition = DEFINITIONS[product];
-    const result = await fetchProductSnapshot(product, {
-      baseUrl: clean(env[definition.snapshotBaseKey]) || clean(env[definition.baseKey]) || definition.defaultBase,
-      allowedOrigin: clean(env[definition.originKey]),
-      secret: clean(env[definition.secretKey]),
-      fetchImpl,
-      now,
-      timeoutMs,
-      maximumAgeSeconds
+    const result = await fetchConfiguredProductSnapshot(product, {
+      env, fetchImpl, now, timeoutMs, maximumAgeSeconds
     });
     if (result.status !== "connected") {
       return {
@@ -82,6 +75,26 @@ export async function fetchProductSnapshotPortfolio(slugs, {
     externalWritesEnabled: false,
     generatedAt: new Date(now).toISOString()
   };
+}
+
+export async function fetchConfiguredProductSnapshot(product, {
+  env = process.env,
+  fetchImpl = fetch,
+  now = Date.now(),
+  timeoutMs = 1800,
+  maximumAgeSeconds = 900
+} = {}) {
+  const definition = DEFINITIONS[product];
+  if (!definition) return { status: "unavailable", errorCode: "PRODUCT_NOT_SUPPORTED", snapshot: null, externalWrites: false };
+  return fetchProductSnapshot(product, {
+    baseUrl: clean(env[definition.snapshotBaseKey]) || clean(env[definition.baseKey]) || definition.defaultBase,
+    allowedOrigin: clean(env[definition.originKey]),
+    secret: clean(env[definition.secretKey]),
+    fetchImpl,
+    now,
+    timeoutMs,
+    maximumAgeSeconds
+  });
 }
 
 function clean(value) {

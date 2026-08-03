@@ -132,3 +132,12 @@ and zero-cost usage records and is idempotent per product environment. It cannot
 record `project_identity` or `current_human_approval`, and it never enables a
 connection, provider authorization or external writes. This migration remains
 local until the readiness schema is applied first and separately accepted.
+
+One validated product snapshot can prove only three gates: contract shape,
+privacy boundary and freshness. The server canonicalizes the validated snapshot
+with sorted keys and creates a domain-separated SHA-256 for each gate. A managed
+MFA route accepts an empty browser body, fetches the exact scoped product itself
+and submits all three hashes to an atomic RPC. Any fetch, validation, scope,
+replay or persistence error rolls back the batch. Aggregates and privacy fields
+are never sent to the evidence RPC, and no user-facing verification button is
+enabled while endpoints and secrets are unconfigured.

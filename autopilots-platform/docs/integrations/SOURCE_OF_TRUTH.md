@@ -77,3 +77,11 @@ event and zero-cost usage entry, and derives expiry from the gate policy. Raw
 payloads, endpoints, credentials and tokens are not accepted. Project identity
 and current human approval remain separate authorities. This dependent
 migration is also not live.
+
+The local managed server can derive `contract_probe`, `privacy_probe` and
+`freshness_probe` evidence from a product snapshot only after the shared exact
+validator succeeds again. An internal MFA session selects only the scoped
+product; the browser cannot submit hashes or evidence content. Domain-separated
+SHA-256 values are recorded through one atomic database call, so partial
+three-gate evidence cannot result. This route has no UI action, remains disabled
+without product endpoint secrets and does not change live authority.
