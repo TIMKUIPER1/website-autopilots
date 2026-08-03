@@ -53,7 +53,15 @@ keeps data connection, provider authorization and external writes false.
 
 ## Post-apply acceptance
 
-Follow the acceptance sections in `AP-INT-20260803-010`, `011` and `012`, then:
+First run `pnpm run db:verify:product-readiness` with the same transient access
+token. This verifier is pinned to the Autopilots project and executes one
+SELECT-only query. It accepts only the exact 48 migrations, 40 governed RPCs,
+three change IDs and checksums, expected grants, append-only trigger, twelve
+policies, three snapshot contracts and zero evidence/command/audit/usage
+residue. It prints only a bounded no-effect summary and never prints the token,
+query or response body.
+
+Then follow the acceptance sections in `AP-INT-20260803-010`, `011` and `012`:
 
 1. verify 48 live migrations and 40 governed RPCs;
 2. verify zero real evidence rows and zero active product data connections;

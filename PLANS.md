@@ -384,7 +384,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 344 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 348 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
@@ -398,6 +398,13 @@ Status: `verified read-only foundation`.
   executes all three migrations with their own change IDs in one transaction.
   Errors never print the token, SQL or response body. A no-token apply attempt
   was verified to stop before network/database access.
+- A separate project-pinned live acceptance verifier now proves the exact
+  48-migration/40-RPC result using one SELECT-only query. It additionally
+  requires the three reviewed change IDs and checksums, deny-by-default grants,
+  the append-only trigger, all no-effect contract flags and zero evidence,
+  command, usage and audit residue. Without a transient access token it stops
+  before network access; passing migration execution alone is never treated as
+  live acceptance.
 
 ## Website release safety checkpoint — 2026-07-26
 

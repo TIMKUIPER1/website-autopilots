@@ -16,7 +16,8 @@
     "backup:verify": "node scripts/verify-supabase-backups.js",
     "db:migrate": "node scripts/migrate.js",
     "db:preflight:product-readiness": "node scripts/apply-product-readiness-chain.js",
-    "db:apply:product-readiness": "node scripts/apply-product-readiness-chain.js --apply"
+    "db:apply:product-readiness": "node scripts/apply-product-readiness-chain.js --apply",
+    "db:verify:product-readiness": "node scripts/verify-live-product-readiness.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",

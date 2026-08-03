@@ -78,6 +78,13 @@ payloads, endpoints, credentials and tokens are not accepted. Project identity
 and current human approval remain separate authorities. This dependent
 migration is also not live.
 
+The pending three-migration chain now also has an independent, project-pinned
+live acceptance verifier. It performs one SELECT-only Management API query and
+fails closed unless the exact migration/RPC inventory, reviewed change IDs,
+checksums, role denials, append-only trigger, no-effect contract flags and zero
+operational residue all match. It cannot apply migrations or record evidence
+and does not change the current live status.
+
 The local managed server can derive `contract_probe`, `privacy_probe` and
 `freshness_probe` evidence from a product snapshot only after the shared exact
 validator succeeds again. An internal MFA session selects only the scoped
