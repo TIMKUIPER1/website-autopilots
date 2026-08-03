@@ -25,3 +25,15 @@ test("brand launch routes require internal authority and MFA for staging", () =>
   assert.match(server, /url\.pathname === "\/api\/v1\/brand-launch\/requests" && req\.method === "POST"[\s\S]*requireInternal\(session\)[\s\S]*requireManagedMfa\(session\)/);
   assert.match(server, /stageBrandLaunchRequest\([\s\S]*session\.id, session\.organizationId/);
 });
+
+test("owner UI decides brand launch intent without creating resources", () => {
+  assert.match(browser, /data-action="brand-launch-decision"/);
+  assert.match(browser, /brand-launch\/requests\/\$\{encodeURIComponent\(request\.id\)\}\/decision/);
+  assert.match(browser, /brand_launch_decision_\$\{crypto\.randomUUID\(\)\}/);
+  assert.match(browser, /Er wordt geen brand, sandbox, onboardingrun, provideraccount of credential aangemaakt/);
+});
+
+test("brand launch decision route requires internal MFA and organization scope", () => {
+  assert.match(server, /url\.pathname\.startsWith\("\/api\/v1\/brand-launch\/requests\/"\)[\s\S]*requireInternal\(session\)[\s\S]*requireManagedMfa\(session\)/);
+  assert.match(server, /decideBrandLaunchRequest\([\s\S]*session\.id, session\.organizationId, requestId/);
+});

@@ -126,6 +126,33 @@ test("brand launch registry and staging remain organization scoped and no-effect
   } });
 });
 
+test("brand launch decision carries organization current context and permanent no-effect evidence", async () => {
+  const calls = [];
+  const requestId = "54000000-0000-4000-8000-000000000001";
+  const decisionCommandId = "54000000-0000-4000-8000-000000000002";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.brand-launch-decision.v1", requestId, decisionCommandId,
+      status: "approved", riskClass: "R2", contextVersion: 2, replayed: false,
+      brandCreated: false, sandboxEnvironmentCreated: false, onboardingRunCreated: false,
+      providerAuthorizationStarted: false, credentialsStored: false, externalWrites: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.decideBrandLaunchRequest(
+    profileId, legalEntityId, requestId, "approved", 1, "brand_launch_decision_12345678"
+  );
+  assert.equal(result.brandCreated, false);
+  assert.deepEqual(calls[0], { name: "autopilots_decide_brand_launch_request", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId, p_request_id: requestId,
+    p_decision: "approved", p_context_version: 1,
+    p_idempotency_key: "brand_launch_decision_12345678"
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

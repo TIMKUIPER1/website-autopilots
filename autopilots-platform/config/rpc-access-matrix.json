@@ -24,6 +24,7 @@
   "autopilots_decide_connector_request": "service_role",
   "autopilots_brand_launch_requests": "service_role",
   "autopilots_stage_brand_launch_request": "service_role",
+  "autopilots_decide_brand_launch_request": "service_role",
   "autopilots_portfolio_snapshot": "service_role",
   "autopilots_brand_twin": "service_role"
 }

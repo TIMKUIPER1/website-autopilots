@@ -180,3 +180,7 @@ Migration `20260804063000_brand_launch_request_staging.sql` adds one
 RLS-protected, policy-free, service-role-only internal intent table. Advisor
 therefore remains at 0 errors and 2 warnings while information items increase
 from 31 to 32. No browser grant or provider surface was added.
+
+Migration `20260804070000_brand_launch_request_decisions.sql` adds only one
+service-role-only decision function. It adds no table, policy or browser grant,
+so Advisor counts remain 0 errors, 2 warnings and 32 information items.
