@@ -5,17 +5,29 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { DemoStore } from "./demo-store.js";
 import { SupabaseAuthGateway } from "./auth/supabase.js";
+import { SupabaseSessionStore } from "./auth/session-store.js";
 import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
+import { fetchPortfolioHealth, fetchProductHealth } from "./adapters/product-health.js";
 import { loadRuntimeConfig } from "./config.js";
 import { OperatingSystemStore, osCatalog } from "./os-store.js";
 import { routeAllowed } from "./policy.js";
 import { createPostgresConnection, FoundationRepository } from "./persistence/postgres.js";
+import { SupabaseControlPlaneRepository } from "./persistence/supabase-control-plane.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../public");
 const runtimeConfig = loadRuntimeConfig();
 const authGateway = runtimeConfig.authProvider === "supabase" ? new SupabaseAuthGateway({
   url: runtimeConfig.supabaseUrl,
   publishableKey: runtimeConfig.supabasePublishableKey
+}) : null;
+const managedSessionStore = runtimeConfig.authProvider === "supabase" ? new SupabaseSessionStore({
+  url: runtimeConfig.supabaseUrl,
+  serviceRoleKey: runtimeConfig.supabaseServiceRoleKey
+}) : null;
+const managedSessionHealth = managedSessionStore ? await managedSessionStore.health() : null;
+const controlPlaneRepository = runtimeConfig.authProvider === "supabase" ? new SupabaseControlPlaneRepository({
+  url: runtimeConfig.supabaseUrl,
+  serviceRoleKey: runtimeConfig.supabaseServiceRoleKey
 }) : null;
 const database = runtimeConfig.databaseUrl ? await createPostgresConnection({
   databaseUrl: runtimeConfig.databaseUrl,
@@ -91,7 +103,9 @@ const server = http.createServer(async (req, res) => {
         mode: runtimeConfig.mode,
         demoMode: runtimeConfig.mode === "demo",
         auth: runtimeConfig.authProvider === "demo" ? "server_demo_session" : runtimeConfig.authProvider,
-        persistence: databaseHealth?.foundation_installed ? "postgres_foundation" : "memory_demo",
+        persistence: managedSessionHealth?.durable
+          ? "supabase_durable_sessions"
+          : databaseHealth?.foundation_installed ? "postgres_foundation" : "memory_demo",
         externalWritesEnabled: runtimeConfig.externalWritesEnabled
       });
     }
@@ -103,32 +117,54 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/api/v1/session/exchange" && req.method === "POST") return await exchangeManagedSession(req, res);
     if (url.pathname === "/api/v1/session/mfa/prepare" && req.method === "POST") return await prepareManagedMfa(req, res);
     if (url.pathname === "/api/v1/session/mfa/verify" && req.method === "POST") return await verifyManagedMfa(req, res);
-    if (url.pathname === "/api/v1/session/logout" && req.method === "POST") return logout(req, res);
+    if (url.pathname === "/api/v1/session/logout" && req.method === "POST") return await logout(req, res);
     if (url.pathname === "/api/v1/session" && req.method === "GET") {
-      const session = requireSession(req);
+      const session = await requireSession(req);
       return json(res, 200, { user: publicUser(session) });
     }
 
     if (url.pathname === "/api/v1/os/portfolio" && req.method === "GET") {
-      return json(res, 200, osStore.portfolio(requireSession(req)));
+      return json(res, 200, osStore.portfolio(await requireSession(req)));
+    }
+
+    if (url.pathname.startsWith("/api/v1/onboarding/brands/") && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed onboarding is niet actief");
+      const slug = decodeURIComponent(url.pathname.slice("/api/v1/onboarding/brands/".length));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      return json(res, 200, await controlPlaneRepository.brandOnboarding(session.id, slug));
+    }
+
+    if (url.pathname.startsWith("/api/v1/health/brands/") && req.method === "GET") {
+      const slug = decodeURIComponent(url.pathname.slice("/api/v1/health/brands/".length));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      requireCompany(session, slug);
+      return json(res, 200, await fetchProductHealth(slug));
+    }
+
+    if (url.pathname === "/api/v1/health/portfolio" && req.method === "GET") {
+      const session = await requireSession(req);
+      const scopedPortfolio = osStore.portfolio(session);
+      return json(res, 200, await fetchPortfolioHealth(scopedPortfolio.brands.map((brand) => brand.slug)));
     }
 
     if (url.pathname.startsWith("/api/v1/os/brands/") && req.method === "GET") {
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/os/brands/".length));
       if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
       const operations = slug === "autoreviews" ? await fetchAutoreviewsSnapshot() : null;
-      return json(res, 200, osStore.brandTwin(requireSession(req), slug, operations));
+      return json(res, 200, osStore.brandTwin(await requireSession(req), slug, operations));
     }
 
     if (url.pathname === "/api/v1/demo" && req.method === "GET") {
-      const session = requireSession(req);
+      const session = await requireSession(req);
       const company = requireCompany(session, url.searchParams.get("company"));
       if (company.id !== "autopilots") return json(res, 200, emptyCompanySnapshot(session, company));
       return json(res, 200, { ...store.snapshotFor(session), company });
     }
 
     if (url.pathname === "/api/v1/demo/command" && req.method === "POST") {
-      const session = requireSession(req);
+      const session = await requireSession(req);
       requireManagedMfa(session);
       const company = requireCompany(session, url.searchParams.get("company"));
       if (company.id !== "autopilots") throw new HttpError(409, "Deze bedrijfsomgeving heeft nog geen actieve workflow");
@@ -143,7 +179,7 @@ const server = http.createServer(async (req, res) => {
     const isApp = url.pathname === "/login" || url.pathname === "/auth/callback" || customerRoutes.has(url.pathname) || internalRoutes.has(url.pathname);
     if (!isApp) throw new HttpError(404, "Pagina niet gevonden");
     if (url.pathname !== "/login" && url.pathname !== "/auth/callback") {
-      const session = sessionFromRequest(req);
+      const session = await sessionFromRequest(req);
       if (!session) return redirect(res, "/login");
       if (session.role === "internal" && customerRoutes.has(url.pathname)) {
         return redirect(res, "/control-center");
@@ -191,7 +227,7 @@ async function login(req, res) {
   }
 
   loginAttempts.delete(key);
-  return establishSession(res, user, sessionTtlMs);
+  return await establishSession(res, user, sessionTtlMs);
 }
 
 async function exchangeManagedSession(req, res) {
@@ -201,14 +237,14 @@ async function exchangeManagedSession(req, res) {
   if (user.mfaRequired && user.assuranceLevel !== "aal2") {
     return json(res, 409, { mfaRequired: true, code: "MFA_REQUIRED", message: "Rond tweestapsverificatie af om verder te gaan." });
   }
-  return establishSession(res, user, managedSessionTtlMs);
+  return await establishSession(res, user, managedSessionTtlMs);
 }
 
 async function prepareManagedMfa(req, res) {
   if (!authGateway) throw new HttpError(404, "Managed identity is niet actief.");
   const body = await parseBody(req);
   const result = await authGateway.prepareMfa(String(body.accessToken || ""), String(body.refreshToken || ""));
-  if (result.mode === "complete") return establishSession(res, result.context, managedSessionTtlMs);
+  if (result.mode === "complete") return await establishSession(res, result.context, managedSessionTtlMs);
   return json(res, 200, result);
 }
 
@@ -226,7 +262,7 @@ async function verifyManagedMfa(req, res) {
       String(body.code || "")
     );
     loginAttempts.delete(key);
-    return establishSession(res, user, managedSessionTtlMs);
+    return await establishSession(res, user, managedSessionTtlMs);
   } catch (error) {
     attempts.push(Date.now());
     loginAttempts.set(key, attempts);
@@ -234,24 +270,31 @@ async function verifyManagedMfa(req, res) {
   }
 }
 
-function establishSession(res, user, ttlMs) {
+async function establishSession(res, user, ttlMs) {
   const token = crypto.randomBytes(32).toString("hex");
   const digest = sessionDigest(token);
-  sessions.set(digest, { ...publicUser(user), expiresAt: Date.now() + ttlMs });
+  const expiresAt = Date.now() + ttlMs;
+  if (managedSessionStore) await managedSessionStore.create(digest, user, expiresAt);
+  else sessions.set(digest, { ...publicUser(user), expiresAt });
   return json(res, 200, { user: publicUser(user) }, {
     "Set-Cookie": `${sessionCookieName}=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${Math.floor(ttlMs / 1000)}${runtimeConfig.isProduction ? "; Secure" : ""}`
   });
 }
 
-function logout(req, res) {
+async function logout(req, res) {
   const token = cookieValue(req, sessionCookieName);
-  if (token) sessions.delete(sessionDigest(token));
+  if (token) {
+    const digest = sessionDigest(token);
+    if (managedSessionStore) await managedSessionStore.revoke(digest, "user_logout");
+    else sessions.delete(digest);
+  }
   return json(res, 200, { ok: true }, { "Set-Cookie": `${sessionCookieName}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0${runtimeConfig.isProduction ? "; Secure" : ""}` });
 }
 
-function sessionFromRequest(req) {
+async function sessionFromRequest(req) {
   const token = cookieValue(req, sessionCookieName);
   const digest = token ? sessionDigest(token) : "";
+  if (managedSessionStore) return digest ? await managedSessionStore.resolve(digest) : null;
   const session = digest ? sessions.get(digest) : null;
   if (!session) return null;
   if (session.expiresAt <= Date.now()) {
@@ -261,8 +304,8 @@ function sessionFromRequest(req) {
   return session;
 }
 
-function requireSession(req) {
-  const session = sessionFromRequest(req);
+async function requireSession(req) {
+  const session = await sessionFromRequest(req);
   if (!session) throw new HttpError(401, "Niet ingelogd");
   return session;
 }
@@ -316,6 +359,7 @@ function safeEqual(left, right) {
 }
 
 function sessionDigest(token) {
+  if (managedSessionStore) return crypto.createHash("sha256").update(token).digest("hex");
   return crypto.createHmac("sha256", runtimeConfig.sessionSecret || "isolated-demo-session").update(token).digest("hex");
 }
 

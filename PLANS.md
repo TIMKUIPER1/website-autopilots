@@ -11,8 +11,8 @@ The Phase 0–3 sandbox lighthouse is implemented in `autopilots-platform`: pers
 Status: `verified` locally and applied to the authorized existing Supabase
 project **Autopilots** (`wurycoodzcybaxcgqxps`) on 2026-08-03. Managed identity
 is now active in the local sandbox runtime; production cutover remains
-`blocked` until the owner completes MFA enrollment and durable-session,
-cross-tenant and restore tests pass.
+`blocked` until the owner completes MFA enrollment and cross-tenant, backup
+and restore tests pass.
 
 - A transactional PostgreSQL/Supabase migration defines six governed schemas:
   core, IAM, integrations, workflows, ledger and audit.
@@ -42,6 +42,23 @@ cross-tenant and restore tests pass.
   application session and a TOTP enroll/challenge/verify callback. No
   application session is created until Supabase confirms `aal2`. Provider
   writes remain disabled.
+- Application sessions are durable and revocable in `iam.app_sessions`. Only
+  a SHA-256 token hash is stored, service-role RPCs are the sole interface, and
+  each resolve rechecks active profile, MFA and memberships. A verified restart
+  test returned 200 before and after a new process, then 401 after logout.
+- A reusable product-onboarding registry now stores six governed steps per
+  brand: foundation, website, Supabase, product API, Stripe and monitoring.
+  The service-role read RPC rechecks profile and brand membership; anonymous
+  and authenticated direct execution is blocked.
+- Live read-only product probes return stable, non-sensitive error codes.
+  Autopilots is healthy, AutoPlanner is degraded because database and queue are
+  missing, and the current AutoReviews and RoofPlanner endpoints are
+  unavailable. All four probes confirm `externalWrites=false`.
+- Governed health observations now carry an idempotent observation key and
+  active incidents deduplicate by brand, connection and error code. Human
+  acknowledgement is an R1 command with current context version, audit evidence
+  and a zero-cost usage entry. The complete lifecycle passed as `service_role`
+  inside a rolled-back live acceptance transaction.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -83,24 +100,27 @@ Status: `verified` locally and externally enforced.
 
 ## Next unblocked actions
 
-1. Complete owner TOTP enrollment from the delivered login link and rotate the
-   local in-memory application session into a durable managed session store.
+1. Complete owner TOTP enrollment from the delivered login link and verify the
+   real owner session end to end.
 2. Execute authenticated cross-tenant, concurrency, backup and restore tests
    before any runtime cutover.
-3. Move portfolio reads and governed command creation behind the durable
-   repository without changing the legacy dashboard.
-4. Implement Stripe as the first read-only discovery and reconciliation
-   connector; keep provider writes disabled.
-5. Add CI gates for migration validation, tests, secret scanning and
+3. Wire the governed observation and incident functions into the authenticated
+   runtime, then expose acknowledgement only after the owner completes MFA.
+4. Connect Stripe as the first OAuth-based read-only discovery and
+   reconciliation connector after explicit OAuth permission; keep provider
+   writes disabled.
+5. Move remaining portfolio reads and governed command creation behind the
+   durable repository without changing the legacy dashboard.
+6. Add CI gates for migration validation, tests, secret scanning and
    architecture fitness checks.
-6. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
+7. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.
 
 ## Genuine blockers
 
 - Production credentials and explicit authority for provider reads/writes.
-- Selected production hosting, durable session store and secrets vault.
+- Selected production hosting and secrets vault.
 - Approved legal document contents and production retention policy.
 - A designated internal approver and escalation owner.
 

@@ -25,6 +25,7 @@ export function loadRuntimeConfig(env = process.env) {
     authProvider: String(env.AUTH_PROVIDER || "demo").toLowerCase(),
     supabaseUrl: secret(env.SUPABASE_URL),
     supabasePublishableKey: secret(env.SUPABASE_PUBLISHABLE_KEY),
+    supabaseServiceRoleKey: secret(env.SUPABASE_SERVICE_ROLE_KEY),
     authRedirectUrl: String(env.AUTH_REDIRECT_URL || `http://${host}:${port}/auth/callback`),
     vaultProvider: String(env.VAULT_PROVIDER || "none"),
     externalWritesEnabled: String(env.EXTERNAL_WRITES_ENABLED || "false") === "true"
@@ -42,7 +43,7 @@ export function assertSafeConfiguration(config) {
     const authMissing = [];
     if (!config.supabaseUrl) authMissing.push("SUPABASE_URL");
     if (!config.supabasePublishableKey) authMissing.push("SUPABASE_PUBLISHABLE_KEY");
-    if (!config.sessionSecret || config.sessionSecret.length < 32) authMissing.push("SESSION_SECRET (minimaal 32 tekens)");
+    if (!config.supabaseServiceRoleKey) authMissing.push("SUPABASE_SERVICE_ROLE_KEY (uitsluitend server-side)");
     if (authMissing.length) {
       throw new ConfigurationError("SUPABASE_AUTH_CONFIGURATION_INCOMPLETE", `Supabase Auth-configuratie ontbreekt: ${authMissing.join(", ")}`);
     }

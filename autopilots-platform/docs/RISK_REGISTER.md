@@ -8,8 +8,8 @@
 | Incorrect financial truth | High | Demo cost quality label; no margin claims | FinOps: provider reconciliation |
 | Duplicate/replayed effects | High | Tenant-scoped durable idempotency contract in the local foundation | Platform: validate concurrent requests in sandbox |
 | Stale human approval | High | Context version and R3 approval are created transactionally | Platform: add execution-time row locking before enabling commands |
-| In-memory data loss | High | Explicit sandbox boundary and durable repository seam | Platform: migrate read paths after sandbox acceptance |
-| Provider outage/rate limit | High | No provider calls in core | Integrations: queues, backoff, health |
+| In-memory product-state loss | High | Identity sessions are now durable; demo product workflows remain explicitly in memory | Platform: migrate portfolio reads and governed commands after sandbox acceptance |
+| Provider outage/rate limit | High | Bounded read-only probes, stable safe error codes and explicit degraded/unavailable states | Integrations: add timeout budgets, backoff and alert deduplication before continuous polling |
 | Overbroad agent autonomy | High | Server allowlist, risk policy, kill switch | AI Ops: evals and earned autonomy |
 | Legal evidence incomplete | High | Version/hash fixture only | Legal: approve documents/retention |
 | Operating-brand metrics mistaken for live | Critical | Demo environment, source quality and unavailable values shown explicitly | Data: require successful sync and reconciliation before promotion |
@@ -19,6 +19,10 @@
 | AI links the wrong external resource | Critical | AI mappings remain proposals with confidence and evidence | Operator must approve mappings before promotion |
 | Migration targets the wrong Supabase project | Critical | Deployment evidence pins project `wurycoodzcybaxcgqxps`, checksum and change ID; runner remains explicit and fail-closed | Operations: enforce project-reference allowlisting in CI before the next migration |
 | Legacy `public` tables lack RLS | Critical | New OS schemas are isolated and fully RLS-protected; legacy tables were not changed during foundation deployment | Engineering: inventory all 18 Advisor findings and stage compatible policies before any legacy exposure or cutover |
-| Supabase token leaks into application storage or logs | Critical | Access token is exchanged once, refresh token is discarded, and only a hashed opaque session handle is stored server-side | Security: add automated log redaction and durable encrypted session storage before production |
+| Supabase token leaks into application storage or logs | Critical | Provider tokens exist only during the MFA callback; the application stores only a SHA-256 hash of its own 256-bit cookie | Security: add automated log-redaction tests before production |
 | Owner operates at AAL1 before MFA setup | Critical | The managed callback creates no Autopilots session until TOTP enrollment or challenge returns an AAL2 token | Identity: owner completes enrollment from the delivered login link; add a second recovery factor later |
-| Local process restart invalidates sessions | Medium | Explicit sandbox boundary and passwordless re-entry; no provider token is persisted | Platform: select a durable managed session store before deployment |
+| Stale access after role or membership revocation | Critical | Every cookie resolution rejoins active profile and membership state; logout writes revocation and audit evidence | Identity: add live suspension/revocation tests with a disposable second user |
+| Health endpoint exposes upstream internals | High | Adapter returns a versioned allowlisted contract and strips private upstream error details | Security: retain response-bound and disclosure tests for each new connector |
+| A reachable endpoint is mistaken for production readiness | Critical | UI distinguishes healthy, degraded and unavailable and labels every probe `live_readonly_probe`; provider writes remain false | Operations: require dependency, reconciliation and human promotion gates before production status |
+| Polling creates duplicate alert noise | High | Observation keys are idempotent and one partial unique index deduplicates each active brand/connector/error incident | Operations: add bounded polling cadence and notification suppression windows |
+| Operator acknowledges stale incident context | High | R1 acknowledgement locks the incident and requires the current occurrence count as context version | Runtime: surface refresh-required errors and never auto-retry an acknowledgement with changed context |

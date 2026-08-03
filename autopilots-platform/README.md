@@ -41,14 +41,42 @@ Een database-migratie is fail-closed en vereist expliciet
 De sandbox kan met `AUTH_PROVIDER=supabase` één passwordless login gebruiken.
 De server valideert het Supabase access token, haalt profiel, IAM-rol en
 bedrijfsscope via een RLS-beveiligde databasefunctie op en zet daarna alleen
-een eigen `HttpOnly` sessiecookie. Access- en refresh-tokens worden niet in de
-browseropslag of applicatiesessie bewaard.
+een eigen `HttpOnly` sessiecookie. Supabase bewaart uitsluitend de SHA-256-hash
+van die willekeurige cookie. Iedere aanvraag controleert opnieuw profielstatus,
+MFA, membership, verloop en revocation; een procesherstart verbreekt de sessie
+niet. Access- en refresh-tokens worden niet in de browseropslag of
+applicatiesessie bewaard.
 
 Het eerste owner-account is `admin@auto-pilots.io`, met legal-entity-scope
 voor Autopilots, AutoReviews, AutoPlanner en RoofPlanner. MFA is verplicht voor
 acties. De callback begeleidt een nieuwe owner door TOTP-inrichting of vraagt
 bij een bestaand device om de actuele authenticatorcode. Pas nadat Supabase
 `aal2` bevestigt, wordt de Autopilots-sessie aangemaakt.
+
+## Herhaalbare software-onboarding
+
+Iedere operating brand heeft in Supabase een herhaalbare onboardingrun met zes
+stappen: fundament, website, Supabase, product-API, Stripe en monitoring. Een
+nieuwe connector begint altijd met discovery en een read-only healthprobe;
+providerwrites, OAuth-promotie en autonome activering horen niet bij deze fase.
+
+De huidige live read-only observatie is eerlijk gelabeld:
+
+- Autopilots: gezond;
+- AutoPlanner: bereikbaar maar gedegradeerd door ontbrekende database/queue;
+- AutoReviews: legacy aggregate bron momenteel onbereikbaar;
+- RoofPlanner: product-API momenteel onbereikbaar.
+
+Deze status is operationele observatie, geen bewijs dat een product of provider
+productierijp is. Details staan in
+`docs/runbooks/deployments/AP-INT-20260803-001.md`.
+
+Herhaalde waarnemingen kunnen via de server idempotent worden vastgelegd. Eén
+actieve fout wordt één incident met een oplopende contextversie, niet een reeks
+dubbele meldingen. Menselijke bevestiging is een governed R1-commando met
+idempotency, auditbewijs en een kostenregel. Automatisch herstel en externe
+writes blijven geblokkeerd. Zie
+`docs/runbooks/deployments/AP-OPS-20260803-001.md`.
 
 ## Starten
 
@@ -97,6 +125,8 @@ Intern demoaccount:
 
 - `GET /api/v1/os/portfolio` — legal entity, operating brands, owner exceptions en brongezondheid.
 - `GET /api/v1/os/brands/:slug` — read-only Brand Digital Twin binnen server-afgedwongen brand scope.
+- `GET /api/v1/onboarding/brands/:slug` — zes onboardingstappen, connectorstatus en laatste geregistreerde foutcode.
+- `GET /api/v1/health/brands/:slug` — actuele, read-only productprobe met een stabiele veilige foutcode.
 
 De API gebruikt expliciete `legalEntityId`, `brandId` en `customerId` velden. Onbekende financiële waarden zijn `null`, niet synthetisch nul. AutoReviews-bronnen blijven geblokkeerd totdat echte sandboxverbindingen en externe mappings zijn gevalideerd.
 

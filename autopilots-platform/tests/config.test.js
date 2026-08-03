@@ -27,7 +27,7 @@ test("sandbox accepteert duurzame database zonder providerwrites", () => {
   assert.equal(config.externalWritesEnabled, false);
 });
 
-test("Supabase Auth faalt dicht zonder URL, publishable key en sterk sessiegeheim", () => {
+test("Supabase Auth faalt dicht zonder URL en gescheiden public/server keys", () => {
   assert.throws(
     () => loadRuntimeConfig({ AUTOPILOTS_MODE: "sandbox", AUTH_PROVIDER: "supabase" }),
     (error) => error instanceof ConfigurationError && error.code === "SUPABASE_AUTH_CONFIGURATION_INCOMPLETE"
@@ -37,7 +37,7 @@ test("Supabase Auth faalt dicht zonder URL, publishable key en sterk sessiegehei
     AUTH_PROVIDER: "supabase",
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_PUBLISHABLE_KEY: "sb_publishable_example",
-    SESSION_SECRET: "a-secure-random-session-secret-32+"
+    SUPABASE_SERVICE_ROLE_KEY: "server-only-example"
   });
   assert.equal(config.authProvider, "supabase");
   assert.equal(config.authRedirectUrl, "http://127.0.0.1:4310/auth/callback");
