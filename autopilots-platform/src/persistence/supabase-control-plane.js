@@ -53,14 +53,14 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
-  async claimMonitoringRun(profileId, { leaseKey, bucket, holderId, intervalSeconds, leaseSeconds }) {
-    assertProfileId(profileId);
+  async claimMonitoringRun(principalId, { leaseKey, bucket, holderId, intervalSeconds, leaseSeconds }) {
+    assertAuthorityId(principalId);
     assertUuid(holderId, "Ongeldige monitoringhouder");
     if (!/^[a-z][a-z0-9:_-]{7,119}$/.test(String(leaseKey || "")) || !Number.isSafeInteger(bucket) || bucket < 0) {
       throw httpError(400, "Ongeldig monitoringtijdvak");
     }
-    const { data, error } = await this.client.rpc("autopilots_claim_monitoring_run", {
-      p_authority_profile_id: profileId,
+    const { data, error } = await this.client.rpc("autopilots_claim_monitoring_run_v2", {
+      p_principal_id: principalId,
       p_lease_key: leaseKey,
       p_bucket: bucket,
       p_holder_id: holderId,
@@ -68,16 +68,18 @@ export class SupabaseControlPlaneRepository {
       p_lease_seconds: leaseSeconds
     });
     throwMapped(error, "De monitoringleasestatus kon niet veilig worden vastgelegd");
-    if (data?.contract !== "autopilots.monitoring-lease.v1" || typeof data.claimed !== "boolean" || !uuid(data.runId)) {
+    if (data?.contract !== "autopilots.monitoring-lease.v2" || typeof data.claimed !== "boolean" || !uuid(data.runId)) {
       throw httpError(503, "De monitoringleasestatus heeft een ongeldig contract");
     }
     return data;
   }
 
-  async heartbeatMonitoringRun(runId, holderId, leaseSeconds) {
+  async heartbeatMonitoringRun(principalId, runId, holderId, leaseSeconds) {
+    assertAuthorityId(principalId);
     assertUuid(runId, "Ongeldige monitoringrun");
     assertUuid(holderId, "Ongeldige monitoringhouder");
-    const { data, error } = await this.client.rpc("autopilots_heartbeat_monitoring_run", {
+    const { data, error } = await this.client.rpc("autopilots_heartbeat_monitoring_run_v2", {
+      p_principal_id: principalId,
       p_run_id: runId,
       p_holder_id: holderId,
       p_lease_seconds: leaseSeconds
@@ -86,10 +88,12 @@ export class SupabaseControlPlaneRepository {
     return data === true;
   }
 
-  async completeMonitoringRun(runId, holderId, outcome, counts, errorCode = null) {
+  async completeMonitoringRun(principalId, runId, holderId, outcome, counts, errorCode = null) {
+    assertAuthorityId(principalId);
     assertUuid(runId, "Ongeldige monitoringrun");
     assertUuid(holderId, "Ongeldige monitoringhouder");
-    const { data, error } = await this.client.rpc("autopilots_complete_monitoring_run", {
+    const { data, error } = await this.client.rpc("autopilots_complete_monitoring_run_v2", {
+      p_principal_id: principalId,
       p_run_id: runId,
       p_holder_id: holderId,
       p_outcome: outcome,
@@ -97,20 +101,20 @@ export class SupabaseControlPlaneRepository {
       p_error_code: errorCode
     });
     throwMapped(error, "De monitoringrun kon niet veilig worden afgesloten");
-    if (data?.contract !== "autopilots.monitoring-run.v1" || !uuid(data.runId)) {
+    if (data?.contract !== "autopilots.monitoring-run.v2" || !uuid(data.runId)) {
       throw httpError(503, "De monitoringrun heeft een ongeldig afsluitcontract");
     }
     return data;
   }
 
-  async monitoringFreshness(profileId, staleAfterSeconds) {
-    assertProfileId(profileId);
-    const { data, error } = await this.client.rpc("autopilots_monitoring_freshness", {
-      p_authority_profile_id: profileId,
+  async monitoringFreshness(principalId, staleAfterSeconds) {
+    assertAuthorityId(principalId);
+    const { data, error } = await this.client.rpc("autopilots_monitoring_freshness_v2", {
+      p_principal_id: principalId,
       p_stale_after_seconds: staleAfterSeconds
     });
     throwMapped(error, "De monitoringfreshness kon niet veilig worden geladen");
-    if (data?.contract !== "autopilots.monitoring-freshness.v1" || !Array.isArray(data.brands)) {
+    if (data?.contract !== "autopilots.monitoring-freshness.v2" || !Array.isArray(data.brands)) {
       throw httpError(503, "De monitoringfreshness heeft een ongeldig contract");
     }
     return data;
@@ -155,6 +159,10 @@ function healthSummary(health) {
 
 function assertProfileId(value) {
   if (!uuid(value)) throw httpError(403, "Actief profiel vereist");
+}
+
+function assertAuthorityId(value) {
+  if (!uuid(value)) throw httpError(503, "Geldige service principal vereist");
 }
 
 function assertUuid(value, message) {

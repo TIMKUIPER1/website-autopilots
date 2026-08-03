@@ -1,12 +1,12 @@
 import crypto from "node:crypto";
 
 export class MonitoringScheduler {
-  constructor({ enabled, intervalMs, leaseSeconds = 120, staleAfterSeconds = 900, authorityProfileId, brandSlugs, repository, probe, runImmediately = false, clock = () => new Date(), instanceId = crypto.randomUUID() }) {
+  constructor({ enabled, intervalMs, leaseSeconds = 120, staleAfterSeconds = 900, authorityPrincipalId, brandSlugs, repository, probe, runImmediately = false, clock = () => new Date(), instanceId = crypto.randomUUID() }) {
     this.enabled = enabled === true;
     this.intervalMs = intervalMs;
     this.leaseSeconds = leaseSeconds;
     this.staleAfterSeconds = staleAfterSeconds;
-    this.authorityProfileId = authorityProfileId;
+    this.authorityPrincipalId = authorityPrincipalId;
     this.instanceId = instanceId;
     this.brandSlugs = [...new Set(brandSlugs || [])];
     this.repository = repository;
@@ -52,7 +52,7 @@ export class MonitoringScheduler {
     let activeRun = null;
     let completed = false;
     try {
-      const lease = await this.repository.claimMonitoringRun(this.authorityProfileId, {
+      const lease = await this.repository.claimMonitoringRun(this.authorityPrincipalId, {
         leaseKey: "product_health_portfolio",
         bucket,
         holderId: this.instanceId,
@@ -64,19 +64,19 @@ export class MonitoringScheduler {
       if (!lease.claimed) {
         this.lastOutcome = "skipped";
         try {
-          this.freshness = await this.repository.monitoringFreshness(this.authorityProfileId, this.staleAfterSeconds);
+          this.freshness = await this.repository.monitoringFreshness(this.authorityPrincipalId, this.staleAfterSeconds);
         } catch {
-          this.freshness = { contract: "autopilots.monitoring-freshness.v1", status: "unavailable", brands: [], externalWrites: false };
+          this.freshness = { contract: "autopilots.monitoring-freshness.v2", status: "unavailable", brands: [], externalWrites: false };
         }
         return { skipped: true, reason: lease.reason, runId: lease.runId, bucket };
       }
-      if (!await this.repository.heartbeatMonitoringRun(lease.runId, this.instanceId, this.leaseSeconds)) {
+      if (!await this.repository.heartbeatMonitoringRun(this.authorityPrincipalId, lease.runId, this.instanceId, this.leaseSeconds)) {
         throw new Error("MONITORING_LEASE_LOST");
       }
       const settled = await Promise.allSettled(this.brandSlugs.map(async (slug) => {
         const health = await this.probe(slug);
         const evidence = await this.repository.recordProductHealth(
-          this.authorityProfileId,
+          this.authorityPrincipalId,
           health,
           `scheduled_${bucket}_${slug}`
         );
@@ -93,15 +93,15 @@ export class MonitoringScheduler {
       });
       this.lastCounts = counts;
       this.lastOutcome = counts.failed ? "partial" : "succeeded";
-      if (!await this.repository.heartbeatMonitoringRun(lease.runId, this.instanceId, this.leaseSeconds)) {
+      if (!await this.repository.heartbeatMonitoringRun(this.authorityPrincipalId, lease.runId, this.instanceId, this.leaseSeconds)) {
         throw new Error("MONITORING_LEASE_LOST");
       }
-      await this.repository.completeMonitoringRun(lease.runId, this.instanceId, this.lastOutcome, counts);
+      await this.repository.completeMonitoringRun(this.authorityPrincipalId, lease.runId, this.instanceId, this.lastOutcome, counts);
       completed = true;
       try {
-        this.freshness = await this.repository.monitoringFreshness(this.authorityProfileId, this.staleAfterSeconds);
+        this.freshness = await this.repository.monitoringFreshness(this.authorityPrincipalId, this.staleAfterSeconds);
       } catch {
-        this.freshness = { contract: "autopilots.monitoring-freshness.v1", status: "unavailable", brands: [], externalWrites: false };
+        this.freshness = { contract: "autopilots.monitoring-freshness.v2", status: "unavailable", brands: [], externalWrites: false };
       }
       return { skipped: false, runId: lease.runId, bucket, outcome: this.lastOutcome, counts, results };
     } catch {
@@ -110,6 +110,7 @@ export class MonitoringScheduler {
       if (activeRun && !completed) {
         try {
           await this.repository.completeMonitoringRun(
+            this.authorityPrincipalId,
             activeRun.runId,
             this.instanceId,
             "failed",

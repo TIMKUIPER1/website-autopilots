@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { MonitoringScheduler } from "../src/monitoring/scheduler.js";
 
-const profileId = "40000000-0000-4000-8000-000000000001";
+const principalId = "41000000-0000-4000-8000-000000000001";
 const health = (product, status = "healthy") => ({
   contract: "autopilots.product-health.v1", product, status,
   errorCode: status === "healthy" ? null : "SAFE_ERROR",
@@ -11,16 +11,16 @@ const health = (product, status = "healthy") => ({
 
 function durableRepository(overrides = {}) {
   return {
-    claimMonitoringRun: async (_profileId, request) => ({
-      contract: "autopilots.monitoring-lease.v1", claimed: true, reason: "claimed",
+    claimMonitoringRun: async (_principalId, request) => ({
+      contract: "autopilots.monitoring-lease.v2", claimed: true, reason: "claimed",
       runId: "87a784a1-31c2-477f-adaf-7c1afb6b628e", attemptCount: 1, bucket: request.bucket
     }),
     heartbeatMonitoringRun: async () => true,
-    completeMonitoringRun: async (runId, _holderId, status, counts) => ({
-      contract: "autopilots.monitoring-run.v1", runId, status, counts
+    completeMonitoringRun: async (_principalId, runId, _holderId, status, counts) => ({
+      contract: "autopilots.monitoring-run.v2", runId, status, counts
     }),
     monitoringFreshness: async () => ({
-      contract: "autopilots.monitoring-freshness.v1", brands: [], externalWrites: false
+      contract: "autopilots.monitoring-freshness.v2", brands: [], externalWrites: false
     }),
     recordProductHealth: async () => ({ replayed: false }),
     ...overrides
@@ -30,7 +30,7 @@ function durableRepository(overrides = {}) {
 test("scheduler uses deterministic time buckets and delegated authority", async () => {
   const calls = [];
   const scheduler = new MonitoringScheduler({
-    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    enabled: true, intervalMs: 60000, authorityPrincipalId: principalId,
     brandSlugs: ["autopilots", "autoplanner", "autoplanner"],
     probe: async (slug) => health(slug, slug === "autoplanner" ? "degraded" : "healthy"),
     repository: durableRepository({ recordProductHealth: async (...args) => { calls.push(args); return { replayed: false }; } })
@@ -38,7 +38,7 @@ test("scheduler uses deterministic time buckets and delegated authority", async 
   const result = await scheduler.runOnce(new Date("2026-08-03T17:30:00.000Z"));
   assert.equal(result.outcome, "succeeded");
   assert.equal(calls.length, 2);
-  assert.equal(calls[0][0], profileId);
+  assert.equal(calls[0][0], principalId);
   assert.match(calls[0][2], /^scheduled_\d+_autopilots$/);
   assert.deepEqual(result.counts, { healthy: 1, degraded: 1, unavailable: 0, failed: 0 });
   assert.equal(scheduler.status().externalWrites, false);
@@ -48,7 +48,7 @@ test("scheduler blocks overlapping runs and strips private failures", async () =
   let release;
   const gate = new Promise((resolve) => { release = resolve; });
   const scheduler = new MonitoringScheduler({
-    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    enabled: true, intervalMs: 60000, authorityPrincipalId: principalId,
     brandSlugs: ["autoplanner"],
     probe: async () => { await gate; throw new Error("private provider detail"); },
     repository: durableRepository()
@@ -66,8 +66,8 @@ test("scheduler blocks overlapping runs and strips private failures", async () =
 test("scheduler accepts only one durable lease winner per bucket", async () => {
   let claims = 0;
   const repository = durableRepository({
-    claimMonitoringRun: async (_profileId, request) => ({
-      contract: "autopilots.monitoring-lease.v1",
+    claimMonitoringRun: async (_principalId, request) => ({
+      contract: "autopilots.monitoring-lease.v2",
       claimed: claims++ === 0,
       reason: claims === 1 ? "claimed" : "lease_active",
       runId: "87a784a1-31c2-477f-adaf-7c1afb6b628e",
@@ -76,7 +76,7 @@ test("scheduler accepts only one durable lease winner per bucket", async () => {
     })
   });
   const options = {
-    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    enabled: true, intervalMs: 60000, authorityPrincipalId: principalId,
     brandSlugs: ["autopilots"], probe: async (slug) => health(slug), repository
   };
   const first = new MonitoringScheduler({ ...options, instanceId: "63ef75f9-7a1b-4c45-a470-1cc4511437bb" });
@@ -92,15 +92,15 @@ test("scheduler closes a claimed run with safe failed evidence", async () => {
   const completions = [];
   const repository = durableRepository({
     heartbeatMonitoringRun: async () => false,
-    completeMonitoringRun: async (...args) => { completions.push(args); return { contract: "autopilots.monitoring-run.v1", runId: args[0] }; }
+    completeMonitoringRun: async (...args) => { completions.push(args); return { contract: "autopilots.monitoring-run.v2", runId: args[1] }; }
   });
   const scheduler = new MonitoringScheduler({
-    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    enabled: true, intervalMs: 60000, authorityPrincipalId: principalId,
     brandSlugs: ["autopilots"], probe: async (slug) => health(slug), repository
   });
   const result = await scheduler.runOnce(new Date("2026-08-03T17:33:00.000Z"));
   assert.equal(result.outcome, "failed");
-  assert.equal(completions[0][2], "failed");
-  assert.equal(completions[0][4], "MONITORING_RUN_FAILED");
+  assert.equal(completions[0][3], "failed");
+  assert.equal(completions[0][5], "MONITORING_RUN_FAILED");
   assert.equal(JSON.stringify(result).includes("lease"), false);
 });

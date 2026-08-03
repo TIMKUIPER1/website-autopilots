@@ -29,3 +29,5 @@
 | 2026-08-03 | Separate monitoring authority from audit actor | Membership grants scope, while audit truth remains the system monitor rather than impersonating the owner | Accepted |
 | 2026-08-03 | Elect one scheduled monitor through a durable Supabase lease | Multi-instance runtimes must not multiply probes, incidents or cost; expired work can be recovered without deleting evidence | Accepted |
 | 2026-08-03 | Treat freshness as explicit governed evidence | A reachable product and a recently persisted observation are different truths and must be shown separately | Accepted |
+| 2026-08-03 | Give automated monitoring a dedicated non-login service principal | Scheduled evidence must not depend on or impersonate a human owner account | Accepted |
+| 2026-08-03 | Scope machine permissions by legal entity, optional brand and an allowlisted capability | Future organizations and workloads must remain isolated even when they share the central control plane | Accepted |

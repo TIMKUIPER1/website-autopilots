@@ -32,7 +32,7 @@ export function loadRuntimeConfig(env = process.env) {
     monitoringIntervalMs: boundedInteger(env.MONITORING_INTERVAL_MS, 300000, 60000, 3600000, "MONITORING_INTERVAL_MS"),
     monitoringLeaseSeconds: boundedInteger(env.MONITORING_LEASE_SECONDS, 120, 30, 600, "MONITORING_LEASE_SECONDS"),
     monitoringStaleAfterSeconds: boundedInteger(env.MONITORING_STALE_AFTER_SECONDS, 900, 60, 86400, "MONITORING_STALE_AFTER_SECONDS"),
-    monitoringAuthorityProfileId: secret(env.MONITORING_AUTHORITY_PROFILE_ID),
+    monitoringAuthorityPrincipalId: secret(env.MONITORING_AUTHORITY_PRINCIPAL_ID),
     monitoringRunImmediately: String(env.MONITORING_RUN_IMMEDIATELY || "false") === "true",
     externalWritesEnabled: String(env.EXTERNAL_WRITES_ENABLED || "false") === "true"
   });
@@ -58,8 +58,8 @@ export function assertSafeConfiguration(config) {
     if (config.authProvider !== "supabase") {
       throw new ConfigurationError("MONITORING_REQUIRES_MANAGED_IDENTITY", "Automatische monitoring vereist managed identity.");
     }
-    if (!/^[0-9a-f-]{36}$/i.test(config.monitoringAuthorityProfileId)) {
-      throw new ConfigurationError("MONITORING_AUTHORITY_MISSING", "Automatische monitoring vereist een expliciet authority-profiel.");
+    if (!/^[0-9a-f-]{36}$/i.test(config.monitoringAuthorityPrincipalId)) {
+      throw new ConfigurationError("MONITORING_AUTHORITY_MISSING", "Automatische monitoring vereist een expliciete service principal.");
     }
     if (config.monitoringStaleAfterSeconds * 1000 < config.monitoringIntervalMs) {
       throw new ConfigurationError("MONITORING_FRESHNESS_TOO_SHORT", "De freshnessgrens mag niet korter zijn dan het monitoringinterval.");

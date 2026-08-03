@@ -90,18 +90,19 @@ test("durable monitoring lease passes only bounded scheduler authority", async (
   const holderId = "63ef75f9-7a1b-4c45-a470-1cc4511437bb";
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
-    if (name === "autopilots_claim_monitoring_run") return { data: { contract: "autopilots.monitoring-lease.v1", claimed: true, runId }, error: null };
-    if (name === "autopilots_heartbeat_monitoring_run") return { data: true, error: null };
-    return { data: { contract: "autopilots.monitoring-run.v1", runId }, error: null };
+    if (name === "autopilots_claim_monitoring_run_v2") return { data: { contract: "autopilots.monitoring-lease.v2", claimed: true, runId }, error: null };
+    if (name === "autopilots_heartbeat_monitoring_run_v2") return { data: true, error: null };
+    return { data: { contract: "autopilots.monitoring-run.v2", runId }, error: null };
   } };
   const repository = new SupabaseControlPlaneRepository({ client });
-  await repository.claimMonitoringRun("40000000-0000-4000-8000-000000000001", {
+  const principalId = "41000000-0000-4000-8000-000000000001";
+  await repository.claimMonitoringRun(principalId, {
     leaseKey: "product_health_portfolio", bucket: 123, holderId, intervalSeconds: 900, leaseSeconds: 120
   });
-  assert.equal(await repository.heartbeatMonitoringRun(runId, holderId, 120), true);
-  await repository.completeMonitoringRun(runId, holderId, "succeeded", { healthy: 1, degraded: 1, unavailable: 2, failed: 0 });
+  assert.equal(await repository.heartbeatMonitoringRun(principalId, runId, holderId, 120), true);
+  await repository.completeMonitoringRun(principalId, runId, holderId, "succeeded", { healthy: 1, degraded: 1, unavailable: 2, failed: 0 });
   assert.deepEqual(calls[0].args, {
-    p_authority_profile_id: "40000000-0000-4000-8000-000000000001",
+    p_principal_id: principalId,
     p_lease_key: "product_health_portfolio", p_bucket: 123, p_holder_id: holderId,
     p_interval_seconds: 900, p_lease_seconds: 120
   });
@@ -112,13 +113,14 @@ test("monitoring freshness requires its versioned safe contract", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
-    return { data: { contract: "autopilots.monitoring-freshness.v1", brands: [], externalWrites: false }, error: null };
+    return { data: { contract: "autopilots.monitoring-freshness.v2", brands: [], externalWrites: false }, error: null };
   } };
   const repository = new SupabaseControlPlaneRepository({ client });
-  const result = await repository.monitoringFreshness("40000000-0000-4000-8000-000000000001", 1800);
+  const principalId = "41000000-0000-4000-8000-000000000001";
+  const result = await repository.monitoringFreshness(principalId, 1800);
   assert.equal(result.externalWrites, false);
   assert.deepEqual(calls[0], {
-    name: "autopilots_monitoring_freshness",
-    args: { p_authority_profile_id: "40000000-0000-4000-8000-000000000001", p_stale_after_seconds: 1800 }
+    name: "autopilots_monitoring_freshness_v2",
+    args: { p_principal_id: principalId, p_stale_after_seconds: 1800 }
   });
 });

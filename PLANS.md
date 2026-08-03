@@ -74,6 +74,11 @@ and restore tests pass.
   two-instance acceptance elected one winner and one safe skip. Freshness is
   reported separately for every brand. No acknowledgement or external write
   was created.
+- Automated monitoring no longer borrows the owner profile. The dedicated
+  `autopilots:health-monitor` service principal has exactly three allowlisted
+  portfolio scopes, has no Auth user or human profile, cannot log in, cannot
+  enable external writes and is the recorded machine actor for new health and
+  run evidence. The legacy human-authority lease RPC is revoked.
 
 ## Website release safety checkpoint — 2026-07-26
 

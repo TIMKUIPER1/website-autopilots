@@ -59,7 +59,7 @@ const monitoringScheduler = new MonitoringScheduler({
   intervalMs: runtimeConfig.monitoringIntervalMs,
   leaseSeconds: runtimeConfig.monitoringLeaseSeconds,
   staleAfterSeconds: runtimeConfig.monitoringStaleAfterSeconds,
-  authorityProfileId: runtimeConfig.monitoringAuthorityProfileId,
+  authorityPrincipalId: runtimeConfig.monitoringAuthorityPrincipalId,
   brandSlugs: companyCatalog.map((company) => company.id),
   repository: controlPlaneRepository,
   probe: fetchProductHealth,
