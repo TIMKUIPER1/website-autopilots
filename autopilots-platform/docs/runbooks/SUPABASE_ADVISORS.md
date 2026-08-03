@@ -275,3 +275,12 @@ verified project-identity rows and replaces the existing server-only projection
 with v3. It adds no table, browser policy or grant. The freshly rerun linter
 therefore remains at 0 errors, 2 known warnings and 37 information items.
 Active data connections and provider authorization remain zero/false.
+
+Migration `20260804143000_product_snapshot_contract_catalog.sql` adds one
+RLS-enabled, policy-free and browser-revoked contract catalog, plus a joint
+brand/data-plane ownership constraint. The service-role-only registry is
+replaced with v4. The freshly rerun linter reports 0 errors, 2 unchanged
+warnings and 38 information suggestions. The additional item is the intentional
+deny-all browser posture of the catalog. All three product contracts require
+implementation; direct database access, row-level data, credentials, provider
+authorization and external writes remain disabled.

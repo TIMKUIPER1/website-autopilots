@@ -18,6 +18,9 @@ test("portfolio reads data-plane topology and never posts registration actions",
   assert.match(browser, /niet-primaire back-upkandidaat uitgesloten/);
   assert.match(browser, /Een bewezen projectidentiteit is nog geen actieve datakoppeling/);
   assert.match(browser, /datakoppeling niet geactiveerd/);
+  assert.match(browser, /function snapshotContractPanel\(\)/);
+  assert.match(browser, /Alleen veilige aggregaten naar Autopilots/);
+  assert.match(browser, /Geen rijniveaudata, contactgegevens, berichtinhoud, secrets of providertokens/);
   assert.doesNotMatch(browser, /managedPost\('\/api\/v1\/data-planes/);
 });
 

@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 44 immutable migration checksums,
+  syntax, foundation contracts, all 45 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -319,8 +319,14 @@ Status: `verified read-only foundation`.
   profiles were denied with 403 and anonymous access with 401.
 - The portfolio now shows this topology fail-closed and rebuilds the Supabase
   dashboard link only from a validated 20-character project reference.
-- Migration inventory is 44 immutable files and the governed RPC surface is 37.
-  The full gate passes 295 tests.
+- A durable `autopilots.product-snapshot.v1` catalog now defines the only
+  permitted aggregate fields for AutoReviews, AutoPlanner and RoofPlanner.
+  Direct database access, row-level records, personal data, message content,
+  credentials, provider authorization and external writes are hard-disabled.
+  All three contracts still require implementation and verification; no data
+  connection is active.
+- Migration inventory is 45 immutable files and the governed RPC surface is 37.
+  The full gate passes 299 tests.
 
 ## Website release safety checkpoint — 2026-07-26
 

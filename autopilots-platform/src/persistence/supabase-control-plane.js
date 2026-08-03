@@ -136,11 +136,12 @@ export class SupabaseControlPlaneRepository {
       p_legal_entity_id: legalEntityId
     });
     throwMapped(error, "Het product-data-plane register kon niet veilig worden geladen");
-    if (data?.contract !== "autopilots.data-plane-registry.v3"
+    if (data?.contract !== "autopilots.data-plane-registry.v4"
       || !uuid(data?.organization?.id) || data.organization.id !== legalEntityId
       || !data.controlPlane || !Array.isArray(data.products) || !data.summary
       || data.singleLoginEnabled !== true || data.crossProjectCredentialSharingEnabled !== false
       || data.providerAuthorizationEnabled !== false || data.dataConnectionsEnabled !== false
+      || data.directDatabaseAccessEnabled !== false || data.rowLevelDataEnabled !== false
       || data.credentialMaterialExposed !== false
       || data.genericRegistrationActionEnabled !== false || data.externalWritesEnabled !== false) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
@@ -150,7 +151,8 @@ export class SupabaseControlPlaneRepository {
     if (!validSupabasePlane(data.controlPlane, "control_plane")
       || data.products.some((item) => !item?.brand
         || !validDataPlanePlaceholder(item.dataPlane)
-        || !validDataPlaneDiscovery(item.discovery))
+        || !validDataPlaneDiscovery(item.discovery)
+        || !validSnapshotContract(item.snapshotContract))
       || registeredPlanes.some((plane) => !validSupabasePlane(plane, plane.purpose))) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
     }
@@ -621,6 +623,30 @@ function validDataPlaneDiscovery(discovery) {
       && Number.isInteger(discovery.schemaPathCount) && discovery.schemaPathCount > 0
     : discovery.schemaEvidenceStatus === "empty_public_schema"
       && discovery.schemaPathCount === 0;
+}
+
+function validSnapshotContract(contract) {
+  const prohibited = new Set(contract?.prohibitedDataClasses || []);
+  return contract?.contractKey === "autopilots.product-snapshot.v1"
+    && contract.transport === "product_aggregate_api"
+    && contract.dataClassification === "aggregate_no_pii"
+    && new Set(["contract_required", "identity_verified_contract_required", "implemented_unverified", "verified"])
+      .has(contract.status)
+    && Array.isArray(contract.allowedAggregates) && contract.allowedAggregates.length > 0
+    && contract.allowedAggregates.every((item) => /^[a-z][a-z0-9_]{2,62}$/.test(String(item)))
+    && ["raw_pii", "row_level_records", "message_content", "secrets", "provider_tokens"]
+      .every((item) => prohibited.has(item))
+    && Number.isInteger(contract.freshnessExpectationSeconds)
+    && contract.freshnessExpectationSeconds >= 60 && contract.freshnessExpectationSeconds <= 86400
+    && Number.isInteger(contract.smallCellSuppressionThreshold)
+    && contract.smallCellSuppressionThreshold >= 5
+    && contract.directDatabaseAccessEnabled === false
+    && contract.rowLevelDataEnabled === false
+    && contract.credentialMaterialStored === false
+    && contract.providerAuthorizationEnabled === false
+    && contract.externalWritesEnabled === false
+    && (contract.status === "verified") === (contract.contractVerified === true)
+    && (!contract.contractVerified || contract.endpointImplemented === true);
 }
 
 function throwMapped(error, fallback) {

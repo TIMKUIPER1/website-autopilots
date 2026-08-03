@@ -97,7 +97,7 @@ const validDataPlaneRegistry = await callRpc("autopilots_data_plane_registry", {
   p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
 }, serviceRoleKey);
 if (validDataPlaneRegistry.status !== 200
-  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v3"
+  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v4"
   || validDataPlaneRegistry.payload?.controlPlane?.projectRef !== projectRef
   || validDataPlaneRegistry.payload?.controlPlane?.status !== "verified"
   || !Array.isArray(validDataPlaneRegistry.payload?.products)
@@ -117,11 +117,25 @@ if (validDataPlaneRegistry.status !== 200
   || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 1
   || validDataPlaneRegistry.payload?.summary?.verificationCandidates !== 0
   || validDataPlaneRegistry.payload?.summary?.excludedNonPrimaryCandidates !== 1
+  || validDataPlaneRegistry.payload?.summary?.snapshotContracts !== 3
+  || validDataPlaneRegistry.payload?.summary?.verifiedSnapshotContracts !== 0
+  || validDataPlaneRegistry.payload?.summary?.contractsRequiringImplementation !== 3
   || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.status === "excluded_non_primary").length !== 1
+  || validDataPlaneRegistry.payload.products.some((item) => item?.snapshotContract?.contractKey !== "autopilots.product-snapshot.v1")
+  || validDataPlaneRegistry.payload.products.some((item) => item?.snapshotContract?.dataClassification !== "aggregate_no_pii")
+  || validDataPlaneRegistry.payload.products.some((item) => !Array.isArray(item?.snapshotContract?.allowedAggregates)
+    || item.snapshotContract.allowedAggregates.length === 0)
+  || validDataPlaneRegistry.payload.products.some((item) => item?.snapshotContract?.directDatabaseAccessEnabled !== false
+    || item?.snapshotContract?.rowLevelDataEnabled !== false
+    || item?.snapshotContract?.credentialMaterialStored !== false
+    || item?.snapshotContract?.providerAuthorizationEnabled !== false
+    || item?.snapshotContract?.externalWritesEnabled !== false)
   || validDataPlaneRegistry.payload?.singleLoginEnabled !== true
   || validDataPlaneRegistry.payload?.crossProjectCredentialSharingEnabled !== false
   || validDataPlaneRegistry.payload?.providerAuthorizationEnabled !== false
   || validDataPlaneRegistry.payload?.dataConnectionsEnabled !== false
+  || validDataPlaneRegistry.payload?.directDatabaseAccessEnabled !== false
+  || validDataPlaneRegistry.payload?.rowLevelDataEnabled !== false
   || validDataPlaneRegistry.payload?.credentialMaterialExposed !== false
   || validDataPlaneRegistry.payload?.genericRegistrationActionEnabled !== false
   || validDataPlaneRegistry.payload?.externalWritesEnabled !== false) {
@@ -141,6 +155,11 @@ evidence.push({
   activeDataConnections: 0,
   verificationCandidates: 0,
   excludedNonPrimaryCandidates: 1,
+  snapshotContracts: 3,
+  verifiedSnapshotContracts: 0,
+  contractsRequiringImplementation: 3,
+  directDatabaseAccessEnabled: false,
+  rowLevelDataEnabled: false,
   crossProjectCredentialSharingEnabled: false,
   providerAuthorizationEnabled: false,
   externalWritesEnabled: false
