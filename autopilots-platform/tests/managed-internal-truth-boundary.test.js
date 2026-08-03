@@ -22,6 +22,16 @@ test("managed internal routes cannot fall through to session demo screens", () =
   assert.ok(managedOverview < demoOverview, "managed overview must be selected before the demo fallback");
 });
 
+test("managed browser bootstrap never downloads the demo workspace payload", () => {
+  const start = browser.indexOf("if(!unauthenticatedRoutes.has(path)){const sessionResponse");
+  const end = browser.indexOf("if(!unauthenticatedRoutes.has(path)&&viewer?.role==='internal'&&path==='/control-center/portfolio'", start);
+  const bootstrap = browser.slice(start, end);
+  const customerBranch = bootstrap.indexOf("}else{const dataResponse=await fetch('/api/v1/demo?company=autopilots')");
+  assert.ok(start >= 0 && end > start && customerBranch > 0, "customer demo branch should remain explicit");
+  assert.doesNotMatch(bootstrap.slice(0, customerBranch), /\/api\/v1\/demo/);
+  assert.equal((bootstrap.match(/\/api\/v1\/demo/g) || []).length, 1);
+});
+
 test("managed implementation reports durable onboarding truth without simulation", () => {
   const body = functionBody("managedImplementation", "tasks");
   assert.match(body, /duurzame onboardingprojectie/);
