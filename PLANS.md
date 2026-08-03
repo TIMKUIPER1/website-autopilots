@@ -134,6 +134,10 @@ and restore tests pass.
   `eu-central-1`, with WAL-G active and PITR disabled. The contract deliberately
   remains `restoreRehearsed=false` and `productionReady=false` until an
   explicitly authorized disposable-target restore proves RPO and RTO.
+- The platform release gate now discovers every public `autopilots_*` database
+  API and compares it with an explicit caller matrix. Only the RLS-scoped
+  signed-in session context may be called by `authenticated`; all other 20
+  governed RPCs require `service_role` and explicitly revoke browser roles.
 
 ## Website release safety checkpoint — 2026-07-26
 

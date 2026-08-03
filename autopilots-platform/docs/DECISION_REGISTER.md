@@ -44,3 +44,4 @@
 | 2026-08-03 | Make every managed Operating Brand Digital Twin a durable scoped aggregate | Company detail must derive connector health, incidents and ledger truth from Supabase while missing business projections remain empty or null | Accepted |
 | 2026-08-03 | Reject the generic in-memory demo command route in managed mode | A managed operator action must use a specific durable, scoped and auditable contract rather than appear successful only inside one process | Accepted |
 | 2026-08-03 | Separate backup inventory evidence from restore evidence | A completed backup listing does not prove RPO, RTO or recoverability; restore remains unproven until a disposable-target rehearsal | Accepted |
+| 2026-08-03 | Govern every public Autopilots RPC through one deny-by-default access matrix | A new or renamed database API must fail the release gate until its only allowed caller role is explicitly reviewed | Accepted |

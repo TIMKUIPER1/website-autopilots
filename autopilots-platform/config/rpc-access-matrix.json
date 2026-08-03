@@ -1,0 +1,23 @@
+{
+  "autopilots_session_context": "authenticated",
+  "autopilots_create_app_session": "service_role",
+  "autopilots_resolve_app_session": "service_role",
+  "autopilots_revoke_app_session": "service_role",
+  "autopilots_brand_onboarding": "service_role",
+  "autopilots_record_product_health": "service_role",
+  "autopilots_acknowledge_incident": "service_role",
+  "autopilots_incident_snapshot": "service_role",
+  "autopilots_claim_monitoring_run": "service_role",
+  "autopilots_heartbeat_monitoring_run": "service_role",
+  "autopilots_complete_monitoring_run": "service_role",
+  "autopilots_monitoring_freshness": "service_role",
+  "autopilots_claim_monitoring_run_v2": "service_role",
+  "autopilots_heartbeat_monitoring_run_v2": "service_role",
+  "autopilots_complete_monitoring_run_v2": "service_role",
+  "autopilots_monitoring_freshness_v2": "service_role",
+  "autopilots_access_roster": "service_role",
+  "autopilots_stage_access_request": "service_role",
+  "autopilots_decide_access_request": "service_role",
+  "autopilots_portfolio_snapshot": "service_role",
+  "autopilots_brand_twin": "service_role"
+}
