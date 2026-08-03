@@ -38,11 +38,13 @@ if (JSON.stringify(uniqueRpcs) !== JSON.stringify(governedRpcs)) {
 for (const [rpc, role] of Object.entries(rpcAccessMatrix)) {
   const escaped = rpc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const revokePattern = role === "authenticated"
-    ? new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon\\s*;`, "i")
+    ? new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon(?:\\s*,\\s*service_role)?\\s*;`, "i")
+    : role === "disabled"
+      ? new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon(?:\\s*,\\s*(?:authenticated|service_role))*\\s*;`, "i")
     : new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon\\s*,\\s*authenticated\\s*;`, "i");
   if (!revokePattern.test(allMigrationSql)) failures.push(`RPC mist browser-deny: ${rpc}`);
   if (role === "disabled") {
-    const disabledPattern = new RegExp(`revoke\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+service_role\\s*;`, "i");
+    const disabledPattern = new RegExp(`revoke\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+(?:service_role|authenticated)\\s*;`, "i");
     if (!disabledPattern.test(allMigrationSql)) failures.push(`Uitgefaseerde RPC is niet ingetrokken: ${rpc}`);
   } else {
     const grantPattern = new RegExp(`grant\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+to\\s+${role}\\s*;`, "i");

@@ -1,5 +1,6 @@
 {
-  "autopilots_session_context": "authenticated",
+  "autopilots_session_context": "disabled",
+  "autopilots_session_context_v2": "authenticated",
   "autopilots_create_app_session": "service_role",
   "autopilots_resolve_app_session": "service_role",
   "autopilots_revoke_app_session": "service_role",

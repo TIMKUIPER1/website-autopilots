@@ -10,7 +10,7 @@ const migration = fs.readFileSync(path.join(
   "supabase/migrations/20260803174500_authenticated_session_context.sql"
 ), "utf8");
 
-test("session context is alleen voor authenticated en respecteert governed RLS", () => {
+test("legacy session context originally used authenticated RLS before v2 retirement", () => {
   assert.match(migration, /security invoker/i);
   assert.match(migration, /where p\.auth_user_id = auth\.uid\(\)/i);
   assert.match(migration, /m\.status = 'active'/i);

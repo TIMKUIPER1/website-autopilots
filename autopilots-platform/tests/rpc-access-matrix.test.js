@@ -6,7 +6,7 @@ const matrix = JSON.parse(await fs.readFile(new URL("../config/rpc-access-matrix
 
 test("only the signed-in context RPC is browser callable", () => {
   const browserRpcs = Object.entries(matrix).filter(([, role]) => role === "authenticated");
-  assert.deepEqual(browserRpcs, [["autopilots_session_context", "authenticated"]]);
+  assert.deepEqual(browserRpcs, [["autopilots_session_context_v2", "authenticated"]]);
 });
 
 test("every other governed public RPC is server-role only", () => {
@@ -14,8 +14,13 @@ test("every other governed public RPC is server-role only", () => {
   for (const [rpc, role] of Object.entries(matrix)) {
     assert.match(rpc, /^autopilots_[a-z0-9_]+$/);
     assert.ok(new Set(["authenticated", "service_role", "disabled"]).has(role));
-    if (rpc !== "autopilots_session_context" && !rpc.match(/monitoring_(run|freshness)$/) && rpc !== "autopilots_incident_snapshot") assert.equal(role, "service_role");
+    if (rpc !== "autopilots_session_context_v2" && !rpc.match(/monitoring_(run|freshness)$/) && !new Set(["autopilots_incident_snapshot", "autopilots_session_context"]).has(rpc)) assert.equal(role, "service_role");
   }
+});
+
+test("unscoped session context is disabled in favor of organization-scoped v2", () => {
+  assert.equal(matrix.autopilots_session_context, "disabled");
+  assert.equal(matrix.autopilots_session_context_v2, "authenticated");
 });
 
 test("unscoped incident snapshot is disabled in favor of organization-scoped v2", () => {

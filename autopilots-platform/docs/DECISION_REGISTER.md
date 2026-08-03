@@ -47,3 +47,4 @@
 | 2026-08-03 | Govern every public Autopilots RPC through one deny-by-default access matrix | A new or renamed database API must fail the release gate until its only allowed caller role is explicitly reviewed | Accepted |
 | 2026-08-03 | Revoke service-role execution from superseded human-authority monitoring lease RPCs | The scheduler uses scoped service-principal v2 contracts; retaining callable v1 endpoints unnecessarily widens the trusted server API | Accepted |
 | 2026-08-03 | Require legal-entity scope on every incident portfolio read | A profile can belong to multiple organizations; profile-only portfolio reads can mix otherwise valid memberships across tenants | Accepted |
+| 2026-08-03 | Reduce the authenticated database surface to one bounded session-context v2 RPC | RLS prevented cross-row reads but still exposed governed tables through GraphQL; the browser needs identity and scope only, while all control-plane data reads are server-side | Accepted |

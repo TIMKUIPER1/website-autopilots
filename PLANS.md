@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 18 immutable migration checksums,
+  syntax, foundation contracts, all 19 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -137,7 +137,7 @@ disposable-target restore rehearsal proves recoverability.
 - The platform release gate now discovers every public `autopilots_*` database
   API and compares it with an explicit caller matrix. Only the RLS-scoped
   signed-in session context may be called by `authenticated`; 16 current
-  governed RPCs require `service_role`, five superseded RPCs are disabled and
+  governed RPCs require `service_role`, six superseded RPCs are disabled and
   every browser role is explicitly revoked from server-only functions.
 - A credential-safe live negative-authorization suite now checks the exact
   Autopilots project for wrong-profile, wrong-organization and anonymous denial
@@ -152,6 +152,16 @@ disposable-target restore rehearsal proves recoverability.
   memberships. The replacement v2 contract requires the durable session's
   legal-entity ID and filters every incident and brand to that exact scope;
   unscoped v1 execution is retired.
+- Advisor inventory found no OS errors, but authenticated table grants made 19
+  governed tables discoverable through GraphQL and one governed trigger had a
+  mutable search path. Session-context v2 now selects
+  one deterministic legal entity, scopes every returned brand to it and is the
+  only database RPC available to a signed-in browser; all direct governed table
+  reads and legacy session-v1 execution are revoked.
+- The post-migration Advisor rerun reduced warnings from 70 to 51 and confirmed
+  zero remaining findings in the six governed schemas. The remaining findings
+  belong to the legacy `public` compatibility boundary, the intentionally
+  exposed bounded session-v2 RPC, or a project-level Auth setting.
 
 ## Website release safety checkpoint — 2026-07-26
 

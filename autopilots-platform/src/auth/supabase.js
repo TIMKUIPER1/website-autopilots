@@ -36,11 +36,13 @@ export class SupabaseAuthGateway {
     const client = this.client(accessToken);
     const [{ data: userData, error: userError }, { data: context, error: contextError }] = await Promise.all([
       client.auth.getUser(accessToken),
-      client.rpc("autopilots_session_context")
+      client.rpc("autopilots_session_context_v2")
     ]);
     if (userError || !userData?.user) throw new SupabaseAuthError("INVALID_ACCESS_TOKEN", "De inloglink is ongeldig of verlopen.");
     if (contextError) throw new SupabaseAuthError("SESSION_CONTEXT_UNAVAILABLE", "De accountrechten konden niet veilig worden geladen.", 503);
-    if (!context || context.authUserId !== userData.user.id) throw new SupabaseAuthError("MEMBERSHIP_REQUIRED", "Dit account heeft geen actieve Autopilots-toegang.", 403);
+    if (!context || context.contract !== "autopilots.session-context.v2" || context.authUserId !== userData.user.id) {
+      throw new SupabaseAuthError("MEMBERSHIP_REQUIRED", "Dit account heeft geen actieve Autopilots-toegang.", 403);
+    }
     return normalizeContext(context);
   }
 
