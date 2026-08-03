@@ -3,3 +3,4 @@ data/*.json
 !data/.gitkeep
 node_modules/
 coverage/
+supabase/.temp/
