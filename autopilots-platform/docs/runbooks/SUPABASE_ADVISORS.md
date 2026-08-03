@@ -91,3 +91,23 @@ The four remaining errors belong to active service-role best-effort mirrors.
 They require a separate rolled-back write-contract acceptance before their
 grants or RLS state may change. Advisor counts are evidence, not authorization
 for that second group.
+
+## Active legacy mirror group — verified 2026-08-03
+
+The separate write-contract acceptance passed for all four active mirrors under
+the real `service_role`, including their exact unique-conflict upsert keys, and
+rolled back with zero residue. Migration
+`20260804033000_protect_active_legacy_mirrors.sql` then enabled RLS and revoked
+browser privileges without changing service-role grants or records.
+
+| Level | Before group | After group | Result |
+| --- | ---: | ---: | --- |
+| Error | 4 | 0 | no table remains with RLS disabled in an exposed schema |
+| Warning | 23 | 15 | all eight active-mirror GraphQL exposures removed |
+| Info | 26 | 30 | four intentionally policy-free protected tables added |
+
+The remaining warnings are outside the governed and legacy sales surfaces: the
+legacy `public.set_updated_at` search path, legacy Gift GraphQL exposure, the
+intentional bounded signed-in session RPC and the project leaked-password
+setting. Each requires its own owner and compatibility decision; zero errors is
+not the same as production readiness.

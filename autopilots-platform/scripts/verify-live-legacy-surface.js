@@ -31,11 +31,12 @@ for (const table of inventory.tables) {
 
   if (table.runtimeAccess === "none") {
     if (serviceResult.count !== 0) fail("UNUSED_LEGACY_TABLE_NOT_EMPTY", { table: table.name, count: serviceResult.count });
-    const anonResult = await countRows(table.name, anonKey);
-    if (anonResult.ok) fail("UNUSED_LEGACY_TABLE_BROWSER_ACCESSIBLE", { table: table.name, status: anonResult.status });
-    item.browserDenied = true;
-    item.browserStatus = anonResult.status;
   }
+
+  const anonResult = await countRows(table.name, anonKey);
+  if (anonResult.ok) fail("LEGACY_TABLE_BROWSER_ACCESSIBLE", { table: table.name, status: anonResult.status });
+  item.browserDenied = true;
+  item.browserStatus = anonResult.status;
 
   evidence.push(item);
 }

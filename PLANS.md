@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 20 immutable migration checksums,
+  syntax, foundation contracts, all 21 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -173,6 +173,11 @@ disposable-target restore rehearsal proves recoverability.
   active mirror counts remain intact. Advisor errors fell from 18 to 4 and
   warnings from 51 to 23. The active mirrors remain unchanged until their exact
   insert/upsert behavior passes a rollback-only write-contract acceptance.
+- The four active mirrors have now passed that exact rollback-only service-role
+  contract and are also RLS-protected with browser grants revoked. All 18 legacy
+  tables deny anonymous REST access, the active counts remain 17/3/59/59, and a
+  fresh Advisor run reports 0 errors, 15 warnings and 30 informational items.
+  No production dashboard, provider, account or identity write was performed.
 
 ## Website release safety checkpoint — 2026-07-26
 

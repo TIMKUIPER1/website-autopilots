@@ -65,13 +65,27 @@ The Supabase Advisor rerun reduced errors from 18 to 4 and warnings from 51 to
 items include the fourteen protected tables with RLS intentionally enabled and
 no browser policy.
 
+## Active mirror group activated — 2026-08-03
+
+Migration `20260804033000_protect_active_legacy_mirrors.sql` applies the same
+browser denial to `audit_log`, `integration_health`, `invoices_sales` and
+`raw_imports` while preserving the service role. Before activation, a
+rollback-only transaction executed the exact runtime shapes under
+`service_role`: one audit insert, a health upsert, a two-row raw-import bulk
+upsert and a sales-invoice upsert. Every conflict update was asserted and all
+synthetic records plus the temporary RLS state rolled back to zero.
+
+After activation, the live verifier confirmed all 18 legacy tables return HTTP
+401 to the anonymous browser role. The active service-role counts remain 17, 3,
+59 and 59 and all fourteen no-caller tables remain empty. A fresh Advisor run
+reports 0 errors, 15 warnings and 30 information items.
+
 ## Safe remediation sequence
 
 1. The fourteen-table no-caller group is complete and continuously verified by
    `pnpm security:verify-legacy-live`.
-2. Treat the four active mirror tables separately. Preserve their existing
-   service-role insert/upsert shapes, unique-conflict behavior and best-effort
-   failure semantics. Add a rolled-back write contract before changing RLS.
+2. The four active mirrors are complete: their service-role write contracts
+   passed inside a rolled-back transaction before RLS activation.
 3. Rerun Security Advisor after each group. Never infer
    safety from warning counts alone; run the sales-dashboard tests and a bounded
    Supabase mirror acceptance.
@@ -80,4 +94,4 @@ no browser policy.
    explicit.
 
 No production dashboard deploy, provider write, account change or destructive
-database operation belongs to this sequence.
+database operation was part of this sequence.

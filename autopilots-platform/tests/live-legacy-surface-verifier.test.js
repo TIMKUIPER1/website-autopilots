@@ -15,6 +15,7 @@ test("legacy live verifier is bounded to the exact Autopilots project and read-o
 test("legacy live verifier derives scope from the reviewed inventory without logging keys", () => {
   assert.match(source, /legacy-public-surface\.json/);
   assert.match(source, /runtimeAccess === "none"/);
-  assert.match(source, /UNUSED_LEGACY_TABLE_BROWSER_ACCESSIBLE/);
+  assert.match(source, /LEGACY_TABLE_BROWSER_ACCESSIBLE/);
+  assert.match(source, /const anonResult = await countRows\(table\.name, anonKey\)/);
   assert.doesNotMatch(source, /console\.(?:log|error)\([^\n]*(?:serviceRoleKey|anonKey|keys)/);
 });
