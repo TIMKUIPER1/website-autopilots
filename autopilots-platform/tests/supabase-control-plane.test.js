@@ -194,6 +194,55 @@ test("operations queue is scoped durable and disables generic actions", async ()
   } });
 });
 
+test("data-plane registry keeps one login separate from product project credentials", async () => {
+  const calls = [];
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const projectRef = "wurycoodzcybaxcgqxps";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.data-plane-registry.v1",
+      organization: { id: legalEntityId, legalName: "Autopilots" },
+      controlPlane: {
+        provider: "supabase", purpose: "control_plane", status: "verified", projectRef,
+        dashboardUrl: `https://supabase.com/dashboard/project/${projectRef}`
+      },
+      products: [{ brand: { slug: "autoplanner", name: "AutoPlanner", code: "PL" }, dataPlane: {
+        provider: "supabase", purpose: "product_data", status: "not_registered",
+        projectRef: null, dashboardUrl: null
+      } }],
+      summary: { registeredProjects: 1, registeredProductDataPlanes: 0, unregisteredProducts: 4 },
+      singleLoginEnabled: true, crossProjectCredentialSharingEnabled: false,
+      providerAuthorizationEnabled: false, credentialMaterialExposed: false,
+      genericRegistrationActionEnabled: false, externalWritesEnabled: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const result = await repository.dataPlaneRegistry(profileId, legalEntityId);
+  assert.equal(result.controlPlane.projectRef, projectRef);
+  assert.equal(result.products[0].dataPlane.status, "not_registered");
+  assert.deepEqual(calls[0], { name: "autopilots_data_plane_registry", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+});
+
+test("data-plane registry rejects a forged dashboard destination", async () => {
+  const client = { rpc: async () => ({ data: {
+    contract: "autopilots.data-plane-registry.v1", organization: {},
+    controlPlane: { provider: "supabase", purpose: "control_plane", status: "verified",
+      projectRef: "wurycoodzcybaxcgqxps", dashboardUrl: "https://attacker.example" },
+    products: [], summary: {}, singleLoginEnabled: true,
+    crossProjectCredentialSharingEnabled: false, providerAuthorizationEnabled: false,
+    credentialMaterialExposed: false, genericRegistrationActionEnabled: false,
+    externalWritesEnabled: false
+  }, error: null }) };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  await assert.rejects(() => repository.dataPlaneRegistry(
+    "40000000-0000-4000-8000-000000000001", "10000000-0000-4000-8000-000000000001"
+  ), (error) => error.status === 503);
+});
+
 test("error runbooks are organization scoped and permanently guidance-only", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

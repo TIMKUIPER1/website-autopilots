@@ -179,6 +179,13 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, connectorPosture(session.companyIds));
     }
 
+    if (url.pathname === "/api/v1/data-planes" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed product-data-planes zijn niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.dataPlaneRegistry(session.id, session.organizationId));
+    }
+
     if (url.pathname === "/api/v1/monitoring/history" && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed monitoringhistorie is niet actief");
       const session = await requireSession(req);

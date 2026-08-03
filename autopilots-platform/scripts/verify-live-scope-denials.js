@@ -33,6 +33,9 @@ const denialCases = [
   ["agent-registry-unknown-profile", "autopilots_agent_registry", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
+  ["data-plane-registry-unknown-profile", "autopilots_data_plane_registry", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
+  }],
   ["monitoring-history-unknown-profile", "autopilots_monitoring_history", "42501", {
     p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
   }],
@@ -87,6 +90,42 @@ evidence.push({
   status: validAgentRegistry.status,
   agents: validAgentRegistry.payload.agents.length,
   genericAgentActionEnabled: false,
+  externalWritesEnabled: false
+});
+
+const validDataPlaneRegistry = await callRpc("autopilots_data_plane_registry", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
+}, serviceRoleKey);
+if (validDataPlaneRegistry.status !== 200
+  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v1"
+  || validDataPlaneRegistry.payload?.controlPlane?.projectRef !== projectRef
+  || validDataPlaneRegistry.payload?.controlPlane?.status !== "verified"
+  || !Array.isArray(validDataPlaneRegistry.payload?.products)
+  || validDataPlaneRegistry.payload.products.length !== 4
+  || validDataPlaneRegistry.payload.products.some((item) => item?.dataPlane?.status !== "not_registered")
+  || validDataPlaneRegistry.payload?.summary?.registeredProjects !== 1
+  || validDataPlaneRegistry.payload?.summary?.registeredProductDataPlanes !== 0
+  || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 4
+  || validDataPlaneRegistry.payload?.singleLoginEnabled !== true
+  || validDataPlaneRegistry.payload?.crossProjectCredentialSharingEnabled !== false
+  || validDataPlaneRegistry.payload?.providerAuthorizationEnabled !== false
+  || validDataPlaneRegistry.payload?.credentialMaterialExposed !== false
+  || validDataPlaneRegistry.payload?.genericRegistrationActionEnabled !== false
+  || validDataPlaneRegistry.payload?.externalWritesEnabled !== false) {
+  fail("DATA_PLANE_REGISTRY_SERVICE_ROLE_READ_FAILED", {
+    status: validDataPlaneRegistry.status,
+    errorCode: safeCode(validDataPlaneRegistry.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-data-plane-registry-read",
+  allowed: true,
+  status: validDataPlaneRegistry.status,
+  controlPlaneProjectRef: projectRef,
+  products: validDataPlaneRegistry.payload.products.length,
+  registeredProductDataPlanes: 0,
+  crossProjectCredentialSharingEnabled: false,
+  providerAuthorizationEnabled: false,
   externalWritesEnabled: false
 });
 
@@ -230,7 +269,7 @@ evidence.push({
   externalWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_security_posture", "autopilots_audit_timeline", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_data_plane_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_security_posture", "autopilots_audit_timeline", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"

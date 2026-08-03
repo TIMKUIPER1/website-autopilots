@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 41 immutable migration checksums,
+  syntax, foundation contracts, all 42 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -297,6 +297,25 @@ disposable-target restore rehearsal proves recoverability.
   five-minute activity-touch throttle and left 0 rows of residue. The server
   independently rejects duplicate, malformed or mixed-organization brand scope.
 
+## Multi-project data-plane checkpoint — 2026-08-03
+
+Status: `verified read-only foundation`.
+
+- The existing Autopilots Supabase project `wurycoodzcybaxcgqxps` is now the
+  only verified central control-plane registration.
+- All four operating brands are projected under the same organization and
+  login, but product-owned Supabase projects remain `not_registered` until an
+  approved read-only discovery proves their exact project references.
+- The registry stores no credential material, shares no project credentials,
+  grants no provider authorization and exposes no generic registration action.
+- Live service-role acceptance returned one registered control plane, zero
+  registered product data planes and four unregistered products. Unknown
+  profiles were denied with 403 and anonymous access with 401.
+- The portfolio now shows this topology fail-closed and rebuilds the Supabase
+  dashboard link only from a validated 20-character project reference.
+- Migration inventory is 42 immutable files and the governed RPC surface is 37.
+  The full gate passes 287 tests.
+
 ## Website release safety checkpoint — 2026-07-26
 
 Status: `verified` locally and externally enforced.
@@ -368,6 +387,9 @@ Status: `verified` locally and externally enforced.
 11. Select one real Autopilots agent identity and its authoritative runtime
    source before registering it. Add read-only observation ingestion first;
    keep pause, kill and external execution in separately approved workflows.
+12. For each product-owned Supabase project, obtain explicit read-only discovery
+   authority and prove its exact project reference before registration. Never
+   copy product service-role keys into the central registry.
 
 ## Genuine blockers
 

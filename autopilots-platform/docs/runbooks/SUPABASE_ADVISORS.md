@@ -252,3 +252,11 @@ is browser-denied, has a fixed search path and adds no table or policy. The
 freshly rerun linter remains at 0 errors, 2 known warnings and 35 information
 items. Live acceptance proved an exact replay and rejected a stale observation;
 the runtime resumed with external writes disabled.
+
+Migration `20260804130000_product_data_plane_registry.sql` adds one
+RLS-enabled, policy-free and browser-revoked topology table plus one
+service-role-only organization read function. The freshly rerun linter reports
+0 errors, 2 unchanged warnings and 36 information items. The additional item is
+the intentional deny-all browser posture of this server-owned registry. The
+known warnings remain the bounded signed-in session-context function and Auth
+leaked-password protection; neither was changed by this migration.

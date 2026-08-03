@@ -34,5 +34,6 @@
   "autopilots_audit_timeline": "service_role",
   "autopilots_portfolio_snapshot": "service_role",
   "autopilots_brand_twin": "service_role",
-  "autopilots_agent_registry": "service_role"
+  "autopilots_agent_registry": "service_role",
+  "autopilots_data_plane_registry": "service_role"
 }

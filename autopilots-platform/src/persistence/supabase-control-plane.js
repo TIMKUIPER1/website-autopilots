@@ -128,6 +128,32 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async dataPlaneRegistry(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_data_plane_registry", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "Het product-data-plane register kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.data-plane-registry.v1"
+      || !uuid(data?.organization?.id) || data.organization.id !== legalEntityId
+      || !data.controlPlane || !Array.isArray(data.products) || !data.summary
+      || data.singleLoginEnabled !== true || data.crossProjectCredentialSharingEnabled !== false
+      || data.providerAuthorizationEnabled !== false || data.credentialMaterialExposed !== false
+      || data.genericRegistrationActionEnabled !== false || data.externalWritesEnabled !== false) {
+      throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
+    }
+    const registeredPlanes = [data.controlPlane, ...data.products.map((item) => item?.dataPlane)]
+      .filter((plane) => plane?.status !== "not_registered");
+    if (!validSupabasePlane(data.controlPlane, "control_plane")
+      || data.products.some((item) => !item?.brand || !validDataPlanePlaceholder(item.dataPlane))
+      || registeredPlanes.some((plane) => !validSupabasePlane(plane, plane.purpose))) {
+      throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async errorRunbooks(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");
@@ -550,6 +576,21 @@ function assertIdempotencyKey(value) {
 
 function uuid(value) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ""));
+}
+
+function validSupabasePlane(plane, purpose) {
+  return plane?.provider === "supabase"
+    && /^[a-z]{20}$/.test(String(plane.projectRef || ""))
+    && plane.dashboardUrl === `https://supabase.com/dashboard/project/${plane.projectRef}`
+    && plane.purpose === purpose
+    && new Set(["verified", "verification_required", "paused"]).has(plane.status);
+}
+
+function validDataPlanePlaceholder(plane) {
+  return plane?.status === "not_registered"
+    ? plane.provider === "supabase" && plane.purpose === "product_data"
+      && plane.projectRef === null && plane.dashboardUrl === null
+    : validSupabasePlane(plane, "product_data");
 }
 
 function throwMapped(error, fallback) {
