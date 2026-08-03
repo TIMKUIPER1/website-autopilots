@@ -245,3 +245,10 @@ browser grant. The freshly rerun linter remains at 0 errors, 2 known warnings
 and 35 information items. Live scope verification returned 16 runbooks and
 three active incidents, each with an exact runbook; notifications, remediation
 and provider writes remain disabled.
+
+Migration `20260804123000_health_observation_ordering.sql` adds one internal
+trigger function and trigger on the existing health-event table. The function
+is browser-denied, has a fixed search path and adds no table or policy. The
+freshly rerun linter remains at 0 errors, 2 known warnings and 35 information
+items. Live acceptance proved an exact replay and rejected a stale observation;
+the runtime resumed with external writes disabled.

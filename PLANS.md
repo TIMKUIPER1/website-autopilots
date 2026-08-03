@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 40 immutable migration checksums,
+  syntax, foundation contracts, all 41 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -261,10 +261,15 @@ disposable-target restore rehearsal proves recoverability.
   prior AutoPlanner `UNREACHABLE` code, preserved history and reduced active
   incidents from four to three: exactly one each for AutoReviews, AutoPlanner
   and RoofPlanner, all with an exact runbook.
+- Health ingestion is now transactionally ordered per product connection. A
+  database advisory lock serializes scheduler and manual observations, exact
+  idempotent replays still succeed, and a late or equal-time observation is
+  rejected before it can replace newer incident truth. Live acceptance proved
+  first write, exact replay and a denied one-hour-old observation.
 - Alert governance now evaluates active incidents against four durable severity
   policies. Repeated observations remain deduplicated in one incident; minimum
   occurrences, age and suppression windows produce only an internal operator
-  recommendation. Live truth is 3 candidates and 2 escalation-due advisories,
+  recommendation. Live truth is 3 candidates and 3 escalation-due advisories,
   with exactly 0 notification attempts, 0 deliveries and no remediation or
   provider authority.
 - Security Control now exposes one privacy-limited, organization-scoped session
@@ -274,7 +279,7 @@ disposable-target restore rehearsal proves recoverability.
   session evidence remain distinct, and generic session revocation is disabled.
   Anonymous access and an unknown profile are denied.
 - Audit Trail now exposes the latest 50 append-only events as bounded
-  organization evidence. Live acceptance returned 128 events in 24 hours,
+  organization evidence. Live acceptance returned 129 events in 24 hours,
   including 0 failed and 0 blocked events. Actor IDs, reasons, before/after
   payloads and evidence contents remain hidden; the page has no replay,
   mutation or provider action.
