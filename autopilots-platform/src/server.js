@@ -151,6 +151,13 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await controlPlaneRepository.approvalQueue(session.id, session.organizationId));
     }
 
+    if (url.pathname === "/api/v1/operations/queue" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed operations zijn niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.operationsQueue(session.id, session.organizationId));
+    }
+
     if (url.pathname === "/api/v1/brand-launch/requests" && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed softwarelaunches zijn niet actief");
       const session = await requireSession(req);

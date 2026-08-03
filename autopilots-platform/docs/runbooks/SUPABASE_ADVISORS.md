@@ -188,3 +188,7 @@ so Advisor counts remain 0 errors, 2 warnings and 32 information items.
 Migration `20260804073000_organization_approval_queue.sql` adds only one stable,
 service-role-only read function. It adds no table, policy or browser grant, so
 Advisor counts remain 0 errors, 2 warnings and 32 information items.
+
+Migration `20260804080000_organization_operations_queue.sql` adds only one
+stable, service-role-only read function. It adds no table, policy or browser
+grant, so Advisor counts remain 0 errors, 2 warnings and 32 information items.

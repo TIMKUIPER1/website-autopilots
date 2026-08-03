@@ -111,6 +111,23 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async operationsQueue(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_operations_queue", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "De taken- en foutcodewachtrij kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.operations-queue.v1" || !Array.isArray(data.tasks)
+      || !Array.isArray(data.signals) || !data.summary
+      || data.genericTaskActionEnabled !== false || data.automaticRemediationEnabled !== false
+      || data.providerWritesEnabled !== false) {
+      throw httpError(503, "De taken- en foutcodewachtrij heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async stageBrandLaunchRequest(profileId, legalEntityId, request, idempotencyKey) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 29 immutable migration checksums,
+  syntax, foundation contracts, all 30 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -220,6 +220,11 @@ disposable-target restore rehearsal proves recoverability.
   all four brands. Live Supabase currently returns one historical approval and
   zero pending approvals. The view omits command payloads, fails closed instead
   of showing demo approvals and exposes no generic decision executor.
+- Managed Human Task Inbox now reads one organization-scoped durable operations
+  queue instead of demo tasks. Live truth is 0 open tasks, 3 active incidents,
+  3 onboarding errors, 0 failed commands and 6 source-specific safe signals.
+  Private incident context and command payload/results are omitted; generic task
+  actions, provider writes and automatic remediation remain disabled.
 
 ## Website release safety checkpoint — 2026-07-26
 

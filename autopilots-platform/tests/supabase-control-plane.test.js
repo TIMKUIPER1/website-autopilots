@@ -173,6 +173,27 @@ test("approval queue is scoped durable and has no generic executor", async () =>
   } });
 });
 
+test("operations queue is scoped durable and disables generic actions", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.operations-queue.v1",
+      summary: { openTasks: 0, activeIncidents: 2, onboardingErrors: 3, failedCommands: 0 },
+      tasks: [], signals: [], genericTaskActionEnabled: false,
+      automaticRemediationEnabled: false, providerWritesEnabled: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.operationsQueue(profileId, legalEntityId);
+  assert.equal(result.automaticRemediationEnabled, false);
+  assert.deepEqual(calls[0], { name: "autopilots_operations_queue", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
