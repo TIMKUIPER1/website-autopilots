@@ -119,6 +119,12 @@ and restore tests pass.
   Supabase. It reports no synthetic customers, goals or financial quality;
   live acceptance returned four scoped brands, four product sources, three
   blocked sources, `demoMode=false` and `externalWrites=false`.
+- Every managed operating-brand detail view now uses the service-role-only
+  `autopilots.brand-twin.v1` Supabase aggregate. Connector health, incidents
+  and qualifying ledger costs are membership scoped; unsupported customer,
+  goal, lifecycle, revenue and margin projections remain empty or null. Live
+  acceptance passed for all four brands, while anonymous and unknown-profile
+  access failed closed.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -175,9 +181,9 @@ Status: `verified` locally and externally enforced.
 6. Connect Stripe as the first OAuth-based read-only discovery and
    reconciliation connector after explicit OAuth permission; keep provider
    writes disabled.
-7. Move each operating-brand Digital Twin and remaining governed command
-   creation behind the durable repository without changing the legacy
-   dashboard; the portfolio read is complete.
+7. Move remaining governed command creation behind the durable repository
+   without changing the legacy dashboard; portfolio and operating-brand reads
+   are complete.
 8. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.

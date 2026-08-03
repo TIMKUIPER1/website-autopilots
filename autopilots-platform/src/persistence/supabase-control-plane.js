@@ -36,6 +36,22 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async brandTwin(profileId, brandSlug) {
+    assertProfileId(profileId);
+    assertBrandSlug(brandSlug);
+    const { data, error } = await this.client.rpc("autopilots_brand_twin", {
+      p_profile_id: profileId,
+      p_brand_slug: brandSlug
+    });
+    throwMapped(error, "De duurzame bedrijfsweergave kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.brand-twin.v1" || data.brand?.slug !== brandSlug
+      || !Array.isArray(data.integrations) || !Array.isArray(data.ownerExceptions)
+      || data.demoMode !== false || data.externalWrites !== false) {
+      throw httpError(503, "De duurzame bedrijfsweergave heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async incidents(profileId, brandSlug = null) {
     assertProfileId(profileId);
     if (brandSlug !== null) assertBrandSlug(brandSlug);

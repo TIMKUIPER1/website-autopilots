@@ -41,3 +41,4 @@
 | 2026-08-03 | Hard-allowlist the existing Autopilots Supabase project in the migration runner | A valid credential or operator typo must never make another organization or project a migration target | Accepted |
 | 2026-08-03 | Require exact HTTPS origin allowlisting for every remote product probe | Read-only must also prevent SSRF and credential disclosure caused by endpoint misconfiguration | Accepted |
 | 2026-08-03 | Replace the managed portfolio fixture with a membership-scoped Supabase aggregate | One central view must derive organization, brands, connectors and incidents from durable authority without inventing customer or financial truth | Accepted |
+| 2026-08-03 | Make every managed Operating Brand Digital Twin a durable scoped aggregate | Company detail must derive connector health, incidents and ledger truth from Supabase while missing business projections remain empty or null | Accepted |

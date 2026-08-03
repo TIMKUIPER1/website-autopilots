@@ -258,6 +258,10 @@ const server = http.createServer(async (req, res) => {
       if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
       const session = await requireSession(req);
       const operations = slug === "autoreviews" ? await fetchAutoreviewsSnapshot() : null;
+      if (controlPlaneRepository) {
+        const twin = await controlPlaneRepository.brandTwin(session.id, slug);
+        return json(res, 200, { ...twin, operations });
+      }
       return json(res, 200, osStore.brandTwin(session, slug, operations));
     }
 

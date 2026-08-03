@@ -38,3 +38,10 @@ test("managed portfolio reads durable Supabase authority instead of the fixture"
   assert.match(source, /controlPlaneRepository\s*\?\s*await controlPlaneRepository\.portfolio\(session\.id, session\.organizationId\)/);
   assert.match(source, /:\s*osStore\.portfolio\(session\)/);
 });
+
+test("managed brand twin reads durable Supabase authority instead of the fixture", async () => {
+  const source = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
+  assert.match(source, /controlPlaneRepository\.brandTwin\(session\.id, slug\)/);
+  assert.match(source, /return json\(res, 200, \{ \.\.\.twin, operations \}\)/);
+  assert.match(source, /return json\(res, 200, osStore\.brandTwin\(session, slug, operations\)\)/);
+});
