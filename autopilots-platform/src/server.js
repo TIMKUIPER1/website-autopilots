@@ -149,11 +149,63 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await fetchPortfolioHealth(scopedPortfolio.brands.map((brand) => brand.slug)));
     }
 
+    if (url.pathname === "/api/v1/incidents" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed incidentbeheer is niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.incidents(session.id));
+    }
+
+    if (url.pathname.startsWith("/api/v1/incidents/brands/") && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed incidentbeheer is niet actief");
+      const slug = decodeURIComponent(url.pathname.slice("/api/v1/incidents/brands/".length));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireCompany(session, slug);
+      return json(res, 200, await controlPlaneRepository.incidents(session.id, slug));
+    }
+
+    if (url.pathname.startsWith("/api/v1/monitoring/probe/brands/") && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed monitoring is niet actief");
+      const slug = decodeURIComponent(url.pathname.slice("/api/v1/monitoring/probe/brands/".length));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      requireCompany(session, slug);
+      await parseBody(req);
+      const idempotencyKey = String(req.headers["idempotency-key"] || "");
+      const health = await fetchProductHealth(slug);
+      const evidence = await controlPlaneRepository.recordProductHealth(session.id, health, idempotencyKey);
+      const incidents = await controlPlaneRepository.incidents(session.id, slug);
+      return json(res, evidence.replayed ? 200 : 201, { health, evidence, incidents });
+    }
+
+    if (url.pathname.startsWith("/api/v1/incidents/") && url.pathname.endsWith("/acknowledge") && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed incidentbeheer is niet actief");
+      const incidentId = decodeURIComponent(url.pathname.slice("/api/v1/incidents/".length, -"/acknowledge".length));
+      if (!incidentId || incidentId.includes("/")) throw new HttpError(404, "Incident niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      const body = await parseBody(req);
+      const idempotencyKey = String(req.headers["idempotency-key"] || "");
+      const result = await controlPlaneRepository.acknowledgeIncident(
+        session.id,
+        incidentId,
+        Number(body.contextVersion),
+        idempotencyKey
+      );
+      return json(res, 200, result);
+    }
+
     if (url.pathname.startsWith("/api/v1/os/brands/") && req.method === "GET") {
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/os/brands/".length));
       if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
       const operations = slug === "autoreviews" ? await fetchAutoreviewsSnapshot() : null;
-      return json(res, 200, osStore.brandTwin(await requireSession(req), slug, operations));
+      return json(res, 200, osStore.brandTwin(session, slug, operations));
     }
 
     if (url.pathname === "/api/v1/demo" && req.method === "GET") {
@@ -332,6 +384,10 @@ function requireManagedMfa(session) {
   if (session.authProvider === "supabase" && session.mfaRequired && session.assuranceLevel !== "aal2") {
     throw new HttpError(428, "Activeer en bevestig eerst tweestapsverificatie voor acties.");
   }
+}
+
+function requireInternal(session) {
+  if (session.role !== "internal") throw new HttpError(403, "Alleen interne gebruikers hebben toegang");
 }
 
 function requireCompany(session, requestedId) {

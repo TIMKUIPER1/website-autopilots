@@ -76,7 +76,8 @@ actieve fout wordt één incident met een oplopende contextversie, niet een reek
 dubbele meldingen. Menselijke bevestiging is een governed R1-commando met
 idempotency, auditbewijs en een kostenregel. Automatisch herstel en externe
 writes blijven geblokkeerd. Zie
-`docs/runbooks/deployments/AP-OPS-20260803-001.md`.
+`docs/runbooks/deployments/AP-OPS-20260803-001.md` en
+`docs/runbooks/deployments/AP-OPS-20260803-002.md`.
 
 ## Starten
 
@@ -127,6 +128,11 @@ Intern demoaccount:
 - `GET /api/v1/os/brands/:slug` — read-only Brand Digital Twin binnen server-afgedwongen brand scope.
 - `GET /api/v1/onboarding/brands/:slug` — zes onboardingstappen, connectorstatus en laatste geregistreerde foutcode.
 - `GET /api/v1/health/brands/:slug` — actuele, read-only productprobe met een stabiele veilige foutcode.
+- `GET /api/v1/health/portfolio` — actuele read-only samenvatting van alle toegestane operating brands.
+- `GET /api/v1/incidents` — actieve incidenten binnen de server-afgedwongen portfolioscope.
+- `GET /api/v1/incidents/brands/:slug` — actieve incidenten binnen één toegestane operating brand.
+- `POST /api/v1/monitoring/probe/brands/:slug` — legt een expliciet gestarte read-only probe idempotent vast; vereist MFA en schrijft niet naar het product.
+- `POST /api/v1/incidents/:id/acknowledge` — governed R1-bevestiging met actuele contextversie en idempotency-key; vereist MFA.
 
 De API gebruikt expliciete `legalEntityId`, `brandId` en `customerId` velden. Onbekende financiële waarden zijn `null`, niet synthetisch nul. AutoReviews-bronnen blijven geblokkeerd totdat echte sandboxverbindingen en externe mappings zijn gevalideerd.
 

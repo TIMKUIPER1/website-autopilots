@@ -23,3 +23,5 @@
 | 2026-08-03 | Separate registered source health from an on-demand read-only probe | Stored evidence stays auditable while operators can see the current reachability without enabling writes | Accepted |
 | 2026-08-03 | Deduplicate active incidents by brand, connector and stable error code | Repeated polling increases context version without creating alert noise | Accepted |
 | 2026-08-03 | Treat incident acknowledgement as a governed R1 command | Human ownership remains idempotent, attributable, cost-recorded and protected from stale context | Accepted |
+| 2026-08-03 | Keep health GET routes side-effect free and require an explicit POST to persist evidence | Viewing current status must never create hidden database writes | Accepted |
+| 2026-08-03 | Use a non-retryable application SQLSTATE for stale acknowledgement context | A business conflict must return promptly and must not trigger database serialization retries | Accepted |

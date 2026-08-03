@@ -59,6 +59,14 @@ and restore tests pass.
   acknowledgement is an R1 command with current context version, audit evidence
   and a zero-cost usage entry. The complete lifecycle passed as `service_role`
   inside a rolled-back live acceptance transaction.
+- The authenticated runtime now exposes scoped incident reads, explicit
+  idempotent health capture and MFA-gated acknowledgement. Four honest initial
+  observations produced three active incidents and four audit events, with no
+  acknowledgement command, acknowledgement usage or external write. Parallel
+  AutoPlanner captures kept one incident and advanced only its context version.
+- A retry-sensitive PostgreSQL `40001` stale-context signal was replaced with a
+  non-retryable application conflict after HTTP acceptance exposed the delay;
+  stale acknowledgement now returns HTTP 409 in about half a second.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -104,16 +112,18 @@ Status: `verified` locally and externally enforced.
    real owner session end to end.
 2. Execute authenticated cross-tenant, concurrency, backup and restore tests
    before any runtime cutover.
-3. Wire the governed observation and incident functions into the authenticated
-   runtime, then expose acknowledgement only after the owner completes MFA.
-4. Connect Stripe as the first OAuth-based read-only discovery and
+3. Complete real owner TOTP enrollment, visually verify the incident UI and
+   execute one intentional human acknowledgement end to end.
+4. Add a bounded monitoring scheduler, freshness policy and notification
+   suppression without autonomous remediation.
+5. Connect Stripe as the first OAuth-based read-only discovery and
    reconciliation connector after explicit OAuth permission; keep provider
    writes disabled.
-5. Move remaining portfolio reads and governed command creation behind the
+6. Move remaining portfolio reads and governed command creation behind the
    durable repository without changing the legacy dashboard.
-6. Add CI gates for migration validation, tests, secret scanning and
+7. Add CI gates for migration validation, tests, secret scanning and
    architecture fitness checks.
-7. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
+8. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.
 
