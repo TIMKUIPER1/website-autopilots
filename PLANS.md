@@ -113,6 +113,13 @@ disposable-target restore rehearsal proves recoverability.
   origin, rejected destinations are never fetched, AutoReviews secrets are
   never attached to them, and oversized or malformed responses fail with
   stable non-sensitive codes.
+- Portfolio now exposes a session-scoped runtime connector posture without
+  endpoint or credential values. It distinguishes the internal Autopilots
+  runtime, three deliberate local sandbox defaults and future explicit remote
+  HTTPS configuration; origin and server-access state are presence-only.
+  Current local truth is one internal runtime, three loopback defaults and an
+  AutoReviews server credential that is not configured. The UI explicitly
+  separates configuration validity from product health and production readiness.
 - The managed portfolio is no longer sourced from the local OS fixture. The
   service-role-only `autopilots.portfolio.v2` snapshot reads the current legal
   entity, membership-scoped brands, connector status and active incidents from
