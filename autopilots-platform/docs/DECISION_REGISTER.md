@@ -39,3 +39,4 @@
 | 2026-08-03 | Pin every applied migration by filename and SHA-256 in the release gate | Deployed database history must remain immutable; corrections are always new migrations | Accepted |
 | 2026-08-03 | Run one credential-free OS quality gate for every platform change | Syntax, migration integrity, secret patterns, architecture contracts and tests must fail before merge without production access | Accepted |
 | 2026-08-03 | Hard-allowlist the existing Autopilots Supabase project in the migration runner | A valid credential or operator typo must never make another organization or project a migration target | Accepted |
+| 2026-08-03 | Require exact HTTPS origin allowlisting for every remote product probe | Read-only must also prevent SSRF and credential disclosure caused by endpoint misconfiguration | Accepted |

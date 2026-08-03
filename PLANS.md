@@ -108,6 +108,11 @@ and restore tests pass.
   a direct database host or pooler username and accepts only the existing
   Autopilots project `wurycoodzcybaxcgqxps`. Wrong, ambiguous and non-Postgres
   targets fail before opening a connection and errors never echo credentials.
+- All current product adapters now enforce a shared read-only destination
+  policy: remote endpoints require HTTPS and an exact separately configured
+  origin, rejected destinations are never fetched, AutoReviews secrets are
+  never attached to them, and oversized or malformed responses fail with
+  stable non-sensitive codes.
 
 ## Website release safety checkpoint — 2026-07-26
 

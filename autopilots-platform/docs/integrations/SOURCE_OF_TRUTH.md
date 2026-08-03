@@ -22,6 +22,16 @@ Rules: one authority per field; store provider IDs and sync cursors; raw provide
 | Review conversations | Approved messaging provider | Conversation/result projection | 5 min | Provider event wins; cooldown and deduplication required | Personal / approved policy |
 | Goals, policies, workflows and mappings | Autopilots OS | Canonical internal records | Direct | Version conflict fails closed | Internal / policy controlled |
 
-Current local status: the AutoReviews backend aggregate export is connected. GoHighLevel/calendar configuration awaits first reconciliation; Stripe and WhatsApp remain `blocked_missing_connection`. No revenue, cost or margin claim may be shown until Stripe and the OS ledger reconcile.
+Current contract status: the AutoReviews aggregate export is implemented, but
+the latest local live probe is unavailable. GoHighLevel/calendar configuration
+awaits first reconciliation; Stripe and WhatsApp remain
+`blocked_missing_connection`. No revenue, cost or margin claim may be shown
+until Stripe and the OS ledger reconcile.
 
-The server-side adapter accepts only `autoreviews.os-snapshot.v1` with classification `aggregate_no_pii`. It never consumes the AutoReviews admin API, raw SQLite rows, contact identities or provider credentials.
+The server-side adapter accepts only `autoreviews.os-snapshot.v1` with
+classification `aggregate_no_pii`. Remote connector bases require HTTPS plus
+an exact separately configured allowed origin; only loopback endpoints may use
+HTTP. URLs with credentials, query strings or fragments are rejected before
+fetch, responses are size-bounded, and destination/response failures expose
+only stable codes. It never consumes the AutoReviews admin API, raw SQLite
+rows, contact identities or provider credentials.

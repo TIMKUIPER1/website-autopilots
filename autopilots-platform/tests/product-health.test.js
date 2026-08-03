@@ -23,6 +23,25 @@ test("RoofPlanner offline becomes a stable safe error code", async () => {
   assert.equal(JSON.stringify(result).includes("private network detail"), false);
 });
 
+test("remote product probes require HTTPS and an exact configured origin", async () => {
+  let called = false;
+  const blocked = await fetchProductHealth("autoplanner", {
+    baseUrl: "http://metadata.internal",
+    allowedOrigin: "http://metadata.internal",
+    fetchImpl: async () => { called = true; }
+  });
+  assert.equal(called, false);
+  assert.equal(blocked.errorCode, "AUTOPLANNER_DESTINATION_BLOCKED");
+
+  const mismatched = await fetchProductHealth("roofplanner", {
+    baseUrl: "https://roofplanner.example",
+    allowedOrigin: "https://different.example",
+    fetchImpl: async () => { called = true; }
+  });
+  assert.equal(called, false);
+  assert.equal(mismatched.errorCode, "ROOFPLANNER_DESTINATION_BLOCKED");
+});
+
 test("unknown products fail closed", async () => {
   await assert.rejects(() => fetchProductHealth("unknown"), (error) => error.status === 404);
 });

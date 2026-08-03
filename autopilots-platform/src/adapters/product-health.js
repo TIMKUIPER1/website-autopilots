@@ -1,4 +1,5 @@
 import { fetchAutoreviewsSnapshot } from "./autoreviews.js";
+import { connectorUrl, resolveReadOnlyConnectorBase } from "./connector-policy.js";
 
 const defaults = Object.freeze({
   autoplanner: "http://127.0.0.1:3000/api",
@@ -47,13 +48,20 @@ export async function fetchPortfolioHealth(slugs, options = {}) {
 
 async function probeAutoplanner({
   baseUrl = process.env.AUTOPLANNER_API_URL || defaults.autoplanner,
+  allowedOrigin = process.env.AUTOPLANNER_ALLOWED_ORIGIN || "",
   fetchImpl = fetch,
   timeoutMs = 1800,
   observedAt
 } = {}) {
+  let safeBaseUrl;
+  try {
+    safeBaseUrl = resolveReadOnlyConnectorBase(baseUrl, { allowedOrigin });
+  } catch {
+    return envelope("autoplanner", "unavailable", "AUTOPLANNER_DESTINATION_BLOCKED", observedAt, {});
+  }
   const [health, readiness] = await Promise.all([
-    safeJson(`${trim(baseUrl)}/health`, fetchImpl, timeoutMs),
-    safeJson(`${trim(baseUrl)}/health/ready`, fetchImpl, timeoutMs)
+    safeJson(connectorUrl(safeBaseUrl, "/health"), fetchImpl, timeoutMs),
+    safeJson(connectorUrl(safeBaseUrl, "/health/ready"), fetchImpl, timeoutMs)
   ]);
   if (!health.ok) return envelope("autoplanner", "unavailable", health.errorCode, observedAt, { healthHttpStatus: health.status });
   if (!readiness.ok) return envelope("autoplanner", "degraded", readiness.errorCode, observedAt, { health: health.data, readyHttpStatus: readiness.status });
@@ -71,13 +79,20 @@ async function probeAutoplanner({
 
 async function probeRoofplanner({
   baseUrl = process.env.ROOFPLANNER_API_URL || defaults.roofplanner,
+  allowedOrigin = process.env.ROOFPLANNER_ALLOWED_ORIGIN || "",
   fetchImpl = fetch,
   timeoutMs = 1800,
   observedAt
 } = {}) {
+  let safeBaseUrl;
+  try {
+    safeBaseUrl = resolveReadOnlyConnectorBase(baseUrl, { allowedOrigin });
+  } catch {
+    return envelope("roofplanner", "unavailable", "ROOFPLANNER_DESTINATION_BLOCKED", observedAt, {});
+  }
   const [health, readiness] = await Promise.all([
-    safeJson(`${trim(baseUrl)}/health`, fetchImpl, timeoutMs),
-    safeJson(`${trim(baseUrl)}/ready`, fetchImpl, timeoutMs)
+    safeJson(connectorUrl(safeBaseUrl, "/health"), fetchImpl, timeoutMs),
+    safeJson(connectorUrl(safeBaseUrl, "/ready"), fetchImpl, timeoutMs)
   ]);
   if (!health.ok) return envelope("roofplanner", "unavailable", "ROOFPLANNER_API_UNREACHABLE", observedAt, { healthHttpStatus: health.status });
   if (!readiness.ok || readiness.data?.ready === false) {
@@ -92,7 +107,11 @@ async function safeJson(url, fetchImpl, timeoutMs) {
     if (!response.ok) return { ok: false, status: response.status, errorCode: `HTTP_${response.status}` };
     const text = await response.text();
     if (text.length > 100000) return { ok: false, status: response.status, errorCode: "RESPONSE_TOO_LARGE" };
-    return { ok: true, status: response.status, data: JSON.parse(text) };
+    try {
+      return { ok: true, status: response.status, data: JSON.parse(text) };
+    } catch {
+      return { ok: false, status: response.status, errorCode: "INVALID_JSON" };
+    }
   } catch (error) {
     return { ok: false, status: null, errorCode: error?.name === "TimeoutError" ? "TIMEOUT" : "UNREACHABLE" };
   }
@@ -114,8 +133,4 @@ function envelope(product, status, errorCode, observedAt, details) {
 
 function normalizeCode(prefix, code) {
   return `${prefix}_${String(code).replace(/[^a-z0-9]+/gi, "_").toUpperCase()}`;
-}
-
-function trim(value) {
-  return String(value).replace(/\/+$/, "");
 }
