@@ -215,3 +215,9 @@ policy-free and browser-revoked server table plus one service-role-only read
 function. The freshly rerun linter reports 0 errors, 2 unchanged warnings and
 34 information items. The additional information item is the intentional
 deny-all browser posture of the server-owned catalog.
+
+Migration `20260804100000_alert_policy_projection.sql` adds one RLS-enabled,
+policy-free and browser-revoked server table plus one service-role-only read
+function. The freshly rerun linter reports 0 errors, 2 unchanged warnings and
+35 information items. The additional information item is the intentional
+deny-all browser posture of the delivery-disabled policy registry.

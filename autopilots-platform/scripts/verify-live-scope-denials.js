@@ -39,6 +39,9 @@ const denialCases = [
   ["error-runbooks-unknown-profile", "autopilots_error_runbooks", "42501", {
     p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
   }],
+  ["alert-policy-unknown-profile", "autopilots_alert_policy_snapshot", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -132,7 +135,35 @@ evidence.push({
   providerWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+const validAlertPolicy = await callRpc("autopilots_alert_policy_snapshot", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
+}, serviceRoleKey);
+if (validAlertPolicy.status !== 200
+  || validAlertPolicy.payload?.contract !== "autopilots.alert-policy-snapshot.v1"
+  || !Array.isArray(validAlertPolicy.payload?.policies)
+  || !Array.isArray(validAlertPolicy.payload?.candidates)
+  || validAlertPolicy.payload?.summary?.notificationAttempts !== 0
+  || validAlertPolicy.payload?.summary?.deliveries !== 0
+  || validAlertPolicy.payload?.automaticRemediationEnabled !== false
+  || validAlertPolicy.payload?.notificationDeliveryEnabled !== false
+  || validAlertPolicy.payload?.providerWritesEnabled !== false) {
+  fail("ALERT_POLICY_SERVICE_ROLE_READ_FAILED", {
+    status: validAlertPolicy.status,
+    errorCode: safeCode(validAlertPolicy.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-alert-policy-read", allowed: true,
+  status: validAlertPolicy.status,
+  policies: validAlertPolicy.payload.policies.length,
+  candidates: validAlertPolicy.payload.candidates.length,
+  escalationDue: validAlertPolicy.payload.summary?.escalationDue || 0,
+  notificationAttempts: 0, deliveries: 0,
+  automaticRemediationEnabled: false, notificationDeliveryEnabled: false,
+  providerWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"

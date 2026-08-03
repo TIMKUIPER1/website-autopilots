@@ -211,6 +211,24 @@ test("error runbooks are organization scoped and permanently guidance-only", asy
   } });
 });
 
+test("alert policy snapshot is organization scoped and permanently no-delivery", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.alert-policy-snapshot.v1", summary: {}, policies: [], candidates: [],
+      automaticRemediationEnabled: false, notificationDeliveryEnabled: false,
+      providerWritesEnabled: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.alertPolicySnapshot(profileId, legalEntityId);
+  assert.equal(result.notificationDeliveryEnabled, false);
+  assert.deepEqual(calls[0], { name: "autopilots_alert_policy_snapshot", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
