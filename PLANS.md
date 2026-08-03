@@ -331,8 +331,13 @@ Status: `verified read-only foundation`.
   finite non-negative metrics before a future connector payload can be
   accepted. AutoPlanner now has a local producer route, but no live transport,
   credential or central ingestion is active.
+- A central GET-only transport adapter is also implemented but remains
+  configuration-disabled. It validates a strong server secret before network
+  use, blocks non-allowlisted destinations before attaching that secret,
+  bounds response size and exposes only stable error codes. It is not wired
+  into monitoring or persistence.
 - Migration inventory is 45 immutable files and the governed RPC surface is 37.
-  The full gate passes 305 tests.
+  The full gate passes 309 tests.
 
 ## Website release safety checkpoint — 2026-07-26
 

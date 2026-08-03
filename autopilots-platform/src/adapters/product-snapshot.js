@@ -1,3 +1,5 @@
+import { connectorUrl, resolveReadOnlyConnectorBase } from "./connector-policy.js";
+
 const CONTRACT = "autopilots.product-snapshot.v1";
 const CLASSIFICATION = "aggregate_no_pii";
 const MINIMUM_GROUP_SIZE = 5;
@@ -31,6 +33,52 @@ const CELL_KEYS = new Set(["value", "sampleSize", "suppressed"]);
 const SOURCE_QUALITIES = new Set(["product_aggregate", "provider_verified_aggregate"]);
 const ENVIRONMENTS = new Set(["production", "staging", "sandbox"]);
 const SEGMENT_KEY = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+
+export async function fetchProductSnapshot(product, {
+  baseUrl = "",
+  allowedOrigin = "",
+  secret = "",
+  fetchImpl = fetch,
+  timeoutMs = 1800,
+  now = Date.now(),
+  maximumAgeSeconds = 900
+} = {}) {
+  if (!PRODUCT_AGGREGATE_ALLOWLISTS[product]) return transportFailure("PRODUCT_NOT_SUPPORTED");
+  if (typeof secret !== "string" || secret.length < 32) return transportFailure("CONNECTOR_NOT_CONFIGURED");
+
+  let safeBaseUrl;
+  try {
+    safeBaseUrl = resolveReadOnlyConnectorBase(baseUrl, { allowedOrigin });
+  } catch {
+    return transportFailure("DESTINATION_BLOCKED");
+  }
+
+  try {
+    const response = await fetchImpl(connectorUrl(safeBaseUrl, "/api/internal/autopilots-os/snapshot"), {
+      method: "GET",
+      headers: {
+        "x-autopilots-os-client": "autopilots-platform",
+        "x-autopilots-os-secret": secret
+      },
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+    if (!response.ok) return transportFailure(response.status === 401 || response.status === 403
+      ? "ACCESS_DENIED" : `HTTP_${response.status}`);
+    const text = await response.text();
+    if (text.length > 100000) return transportFailure("RESPONSE_TOO_LARGE");
+    let payload;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+      return transportFailure("INVALID_JSON");
+    }
+    const validation = validateProductSnapshot(payload, { expectedProduct: product, now, maximumAgeSeconds });
+    if (!validation.ok) return transportFailure(validation.errorCode);
+    return { status: "connected", errorCode: null, snapshot: validation.snapshot, externalWrites: false };
+  } catch (error) {
+    return transportFailure(error?.name === "TimeoutError" ? "TIMEOUT" : "UNREACHABLE");
+  }
+}
 
 export function validateProductSnapshot(payload, {
   expectedProduct,
@@ -117,4 +165,8 @@ function isRecord(value) {
 
 function invalid(errorCode) {
   return { ok: false, errorCode, snapshot: null };
+}
+
+function transportFailure(errorCode) {
+  return { status: "unavailable", errorCode, snapshot: null, externalWrites: false };
 }

@@ -77,6 +77,20 @@ nested objects, negative/non-finite values, timestamps older than the contract
 freshness window and timestamps more than 60 seconds in the future. Validation
 does not activate transport or establish data authority.
 
+## Transport gate
+
+The central reader is GET-only and disabled until a server-side secret of at
+least 32 characters is supplied. It validates the destination before attaching
+that secret: remote URLs require HTTPS and an exact configured origin; only
+loopback development may use HTTP. Responses are limited to 100 kB and pass the
+full product validator before acceptance. Authentication, timeout, reachability,
+size, JSON and contract failures become bounded codes without echoing endpoints,
+payloads or secrets.
+
+The adapter is not connected to monitoring, persistence or the portfolio. The
+AutoPlanner producer exists locally, but no hosted endpoint, credential or
+central data connection is active under Werktoestemming A.
+
 Each sync records a correlation ID, cursor, source timestamp and evidence.
 Retries are idempotent. Discovery may create proposed resource mappings with
 confidence and evidence, but only an authorized human or deterministic rule

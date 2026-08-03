@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { PRODUCT_AGGREGATE_ALLOWLISTS, validateProductSnapshot } from "../src/adapters/product-snapshot.js";
+import { PRODUCT_AGGREGATE_ALLOWLISTS, fetchProductSnapshot, validateProductSnapshot } from "../src/adapters/product-snapshot.js";
 
 const now = Date.parse("2026-08-03T23:00:00.000Z");
 
@@ -96,4 +96,73 @@ test("rejects nested objects, unsafe segment names and unbounded values", () => 
 
   nested.aggregates.leads_by_status = { active: { value: Number.POSITIVE_INFINITY, sampleSize: 12, suppressed: false } };
   assert.equal(validateProductSnapshot(nested, { expectedProduct: "autoplanner", now }).errorCode, "INVALID_AGGREGATE_CELL");
+});
+
+test("transport remains disabled without a strong server-side secret", async () => {
+  let called = false;
+  const result = await fetchProductSnapshot("autoplanner", {
+    baseUrl: "http://127.0.0.1:3000",
+    fetchImpl: async () => { called = true; }
+  });
+  assert.equal(called, false);
+  assert.equal(result.errorCode, "CONNECTOR_NOT_CONFIGURED");
+  assert.equal(result.externalWrites, false);
+});
+
+test("transport blocks an unapproved origin before attaching its secret", async () => {
+  let called = false;
+  const secret = "s".repeat(32);
+  const result = await fetchProductSnapshot("autoplanner", {
+    baseUrl: "https://attacker.example",
+    allowedOrigin: "https://autoplanner.example",
+    secret,
+    fetchImpl: async () => { called = true; }
+  });
+  assert.equal(called, false);
+  assert.equal(result.errorCode, "DESTINATION_BLOCKED");
+  assert.equal(JSON.stringify(result).includes(secret), false);
+  assert.equal(JSON.stringify(result).includes("attacker.example"), false);
+});
+
+test("transport accepts only a validated fresh AutoPlanner snapshot over GET", async () => {
+  let request;
+  const secret = "s".repeat(32);
+  const payload = snapshot("autoplanner");
+  const result = await fetchProductSnapshot("autoplanner", {
+    baseUrl: "https://autoplanner.example",
+    allowedOrigin: "https://autoplanner.example",
+    secret,
+    now,
+    fetchImpl: async (url, options) => {
+      request = { url, options };
+      return { ok: true, status: 200, text: async () => JSON.stringify(payload) };
+    }
+  });
+  assert.equal(result.status, "connected");
+  assert.equal(result.snapshot.product, "autoplanner");
+  assert.equal(request.url, "https://autoplanner.example/api/internal/autopilots-os/snapshot");
+  assert.equal(request.options.method, "GET");
+  assert.equal(request.options.headers["x-autopilots-os-secret"], secret);
+  assert.equal(result.externalWrites, false);
+});
+
+test("transport returns bounded errors for auth, size, JSON and contract failures", async () => {
+  const options = { baseUrl: "http://127.0.0.1:3000", secret: "s".repeat(32), now };
+  const denied = await fetchProductSnapshot("autoplanner", {
+    ...options, fetchImpl: async () => ({ ok: false, status: 401, text: async () => "private" })
+  });
+  assert.equal(denied.errorCode, "ACCESS_DENIED");
+  const oversized = await fetchProductSnapshot("autoplanner", {
+    ...options, fetchImpl: async () => ({ ok: true, status: 200, text: async () => "x".repeat(100001) })
+  });
+  assert.equal(oversized.errorCode, "RESPONSE_TOO_LARGE");
+  const malformed = await fetchProductSnapshot("autoplanner", {
+    ...options, fetchImpl: async () => ({ ok: true, status: 200, text: async () => "not-json" })
+  });
+  assert.equal(malformed.errorCode, "INVALID_JSON");
+  const wrongProduct = snapshot("roofplanner");
+  const invalid = await fetchProductSnapshot("autoplanner", {
+    ...options, fetchImpl: async () => ({ ok: true, status: 200, text: async () => JSON.stringify(wrongProduct) })
+  });
+  assert.equal(invalid.errorCode, "PRODUCT_MISMATCH");
 });
