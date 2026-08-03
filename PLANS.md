@@ -67,11 +67,13 @@ and restore tests pass.
 - A retry-sensitive PostgreSQL `40001` stale-context signal was replaced with a
   non-retryable application conflict after HTTP acceptance exposed the delay;
   stale acknowledgement now returns HTTP 409 in about half a second.
-- A bounded in-process scheduler now runs read-only probes every 15 minutes in
-  the active local sandbox. It uses deterministic time-bucket keys, blocks
-  overlapping runs, strips private failures and records the audit actor as
-  `autopilots-health-monitor`. Its initial run succeeded for all four brands;
-  no acknowledgement or external write was created.
+- A bounded scheduler now runs read-only probes every 15 minutes in the active
+  local sandbox. A durable Supabase lease elects exactly one runtime per time
+  bucket; heartbeat, bounded expired-lease recovery, deterministic observation
+  keys and R0 completion evidence provide independent controls. A concurrent
+  two-instance acceptance elected one winner and one safe skip. Freshness is
+  reported separately for every brand. No acknowledgement or external write
+  was created.
 
 ## Website release safety checkpoint — 2026-07-26
 

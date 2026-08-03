@@ -9,13 +9,31 @@ const health = (product, status = "healthy") => ({
   observedAt: "2026-08-03T17:30:00.000Z", sourceQuality: "live_readonly_probe", externalWrites: false
 });
 
+function durableRepository(overrides = {}) {
+  return {
+    claimMonitoringRun: async (_profileId, request) => ({
+      contract: "autopilots.monitoring-lease.v1", claimed: true, reason: "claimed",
+      runId: "87a784a1-31c2-477f-adaf-7c1afb6b628e", attemptCount: 1, bucket: request.bucket
+    }),
+    heartbeatMonitoringRun: async () => true,
+    completeMonitoringRun: async (runId, _holderId, status, counts) => ({
+      contract: "autopilots.monitoring-run.v1", runId, status, counts
+    }),
+    monitoringFreshness: async () => ({
+      contract: "autopilots.monitoring-freshness.v1", brands: [], externalWrites: false
+    }),
+    recordProductHealth: async () => ({ replayed: false }),
+    ...overrides
+  };
+}
+
 test("scheduler uses deterministic time buckets and delegated authority", async () => {
   const calls = [];
   const scheduler = new MonitoringScheduler({
     enabled: true, intervalMs: 60000, authorityProfileId: profileId,
     brandSlugs: ["autopilots", "autoplanner", "autoplanner"],
     probe: async (slug) => health(slug, slug === "autoplanner" ? "degraded" : "healthy"),
-    repository: { recordProductHealth: async (...args) => { calls.push(args); return { replayed: false }; } }
+    repository: durableRepository({ recordProductHealth: async (...args) => { calls.push(args); return { replayed: false }; } })
   });
   const result = await scheduler.runOnce(new Date("2026-08-03T17:30:00.000Z"));
   assert.equal(result.outcome, "succeeded");
@@ -33,7 +51,7 @@ test("scheduler blocks overlapping runs and strips private failures", async () =
     enabled: true, intervalMs: 60000, authorityProfileId: profileId,
     brandSlugs: ["autoplanner"],
     probe: async () => { await gate; throw new Error("private provider detail"); },
-    repository: { recordProductHealth: async () => ({ replayed: false }) }
+    repository: durableRepository()
   });
   const first = scheduler.runOnce(new Date("2026-08-03T17:31:00.000Z"));
   const overlap = await scheduler.runOnce(new Date("2026-08-03T17:31:01.000Z"));
@@ -43,4 +61,46 @@ test("scheduler blocks overlapping runs and strips private failures", async () =
   assert.equal(result.outcome, "partial");
   assert.equal(result.results[0].errorCode, "MONITORING_CAPTURE_FAILED");
   assert.equal(JSON.stringify(result).includes("private provider detail"), false);
+});
+
+test("scheduler accepts only one durable lease winner per bucket", async () => {
+  let claims = 0;
+  const repository = durableRepository({
+    claimMonitoringRun: async (_profileId, request) => ({
+      contract: "autopilots.monitoring-lease.v1",
+      claimed: claims++ === 0,
+      reason: claims === 1 ? "claimed" : "lease_active",
+      runId: "87a784a1-31c2-477f-adaf-7c1afb6b628e",
+      attemptCount: 1,
+      bucket: request.bucket
+    })
+  });
+  const options = {
+    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    brandSlugs: ["autopilots"], probe: async (slug) => health(slug), repository
+  };
+  const first = new MonitoringScheduler({ ...options, instanceId: "63ef75f9-7a1b-4c45-a470-1cc4511437bb" });
+  const second = new MonitoringScheduler({ ...options, instanceId: "150b9624-2d82-42af-9ea9-56baecbb2ee0" });
+  const at = new Date("2026-08-03T17:32:00.000Z");
+  assert.equal((await first.runOnce(at)).outcome, "succeeded");
+  assert.deepEqual(await second.runOnce(at), {
+    skipped: true, reason: "lease_active", runId: "87a784a1-31c2-477f-adaf-7c1afb6b628e", bucket: Math.floor(at.getTime() / 60000)
+  });
+});
+
+test("scheduler closes a claimed run with safe failed evidence", async () => {
+  const completions = [];
+  const repository = durableRepository({
+    heartbeatMonitoringRun: async () => false,
+    completeMonitoringRun: async (...args) => { completions.push(args); return { contract: "autopilots.monitoring-run.v1", runId: args[0] }; }
+  });
+  const scheduler = new MonitoringScheduler({
+    enabled: true, intervalMs: 60000, authorityProfileId: profileId,
+    brandSlugs: ["autopilots"], probe: async (slug) => health(slug), repository
+  });
+  const result = await scheduler.runOnce(new Date("2026-08-03T17:33:00.000Z"));
+  assert.equal(result.outcome, "failed");
+  assert.equal(completions[0][2], "failed");
+  assert.equal(completions[0][4], "MONITORING_RUN_FAILED");
+  assert.equal(JSON.stringify(result).includes("lease"), false);
 });

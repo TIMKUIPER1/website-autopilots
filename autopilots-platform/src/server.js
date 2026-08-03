@@ -57,6 +57,8 @@ const companyCatalog = osCatalog.brands.map((brand) => ({
 const monitoringScheduler = new MonitoringScheduler({
   enabled: runtimeConfig.monitoringSchedulerEnabled,
   intervalMs: runtimeConfig.monitoringIntervalMs,
+  leaseSeconds: runtimeConfig.monitoringLeaseSeconds,
+  staleAfterSeconds: runtimeConfig.monitoringStaleAfterSeconds,
   authorityProfileId: runtimeConfig.monitoringAuthorityProfileId,
   brandSlugs: companyCatalog.map((company) => company.id),
   repository: controlPlaneRepository,

@@ -27,3 +27,5 @@
 | 2026-08-03 | Use a non-retryable application SQLSTATE for stale acknowledgement context | A business conflict must return promptly and must not trigger database serialization retries | Accepted |
 | 2026-08-03 | Run local automatic monitoring in bounded deterministic time buckets | Periodic evidence becomes idempotent and overlapping runs cannot amplify incident noise | Accepted |
 | 2026-08-03 | Separate monitoring authority from audit actor | Membership grants scope, while audit truth remains the system monitor rather than impersonating the owner | Accepted |
+| 2026-08-03 | Elect one scheduled monitor through a durable Supabase lease | Multi-instance runtimes must not multiply probes, incidents or cost; expired work can be recovered without deleting evidence | Accepted |
+| 2026-08-03 | Treat freshness as explicit governed evidence | A reachable product and a recently persisted observation are different truths and must be shown separately | Accepted |

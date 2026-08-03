@@ -61,8 +61,22 @@ test("automatische monitoring is begrensd en vereist expliciete managed authorit
     ...base,
     MONITORING_SCHEDULER_ENABLED: "true",
     MONITORING_AUTHORITY_PROFILE_ID: "40000000-0000-4000-8000-000000000001",
-    MONITORING_INTERVAL_MS: "60000"
+    MONITORING_INTERVAL_MS: "60000",
+    MONITORING_LEASE_SECONDS: "90",
+    MONITORING_STALE_AFTER_SECONDS: "120"
   });
   assert.equal(config.monitoringSchedulerEnabled, true);
   assert.equal(config.monitoringIntervalMs, 60000);
+  assert.equal(config.monitoringLeaseSeconds, 90);
+  assert.equal(config.monitoringStaleAfterSeconds, 120);
+  assert.throws(
+    () => loadRuntimeConfig({
+      ...base,
+      MONITORING_SCHEDULER_ENABLED: "true",
+      MONITORING_AUTHORITY_PROFILE_ID: "40000000-0000-4000-8000-000000000001",
+      MONITORING_INTERVAL_MS: "120000",
+      MONITORING_STALE_AFTER_SECONDS: "60"
+    }),
+    (error) => error instanceof ConfigurationError && error.code === "MONITORING_FRESHNESS_TOO_SHORT"
+  );
 });
