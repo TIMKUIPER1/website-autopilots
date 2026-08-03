@@ -65,3 +65,8 @@ test("managed control plane cannot report in-memory demo commands as durable suc
   assert.match(server, /controlPlaneMode: controlPlaneRepository \? "managed" : "demo"/);
   assert.match(browser, /data\.controlPlaneMode==='managed'[\s\S]*specifieke duurzame beheeractie/);
 });
+
+test("managed internal sessions cannot retrieve the in-memory demo workspace", async () => {
+  const server = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
+  assert.match(server, /url\.pathname === "\/api\/v1\/demo"[\s\S]*controlPlaneRepository && session\.role === "internal"[\s\S]*MANAGED_DEMO_ROUTE_DISABLED[\s\S]*store\.snapshotFor/);
+});

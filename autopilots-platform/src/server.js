@@ -373,6 +373,11 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/v1/demo" && req.method === "GET") {
       const session = await requireSession(req);
+      if (controlPlaneRepository && session.role === "internal") {
+        throw new HttpError(409,
+          "De demo-werkruimte is niet beschikbaar voor managed interne sessies.",
+          "MANAGED_DEMO_ROUTE_DISABLED");
+      }
       const company = requireCompany(session, url.searchParams.get("company"));
       if (company.id !== "autopilots") return json(res, 200, emptyCompanySnapshot(session, company));
       return json(res, 200, { ...store.snapshotFor(session), company, controlPlaneMode: controlPlaneRepository ? "managed" : "demo" });

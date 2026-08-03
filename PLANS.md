@@ -236,10 +236,11 @@ disposable-target restore rehearsal proves recoverability.
   agents and 0 controls. Runtime status requires timestamped source evidence;
   generic controls and external writes are constrained false and no demo agent
   was copied into the registry.
-- Managed browser sessions no longer download `/api/v1/demo`. The demo payload
-  remains available only to the separate customer/demo journey, so internal
-  operators do not receive demo agents, demo workflows or process-memory
-  actions even as unused browser state.
+- Managed browser sessions no longer download `/api/v1/demo`, and the server
+  rejects that route for managed internal sessions. The demo payload remains
+  available only to the separate customer/demo journey, so internal operators
+  cannot receive demo agents, demo workflows or process-memory actions even as
+  unused browser state or through a manual API call.
 
 ## Website release safety checkpoint — 2026-07-26
 
