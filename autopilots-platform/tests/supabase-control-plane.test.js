@@ -17,6 +17,23 @@ test("onboarding read passes explicit profile and brand scope", async () => {
   });
 });
 
+test("portfolio read passes explicit profile and legal-entity scope", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.portfolio.v1", brands: [], sourceOfTruth: [], dataHealth: {}, demoMode: false, externalWrites: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.portfolio(profileId, legalEntityId);
+  assert.equal(result.contract, "autopilots.portfolio.v1");
+  assert.deepEqual(calls[0], {
+    name: "autopilots_portfolio_snapshot",
+    args: { p_profile_id: profileId, p_legal_entity_id: legalEntityId }
+  });
+});
+
 test("invalid scope fails before service-role access", async () => {
   const repository = new SupabaseControlPlaneRepository({ client: { rpc: async () => assert.fail("RPC must not run") } });
   await assert.rejects(() => repository.brandOnboarding("bad", "../other"), (error) => error.status === 404);

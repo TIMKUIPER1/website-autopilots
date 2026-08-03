@@ -32,3 +32,9 @@ test("browsercode bevat geen live provider secrets", async () => {
   assert.equal(/sk_live_|pit-[a-f0-9-]{20,}/i.test(source), false);
   assert.equal(source.includes("externalWrites:true"), false);
 });
+
+test("managed portfolio reads durable Supabase authority instead of the fixture", async () => {
+  const source = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
+  assert.match(source, /controlPlaneRepository\s*\?\s*await controlPlaneRepository\.portfolio\(session\.id, session\.organizationId\)/);
+  assert.match(source, /:\s*osStore\.portfolio\(session\)/);
+});

@@ -113,6 +113,12 @@ and restore tests pass.
   origin, rejected destinations are never fetched, AutoReviews secrets are
   never attached to them, and oversized or malformed responses fail with
   stable non-sensitive codes.
+- The managed portfolio is no longer sourced from the local OS fixture. A new
+  service-role-only `autopilots.portfolio.v1` snapshot reads the current legal
+  entity, membership-scoped brands, connector status and active incidents from
+  Supabase. It reports no synthetic customers, goals or financial quality;
+  live acceptance returned four scoped brands, four product sources, three
+  blocked sources, `demoMode=false` and `externalWrites=false`.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -169,8 +175,9 @@ Status: `verified` locally and externally enforced.
 6. Connect Stripe as the first OAuth-based read-only discovery and
    reconciliation connector after explicit OAuth permission; keep provider
    writes disabled.
-7. Move remaining portfolio reads and governed command creation behind the
-   durable repository without changing the legacy dashboard.
+7. Move each operating-brand Digital Twin and remaining governed command
+   creation behind the durable repository without changing the legacy
+   dashboard; the portfolio read is complete.
 8. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.

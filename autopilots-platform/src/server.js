@@ -137,7 +137,10 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === "/api/v1/os/portfolio" && req.method === "GET") {
-      return json(res, 200, osStore.portfolio(await requireSession(req)));
+      const session = await requireSession(req);
+      return json(res, 200, controlPlaneRepository
+        ? await controlPlaneRepository.portfolio(session.id, session.organizationId)
+        : osStore.portfolio(session));
     }
 
     if (url.pathname.startsWith("/api/v1/onboarding/brands/") && req.method === "GET") {

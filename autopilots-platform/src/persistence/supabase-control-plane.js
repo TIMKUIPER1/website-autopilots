@@ -21,6 +21,21 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async portfolio(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_portfolio_snapshot", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "Het duurzame portfolio kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.portfolio.v1" || !Array.isArray(data.brands) || !Array.isArray(data.sourceOfTruth)
+      || data.demoMode !== false || data.externalWrites !== false) {
+      throw httpError(503, "Het duurzame portfolio heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async incidents(profileId, brandSlug = null) {
     assertProfileId(profileId);
     if (brandSlug !== null) assertBrandSlug(brandSlug);
