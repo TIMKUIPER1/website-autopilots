@@ -28,6 +28,10 @@ export function loadRuntimeConfig(env = process.env) {
     supabaseServiceRoleKey: secret(env.SUPABASE_SERVICE_ROLE_KEY),
     authRedirectUrl: String(env.AUTH_REDIRECT_URL || `http://${host}:${port}/auth/callback`),
     vaultProvider: String(env.VAULT_PROVIDER || "none"),
+    monitoringSchedulerEnabled: String(env.MONITORING_SCHEDULER_ENABLED || "false") === "true",
+    monitoringIntervalMs: boundedInteger(env.MONITORING_INTERVAL_MS, 300000, 60000, 3600000, "MONITORING_INTERVAL_MS"),
+    monitoringAuthorityProfileId: secret(env.MONITORING_AUTHORITY_PROFILE_ID),
+    monitoringRunImmediately: String(env.MONITORING_RUN_IMMEDIATELY || "false") === "true",
     externalWritesEnabled: String(env.EXTERNAL_WRITES_ENABLED || "false") === "true"
   });
 
@@ -46,6 +50,14 @@ export function assertSafeConfiguration(config) {
     if (!config.supabaseServiceRoleKey) authMissing.push("SUPABASE_SERVICE_ROLE_KEY (uitsluitend server-side)");
     if (authMissing.length) {
       throw new ConfigurationError("SUPABASE_AUTH_CONFIGURATION_INCOMPLETE", `Supabase Auth-configuratie ontbreekt: ${authMissing.join(", ")}`);
+    }
+  }
+  if (config.monitoringSchedulerEnabled) {
+    if (config.authProvider !== "supabase") {
+      throw new ConfigurationError("MONITORING_REQUIRES_MANAGED_IDENTITY", "Automatische monitoring vereist managed identity.");
+    }
+    if (!/^[0-9a-f-]{36}$/i.test(config.monitoringAuthorityProfileId)) {
+      throw new ConfigurationError("MONITORING_AUTHORITY_MISSING", "Automatische monitoring vereist een expliciet authority-profiel.");
     }
   }
   if (!config.isProduction) {

@@ -79,6 +79,13 @@ writes blijven geblokkeerd. Zie
 `docs/runbooks/deployments/AP-OPS-20260803-001.md` en
 `docs/runbooks/deployments/AP-OPS-20260803-002.md`.
 
+De lokale managed sandbox kan daarnaast begrensd automatisch monitoren. De
+scheduler gebruikt vaste tijdvakken, weigert overlap en schrijft als
+`autopilots-health-monitor`; het authority-profiel bepaalt alleen de toegestane
+brand-scope en wordt niet als menselijke actor gelogd. De huidige cadence is 15
+minuten. Automatische remediation bestaat niet. Zie
+`docs/runbooks/deployments/AP-OPS-20260803-003.md`.
+
 ## Starten
 
 ```bash

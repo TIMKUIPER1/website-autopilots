@@ -25,3 +25,5 @@
 | 2026-08-03 | Treat incident acknowledgement as a governed R1 command | Human ownership remains idempotent, attributable, cost-recorded and protected from stale context | Accepted |
 | 2026-08-03 | Keep health GET routes side-effect free and require an explicit POST to persist evidence | Viewing current status must never create hidden database writes | Accepted |
 | 2026-08-03 | Use a non-retryable application SQLSTATE for stale acknowledgement context | A business conflict must return promptly and must not trigger database serialization retries | Accepted |
+| 2026-08-03 | Run local automatic monitoring in bounded deterministic time buckets | Periodic evidence becomes idempotent and overlapping runs cannot amplify incident noise | Accepted |
+| 2026-08-03 | Separate monitoring authority from audit actor | Membership grants scope, while audit truth remains the system monitor rather than impersonating the owner | Accepted |

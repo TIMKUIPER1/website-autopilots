@@ -4,6 +4,7 @@ node_modules/
 .env
 .env.*
 !autopilots-website/.env.example
+!autopilots-platform/.env.example
 *.log
 sales-dashboard/
 autopilots-website/.astro/

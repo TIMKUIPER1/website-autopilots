@@ -67,6 +67,11 @@ and restore tests pass.
 - A retry-sensitive PostgreSQL `40001` stale-context signal was replaced with a
   non-retryable application conflict after HTTP acceptance exposed the delay;
   stale acknowledgement now returns HTTP 409 in about half a second.
+- A bounded in-process scheduler now runs read-only probes every 15 minutes in
+  the active local sandbox. It uses deterministic time-bucket keys, blocks
+  overlapping runs, strips private failures and records the audit actor as
+  `autopilots-health-monitor`. Its initial run succeeded for all four brands;
+  no acknowledgement or external write was created.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -114,8 +119,8 @@ Status: `verified` locally and externally enforced.
    before any runtime cutover.
 3. Complete real owner TOTP enrollment, visually verify the incident UI and
    execute one intentional human acknowledgement end to end.
-4. Add a bounded monitoring scheduler, freshness policy and notification
-   suppression without autonomous remediation.
+4. Add durable scheduler leasing for multi-instance hosting, explicit
+   freshness SLOs and notification suppression without autonomous remediation.
 5. Connect Stripe as the first OAuth-based read-only discovery and
    reconciliation connector after explicit OAuth permission; keep provider
    writes disabled.

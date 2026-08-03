@@ -42,3 +42,27 @@ test("Supabase Auth faalt dicht zonder URL en gescheiden public/server keys", ()
   assert.equal(config.authProvider, "supabase");
   assert.equal(config.authRedirectUrl, "http://127.0.0.1:4310/auth/callback");
 });
+
+test("automatische monitoring is begrensd en vereist expliciete managed authority", () => {
+  assert.throws(
+    () => loadRuntimeConfig({ AUTOPILOTS_MODE: "sandbox", MONITORING_SCHEDULER_ENABLED: "true" }),
+    (error) => error instanceof ConfigurationError && error.code === "MONITORING_REQUIRES_MANAGED_IDENTITY"
+  );
+  const base = {
+    AUTOPILOTS_MODE: "sandbox", AUTH_PROVIDER: "supabase",
+    SUPABASE_URL: "https://example.supabase.co", SUPABASE_PUBLISHABLE_KEY: "public",
+    SUPABASE_SERVICE_ROLE_KEY: "server"
+  };
+  assert.throws(
+    () => loadRuntimeConfig({ ...base, MONITORING_SCHEDULER_ENABLED: "true" }),
+    (error) => error instanceof ConfigurationError && error.code === "MONITORING_AUTHORITY_MISSING"
+  );
+  const config = loadRuntimeConfig({
+    ...base,
+    MONITORING_SCHEDULER_ENABLED: "true",
+    MONITORING_AUTHORITY_PROFILE_ID: "40000000-0000-4000-8000-000000000001",
+    MONITORING_INTERVAL_MS: "60000"
+  });
+  assert.equal(config.monitoringSchedulerEnabled, true);
+  assert.equal(config.monitoringIntervalMs, 60000);
+});

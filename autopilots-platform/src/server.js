@@ -9,6 +9,7 @@ import { SupabaseSessionStore } from "./auth/session-store.js";
 import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
 import { fetchPortfolioHealth, fetchProductHealth } from "./adapters/product-health.js";
 import { loadRuntimeConfig } from "./config.js";
+import { MonitoringScheduler } from "./monitoring/scheduler.js";
 import { OperatingSystemStore, osCatalog } from "./os-store.js";
 import { routeAllowed } from "./policy.js";
 import { createPostgresConnection, FoundationRepository } from "./persistence/postgres.js";
@@ -53,6 +54,15 @@ const companyCatalog = osCatalog.brands.map((brand) => ({
   code: brand.code,
   status: brand.status === "active" ? "active" : "setup"
 }));
+const monitoringScheduler = new MonitoringScheduler({
+  enabled: runtimeConfig.monitoringSchedulerEnabled,
+  intervalMs: runtimeConfig.monitoringIntervalMs,
+  authorityProfileId: runtimeConfig.monitoringAuthorityProfileId,
+  brandSlugs: companyCatalog.map((company) => company.id),
+  repository: controlPlaneRepository,
+  probe: fetchProductHealth,
+  runImmediately: runtimeConfig.monitoringRunImmediately
+});
 
 const demoUsers = [
   {
@@ -106,6 +116,7 @@ const server = http.createServer(async (req, res) => {
         persistence: managedSessionHealth?.durable
           ? "supabase_durable_sessions"
           : databaseHealth?.foundation_installed ? "postgres_foundation" : "memory_demo",
+        monitoring: monitoringScheduler.status(),
         externalWritesEnabled: runtimeConfig.externalWritesEnabled
       });
     }
@@ -477,6 +488,10 @@ function json(res, status, data, extra = {}) {
   res.end(JSON.stringify(data));
 }
 
-server.listen(port, host, () => console.log(`Autopilots Platform draait op http://${host}:${port}`));
+server.listen(port, host, () => {
+  monitoringScheduler.start();
+  console.log(`Autopilots Platform draait op http://${host}:${port}`);
+});
+server.on("close", () => monitoringScheduler.stop());
 
 export const __test = { publicUser, safeEqual };
