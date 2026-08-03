@@ -97,22 +97,31 @@ const validDataPlaneRegistry = await callRpc("autopilots_data_plane_registry", {
   p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
 }, serviceRoleKey);
 if (validDataPlaneRegistry.status !== 200
-  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v2"
+  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v3"
   || validDataPlaneRegistry.payload?.controlPlane?.projectRef !== projectRef
   || validDataPlaneRegistry.payload?.controlPlane?.status !== "verified"
   || !Array.isArray(validDataPlaneRegistry.payload?.products)
   || validDataPlaneRegistry.payload.products.length !== 3
-  || validDataPlaneRegistry.payload.products.some((item) => item?.dataPlane?.status !== "not_registered")
-  || validDataPlaneRegistry.payload?.summary?.registeredProjects !== 1
-  || validDataPlaneRegistry.payload?.summary?.registeredProductDataPlanes !== 0
-  || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 3
-  || validDataPlaneRegistry.payload?.summary?.verificationCandidates !== 2
+  || validDataPlaneRegistry.payload.products.filter((item) => item?.dataPlane?.status === "verified").length !== 2
+  || validDataPlaneRegistry.payload.products.filter((item) => item?.dataPlane?.status === "not_registered").length !== 1
+  || validDataPlaneRegistry.payload.products.find((item) => item?.brand?.slug === "autoplanner")?.dataPlane?.projectRef !== "ixcqwwqldptoschrbtvf"
+  || validDataPlaneRegistry.payload.products.find((item) => item?.brand?.slug === "roofplanner")?.dataPlane?.projectRef !== "ggzapceuibzbgbevbvhx"
+  || validDataPlaneRegistry.payload.products.find((item) => item?.brand?.slug === "autoreviews")?.dataPlane?.status !== "not_registered"
+  || validDataPlaneRegistry.payload.products.some((item) => item?.dataPlane?.status === "verified"
+    && item?.dataPlane?.dataConnectionStatus !== "not_authorized")
+  || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.schemaEvidenceStatus === "verified_product_identity").length !== 2
+  || validDataPlaneRegistry.payload?.summary?.registeredProjects !== 3
+  || validDataPlaneRegistry.payload?.summary?.registeredProductDataPlanes !== 2
+  || validDataPlaneRegistry.payload?.summary?.verifiedProductIdentities !== 2
+  || validDataPlaneRegistry.payload?.summary?.activeDataConnections !== 0
+  || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 1
+  || validDataPlaneRegistry.payload?.summary?.verificationCandidates !== 0
   || validDataPlaneRegistry.payload?.summary?.excludedNonPrimaryCandidates !== 1
-  || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.status === "verification_required").length !== 2
   || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.status === "excluded_non_primary").length !== 1
   || validDataPlaneRegistry.payload?.singleLoginEnabled !== true
   || validDataPlaneRegistry.payload?.crossProjectCredentialSharingEnabled !== false
   || validDataPlaneRegistry.payload?.providerAuthorizationEnabled !== false
+  || validDataPlaneRegistry.payload?.dataConnectionsEnabled !== false
   || validDataPlaneRegistry.payload?.credentialMaterialExposed !== false
   || validDataPlaneRegistry.payload?.genericRegistrationActionEnabled !== false
   || validDataPlaneRegistry.payload?.externalWritesEnabled !== false) {
@@ -127,8 +136,10 @@ evidence.push({
   status: validDataPlaneRegistry.status,
   controlPlaneProjectRef: projectRef,
   products: validDataPlaneRegistry.payload.products.length,
-  registeredProductDataPlanes: 0,
-  verificationCandidates: 2,
+  registeredProductDataPlanes: 2,
+  verifiedProductIdentities: 2,
+  activeDataConnections: 0,
+  verificationCandidates: 0,
   excludedNonPrimaryCandidates: 1,
   crossProjectCredentialSharingEnabled: false,
   providerAuthorizationEnabled: false,

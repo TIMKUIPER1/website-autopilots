@@ -268,3 +268,10 @@ freshly rerun linter reports 0 errors, 2 unchanged warnings and 37 information
 items. The additional item is the intentional deny-all browser posture of the
 server-owned discovery table. It records no credentials and grants no provider
 authorization or writes.
+
+Migration `20260804140000_verified_product_data_planes.sql` adds bounded schema
+fingerprint columns to the existing browser-denied discovery table, inserts two
+verified project-identity rows and replaces the existing server-only projection
+with v3. It adds no table, browser policy or grant. The freshly rerun linter
+therefore remains at 0 errors, 2 known warnings and 37 information items.
+Active data connections and provider authorization remain zero/false.

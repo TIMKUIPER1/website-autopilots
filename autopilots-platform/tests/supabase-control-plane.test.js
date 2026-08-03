@@ -202,23 +202,26 @@ test("data-plane registry keeps one login separate from product project credenti
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
     return { data: {
-      contract: "autopilots.data-plane-registry.v2",
+      contract: "autopilots.data-plane-registry.v3",
       organization: { id: legalEntityId, legalName: "Autopilots" },
       controlPlane: {
         provider: "supabase", purpose: "control_plane", status: "verified", projectRef,
-        dashboardUrl: `https://supabase.com/dashboard/project/${projectRef}`
+        dashboardUrl: `https://supabase.com/dashboard/project/${projectRef}`,
+        dataConnectionStatus: "internal_runtime"
       },
       products: [{ brand: { slug: "autoplanner", name: "AutoPlanner", code: "PL" }, dataPlane: {
         provider: "supabase", purpose: "product_data", status: "not_registered",
-        projectRef: null, dashboardUrl: null
+        projectRef: null, dashboardUrl: null, dataConnectionStatus: "not_registered"
       }, discovery: {
         status: "verification_required", projectRef: "ixcqwwqldptoschrbtvf",
         observedProjectName: "Autoplanner", candidateKind: "exact_name_candidate",
-        providerStatus: "active_healthy", organizationBoundary: "same_provider_organization"
+        providerStatus: "active_healthy", organizationBoundary: "same_provider_organization",
+        schemaEvidenceStatus: "verified_product_identity", schemaPathCount: 54,
+        schemaFingerprintSha256: "bc1b8190d9759a4d393974fb5c4dcd27c6568b358c4b59207bdd717ce09c3704"
       } }],
       summary: { registeredProjects: 1, registeredProductDataPlanes: 0, unregisteredProducts: 3 },
       singleLoginEnabled: true, crossProjectCredentialSharingEnabled: false,
-      providerAuthorizationEnabled: false, credentialMaterialExposed: false,
+      providerAuthorizationEnabled: false, dataConnectionsEnabled: false, credentialMaterialExposed: false,
       genericRegistrationActionEnabled: false, externalWritesEnabled: false
     }, error: null };
   } };
@@ -233,12 +236,14 @@ test("data-plane registry keeps one login separate from product project credenti
 
 test("data-plane registry rejects a forged dashboard destination", async () => {
   const client = { rpc: async () => ({ data: {
-    contract: "autopilots.data-plane-registry.v2",
+    contract: "autopilots.data-plane-registry.v3",
     organization: { id: "10000000-0000-4000-8000-000000000001" },
     controlPlane: { provider: "supabase", purpose: "control_plane", status: "verified",
-      projectRef: "wurycoodzcybaxcgqxps", dashboardUrl: "https://attacker.example" },
+      projectRef: "wurycoodzcybaxcgqxps", dashboardUrl: "https://attacker.example",
+      dataConnectionStatus: "internal_runtime" },
     products: [], summary: {}, singleLoginEnabled: true,
     crossProjectCredentialSharingEnabled: false, providerAuthorizationEnabled: false,
+    dataConnectionsEnabled: false,
     credentialMaterialExposed: false, genericRegistrationActionEnabled: false,
     externalWritesEnabled: false
   }, error: null }) };

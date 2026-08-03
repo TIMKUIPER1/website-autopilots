@@ -136,11 +136,12 @@ export class SupabaseControlPlaneRepository {
       p_legal_entity_id: legalEntityId
     });
     throwMapped(error, "Het product-data-plane register kon niet veilig worden geladen");
-    if (data?.contract !== "autopilots.data-plane-registry.v2"
+    if (data?.contract !== "autopilots.data-plane-registry.v3"
       || !uuid(data?.organization?.id) || data.organization.id !== legalEntityId
       || !data.controlPlane || !Array.isArray(data.products) || !data.summary
       || data.singleLoginEnabled !== true || data.crossProjectCredentialSharingEnabled !== false
-      || data.providerAuthorizationEnabled !== false || data.credentialMaterialExposed !== false
+      || data.providerAuthorizationEnabled !== false || data.dataConnectionsEnabled !== false
+      || data.credentialMaterialExposed !== false
       || data.genericRegistrationActionEnabled !== false || data.externalWritesEnabled !== false) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
     }
@@ -585,29 +586,41 @@ function validSupabasePlane(plane, purpose) {
     && /^[a-z]{20}$/.test(String(plane.projectRef || ""))
     && plane.dashboardUrl === `https://supabase.com/dashboard/project/${plane.projectRef}`
     && plane.purpose === purpose
-    && new Set(["verified", "verification_required", "paused"]).has(plane.status);
+    && new Set(["verified", "verification_required", "paused"]).has(plane.status)
+    && (purpose === "control_plane"
+      ? plane.dataConnectionStatus === "internal_runtime"
+      : plane.dataConnectionStatus === "not_authorized");
 }
 
 function validDataPlanePlaceholder(plane) {
   return plane?.status === "not_registered"
     ? plane.provider === "supabase" && plane.purpose === "product_data"
       && plane.projectRef === null && plane.dashboardUrl === null
+      && plane.dataConnectionStatus === "not_registered"
     : validSupabasePlane(plane, "product_data");
 }
 
 function validDataPlaneDiscovery(discovery) {
   if (discovery?.status === "not_found") {
     return discovery.projectRef === null && discovery.observedProjectName === null
-      && discovery.candidateKind === null;
+      && discovery.candidateKind === null && discovery.schemaEvidenceStatus === null
+      && discovery.schemaPathCount === null && discovery.schemaFingerprintSha256 === null;
   }
-  return new Set(["verification_required", "excluded_non_primary"]).has(discovery?.status)
+  const baseValid = new Set(["verification_required", "excluded_non_primary"]).has(discovery?.status)
     && /^[a-z]{20}$/.test(String(discovery.projectRef || ""))
     && typeof discovery.observedProjectName === "string"
     && discovery.observedProjectName.length > 0 && discovery.observedProjectName.length <= 120
     && new Set(["exact_name_candidate", "backup_label"]).has(discovery.candidateKind)
     && discovery.providerStatus === "active_healthy"
     && new Set(["same_provider_organization", "separate_provider_organization"])
-      .has(discovery.organizationBoundary);
+      .has(discovery.organizationBoundary)
+    && /^[0-9a-f]{64}$/.test(String(discovery.schemaFingerprintSha256 || ""));
+  if (!baseValid) return false;
+  return discovery.candidateKind === "exact_name_candidate"
+    ? discovery.schemaEvidenceStatus === "verified_product_identity"
+      && Number.isInteger(discovery.schemaPathCount) && discovery.schemaPathCount > 0
+    : discovery.schemaEvidenceStatus === "empty_public_schema"
+      && discovery.schemaPathCount === 0;
 }
 
 function throwMapped(error, fallback) {
