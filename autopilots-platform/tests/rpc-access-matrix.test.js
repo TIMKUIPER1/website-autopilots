@@ -13,7 +13,16 @@ test("every other governed public RPC is server-role only", () => {
   assert.ok(Object.keys(matrix).length >= 21);
   for (const [rpc, role] of Object.entries(matrix)) {
     assert.match(rpc, /^autopilots_[a-z0-9_]+$/);
-    assert.ok(new Set(["authenticated", "service_role"]).has(role));
-    if (rpc !== "autopilots_session_context") assert.equal(role, "service_role");
+    assert.ok(new Set(["authenticated", "service_role", "disabled"]).has(role));
+    if (rpc !== "autopilots_session_context" && !rpc.match(/monitoring_(run|freshness)$/)) assert.equal(role, "service_role");
   }
+});
+
+test("superseded human-authority monitoring leases are disabled", () => {
+  assert.deepEqual(Object.entries(matrix).filter(([, role]) => role === "disabled").map(([rpc]) => rpc).sort(), [
+    "autopilots_claim_monitoring_run",
+    "autopilots_complete_monitoring_run",
+    "autopilots_heartbeat_monitoring_run",
+    "autopilots_monitoring_freshness"
+  ]);
 });

@@ -143,6 +143,9 @@ and restore tests pass.
   across portfolio, brand, onboarding, incident and access reads. It makes no
   persistent write; the stronger synthetic two-tenant transaction remains a
   separate pre-cutover acceptance step.
+- Four superseded human-authority monitoring lease RPCs are explicitly retired
+  from the server-role surface. The functions and their evidence remain intact,
+  but only the scoped service-principal v2 scheduler contracts stay callable.
 
 ## Website release safety checkpoint — 2026-07-26
 

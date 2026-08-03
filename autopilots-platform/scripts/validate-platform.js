@@ -40,9 +40,14 @@ for (const [rpc, role] of Object.entries(rpcAccessMatrix)) {
   const revokePattern = role === "authenticated"
     ? new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon\\s*;`, "i")
     : new RegExp(`revoke\\s+all\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+public\\s*,\\s*anon\\s*,\\s*authenticated\\s*;`, "i");
-  const grantPattern = new RegExp(`grant\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+to\\s+${role}\\s*;`, "i");
   if (!revokePattern.test(allMigrationSql)) failures.push(`RPC mist browser-deny: ${rpc}`);
-  if (!grantPattern.test(allMigrationSql)) failures.push(`RPC mist expliciete ${role}-grant: ${rpc}`);
+  if (role === "disabled") {
+    const disabledPattern = new RegExp(`revoke\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+from\\s+service_role\\s*;`, "i");
+    if (!disabledPattern.test(allMigrationSql)) failures.push(`Uitgefaseerde RPC is niet ingetrokken: ${rpc}`);
+  } else {
+    const grantPattern = new RegExp(`grant\\s+execute\\s+on\\s+function\\s+public\\.${escaped}\\s*\\([^;]*\\)\\s+to\\s+${role}\\s*;`, "i");
+    if (!grantPattern.test(allMigrationSql)) failures.push(`RPC mist expliciete ${role}-grant: ${rpc}`);
+  }
 }
 
 const tracked = execFileSync("git", ["ls-files", "-z", "--", "autopilots-platform"], {
