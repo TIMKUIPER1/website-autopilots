@@ -28,5 +28,8 @@ that one brand and cannot see Autopilots, then roll back the entire transaction.
 
 After rollback, verify the original owner has one active legal-entity-wide
 membership, no brand-specific memberships, and that no synthetic legal entity,
-brand, environment, connection, incident or audit row remains. Never run this
-against production concurrently with a schema or membership change.
+brand, environment, onboarding run, membership or incident remains. The live
+AP-OPS-20260803-006 acceptance passed this matrix and corrected the v1 incident
+scope it exposed. Re-run the matrix whenever another portfolio RPC or tenant
+model is introduced. Never run it concurrently with a schema or membership
+change.

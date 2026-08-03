@@ -170,7 +170,7 @@ const server = http.createServer(async (req, res) => {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed incidentbeheer is niet actief");
       const session = await requireSession(req);
       requireInternal(session);
-      return json(res, 200, await controlPlaneRepository.incidents(session.id));
+      return json(res, 200, await controlPlaneRepository.incidents(session.id, session.organizationId));
     }
 
     if (url.pathname === "/api/v1/access/roster" && req.method === "GET") {
@@ -217,7 +217,7 @@ const server = http.createServer(async (req, res) => {
       const session = await requireSession(req);
       requireInternal(session);
       requireCompany(session, slug);
-      return json(res, 200, await controlPlaneRepository.incidents(session.id, slug));
+      return json(res, 200, await controlPlaneRepository.incidents(session.id, session.organizationId, slug));
     }
 
     if (url.pathname.startsWith("/api/v1/monitoring/probe/brands/") && req.method === "POST") {
@@ -232,7 +232,7 @@ const server = http.createServer(async (req, res) => {
       const idempotencyKey = String(req.headers["idempotency-key"] || "");
       const health = await fetchProductHealth(slug);
       const evidence = await controlPlaneRepository.recordProductHealth(session.id, health, idempotencyKey);
-      const incidents = await controlPlaneRepository.incidents(session.id, slug);
+      const incidents = await controlPlaneRepository.incidents(session.id, session.organizationId, slug);
       return json(res, evidence.replayed ? 200 : 201, { health, evidence, incidents });
     }
 

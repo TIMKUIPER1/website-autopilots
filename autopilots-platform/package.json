@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
+    "start:managed-sandbox": "node scripts/start-managed-sandbox.js",
     "test": "node --test tests/*.test.js",
     "check": "node --check src/server.js && node --check public/workspace.js && node scripts/validate-foundation.js && node scripts/validate-platform.js && node --test tests/*.test.js",
     "db:validate": "node scripts/validate-foundation.js && node scripts/validate-platform.js",

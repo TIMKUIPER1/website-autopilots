@@ -56,17 +56,21 @@ test("invalid scope fails before service-role access", async () => {
   await assert.rejects(() => repository.brandOnboarding("bad", "../other"), (error) => error.status === 404);
 });
 
-test("incident read is explicitly profile and brand scoped", async () => {
+test("incident read is explicitly profile, legal-entity and brand scoped", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
-    return { data: { contract: "autopilots.incidents.v1", incidents: [], counts: { active: 0 } }, error: null };
+    return { data: { contract: "autopilots.incidents.v2", legalEntityId: "10000000-0000-4000-8000-000000000001", incidents: [], counts: { active: 0 } }, error: null };
   } };
   const repository = new SupabaseControlPlaneRepository({ client });
-  await repository.incidents("40000000-0000-4000-8000-000000000001", "autoplanner");
+  await repository.incidents("40000000-0000-4000-8000-000000000001", "10000000-0000-4000-8000-000000000001", "autoplanner");
   assert.deepEqual(calls[0], {
-    name: "autopilots_incident_snapshot",
-    args: { p_profile_id: "40000000-0000-4000-8000-000000000001", p_brand_slug: "autoplanner" }
+    name: "autopilots_incident_snapshot_v2",
+    args: {
+      p_profile_id: "40000000-0000-4000-8000-000000000001",
+      p_legal_entity_id: "10000000-0000-4000-8000-000000000001",
+      p_brand_slug: "autoplanner"
+    }
   });
 });
 

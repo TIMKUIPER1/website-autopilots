@@ -48,6 +48,13 @@ test("managed brand twin reads durable Supabase authority instead of the fixture
   assert.match(source, /return json\(res, 200, osStore\.brandTwin\(session, slug, operations\)\)/);
 });
 
+test("every managed incident read carries the durable session organization", async () => {
+  const source = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
+  const calls = source.match(/controlPlaneRepository\.incidents\(session\.id, session\.organizationId(?:, slug)?\)/g) || [];
+  assert.equal(calls.length, 3);
+  assert.doesNotMatch(source, /controlPlaneRepository\.incidents\(session\.id(?:, slug)?\)/);
+});
+
 test("managed control plane cannot report in-memory demo commands as durable success", async () => {
   const server = await fs.readFile(new URL("../src/server.js", import.meta.url), "utf8");
   const browser = await fs.readFile(new URL("../public/workspace.js", import.meta.url), "utf8");

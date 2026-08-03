@@ -11,8 +11,8 @@ The Phase 0–3 sandbox lighthouse is implemented in `autopilots-platform`: pers
 Status: `verified` locally and applied to the authorized existing Supabase
 project **Autopilots** (`wurycoodzcybaxcgqxps`) on 2026-08-03. Managed identity
 is now active in the local sandbox runtime; production cutover remains
-`blocked` until the owner completes MFA enrollment and cross-tenant, backup
-and restore tests pass.
+`blocked` until the owner completes MFA enrollment and an authorized
+disposable-target restore rehearsal proves recoverability.
 
 - A transactional PostgreSQL/Supabase migration defines six governed schemas:
   core, IAM, integrations, workflows, ledger and audit.
@@ -100,7 +100,7 @@ and restore tests pass.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 14 immutable migration checksums,
+  syntax, foundation contracts, all 18 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -136,8 +136,9 @@ and restore tests pass.
   explicitly authorized disposable-target restore proves RPO and RTO.
 - The platform release gate now discovers every public `autopilots_*` database
   API and compares it with an explicit caller matrix. Only the RLS-scoped
-  signed-in session context may be called by `authenticated`; all other 20
-  governed RPCs require `service_role` and explicitly revoke browser roles.
+  signed-in session context may be called by `authenticated`; 16 current
+  governed RPCs require `service_role`, five superseded RPCs are disabled and
+  every browser role is explicitly revoked from server-only functions.
 - A credential-safe live negative-authorization suite now checks the exact
   Autopilots project for wrong-profile, wrong-organization and anonymous denial
   across portfolio, brand, onboarding, incident and access reads. It makes no
@@ -146,6 +147,11 @@ and restore tests pass.
 - Four superseded human-authority monitoring lease RPCs are explicitly retired
   from the server-role surface. The functions and their evidence remain intact,
   but only the scoped service-principal v2 scheduler contracts stay callable.
+- A rollback-only second-organization probe found that the v1 portfolio
+  incident snapshot could combine incidents from two otherwise valid
+  memberships. The replacement v2 contract requires the durable session's
+  legal-entity ID and filters every incident and brand to that exact scope;
+  unscoped v1 execution is retired.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -189,8 +195,9 @@ Status: `verified` locally and externally enforced.
 
 1. Complete owner TOTP enrollment from the delivered login link and verify the
    real owner session end to end.
-2. Execute authenticated cross-tenant, concurrency, backup and restore tests
-   before any runtime cutover.
+2. After owner TOTP, repeat the authenticated UI/API flow end to end. The live
+   rollback two-tenant matrix, concurrency checks and backup inventory now
+   pass; the separately authorized disposable-target restore remains pending.
 3. After real owner TOTP enrollment, visually verify incidents and the new
    access roster, then execute one intentional human acknowledgement end to
    end. Do not stage a real colleague until their role and scope are approved.

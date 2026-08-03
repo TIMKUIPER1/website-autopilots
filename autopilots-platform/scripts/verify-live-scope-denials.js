@@ -33,8 +33,8 @@ const denialCases = [
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
-  ["incidents-unknown-profile", "autopilots_incident_snapshot", "42501", {
-    p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
+  ["incidents-v2-unknown-profile", "autopilots_incident_snapshot_v2", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId, p_brand_slug: "autoplanner"
   }],
   ["access-roster-unknown-legal-entity", "autopilots_access_roster", "P0002", {
     p_profile_id: ownerProfileId, p_legal_entity_id: outsideLegalEntityId
@@ -50,14 +50,27 @@ for (const [name, rpc, expectedCode, body] of denialCases) {
   evidence.push({ case: name, denied: true, status: response.status, errorCode: expectedCode });
 }
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_access_roster"]) {
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
+    : rpc === "autopilots_incident_snapshot_v2"
+      ? { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId, p_brand_slug: null }
     : { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId };
   const response = await callRpc(rpc, body, anonKey);
   if (response.status < 400) fail("ANONYMOUS_RPC_ACCESSIBLE", { rpc, status: response.status });
   evidence.push({ case: `anonymous-${rpc}`, denied: true, status: response.status, errorCode: safeCode(response.payload?.code) });
 }
+
+const legacyIncident = await callRpc("autopilots_incident_snapshot", {
+  p_profile_id: ownerProfileId, p_brand_slug: null
+}, serviceRoleKey);
+if (legacyIncident.status < 400) fail("LEGACY_INCIDENT_RPC_ACCESSIBLE", { status: legacyIncident.status });
+evidence.push({
+  case: "service-role-legacy-incident-v1",
+  denied: true,
+  status: legacyIncident.status,
+  errorCode: safeCode(legacyIncident.payload?.code)
+});
 
 console.log(JSON.stringify({
   ok: true,

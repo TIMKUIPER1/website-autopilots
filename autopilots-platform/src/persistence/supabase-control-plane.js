@@ -52,15 +52,17 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
-  async incidents(profileId, brandSlug = null) {
+  async incidents(profileId, legalEntityId, brandSlug = null) {
     assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
     if (brandSlug !== null) assertBrandSlug(brandSlug);
-    const { data, error } = await this.client.rpc("autopilots_incident_snapshot", {
+    const { data, error } = await this.client.rpc("autopilots_incident_snapshot_v2", {
       p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId,
       p_brand_slug: brandSlug
     });
     throwMapped(error, "Incidentstatus kon niet veilig worden geladen");
-    if (!data || data.contract !== "autopilots.incidents.v1" || !Array.isArray(data.incidents)) {
+    if (!data || data.contract !== "autopilots.incidents.v2" || data.legalEntityId !== legalEntityId || !Array.isArray(data.incidents)) {
       throw httpError(503, "Incidentstatus heeft een ongeldig contract");
     }
     return data;

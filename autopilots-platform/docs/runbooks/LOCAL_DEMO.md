@@ -1,5 +1,11 @@
 # Local Demo Runbook
 
+For the managed Autopilots sandbox, use `pnpm start:managed-sandbox`. It reads
+the existing project's publishable and service-role keys into process memory
+from the authenticated Supabase CLI, generates a fresh application-session
+secret, enables the scoped monitoring principal and keeps external writes
+disabled. It never prints or writes credentials.
+
 ## Start and verify
 
 ```bash
