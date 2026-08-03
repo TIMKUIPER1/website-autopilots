@@ -384,12 +384,20 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 339 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 344 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
   `20260804160000_atomic_product_snapshot_evidence.sql` are applied and accepted
   separately.
+- A project-pinned readiness-chain runner now makes the live transition
+  reproducible. Its default mode is GET-equivalent inventory preflight through
+  the Supabase Management API and accepts only the exact ordered 45-file or
+  already-applied 48-file checksum set. Apply requires a temporary token plus
+  two independent exact gates, rechecks the inventory inside PostgreSQL and
+  executes all three migrations with their own change IDs in one transaction.
+  Errors never print the token, SQL or response body. A no-token apply attempt
+  was verified to stop before network/database access.
 
 ## Website release safety checkpoint — 2026-07-26
 
