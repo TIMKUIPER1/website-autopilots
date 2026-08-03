@@ -138,6 +138,11 @@ and restore tests pass.
   API and compares it with an explicit caller matrix. Only the RLS-scoped
   signed-in session context may be called by `authenticated`; all other 20
   governed RPCs require `service_role` and explicitly revoke browser roles.
+- A credential-safe live negative-authorization suite now checks the exact
+  Autopilots project for wrong-profile, wrong-organization and anonymous denial
+  across portfolio, brand, onboarding, incident and access reads. It makes no
+  persistent write; the stronger synthetic two-tenant transaction remains a
+  separate pre-cutover acceptance step.
 
 ## Website release safety checkpoint — 2026-07-26
 

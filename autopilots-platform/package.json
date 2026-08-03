@@ -9,6 +9,7 @@
     "check": "node --check src/server.js && node --check public/workspace.js && node scripts/validate-foundation.js && node scripts/validate-platform.js && node --test tests/*.test.js",
     "db:validate": "node scripts/validate-foundation.js && node scripts/validate-platform.js",
     "security:check": "node scripts/validate-platform.js",
+    "security:verify-live": "node scripts/verify-live-scope-denials.js",
     "backup:verify": "node scripts/verify-supabase-backups.js",
     "db:migrate": "node scripts/migrate.js"
   },
