@@ -22,6 +22,14 @@ separately authorized aggregate reader and independent review. None of these
 routes is hosted or centrally connected; the live catalog therefore remains 0
 verified and 3 requiring implementation.
 
+The local Autopilots runtime now has a parallel, organization-scoped GET reader
+for these three product contracts. It makes no request without a dedicated
+32-character product snapshot secret, never returns endpoint or credential
+values, isolates product failures and forwards only validated fresh aggregates
+to the internal portfolio. It performs no persistence, remediation, provider
+authorization or external write. Because no endpoint/secret pair is activated,
+this capability does not change the live status above.
+
 Rules: one authority per field; store provider IDs and sync cursors; raw provider payloads are evidence, normalized records drive products; reconciliation never silently overwrites financial history; corrections append adjustment records.
 
 ## AutoReviews lighthouse matrix
@@ -53,6 +61,7 @@ The governed successor contract is validated by the shared product-snapshot
 adapter. It has the exact seven-field AutoReviews allowlist, 15-minute freshness,
 five-record small-cell suppression and the same no-PII boundary. Its local route
 is GET-only, returns 503 without a separately configured strong secret and is
+available to the local central portfolio reader only after configuration. It is
 not wired into monitoring or persistence.
 
 Connection readiness is locally governed by twelve expiring gates and a

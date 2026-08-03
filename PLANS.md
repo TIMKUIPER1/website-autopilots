@@ -332,11 +332,14 @@ Status: `verified read-only foundation`.
   accepted. AutoPlanner and AutoReviews now have local producer routes, but no
   live transport, credential or central ingestion is active. AutoReviews
   defaults its environment identity to `sandbox`; production must be explicit.
-- A central GET-only transport adapter is also implemented but remains
-  configuration-disabled. It validates a strong server secret before network
-  use, blocks non-allowlisted destinations before attaching that secret,
-  bounds response size and exposes only stable error codes. It is not wired
-  into monitoring or persistence.
+- A central GET-only transport adapter and parallel portfolio reader are also
+  implemented but remain configuration-disabled. They validate a dedicated
+  strong server secret per product before network use, block non-allowlisted
+  destinations before attaching that secret, bound response size and expose
+  only stable error codes. One failed product stays isolated from valid product
+  observations. The internal portfolio API and UI show only validated live
+  aggregates or an explicit unavailable state; no demo, cache or estimate is
+  substituted. Nothing is persisted and monitoring remains separate.
 - RoofPlanner now has a local product-snapshot contract and an internal route
   on its required `agent/control-plane-snapshot` branch. Its runtime deliberately
   composes a disabled gateway because existing tenant RLS must not be bypassed
@@ -360,8 +363,14 @@ Status: `verified read-only foundation`.
   the first blocker per product, expands to the full checklist, presents no
   activation action and explicitly reports the migration as not live when the
   durable read model is unavailable.
+- The portfolio now also has a responsive privacy-safe product-total view for
+  AutoReviews, AutoPlanner and RoofPlanner. It shows organization and bounded
+  product-signal totals only after the exact fresh contract validates, hides
+  small cells, exposes no endpoint or credential values and has no connect,
+  refresh, remediation or write action. With current configuration all three
+  remain honestly `Niet gekoppeld`.
 - Local migration inventory is 46 immutable files and the governed RPC surface
-  is 38. The full gate passes 322 tests. Live inventory remains 45 migrations
+  is 38. The full gate passes 327 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until `20260804150000_product_connection_readiness.sql`
   is applied and accepted separately.
 

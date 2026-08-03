@@ -89,9 +89,14 @@ full product validator before acceptance. Authentication, timeout, reachability,
 size, JSON and contract failures become bounded codes without echoing endpoints,
 payloads or secrets.
 
-The adapter is not connected to monitoring, persistence or the portfolio. The
-AutoPlanner and AutoReviews producers exist locally, but no hosted endpoint,
-credential or central data connection is active under Werktoestemming A.
+The adapter is connected to an internal, organization-scoped portfolio GET
+reader. The reader starts authorized products in parallel, preserves one bounded
+result per product and accepts only validator-approved live aggregates. It
+returns explicit unavailable states instead of demo, cached or estimated data,
+and never returns configured endpoints or credentials. It is not connected to
+monitoring or persistence. The AutoPlanner and AutoReviews producers exist
+locally, but no hosted endpoint, credential or central data connection is active
+under Werktoestemming A.
 AutoReviews defaults to `sandbox`; a verified live service must explicitly set
 `production` before production evidence could be accepted.
 

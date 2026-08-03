@@ -9,6 +9,7 @@ import { SupabaseSessionStore } from "./auth/session-store.js";
 import { fetchAutoreviewsSnapshot } from "./adapters/autoreviews.js";
 import { connectorPosture } from "./adapters/connector-posture.js";
 import { fetchPortfolioHealth, fetchProductHealth } from "./adapters/product-health.js";
+import { fetchProductSnapshotPortfolio } from "./adapters/product-snapshot-portfolio.js";
 import { loadRuntimeConfig } from "./config.js";
 import { MonitoringScheduler } from "./monitoring/scheduler.js";
 import { OperatingSystemStore, osCatalog } from "./os-store.js";
@@ -193,6 +194,12 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await controlPlaneRepository.productConnectionReadiness(
         session.id, session.organizationId
       ));
+    }
+
+    if (url.pathname === "/api/v1/data-planes/snapshots" && req.method === "GET") {
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await fetchProductSnapshotPortfolio(session.companyIds));
     }
 
     if (url.pathname === "/api/v1/monitoring/history" && req.method === "GET") {

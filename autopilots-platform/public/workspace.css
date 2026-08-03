@@ -135,3 +135,13 @@
 #workspaceApp .readiness-list span{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(112,188,215,.1);padding:9px 0}
 #workspaceApp .readiness-list b{color:var(--hud-muted);font-size:9px;font-weight:600}
 @media(max-width:1050px){#workspaceApp .readiness-grid{grid-template-columns:1fr}}
+#workspaceApp .snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#workspaceApp .snapshot-card{border:1px solid var(--hud-line);border-radius:4px;background:linear-gradient(145deg,rgba(12,29,40,.9),rgba(6,13,19,.96));padding:20px}
+#workspaceApp .snapshot-card.connected{border-color:rgba(112,188,215,.35)}
+#workspaceApp .snapshot-card.unavailable{border-color:rgba(208,100,77,.3)}
+#workspaceApp .snapshot-readout{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:18px 0;background:var(--hud-line)}
+#workspaceApp .snapshot-readout span{display:grid;gap:8px;background:#08121a;padding:14px}
+#workspaceApp .snapshot-readout small{color:var(--hud-muted);font:700 8px "Syne";letter-spacing:.08em;text-transform:uppercase}
+#workspaceApp .snapshot-readout strong{color:var(--hud-text);font:700 24px "Syne"}
+#workspaceApp .snapshot-card p{margin:0;color:var(--hud-muted);font-size:10px;line-height:1.6}
+@media(max-width:1050px){#workspaceApp .snapshot-grid{grid-template-columns:1fr}}
