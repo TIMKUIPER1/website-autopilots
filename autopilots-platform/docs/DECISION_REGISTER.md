@@ -31,3 +31,6 @@
 | 2026-08-03 | Treat freshness as explicit governed evidence | A reachable product and a recently persisted observation are different truths and must be shown separately | Accepted |
 | 2026-08-03 | Give automated monitoring a dedicated non-login service principal | Scheduled evidence must not depend on or impersonate a human owner account | Accepted |
 | 2026-08-03 | Scope machine permissions by legal entity, optional brand and an allowlisted capability | Future organizations and workloads must remain isolated even when they share the central control plane | Accepted |
+| 2026-08-03 | Stage access changes as R2 commands before creating identities or memberships | Central administration needs durable intent, idempotency, audit and human approval without silently granting access | Accepted |
+| 2026-08-03 | Exclude owner grants and provider invitations from the initial access workflow | Owner transfer and external delivery require stronger, separately authorized controls than ordinary role staging | Accepted |
+| 2026-08-03 | Correct deployed IAM contracts with an immutable follow-up migration | Registered migration checksums remain trustworthy and production history is never rewritten after activation | Accepted |

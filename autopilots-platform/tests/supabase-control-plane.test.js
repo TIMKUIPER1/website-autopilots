@@ -124,3 +124,49 @@ test("monitoring freshness requires its versioned safe contract", async () => {
     args: { p_principal_id: principalId, p_stale_after_seconds: 1800 }
   });
 });
+
+test("access roster is explicitly profile and organization scoped", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.access-roster.v1", members: [], requests: [], externalWrites: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  await repository.accessRoster("40000000-0000-4000-8000-000000000001", "10000000-0000-4000-8000-000000000001");
+  assert.deepEqual(calls[0], {
+    name: "autopilots_access_roster",
+    args: {
+      p_profile_id: "40000000-0000-4000-8000-000000000001",
+      p_legal_entity_id: "10000000-0000-4000-8000-000000000001"
+    }
+  });
+});
+
+test("access request normalizes bounded input and returns no-write evidence", async () => {
+  const calls = [];
+  const requestId = "9c856ac8-0145-488f-98b3-5b0e85057b81";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.access-request.v1", requestId, status: "approval_required", replayed: false, externalWrites: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const result = await repository.stageAccessRequest(
+    "40000000-0000-4000-8000-000000000001",
+    "10000000-0000-4000-8000-000000000001",
+    { email: "  TEAM@Example.com ", displayName: " Team Lid ", role: "viewer", brandSlug: "autoplanner" },
+    "access_12345678"
+  );
+  assert.equal(result.externalWrites, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_stage_access_request",
+    args: {
+      p_profile_id: "40000000-0000-4000-8000-000000000001",
+      p_legal_entity_id: "10000000-0000-4000-8000-000000000001",
+      p_email: "team@example.com",
+      p_display_name: "Team Lid",
+      p_role: "viewer",
+      p_brand_slug: "autoplanner",
+      p_idempotency_key: "access_12345678"
+    }
+  });
+});

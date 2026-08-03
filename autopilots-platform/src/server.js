@@ -93,7 +93,7 @@ const customerRoutes = new Set([
 ]);
 const internalRoutes = new Set([
   "/control-center", "/control-center/portfolio", "/control-center/tasks", "/control-center/agents", "/control-center/approvals",
-  "/control-center/implementaties/impl_001"
+  "/control-center/access", "/control-center/implementaties/impl_001"
 ]);
 const assets = new Set(["/workspace.html", "/workspace.js", "/workspace.css", "/app.css", "/ap-logo.svg"]);
 const sessionCookieName = runtimeConfig.authProvider === "supabase" ? "ap_session" : "ap_demo_session";
@@ -167,6 +167,29 @@ const server = http.createServer(async (req, res) => {
       const session = await requireSession(req);
       requireInternal(session);
       return json(res, 200, await controlPlaneRepository.incidents(session.id));
+    }
+
+    if (url.pathname === "/api/v1/access/roster" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed toegangsbeheer is niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.accessRoster(session.id, session.organizationId));
+    }
+
+    if (url.pathname === "/api/v1/access/requests" && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed toegangsbeheer is niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      const body = await parseBody(req);
+      const idempotencyKey = String(req.headers["idempotency-key"] || "");
+      const result = await controlPlaneRepository.stageAccessRequest(
+        session.id,
+        session.organizationId,
+        body,
+        idempotencyKey
+      );
+      return json(res, result.replayed ? 200 : 201, result);
     }
 
     if (url.pathname.startsWith("/api/v1/incidents/brands/") && req.method === "GET") {

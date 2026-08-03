@@ -120,6 +120,48 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async accessRoster(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_access_roster", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "Het toegangsbeheer kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.access-roster.v1" || !Array.isArray(data.members) || !Array.isArray(data.requests)) {
+      throw httpError(503, "Het toegangsbeheer heeft een ongeldig contract");
+    }
+    return data;
+  }
+
+  async stageAccessRequest(profileId, legalEntityId, request, idempotencyKey) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    assertIdempotencyKey(idempotencyKey);
+    const email = String(request?.email || "").trim().toLowerCase();
+    const displayName = String(request?.displayName || "").trim();
+    const role = String(request?.role || "");
+    const brandSlug = request?.brandSlug === null || request?.brandSlug === "" ? null : String(request?.brandSlug || "");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) throw httpError(400, "Geldig e-mailadres vereist");
+    if (displayName.length < 2 || displayName.length > 120) throw httpError(400, "Naam moet tussen 2 en 120 tekens bevatten");
+    if (!new Set(["admin", "operator", "finance", "auditor", "viewer"]).has(role)) throw httpError(400, "Ongeldige toegangsrol");
+    if (brandSlug !== null) assertBrandSlug(brandSlug);
+    const { data, error } = await this.client.rpc("autopilots_stage_access_request", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId,
+      p_email: email,
+      p_display_name: displayName,
+      p_role: role,
+      p_brand_slug: brandSlug,
+      p_idempotency_key: idempotencyKey
+    });
+    throwMapped(error, "Het toegangsverzoek kon niet veilig worden gestaged");
+    if (data?.contract !== "autopilots.access-request.v1" || !uuid(data.requestId) || data.externalWrites !== false) {
+      throw httpError(503, "Het toegangsverzoek heeft een ongeldig bewijscontract");
+    }
+    return data;
+  }
+
   async acknowledgeIncident(profileId, incidentId, contextVersion, idempotencyKey) {
     assertProfileId(profileId);
     if (!uuid(incidentId)) throw httpError(404, "Incident niet gevonden");
@@ -188,7 +230,7 @@ function throwMapped(error, fallback) {
   if (error.code === "P0001" && /stale incident context/i.test(String(error.message || ""))) {
     throw httpError(409, "De incidentcontext is gewijzigd; ververs eerst de actuele status");
   }
-  if (["23505", "55000"].includes(error.code)) throw httpError(409, "Deze incidentactie conflicteert met de actuele status");
+  if (["23505", "55000"].includes(error.code)) throw httpError(409, "Deze beheeractie conflicteert met de actuele status");
   if (error.code === "22023") throw httpError(400, "Ongeldige incidentactie");
   throw httpError(503, fallback);
 }

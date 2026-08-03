@@ -79,6 +79,16 @@ and restore tests pass.
   portfolio scopes, has no Auth user or human profile, cannot log in, cannot
   enable external writes and is the recorded machine actor for new health and
   run evidence. The legacy human-authority lease RPC is revoked.
+- Central access management now has a server-authoritative organization roster
+  and a staged request flow. Only legal-entity-wide owners, admins and auditors
+  can read the roster; only owners and admins can stage changes. Every request
+  becomes an idempotent R2 command, pending approval, zero-cost usage entry and
+  audit event. Owner grants, provider invitations, Auth-user creation and
+  external writes are deliberately excluded.
+- Live rollback-safe acceptance verified first-write, replay and divergent-key
+  behavior and left zero synthetic access requests, commands, approvals, usage
+  or audit rows. Browser roles have no table or RPC access. The two immutable
+  IAM migrations and their registered checksums match production.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -124,18 +134,21 @@ Status: `verified` locally and externally enforced.
    real owner session end to end.
 2. Execute authenticated cross-tenant, concurrency, backup and restore tests
    before any runtime cutover.
-3. Complete real owner TOTP enrollment, visually verify the incident UI and
-   execute one intentional human acknowledgement end to end.
-4. Add durable scheduler leasing for multi-instance hosting, explicit
-   freshness SLOs and notification suppression without autonomous remediation.
-5. Connect Stripe as the first OAuth-based read-only discovery and
+3. After real owner TOTP enrollment, visually verify incidents and the new
+   access roster, then execute one intentional human acknowledgement end to
+   end. Do not stage a real colleague until their role and scope are approved.
+4. Add the server-governed R2 approval/rejection lifecycle for staged access
+   requests. Keep Auth-user creation and provider invitations disabled.
+5. Add notification suppression and escalation delivery without autonomous
+   remediation, after its provider channel is explicitly authorized.
+6. Connect Stripe as the first OAuth-based read-only discovery and
    reconciliation connector after explicit OAuth permission; keep provider
    writes disabled.
-6. Move remaining portfolio reads and governed command creation behind the
+7. Move remaining portfolio reads and governed command creation behind the
    durable repository without changing the legacy dashboard.
-7. Add CI gates for migration validation, tests, secret scanning and
+8. Add CI gates for migration validation, tests, secret scanning and
    architecture fitness checks.
-8. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
+9. Inventory and remediate the 18 pre-existing Supabase Advisor findings in
    the legacy `public` schema with compatibility tests; do not enable blanket
    RLS while `sales-dashboard` still depends on those tables.
 
