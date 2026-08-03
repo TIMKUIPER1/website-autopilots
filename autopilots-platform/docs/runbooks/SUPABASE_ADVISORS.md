@@ -221,3 +221,8 @@ policy-free and browser-revoked server table plus one service-role-only read
 function. The freshly rerun linter reports 0 errors, 2 unchanged warnings and
 35 information items. The additional information item is the intentional
 deny-all browser posture of the delivery-disabled policy registry.
+
+Migration `20260804103000_security_posture_snapshot.sql` adds only one stable,
+service-role-only organization read function over existing IAM evidence. It
+adds no table, policy or browser grant. The freshly rerun linter therefore
+remains at 0 errors, 2 known warnings and 35 information items.

@@ -390,6 +390,26 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async securityPosture(profileId, legalEntityId, currentSessionId = null) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    if (currentSessionId !== null) assertUuid(currentSessionId, "Ongeldige actuele sessie");
+    const { data, error } = await this.client.rpc("autopilots_security_posture", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId,
+      p_current_session_id: currentSessionId
+    });
+    throwMapped(error, "De beveiligingsstatus kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.security-posture.v1" || !data.summary
+      || !Array.isArray(data.sessions) || data.tokenHashesExposed !== false
+      || data.authUserIdsExposed !== false || data.revocationReasonsExposed !== false
+      || data.genericSessionRevocationEnabled !== false || data.externalWritesEnabled !== false
+      || data.demoMode !== false) {
+      throw httpError(503, "De beveiligingsstatus heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async accessRoster(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

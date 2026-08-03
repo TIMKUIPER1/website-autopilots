@@ -420,6 +420,28 @@ test("monitoring history requires organization scope and permanent no-effect evi
   });
 });
 
+test("security posture is organization scoped and excludes secret session material", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.security-posture.v1", summary: {}, sessions: [],
+      tokenHashesExposed: false, authUserIdsExposed: false, revocationReasonsExposed: false,
+      genericSessionRevocationEnabled: false, externalWritesEnabled: false, demoMode: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const sessionId = "41000000-0000-4000-8000-000000000001";
+  const result = await repository.securityPosture(profileId, legalEntityId, sessionId);
+  assert.equal(result.tokenHashesExposed, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_security_posture",
+    args: { p_profile_id: profileId, p_legal_entity_id: legalEntityId, p_current_session_id: sessionId }
+  });
+});
+
 test("access roster is explicitly profile and organization scoped", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

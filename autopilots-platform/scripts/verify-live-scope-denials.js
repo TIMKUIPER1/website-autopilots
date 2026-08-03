@@ -42,6 +42,9 @@ const denialCases = [
   ["alert-policy-unknown-profile", "autopilots_alert_policy_snapshot", "42501", {
     p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
   }],
+  ["security-posture-unknown-profile", "autopilots_security_posture", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId, p_current_session_id: null
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -163,11 +166,43 @@ evidence.push({
   providerWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+const validSecurityPosture = await callRpc("autopilots_security_posture", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId, p_current_session_id: null
+}, serviceRoleKey);
+if (validSecurityPosture.status !== 200
+  || validSecurityPosture.payload?.contract !== "autopilots.security-posture.v1"
+  || !validSecurityPosture.payload?.summary
+  || !Array.isArray(validSecurityPosture.payload?.sessions)
+  || validSecurityPosture.payload?.tokenHashesExposed !== false
+  || validSecurityPosture.payload?.authUserIdsExposed !== false
+  || validSecurityPosture.payload?.revocationReasonsExposed !== false
+  || validSecurityPosture.payload?.genericSessionRevocationEnabled !== false
+  || validSecurityPosture.payload?.externalWritesEnabled !== false
+  || validSecurityPosture.payload?.demoMode !== false) {
+  fail("SECURITY_POSTURE_SERVICE_ROLE_READ_FAILED", {
+    status: validSecurityPosture.status,
+    errorCode: safeCode(validSecurityPosture.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-security-posture-read", allowed: true,
+  status: validSecurityPosture.status,
+  activeProfiles: validSecurityPosture.payload.summary.activeProfiles || 0,
+  activeSessions: validSecurityPosture.payload.summary.activeSessions || 0,
+  activeAal2Sessions: validSecurityPosture.payload.summary.activeAal2Sessions || 0,
+  activeAal1Sessions: validSecurityPosture.payload.summary.activeAal1Sessions || 0,
+  secretSessionMaterialExposed: false,
+  genericSessionRevocationEnabled: false,
+  externalWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_security_posture", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"
       ? { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId, p_brand_slug: null }
+    : rpc === "autopilots_security_posture"
+      ? { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId, p_current_session_id: null }
     : { p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId };
   const response = await callRpc(rpc, body, anonKey);
   if (response.status < 400) fail("ANONYMOUS_RPC_ACCESSIBLE", { rpc, status: response.status });

@@ -8,7 +8,7 @@ const customerRoutes = [
 ];
 const internalRoutes = [
   "/control-center", "/control-center/portfolio", "/control-center/implementaties/impl_001", "/control-center/tasks",
-  "/control-center/approvals", "/control-center/agents", "/control-center/access"
+  "/control-center/approvals", "/control-center/agents", "/control-center/access", "/control-center/security"
 ];
 
 async function login(base, role) {

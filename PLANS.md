@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 36 immutable migration checksums,
+  syntax, foundation contracts, all 37 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -260,6 +260,12 @@ disposable-target restore rehearsal proves recoverability.
   recommendation. Live truth is 3 candidates and 3 escalation-due advisories,
   with exactly 0 notification attempts, 0 deliveries and no remediation or
   provider authority.
+- Security Control now exposes one privacy-limited, organization-scoped session
+  posture for owners, admins and auditors. Live truth is 1 active profile and
+  0 active sessions because no real owner session was created. Token hashes,
+  Auth user IDs and free revocation reasons are excluded; MFA policy and AAL2
+  session evidence remain distinct, and generic session revocation is disabled.
+  Anonymous access and an unknown profile are denied.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -308,8 +314,9 @@ Status: `verified` locally and externally enforced.
    pass; the separately authorized disposable-target restore remains pending.
 3. After real owner TOTP enrollment, visually verify the durable Overview,
    Implementatie and portfolio monitoring history plus the fail-closed Agent
-   Control Room, incidents and access roster; then execute one intentional human acknowledgement end to
-   end. Do not stage a real colleague until their role and scope are approved.
+   Control Room, incidents, access roster and Security Control; confirm that the
+   current session is AAL2, then execute one intentional human acknowledgement
+   end to end. Do not stage a real colleague until their role and scope are approved.
 4. Visually verify the new connector staging and decision controls after owner
    TOTP. Do not stage a real connector request until the intended provider,
    brand and scope have been explicitly selected.
