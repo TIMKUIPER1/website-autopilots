@@ -162,6 +162,11 @@ disposable-target restore rehearsal proves recoverability.
   zero remaining findings in the six governed schemas. The remaining findings
   belong to the legacy `public` compatibility boundary, the intentionally
   exposed bounded session-v2 RPC, or a project-level Auth setting.
+- The 18 legacy RLS findings now have a machine-verified compatibility
+  inventory. Only four tables are touched by the current `sales-dashboard`
+  runtime, exclusively as service-role best-effort write mirrors; fourteen
+  tables have no runtime database caller and can form the first rollback-safe
+  RLS remediation group.
 
 ## Website release safety checkpoint — 2026-07-26
 

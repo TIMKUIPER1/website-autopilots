@@ -1,0 +1,24 @@
+{
+  "contract": "autopilots.legacy-public-surface.v1",
+  "owner": "sales-dashboard",
+  "tables": [
+    { "name": "audit_log", "sensitivity": "high", "runtimeAccess": "service_role_write_mirror", "caller": "mirrorAuditLogToSupabase" },
+    { "name": "companies", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "contacts", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "customer_domains", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "documents", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "ghl_opportunity_events", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "integration_accounts", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "integration_health", "sensitivity": "medium", "runtimeAccess": "service_role_write_mirror", "caller": "mirrorIntegrationHealthToSupabase" },
+    { "name": "invoices_purchase", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "invoices_sales", "sensitivity": "critical", "runtimeAccess": "service_role_write_mirror", "caller": "mirrorStripeSyncToSupabase" },
+    { "name": "raw_imports", "sensitivity": "critical", "runtimeAccess": "service_role_write_mirror", "caller": "mirrorStripeSyncToSupabase" },
+    { "name": "review_items", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "sales_ai_scores", "sensitivity": "high", "runtimeAccess": "none", "caller": null },
+    { "name": "sales_call_transcripts", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "sales_calls", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "sales_login_sessions", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "sales_team_members", "sensitivity": "critical", "runtimeAccess": "none", "caller": null },
+    { "name": "sync_runs", "sensitivity": "high", "runtimeAccess": "none", "caller": null }
+  ]
+}
