@@ -225,6 +225,12 @@ disposable-target restore rehearsal proves recoverability.
   3 onboarding errors, 0 failed commands and 6 source-specific safe signals.
   Private incident context and command payload/results are omitted; generic task
   actions, provider writes and automatic remediation remain disabled.
+- Managed Overview, Implementatie and Agent Control Room can no longer fall
+  through to session-demo screens. Overview uses the durable Brand Digital
+  Twin, Implementatie uses the governed onboarding projection, and Agent
+  Control Room fails closed until a scoped durable agent registry exists. Demo
+  lifecycle simulation, agent counts, pause controls and kill switches are not
+  presented as live authority.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -271,8 +277,9 @@ Status: `verified` locally and externally enforced.
 2. After owner TOTP, repeat the authenticated UI/API flow end to end. The live
    rollback two-tenant matrix, concurrency checks and backup inventory now
    pass; the separately authorized disposable-target restore remains pending.
-3. After real owner TOTP enrollment, visually verify incidents and the new
-   access roster, then execute one intentional human acknowledgement end to
+3. After real owner TOTP enrollment, visually verify the durable Overview and
+   Implementatie screens plus the fail-closed Agent Control Room, incidents and
+   access roster; then execute one intentional human acknowledgement end to
    end. Do not stage a real colleague until their role and scope are approved.
 4. Visually verify the new connector staging and decision controls after owner
    TOTP. Do not stage a real connector request until the intended provider,
