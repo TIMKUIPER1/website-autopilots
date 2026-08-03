@@ -123,3 +123,12 @@ overlong evidence fails closed with a stable blocker code.
 Even a fully green evaluation does not activate anything. The evaluator always
 returns data connection, provider authorization and external writes as disabled;
 activation remains a separate governed workflow outside Werktoestemming A.
+
+Technical evidence for ten non-derived gates may be stored only through
+`autopilots_record_product_connection_evidence`. The server-only R1 command
+accepts a lowercase SHA-256, exact source category and fresh observation time;
+expiry is derived from the gate policy. It writes immutable evidence plus audit
+and zero-cost usage records and is idempotent per product environment. It cannot
+record `project_identity` or `current_human_approval`, and it never enables a
+connection, provider authorization or external writes. This migration remains
+local until the readiness schema is applied first and separately accepted.

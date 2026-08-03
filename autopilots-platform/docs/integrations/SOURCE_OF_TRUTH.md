@@ -70,3 +70,10 @@ bounded categories, not endpoints, secrets or payloads, and cannot be written by
 the runtime role. The migration and API route are locally verified but not live;
 the current Supabase project still has no readiness evidence rows, active product
 data connections, provider authorization or external writes.
+Technical gate evidence can locally be recorded only through a service-role
+RPC that requires organization owner/admin/operator scope. It stores a SHA-256,
+bounded source category and timestamps, creates an idempotent R1 command, audit
+event and zero-cost usage entry, and derives expiry from the gate policy. Raw
+payloads, endpoints, credentials and tokens are not accepted. Project identity
+and current human approval remain separate authorities. This dependent
+migration is also not live.

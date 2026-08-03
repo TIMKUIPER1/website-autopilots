@@ -369,10 +369,19 @@ Status: `verified read-only foundation`.
   small cells, exposes no endpoint or credential values and has no connect,
   refresh, remediation or write action. With current configuration all three
   remain honestly `Niet gekoppeld`.
-- Local migration inventory is 46 immutable files and the governed RPC surface
-  is 38. The full gate passes 327 tests. Live inventory remains 45 migrations
-  and 37 governed RPCs until `20260804150000_product_connection_readiness.sql`
-  is applied and accepted separately.
+- A service-role-only product-connection evidence recorder is locally complete.
+  It stores an immutable SHA-256 and bounded source category instead of raw
+  evidence, derives expiry from the owning gate policy, rejects stale/future
+  observations and prevents probe code from supplying project identity or
+  human approval. Every accepted record is an idempotent R1 command with audit
+  and zero-cost usage evidence; activation, provider authorization and external
+  writes remain false.
+- Local migration inventory is 47 immutable files and the governed RPC surface
+  is 39. The full gate passes 332 tests. Live inventory remains 45 migrations
+  and 37 governed RPCs until the ordered pending migrations
+  `20260804150000_product_connection_readiness.sql` and
+  `20260804153000_product_connection_evidence_recording.sql` are applied and
+  accepted separately.
 
 ## Website release safety checkpoint — 2026-07-26
 
