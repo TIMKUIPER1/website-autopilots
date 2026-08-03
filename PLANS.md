@@ -384,7 +384,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 348 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 352 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
@@ -405,6 +405,16 @@ Status: `verified read-only foundation`.
   command, usage and audit residue. Without a transient access token it stops
   before network access; passing migration execution alone is never treated as
   live acceptance.
+- A rollback-only behavioral acceptance now proves the evidence path under real
+  PostgreSQL semantics after the 48/40 posture is live. It covers atomic batch
+  success, exact and divergent replay, owner/operator versus auditor, wrong
+  profile/organization, derived/stale/wrong-source evidence, append-only
+  mutation denial and third-record failure. It runs the read-only posture proof
+  both before and after its transaction; zero persistent residue is mandatory.
+- `docs/CONTROL_PLANE_COMPLETION_AUDIT.md` now maps the complete user objective
+  to authoritative evidence. It keeps owner AAL2, access application, hosted
+  product connectors, live 48/40 acceptance and restore rehearsal explicitly
+  incomplete instead of allowing broad production-readiness claims.
 
 ## Website release safety checkpoint — 2026-07-26
 

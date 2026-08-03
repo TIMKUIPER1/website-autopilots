@@ -85,6 +85,13 @@ checksums, role denials, append-only trigger, no-effect contract flags and zero
 operational residue all match. It cannot apply migrations or record evidence
 and does not change the current live status.
 
+A separate behavioral acceptance is prepared for the same post-migration
+window. It proves valid owner/operator evidence, exact replay, role and scope
+denials, source/freshness enforcement, append-only behavior and full batch
+rollback inside one uncommitted transaction. The independent clean-posture
+verifier runs both before and after; this tool is not a real evidence-ingestion
+path and may leave no command, usage, audit or evidence row.
+
 The local managed server can derive `contract_probe`, `privacy_probe` and
 `freshness_probe` evidence from a product snapshot only after the shared exact
 validator succeeds again. An internal MFA session selects only the scoped

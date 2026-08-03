@@ -63,12 +63,22 @@ query or response body.
 
 Then follow the acceptance sections in `AP-INT-20260803-010`, `011` and `012`:
 
-1. verify 48 live migrations and 40 governed RPCs;
+1. run `pnpm run db:accept:product-readiness`; it first proves the clean
+   read-only posture, executes the complete behavioral matrix inside one
+   transaction, rolls it back and then independently proves the clean posture
+   again;
 2. verify zero real evidence rows and zero active product data connections;
-3. verify anonymous/authenticated browser denial and auditor/cross-org denial;
+3. verify the behavioral result covers owner/operator success, exact replay,
+   divergent replay, wrong profile/organization, auditor, derived-gate, stale,
+   wrong-source, mutation and partial-batch denial;
 4. rerun Security Advisor and backup inventory;
 5. update `PLANS.md`, source-of-truth and all three deployment runbooks with
    exact live evidence.
+
+The behavioral runner changes the owner's membership role only inside its
+uncommitted transaction. Other database sessions never observe that temporary
+state. Any failed assertion aborts, and the final posture verifier must still
+prove zero evidence, command, usage and audit residue.
 
 Do not configure product endpoint secrets or run real snapshot verification as
 part of the migration chain.
