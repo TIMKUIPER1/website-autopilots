@@ -226,3 +226,8 @@ Migration `20260804103000_security_posture_snapshot.sql` adds only one stable,
 service-role-only organization read function over existing IAM evidence. It
 adds no table, policy or browser grant. The freshly rerun linter therefore
 remains at 0 errors, 2 known warnings and 35 information items.
+
+Migration `20260804110000_organization_audit_timeline.sql` adds only one stable,
+service-role-only organization read function over the append-only audit ledger.
+It adds no table, policy or browser grant. The freshly rerun linter remains at
+0 errors, 2 known warnings and 35 information items.

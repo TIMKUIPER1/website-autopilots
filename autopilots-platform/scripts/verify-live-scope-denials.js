@@ -45,6 +45,9 @@ const denialCases = [
   ["security-posture-unknown-profile", "autopilots_security_posture", "42501", {
     p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId, p_current_session_id: null
   }],
+  ["audit-timeline-unknown-profile", "autopilots_audit_timeline", "42501", {
+    p_profile_id: unknownProfileId, p_legal_entity_id: legalEntityId
+  }],
   ["onboarding-unknown-profile", "autopilots_brand_onboarding", "42501", {
     p_profile_id: unknownProfileId, p_brand_slug: "autoplanner"
   }],
@@ -196,7 +199,38 @@ evidence.push({
   externalWritesEnabled: false
 });
 
-for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_security_posture", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
+const validAuditTimeline = await callRpc("autopilots_audit_timeline", {
+  p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
+}, serviceRoleKey);
+if (validAuditTimeline.status !== 200
+  || validAuditTimeline.payload?.contract !== "autopilots.audit-timeline.v1"
+  || !validAuditTimeline.payload?.summary
+  || !Array.isArray(validAuditTimeline.payload?.events)
+  || validAuditTimeline.payload?.actorIdsExposed !== false
+  || validAuditTimeline.payload?.reasonsExposed !== false
+  || validAuditTimeline.payload?.payloadsExposed !== false
+  || validAuditTimeline.payload?.evidencePayloadsExposed !== false
+  || validAuditTimeline.payload?.genericAuditActionEnabled !== false
+  || validAuditTimeline.payload?.externalWritesEnabled !== false
+  || validAuditTimeline.payload?.demoMode !== false) {
+  fail("AUDIT_TIMELINE_SERVICE_ROLE_READ_FAILED", {
+    status: validAuditTimeline.status,
+    errorCode: safeCode(validAuditTimeline.payload?.code)
+  });
+}
+evidence.push({
+  case: "service-role-audit-timeline-read", allowed: true,
+  status: validAuditTimeline.status,
+  events: validAuditTimeline.payload.events.length,
+  events24h: validAuditTimeline.payload.summary.events24h || 0,
+  failed24h: validAuditTimeline.payload.summary.failed24h || 0,
+  blocked24h: validAuditTimeline.payload.summary.blocked24h || 0,
+  privatePayloadsExposed: false,
+  genericAuditActionEnabled: false,
+  externalWritesEnabled: false
+});
+
+for (const rpc of ["autopilots_portfolio_snapshot", "autopilots_brand_twin", "autopilots_agent_registry", "autopilots_monitoring_history", "autopilots_error_runbooks", "autopilots_alert_policy_snapshot", "autopilots_security_posture", "autopilots_audit_timeline", "autopilots_incident_snapshot_v2", "autopilots_access_roster"]) {
   const body = rpc === "autopilots_brand_twin" || rpc === "autopilots_agent_registry"
     ? { p_profile_id: ownerProfileId, p_brand_slug: "autoplanner" }
     : rpc === "autopilots_incident_snapshot_v2"

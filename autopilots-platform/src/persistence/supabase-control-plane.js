@@ -410,6 +410,24 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async auditTimeline(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_audit_timeline", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "Het auditspoor kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.audit-timeline.v1" || !data.summary
+      || !Array.isArray(data.events) || data.actorIdsExposed !== false
+      || data.reasonsExposed !== false || data.payloadsExposed !== false
+      || data.evidencePayloadsExposed !== false || data.genericAuditActionEnabled !== false
+      || data.externalWritesEnabled !== false || data.demoMode !== false) {
+      throw httpError(503, "Het auditspoor heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async accessRoster(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

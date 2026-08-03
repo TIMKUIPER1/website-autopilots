@@ -31,6 +31,7 @@
   "autopilots_error_runbooks": "service_role",
   "autopilots_alert_policy_snapshot": "service_role",
   "autopilots_security_posture": "service_role",
+  "autopilots_audit_timeline": "service_role",
   "autopilots_portfolio_snapshot": "service_role",
   "autopilots_brand_twin": "service_role",
   "autopilots_agent_registry": "service_role"

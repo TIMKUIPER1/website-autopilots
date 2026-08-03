@@ -93,7 +93,7 @@ const customerRoutes = new Set([
 ]);
 const internalRoutes = new Set([
   "/control-center", "/control-center/portfolio", "/control-center/tasks", "/control-center/agents", "/control-center/approvals",
-  "/control-center/access", "/control-center/security", "/control-center/implementaties/impl_001"
+  "/control-center/access", "/control-center/security", "/control-center/audit", "/control-center/implementaties/impl_001"
 ]);
 const assets = new Set(["/workspace.html", "/workspace.js", "/workspace.css", "/app.css", "/ap-logo.svg"]);
 const sessionCookieName = runtimeConfig.authProvider === "supabase" ? "ap_session" : "ap_demo_session";
@@ -186,6 +186,13 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await controlPlaneRepository.securityPosture(
         session.id, session.organizationId, session.sessionId || null
       ));
+    }
+
+    if (url.pathname === "/api/v1/audit/timeline" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed auditspoor is niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.auditTimeline(session.id, session.organizationId));
     }
 
     if (url.pathname.startsWith("/api/v1/agents/brands/") && req.method === "GET") {

@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 37 immutable migration checksums,
+  syntax, foundation contracts, all 38 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -266,6 +266,11 @@ disposable-target restore rehearsal proves recoverability.
   Auth user IDs and free revocation reasons are excluded; MFA policy and AAL2
   session evidence remain distinct, and generic session revocation is disabled.
   Anonymous access and an unknown profile are denied.
+- Audit Trail now exposes the latest 50 append-only events as bounded
+  organization evidence. Live acceptance returned 117 events in 24 hours,
+  including 0 failed and 0 blocked events. Actor IDs, reasons, before/after
+  payloads and evidence contents remain hidden; the page has no replay,
+  mutation or provider action.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -314,7 +319,7 @@ Status: `verified` locally and externally enforced.
    pass; the separately authorized disposable-target restore remains pending.
 3. After real owner TOTP enrollment, visually verify the durable Overview,
    Implementatie and portfolio monitoring history plus the fail-closed Agent
-   Control Room, incidents, access roster and Security Control; confirm that the
+   Control Room, incidents, access roster, Security Control and Audit Trail; confirm that the
    current session is AAL2, then execute one intentional human acknowledgement
    end to end. Do not stage a real colleague until their role and scope are approved.
 4. Visually verify the new connector staging and decision controls after owner

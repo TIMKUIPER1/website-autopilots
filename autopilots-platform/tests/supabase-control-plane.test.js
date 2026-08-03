@@ -442,6 +442,28 @@ test("security posture is organization scoped and excludes secret session materi
   });
 });
 
+test("audit timeline is organization scoped and excludes private payloads", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.audit-timeline.v1", summary: {}, events: [],
+      actorIdsExposed: false, reasonsExposed: false, payloadsExposed: false,
+      evidencePayloadsExposed: false, genericAuditActionEnabled: false,
+      externalWritesEnabled: false, demoMode: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.auditTimeline(profileId, legalEntityId);
+  assert.equal(result.payloadsExposed, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_audit_timeline",
+    args: { p_profile_id: profileId, p_legal_entity_id: legalEntityId }
+  });
+});
+
 test("access roster is explicitly profile and organization scoped", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
