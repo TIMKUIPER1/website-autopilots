@@ -152,6 +152,25 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, await controlPlaneRepository.brandOnboarding(session.id, slug));
     }
 
+    if (url.pathname.startsWith("/api/v1/onboarding/brands/")
+      && url.pathname.endsWith("/connector-requests") && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed onboarding is niet actief");
+      const slug = decodeURIComponent(url.pathname.slice(
+        "/api/v1/onboarding/brands/".length,
+        -"/connector-requests".length
+      ));
+      if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      requireCompany(session, slug);
+      const body = await parseBody(req);
+      const result = await controlPlaneRepository.stageConnectorRequest(
+        session.id, slug, body, String(req.headers["idempotency-key"] || "")
+      );
+      return json(res, result.replayed ? 200 : 201, result);
+    }
+
     if (url.pathname.startsWith("/api/v1/health/brands/") && req.method === "GET") {
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/health/brands/".length));
       if (!slug || slug.includes("/")) throw new HttpError(404, "Operating brand niet gevonden");

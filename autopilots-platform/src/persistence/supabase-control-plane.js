@@ -18,6 +18,36 @@ export class SupabaseControlPlaneRepository {
     if (error?.code === "42501") throw httpError(403, "Geen toegang tot deze operating brand");
     if (error?.code === "P0002" || !data) throw httpError(404, "Operating brand niet gevonden");
     if (error) throw httpError(503, "Onboardingstatus kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.onboarding.v2" || !Array.isArray(data.steps)
+      || !Array.isArray(data.connections) || !Array.isArray(data.connectorRequests)
+      || data.providerAuthorizationEnabled !== false || data.externalWritesEnabled !== false) {
+      throw httpError(503, "Onboardingstatus heeft een ongeldig contract");
+    }
+    return data;
+  }
+
+  async stageConnectorRequest(profileId, brandSlug, request, idempotencyKey) {
+    assertProfileId(profileId);
+    assertBrandSlug(brandSlug);
+    assertIdempotencyKey(idempotencyKey);
+    const stepKey = String(request?.stepKey || "");
+    const displayLabel = String(request?.displayLabel || "").trim();
+    if (!/^[a-z][a-z0-9_]{2,62}$/.test(stepKey)) throw httpError(404, "Connectorstap niet gevonden");
+    if (displayLabel.length < 2 || displayLabel.length > 120) throw httpError(400, "Connectorlabel moet tussen 2 en 120 tekens bevatten");
+    const { data, error } = await this.client.rpc("autopilots_stage_connector_request", {
+      p_profile_id: profileId,
+      p_brand_slug: brandSlug,
+      p_step_key: stepKey,
+      p_display_label: displayLabel,
+      p_idempotency_key: idempotencyKey
+    });
+    throwMapped(error, "Het connectorverzoek kon niet veilig worden gestaged");
+    if (data?.contract !== "autopilots.connector-request.v1" || !uuid(data.requestId)
+      || !uuid(data.commandId) || !uuid(data.approvalId)
+      || data.providerAuthorizationStarted !== false || data.providerAccountConnected !== false
+      || data.discoveryStarted !== false || data.credentialsStored !== false || data.externalWrites !== false) {
+      throw httpError(503, "Het connectorverzoek heeft een ongeldig bewijscontract");
+    }
     return data;
   }
 

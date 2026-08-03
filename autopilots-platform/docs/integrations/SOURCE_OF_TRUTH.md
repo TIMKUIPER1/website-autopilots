@@ -9,6 +9,7 @@
 | Documents | Existing mail/GHL/Drive processes | Unverified | Disabled here | Object store + metadata registry |
 | Secrets | Environment/manual setup | Unverified | Demo discards raw values | Managed vault references |
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
+| Connector authorization intent | Autopilots OS `integration.connector_requests` | Verified internal staging | No provider authority | Human-approved executor per provider after separate permission |
 
 Rules: one authority per field; store provider IDs and sync cursors; raw provider payloads are evidence, normalized records drive products; reconciliation never silently overwrites financial history; corrections append adjustment records.
 

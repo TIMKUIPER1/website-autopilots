@@ -149,3 +149,17 @@ The two remaining warnings are exact and understood: authenticated execution of
 the bounded `public.autopilots_session_context_v2()` login bootstrap is
 intentional, while leaked-password protection requires an identity-policy
 decision and real-owner login acceptance beyond this migration.
+
+## Connector request staging — verified 2026-08-03
+
+Migration `20260804050000_connector_request_staging.sql` adds one RLS-protected,
+service-role-only internal intent table and no browser policy. The fresh Advisor
+result is 0 errors, 2 warnings and 31 information items. The extra information
+item is the intentional policy-free server-only connector request table; the two
+known warnings are unchanged.
+
+The rollback-only acceptance proved first request, exact replay, divergent-key
+rejection, R3 pending approval, zero-cost usage and audit evidence with zero
+residue. Live acceptance found zero connector requests. OAuth, provider account
+connection, discovery, credential storage and external writes are all constrained
+to `false` in the database.

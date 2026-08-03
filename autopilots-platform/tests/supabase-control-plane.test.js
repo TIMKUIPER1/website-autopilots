@@ -6,15 +6,58 @@ test("onboarding read passes explicit profile and brand scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
-    return { data: { contract: "autopilots.onboarding.v1", steps: [] }, error: null };
+    return { data: {
+      contract: "autopilots.onboarding.v2", steps: [], connections: [], connectorRequests: [],
+      providerAuthorizationEnabled: false, externalWritesEnabled: false
+    }, error: null };
   } };
   const repository = new SupabaseControlPlaneRepository({ client });
   const result = await repository.brandOnboarding("40000000-0000-4000-8000-000000000001", "autoplanner");
-  assert.equal(result.contract, "autopilots.onboarding.v1");
+  assert.equal(result.contract, "autopilots.onboarding.v2");
   assert.deepEqual(calls[0], {
     name: "autopilots_brand_onboarding",
     args: { p_profile_id: "40000000-0000-4000-8000-000000000001", p_brand_slug: "autoplanner" }
   });
+});
+
+test("connector staging sends bounded no-effect intent to the governed RPC", async () => {
+  const calls = [];
+  const requestId = "51000000-0000-4000-8000-000000000001";
+  const commandId = "51000000-0000-4000-8000-000000000002";
+  const approvalId = "51000000-0000-4000-8000-000000000003";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.connector-request.v1", requestId, commandId, approvalId,
+      status: "approval_required", riskClass: "R3", replayed: false,
+      providerAuthorizationStarted: false, providerAccountConnected: false,
+      discoveryStarted: false, credentialsStored: false, externalWrites: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const result = await repository.stageConnectorRequest(profileId, "autoplanner", {
+    stepKey: "supabase", displayLabel: "AutoPlanner Supabase"
+  }, "connector_12345678");
+  assert.equal(result.providerAuthorizationStarted, false);
+  assert.deepEqual(calls[0], {
+    name: "autopilots_stage_connector_request",
+    args: {
+      p_profile_id: profileId,
+      p_brand_slug: "autoplanner",
+      p_step_key: "supabase",
+      p_display_label: "AutoPlanner Supabase",
+      p_idempotency_key: "connector_12345678"
+    }
+  });
+});
+
+test("connector staging rejects unbounded input before service-role access", async () => {
+  const repository = new SupabaseControlPlaneRepository({ client: { rpc: async () => assert.fail("RPC must not run") } });
+  await assert.rejects(() => repository.stageConnectorRequest(
+    "40000000-0000-4000-8000-000000000001", "autoplanner",
+    { stepKey: "../supabase", displayLabel: "x" }, "short"
+  ), (error) => error.status === 400);
 });
 
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
