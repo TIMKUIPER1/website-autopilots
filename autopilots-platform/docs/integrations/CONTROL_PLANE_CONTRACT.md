@@ -65,11 +65,13 @@ Every product contract prohibits `raw_pii`, `row_level_records`,
 Direct database access, row-level reads, cross-project credential storage,
 provider authorization and external writes are immutable `false` fields.
 
-Current status is deliberately fail-closed: AutoReviews is
+Current live status is deliberately fail-closed: AutoReviews is
 `contract_required`; AutoPlanner and RoofPlanner are
-`identity_verified_contract_required`. No endpoint is implemented or verified,
-so the control plane reports three contracts requiring implementation and zero
-active data connections.
+`identity_verified_contract_required`. The live control plane reports three
+contracts requiring implementation and zero active data connections. Local
+implementation evidence exists for AutoReviews and AutoPlanner; RoofPlanner has
+a disabled contract route pending a separate aggregate reader and independent
+review. None is hosted or verified in the live catalog.
 
 The local validator additionally rejects missing or extra envelope fields,
 missing or extra aggregates, cross-product payloads, unsafe segment names,
@@ -88,8 +90,10 @@ size, JSON and contract failures become bounded codes without echoing endpoints,
 payloads or secrets.
 
 The adapter is not connected to monitoring, persistence or the portfolio. The
-AutoPlanner producer exists locally, but no hosted endpoint, credential or
-central data connection is active under Werktoestemming A.
+AutoPlanner and AutoReviews producers exist locally, but no hosted endpoint,
+credential or central data connection is active under Werktoestemming A.
+AutoReviews defaults to `sandbox`; a verified live service must explicitly set
+`production` before production evidence could be accepted.
 
 Each sync records a correlation ID, cursor, source timestamp and evidence.
 Retries are idempotent. Discovery may create proposed resource mappings with

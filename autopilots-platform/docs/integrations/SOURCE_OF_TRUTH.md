@@ -13,11 +13,14 @@
 | Supabase project topology | Autopilots OS `integration.product_data_planes` + `integration.product_data_plane_discoveries` | Central, AutoPlanner and RoofPlanner identities verified; 0 active cross-project data connections; AutoReviews backup excluded | Metadata/fingerprint only; no stored credentials or provider authority | Approve and build separate read-only data connector per verified product |
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
-Local implementation evidence does not change live authority: AutoPlanner has a
-complete local producer route, while RoofPlanner has a local contract route with
-an intentionally disabled gateway pending a separately authorized aggregate
-reader and independent review. Neither route is hosted or centrally connected;
-the live catalog therefore remains 0 verified and 3 requiring implementation.
+Local implementation evidence does not change live authority: AutoPlanner and
+AutoReviews have complete local producer routes. AutoReviews defaults to a
+`sandbox` environment identity and defines `open_incidents_count` only as its
+dead-letter customer events, event jobs and billing-usage events. RoofPlanner
+has a local contract route with an intentionally disabled gateway pending a
+separately authorized aggregate reader and independent review. None of these
+routes is hosted or centrally connected; the live catalog therefore remains 0
+verified and 3 requiring implementation.
 
 Rules: one authority per field; store provider IDs and sync cursors; raw provider payloads are evidence, normalized records drive products; reconciliation never silently overwrites financial history; corrections append adjustment records.
 
@@ -31,16 +34,23 @@ Rules: one authority per field; store provider IDs and sync cursors; raw provide
 | Review conversations | Approved messaging provider | Conversation/result projection | 5 min | Provider event wins; cooldown and deduplication required | Personal / approved policy |
 | Goals, policies, workflows and mappings | Autopilots OS | Canonical internal records | Direct | Version conflict fails closed | Internal / policy controlled |
 
-Current contract status: the AutoReviews aggregate export is implemented, but
-the latest local live probe is unavailable. GoHighLevel/calendar configuration
+Current contract status: the legacy AutoReviews aggregate export and the new
+product-owned `autopilots.product-snapshot.v1` producer are implemented locally,
+but neither is hosted or centrally active. GoHighLevel/calendar configuration
 awaits first reconciliation; Stripe and WhatsApp remain
 `blocked_missing_connection`. No revenue, cost or margin claim may be shown
 until Stripe and the OS ledger reconcile.
 
-The server-side adapter accepts only `autoreviews.os-snapshot.v1` with
+The legacy server-side adapter accepts only `autoreviews.os-snapshot.v1` with
 classification `aggregate_no_pii`. Remote connector bases require HTTPS plus
 an exact separately configured allowed origin; only loopback endpoints may use
 HTTP. URLs with credentials, query strings or fragments are rejected before
 fetch, responses are size-bounded, and destination/response failures expose
 only stable codes. It never consumes the AutoReviews admin API, raw SQLite
 rows, contact identities or provider credentials.
+
+The governed successor contract is validated by the shared product-snapshot
+adapter. It has the exact seven-field AutoReviews allowlist, 15-minute freshness,
+five-record small-cell suppression and the same no-PII boundary. Its local route
+is GET-only, returns 503 without a separately configured strong secret and is
+not wired into monitoring or persistence.

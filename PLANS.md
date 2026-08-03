@@ -329,8 +329,9 @@ Status: `verified read-only foundation`.
   allowlists, complete envelopes, 15-minute freshness, five-record small-cell
   suppression of both value and exact group size, bounded segment names and
   finite non-negative metrics before a future connector payload can be
-  accepted. AutoPlanner now has a local producer route, but no live transport,
-  credential or central ingestion is active.
+  accepted. AutoPlanner and AutoReviews now have local producer routes, but no
+  live transport, credential or central ingestion is active. AutoReviews
+  defaults its environment identity to `sandbox`; production must be explicit.
 - A central GET-only transport adapter is also implemented but remains
   configuration-disabled. It validates a strong server secret before network
   use, blocks non-allowlisted destinations before attaching that secret,
@@ -341,6 +342,12 @@ Status: `verified read-only foundation`.
   composes a disabled gateway because existing tenant RLS must not be bypassed
   for portfolio totals. A dedicated aggregate reader, independent review and
   separate activation authority remain required; nothing is pushed or live.
+- AutoReviews now builds the exact seven-field product contract from its local
+  SQLite aggregates and exposes it only through a disabled, GET-only,
+  strong-secret gate. Its incident count is narrowly defined as dead-letter
+  customer events, event jobs and billing usage events. The complete product
+  suite passes 142 tests and a synthetic payload is accepted by the central
+  validator; no deployment, secret or live catalog state changed.
 - Migration inventory is 45 immutable files and the governed RPC surface is 37.
   The full gate passes 309 tests.
 
