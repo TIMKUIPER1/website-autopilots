@@ -129,6 +129,11 @@ and restore tests pass.
   with `MANAGED_COMMAND_ROUTE_REQUIRED`, and the browser preflights the same
   boundary. Only dedicated durable actions—monitoring probes, incident
   acknowledgement and access governance—may report managed success.
+- Backup inventory is now machine-verifiable without database credentials.
+  The live management plane lists seven completed daily physical backups in
+  `eu-central-1`, with WAL-G active and PITR disabled. The contract deliberately
+  remains `restoreRehearsed=false` and `productionReady=false` until an
+  explicitly authorized disposable-target restore proves RPO and RTO.
 
 ## Website release safety checkpoint — 2026-07-26
 

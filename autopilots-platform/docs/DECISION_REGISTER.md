@@ -43,3 +43,4 @@
 | 2026-08-03 | Replace the managed portfolio fixture with a membership-scoped Supabase aggregate | One central view must derive organization, brands, connectors and incidents from durable authority without inventing customer or financial truth | Accepted |
 | 2026-08-03 | Make every managed Operating Brand Digital Twin a durable scoped aggregate | Company detail must derive connector health, incidents and ledger truth from Supabase while missing business projections remain empty or null | Accepted |
 | 2026-08-03 | Reject the generic in-memory demo command route in managed mode | A managed operator action must use a specific durable, scoped and auditable contract rather than appear successful only inside one process | Accepted |
+| 2026-08-03 | Separate backup inventory evidence from restore evidence | A completed backup listing does not prove RPO, RTO or recoverability; restore remains unproven until a disposable-target rehearsal | Accepted |

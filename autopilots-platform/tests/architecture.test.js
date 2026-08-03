@@ -9,6 +9,7 @@ const requiredArtifacts = [
   "docs/security/THREAT_MODEL.md",
   "docs/integrations/SOURCE_OF_TRUTH.md",
   "docs/runbooks/LOCAL_DEMO.md",
+  "docs/runbooks/BACKUP_RESTORE.md",
   "docs/DECISION_REGISTER.md",
   "docs/RISK_REGISTER.md",
   "evals/lighthouse-cases.json"
