@@ -79,6 +79,54 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async brandLaunchRequests(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_brand_launch_requests", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "Nieuwe softwareverzoeken konden niet veilig worden geladen");
+    if (data?.contract !== "autopilots.brand-launch-requests.v1" || !Array.isArray(data.requests)
+      || data.brandCreationEnabled !== false || data.providerAuthorizationEnabled !== false
+      || data.externalWritesEnabled !== false) {
+      throw httpError(503, "Nieuwe softwareverzoeken hebben een ongeldig contract");
+    }
+    return data;
+  }
+
+  async stageBrandLaunchRequest(profileId, legalEntityId, request, idempotencyKey) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    assertIdempotencyKey(idempotencyKey);
+    const slug = String(request?.slug || "").trim().toLowerCase();
+    const name = String(request?.name || "").trim();
+    const code = String(request?.code || "").trim().toUpperCase();
+    const riskProfile = String(request?.riskProfile || "standard");
+    assertBrandSlug(slug);
+    if (name.length < 2 || name.length > 120) throw httpError(400, "Softwarenaam moet tussen 2 en 120 tekens bevatten");
+    if (!/^[A-Z0-9]{2,12}$/.test(code)) throw httpError(400, "Softwarecode moet 2 tot 12 hoofdletters of cijfers bevatten");
+    if (!new Set(["low", "standard", "high", "regulated"]).has(riskProfile)) throw httpError(400, "Ongeldig risicoprofiel");
+    const { data, error } = await this.client.rpc("autopilots_stage_brand_launch_request", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId,
+      p_proposed_slug: slug,
+      p_proposed_name: name,
+      p_proposed_code: code,
+      p_risk_profile: riskProfile,
+      p_idempotency_key: idempotencyKey
+    });
+    throwMapped(error, "Het nieuwe softwareverzoek kon niet veilig worden gestaged");
+    if (data?.contract !== "autopilots.brand-launch-request.v1" || !uuid(data.requestId)
+      || !uuid(data.commandId) || !uuid(data.approvalId) || data.brandCreated !== false
+      || data.sandboxEnvironmentCreated !== false || data.onboardingRunCreated !== false
+      || data.providerAuthorizationStarted !== false || data.credentialsStored !== false
+      || data.externalWrites !== false) {
+      throw httpError(503, "Het nieuwe softwareverzoek heeft een ongeldig bewijscontract");
+    }
+    return data;
+  }
+
   async portfolio(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");

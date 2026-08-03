@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 26 immutable migration checksums,
+  syntax, foundation contracts, all 27 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -206,6 +206,12 @@ disposable-target restore rehearsal proves recoverability.
   progress, current/next step and error status while provider authorization and
   external writes remain false. This score is onboarding progress, not a
   production-readiness claim.
+- Future software brands can now be staged through one bounded portfolio intake
+  under the existing Autopilots authority. The R2 request validates name, slug,
+  code and risk profile and records command, approval, zero-cost usage and audit
+  evidence. Live state remains four brands and zero launch requests; brand,
+  sandbox, onboarding, provider authorization, credentials and writes all remain
+  uncreated until a separately governed apply step is explicitly authorized.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -258,17 +264,19 @@ Status: `verified` locally and externally enforced.
 4. Visually verify the new connector staging and decision controls after owner
    TOTP. Do not stage a real connector request until the intended provider,
    brand and scope have been explicitly selected.
-5. Add a separately authorized apply step for approved access. It must retain
+5. Visually verify the new-software intake after owner TOTP. Do not stage a real
+   launch request until name, slug, code and risk profile are approved.
+6. Add a separately authorized apply step for approved access. It must retain
    the no-provider boundary and may create an internal membership only after
    owner acceptance, recovery design and explicit scope review.
-6. Add notification suppression and escalation delivery without autonomous
+7. Add notification suppression and escalation delivery without autonomous
    remediation, after its provider channel is explicitly authorized.
-7. After explicit OAuth permission, implement the provider-authorization
+8. After explicit OAuth permission, implement the provider-authorization
    executor for one approved connector request; start with read-only discovery,
    require current context, and keep provider writes disabled.
-8. Connect Stripe as the first read-only discovery and reconciliation provider
+9. Connect Stripe as the first read-only discovery and reconciliation provider
    through that executor after its exact scopes are approved.
-9. Move remaining governed command creation behind the durable repository
+10. Move remaining governed command creation behind the durable repository
    without changing the legacy dashboard; portfolio and operating-brand reads
    are complete.
 

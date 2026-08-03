@@ -175,3 +175,8 @@ Migration `20260804060000_portfolio_launch_readiness.sql` replaces only the
 existing service-role portfolio function with read-only contract v2. It adds no
 table, policy or grant, so Advisor counts remain 0 errors, 2 warnings and 31
 information items.
+
+Migration `20260804063000_brand_launch_request_staging.sql` adds one
+RLS-protected, policy-free, service-role-only internal intent table. Advisor
+therefore remains at 0 errors and 2 warnings while information items increase
+from 31 to 32. No browser grant or provider surface was added.

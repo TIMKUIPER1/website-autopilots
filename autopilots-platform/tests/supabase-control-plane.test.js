@@ -92,6 +92,40 @@ test("connector decision carries brand, current context and permanent no-effect 
   });
 });
 
+test("brand launch registry and staging remain organization scoped and no-effect", async () => {
+  const calls = [];
+  const requestId = "53000000-0000-4000-8000-000000000001";
+  const commandId = "53000000-0000-4000-8000-000000000002";
+  const approvalId = "53000000-0000-4000-8000-000000000003";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    if (name === "autopilots_brand_launch_requests") return { data: {
+      contract: "autopilots.brand-launch-requests.v1", requests: [],
+      brandCreationEnabled: false, providerAuthorizationEnabled: false, externalWritesEnabled: false
+    }, error: null };
+    return { data: {
+      contract: "autopilots.brand-launch-request.v1", requestId, commandId, approvalId,
+      status: "approval_required", riskClass: "R2", replayed: false,
+      brandCreated: false, sandboxEnvironmentCreated: false, onboardingRunCreated: false,
+      providerAuthorizationStarted: false, credentialsStored: false, externalWrites: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  await repository.brandLaunchRequests(profileId, legalEntityId);
+  const staged = await repository.stageBrandLaunchRequest(profileId, legalEntityId, {
+    slug: "next-software", name: "Next Software", code: "NS", riskProfile: "standard"
+  }, "brand_launch_12345678");
+  assert.equal(staged.brandCreated, false);
+  assert.deepEqual(calls[1], { name: "autopilots_stage_brand_launch_request", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId,
+    p_proposed_slug: "next-software", p_proposed_name: "Next Software",
+    p_proposed_code: "NS", p_risk_profile: "standard",
+    p_idempotency_key: "brand_launch_12345678"
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

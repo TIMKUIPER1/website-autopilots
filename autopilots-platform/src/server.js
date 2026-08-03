@@ -144,6 +144,25 @@ const server = http.createServer(async (req, res) => {
         : osStore.portfolio(session));
     }
 
+    if (url.pathname === "/api/v1/brand-launch/requests" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed softwarelaunches zijn niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.brandLaunchRequests(session.id, session.organizationId));
+    }
+
+    if (url.pathname === "/api/v1/brand-launch/requests" && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed softwarelaunches zijn niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      const body = await parseBody(req);
+      const result = await controlPlaneRepository.stageBrandLaunchRequest(
+        session.id, session.organizationId, body, String(req.headers["idempotency-key"] || "")
+      );
+      return json(res, result.replayed ? 200 : 201, result);
+    }
+
     if (url.pathname.startsWith("/api/v1/onboarding/brands/") && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed onboarding is niet actief");
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/onboarding/brands/".length));
