@@ -336,6 +336,11 @@ Status: `verified read-only foundation`.
   use, blocks non-allowlisted destinations before attaching that secret,
   bounds response size and exposes only stable error codes. It is not wired
   into monitoring or persistence.
+- RoofPlanner now has a local product-snapshot contract and an internal route
+  on its required `agent/control-plane-snapshot` branch. Its runtime deliberately
+  composes a disabled gateway because existing tenant RLS must not be bypassed
+  for portfolio totals. A dedicated aggregate reader, independent review and
+  separate activation authority remain required; nothing is pushed or live.
 - Migration inventory is 45 immutable files and the governed RPC surface is 37.
   The full gate passes 309 tests.
 
