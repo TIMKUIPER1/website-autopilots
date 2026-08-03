@@ -11,18 +11,41 @@ The initial contract name is `autopilots.product-snapshot.v1`.
   "product": "autoplanner",
   "environment": "production",
   "observedAt": "2026-08-03T12:00:00Z",
-  "sourceQuality": "provider_verified",
-  "health": { "status": "healthy", "lastSuccessAt": null },
-  "incidents": [],
-  "usage": [],
-  "resources": []
+  "sourceQuality": "product_aggregate",
+  "dataClassification": "aggregate_no_pii",
+  "aggregates": {
+    "organizations_count": { "value": 12, "sampleSize": 12, "suppressed": false },
+    "leads_by_status": {
+      "active": { "value": 28, "sampleSize": 28, "suppressed": false },
+      "lost": { "value": null, "sampleSize": 3, "suppressed": true }
+    },
+    "appointments_by_status": { "planned": { "value": 9, "sampleSize": 9, "suppressed": false } },
+    "conversations_by_state": { "open": { "value": 7, "sampleSize": 7, "suppressed": false } },
+    "job_failures_count": { "value": 0, "sampleSize": 0, "suppressed": false },
+    "integration_health": { "healthy": { "value": 6, "sampleSize": 6, "suppressed": false } },
+    "usage_totals": { "requests": { "value": 120, "sampleSize": 120, "suppressed": false } }
+  },
+  "privacy": {
+    "minimumGroupSize": 5,
+    "smallCellsSuppressed": true,
+    "containsPersonalData": false,
+    "containsRowLevelRecords": false,
+    "containsMessageContent": false,
+    "containsSecrets": false,
+    "containsProviderTokens": false,
+    "containsPaymentInstrumentData": false
+  },
+  "externalWrites": false
 }
 ```
 
-Unknown values are `null`, never invented zeroes. `sourceQuality` must
-distinguish demo, cached, aggregate and provider-verified information. The
-snapshot contains only portfolio-level aggregates and operational health; raw
-customer PII, secrets and product-specific records are rejected.
+Every allowlisted aggregate must be present. Each aggregate is either one
+numeric cell or a bounded map of safe segment names to numeric cells. Unknown
+or suppressed values are `null`, never invented zeroes. A non-zero group below
+five must be `suppressed=true` with `value=null`. `sourceQuality` is either
+`product_aggregate` or `provider_verified_aggregate`; the second value requires
+separate provider evidence. The snapshot contains only portfolio-level
+aggregates; raw customer PII, secrets and product-specific records are rejected.
 
 ## Governed product allowlists
 
@@ -46,6 +69,12 @@ Current status is deliberately fail-closed: AutoReviews is
 `identity_verified_contract_required`. No endpoint is implemented or verified,
 so the control plane reports three contracts requiring implementation and zero
 active data connections.
+
+The local validator additionally rejects missing or extra envelope fields,
+missing or extra aggregates, cross-product payloads, unsafe segment names,
+nested objects, negative/non-finite values, timestamps older than the contract
+freshness window and timestamps more than 60 seconds in the future. Validation
+does not activate transport or establish data authority.
 
 Each sync records a correlation ID, cursor, source timestamp and evidence.
 Retries are idempotent. Discovery may create proposed resource mappings with

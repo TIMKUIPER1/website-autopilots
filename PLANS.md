@@ -325,8 +325,12 @@ Status: `verified read-only foundation`.
   credentials, provider authorization and external writes are hard-disabled.
   All three contracts still require implementation and verification; no data
   connection is active.
+- A transport-independent validator now enforces the exact per-product
+  allowlists, complete envelopes, 15-minute freshness, five-record small-cell
+  suppression, bounded segment names and finite non-negative metrics before a
+  future connector payload can be accepted. It is not wired to a live endpoint.
 - Migration inventory is 45 immutable files and the governed RPC surface is 37.
-  The full gate passes 299 tests.
+  The full gate passes 305 tests.
 
 ## Website release safety checkpoint — 2026-07-26
 
