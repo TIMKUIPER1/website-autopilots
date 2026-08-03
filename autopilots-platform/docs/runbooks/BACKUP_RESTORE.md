@@ -25,7 +25,7 @@ rehearsal, obtain explicit approval for all of the following:
 
 After authorization, restore only to that disposable target and verify:
 
-- all 28 immutable migration filenames and checksums;
+- all 29 immutable migration filenames and checksums;
 - required schemas, RLS, function grants and append-only triggers;
 - owner profile/MFA requirement without using the owner's live session;
 - four operating brands and their environment write locks;

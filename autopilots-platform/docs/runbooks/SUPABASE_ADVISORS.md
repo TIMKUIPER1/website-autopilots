@@ -184,3 +184,7 @@ from 31 to 32. No browser grant or provider surface was added.
 Migration `20260804070000_brand_launch_request_decisions.sql` adds only one
 service-role-only decision function. It adds no table, policy or browser grant,
 so Advisor counts remain 0 errors, 2 warnings and 32 information items.
+
+Migration `20260804073000_organization_approval_queue.sql` adds only one stable,
+service-role-only read function. It adds no table, policy or browser grant, so
+Advisor counts remain 0 errors, 2 warnings and 32 information items.

@@ -144,6 +144,13 @@ const server = http.createServer(async (req, res) => {
         : osStore.portfolio(session));
     }
 
+    if (url.pathname === "/api/v1/approvals" && req.method === "GET") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed approvals zijn niet actief");
+      const session = await requireSession(req);
+      requireInternal(session);
+      return json(res, 200, await controlPlaneRepository.approvalQueue(session.id, session.organizationId));
+    }
+
     if (url.pathname === "/api/v1/brand-launch/requests" && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed softwarelaunches zijn niet actief");
       const session = await requireSession(req);

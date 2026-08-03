@@ -153,6 +153,26 @@ test("brand launch decision carries organization current context and permanent n
   } });
 });
 
+test("approval queue is scoped durable and has no generic executor", async () => {
+  const calls = [];
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: {
+      contract: "autopilots.approval-queue.v1",
+      summary: { pending: 1, r2Pending: 0, r3Pending: 1 }, approvals: [],
+      genericDecisionEnabled: false, providerAuthorizationEnabled: false, externalWritesEnabled: false
+    }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const profileId = "40000000-0000-4000-8000-000000000001";
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const result = await repository.approvalQueue(profileId, legalEntityId);
+  assert.equal(result.genericDecisionEnabled, false);
+  assert.deepEqual(calls[0], { name: "autopilots_approval_queue", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+});
+
 test("portfolio read passes explicit profile and legal-entity scope", async () => {
   const calls = [];
   const client = { rpc: async (name, args) => {

@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 28 immutable migration checksums,
+  syntax, foundation contracts, all 29 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -216,6 +216,10 @@ disposable-target restore rehearsal proves recoverability.
   idempotent R2 decision locked to the current context. Approval remains internal
   evidence only: all six no-creation constraints remain false, there is no apply
   function, and live state remains four brands with zero launch requests.
+- Managed Approval Center now reads one organization-scoped durable queue across
+  all four brands. Live Supabase currently returns one historical approval and
+  zero pending approvals. The view omits command payloads, fails closed instead
+  of showing demo approvals and exposes no generic decision executor.
 
 ## Website release safety checkpoint — 2026-07-26
 
