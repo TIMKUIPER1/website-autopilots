@@ -23,5 +23,6 @@ export const APPLIED_MIGRATIONS = Object.freeze({
   "20260804040000_fix_legacy_updated_at_search_path.sql": "1a4b2fc7994c292a927c4a1df7ae0046449e642f76b062999d736eec5e54de60",
   "20260804043000_protect_gift_graphql_surface.sql": "caa47aa8807cc804fc05f48bfde0e39de8ee43618d8045a8f5263aad64e0a1cb",
   "20260804050000_connector_request_staging.sql": "bf46cc4fcd98f2c33701ae68e9a1f3a533884ab015336450723997a4f60b0342",
-  "20260804053000_connector_request_decisions.sql": "ac080880448b82dab083467dbdf6121ecd4270a9d2e4998a9a9870477eb197c3"
+  "20260804053000_connector_request_decisions.sql": "ac080880448b82dab083467dbdf6121ecd4270a9d2e4998a9a9870477eb197c3",
+  "20260804060000_portfolio_launch_readiness.sql": "d6bb13c1639f9b0ee4654a8c08aabedf109bdd65565ea73ba4cdcf8c06575fb3"
 });

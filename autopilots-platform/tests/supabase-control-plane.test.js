@@ -96,13 +96,17 @@ test("portfolio read passes explicit profile and legal-entity scope", async () =
   const calls = [];
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
-    return { data: { contract: "autopilots.portfolio.v1", brands: [], sourceOfTruth: [], dataHealth: {}, demoMode: false, externalWrites: false }, error: null };
+    return { data: {
+      contract: "autopilots.portfolio.v2", brands: [], sourceOfTruth: [], dataHealth: {},
+      launchReadiness: { providerAuthorizationEnabled: false, externalWritesEnabled: false },
+      demoMode: false, externalWrites: false
+    }, error: null };
   } };
   const repository = new SupabaseControlPlaneRepository({ client });
   const profileId = "40000000-0000-4000-8000-000000000001";
   const legalEntityId = "10000000-0000-4000-8000-000000000001";
   const result = await repository.portfolio(profileId, legalEntityId);
-  assert.equal(result.contract, "autopilots.portfolio.v1");
+  assert.equal(result.contract, "autopilots.portfolio.v2");
   assert.deepEqual(calls[0], {
     name: "autopilots_portfolio_snapshot",
     args: { p_profile_id: profileId, p_legal_entity_id: legalEntityId }

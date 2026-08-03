@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 25 immutable migration checksums,
+  syntax, foundation contracts, all 26 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -113,8 +113,8 @@ disposable-target restore rehearsal proves recoverability.
   origin, rejected destinations are never fetched, AutoReviews secrets are
   never attached to them, and oversized or malformed responses fail with
   stable non-sensitive codes.
-- The managed portfolio is no longer sourced from the local OS fixture. A new
-  service-role-only `autopilots.portfolio.v1` snapshot reads the current legal
+- The managed portfolio is no longer sourced from the local OS fixture. The
+  service-role-only `autopilots.portfolio.v2` snapshot reads the current legal
   entity, membership-scoped brands, connector status and active incidents from
   Supabase. It reports no synthetic customers, goals or financial quality;
   live acceptance returned four scoped brands, four product sources, three
@@ -200,6 +200,12 @@ disposable-target restore rehearsal proves recoverability.
   original pending command and approval, and creates a separate idempotent
   zero-cost decision command plus audit evidence. All five provider-effect flags
   remain false, and live acceptance left zero request or decision rows.
+- Portfolio launch readiness now compares all four scoped software brands from
+  the same governed evidence: 24 total steps, 5 completed, 7 requiring attention,
+  0 pending connector approvals and 0 brands fully ready. Every brand exposes
+  progress, current/next step and error status while provider authorization and
+  external writes remain false. This score is onboarding progress, not a
+  production-readiness claim.
 
 ## Website release safety checkpoint — 2026-07-26
 

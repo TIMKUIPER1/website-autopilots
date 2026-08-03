@@ -87,7 +87,9 @@ export class SupabaseControlPlaneRepository {
       p_legal_entity_id: legalEntityId
     });
     throwMapped(error, "Het duurzame portfolio kon niet veilig worden geladen");
-    if (data?.contract !== "autopilots.portfolio.v1" || !Array.isArray(data.brands) || !Array.isArray(data.sourceOfTruth)
+    if (data?.contract !== "autopilots.portfolio.v2" || !Array.isArray(data.brands) || !Array.isArray(data.sourceOfTruth)
+      || !data.launchReadiness || data.launchReadiness.providerAuthorizationEnabled !== false
+      || data.launchReadiness.externalWritesEnabled !== false
       || data.demoMode !== false || data.externalWrites !== false) {
       throw httpError(503, "Het duurzame portfolio heeft een ongeldig contract");
     }

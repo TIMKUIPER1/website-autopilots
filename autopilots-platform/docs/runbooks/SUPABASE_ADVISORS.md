@@ -170,3 +170,8 @@ service-role decision RPC and no table or browser grant. Advisor counts remain
 proved current-context approval, exact replay, divergent-key and stale-context
 rejection, risk preservation, zero-cost evidence and zero residue. The live
 request table remains empty.
+
+Migration `20260804060000_portfolio_launch_readiness.sql` replaces only the
+existing service-role portfolio function with read-only contract v2. It adds no
+table, policy or grant, so Advisor counts remain 0 errors, 2 warnings and 31
+information items.
