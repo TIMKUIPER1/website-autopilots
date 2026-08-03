@@ -54,3 +54,10 @@ adapter. It has the exact seven-field AutoReviews allowlist, 15-minute freshness
 five-record small-cell suppression and the same no-PII boundary. Its local route
 is GET-only, returns 503 without a separately configured strong secret and is
 not wired into monitoring or persistence.
+
+Connection readiness is locally governed by twelve expiring gates and a
+server-only organization projection. Its evidence model stores only hashes and
+bounded categories, not endpoints, secrets or payloads, and cannot be written by
+the runtime role. The migration and API route are locally verified but not live;
+the current Supabase project still has no readiness evidence rows, active product
+data connections, provider authorization or external writes.

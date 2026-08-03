@@ -159,6 +159,25 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async productConnectionReadiness(profileId, legalEntityId) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    const { data, error } = await this.client.rpc("autopilots_product_connection_readiness", {
+      p_profile_id: profileId,
+      p_legal_entity_id: legalEntityId
+    });
+    throwMapped(error, "De productkoppeling-checklist kon niet veilig worden geladen");
+    if (data?.contract !== "autopilots.product-connection-readiness.v1"
+      || data.organizationId !== legalEntityId || !Array.isArray(data.products) || !data.summary
+      || data.summary.readyForActivation !== 0
+      || data.dataConnectionEnabled !== false || data.providerAuthorizationEnabled !== false
+      || data.externalWritesEnabled !== false
+      || data.products.some((product) => !validProductConnectionReadiness(product))) {
+      throw httpError(503, "De productkoppeling-checklist heeft een ongeldig contract");
+    }
+    return data;
+  }
+
   async errorRunbooks(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");
@@ -647,6 +666,29 @@ function validSnapshotContract(contract) {
     && contract.externalWritesEnabled === false
     && (contract.status === "verified") === (contract.contractVerified === true)
     && (!contract.contractVerified || contract.endpointImplemented === true);
+}
+
+const PRODUCT_CONNECTION_GATE_KEYS = Object.freeze([
+  "project_identity", "owned_https_endpoint", "vault_secret_reference",
+  "contract_probe", "privacy_probe", "freshness_probe", "reconciliation",
+  "revocation_test", "rate_limit_test", "failure_mode_test",
+  "independent_review", "current_human_approval"
+]);
+
+function validProductConnectionReadiness(value) {
+  if (!value?.brand || typeof value.brand.slug !== "string" || typeof value.brand.name !== "string"
+    || value.readyForActivation !== false || !Number.isInteger(value.passedGates)
+    || !Number.isInteger(value.blockedGates) || value.passedGates < 0 || value.blockedGates < 0
+    || value.passedGates + value.blockedGates !== PRODUCT_CONNECTION_GATE_KEYS.length
+    || !Array.isArray(value.gates) || value.gates.length !== PRODUCT_CONNECTION_GATE_KEYS.length) return false;
+  return value.gates.every((gate, index) => gate?.key === PRODUCT_CONNECTION_GATE_KEYS[index]
+    && ["passed", "blocked"].includes(gate.status)
+    && (gate.status === "passed" ? gate.code === null : /^[A-Z][A-Z0-9_]{3,95}$/.test(gate.code || ""))
+    && validNullableTimestamp(gate.observedAt) && validNullableTimestamp(gate.expiresAt));
+}
+
+function validNullableTimestamp(value) {
+  return value === null || (typeof value === "string" && Number.isFinite(Date.parse(value)));
 }
 
 function throwMapped(error, fallback) {

@@ -348,8 +348,18 @@ Status: `verified read-only foundation`.
   customer events, event jobs and billing usage events. The complete product
   suite passes 142 tests and a synthetic payload is accepted by the central
   validator; no deployment, secret or live catalog state changed.
-- Migration inventory is 45 immutable files and the governed RPC surface is 37.
-  The full gate passes 309 tests.
+- A deterministic connection-readiness policy now requires twelve expiring
+  gates before a product could be considered for activation. The corresponding
+  organization-scoped Supabase read model, immutable hashed-evidence schema and
+  internal API route are locally complete and always keep activation, provider
+  authorization and external writes false. Its migration is not live: the
+  official linked CLI was denied while initializing its temporary database
+  login, and macOS did not release the saved Supabase login for the alternative
+  Management API call. No fallback SQL or partial change was executed.
+- Local migration inventory is 46 immutable files and the governed RPC surface
+  is 38. The full gate passes 321 tests. Live inventory remains 45 migrations
+  and 37 governed RPCs until `20260804150000_product_connection_readiness.sql`
+  is applied and accepted separately.
 
 ## Website release safety checkpoint — 2026-07-26
 
