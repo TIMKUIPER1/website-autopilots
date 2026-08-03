@@ -162,6 +162,27 @@ export class SupabaseControlPlaneRepository {
     return data;
   }
 
+  async decideAccessRequest(profileId, legalEntityId, requestId, decision, contextVersion, idempotencyKey) {
+    assertProfileId(profileId);
+    assertUuid(legalEntityId, "Ongeldige organisatiescope");
+    assertUuid(requestId, "Toegangsverzoek niet gevonden");
+    if (!new Set(["approved", "rejected"]).has(decision)) throw httpError(400, "Ongeldige toegangsbeslissing");
+    if (!Number.isSafeInteger(contextVersion) || contextVersion < 1) throw httpError(400, "Ongeldige toegangscontext");
+    assertIdempotencyKey(idempotencyKey);
+    const { data, error } = await this.client.rpc("autopilots_decide_access_request", {
+      p_profile_id: profileId, p_legal_entity_id: legalEntityId, p_request_id: requestId,
+      p_decision: decision, p_context_version: contextVersion, p_idempotency_key: idempotencyKey
+    });
+    if (error?.code === "P0001" && /stale access request context/i.test(String(error.message || ""))) {
+      throw httpError(409, "De toegangscontext is gewijzigd; ververs eerst het actuele verzoek");
+    }
+    throwMapped(error, "De toegangsbeslissing kon niet veilig worden vastgelegd");
+    if (data?.contract !== "autopilots.access-decision.v1" || !uuid(data.requestId) || data.membershipApplied !== false || data.externalWrites !== false) {
+      throw httpError(503, "De toegangsbeslissing heeft een ongeldig bewijscontract");
+    }
+    return data;
+  }
+
   async acknowledgeIncident(profileId, incidentId, contextVersion, idempotencyKey) {
     assertProfileId(profileId);
     if (!uuid(incidentId)) throw httpError(404, "Incident niet gevonden");

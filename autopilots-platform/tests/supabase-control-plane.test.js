@@ -170,3 +170,23 @@ test("access request normalizes bounded input and returns no-write evidence", as
     }
   });
 });
+
+test("access decision carries organization, current context and no-apply evidence", async () => {
+  const calls = [], requestId = "9c856ac8-0145-488f-98b3-5b0e85057b81";
+  const client = { rpc: async (name, args) => {
+    calls.push({ name, args });
+    return { data: { contract: "autopilots.access-decision.v1", requestId, status: "approved", contextVersion: 2, membershipApplied: false, providerInviteSent: false, externalWrites: false, replayed: false }, error: null };
+  } };
+  const repository = new SupabaseControlPlaneRepository({ client });
+  const result = await repository.decideAccessRequest(
+    "40000000-0000-4000-8000-000000000001", "10000000-0000-4000-8000-000000000001",
+    requestId, "approved", 1, "access_decide_12345678"
+  );
+  assert.equal(result.membershipApplied, false);
+  assert.deepEqual(calls[0], { name: "autopilots_decide_access_request", args: {
+    p_profile_id: "40000000-0000-4000-8000-000000000001",
+    p_legal_entity_id: "10000000-0000-4000-8000-000000000001",
+    p_request_id: requestId, p_decision: "approved", p_context_version: 1,
+    p_idempotency_key: "access_decide_12345678"
+  } });
+});

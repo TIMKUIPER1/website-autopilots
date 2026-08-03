@@ -89,6 +89,11 @@ and restore tests pass.
   behavior and left zero synthetic access requests, commands, approvals, usage
   or audit rows. Browser roles have no table or RPC access. The two immutable
   IAM migrations and their registered checksums match production.
+- R2 access approval and rejection are now server-governed and require the
+  current locked request context. The decision closes the pending approval and
+  original command, creates its own idempotent command, usage and audit
+  evidence, and still applies no identity, membership, provider invitation or
+  external write. Live rollback-safe acceptance left no synthetic records.
 
 ## Website release safety checkpoint — 2026-07-26
 
@@ -137,8 +142,9 @@ Status: `verified` locally and externally enforced.
 3. After real owner TOTP enrollment, visually verify incidents and the new
    access roster, then execute one intentional human acknowledgement end to
    end. Do not stage a real colleague until their role and scope are approved.
-4. Add the server-governed R2 approval/rejection lifecycle for staged access
-   requests. Keep Auth-user creation and provider invitations disabled.
+4. Add a separately authorized apply step for approved access. It must retain
+   the no-provider boundary and may create an internal membership only after
+   owner acceptance, recovery design and explicit scope review.
 5. Add notification suppression and escalation delivery without autonomous
    remediation, after its provider channel is explicitly authorized.
 6. Connect Stripe as the first OAuth-based read-only discovery and

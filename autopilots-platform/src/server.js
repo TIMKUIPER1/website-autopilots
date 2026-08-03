@@ -192,6 +192,20 @@ const server = http.createServer(async (req, res) => {
       return json(res, result.replayed ? 200 : 201, result);
     }
 
+    if (url.pathname.startsWith("/api/v1/access/requests/") && url.pathname.endsWith("/decision") && req.method === "POST") {
+      if (!controlPlaneRepository) throw new HttpError(404, "Managed toegangsbeheer is niet actief");
+      const requestId = decodeURIComponent(url.pathname.slice("/api/v1/access/requests/".length, -"/decision".length));
+      if (!requestId || requestId.includes("/")) throw new HttpError(404, "Toegangsverzoek niet gevonden");
+      const session = await requireSession(req);
+      requireInternal(session);
+      requireManagedMfa(session);
+      const body = await parseBody(req);
+      return json(res, 200, await controlPlaneRepository.decideAccessRequest(
+        session.id, session.organizationId, requestId, String(body.decision || ""),
+        Number(body.contextVersion), String(req.headers["idempotency-key"] || "")
+      ));
+    }
+
     if (url.pathname.startsWith("/api/v1/incidents/brands/") && req.method === "GET") {
       if (!controlPlaneRepository) throw new HttpError(404, "Managed incidentbeheer is niet actief");
       const slug = decodeURIComponent(url.pathname.slice("/api/v1/incidents/brands/".length));
