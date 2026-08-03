@@ -356,8 +356,12 @@ Status: `verified read-only foundation`.
   official linked CLI was denied while initializing its temporary database
   login, and macOS did not release the saved Supabase login for the alternative
   Management API call. No fallback SQL or partial change was executed.
+- The portfolio UI now has a responsive, Dutch twelve-gate overview. It shows
+  the first blocker per product, expands to the full checklist, presents no
+  activation action and explicitly reports the migration as not live when the
+  durable read model is unavailable.
 - Local migration inventory is 46 immutable files and the governed RPC surface
-  is 38. The full gate passes 321 tests. Live inventory remains 45 migrations
+  is 38. The full gate passes 322 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until `20260804150000_product_connection_readiness.sql`
   is applied and accepted separately.
 

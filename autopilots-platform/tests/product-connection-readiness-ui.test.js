@@ -61,3 +61,20 @@ test("readiness route requires an internal managed session", async () => {
   const server = await readFile(new URL("../src/server.js", import.meta.url), "utf8");
   assert.match(server, /url\.pathname === "\/api\/v1\/data-planes\/readiness"[\s\S]*requireSession\(req\)[\s\S]*requireInternal\(session\)[\s\S]*productConnectionReadiness\([\s\S]*session\.id, session\.organizationId/);
 });
+
+test("portfolio shows a Dutch fail-closed twelve-gate overview without activation actions", async () => {
+  const [workspace, styles] = await Promise.all([
+    readFile(new URL("../public/workspace.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/workspace.css", import.meta.url), "utf8")
+  ]);
+  assert.match(workspace, /fetch\('\/api\/v1\/data-planes\/readiness'\)/);
+  assert.match(workspace, /function productConnectionReadinessPanel\(\)/);
+  assert.match(workspace, /Twaalf bewijzen vóór koppelen/);
+  assert.match(workspace, /Activatiepoort nog niet live/);
+  assert.match(workspace, /providerautorisatie en externe writes uit/);
+  assert.match(workspace, /Bekijk alle controles/);
+  assert.doesNotMatch(workspace, /data-action="(?:activate|connect-product|approve-readiness)"/);
+  assert.match(styles, /#workspaceApp \.readiness-grid/);
+  assert.match(styles, /grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(styles, /@media\(max-width:1050px\)\{#workspaceApp \.readiness-grid\{grid-template-columns:1fr\}\}/);
+});
