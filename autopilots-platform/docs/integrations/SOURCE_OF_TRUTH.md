@@ -10,7 +10,7 @@
 | Secrets | Environment/manual setup | Unverified | Demo discards raw values | Managed vault references |
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
 | Connector authorization intent | Autopilots OS `integration.connector_requests` | Verified internal staging | No provider authority | Human-approved executor per provider after separate permission |
-| Supabase project topology | Autopilots OS `integration.product_data_planes` | Central project verified; product projects unregistered | Metadata read only; no credentials or provider authority | Approved read-only discovery per product-owned project |
+| Supabase project topology | Autopilots OS `integration.product_data_planes` + `integration.product_data_plane_discoveries` | Central project verified; AutoPlanner/RoofPlanner candidates require verification; AutoReviews backup candidate excluded | Metadata read only; no credentials or provider authority | Prove schema/runtime identity before product registration |
 
 Rules: one authority per field; store provider IDs and sync cursors; raw provider payloads are evidence, normalized records drive products; reconciliation never silently overwrites financial history; corrections append adjustment records.
 

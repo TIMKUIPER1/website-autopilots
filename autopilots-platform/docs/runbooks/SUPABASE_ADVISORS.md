@@ -260,3 +260,11 @@ service-role-only organization read function. The freshly rerun linter reports
 the intentional deny-all browser posture of this server-owned registry. The
 known warnings remain the bounded signed-in session-context function and Auth
 leaked-password protection; neither was changed by this migration.
+
+Migration `20260804133000_product_data_plane_discovery.sql` adds one
+RLS-enabled, policy-free and browser-revoked discovery-evidence table and
+replaces the existing service-role-only registry projection with v2. The
+freshly rerun linter reports 0 errors, 2 unchanged warnings and 37 information
+items. The additional item is the intentional deny-all browser posture of the
+server-owned discovery table. It records no credentials and grants no provider
+authorization or writes.

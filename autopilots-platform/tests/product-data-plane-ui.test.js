@@ -14,11 +14,14 @@ test("portfolio reads data-plane topology and never posts registration actions",
   assert.match(browser, /function dataPlaneRegistryPanel\(\)/);
   assert.match(browser, /Eén login, gescheiden productdata/);
   assert.match(browser, /projectsleutels worden nooit tussen projecten gedeeld/);
+  assert.match(browser, /eerst live autoriteit verifiëren/);
+  assert.match(browser, /niet-primaire back-upkandidaat uitgesloten/);
   assert.doesNotMatch(browser, /managedPost\('\/api\/v1\/data-planes/);
 });
 
 test("Supabase dashboard link is rebuilt only from a bounded project reference", () => {
   assert.match(browser, /validRef=\/\^\[a-z\]\{20\}\$\//);
   assert.match(browser, /https:\/\/supabase\.com\/dashboard\/project\/\$\{encodeURIComponent\(control\.projectRef\)\}/);
+  assert.match(browser, /https:\/\/supabase\.com\/dashboard\/project\/\$\{encodeURIComponent\(discovery\.projectRef\)\}/);
   assert.doesNotMatch(browser, /href="\$\{control\.dashboardUrl\}"/);
 });

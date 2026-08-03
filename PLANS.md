@@ -100,7 +100,7 @@ disposable-target restore rehearsal proves recoverability.
   accounts, memberships, provider invitations and external activation blocked;
   real-owner visual acceptance remains pending TOTP enrollment.
 - A credential-free Autopilots OS release gate now verifies server and browser
-  syntax, foundation contracts, all 42 immutable migration checksums,
+  syntax, foundation contracts, all 43 immutable migration checksums,
   transaction wrappers, tracked-file secret patterns and the complete test
   suite on every platform pull request and protected-main push. It performs no
   migration or provider call.
@@ -303,18 +303,24 @@ Status: `verified read-only foundation`.
 
 - The existing Autopilots Supabase project `wurycoodzcybaxcgqxps` is now the
   only verified central control-plane registration.
-- All four operating brands are projected under the same organization and
-  login, but product-owned Supabase projects remain `not_registered` until an
-  approved read-only discovery proves their exact project references.
+- AutoReviews, AutoPlanner and RoofPlanner are projected as the three product
+  data-plane positions under the same organization and login; Autopilots itself
+  remains the overkoepelende control plane.
+- Read-only management discovery found exact-name candidates for AutoPlanner
+  and RoofPlanner in the control-plane Supabase organization. They remain
+  `verification_required`, not registered live authorities.
+- `AutoReviews Backups EU` was found in a separate Supabase organization and is
+  explicitly `excluded_non_primary`; no primary AutoReviews project is proven.
 - The registry stores no credential material, shares no project credentials,
   grants no provider authorization and exposes no generic registration action.
 - Live service-role acceptance returned one registered control plane, zero
-  registered product data planes and four unregistered products. Unknown
-  profiles were denied with 403 and anonymous access with 401.
+  registered product data planes, three unregistered products, two verification
+  candidates and one excluded non-primary candidate. Unknown profiles were
+  denied with 403 and anonymous access with 401.
 - The portfolio now shows this topology fail-closed and rebuilds the Supabase
   dashboard link only from a validated 20-character project reference.
-- Migration inventory is 42 immutable files and the governed RPC surface is 37.
-  The full gate passes 287 tests.
+- Migration inventory is 43 immutable files and the governed RPC surface is 37.
+  The full gate passes 291 tests.
 
 ## Website release safety checkpoint — 2026-07-26
 

@@ -202,7 +202,7 @@ test("data-plane registry keeps one login separate from product project credenti
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
     return { data: {
-      contract: "autopilots.data-plane-registry.v1",
+      contract: "autopilots.data-plane-registry.v2",
       organization: { id: legalEntityId, legalName: "Autopilots" },
       controlPlane: {
         provider: "supabase", purpose: "control_plane", status: "verified", projectRef,
@@ -211,8 +211,12 @@ test("data-plane registry keeps one login separate from product project credenti
       products: [{ brand: { slug: "autoplanner", name: "AutoPlanner", code: "PL" }, dataPlane: {
         provider: "supabase", purpose: "product_data", status: "not_registered",
         projectRef: null, dashboardUrl: null
+      }, discovery: {
+        status: "verification_required", projectRef: "ixcqwwqldptoschrbtvf",
+        observedProjectName: "Autoplanner", candidateKind: "exact_name_candidate",
+        providerStatus: "active_healthy", organizationBoundary: "same_provider_organization"
       } }],
-      summary: { registeredProjects: 1, registeredProductDataPlanes: 0, unregisteredProducts: 4 },
+      summary: { registeredProjects: 1, registeredProductDataPlanes: 0, unregisteredProducts: 3 },
       singleLoginEnabled: true, crossProjectCredentialSharingEnabled: false,
       providerAuthorizationEnabled: false, credentialMaterialExposed: false,
       genericRegistrationActionEnabled: false, externalWritesEnabled: false
@@ -229,7 +233,8 @@ test("data-plane registry keeps one login separate from product project credenti
 
 test("data-plane registry rejects a forged dashboard destination", async () => {
   const client = { rpc: async () => ({ data: {
-    contract: "autopilots.data-plane-registry.v1", organization: {},
+    contract: "autopilots.data-plane-registry.v2",
+    organization: { id: "10000000-0000-4000-8000-000000000001" },
     controlPlane: { provider: "supabase", purpose: "control_plane", status: "verified",
       projectRef: "wurycoodzcybaxcgqxps", dashboardUrl: "https://attacker.example" },
     products: [], summary: {}, singleLoginEnabled: true,

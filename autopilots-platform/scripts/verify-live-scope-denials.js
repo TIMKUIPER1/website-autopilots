@@ -97,15 +97,19 @@ const validDataPlaneRegistry = await callRpc("autopilots_data_plane_registry", {
   p_profile_id: ownerProfileId, p_legal_entity_id: legalEntityId
 }, serviceRoleKey);
 if (validDataPlaneRegistry.status !== 200
-  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v1"
+  || validDataPlaneRegistry.payload?.contract !== "autopilots.data-plane-registry.v2"
   || validDataPlaneRegistry.payload?.controlPlane?.projectRef !== projectRef
   || validDataPlaneRegistry.payload?.controlPlane?.status !== "verified"
   || !Array.isArray(validDataPlaneRegistry.payload?.products)
-  || validDataPlaneRegistry.payload.products.length !== 4
+  || validDataPlaneRegistry.payload.products.length !== 3
   || validDataPlaneRegistry.payload.products.some((item) => item?.dataPlane?.status !== "not_registered")
   || validDataPlaneRegistry.payload?.summary?.registeredProjects !== 1
   || validDataPlaneRegistry.payload?.summary?.registeredProductDataPlanes !== 0
-  || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 4
+  || validDataPlaneRegistry.payload?.summary?.unregisteredProducts !== 3
+  || validDataPlaneRegistry.payload?.summary?.verificationCandidates !== 2
+  || validDataPlaneRegistry.payload?.summary?.excludedNonPrimaryCandidates !== 1
+  || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.status === "verification_required").length !== 2
+  || validDataPlaneRegistry.payload.products.filter((item) => item?.discovery?.status === "excluded_non_primary").length !== 1
   || validDataPlaneRegistry.payload?.singleLoginEnabled !== true
   || validDataPlaneRegistry.payload?.crossProjectCredentialSharingEnabled !== false
   || validDataPlaneRegistry.payload?.providerAuthorizationEnabled !== false
@@ -124,6 +128,8 @@ evidence.push({
   controlPlaneProjectRef: projectRef,
   products: validDataPlaneRegistry.payload.products.length,
   registeredProductDataPlanes: 0,
+  verificationCandidates: 2,
+  excludedNonPrimaryCandidates: 1,
   crossProjectCredentialSharingEnabled: false,
   providerAuthorizationEnabled: false,
   externalWritesEnabled: false

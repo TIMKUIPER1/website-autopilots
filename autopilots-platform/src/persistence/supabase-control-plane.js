@@ -136,7 +136,7 @@ export class SupabaseControlPlaneRepository {
       p_legal_entity_id: legalEntityId
     });
     throwMapped(error, "Het product-data-plane register kon niet veilig worden geladen");
-    if (data?.contract !== "autopilots.data-plane-registry.v1"
+    if (data?.contract !== "autopilots.data-plane-registry.v2"
       || !uuid(data?.organization?.id) || data.organization.id !== legalEntityId
       || !data.controlPlane || !Array.isArray(data.products) || !data.summary
       || data.singleLoginEnabled !== true || data.crossProjectCredentialSharingEnabled !== false
@@ -147,7 +147,9 @@ export class SupabaseControlPlaneRepository {
     const registeredPlanes = [data.controlPlane, ...data.products.map((item) => item?.dataPlane)]
       .filter((plane) => plane?.status !== "not_registered");
     if (!validSupabasePlane(data.controlPlane, "control_plane")
-      || data.products.some((item) => !item?.brand || !validDataPlanePlaceholder(item.dataPlane))
+      || data.products.some((item) => !item?.brand
+        || !validDataPlanePlaceholder(item.dataPlane)
+        || !validDataPlaneDiscovery(item.discovery))
       || registeredPlanes.some((plane) => !validSupabasePlane(plane, plane.purpose))) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
     }
@@ -591,6 +593,21 @@ function validDataPlanePlaceholder(plane) {
     ? plane.provider === "supabase" && plane.purpose === "product_data"
       && plane.projectRef === null && plane.dashboardUrl === null
     : validSupabasePlane(plane, "product_data");
+}
+
+function validDataPlaneDiscovery(discovery) {
+  if (discovery?.status === "not_found") {
+    return discovery.projectRef === null && discovery.observedProjectName === null
+      && discovery.candidateKind === null;
+  }
+  return new Set(["verification_required", "excluded_non_primary"]).has(discovery?.status)
+    && /^[a-z]{20}$/.test(String(discovery.projectRef || ""))
+    && typeof discovery.observedProjectName === "string"
+    && discovery.observedProjectName.length > 0 && discovery.observedProjectName.length <= 120
+    && new Set(["exact_name_candidate", "backup_label"]).has(discovery.candidateKind)
+    && discovery.providerStatus === "active_healthy"
+    && new Set(["same_provider_organization", "separate_provider_organization"])
+      .has(discovery.organizationBoundary);
 }
 
 function throwMapped(error, fallback) {
