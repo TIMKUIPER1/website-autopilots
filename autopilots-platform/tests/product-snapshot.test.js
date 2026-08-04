@@ -38,6 +38,17 @@ test("accepts each exact governed product aggregate allowlist", () => {
   }
 });
 
+test("accepts an aggregate zero for a segmented query with no source rows", () => {
+  const empty = snapshot("autoplanner");
+  const zero = { value: 0, sampleSize: 0, suppressed: false };
+  empty.aggregates.leads_by_status = zero;
+  empty.aggregates.appointments_by_status = zero;
+  empty.aggregates.conversations_by_state = zero;
+  empty.aggregates.integration_health = zero;
+  empty.aggregates.usage_totals = zero;
+  assert.equal(validateProductSnapshot(empty, { expectedProduct: "autoplanner", now }).ok, true);
+});
+
 test("rejects extra, missing and cross-product aggregates", () => {
   const extra = snapshot();
   extra.aggregates.customer_emails = { value: 12, sampleSize: 12, suppressed: false };

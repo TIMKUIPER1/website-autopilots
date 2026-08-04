@@ -354,6 +354,15 @@ Status: `verified read-only foundation`.
   product suite passes 147 tests and a generated production envelope is
   accepted by the central validator; no deployment, secret, vault or live
   catalog state changed.
+- AutoPlanner commit `16cb80e` completes the same deployment boundary in an
+  isolated worktree without touching its dirty user checkout. The route is
+  enabled only for explicit production, validates its own exact envelope before
+  serving and represents empty grouped queries as an honest aggregate zero
+  without inventing a status. Its exact-origin verifier proves denied then
+  authorized GET without reporting endpoints, secrets, segments or values. The
+  full product build, 98 tests and database-schema validation pass; generated
+  populated and empty production envelopes both pass the central validator.
+  No deployment, secret, vault or live catalog state changed.
 - A reusable product connector cutover runbook now requires exact product-side
   validation, denied-before-authorized GET proof, dedicated per-environment
   secrets, managed-vault injection, revocation, reconciliation and independent
@@ -392,7 +401,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 355 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 356 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and

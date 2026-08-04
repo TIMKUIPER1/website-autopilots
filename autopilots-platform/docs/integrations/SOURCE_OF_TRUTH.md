@@ -14,13 +14,19 @@
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
 Local implementation evidence does not change live authority: AutoPlanner and
-AutoReviews have complete local producer routes. AutoReviews commit `60ca9db`
+AutoReviews have complete local producer routes and deployment-verification
+packages. AutoReviews commit `60ca9db`
 also self-validates before serving, declares a value-less Render secret slot and
 explicit production identity, and ships a secret-safe GET-only deployment
 verifier; all 147 product tests pass and its generated production envelope
 passes the central validator. Its code default remains `sandbox`, and
 `open_incidents_count` is limited to dead-letter customer events, event jobs
-and billing-usage events. RoofPlanner
+and billing-usage events. AutoPlanner commit `16cb80e` makes its route available
+only in explicit production, self-validates the exact contract, returns an
+aggregate zero rather than inventing a segment when a grouped query is empty,
+and ships an exact-origin verifier that proves denied then authorized GET. Its
+full build, 98 tests and database-schema validation pass; both populated and
+empty generated production envelopes pass the central validator. RoofPlanner
 has a local contract route with an intentionally disabled gateway pending a
 separately authorized aggregate reader and independent review. None of these
 routes is hosted or centrally connected; the live catalog therefore remains 0

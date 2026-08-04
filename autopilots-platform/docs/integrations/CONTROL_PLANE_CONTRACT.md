@@ -69,9 +69,10 @@ Current live status is deliberately fail-closed: AutoReviews is
 `contract_required`; AutoPlanner and RoofPlanner are
 `identity_verified_contract_required`. The live control plane reports three
 contracts requiring implementation and zero active data connections. Local
-implementation evidence exists for AutoReviews and AutoPlanner; RoofPlanner has
-a disabled contract route pending a separate aggregate reader and independent
-review. None is hosted or verified in the live catalog.
+implementation and deployment-verification evidence exists for AutoReviews and
+AutoPlanner; RoofPlanner has a disabled contract route pending a separate
+aggregate reader and independent review. None is hosted or verified in the live
+catalog.
 
 The local validator additionally rejects missing or extra envelope fields,
 missing or extra aggregates, cross-product payloads, unsafe segment names,
@@ -94,9 +95,9 @@ reader. The reader starts authorized products in parallel, preserves one bounded
 result per product and accepts only validator-approved live aggregates. It
 returns explicit unavailable states instead of demo, cached or estimated data,
 and never returns configured endpoints or credentials. It is not connected to
-monitoring or persistence. The AutoPlanner and AutoReviews producers exist
-locally, but no hosted endpoint, credential or central data connection is active
-under Werktoestemming A.
+monitoring or persistence. The AutoPlanner and AutoReviews producers and
+secret-safe deployment verifiers exist locally, but no hosted endpoint,
+credential or central data connection is active under Werktoestemming A.
 AutoReviews defaults to `sandbox`; a verified live service must explicitly set
 `production` before production evidence could be accepted.
 

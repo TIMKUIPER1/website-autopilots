@@ -65,7 +65,11 @@ cached/demo values, another product's credential or an unreviewed endpoint.
   with no value, explicit production identity and a secret-safe GET-only
   deployment verifier. Its 147 tests pass and a generated production envelope
   is accepted by the central validator. It is not deployed or connected.
-- AutoPlanner has a local producer but its deployment package must be completed
-  on its current user-owned branch without overwriting unrelated work.
+- AutoPlanner commit `16cb80e` contains production-only route gating,
+  self-validation, truthful zero handling for empty grouped queries and a
+  secret-safe exact-origin GET-only deployment verifier. Its full build, all 98
+  tests and database-schema validation pass; generated populated and empty
+  production envelopes are accepted by the central validator. It is not
+  deployed or connected.
 - RoofPlanner remains deliberately disabled pending an aggregate reader and the
   independent review required by its repository contract.
