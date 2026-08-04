@@ -42,6 +42,11 @@ disposable-target restore rehearsal proves recoverability.
   application session and a TOTP enroll/challenge/verify callback. No
   application session is created until Supabase confirms `aal2`. Provider
   writes remain disabled.
+- A fresh unauthenticated browser acceptance of the managed control-center URL
+  redirects to `/login`, exposes no portfolio or demo content and reports no
+  console errors. The shared shell now uses a neutral initial title and labels
+  managed login, callback and control-center routes as `Autopilots OS` instead
+  of the misleading demo title; the customer sandbox retains `Autopilots Demo`.
 - Application sessions are durable and revocable in `iam.app_sessions`. Only
   a SHA-256 token hash is stored, service-role RPCs are the sole interface, and
   each resolve rechecks active profile, MFA and memberships. A verified restart
@@ -413,7 +418,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 357 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 358 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
