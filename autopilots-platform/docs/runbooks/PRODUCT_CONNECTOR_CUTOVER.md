@@ -71,5 +71,11 @@ cached/demo values, another product's credential or an unreviewed endpoint.
   tests and database-schema validation pass; generated populated and empty
   production envelopes are accepted by the central validator. It is not
   deployed or connected.
-- RoofPlanner remains deliberately disabled pending an aggregate reader and the
-  independent review required by its repository contract.
+- RoofPlanner commit `1497d5b` contains a pending service-role-only aggregate
+  SQL function, exact-project Supabase binding, staging-only identity,
+  product-side validation and a secret-safe denied/authorized GET verifier. Its
+  complete workspace gate passes 574 tests with zero failures and two existing
+  service-dependent integration skips. Generated populated and empty staging
+  envelopes pass the central validator. The migration is not applied and the
+  repository-required independent review is still pending; it is not deployed
+  or connected.

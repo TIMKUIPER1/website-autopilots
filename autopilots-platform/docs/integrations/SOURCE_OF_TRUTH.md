@@ -27,10 +27,14 @@ aggregate zero rather than inventing a segment when a grouped query is empty,
 and ships an exact-origin verifier that proves denied then authorized GET. Its
 full build, 98 tests and database-schema validation pass; both populated and
 empty generated production envelopes pass the central validator. RoofPlanner
-has a local contract route with an intentionally disabled gateway pending a
-separately authorized aggregate reader and independent review. None of these
-routes is hosted or centrally connected; the live catalog therefore remains 0
-verified and 3 requiring implementation.
+commit `1497d5b` adds a pending service-role-only aggregate SQL function, exact
+Supabase-project binding, staging-only identity, product self-validation and a
+secret-safe denied/authorized GET verifier. Its complete workspace gate passes
+574 tests with zero failures and two existing service-dependent integration
+skips; generated populated and empty staging envelopes pass the central
+validator. Its migration is not applied and its repository-required independent
+review is pending. None of these routes is hosted or centrally connected; the
+live catalog therefore remains 0 verified and 3 requiring implementation.
 
 `docs/runbooks/PRODUCT_CONNECTOR_CUTOVER.md` is the reusable product boundary.
 It requires product-side self-validation, exact HTTPS origin binding, dedicated

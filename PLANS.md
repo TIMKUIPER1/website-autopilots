@@ -340,11 +340,15 @@ Status: `verified read-only foundation`.
   observations. The internal portfolio API and UI show only validated live
   aggregates or an explicit unavailable state; no demo, cache or estimate is
   substituted. Nothing is persisted and monitoring remains separate.
-- RoofPlanner now has a local product-snapshot contract and an internal route
-  on its required `agent/control-plane-snapshot` branch. Its runtime deliberately
-  composes a disabled gateway because existing tenant RLS must not be bypassed
-  for portfolio totals. A dedicated aggregate reader, independent review and
-  separate activation authority remain required; nothing is pushed or live.
+- RoofPlanner commit `1497d5b` replaces the placeholder gateway with a pending
+  service-role-only aggregate SQL function and an API reader bound to one exact
+  Supabase project origin. It returns no tenant rows, labels the current source
+  as staging, self-validates before serving and ships a secret-safe verifier
+  that proves denied then authorized GET. The full workspace gate passes 574
+  tests with zero failures and two existing service-dependent integration
+  skips; generated populated and empty staging envelopes pass the central
+  validator. The migration is not applied, independent review is still required
+  by the repository contract and nothing is deployed, configured or connected.
 - AutoReviews now builds the exact seven-field product contract from its local
   SQLite aggregates and exposes it only through a disabled, GET-only,
   strong-secret gate. Its incident count is narrowly defined as dead-letter
@@ -401,7 +405,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 356 tests. Live inventory remains 45 migrations
+  is 40. The full gate passes 357 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and

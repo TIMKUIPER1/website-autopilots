@@ -49,6 +49,15 @@ test("accepts an aggregate zero for a segmented query with no source rows", () =
   assert.equal(validateProductSnapshot(empty, { expectedProduct: "autoplanner", now }).ok, true);
 });
 
+test("accepts an honest RoofPlanner staging snapshot with decimal usage", () => {
+  const staging = snapshot("roofplanner");
+  staging.environment = "staging";
+  staging.aggregates.usage_totals = {
+    conversation_minute: { value: 20.5, sampleSize: 20, suppressed: false }
+  };
+  assert.equal(validateProductSnapshot(staging, { expectedProduct: "roofplanner", now }).ok, true);
+});
+
 test("rejects extra, missing and cross-product aggregates", () => {
   const extra = snapshot();
   extra.aggregates.customer_emails = { value: 12, sampleSize: 12, suppressed: false };
