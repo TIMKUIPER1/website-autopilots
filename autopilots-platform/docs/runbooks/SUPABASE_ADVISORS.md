@@ -284,3 +284,25 @@ warnings and 38 information suggestions. The additional item is the intentional
 deny-all browser posture of the catalog. All three product contracts require
 implementation; direct database access, row-level data, credentials, provider
 authorization and external writes remain disabled.
+
+## 2026-08-03 — Readiness and provider-neutral runtime topology
+
+The exact Keychain-backed release applied and accepted migrations
+`20260804150000`, `20260804153000`, `20260804160000` and `20260804163000`,
+bringing the live project to 49 migrations and 41 governed RPCs. Independent
+posture and rollback-only behavioral acceptance proved zero persistent
+synthetic residue and no connection, credential, provider or external-write
+effect.
+
+Fresh read-only Advisor results after the release are:
+
+- Security: 0 errors, 2 unchanged warnings and 41 information items. The three
+  additional information items are the intentional RLS-enabled, policy-free,
+  browser-revoked gate-policy, evidence and runtime-identity tables. The known
+  warnings remain authenticated execution of the bounded session-context
+  function and Auth leaked-password protection.
+- Performance: 0 errors, 1 warning and 94 information items. The warning is
+  `auth_rls_initplan`; informational findings are unindexed foreign-key or
+  unused-index advice and one Auth connection-capacity notice. These are not
+  interpreted as authorization to mutate indexes or Auth configuration under
+  Work Authorization A.

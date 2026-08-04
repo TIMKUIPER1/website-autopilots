@@ -417,13 +417,13 @@ Status: `verified read-only foundation`.
   response cannot claim connection, provider authorization or writes. No UI
   control is exposed and current unconfigured products still fail before any
   evidence write.
-- Local migration inventory is 49 immutable files and the governed RPC surface
-  is 41. The full platform gate passes 370 tests. Live inventory remains 45 migrations
-  and 37 governed RPCs until the ordered pending migrations
+- Local and live migration inventory are now 49 immutable files and the governed
+  RPC surface is 41. The full platform gate passes 372 tests. The ordered migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
   `20260804160000_atomic_product_snapshot_evidence.sql` are applied and accepted
-  separately.
+  were applied and independently accepted through the exact Keychain-backed
+  45→48→49 release.
 - A provider-neutral product-runtime topology now models all three operational
   backends without assuming that every product uses Supabase: AutoReviews is
   Render with persistent SQLite; AutoPlanner and RoofPlanner are Supabase with
@@ -468,9 +468,19 @@ Status: `verified read-only foundation`.
   posture, execute and postcheck rollback-only behavior, then apply and verify
   the exact 48→49 provider-neutral runtime topology. It never prints or persists
   the Supabase credential and stops on the first failed stage.
+- The live release completed on 2026-08-03. The 48/40 readiness posture passed,
+  rollback-only behavior proved success, replay, scope, role, source,
+  immutability and batch atomicity with zero residue, and the 49/41 runtime
+  topology proved three identities with zero active data connections,
+  credentials, provider authorization or external writes.
+- Fresh Supabase Advisors after 49/41 report security 0 errors, 2 known warnings
+  and 41 informational deny-by-default findings; performance reports 0 errors,
+  1 warning and 94 informational findings. The performance warning is
+  `auth_rls_initplan`; the two known security warnings remain the bounded
+  authenticated session-context function and leaked-password protection.
 - `docs/CONTROL_PLANE_COMPLETION_AUDIT.md` now maps the complete user objective
   to authoritative evidence. It keeps owner AAL2, access application, hosted
-  product connectors, live 49/41 acceptance and restore rehearsal explicitly
+  product connectors and restore rehearsal explicitly
   incomplete instead of allowing broad production-readiness claims.
 
 ## Website release safety checkpoint — 2026-07-26

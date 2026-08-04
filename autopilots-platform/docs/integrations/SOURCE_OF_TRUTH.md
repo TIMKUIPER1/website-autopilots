@@ -11,8 +11,8 @@
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
 | Connector authorization intent | Autopilots OS `integration.connector_requests` | Verified internal staging | No provider authority | Human-approved executor per provider after separate permission |
 | Supabase project topology | Autopilots OS `integration.product_data_planes` + `integration.product_data_plane_discoveries` | Central, AutoPlanner and RoofPlanner identities verified; 0 active cross-project data connections; AutoReviews backup excluded | Metadata/fingerprint only; no stored credentials or provider authority | Approve and build separate read-only data connector per verified product |
-| Product runtime topology | Autopilots OS `integration.product_runtime_identities` | Provider-neutral identities implemented locally: AutoReviews = Render/SQLite; AutoPlanner and RoofPlanner = Supabase/PostgreSQL; 0 verified endpoints and 0 active data connections | Service-role read only; no endpoints, credentials, provider authority or external writes | Apply and independently verify the exact migration, then verify each product endpoint through its separate cutover |
-| AutoReviews operational data | AutoReviews persistent SQLite database on Render | Product repository and deployment architecture verified locally; no central data connection active | AutoReviews runtime only; central access is limited to the dedicated aggregate API after deployment approval | Register a provider-neutral runtime identity and verify the self-validating aggregate endpoint; keep the Supabase backup project excluded |
+| Product runtime topology | Autopilots OS `integration.product_runtime_identities` | Live and independently verified: AutoReviews = Render/SQLite; AutoPlanner and RoofPlanner = Supabase/PostgreSQL; 0 verified endpoints and 0 active data connections | Service-role read only; no endpoints, credentials, provider authority or external writes | Verify each product endpoint through its separate cutover |
+| AutoReviews operational data | AutoReviews persistent SQLite database on Render | Product runtime identity live; product endpoint verified locally but not hosted or centrally connected | AutoReviews runtime only; central access is limited to the dedicated aggregate API after deployment approval | Verify the hosted self-validating aggregate endpoint; keep the Supabase backup project excluded |
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
 Local implementation evidence does not change live authority: AutoPlanner and
@@ -94,41 +94,40 @@ is GET-only, returns 503 without a separately configured strong secret and is
 available to the local central portfolio reader only after configuration. It is
 not wired into monitoring or persistence.
 
-The provider-neutral runtime registry is locally implemented separately from
+The provider-neutral runtime registry is live separately from
 the Supabase data-plane registry. It records only bounded backend identity:
 provider, runtime class, primary store, evidence source and whether an existing
 data-plane identity is linked. It stores no endpoint or credential and cannot
 authorize a connection. This prevents the AutoReviews backup project from being
-mistaken for its Render/SQLite operational backend. The migration and its
-server-only organization projection are locally verified but are not yet live.
+mistaken for its Render/SQLite operational backend. Its exact 49/41 live posture,
+role denials and three no-effect identities passed independent verification.
 
-Connection readiness is locally governed by twelve expiring gates and a
+Connection readiness is live and governed by twelve expiring gates and a
 server-only organization projection. Its evidence model stores only hashes and
 bounded categories, not endpoints, secrets or payloads, and cannot be written by
-the runtime role. The migration and API route are locally verified but not live;
-the current Supabase project still has no readiness evidence rows, active product
+the runtime role. The migration, API route and rollback-only database behavior
+are live-accepted; the current Supabase project has no readiness evidence rows, active product
 data connections, provider authorization or external writes.
 Technical gate evidence can locally be recorded only through a service-role
 RPC that requires organization owner/admin/operator scope. It stores a SHA-256,
 bounded source category and timestamps, creates an idempotent R1 command, audit
 event and zero-cost usage entry, and derives expiry from the gate policy. Raw
 payloads, endpoints, credentials and tokens are not accepted. Project identity
-and current human approval remain separate authorities. This dependent
-migration is also not live.
+and current human approval remain separate authorities. The recorder is live
+but has not recorded real product evidence.
 
-The pending three-migration chain now also has an independent, project-pinned
+The applied three-migration chain has an independent, project-pinned
 live acceptance verifier. It performs one SELECT-only Management API query and
 fails closed unless the exact migration/RPC inventory, reviewed change IDs,
 checksums, role denials, append-only trigger, no-effect contract flags and zero
-operational residue all match. It cannot apply migrations or record evidence
-and does not change the current live status.
+operational residue all match. Its live 48/40 posture proof passed before the
+provider-neutral 49th migration was applied.
 
-A separate behavioral acceptance is prepared for the same post-migration
-window. It proves valid owner/operator evidence, exact replay, role and scope
+A separate behavioral acceptance passed in the same post-migration window. It
+proved valid owner/operator evidence, exact replay, role and scope
 denials, source/freshness enforcement, append-only behavior and full batch
 rollback inside one uncommitted transaction. The independent clean-posture
-verifier runs both before and after; this tool is not a real evidence-ingestion
-path and may leave no command, usage, audit or evidence row.
+verifier ran both before and after; it left no command, usage, audit or evidence row.
 
 The local managed server can derive `contract_probe`, `privacy_probe` and
 `freshness_probe` evidence from a product snapshot only after the shared exact

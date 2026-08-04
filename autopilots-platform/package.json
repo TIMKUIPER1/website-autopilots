@@ -25,7 +25,8 @@
     "db:verify:product-runtime": "node scripts/verify-live-product-runtime-topology.js",
     "db:release:control-plane-foundation": "node scripts/release-control-plane-foundation.js",
     "db:inspect:migrations": "node scripts/inspect-live-migration-inventory.js",
-    "db:diagnose:product-readiness": "node scripts/diagnose-product-readiness-migrations.js"
+    "db:diagnose:product-readiness": "node scripts/diagnose-product-readiness-migrations.js",
+    "db:inspect:advisors": "node scripts/inspect-live-advisors.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",
