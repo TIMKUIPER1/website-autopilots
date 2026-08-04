@@ -418,7 +418,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 49 immutable files and the governed RPC surface
-  is 41. The full platform gate passes 368 tests. Live inventory remains 45 migrations
+  is 41. The full platform gate passes 370 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
@@ -459,6 +459,10 @@ Status: `verified read-only foundation`.
   profile/organization, derived/stale/wrong-source evidence, append-only
   mutation denial and third-record failure. It runs the read-only posture proof
   both before and after its transaction; zero persistent residue is mandatory.
+- A separate prefix-by-prefix migration diagnostic now compiles all three
+  readiness migrations against live PostgreSQL inside explicit rollbacks. It
+  exposed and corrected an ambiguous PL/pgSQL inline `CASE`; the complete
+  three-stage diagnostic now passes with zero persistent or external writes.
 - A single macOS Keychain-backed release command now holds the exact operational
   order: apply the pinned 45→48 transaction, verify the independent 48/40
   posture, execute and postcheck rollback-only behavior, then apply and verify

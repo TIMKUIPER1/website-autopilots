@@ -68,10 +68,10 @@ begin
   if not found then raise exception 'connection gate not found' using errcode = 'P0002'; end if;
 
   if p_observed_at is null or p_observed_at > now() + interval '60 seconds'
-    or p_observed_at < now() - make_interval(secs => v_policy.maximum_age_seconds) then
+    or p_observed_at < now() - (v_policy.maximum_age_seconds * interval '1 second') then
     raise exception 'connection evidence observation is outside its validity window' using errcode = '22023';
   end if;
-  if p_source_category <> case
+  if p_source_category <> (case
     when p_gate_key = 'owned_https_endpoint' then 'transport_probe'
     when p_gate_key = 'vault_secret_reference' then 'security_test'
     when p_gate_key in ('contract_probe', 'privacy_probe', 'freshness_probe') then 'contract_validator'
@@ -79,7 +79,7 @@ begin
     when p_gate_key in ('revocation_test', 'rate_limit_test', 'failure_mode_test') then 'security_test'
     when p_gate_key = 'independent_review' then 'independent_review'
     else null
-  end then
+  end) then
     raise exception 'source category does not own this gate' using errcode = '42501';
   end if;
 
@@ -112,7 +112,7 @@ begin
   ) values (
     v_evidence_id, p_legal_entity_id, v_brand.id, v_contract.id, p_gate_key, p_result,
     p_evidence_sha256, p_source_category, p_observed_at,
-    p_observed_at + make_interval(secs => v_policy.maximum_age_seconds)
+    p_observed_at + (v_policy.maximum_age_seconds * interval '1 second')
   );
 
   v_result := jsonb_build_object(

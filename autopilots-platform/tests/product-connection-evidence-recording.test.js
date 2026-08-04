@@ -21,6 +21,7 @@ test("derived identity and current human approval cannot be recorded by the prob
 });
 
 test("each technical gate has one bounded owning source category", () => {
+  assert.match(migration, /p_source_category <> \(case[\s\S]*end\) then/);
   for (const expected of [
     "owned_https_endpoint' then 'transport_probe",
     "vault_secret_reference' then 'security_test",
@@ -29,8 +30,8 @@ test("each technical gate has one bounded owning source category", () => {
     "revocation_test', 'rate_limit_test', 'failure_mode_test') then 'security_test",
     "independent_review' then 'independent_review"
   ]) assert.ok(migration.includes(expected), expected);
-  assert.match(migration, /p_observed_at < now\(\) - make_interval\(secs => v_policy\.maximum_age_seconds\)/);
-  assert.match(migration, /p_observed_at \+ make_interval\(secs => v_policy\.maximum_age_seconds\)/);
+  assert.match(migration, /p_observed_at < now\(\) - \(v_policy\.maximum_age_seconds \* interval '1 second'\)/);
+  assert.match(migration, /p_observed_at \+ \(v_policy\.maximum_age_seconds \* interval '1 second'\)/);
 });
 
 test("evidence recording is a complete idempotent R1 command with no activation effect", () => {
