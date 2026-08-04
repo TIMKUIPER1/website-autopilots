@@ -11,6 +11,7 @@
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
 | Connector authorization intent | Autopilots OS `integration.connector_requests` | Verified internal staging | No provider authority | Human-approved executor per provider after separate permission |
 | Supabase project topology | Autopilots OS `integration.product_data_planes` + `integration.product_data_plane_discoveries` | Central, AutoPlanner and RoofPlanner identities verified; 0 active cross-project data connections; AutoReviews backup excluded | Metadata/fingerprint only; no stored credentials or provider authority | Approve and build separate read-only data connector per verified product |
+| AutoReviews operational data | AutoReviews persistent SQLite database on Render | Product repository and deployment architecture verified locally; no central data connection active | AutoReviews runtime only; central access is limited to the dedicated aggregate API after deployment approval | Register a provider-neutral runtime identity and verify the self-validating aggregate endpoint; keep the Supabase backup project excluded |
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
 Local implementation evidence does not change live authority: AutoPlanner and
@@ -19,7 +20,10 @@ packages. AutoReviews commit `60ca9db`
 also self-validates before serving, declares a value-less Render secret slot and
 explicit production identity, and ships a secret-safe GET-only deployment
 verifier; all 147 product tests pass and its generated production envelope
-passes the central validator. Its code default remains `sandbox`, and
+passes the central validator. Its primary operational store is persistent
+SQLite on Render; its Supabase configuration is encrypted off-site backup
+storage only and is not an operational data-plane candidate. Its code default
+remains `sandbox`, and
 `open_incidents_count` is limited to dead-letter customer events, event jobs
 and billing-usage events. AutoPlanner commit `16cb80e` makes its route available
 only in explicit production, self-validates the exact contract, returns an

@@ -310,12 +310,17 @@ Status: `verified read-only foundation`.
   RoofPlanner through 38 schema objects. Their project identities are registered,
   while data authorization and active connections remain disabled.
 - `AutoReviews Backups EU` was found in a separate Supabase organization and is
-  explicitly `excluded_non_primary`; no primary AutoReviews project is proven.
+  explicitly `excluded_non_primary`. Repository evidence proves that the
+  current AutoReviews operational backend is a Render-hosted persistent SQLite
+  database; Supabase is used only for encrypted off-site backup storage. The
+  missing Supabase product registration is therefore intentional and must not
+  be presented as a missing AutoReviews backend.
 - The registry stores no credential material, shares no project credentials,
   grants no provider authorization and exposes no generic registration action.
 - Live service-role acceptance returned one central control plane, two verified
-  product project identities, zero active data connections and one unregistered
-  product backend. The AutoReviews backup remains excluded non-primary. Unknown
+  Supabase product identities and zero active data connections. AutoReviews has
+  no primary Supabase data plane by design; its backup remains excluded
+  non-primary. Unknown
   profiles were denied with 403 and anonymous access with 401.
 - The portfolio now shows this topology fail-closed and rebuilds the Supabase
   dashboard link only from a validated 20-character project reference.
