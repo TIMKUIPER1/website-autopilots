@@ -71,11 +71,13 @@ cached/demo values, another product's credential or an unreviewed endpoint.
   tests and database-schema validation pass; generated populated and empty
   production envelopes are accepted by the central validator. It is not
   deployed or connected.
-- RoofPlanner commit `1497d5b` contains a pending service-role-only aggregate
+- RoofPlanner commits `1497d5b` and `c5a1493` contain a pending service-role-only aggregate
   SQL function, exact-project Supabase binding, staging-only identity,
   product-side validation and a secret-safe denied/authorized GET verifier. Its
-  complete workspace gate passes 574 tests with zero failures and two existing
+  complete workspace gate passes 574 tests with zero failures and two
   service-dependent integration skips. Generated populated and empty staging
-  envelopes pass the central validator. The migration is not applied and the
+  envelopes pass the central validator. The PostgreSQL skip now contains a
+  rollback-only migration/output/role acceptance, ready for an explicitly
+  disposable `TEST_DATABASE_URL`. The migration is not applied and the
   repository-required independent review is still pending; it is not deployed
   or connected.

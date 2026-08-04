@@ -345,15 +345,18 @@ Status: `verified read-only foundation`.
   observations. The internal portfolio API and UI show only validated live
   aggregates or an explicit unavailable state; no demo, cache or estimate is
   substituted. Nothing is persisted and monitoring remains separate.
-- RoofPlanner commit `1497d5b` replaces the placeholder gateway with a pending
+- RoofPlanner commits `1497d5b` and `c5a1493` replace the placeholder gateway with a pending
   service-role-only aggregate SQL function and an API reader bound to one exact
   Supabase project origin. It returns no tenant rows, labels the current source
   as staging, self-validates before serving and ships a secret-safe verifier
   that proves denied then authorized GET. The full workspace gate passes 574
-  tests with zero failures and two existing service-dependent integration
-  skips; generated populated and empty staging envelopes pass the central
-  validator. The migration is not applied, independent review is still required
-  by the repository contract and nothing is deployed, configured or connected.
+  tests with zero failures and two service-dependent integration skips;
+  generated populated and empty staging envelopes pass the central validator.
+  The PostgreSQL skip now contains rollback-only exact-output and role-denial
+  acceptance for the aggregate migration, ready for an explicitly disposable
+  `TEST_DATABASE_URL`. The migration is not applied, independent review is still
+  required by the repository contract and nothing is deployed, configured or
+  connected.
 - AutoReviews now builds the exact seven-field product contract from its local
   SQLite aggregates and exposes it only through a disabled, GET-only,
   strong-secret gate. Its incident count is narrowly defined as dead-letter

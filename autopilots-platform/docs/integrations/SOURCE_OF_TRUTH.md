@@ -31,12 +31,15 @@ aggregate zero rather than inventing a segment when a grouped query is empty,
 and ships an exact-origin verifier that proves denied then authorized GET. Its
 full build, 98 tests and database-schema validation pass; both populated and
 empty generated production envelopes pass the central validator. RoofPlanner
-commit `1497d5b` adds a pending service-role-only aggregate SQL function, exact
+commits `1497d5b` and `c5a1493` add a pending service-role-only aggregate SQL function, exact
 Supabase-project binding, staging-only identity, product self-validation and a
 secret-safe denied/authorized GET verifier. Its complete workspace gate passes
-574 tests with zero failures and two existing service-dependent integration
-skips; generated populated and empty staging envelopes pass the central
-validator. Its migration is not applied and its repository-required independent
+574 tests with zero failures and two service-dependent integration skips;
+generated populated and empty staging envelopes pass the central validator.
+The PostgreSQL skip now applies the aggregate inside the rollback-only
+disposable test and proves exact output plus tenant denial versus
+`service_role`; it still needs an explicit `TEST_DATABASE_URL` to execute. Its
+migration is not applied and its repository-required independent
 review is pending. None of these routes is hosted or centrally connected; the
 live catalog therefore remains 0 verified and 3 requiring implementation.
 
