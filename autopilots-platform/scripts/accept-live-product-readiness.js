@@ -6,30 +6,6 @@ const requestedRef = String(process.env.SUPABASE_PROJECT_REF || PROJECT_REF).tri
 if (requestedRef !== PROJECT_REF) fail("PRODUCT_READINESS_WRONG_TARGET");
 if (!token || token.length < 20) fail("PRODUCT_READINESS_TOKEN_REQUIRED");
 
-runReadOnlyVerifier("PRODUCT_READINESS_BASELINE_FAILED");
-await databaseQuery(ROLLBACK_ACCEPTANCE_SQL);
-runReadOnlyVerifier("PRODUCT_READINESS_POSTCHECK_FAILED");
-
-console.log(JSON.stringify({
-  ok: true,
-  contract: "autopilots.product-readiness-rollback-acceptance.v1",
-  projectRef: PROJECT_REF,
-  successfulEvidenceRecords: 4,
-  exactReplayVerified: true,
-  divergentReplayDenied: true,
-  atomicFailureRolledBack: true,
-  wrongProfileDenied: true,
-  wrongOrganizationDenied: true,
-  auditorDenied: true,
-  derivedGateDenied: true,
-  staleEvidenceDenied: true,
-  wrongSourceDenied: true,
-  mutationDenied: true,
-  persistentWrites: false,
-  providerAuthorizationEnabled: false,
-  externalWritesEnabled: false
-}, null, 2));
-
 function runReadOnlyVerifier(errorCode) {
   const result = spawnSync(process.execPath, ["scripts/verify-live-product-readiness.js"], {
     cwd: process.cwd(),
@@ -292,3 +268,27 @@ begin
 end;
 $acceptance$;
 rollback;`;
+
+runReadOnlyVerifier("PRODUCT_READINESS_BASELINE_FAILED");
+await databaseQuery(ROLLBACK_ACCEPTANCE_SQL);
+runReadOnlyVerifier("PRODUCT_READINESS_POSTCHECK_FAILED");
+
+console.log(JSON.stringify({
+  ok: true,
+  contract: "autopilots.product-readiness-rollback-acceptance.v1",
+  projectRef: PROJECT_REF,
+  successfulEvidenceRecords: 4,
+  exactReplayVerified: true,
+  divergentReplayDenied: true,
+  atomicFailureRolledBack: true,
+  wrongProfileDenied: true,
+  wrongOrganizationDenied: true,
+  auditorDenied: true,
+  derivedGateDenied: true,
+  staleEvidenceDenied: true,
+  wrongSourceDenied: true,
+  mutationDenied: true,
+  persistentWrites: false,
+  providerAuthorizationEnabled: false,
+  externalWritesEnabled: false
+}, null, 2));

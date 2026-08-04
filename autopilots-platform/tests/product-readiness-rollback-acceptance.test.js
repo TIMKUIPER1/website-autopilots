@@ -14,6 +14,8 @@ test("acceptance is exact-target, transactionally rolled back and independently 
   assert.match(source, /rollback;`;/);
   assert.doesNotMatch(source, /commit;/i);
   assert.equal((source.match(/runReadOnlyVerifier\(/g) || []).length, 3);
+  assert.ok(source.indexOf("const ROLLBACK_ACCEPTANCE_SQL")
+    < source.indexOf("runReadOnlyVerifier(\"PRODUCT_READINESS_BASELINE_FAILED\")"));
   assert.match(source, /persistentWrites: false/);
   assert.match(source, /externalWritesEnabled: false/);
 });
