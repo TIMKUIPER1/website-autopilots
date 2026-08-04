@@ -348,9 +348,17 @@ Status: `verified read-only foundation`.
 - AutoReviews now builds the exact seven-field product contract from its local
   SQLite aggregates and exposes it only through a disabled, GET-only,
   strong-secret gate. Its incident count is narrowly defined as dead-letter
-  customer events, event jobs and billing usage events. The complete product
-  suite passes 142 tests and a synthetic payload is accepted by the central
-  validator; no deployment, secret or live catalog state changed.
+  customer events, event jobs and billing usage events. Commit `60ca9db` adds
+  product-side self-validation, a value-less Render secret slot, explicit
+  production identity and a secret-safe GET-only deployment verifier. The full
+  product suite passes 147 tests and a generated production envelope is
+  accepted by the central validator; no deployment, secret, vault or live
+  catalog state changed.
+- A reusable product connector cutover runbook now requires exact product-side
+  validation, denied-before-authorized GET proof, dedicated per-environment
+  secrets, managed-vault injection, revocation, reconciliation and independent
+  review. No product becomes connected until a separate current-context R3
+  activation passes all twelve gates.
 - A deterministic connection-readiness policy now requires twelve expiring
   gates before a product could be considered for activation. The corresponding
   organization-scoped Supabase read model, immutable hashed-evidence schema and

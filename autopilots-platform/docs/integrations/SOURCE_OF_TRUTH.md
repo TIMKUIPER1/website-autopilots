@@ -14,13 +14,24 @@
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
 Local implementation evidence does not change live authority: AutoPlanner and
-AutoReviews have complete local producer routes. AutoReviews defaults to a
-`sandbox` environment identity and defines `open_incidents_count` only as its
-dead-letter customer events, event jobs and billing-usage events. RoofPlanner
+AutoReviews have complete local producer routes. AutoReviews commit `60ca9db`
+also self-validates before serving, declares a value-less Render secret slot and
+explicit production identity, and ships a secret-safe GET-only deployment
+verifier; all 147 product tests pass and its generated production envelope
+passes the central validator. Its code default remains `sandbox`, and
+`open_incidents_count` is limited to dead-letter customer events, event jobs
+and billing-usage events. RoofPlanner
 has a local contract route with an intentionally disabled gateway pending a
 separately authorized aggregate reader and independent review. None of these
 routes is hosted or centrally connected; the live catalog therefore remains 0
 verified and 3 requiring implementation.
+
+`docs/runbooks/PRODUCT_CONNECTOR_CUTOVER.md` is the reusable product boundary.
+It requires product-side self-validation, exact HTTPS origin binding, dedicated
+per-environment secrets, denied-before-authorized GET proof, revocation,
+reconciliation and independent review before a separately approved R3
+activation. Environment-variable support is local/runtime plumbing only;
+production values must be injected from managed vault references.
 
 The local Autopilots runtime now has a parallel, organization-scoped GET reader
 for these three product contracts. It makes no request without a dedicated
@@ -43,8 +54,9 @@ Rules: one authority per field; store provider IDs and sync cursors; raw provide
 | Goals, policies, workflows and mappings | Autopilots OS | Canonical internal records | Direct | Version conflict fails closed | Internal / policy controlled |
 
 Current contract status: the legacy AutoReviews aggregate export and the new
-product-owned `autopilots.product-snapshot.v1` producer are implemented locally,
-but neither is hosted or centrally active. GoHighLevel/calendar configuration
+product-owned `autopilots.product-snapshot.v1` producer are implemented locally.
+The product-owned producer now has a deployment-verification package, but
+neither route is hosted or centrally active. GoHighLevel/calendar configuration
 awaits first reconciliation; Stripe and WhatsApp remain
 `blocked_missing_connection`. No revenue, cost or margin claim may be shown
 until Stripe and the OS ledger reconcile.
