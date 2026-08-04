@@ -6,7 +6,7 @@ and remaining acceptance; local tests never substitute for live evidence.
 
 | Objective requirement | Authoritative current evidence | Status | Required proof before completion |
 | --- | --- | --- | --- |
-| One safe login | Passwordless Supabase Auth, server-owned HttpOnly sessions, durable hashed session handles, one organization resolver and AAL2-only session creation are implemented; owner profile is MFA-required. Fresh browser acceptance proves an unauthenticated control-center request returns only the Autopilots OS login, with no demo/portfolio content or console errors | Partially verified | Owner completes TOTP and a real AAL2 login/logout/restart/revocation journey passes visually and through the managed API |
+| One safe login | Passwordless Supabase Auth, server-owned HttpOnly sessions, durable hashed session handles, one organization resolver and AAL2-only session creation are implemented. Exact live inspection proves the owner profile, owner membership and Auth link are active; verified TOTP factors and active AAL2 sessions are both zero. Unauthenticated browser acceptance exposes only the Autopilots OS login | Backend complete; user acceptance pending | Owner completes the documented TOTP and real AAL2 login/logout/restart journey |
 | Organization and role management | Legal entity, brand, membership, roster, staged R2 access request and current-context approve/reject contracts are live and server scoped | Partially verified | Separately authorize and accept the identity/membership apply workflow; owner transfer and provider invitations remain out of scope |
 | Central control plane with product-owned backends | Autopilots is registered as control plane; the live provider-neutral runtime registry has AutoReviews on Render/SQLite and AutoPlanner plus RoofPlanner on Supabase/PostgreSQL. The separate Supabase topology still excludes the AutoReviews encrypted backup. Exact role and no-effect verification passed for all three identities | Verified live foundation | Retain one vault and cutover boundary per product; never treat the AutoReviews backup project as an operational source |
 | Read-only product connectors | Three exact aggregate contracts, central validators and non-deployed product producers now exist. The central live checklist shows all 12 gates per product with responsible discipline, next proof step and evidence expiry. AutoReviews and AutoPlanner have self-validating production packages; RoofPlanner has a self-validating protected-staging package with an unapplied aggregate migration. Active data connections remain zero | Partially implemented | Independently review RoofPlanner, validate its migration on a disposable target, then deploy each producer under separate authority, configure scoped vault references and pass freshness, privacy, reconciliation, rate-limit, revocation and failure-mode gates |
@@ -18,8 +18,8 @@ and remaining acceptance; local tests never substitute for live evidence.
 
 ## Current conclusion
 
-The central governance and read-only operating foundation is substantial, but
-the full objective is not complete. The critical path is: owner AAL2
-acceptance, one independently reviewed hosted product
+The backend is configured as far as Work Authorization A permits and its live
+foundation is independently accepted. The remaining critical path requires new
+human or external authority: owner AAL2 acceptance, one independently reviewed hosted product
 aggregate connector, then repeat the same gated pattern per product. Production
 readiness additionally requires the disposable restore rehearsal.

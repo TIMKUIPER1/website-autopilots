@@ -418,7 +418,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local and live migration inventory are now 49 immutable files and the governed
-  RPC surface is 41. The full platform gate passes 372 tests. The ordered migrations
+  RPC surface is 41. The full platform gate passes 374 tests. The ordered migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
   `20260804160000_atomic_product_snapshot_evidence.sql` are applied and accepted
@@ -483,6 +483,12 @@ Status: `verified read-only foundation`.
   1 warning and 94 informational findings. The performance warning is
   `auth_rls_initplan`; the two known security warnings remain the bounded
   authenticated session-context function and leaked-password protection.
+- A final exact-target owner-auth inspection proves the profile, legal-entity
+  owner membership and Supabase Auth link are active, while verified TOTP
+  factors and active AAL2 sessions are both zero. This is the maximum safe
+  backend configuration under Work Authorization A; the remaining login link,
+  authenticator enrollment and visual AAL2 journey are user-owned steps in
+  `docs/runbooks/OWNER_AUTH_ACCEPTANCE.md`.
 - `docs/CONTROL_PLANE_COMPLETION_AUDIT.md` now maps the complete user objective
   to authoritative evidence. It keeps owner AAL2, access application, hosted
   product connectors and restore rehearsal explicitly
