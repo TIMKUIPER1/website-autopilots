@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { APPLIED_MIGRATIONS } from "./migration-manifest.js";
+import { APPLIED_MIGRATIONS, liveMigrationInventory } from "./migration-manifest.js";
 
 const PROJECT_REF = "wurycoodzcybaxcgqxps";
 const MIGRATION = "20260804163000_product_runtime_topology.sql";
@@ -21,8 +21,8 @@ if (apply && (process.env.ALLOW_DATABASE_MIGRATIONS !== "true"
 
 const entries = Object.entries(APPLIED_MIGRATIONS);
 if (entries.at(-1)?.[0] !== MIGRATION) fail("De runtime-topologiemigratie is niet de exacte volgende migratie.");
-const expectedBefore = entries.slice(0, -1);
-const expectedAfter = entries;
+const expectedBefore = liveMigrationInventory(entries.slice(0, -1));
+const expectedAfter = liveMigrationInventory(entries);
 const before = await migrationInventory();
 assertInventory(before, [expectedBefore, expectedAfter]);
 

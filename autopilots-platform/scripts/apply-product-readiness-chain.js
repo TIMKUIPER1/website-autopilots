@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { APPLIED_MIGRATIONS } from "./migration-manifest.js";
+import { APPLIED_MIGRATIONS, liveMigrationInventory } from "./migration-manifest.js";
 
 const PROJECT_REF = "wurycoodzcybaxcgqxps";
 const APPLY_CONFIRMATION = `${PROJECT_REF}:45:48`;
@@ -28,8 +28,11 @@ const pendingNames = new Set(PENDING.map(([name]) => name));
 const manifestEntries = Object.entries(APPLIED_MIGRATIONS);
 const readinessTargetIndex = manifestEntries.findIndex(([name]) => name === READINESS_TARGET_LAST);
 if (readinessTargetIndex < 0) fail("De vastgelegde readiness-doelmigratie ontbreekt.");
-const expectedAfter = manifestEntries.slice(0, readinessTargetIndex + 1);
-const expectedBefore = expectedAfter.filter(([name]) => !pendingNames.has(name));
+const targetManifestEntries = manifestEntries.slice(0, readinessTargetIndex + 1);
+const expectedAfter = liveMigrationInventory(targetManifestEntries);
+const expectedBefore = liveMigrationInventory(
+  targetManifestEntries.filter(([name]) => !pendingNames.has(name))
+);
 
 const before = await migrationInventory();
 assertInventory(before, [expectedBefore, expectedAfter]);

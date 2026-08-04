@@ -33,8 +33,9 @@ test("preflight compares the complete ordered filename and checksum inventory", 
   assert.match(source, /select version, checksum, change_id[\s\S]*order by version/);
   assert.match(source, /JSON\.stringify\(actual\) === JSON\.stringify\(candidate\)/);
   assert.match(source, /READINESS_TARGET_LAST = "20260804160000_atomic_product_snapshot_evidence\.sql"/);
-  assert.match(source, /expectedAfter = manifestEntries\.slice\(0, readinessTargetIndex \+ 1\)/);
-  assert.match(source, /expectedBefore = expectedAfter\.filter/);
+  assert.match(source, /targetManifestEntries = manifestEntries\.slice\(0, readinessTargetIndex \+ 1\)/);
+  assert.match(source, /expectedAfter = liveMigrationInventory\(targetManifestEntries\)/);
+  assert.match(source, /expectedBefore = liveMigrationInventory/);
   assert.match(source, /assertInventory\(before, \[expectedBefore, expectedAfter\]\)/);
   assert.match(source, /if \(before\.length === expectedAfter\.length\)[\s\S]*mode: "already_applied"/);
 });

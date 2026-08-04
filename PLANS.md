@@ -418,7 +418,7 @@ Status: `verified read-only foundation`.
   control is exposed and current unconfigured products still fail before any
   evidence write.
 - Local migration inventory is 49 immutable files and the governed RPC surface
-  is 41. The full platform gate passes 365 tests. Live inventory remains 45 migrations
+  is 41. The full platform gate passes 368 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
@@ -440,6 +440,12 @@ Status: `verified read-only foundation`.
   executes all three migrations with their own change IDs in one transaction.
   Errors never print the token, SQL or response body. A no-token apply attempt
   was verified to stop before network/database access.
+- Read-only live inspection identified nine historical migration versions that
+  were recorded before complete `.sql` filenames became the standard. Their
+  checksums match the immutable files. An explicit nine-entry alias registry
+  now normalizes exact inventory comparisons without rewriting live history;
+  every unlisted, missing, unexpected or checksum-mismatched version still
+  fails before a transaction.
 - A separate project-pinned live acceptance verifier now proves the exact
   48-migration/40-RPC result using one SELECT-only query. It additionally
   requires the three reviewed change IDs and checksums, deny-by-default grants,

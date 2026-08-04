@@ -49,3 +49,25 @@ export const APPLIED_MIGRATIONS = Object.freeze({
   "20260804160000_atomic_product_snapshot_evidence.sql": "199e05eb4fcb58a0c344f4546cb7c1fde976c164b99ea9f0dfac320d9d83ec12",
   "20260804163000_product_runtime_topology.sql": "1b4887e72abce6dcd76be5e331d31691747eff57dcc4c9ca764a7c74db4062c1"
 });
+
+// These exact historical versions were recorded before the migration runner
+// standardized on complete filenames. Keep the immutable live history intact
+// and normalize only when comparing it with the file-backed manifest.
+export const LIVE_MIGRATION_VERSION_ALIASES = Object.freeze({
+  "20260803220000_governed_health_incidents.sql": "20260803220000_governed_health_incidents",
+  "20260803230000_scoped_incident_snapshot.sql": "20260803230000_scoped_incident_snapshot",
+  "20260803231500_incident_stale_context_error.sql": "20260803231500_incident_stale_context_error",
+  "20260803233000_durable_monitoring_leases.sql": "20260803233000",
+  "20260803234500_monitoring_service_principal.sql": "20260803234500",
+  "20260803235500_access_governance.sql": "20260803235500",
+  "20260803235800_access_roster_legal_name_fix.sql": "20260803235800",
+  "20260803235900_access_request_decisions.sql": "20260803235900",
+  "20260804000500_audit_approved_result.sql": "20260804000500"
+});
+
+export function liveMigrationInventory(entries = Object.entries(APPLIED_MIGRATIONS)) {
+  return entries.map(([version, checksum]) => [
+    LIVE_MIGRATION_VERSION_ALIASES[version] || version,
+    checksum
+  ]);
+}
