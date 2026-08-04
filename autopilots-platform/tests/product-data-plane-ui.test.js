@@ -12,11 +12,14 @@ test("product data-plane route is managed, organization scoped and internal only
 test("portfolio reads data-plane topology and never posts registration actions", () => {
   assert.match(browser, /fetch\('\/api\/v1\/data-planes'\)/);
   assert.match(browser, /function dataPlaneRegistryPanel\(\)/);
-  assert.match(browser, /Eén login, gescheiden productdata/);
-  assert.match(browser, /projectsleutels worden nooit tussen projecten gedeeld/);
+  assert.match(browser, /Eén login, eigen productbackends/);
+  assert.match(browser, /Supabase-projectsleutels worden nooit tussen projecten gedeeld/);
+  assert.match(browser, /Render · SQLite/);
+  assert.match(browser, /Supabase · PostgreSQL/);
+  assert.match(browser, /Geen primair Supabase-project nodig of geregistreerd/);
   assert.match(browser, /eerst live autoriteit verifiëren/);
   assert.match(browser, /niet-primaire back-upkandidaat uitgesloten/);
-  assert.match(browser, /Een bewezen projectidentiteit is nog geen actieve datakoppeling/);
+  assert.match(browser, /Een bewezen runtime- of projectidentiteit is nog geen actieve datakoppeling/);
   assert.match(browser, /datakoppeling niet geactiveerd/);
   assert.match(browser, /function snapshotContractPanel\(\)/);
   assert.match(browser, /Alleen veilige aggregaten naar Autopilots/);

@@ -417,13 +417,21 @@ Status: `verified read-only foundation`.
   response cannot claim connection, provider authorization or writes. No UI
   control is exposed and current unconfigured products still fail before any
   evidence write.
-- Local migration inventory is 48 immutable files and the governed RPC surface
-  is 40. The full gate passes 358 tests. Live inventory remains 45 migrations
+- Local migration inventory is 49 immutable files and the governed RPC surface
+  is 41. The full platform gate passes 365 tests. Live inventory remains 45 migrations
   and 37 governed RPCs until the ordered pending migrations
   `20260804150000_product_connection_readiness.sql` and
   `20260804153000_product_connection_evidence_recording.sql` and
   `20260804160000_atomic_product_snapshot_evidence.sql` are applied and accepted
   separately.
+- A provider-neutral product-runtime topology now models all three operational
+  backends without assuming that every product uses Supabase: AutoReviews is
+  Render with persistent SQLite; AutoPlanner and RoofPlanner are Supabase with
+  PostgreSQL. This identity layer is separate from the Supabase data-plane
+  registry and stores no endpoints or credentials. All endpoint verification,
+  data connections, provider authorization and external writes remain false.
+  The 49th migration, service-role-only organization projection, exact 48→49
+  runner and SELECT-only live verifier are locally implemented but not live.
 - A project-pinned readiness-chain runner now makes the live transition
   reproducible. Its default mode is GET-equivalent inventory preflight through
   the Supabase Management API and accepts only the exact ordered 45-file or
@@ -447,11 +455,12 @@ Status: `verified read-only foundation`.
   both before and after its transaction; zero persistent residue is mandatory.
 - A single macOS Keychain-backed release command now holds the exact operational
   order: apply the pinned 45→48 transaction, verify the independent 48/40
-  posture, then execute and postcheck rollback-only behavior. It never prints
-  or persists the Supabase credential and stops on the first failed stage.
+  posture, execute and postcheck rollback-only behavior, then apply and verify
+  the exact 48→49 provider-neutral runtime topology. It never prints or persists
+  the Supabase credential and stops on the first failed stage.
 - `docs/CONTROL_PLANE_COMPLETION_AUDIT.md` now maps the complete user objective
   to authoritative evidence. It keeps owner AAL2, access application, hosted
-  product connectors, live 48/40 acceptance and restore rehearsal explicitly
+  product connectors, live 49/41 acceptance and restore rehearsal explicitly
   incomplete instead of allowing broad production-readiness claims.
 
 ## Website release safety checkpoint — 2026-07-26

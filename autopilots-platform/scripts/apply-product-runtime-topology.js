@@ -5,13 +5,9 @@ import { fileURLToPath } from "node:url";
 import { APPLIED_MIGRATIONS } from "./migration-manifest.js";
 
 const PROJECT_REF = "wurycoodzcybaxcgqxps";
-const APPLY_CONFIRMATION = `${PROJECT_REF}:45:48`;
-const READINESS_TARGET_LAST = "20260804160000_atomic_product_snapshot_evidence.sql";
-const PENDING = Object.freeze([
-  ["20260804150000_product_connection_readiness.sql", "AP-INT-20260803-010"],
-  ["20260804153000_product_connection_evidence_recording.sql", "AP-INT-20260803-011"],
-  ["20260804160000_atomic_product_snapshot_evidence.sql", "AP-INT-20260803-012"]
-]);
+const MIGRATION = "20260804163000_product_runtime_topology.sql";
+const CHANGE_ID = "AP-INT-20260803-013";
+const APPLY_CONFIRMATION = `${PROJECT_REF}:48:49`;
 const apply = process.argv.includes("--apply");
 const token = String(process.env.SUPABASE_ACCESS_TOKEN || "").trim();
 const requestedRef = String(process.env.SUPABASE_PROJECT_REF || PROJECT_REF).trim();
@@ -19,30 +15,23 @@ const requestedRef = String(process.env.SUPABASE_PROJECT_REF || PROJECT_REF).tri
 if (requestedRef !== PROJECT_REF) fail("Targetproject komt niet overeen met het vastgelegde Autopilots-project.");
 if (!token || token.length < 20) fail("Een tijdelijk SUPABASE_ACCESS_TOKEN is vereist.");
 if (apply && (process.env.ALLOW_DATABASE_MIGRATIONS !== "true"
-  || process.env.MIGRATION_CHAIN_CONFIRM !== APPLY_CONFIRMATION)) {
-  fail(`Apply blijft geblokkeerd zonder ALLOW_DATABASE_MIGRATIONS=true en exacte ketenbevestiging ${APPLY_CONFIRMATION}.`);
+  || process.env.RUNTIME_TOPOLOGY_CONFIRM !== APPLY_CONFIRMATION)) {
+  fail(`Apply blijft geblokkeerd zonder de exacte runtimebevestiging ${APPLY_CONFIRMATION}.`);
 }
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const pendingNames = new Set(PENDING.map(([name]) => name));
-const manifestEntries = Object.entries(APPLIED_MIGRATIONS);
-const readinessTargetIndex = manifestEntries.findIndex(([name]) => name === READINESS_TARGET_LAST);
-if (readinessTargetIndex < 0) fail("De vastgelegde readiness-doelmigratie ontbreekt.");
-const expectedAfter = manifestEntries.slice(0, readinessTargetIndex + 1);
-const expectedBefore = expectedAfter.filter(([name]) => !pendingNames.has(name));
-
+const entries = Object.entries(APPLIED_MIGRATIONS);
+if (entries.at(-1)?.[0] !== MIGRATION) fail("De runtime-topologiemigratie is niet de exacte volgende migratie.");
+const expectedBefore = entries.slice(0, -1);
+const expectedAfter = entries;
 const before = await migrationInventory();
 assertInventory(before, [expectedBefore, expectedAfter]);
 
 if (!apply) {
   const state = before.length === expectedAfter.length ? "already_applied" : "ready_to_apply";
   console.log(JSON.stringify({
-    ok: true,
-    mode: "preflight",
-    projectRef: PROJECT_REF,
-    state,
-    appliedMigrations: before.length,
-    pendingMigrations: state === "already_applied" ? 0 : PENDING.length,
+    ok: true, mode: "preflight", projectRef: PROJECT_REF, state,
+    appliedMigrations: before.length, pendingMigrations: state === "already_applied" ? 0 : 1,
+    dataConnectionsEnabled: false, providerAuthorizationEnabled: false,
     externalWritesEnabled: false
   }, null, 2));
   process.exit(0);
@@ -52,52 +41,29 @@ if (before.length === expectedAfter.length) {
   console.log(JSON.stringify({
     ok: true, mode: "already_applied", projectRef: PROJECT_REF,
     appliedMigrations: before.length, pendingMigrations: 0,
-    dataConnectionEnabled: false, providerAuthorizationEnabled: false,
+    dataConnectionsEnabled: false, providerAuthorizationEnabled: false,
     externalWritesEnabled: false
   }, null, 2));
   process.exit(0);
 }
 
-const sql = await buildAtomicChain(expectedBefore);
-await databaseQuery(sql);
-const after = await migrationInventory();
-assertInventory(after, expectedAfter);
-console.log(JSON.stringify({
-  ok: true,
-  mode: "applied",
-  projectRef: PROJECT_REF,
-  appliedMigrations: after.length,
-  appliedChangeIds: PENDING.map(([, changeId]) => changeId),
-  dataConnectionEnabled: false,
-  providerAuthorizationEnabled: false,
-  externalWritesEnabled: false
-}, null, 2));
-
-async function buildAtomicChain(expectedInventory) {
-  const expectedValues = expectedInventory.map(([version, checksum]) =>
-    `(${literal(version)}, ${literal(checksum)})`
-  ).join(",\n      ");
-  const bodies = [];
-  for (const [name, changeId] of PENDING) {
-    const body = await fs.readFile(path.join(root, "supabase", "migrations", name), "utf8");
-    const checksum = crypto.createHash("sha256").update(body).digest("hex");
-    if (APPLIED_MIGRATIONS[name] !== checksum) fail(`Lokale checksum wijkt af voor ${name}.`);
-    const statements = body.trim().replace(/^begin;\s*/i, "").replace(/\s*commit;$/i, "");
-    bodies.push(`${statements}\ninsert into public.autopilots_schema_migrations (version, checksum, change_id)\nvalues (${literal(name)}, ${literal(checksum)}, ${literal(changeId)});`);
-  }
-  return `begin;
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const body = await fs.readFile(path.join(root, "supabase", "migrations", MIGRATION), "utf8");
+const checksum = crypto.createHash("sha256").update(body).digest("hex");
+if (APPLIED_MIGRATIONS[MIGRATION] !== checksum) fail("De runtime-topologiechecksum wijkt af.");
+const statements = body.trim().replace(/^begin;\s*/i, "").replace(/\s*commit;$/i, "");
+const expectedValues = expectedBefore.map(([version, expectedChecksum]) =>
+  `(${literal(version)}, ${literal(expectedChecksum)})`
+).join(",\n      ");
+await databaseQuery(`begin;
 do $guard$
 begin
-  if (select count(*) from public.autopilots_schema_migrations) <> ${expectedInventory.length} then
+  if (select count(*) from public.autopilots_schema_migrations) <> ${expectedBefore.length} then
     raise exception 'MIGRATION_INVENTORY_COUNT_MISMATCH';
   end if;
   if exists (
-    with expected(version, checksum) as (
-      values
-      ${expectedValues}
-    )
-    select 1
-    from expected e
+    with expected(version, checksum) as (values ${expectedValues})
+    select 1 from expected e
     full join public.autopilots_schema_migrations m on m.version = e.version
     where e.version is null or m.version is null or e.checksum <> m.checksum
   ) then
@@ -105,9 +71,18 @@ begin
   end if;
 end
 $guard$;
-${bodies.join("\n")}
-commit;`;
-}
+${statements}
+insert into public.autopilots_schema_migrations (version, checksum, change_id)
+values (${literal(MIGRATION)}, ${literal(checksum)}, ${literal(CHANGE_ID)});
+commit;`);
+const after = await migrationInventory();
+assertInventory(after, expectedAfter);
+console.log(JSON.stringify({
+  ok: true, mode: "applied", projectRef: PROJECT_REF,
+  appliedMigrations: after.length, appliedChangeId: CHANGE_ID,
+  dataConnectionsEnabled: false, providerAuthorizationEnabled: false,
+  externalWritesEnabled: false
+}, null, 2));
 
 async function migrationInventory() {
   const rows = await databaseQuery(
@@ -140,14 +115,13 @@ async function databaseQuery(query) {
     fail("De Supabase Management API was niet bereikbaar.");
   }
   if (!response.ok) fail(`De Supabase Management API weigerde de query (${response.status}).`);
-  let payload;
   try {
-    payload = await response.json();
+    const payload = await response.json();
+    if (!Array.isArray(payload)) fail("De Supabase Management API gaf een onverwacht antwoordcontract.");
+    return payload;
   } catch {
     fail("De Supabase Management API gaf geen geldig JSON-antwoord.");
   }
-  if (!Array.isArray(payload)) fail("De Supabase Management API gaf een onverwacht antwoordcontract.");
-  return payload;
 }
 
 function literal(value) {

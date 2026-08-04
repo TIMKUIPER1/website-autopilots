@@ -19,7 +19,11 @@
     "db:apply:product-readiness": "node scripts/apply-product-readiness-chain.js --apply",
     "db:verify:product-readiness": "node scripts/verify-live-product-readiness.js",
     "db:accept:product-readiness": "node scripts/accept-live-product-readiness.js",
-    "db:release:product-readiness": "node scripts/release-product-readiness.js"
+    "db:release:product-readiness": "node scripts/release-product-readiness.js",
+    "db:preflight:product-runtime": "node scripts/apply-product-runtime-topology.js",
+    "db:apply:product-runtime": "node scripts/apply-product-runtime-topology.js --apply",
+    "db:verify:product-runtime": "node scripts/verify-live-product-runtime-topology.js",
+    "db:release:control-plane-foundation": "node scripts/release-control-plane-foundation.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",

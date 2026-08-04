@@ -201,6 +201,22 @@ test("data-plane registry keeps one login separate from product project credenti
   const projectRef = "wurycoodzcybaxcgqxps";
   const client = { rpc: async (name, args) => {
     calls.push({ name, args });
+    if (name === "autopilots_product_runtime_topology") return { data: {
+      contract: "autopilots.product-runtime-topology.v1",
+      organizationId: legalEntityId,
+      runtimes: [{
+        brand: { slug: "autoplanner", name: "AutoPlanner", code: "PL" },
+        identity: {
+          provider: "supabase", runtimeClass: "supabase_project", primaryStore: "postgresql",
+          registrationStatus: "provider_verified", evidenceSource: "approved_readonly_discovery",
+          dataPlaneLinked: true, endpointVerified: false
+        }
+      }],
+      summary: { registeredRuntimeIdentities: 1, providerVerified: 1,
+        repositoryVerified: 0, activeDataConnections: 0 },
+      credentialMaterialStored: false, dataConnectionsEnabled: false,
+      providerAuthorizationEnabled: false, externalWritesEnabled: false
+    }, error: null };
     return { data: {
       contract: "autopilots.data-plane-registry.v4",
       organization: { id: legalEntityId, legalName: "Autopilots" },
@@ -238,16 +254,29 @@ test("data-plane registry keeps one login separate from product project credenti
   const repository = new SupabaseControlPlaneRepository({ client });
   const result = await repository.dataPlaneRegistry(profileId, legalEntityId);
   assert.equal(result.controlPlane.projectRef, projectRef);
+  assert.equal(result.contract, "autopilots.data-plane-registry.v5");
   assert.equal(result.products[0].dataPlane.status, "not_registered");
+  assert.equal(result.products[0].runtimeIdentity.primaryStore, "postgresql");
   assert.deepEqual(calls[0], { name: "autopilots_data_plane_registry", args: {
+    p_profile_id: profileId, p_legal_entity_id: legalEntityId
+  } });
+  assert.deepEqual(calls[1], { name: "autopilots_product_runtime_topology", args: {
     p_profile_id: profileId, p_legal_entity_id: legalEntityId
   } });
 });
 
 test("data-plane registry rejects a forged dashboard destination", async () => {
-  const client = { rpc: async () => ({ data: {
+  const legalEntityId = "10000000-0000-4000-8000-000000000001";
+  const client = { rpc: async (name) => name === "autopilots_product_runtime_topology"
+    ? ({ data: {
+      contract: "autopilots.product-runtime-topology.v1", organizationId: legalEntityId,
+      runtimes: [], summary: { registeredRuntimeIdentities: 0, providerVerified: 0,
+        repositoryVerified: 0, activeDataConnections: 0 },
+      credentialMaterialStored: false, dataConnectionsEnabled: false,
+      providerAuthorizationEnabled: false, externalWritesEnabled: false
+    }, error: null }) : ({ data: {
     contract: "autopilots.data-plane-registry.v4",
-    organization: { id: "10000000-0000-4000-8000-000000000001" },
+    organization: { id: legalEntityId },
     controlPlane: { provider: "supabase", purpose: "control_plane", status: "verified",
       projectRef: "wurycoodzcybaxcgqxps", dashboardUrl: "https://attacker.example",
       dataConnectionStatus: "internal_runtime" },

@@ -11,6 +11,7 @@
 | AI/voice/SMS usage | Provider dashboards/legacy app | Unverified | Disabled here | Immutable normalized usage ledger |
 | Connector authorization intent | Autopilots OS `integration.connector_requests` | Verified internal staging | No provider authority | Human-approved executor per provider after separate permission |
 | Supabase project topology | Autopilots OS `integration.product_data_planes` + `integration.product_data_plane_discoveries` | Central, AutoPlanner and RoofPlanner identities verified; 0 active cross-project data connections; AutoReviews backup excluded | Metadata/fingerprint only; no stored credentials or provider authority | Approve and build separate read-only data connector per verified product |
+| Product runtime topology | Autopilots OS `integration.product_runtime_identities` | Provider-neutral identities implemented locally: AutoReviews = Render/SQLite; AutoPlanner and RoofPlanner = Supabase/PostgreSQL; 0 verified endpoints and 0 active data connections | Service-role read only; no endpoints, credentials, provider authority or external writes | Apply and independently verify the exact migration, then verify each product endpoint through its separate cutover |
 | AutoReviews operational data | AutoReviews persistent SQLite database on Render | Product repository and deployment architecture verified locally; no central data connection active | AutoReviews runtime only; central access is limited to the dedicated aggregate API after deployment approval | Register a provider-neutral runtime identity and verify the self-validating aggregate endpoint; keep the Supabase backup project excluded |
 | Product control-plane snapshots | Autopilots OS `integration.product_snapshot_contracts` | Three privacy-safe contracts registered; 0 implemented/verified and 3 requiring implementation | Aggregate reads only after verification; direct database, row-level, credential, provider and external-write authority disabled | Product-owned `autopilots.product-snapshot.v1` aggregate endpoint per product with scope, freshness, small-cell suppression and reconciliation evidence |
 
@@ -92,6 +93,14 @@ five-record small-cell suppression and the same no-PII boundary. Its local route
 is GET-only, returns 503 without a separately configured strong secret and is
 available to the local central portfolio reader only after configuration. It is
 not wired into monitoring or persistence.
+
+The provider-neutral runtime registry is locally implemented separately from
+the Supabase data-plane registry. It records only bounded backend identity:
+provider, runtime class, primary store, evidence source and whether an existing
+data-plane identity is linked. It stores no endpoint or credential and cannot
+authorize a connection. This prevents the AutoReviews backup project from being
+mistaken for its Render/SQLite operational backend. The migration and its
+server-only organization projection are locally verified but are not yet live.
 
 Connection readiness is locally governed by twelve expiring gates and a
 server-only organization projection. Its evidence model stores only hashes and

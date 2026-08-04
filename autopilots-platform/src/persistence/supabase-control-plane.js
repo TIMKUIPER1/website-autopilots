@@ -131,11 +131,13 @@ export class SupabaseControlPlaneRepository {
   async dataPlaneRegistry(profileId, legalEntityId) {
     assertProfileId(profileId);
     assertUuid(legalEntityId, "Ongeldige organisatiescope");
-    const { data, error } = await this.client.rpc("autopilots_data_plane_registry", {
-      p_profile_id: profileId,
-      p_legal_entity_id: legalEntityId
-    });
+    const args = { p_profile_id: profileId, p_legal_entity_id: legalEntityId };
+    const [{ data, error }, { data: topology, error: topologyError }] = await Promise.all([
+      this.client.rpc("autopilots_data_plane_registry", args),
+      this.client.rpc("autopilots_product_runtime_topology", args)
+    ]);
     throwMapped(error, "Het product-data-plane register kon niet veilig worden geladen");
+    throwMapped(topologyError, "De product-runtime-topologie kon niet veilig worden geladen");
     if (data?.contract !== "autopilots.data-plane-registry.v4"
       || !uuid(data?.organization?.id) || data.organization.id !== legalEntityId
       || !data.controlPlane || !Array.isArray(data.products) || !data.summary
@@ -145,6 +147,20 @@ export class SupabaseControlPlaneRepository {
       || data.credentialMaterialExposed !== false
       || data.genericRegistrationActionEnabled !== false || data.externalWritesEnabled !== false) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
+    }
+    if (topology?.contract !== "autopilots.product-runtime-topology.v1"
+      || topology.organizationId !== legalEntityId || !Array.isArray(topology.runtimes)
+      || !validRuntimeSummary(topology.summary, topology.runtimes.length)
+      || topology.credentialMaterialStored !== false || topology.dataConnectionsEnabled !== false
+      || topology.providerAuthorizationEnabled !== false || topology.externalWritesEnabled !== false
+      || topology.runtimes.some((item) => !validProductRuntime(item))) {
+      throw httpError(503, "De product-runtime-topologie heeft een ongeldig contract");
+    }
+    const runtimeBySlug = new Map(topology.runtimes.map((item) => [item.brand.slug, item.identity]));
+    if (runtimeBySlug.size !== topology.runtimes.length
+      || data.products.some((item) => !runtimeBySlug.has(item?.brand?.slug))
+      || topology.runtimes.some((item) => !data.products.some((product) => product?.brand?.slug === item.brand.slug))) {
+      throw httpError(503, "De product-runtime-topologie wijkt af van het productregister");
     }
     const registeredPlanes = [data.controlPlane, ...data.products.map((item) => item?.dataPlane)]
       .filter((plane) => plane?.status !== "not_registered");
@@ -156,7 +172,15 @@ export class SupabaseControlPlaneRepository {
       || registeredPlanes.some((plane) => !validSupabasePlane(plane, plane.purpose))) {
       throw httpError(503, "Het product-data-plane register heeft een ongeldig contract");
     }
-    return data;
+    return {
+      ...data,
+      contract: "autopilots.data-plane-registry.v5",
+      products: data.products.map((item) => ({
+        ...item,
+        runtimeIdentity: runtimeBySlug.get(item.brand.slug)
+      })),
+      runtimeSummary: topology.summary
+    };
   }
 
   async productConnectionReadiness(profileId, legalEntityId) {
@@ -675,6 +699,33 @@ function validDataPlaneDiscovery(discovery) {
       && Number.isInteger(discovery.schemaPathCount) && discovery.schemaPathCount > 0
     : discovery.schemaEvidenceStatus === "empty_public_schema"
       && discovery.schemaPathCount === 0;
+}
+
+function validProductRuntime(item) {
+  const identity = item?.identity;
+  if (!item?.brand || !/^[a-z][a-z0-9-]{2,62}$/.test(String(item.brand.slug || ""))
+    || typeof item.brand.name !== "string" || typeof item.brand.code !== "string"
+    || identity?.endpointVerified !== false) return false;
+  if (identity.provider === "render") {
+    return identity.runtimeClass === "managed_service" && identity.primaryStore === "sqlite"
+      && identity.registrationStatus === "repository_verified"
+      && identity.evidenceSource === "repository_architecture"
+      && identity.dataPlaneLinked === false;
+  }
+  return identity?.provider === "supabase"
+    && identity.runtimeClass === "supabase_project" && identity.primaryStore === "postgresql"
+    && identity.registrationStatus === "provider_verified"
+    && identity.evidenceSource === "approved_readonly_discovery"
+    && identity.dataPlaneLinked === true;
+}
+
+function validRuntimeSummary(summary, runtimeCount) {
+  return Number.isInteger(summary?.registeredRuntimeIdentities)
+    && summary.registeredRuntimeIdentities === runtimeCount
+    && Number.isInteger(summary.providerVerified) && summary.providerVerified >= 0
+    && Number.isInteger(summary.repositoryVerified) && summary.repositoryVerified >= 0
+    && summary.providerVerified + summary.repositoryVerified === runtimeCount
+    && summary.activeDataConnections === 0;
 }
 
 function validSnapshotContract(contract) {
