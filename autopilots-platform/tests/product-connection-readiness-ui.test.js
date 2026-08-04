@@ -70,11 +70,17 @@ test("portfolio shows a Dutch fail-closed twelve-gate overview without activatio
   assert.match(workspace, /fetch\('\/api\/v1\/data-planes\/readiness'\)/);
   assert.match(workspace, /function productConnectionReadinessPanel\(\)/);
   assert.match(workspace, /Twaalf bewijzen vóór koppelen/);
-  assert.match(workspace, /Activatiepoort nog niet live/);
+  assert.match(workspace, /Live checklist tijdelijk niet beschikbaar/);
+  assert.match(workspace, /De databasefundering blijft live/);
   assert.match(workspace, /providerautorisatie en externe writes uit/);
+  assert.match(workspace, /Volgende stap ·/);
+  assert.match(workspace, /Bewijs intrekking met een denied GET/);
+  assert.match(workspace, /Geef pas na alle bewijzen actuele R3-goedkeuring/);
+  assert.match(workspace, /function readinessEvidenceTime\(gate\)/);
   assert.match(workspace, /Bekijk alle controles/);
   assert.doesNotMatch(workspace, /data-action="(?:activate|connect-product|approve-readiness)"/);
   assert.match(styles, /#workspaceApp \.readiness-grid/);
   assert.match(styles, /grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(styles, /grid-template-columns:minmax\(92px,\.75fr\) minmax\(0,1\.8fr\) auto/);
   assert.match(styles, /@media\(max-width:1050px\)\{#workspaceApp \.readiness-grid\{grid-template-columns:1fr\}\}/);
 });

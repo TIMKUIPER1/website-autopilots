@@ -473,6 +473,11 @@ Status: `verified read-only foundation`.
   immutability and batch atomicity with zero residue, and the 49/41 runtime
   topology proved three identities with zero active data connections,
   credentials, provider authorization or external writes.
+- The portfolio readiness panel now reflects the live foundation instead of
+  claiming that the migration is pending when an API read fails. It remains
+  fail-closed and shows, for every blocked gate, the responsible discipline,
+  a bounded next proof step and the expiry of passed evidence. It exposes no
+  activation action and cannot create evidence, credentials or connections.
 - Fresh Supabase Advisors after 49/41 report security 0 errors, 2 known warnings
   and 41 informational deny-by-default findings; performance reports 0 errors,
   1 warning and 94 informational findings. The performance warning is

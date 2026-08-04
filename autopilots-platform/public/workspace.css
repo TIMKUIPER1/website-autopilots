@@ -132,8 +132,9 @@
 #workspaceApp .readiness-card details{position:relative;z-index:1;border-top:1px solid var(--hud-line);padding-top:14px}
 #workspaceApp .readiness-card summary{color:var(--hud-cyan);font:700 10px "Public Sans";cursor:pointer}
 #workspaceApp .readiness-list{display:grid;gap:0;margin-top:12px}
-#workspaceApp .readiness-list span{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(112,188,215,.1);padding:9px 0}
+#workspaceApp .readiness-list span{display:grid;grid-template-columns:minmax(92px,.75fr) minmax(0,1.8fr) auto;align-items:center;gap:12px;border-top:1px solid rgba(112,188,215,.1);padding:10px 0}
 #workspaceApp .readiness-list b{color:var(--hud-muted);font-size:9px;font-weight:600}
+#workspaceApp .readiness-list small{color:rgba(179,202,214,.72);font-size:8px;line-height:1.45}
 @media(max-width:1050px){#workspaceApp .readiness-grid{grid-template-columns:1fr}}
 #workspaceApp .snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 #workspaceApp .snapshot-card{border:1px solid var(--hud-line);border-radius:4px;background:linear-gradient(145deg,rgba(12,29,40,.9),rgba(6,13,19,.96));padding:20px}
