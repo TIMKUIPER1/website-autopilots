@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Groeivoorstel | Alex Insurance × Autopilots</title>
+  <meta name="description" content="Twee groeiroutes voor Alex Insurance: eerst gericht autoriteit bouwen of direct een volledige leadmachine activeren.">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Syne:wght@600;700&display=swap");
+    :root{--bg:#f5f5f2;--card:#fff;--soft:#eeeeea;--soft2:#f8f8f5;--text:#111;--muted:#656565;--line:rgba(0,0,0,.1);--brown:#9f3826;--brown2:#7d2a1d;--green:#dce9dd}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"Public Sans",Arial,sans-serif}h1,h2,h3,p{margin:0}a{color:inherit}
+    .section{padding:80px 0}.container{width:min(1120px,calc(100% - 36px));margin:auto}.center{text-align:center;max-width:880px;margin:0 auto 42px}
+    .eyebrow{font:700 13px/1.2 "Syne",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--brown);margin-bottom:20px}
+    h1{font-size:clamp(36px,5vw,54px);line-height:1.07;font-weight:900;letter-spacing:-.035em;text-wrap:balance}h2{font-size:clamp(30px,4.5vw,52px);line-height:1.07;font-weight:900;letter-spacing:-.035em;text-wrap:balance}h3{font-size:22px;line-height:1.18;font-weight:800}
+    .accent{color:var(--brown);font-style:italic}.lead{max-width:790px;margin:24px auto 0;color:var(--muted);font-size:clamp(18px,2vw,21px);line-height:1.58}
+    .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px}.btn{display:inline-flex;min-height:50px;padding:0 28px;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font-weight:800;border:1px solid var(--line)}.btn.primary{background:var(--brown);color:#fff;border-color:var(--brown)}.btn.secondary{background:#fff}
+    .hero{padding-top:72px}.hero-panel{margin-top:46px;padding:30px;background:#111;color:#fff;border-radius:32px;display:grid;grid-template-columns:1.05fr .95fr;gap:20px;box-shadow:0 22px 65px rgba(0,0,0,.13);position:relative;overflow:hidden}.hero-panel:after,.option.recommended:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-120px;bottom:-155px;background:radial-gradient(circle,rgba(159,56,38,.55),transparent 68%);pointer-events:none}
+    .hero-copy,.score{padding:24px;border-radius:24px}.hero-copy{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13)}.hero-copy h3{font-size:30px}.hero-copy p{margin-top:14px;color:rgba(255,255,255,.7);line-height:1.65}.score{background:#fff;color:#111;display:grid;gap:12px}.metric{padding:14px 16px;background:var(--soft2);border:1px solid var(--line);border-radius:16px}.metric span{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.metric strong{font:700 24px/1.1 "Syne",sans-serif}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px}.card .num{font:700 13px "Syne",sans-serif;color:var(--brown);letter-spacing:.14em;margin-bottom:18px}.card p{margin-top:12px;color:var(--muted);line-height:1.6}
+    .dark{background:#111;color:#fff;border-radius:34px;padding:42px}.dark .eyebrow{color:#d27b69}.dark p{color:rgba(255,255,255,.69)}.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.fact{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:18px}.fact strong{display:block;font:700 26px "Syne",sans-serif;margin-bottom:6px}.fact span{font-size:13px;color:rgba(255,255,255,.65)}
+    .options{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}.option{background:#fff;border:1px solid var(--line);border-radius:30px;padding:30px;position:relative;overflow:hidden}.option.recommended{background:#111;color:#fff}.badge{display:inline-flex;padding:8px 12px;border-radius:999px;background:var(--soft);font:700 11px "Syne",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--brown);margin-bottom:22px}.recommended .badge{background:var(--green);color:#28452c}.option h3{font-size:28px}.option .sub{margin-top:10px;color:var(--muted);line-height:1.55}.recommended .sub,.recommended li,.recommended .price-note{color:rgba(255,255,255,.68)}.price{font:700 38px/1 "Syne",sans-serif;margin:28px 0 5px}.price-note{font-size:13px;color:var(--muted)}ul{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:12px}li{padding-left:27px;position:relative;line-height:1.5;color:#333}li:before{content:"✓";position:absolute;left:0;top:0;color:var(--brown);font-weight:900}.recommended li:before{color:#d27b69}.option .btn{width:100%;margin-top:28px}.recommended .btn{background:var(--brown);border-color:var(--brown);color:#fff}
+    .compare{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden}.row{display:grid;grid-template-columns:1.35fr 1fr 1fr;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.cell{padding:16px 20px;line-height:1.45}.row.head{background:var(--soft);font-weight:800}.cell:not(:first-child){border-left:1px solid var(--line)}
+    .calc{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px}.assumptions,.result{border-radius:28px;padding:30px}.assumptions{background:#fff;border:1px solid var(--line)}.result{background:#111;color:#fff}.kv{display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid var(--line)}.kv span{color:var(--muted)}.result .kv{border-color:rgba(255,255,255,.12)}.result .kv span{color:rgba(255,255,255,.62)}.result .big{margin:22px 0;font:700 42px/1 "Syne",sans-serif;color:#fff}.note{margin-top:18px;padding:16px;border-radius:16px;background:var(--soft2);color:var(--muted);font-size:13px;line-height:1.55}.result .note{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{padding:26px;border-radius:24px;background:#fff;border:1px solid var(--line)}.step span{font:700 12px "Syne",sans-serif;color:var(--brown)}.step h3{margin-top:14px}.step p{color:var(--muted);line-height:1.55;margin-top:10px}
+    .final{padding-bottom:90px}.final-box{background:#fff;border:1px solid var(--line);border-radius:34px;padding:54px 28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.06)}
+    footer{padding:24px 0 36px;color:var(--muted);font-size:13px}.footer-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    @media(max-width:800px){.section{padding:58px 0}.hero{padding-top:48px}.hero-panel,.grid3,.options,.calc,.steps{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.row{grid-template-columns:1.1fr 1fr 1fr}.cell{padding:13px 10px;font-size:13px}.dark{padding:28px 20px}}
+    @media(max-width:520px){.container{width:min(100% - 28px,1120px)}.hero-panel,.option,.card,.assumptions,.result{padding:22px}.facts{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row.head{display:none}.cell{border-left:0!important}.cell:before{display:block;font:700 10px "Syne",sans-serif;color:var(--brown);text-transform:uppercase;margin-bottom:4px}.cell:nth-child(2):before{content:"Optie A"}.cell:nth-child(3):before{content:"Optie B"}.row .cell:first-child{background:var(--soft2);font-weight:800}.price{font-size:34px}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section hero">
+      <div class="container">
+        <div class="center">
+          <div class="eyebrow">Persoonlijk groeivoorstel · 30 juli 2026</div>
+          <h1>Een duidelijk plan voor <span class="accent">meer zakelijke klanten.</span></h1>
+          <p class="lead">Alex Insurance groeit nu vooral via aanbevelingen. In dit voorstel staan twee manieren om daarnaast zelf nieuwe MKB-klanten te bereiken. Per optie leggen we uit wat we doen, wat het kost en wat Alex ervan mag verwachten.</p>
+          <div class="actions"><a class="btn primary" href="#keuze">Bekijk optie A en B</a><a class="btn secondary" href="#advies">Ons advies</a></div>
+        </div>
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <div class="eyebrow">De groeivraag</div>
+            <h3>Het doel: groeien naar €500.000 omzet.</h3>
+            <p>Alex Insurance groeit goed via bestaande klanten en aanbevelingen. Om vóór 2028 verder te groeien, is een extra manier nodig om nieuwe bedrijven te bereiken. Die aanpak moet betaalbaar zijn én passen bij de persoonlijke manier waarop Alex verkoopt.</p>
+          </div>
+          <div class="score">
+            <div class="metric"><span>Huidige omzetrichting</span><strong>± €280k</strong></div>
+            <div class="metric"><span>Ambitie</span><strong>€500k</strong></div>
+            <div class="metric"><span>Focusdoelgroepen</span><strong>Bouw · Horeca · Zakelijke dienstverlening</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="center"><div class="eyebrow">De situatie</div><h2>Waarom een standaard advertentiecampagne hier <span class="accent">niet genoeg</span> is.</h2><p class="lead">Een ondernemer verandert niet zomaar van verzekeringsadviseur. Eerst moet hij Alex leren kennen, zijn expertise vertrouwen en begrijpen waarom goed advies belangrijker is dan alleen de laagste prijs.</p></div>
+        <div class="grid3">
+          <article class="card"><div class="num">01 · VERTROUWEN</div><h3>Mensen moeten Alex vaker zien.</h3><p>Eén bericht of advertentie is meestal niet genoeg. Door regelmatig praktische kennis en voorbeelden te delen, wordt Alex herkenbaar en groeit het vertrouwen.</p></article>
+          <article class="card"><div class="num">02 · VERSCHIL</div><h3>Alex verkoopt zekerheid, geen goedkope polis.</h3><p>De boodschap draait om goed advies en het voorkomen van verkeerde dekking. Zo hoeft Alex niet op prijs te concurreren met grote online verzekeraars.</p></article>
+          <article class="card"><div class="num">03 · BUDGET</div><h3>De aanpak moet nu al betaalbaar zijn.</h3><p>Een nieuwe klant kan jarenlang omzet opleveren. Toch moet het maandbedrag ook in het eerste jaar passen, wanneer die omzet nog langzaam wordt opgebouwd.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container dark">
+        <div class="eyebrow">De basis van de berekening</div>
+        <h2>Zo bepalen we wat een nieuwe klant <span class="accent">mag kosten.</span></h2>
+        <p class="lead" style="margin-left:0;color:rgba(255,255,255,.7)">Alex gaf aan dat een gemiddelde klant ongeveer €750 omzet per jaar oplevert en gemiddeld zeven jaar blijft. Om geen te positief beeld te geven, rekenen we hieronder met slechts vier jaar.</p>
+        <div class="facts">
+          <div class="fact"><strong>€750</strong><span>omzet die één gemiddelde klant per jaar oplevert</span></div>
+          <div class="fact"><strong>4 jaar</strong><span>periode waarmee we voorzichtig rekenen</span></div>
+          <div class="fact"><strong>€3.000</strong><span>totale omzet van één klant in die vier jaar</span></div>
+          <div class="fact"><strong>€500</strong><span>bedrag dat Alex acceptabel vindt om één klant te winnen</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="keuze">
+      <div class="container">
+        <div class="center"><div class="eyebrow">De keuze</div><h2>Twee manieren om nieuwe bedrijven <span class="accent">te bereiken.</span></h2><p class="lead">Bij optie A zoeken we zelf gericht contact met passende bedrijven. Bij optie B betalen we advertentieplatforms om veel meer ondernemers te bereiken. Daardoor is optie B sneller te testen, maar ook twee keer zo duur.</p></div>
+        <div class="options">
+          <article class="option recommended">
+            <div class="badge">Ons advies · gefaseerd starten</div>
+            <h3>Optie A · Gericht groeien via LinkedIn</h3>
+            <p class="sub">We maken Alex zichtbaar als deskundige en zoeken actief contact met ondernemers die bij Alex Insurance passen. Er is bij de start geen advertentiebudget nodig.</p>
+            <div class="price">€1.500</div><div class="price-note">per maand · exclusief eventuele externe toolkosten</div>
+            <ul>
+              <li>We maken een lijst van passende bedrijven in de bouw, horeca en zakelijke dienstverlening</li>
+              <li>Deze ondernemers ontvangen een persoonlijk connectieverzoek en bericht via LinkedIn</li>
+              <li>Alex plaatst iedere week inhoud die zijn kennis, aanpak en klantresultaten laat zien</li>
+              <li>We laten duidelijk zien waarom risicoanalyse belangrijker is dan alleen een goedkope polis</li>
+              <li>Reacties worden snel en persoonlijk opgevolgd met hulp van AI</li>
+              <li>We registreren per bedrijf wie reageert, welke boodschap werkt en hoe warm het contact is</li>
+              <li>Iedere maand bekijken we hoeveel mensen reageren en hoeveel goede gesprekken ontstaan</li>
+            </ul>
+            <a class="btn" href="#volgende-stap">Kies gefaseerde start</a>
+          </article>
+          <article class="option">
+            <div class="badge">Volledige groeimachine</div>
+            <h3>Optie B · Adverteren met automatische opvolging</h3>
+            <p class="sub">We kopen bereik in via advertenties. Geïnteresseerde ondernemers zien Alex daarna vaker terug en worden snel opgevolgd zodra zij hun gegevens achterlaten.</p>
+            <div class="price">€3.000</div><div class="price-note">per maand · €1.500 fee + €1.500 advertentiebudget</div>
+            <ul>
+              <li>We onderzoeken welke ondernemers we willen bereiken en welke boodschap hen aanspreekt</li>
+              <li>We maken en plaatsen advertenties op Facebook en Instagram</li>
+              <li>Mensen die interesse tonen, zien daarna vervolgadvertenties om vertrouwen op te bouwen</li>
+              <li>LinkedIn en e-mail zorgen voor extra herkenning buiten de advertenties</li>
+              <li>AI stelt vervolgvragen en helpt geïnteresseerden een gesprek met Alex te plannen</li>
+              <li>Iedere maand verbeteren we de campagne op basis van kosten, afspraken en nieuwe klanten</li>
+            </ul>
+            <a class="btn secondary" href="#businesscase">Bekijk de businesscase</a>
+          </article>
+        </div>
+        <div class="compare">
+          <div class="row head"><div class="cell">Vergelijking</div><div class="cell">Optie A</div><div class="cell">Optie B</div></div>
+          <div class="row"><div class="cell">Wat gebeurt er?</div><div class="cell">We benaderen passende bedrijven rechtstreeks</div><div class="cell">Advertenties brengen geïnteresseerde bedrijven naar Alex</div></div>
+          <div class="row"><div class="cell">Advertentiebudget</div><div class="cell">Niet nodig bij start</div><div class="cell">€1.500 p/m</div></div>
+          <div class="row"><div class="cell">Wat meten we?</div><div class="cell">Nieuwe connecties, reacties en gesprekken</div><div class="cell">Kosten per aanvraag, afspraken en nieuwe klanten</div></div>
+          <div class="row"><div class="cell">Wat bouwen we op?</div><div class="cell">Een geordende lijst met doelgroepen, bedrijven, reacties en interesses</div><div class="cell">Advertentiedoelgroepen en campagnedata waarmee we verder optimaliseren</div></div>
+          <div class="row"><div class="cell">Wat moet Alex weten?</div><div class="cell">Rustigere opbouw; resultaat vooraf niet exact te berekenen</div><div class="cell">Sneller te meten; vraagt een groter budget en meer geduld met terugverdienen</div></div>
+          <div class="row"><div class="cell">Past nu bij budget</div><div class="cell">Ja</div><div class="cell">Alleen bij voldoende investeringsruimte</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="businesscase">
+      <div class="container">
+        <div class="center"><div class="eyebrow">De rekensom van optie B</div><h2>De investering kan terugkomen, maar <span class="accent">niet direct.</span></h2><p class="lead">Hieronder staat stap voor stap wat er volgens een voorzichtig voorbeeld kan gebeuren met €1.500 advertentiebudget per maand. Dit is een verwachting, geen belofte.</p></div>
+        <div class="calc">
+          <div class="assumptions">
+            <h3>Van advertentiebudget naar klanten</h3>
+            <div class="kv"><span>Advertentiebudget</span><strong>€1.500 p/m</strong></div>
+            <div class="kv"><span>Geschatte kosten voor één aanvraag</span><strong>€40*</strong></div>
+            <div class="kv"><span>Verwachte aanvragen per maand</span><strong>± 37</strong></div>
+            <div class="kv"><span>Van aanvraag naar gesprek</span><strong>20%* · 7 à 8</strong></div>
+            <div class="kv"><span>Van gesprek naar klant</span><strong>40%* · circa 3</strong></div>
+            <div class="kv"><span>Nieuwe klanten per jaar</span><strong>± 36*</strong></div>
+            <div class="note">* Waarom staat hier “geschat”? Alex Insurance heeft nog geen eerdere advertentiedata voor deze campagne. Pas na de eerste maanden weten we wat één aanvraag en één nieuwe klant in werkelijkheid kosten.</div>
+          </div>
+          <div class="result">
+            <h3>Wanneer verdient Alex de investering terug?</h3>
+            <div class="big">Waarschijnlijk pas in jaar 3*</div>
+            <div class="kv"><span>Jaar 1</span><strong>€36.000 kosten · €13.500 extra omzet</strong></div>
+            <div class="kv"><span>Jaar 2</span><strong>€36.000 kosten · €40.500 extra omzet</strong></div>
+            <div class="kv"><span>Jaar 3</span><strong>€36.000 kosten · €67.500 extra omzet</strong></div>
+            <div class="note">Waarom loopt de omzet op? De klanten uit jaar 1 blijven naar verwachting ook in jaar 2 en 3 omzet opleveren, terwijl er ieder jaar nieuwe klanten bijkomen. In jaar 1 komen klanten verspreid over het jaar binnen en leveren zij dus nog niet twaalf volle maanden omzet op. Als één aanvraag geen €40 maar €60 kost, kan terugverdienen richting jaar 4 opschuiven. Interne uren en vertrekkende klanten zijn niet apart meegerekend.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="advies">
+      <div class="container dark">
+        <div class="eyebrow">Ons advies</div>
+        <h2>Ons advies: begin met optie A en voeg advertenties <span class="accent">later toe.</span></h2>
+        <p class="lead" style="margin-left:0;color:rgba(255,255,255,.7)">Optie B kan op langere termijn winstgevend worden, maar kost vanaf dag één €3.000 per maand. De extra omzet komt pas geleidelijk binnen. Optie A past beter bij het bedrag dat Alex nu realistisch vindt. Tegelijk leren we welke doelgroep en boodschap de beste gesprekken opleveren. We bewaren die informatie geordend, zodat advertenties later niet vanaf nul beginnen maar gericht kunnen voortbouwen op bewezen doelgroepen en interesse.</p>
+        <div class="facts">
+          <div class="fact"><strong>01</strong><span>kiezen welke bedrijven we als eerste benaderen</span></div>
+          <div class="fact"><strong>02</strong><span>ontdekken op welke boodschap ondernemers reageren</span></div>
+          <div class="fact"><strong>03</strong><span>meten hoeveel goede gesprekken hieruit ontstaan</span></div>
+          <div class="fact"><strong>04</strong><span>met verzamelde data later gerichter adverteren</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="center"><div class="eyebrow">De eerste 90 dagen</div><h2>Zo ziet LinkedIn-outreach er in de praktijk <span class="accent">uit.</span></h2><p class="lead">LinkedIn-outreach betekent dat we niet wachten tot ondernemers Alex toevallig vinden. We selecteren passende bedrijven, leggen persoonlijk contact en volgen reacties op. Na drie maanden hebben we echte gesprekken én bruikbare data voor de volgende groeistap.</p></div>
+        <div class="steps">
+          <article class="step"><span>MAAND 1</span><h3>Doelgroep en berichten voorbereiden</h3><p>We kiezen bijvoorbeeld bouwbedrijven of horecazaken, maken een lijst met beslissers, verbeteren het LinkedIn-profiel van Alex en schrijven de connectieverzoeken, berichten en content.</p></article>
+          <article class="step"><span>MAAND 2</span><h3>Dagelijks gericht contact leggen</h3><p>Passende ondernemers ontvangen een persoonlijk connectieverzoek. Na acceptatie volgt een relevant bericht. Wie reageert, wordt persoonlijk opgevolgd richting een kennismaking met Alex.</p></article>
+          <article class="step"><span>MAAND 3</span><h3>Data verzamelen en verbeteren</h3><p>We registreren welke branche, bedrijfskenmerken, boodschap en content tot reacties en gesprekken leiden. Daarmee verbeteren we de outreach en bepalen we waar later advertentiebudget naartoe gaat.</p></article>
+        </div>
+        <div class="card" style="margin-top:20px">
+          <div class="num">VAN LINKEDIN-DATA NAAR LATERE ADVERTENTIES</div>
+          <h3>We beginnen later niet opnieuw vanaf nul.</h3>
+          <p>We houden in het CRM bij welke bedrijven zijn benaderd, wie heeft gereageerd, waar interesse in was en welke boodschap werkte. Daarnaast kunnen we—zodra de juiste meetomgeving staat—websitebezoekers en interactie met content verzamelen als advertentiedoelgroep. Wanneer Alex later gaat adverteren, gebruiken we deze inzichten om vergelijkbare bedrijven te bereiken en warme doelgroepen opnieuw zichtbaar te benaderen.</p>
+          <div class="note">Belangrijk: LinkedIn-connecties worden niet automatisch één-op-één in een advertentieplatform gezet. Het opbouwen en gebruiken van doelgroepen gebeurt alleen waar dit technisch mogelijk is en binnen de geldende privacywetgeving en platformvoorwaarden.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final" id="volgende-stap">
+      <div class="container">
+        <div class="final-box">
+          <div class="eyebrow">Volgende stap</div>
+          <h2>Eerst bewijzen wat werkt. <span class="accent">Dan opschalen.</span></h2>
+          <p class="lead">In het vervolggesprek spreken we precies af welke doelgroep als eerste wordt benaderd, hoeveel content we maken, welke systemen nodig zijn, wat een eventuele eenmalige inrichting kost en wanneer we beginnen.</p>
+          <div class="actions"><a class="btn primary" href="mailto:tim@auto-pilots.io?subject=Vervolg%20voorstel%20Alex%20Insurance">Bespreek optie A</a><a class="btn secondary" href="https://auto-pilots.io/">Bekijk Autopilots</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="container footer-row"><span>Alex Insurance × Autopilots</span><span>Voorstel op basis van het gesprek en indicatieve scenario-aannames · bedragen excl. btw</span></div></footer>
+</body>
+</html>
