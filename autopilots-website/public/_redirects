@@ -38,6 +38,8 @@
 /privacy/* /nl/privacy/:splat 301!
 /voorwaarden /nl/voorwaarden/ 301!
 /voorwaarden/* /nl/voorwaarden/:splat 301!
+/algemene-voorwaarden /nl/voorwaarden/ 301!
+/algemene-voorwaarden/* /nl/voorwaarden/:splat 301!
 /diensten/chat /nl/producten/ai-inboxmedewerker/ 301!
 /diensten/chat-ai /nl/producten/ai-inboxmedewerker/ 301!
 /diensten/voice /nl/producten/ai-telefoniste/ 301!
