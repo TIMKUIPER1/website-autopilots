@@ -6,7 +6,7 @@ import { termsDocuments } from "../../i18n/termsContent";
 interface Props { locale?: SupportedLocale }
 const { locale = "nl" } = Astro.props;
 const copy = termsDocuments[locale];
-const pdfPath = "/downloads/autopilots-algemene-servicevoorwaarden-v1.0.pdf";
+const pdfPath = "/downloads/autopilots-algemene-servicevoorwaarden-v1.6.pdf";
 const slug = (index: number) => `artikel-${index + 1}`;
 ---
 
